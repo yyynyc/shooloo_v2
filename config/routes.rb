@@ -1,10 +1,11 @@
 ShoolooV2::Application.routes.draw do
+
     root to: "static_pages#home"
  
   match '/about', to: 'static_pages#about'
   match '/help', to: 'static_pages#help'
   match '/contact', to: 'static_pages#contact'
-  match 'profile', to: 'users#show'
+  match '/signup', to: 'users#new'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

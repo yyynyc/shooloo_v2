@@ -1,0 +1,9 @@
+<%= form_for(@post) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.text_area :question, placeholder: "Compose a math word problem of your own. The more steps it takes to solve your problem, the higher rating you will get. " %>
+    <%= f.text_area :answer, placeholder: "Provide your answer here. Make sure to include both number and unit." %>
+    <%= f.text_area :grade, placeholder: "For which grade of students is this problem written?" %>
+  </div>
+  <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
+<% end %>

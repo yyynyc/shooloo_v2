@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def show
   	@user = User.find(params[:id])
     @posts = @user.posts.paginate(page: params[:page])
+    @post = @user.posts.build(params[:post])
   end
 
   def create
@@ -48,14 +49,7 @@ class UsersController < ApplicationController
   end
 
   private
-
-    def signed_in_user
-      unless signed_in?
-        store_location
-        redirect_to signin_url, notice: "Please sign in to access this page." 
-      end
-    end
-
+    
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)

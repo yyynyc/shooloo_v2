@@ -1,11 +1,20 @@
-<div class="center hero-unit">
-  <h1>Shooloo Games</h1>
-
-  <h2>
-    Making math relevant, collaborative, and fun!
-  </h2>
-	
+<% if signed_in? %>
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/user_info' %>
+      </section>
+      <section>
+      	<h4>Create my own math problem.</h4>
+        <%= render 'shared/post_form' %>
+      </section>
+    </aside>
+  </div>  
+<% else %>
+	<div class="center hero-unit">
+  		<h1>Shooloo Games</h1>
+  		<h2>Making math relevant, collaborative, and fun!</h2>	
        <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
- 
-</div>
+	</div>
+<% end %>
 

@@ -1,11 +1,17 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-	<setion>
-		<h1><%= @user.name %></h1>
-	</section>
-	<div class="span9">
+  <section>
+    <h1 style="text-align: left; margin-left: 17px;"><%= @user.name %></h1>
+  </section>
+	<aside class="span4">
+    <section>
+      <h4>Create my own math problem.</h4>
+        <%= render 'shared/post_form' %>
+    </section>
+	</aside>
+	<div class="span5">
     	<% if @user.posts.any? %>
-      		<h3>Posts (<%= @user.posts.count %>)</h3>
+      		<h4>My Published Posts (<%= @user.posts.count %>)</h4>
       		<%= will_paginate @posts %>
       		<ol class="posts">
         		<%= render @posts %>

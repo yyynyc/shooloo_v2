@@ -1,8 +1,8 @@
 <li>
   <span class="content">
-  	<bold>Question: </bold><%= post.question %></br>
-  	Is <bold><%= post.answer %></bold> the right answer?</br>
-  	Is this question suitable for <bold>grade <%= post.grade %></bold>?
+  	<strong>Question: </strong><%= post.question %></br>
+  	<strong>Answer: </strong><%= post.answer %> -- <i> Is this the right answer?</i></br>
+  	<strong> Grade: </strong> <%= post.grade %> -- <i> Is this question suitable for this grade?</i>
   </span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(post.created_at) %> ago.

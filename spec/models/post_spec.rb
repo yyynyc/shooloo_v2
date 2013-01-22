@@ -29,4 +29,24 @@ describe Post do
     before { @post.user_id = nil }
     it { should_not be_valid }
   end
+
+  describe "with blank question" do
+    before { @post.question = " " }
+    it { should_not be_valid }
+  end
+
+  describe "with blank answser" do
+    before { @post.answer = " " }
+    it { should_not be_valid }
+  end
+
+  describe "with blank grade" do
+    before { @post.grade = " " }
+    it { should_not be_valid }
+  end
+
+  describe "with answer that is too long" do
+    before { @post.answer = "a" * 101 }
+    it { should_not be_valid }
+  end
 end

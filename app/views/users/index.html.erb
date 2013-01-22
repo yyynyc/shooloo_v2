@@ -1,0 +1,15 @@
+<% provide(:title, 'All Members') %>
+<h1>All Members and Posts</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+  <% @users.each do |user| %>
+    <li>
+      <%= link_to user.name, user %>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate %>
+

@@ -144,5 +144,29 @@ describe User do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
   end
+
+  describe "post associations" do
+
+    before { @user.save }
+    let!(:older_post) do 
+      FactoryGirl.create(:post, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_post) do
+      FactoryGirl.create(:post, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right posts in the right order" do
+      @user.posts.should == [newer_post, older_post]
+    end
+
+    it "should destroy associated posts" do
+      posts = @user.posts.dup
+      @user.destroy
+      posts.should_not be_empty
+      posts.each do |post|
+        Post.find_by_id(post.id).should be_nil
+      end
+    end
+  end
 end
 

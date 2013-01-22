@@ -10,4 +10,11 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :post do
+    question "Lorem ipsum"
+    answer "blah blah"
+    grade "5"
+    user
+  end
 end

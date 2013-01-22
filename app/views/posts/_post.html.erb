@@ -1,0 +1,10 @@
+<li>
+  <span class="content">
+  	<bold>Question: </bold><%= post.question %></br>
+  	Is <bold><%= post.answer %></bold> the right answer?</br>
+  	Is this question suitable for <bold>grade <%= post.grade %></bold>?
+  </span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(post.created_at) %> ago.
+  </span>
+</li>

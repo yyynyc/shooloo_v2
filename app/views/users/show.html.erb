@@ -9,7 +9,7 @@
         <%= render 'shared/post_form' %>
     </section>
 	</aside>
-	<div class="span5">
+	<div class="span8">
     	<% if @user.posts.any? %>
       		<h4><%= @user.name %>'s Published Posts (<%= @user.posts.count %>)</h4>
       		<%= will_paginate @posts %>

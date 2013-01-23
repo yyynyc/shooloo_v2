@@ -31,6 +31,7 @@ describe User do
   it {should respond_to(:authenticate)}
   it {should respond_to(:remember_token)}
   it {should respond_to(:posts)}
+  it {should respond_to(:feed)}
 
   it {should be_valid}
   it {should_not be_admin}
@@ -166,6 +167,16 @@ describe User do
       posts.each do |post|
         Post.find_by_id(post.id).should be_nil
       end
+    end
+
+    describe "status" do
+      let(:unfollowed_post) do
+        FactoryGirl.create(:post, user: FactoryGirl.create(:user))
+      end
+
+      its(:feed) { should include(newer_post) }
+      its(:feed) { should include(older_post) }
+      its(:feed) { should_not include(unfollowed_post) }
     end
   end
 end

@@ -1,15 +1,20 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <section>
-    <h1 style="text-align: left; margin-left: 17px;"><%= @user.name %></h1>
+  	<aside class="span4">
+     <section>
+      <%= gravatar_for @user %>
+      <h1><%= @user.name %></h1>
+    <section>
+      <%= render 'shared/stats' %>
+    </section>
   </section>
-	<aside class="span4">
     <section>
       <h4>Create my own math problem.</h4>
         <%= render 'shared/post_form' %>
     </section>
 	</aside>
 	<div class="span8">
+      <%= render 'follow_form' if signed_in? %>
     	<% if @user.posts.any? %>
       		<h4><%= @user.name %>'s Published Posts (<%= @user.posts.count %>)</h4>
       		<%= will_paginate @posts %>

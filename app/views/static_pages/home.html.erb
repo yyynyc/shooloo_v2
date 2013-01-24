@@ -5,6 +5,9 @@
         <%= render 'shared/user_info' %>
       </section>
       <section>
+        <%= render 'shared/stats' %>
+      </section>
+      <section>
       	<h4>Create my own math problem.</h4>
         <%= render 'shared/post_form' %>
       </section>
@@ -16,7 +19,7 @@
   </div>  
 <% else %>
 	<div class="center hero-unit">
-  		<h1>Shooloo Games</h1>
+  		<h1>Shooloo</h1>
   		<h2>Making math relevant, collaborative, and fun!</h2>	
        <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
 	</div>

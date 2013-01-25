@@ -33,5 +33,8 @@ ShoolooV2::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  config.assets.debug = true 
+
+  # let paperclip know where to look for ImageMagick file.
+  Paperclip.options[:command_path] = "/etc/paths.d/"
 end

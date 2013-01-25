@@ -1,9 +1,16 @@
-<%= form_for(@post) do |f| %>
+<%= form_for @post, :url => posts_path, :html => { :multipart => true }  do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
+  	<%= f.label :photo %>
+  	<%= f.file_field :photo %>
+  	or 
+  	<%= f.text_field :photo_remote_url, placeholder: "Paste the url of the photo you've found on the Internet here." %>
+  	<%= f.label :question %>
     <%= f.text_area :question, placeholder: "Compose a math word problem of your own. The more steps it takes to solve your problem, the higher rating you will get. " %>
-    <%= f.text_area :answer, placeholder: "Provide your answer here. Make sure to include both number and unit." %>
-    <%= f.text_area :grade, placeholder: "For which grade of students is this problem written?" %>
+    <%= f.label :answer %>
+    <%= f.text_field :answer, placeholder: "Your answer should include both numbers and units." %>
+    <%= f.label :grade, "Suitable Grade" %>
+    <%= f.select :grade, options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] %>
   </div>
   <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
 <% end %>

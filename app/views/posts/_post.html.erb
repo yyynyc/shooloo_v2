@@ -1,8 +1,9 @@
 <li>
+   <div class="aside"><%= image_tag post.photo.url (:small) %></div>
   <span class="content">
-  	<strong>Question: </strong><%= post.question %></br>
-  	<strong>Answer: </strong><%= post.answer %> -- <i> Is this the right answer?</i></br>
-  	<strong> Grade: </strong> <%= post.grade %> -- <i> Is this question suitable for this grade?</i>
+  	<p><strong>Question: </strong><%= post.question %></p>
+  	<p><strong>Answer: </strong><%= post.answer %> -- <i> Is this the right answer?</i></p>
+  	<p><strong> Grade: </strong> <%= post.grade %> -- <i> Is this question suitable for this grade?</i></p>
   </span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(post.created_at) %> ago.

@@ -1,3 +1,4 @@
+</br>
 <li id="<%= feed_item.id %>">
   <span class="user">
     <%= link_to feed_item.user.name, feed_item.user %>, 
@@ -11,10 +12,10 @@
     <% end %>
   </span></br>
   <table>
-      <td >
+      <td style="padding-top: 10px;">
         <%= image_tag feed_item.photo.url (:medium) %>
       </td>
-      <td>
+      <td style="padding-left: 20px;">
         <p>
           <strong>Question: </strong> 
           <%= feed_item.question %>
@@ -30,4 +31,3 @@
       </td>
     </table>
 </li>
-</br>

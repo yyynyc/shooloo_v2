@@ -29,8 +29,8 @@ class Post < ActiveRecord::Base
                 :medium => "250x250>",
                 :small => "150x150>",
                 :thumb => "100x100>" }, 
-    url: "/assets/products/:id/:style/:basename.:extension",
-    path: ":rails_root/public/assets/products/:id/:style/:basename.:extension"
+    url: "/assets/posts/:id/:style/:basename.:extension",
+    path: ":rails_root/public/assets/posts/:id/:style/:basename.:extension"
 
   validates :user_id, presence: true
   validates :question, presence: true
@@ -49,7 +49,8 @@ class Post < ActiveRecord::Base
           user_id: user.id)
   end
 
-  def photo_remote_url=(url_value)
+  def photo_remote_url=(url_value) 
+    return if url_value.blank?
     self.photo = URI.parse(url_value)
     # Assuming url_value is http://example.com/photos/face.png
     # avatar_file_name == "face.png"

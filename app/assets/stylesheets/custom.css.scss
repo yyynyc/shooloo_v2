@@ -133,7 +133,7 @@ aside {
       line-height: 1;
     }
     h1 {
-      font-size: 1.4em;
+      font-size: 2.5em;
       text-align: left;
       letter-spacing: -1px;
       margin-bottom: 3px;
@@ -142,7 +142,7 @@ aside {
   }
 }
 
-.gravatar {
+.avatar {
   float: left;
   margin-right: 10px;
 }
@@ -218,9 +218,11 @@ input {
   }
 }
 
+/* posts */
+
 /* microposts */
 
-.microposts {
+.posts {
   list-style: none;
   margin: 10px 0 0 0;
   

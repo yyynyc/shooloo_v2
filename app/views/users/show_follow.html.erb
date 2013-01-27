@@ -1,12 +1,17 @@
 <% provide(:title, @title) %>
 <div class="row">
   <aside class="span4">
-    <section>
-      <%= gravatar_for @user %>
-      <h1><%= @user.name %></h1>
-      <span><%= link_to "view my profile", @user %></span>
-      <span><b>Posts:</b> <%= @user.posts.count %></span>
+    <section class="row">    
+      <div class="span1.5">
+        <%= image_tag @user.avatar.url (:thumb) %>
+      </div>
+      <div class="span2">
+        <h1 style="text-align: left;"><%= @user.name %></h1>
+        <span><%= link_to "view my profile", @user %></span>
+        <span><b>Posts:</b> <%= @user.posts.count %></span>
+      </div>
     </section>
+    
     <section>
       <%= render 'shared/stats' %>
       <% if @users.any? %>

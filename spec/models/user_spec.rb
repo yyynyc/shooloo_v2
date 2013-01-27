@@ -18,7 +18,8 @@ require 'spec_helper'
 describe User do
   before {@user = User.new(name: "Example User", email: "user@example.com", 
   	email_confirmation: "user@example.com", password: "foobar",
-    password_confirmation: "foobar")}
+    password_confirmation: "foobar", 
+    avatar: Rails.root.join('spec', 'support', 'math.jpg'))}
 
   subject {@user}
 

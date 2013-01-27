@@ -14,7 +14,17 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :email_confirmation, :name, :password, :password_confirmation
+  attr_accessible :email, :email_confirmation, :name, 
+    :password, :password_confirmation, :avatar
+  has_attached_file :avatar, 
+    :styles => { 
+                  :large => "600x600>", 
+                  :medium => "250x250>",
+                  :small => "150x150>",
+                  :thumb => "100x100#" }, 
+      url: "/assets/posts/:id/:style/:basename.:extension",
+      path: ":rails_root/public/assets/posts/:id/:style/:basename.:extension"
+  
   has_secure_password
   has_many :posts, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
@@ -38,6 +48,10 @@ class User < ActiveRecord::Base
 
   validates :password, presence: true, length: {minimum: 6}
   validates :password_confirmation, presence: true
+
+  validates_attachment_presence :avatar
+  validates_attachment_size :avatar, :less_than => 5.megabytes
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png']
 
   def feed
     Post.from_users_followed_by(self)

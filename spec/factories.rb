@@ -5,6 +5,7 @@ FactoryGirl.define do
     sequence(:email_confirmation) { |n| "person_#{n}@example.com"}  
     password "foobar"
     password_confirmation "foobar"
+    avatar File.new(Rails.root + 'spec/support/math.jpg') 
 
     factory :admin do
       admin true
@@ -16,5 +17,6 @@ FactoryGirl.define do
     answer "blah blah"
     grade "5"
     user
+    photo File.new(Rails.root + 'spec/support/math.jpg') 
   end
 end

@@ -25,7 +25,7 @@ describe Post do
   let(:user) { FactoryGirl.create(:user) }
   before do
     @post = user.posts.build(question: "Lorem ipsum", answer: "whatever is right", 
-    	grade: "5")
+    	grade: "5", photo: File.new(Rails.root + 'spec/support/math.jpg'))
   end
 
   subject { @post }
@@ -34,6 +34,7 @@ describe Post do
   it { should respond_to(:answer) }
   it { should respond_to(:grade) }
   it { should respond_to(:user) }
+  it { should respond_to(:photo)}
   its(:user) { should == user }
 
   it { should be_valid }

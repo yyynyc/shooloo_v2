@@ -19,7 +19,7 @@ describe User do
   before {@user = User.new(name: "Example User", email: "user@example.com", 
   	email_confirmation: "user@example.com", password: "foobar",
     password_confirmation: "foobar", 
-    avatar: Rails.root.join('spec', 'support', 'math.jpg'))}
+    avatar: File.new(Rails.root + 'spec/support/math.jpg'))}
 
   subject {@user}
 
@@ -40,6 +40,7 @@ describe User do
   it { should respond_to(:follow!) } 
   it { should respond_to(:reverse_relationships) }
   it { should respond_to(:followers) }
+  it { should respond_to(:avatar) }
 
   it {should be_valid}
   it {should_not be_admin}

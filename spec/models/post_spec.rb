@@ -34,7 +34,7 @@ describe Post do
   it { should respond_to(:answer) }
   it { should respond_to(:grade) }
   it { should respond_to(:user) }
-  it { should respond_to(:photo}
+  it { should respond_to(:photo)}
   its(:user) { should == user }
 
   it { should be_valid }

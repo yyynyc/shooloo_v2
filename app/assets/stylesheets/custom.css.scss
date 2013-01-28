@@ -220,7 +220,7 @@ input {
 
 /* posts */
 
-/* microposts */
+/* posts */
 
 .posts {
   list-style: none;
@@ -245,4 +245,23 @@ aside {
     height: 100px;
     margin-bottom: 5px;
   }
+}
+
+.feed_item {
+  margin-left: 20px;
+}
+
+.feed_content{
+margin-top: 5px; 
+margin-left: 10px;
+}
+
+.image{
+  float: left; 
+  margin: 5px 20px 0px 0px;
+}
+
+.user_name{
+  text-align: left;
+  font-size: 2em;
 }

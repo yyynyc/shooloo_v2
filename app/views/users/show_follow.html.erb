@@ -6,7 +6,7 @@
         <%= image_tag @user.avatar.url (:thumb) %>
       </div>
       <div class="span2">
-        <h1 style="text-align: left;"><%= @user.name %></h1>
+        <h1 class="user_name"><%= @user.name %></h1>
         <span><%= link_to "view my profile", @user %></span>
         <span><b>Posts:</b> <%= @user.posts.count %></span>
       </div>

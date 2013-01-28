@@ -1,10 +1,10 @@
-<div style="margin-left: 20px;">
+<div class="feed_item">
   <li id="<%= feed_item.id %>">
     <span class="user">
       <%= link_to feed_item.user.name, feed_item.user %>
     </span> 
     <span class="timestamp">
-      posted <%= time_ago_in_words(feed_item.created_at) %> ago</i>
+      posted <%= time_ago_in_words(feed_item.created_at) %> ago
     </span> 
     for <%= feed_item.grade %>.
     <% if current_user?(feed_item.user) %>
@@ -12,11 +12,14 @@
             data: { confirm: "Are you sure? Once your post is deleted, all of its related ratings and scores will be erased, too." },
             title: feed_item.question %>      
     <% end %>
-
-    <div class="row" style="margin-top: 5px; margin-left: 1px;">
-      <img style="float: left; margin: 5px 20px 0px 0px;" <%= image_tag feed_item.photo.url (:medium) %>   
-      <%= simple_format(feed_item.question) %>
-    </div>
+    <section class="content">
+      <div class="row"> 
+          <span class="image">
+            <%= image_tag feed_item.photo.url (:medium) %>
+          </span>   
+          <%= simple_format(feed_item.question) %>
+      </div>
+    </section>
   </li>
 </div>
 

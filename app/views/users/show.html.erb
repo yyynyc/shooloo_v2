@@ -20,7 +20,7 @@
 	<div class="span8">
       <%= render 'follow_form' if signed_in? %>
     	<% if @user.posts.any? %>
-      		<h4><%= @user.name %>'s Published Posts (<%= @user.posts.count %>)</h4>
+      		<h3 class="feed_item"><%= @user.name %>'s Published Posts (<%= @user.posts.count %>)</h3>
       		<%= will_paginate @posts %>
       		<ol class="posts">
         		<%= render @posts %>
@@ -29,6 +29,7 @@
      	<% end %>
   	</div>
 </div>
+
 
 
 

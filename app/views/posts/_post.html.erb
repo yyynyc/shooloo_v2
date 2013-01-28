@@ -1,16 +1,26 @@
-<li>
-   <div class="aside"><%= image_tag post.photo.url (:small) %></div>
-  <span class="content">
-  	<p><strong>Question: </strong><%= post.question %></p>
-  	<p><strong>Answer: </strong><%= post.answer %> -- <i> Is this the right answer?</i></p>
-  	<p><strong> Grade: </strong> <%= post.grade %> -- <i> Is this question suitable for this grade?</i></p>
-  </span>
-  <span class="timestamp">
-    Posted <%= time_ago_in_words(post.created_at) %> ago.
-  </span>
-  <% if current_user?(post.user) %>
-    <%= link_to "delete", post, method: :delete,
-                                     data: { confirm: "Are you sure? Once your post is deleted, all of its related ratings and scores will be erased, too." },
-                                     title: post.question %>
-  <% end %>
-</li>
+<div class="feed_item">
+  <li id="<%= post.id %>">
+    <span class="user">
+      <%= link_to post.user.name, post.user %>
+    </span> 
+    <span class="timestamp">
+      posted <%= time_ago_in_words(post.created_at) %> ago
+    </span> 
+    for <%= post.grade %>.
+    <% if current_user?(post.user) %>
+      <%= link_to "DELETE", post, method: :delete,
+            data: { confirm: "Are you sure? Once your post is deleted, all of its related ratings and scores will be erased, too." },
+            title: post.question %>      
+    <% end %>
+    <section class="content">
+      <div class="row"> 
+        <section class="feed_item">
+          <span class="image">
+            <%= image_tag post.photo.url (:medium) %>
+          </span>   
+          <%= simple_format(post.question) %>
+        </section>
+      </div>
+    </section>
+  </li>
+</div>

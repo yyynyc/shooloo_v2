@@ -12,12 +12,14 @@
             data: { confirm: "Are you sure? Once your post is deleted, all of its related ratings and scores will be erased, too." },
             title: feed_item.question %>      
     <% end %>
-    <section class="content">
-      <div class="row"> 
+    <section class="feed_content">
+      <div class="row">
+        <section class="feed_item"> 
           <span class="image">
             <%= image_tag feed_item.photo.url (:medium) %>
-          </span>   
-          <%= simple_format(feed_item.question) %>
+          </span>            
+            <%= simple_format(feed_item.question) %>
+        </section>
       </div>
     </section>
   </li>

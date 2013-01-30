@@ -1,4 +1,6 @@
 ShoolooV2::Application.routes.draw do
+  get "reviews/new"
+
 resources :sessions, only: [:new, :create, :destroy]
 resources :posts, only: [:create, :destroy]
 resources :relationships, only: [:create, :destroy]

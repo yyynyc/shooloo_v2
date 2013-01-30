@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
     :styles => { 
                   :large => "600x600>", 
                   :medium => "250x250>",
-                  :small => "150x150>",
+                  :small => "60x60#",
                   :thumb => "100x100#" }, 
       url: "/assets/posts/:id/:style/:basename.:extension",
       path: ":rails_root/public/assets/posts/:id/:style/:basename.:extension"

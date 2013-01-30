@@ -19,7 +19,8 @@
 #  photo_updated_at        :datetime
 
 class Post < ActiveRecord::Base
-  attr_accessible :answer, :grade, :question, :photo, :photo_remote_url
+  attr_accessible :answer, :grade, :question, 
+    :photo, :photo_remote_url
   attr_reader :photo_remote_url
   belongs_to :user
 

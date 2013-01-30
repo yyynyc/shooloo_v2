@@ -25,7 +25,8 @@ describe "PostPages" do
     	before do
     		fill_in 'post_question', with: "Lorem ipsum"
     		fill_in 'post_answer', with: "whatever"
-    		fill_in	'post_grade', with: "5"
+    		select	"5th grade", from: 'post_grade'
+        attach_file 'post_photo', Rails.root.join('spec', 'support', 'math.jpg')
     	end
          
    	
@@ -42,7 +43,7 @@ describe "PostPages" do
       before { visit root_path }
 
       it "should delete a post" do
-        expect { click_link "delete" }.to change(Post, :count).by(-1)
+        expect { click_link "DELETE" }.to change(Post, :count).by(-1)
       end
     end
   end

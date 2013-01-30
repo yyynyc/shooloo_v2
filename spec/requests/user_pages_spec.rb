@@ -13,9 +13,11 @@ describe "UserPages" do
   describe "profile page" do
   	let(:user) {FactoryGirl.create(:user)}
     let!(:m1) { FactoryGirl.create(:post, user: user, question: "Question 1", 
-      answer: "Answer 1", grade: "2") }
+      answer: "Answer 1", grade: "2nd grade", 
+      photo: File.new(Rails.root + 'spec/support/math.jpg')) }
     let!(:m2) { FactoryGirl.create(:post, user: user, question: "Question 2", 
-      answer: "Answer 2", grade: "5") }
+      answer: "Answer 2", grade: "5th grade", 
+      photo: File.new(Rails.root + 'spec/support/math.jpg')) }
 
   	before {visit user_path(user)}
 
@@ -24,10 +26,8 @@ describe "UserPages" do
 
     describe "posts" do
       it { should have_content(m1.question) }
-      it { should have_content(m1.answer) }
       it { should have_content(m1.grade) }
       it { should have_content(m2.question) }
-      it { should have_content(m2.answer) }
       it { should have_content(m2.grade) }
       it { should have_content(user.posts.count) }
     end
@@ -109,6 +109,7 @@ describe "UserPages" do
         fill_in "Email confirmation", with: "user@example.com"
         fill_in "Password", with: "foobar"
         fill_in "Password confirmation", with: "foobar"
+        attach_file "Avatar", Rails.root.join('spec', 'support', 'math.jpg')
       end
 
       it "should create a user" do
@@ -152,6 +153,7 @@ describe "UserPages" do
           fill_in "Email confirmation", with: new_email
           fill_in "Password",         with: user.password
           fill_in "Password confirmation", with: user.password
+          attach_file "Avatar", Rails.root.join('spec', 'support', 'math.jpg')
           click_button "Save changes"
         end
 

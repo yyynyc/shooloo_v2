@@ -186,7 +186,9 @@ describe User do
 
       before do
         @user.follow!(followed_user)
-        3.times { followed_user.posts.create!(question: "Lorem ipsum", answer: "Lorem ipsum", grade: "5") }
+        3.times { followed_user.posts.create!(question: "Lorem ipsum", 
+          answer: "Lorem ipsum", grade: "5", 
+          photo: File.new(Rails.root + 'spec/support/math.jpg') ) }
       end
 
       its(:feed) { should include(newer_post) }

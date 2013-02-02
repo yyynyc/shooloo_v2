@@ -1,0 +1,80 @@
+<%= link_to "Check Answer", "#rating", role: "button",  
+  "data-toggle" => "modal", class: "btn btn-medium btn-default" %>
+
+ <div id="rating" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="ratingLabel" aria-hidden="true">
+  <div class="row">    
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <span class="modal-image">
+      <%= image_tag local_object.photo.url (:large) %>
+    </span> 
+    <span class="modal-text"> 
+      <section>         
+        <strong>Question:</strong> <%= simple_format(local_object.question) %>
+      </section>
+      </span>  
+  </div>
+  <div class="row">
+    <section class="span9  offset1">
+      <div class="well">        
+        <section class="well-text">
+          <strong>Answer: </strong><%= local_object.answer %>
+          <i>- Is this answer correct?</i>  
+        </section>       
+      </div>
+    </section> 
+  </div>         
+    
+  <div class="modal-body">
+    <section>
+     <%= form_for(@rating) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <div class="field">
+          <%= f.hidden_field :rated_post_id, :value => local_object.id %>         
+          <%= f.label :value, "Rate this math question" %>
+          <%= f.text_field :value %> 
+          <%= f.submit "Submit", class: "btn btn-large btn-primary" %>     
+        </div> 
+      <% end %>  
+    </section>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button  data-toggle="modal" data-target="#rating" class="btn btn-primary" method="post">Submit</button>
+  </div>
+</div>
+
+<script>
+  	// Since we want both pressing 'Enter' and clicking the button to work
+	// We'll subscribe to the submit event, which is triggered by both
+
+	$('#rating').on('submit', function(){
+    $("#rating_form").html("<%= escape_javascript(render('shared/rating_show_avg')) %>")
+		$("#raters").html('<%= @post.raters.count %>')
+
+		//Serialize the form and post it to the server
+		$.post(root_path, $(this).serialize(), function(){
+
+			// When this executes, we know the form was submitted
+
+		    // To give some time for the animation, 
+		    // let's add a delay of 200 ms before the redirect
+		    var delay = 200;
+		    setTimeout(function(){
+		      window.location.href = 'successUrl.html';
+		    }, delay);
+
+		    // Hide the modal
+		    $("#rating").modal('hide');
+
+		});
+
+		// Stop the normal form submission
+		return false;
+	});
+</script>
+
+
+
+
+
+

@@ -1,12 +1,18 @@
 ShoolooV2::Application.routes.draw do
-  get "reviews/new"
 
 resources :sessions, only: [:new, :create, :destroy]
-resources :posts, only: [:create, :destroy]
+
+resources :posts, only: [:create, :destroy] do 
+  member do
+    get :raters
+  end
+end
+
 resources :relationships, only: [:create, :destroy]
+resources :ratings, only: [:create]
 resources :users do
   member do
-    get :following, :followers
+    get :following, :followers, :rated_posts, :posts
   end
 end
 
@@ -18,6 +24,9 @@ end
   match '/signup', to: 'users#new'
   match 'signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+
+  
+  
  
 
   # The priority is based upon order of creation:

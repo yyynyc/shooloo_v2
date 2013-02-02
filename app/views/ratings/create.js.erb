@@ -1,0 +1,2 @@
+$("#rating_form").html("<%= escape_javascript(render('shared/rating_show_avg')) %>")
+$("#raters").html('<%= @post.raters.count %>')

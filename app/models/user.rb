@@ -2,15 +2,19 @@
 #
 # Table name: users
 #
-#  id                 :integer          not null, primary key
-#  name               :string(255)
-#  email              :string(255)
-#  email_confirmation :string(255)
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  password_digest    :string(255)
-#  remember_token     :string(255)
-#  admin              :boolean          default(FALSE)
+#  id                  :integer          not null, primary key
+#  name                :string(255)
+#  email               :string(255)
+#  email_confirmation  :string(255)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  password_digest     :string(255)
+#  remember_token      :string(255)
+#  admin               :boolean          default(FALSE)
+#  avatar_file_name    :string(255)
+#  avatar_content_type :string(255)
+#  avatar_file_size    :integer
+#  avatar_updated_at   :datetime
 #
 
 class User < ActiveRecord::Base
@@ -33,6 +37,9 @@ class User < ActiveRecord::Base
                                    class_name:  "Relationship",
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
+
+  has_many :ratings, foreign_key: "rater_id", dependent: :destroy
+  has_many :rated_posts, through: :ratings, source: :rated_post
   
   before_save { self.email.downcase! } 
   before_save :create_remember_token

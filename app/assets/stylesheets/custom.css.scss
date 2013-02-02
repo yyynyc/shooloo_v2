@@ -260,7 +260,39 @@ aside {
   margin: 5px 20px 0px 0px;
 }
 
+.modal-image {
+  float: left;
+  margin: 0em 2em 1em 2em;
+}
+
+.modal-text {
+  padding: 2em 0em 1em 1em;
+  font-size: 1.2em
+}
+
+.well-text {
+  font-size: 1.5em;
+  text-align: center;
+  vertical-align: middle;
+}
+
 .user_name{
   text-align: left;
   font-size: 2em;
+}
+
+#rating {
+  width: 850px; /* SET THE WIDTH OF THE MODAL */
+  margin: -550px 0 0 -470px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+  padding: 2em;
+  resize: vertical;
+}
+
+.prompt {
+  margin-left: 50px;
+  margin-top: 30px;
+  line-height: 2em;
+  font-size: 1.5em;
+  color: #0040FF;
+  font-weight: bold;
 }

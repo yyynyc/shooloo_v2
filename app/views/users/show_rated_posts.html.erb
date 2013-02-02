@@ -1,0 +1,26 @@
+<% provide(:title, @title) %>
+<div class="row">
+  	<aside class="span4">
+      <div class="row">
+        <div class="span1.5">
+          <%= image_tag @user.avatar.url (:thumb) %>
+        </div>
+        <div class="span2">
+          <h1 class="user_name"><%= @user.name %></h1>
+        </div>
+      </div>
+    <section>
+      <%= render 'shared/stats' %>
+    </section>    
+	</aside>
+	<div class="span8">
+      <%= render 'follow_form' if signed_in? %>
+    	<% if @user.rated_posts.any? %>
+      		<h3 class="feed_item"><%= @user.name %>'s Rated Posts (<%= @user.rated_posts.count %>)</h3>      	
+      		<ol class="posts">
+        		<%= render @rated_posts %>
+      		</ol>
+      		<%= will_paginate @rated_posts %>
+     	<% end %>
+  	</div>
+</div>

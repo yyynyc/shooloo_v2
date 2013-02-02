@@ -6,7 +6,7 @@
           <%= image_tag @user.avatar.url (:thumb) %>
         </div>
         <div class="span2">
-          <h1 style="text-align: left;"><%= @user.name %></h1>
+          <h1 class="user_name"><%= @user.name %></h1>
         </div>
       </div>
     <section>
@@ -19,13 +19,23 @@
 	</aside>
 	<div class="span8">
       <%= render 'follow_form' if signed_in? %>
-    	<% if @user.posts.any? %>
-      		<h3 class="feed_item"><%= @user.name %>'s Published Posts (<%= @user.posts.count %>)</h3>
-      		<%= will_paginate @posts %>
-      		<ol class="posts">
-        		<%= render @posts %>
-      		</ol>
-      		<%= will_paginate @posts %>
+      <h3 class="feed_item"><%= @user.name %>'s Published Posts (<%= @user.posts.count %>)</h3>           
+    	<% if @user.posts.count == 0 %>
+        <% if current_user?(@user) %> 
+          <section class="prompt">
+      		  <%= render text: "Jazz up with your profile with published posts of your own! Use the form on the left." %>
+          </section> 
+        <% else %>
+           <section class="prompt">
+            <%= @user.name %><%= render text: " has not published any posts yet." %>
+          </section>
+        <% end %> 
+      <% else %>    	
+    		<ol class="posts">
+      		<%= render @posts %>
+          <%#= render partial: 'shared/feed_item', collection: @posts, locals: {local_object: @authored_post}  %>
+    		</ol>
+    		<%= will_paginate @posts %>       
      	<% end %>
   	</div>
 </div>

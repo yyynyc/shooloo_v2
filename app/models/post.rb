@@ -26,12 +26,15 @@ class Post < ActiveRecord::Base
 
   has_attached_file :photo, 
     :styles => { 
-                :large => "600x600>", 
+                :large => "400x400>", 
                 :medium => "250x250>",
                 :small => "150x150>",
                 :thumb => "100x100>" }, 
     url: "/assets/posts/:id/:style/:basename.:extension",
     path: ":rails_root/public/assets/posts/:id/:style/:basename.:extension"
+
+  has_many :ratings, foreign_key: "rated_post_id", dependent: :destroy
+  has_many :raters, through: :ratings, source: :rater
 
   validates :user_id, presence: true
   validates :question, presence: true

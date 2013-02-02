@@ -6,20 +6,32 @@
     <span class="timestamp">
       posted <%= time_ago_in_words(feed_item.created_at) %> ago
     </span> 
-    for <%= feed_item.grade %>.
-    <% if current_user?(feed_item.user) %>
-      <%= link_to "DELETE", feed_item, method: :delete,
-            data: { confirm: "Are you sure? Once your post is deleted, all of its related ratings and scores will be erased, too." },
-            title: feed_item.question %>      
-    <% end %>
+    for 
+    <span class="timestamp">
+      <%= feed_item.grade %>
+    </span>. 
+    <span class="text-warning">
+     {{ <%= pluralize(feed_item.raters.count, "rating") %> }}
+    </span> 
+         
     <section class="feed_content">
       <div class="row">
         <section class="feed_item"> 
           <span class="image">
             <%= image_tag feed_item.photo.url (:medium) %>
           </span>            
-            <%= simple_format(feed_item.question) %>
+          <%= simple_format(feed_item.question) %>                    
         </section>
+      </div>
+      <div class="span3 offset5">        
+        <% if current_user?(feed_item.user) %>
+          <%= link_to "DELETE", feed_item, method: :delete,
+            data: { confirm: "Are you sure? Once your post is deleted, all of its related ratings and scores will be erased, too." },
+            title: feed_item.question, class: "btn btn-small btn-default"  %>
+          <%= render partial: 'shared/rating_show_avg' %>
+        <% else %>         
+          <%= render partial: 'posts/rating_form', locals: { local_object: feed_item } %>
+        <% end %>        
       </div>
     </section>
   </li>

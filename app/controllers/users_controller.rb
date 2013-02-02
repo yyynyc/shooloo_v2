@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
+  before_filter :signed_in_user, only: 
+    [:index, :edit, :update, :destroy, :following, :followers, :rated_posts]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user, only: :destroy
 
@@ -12,6 +13,7 @@ class UsersController < ApplicationController
   	@user = User.find(params[:id])
     @posts = @user.posts.paginate(page: params[:page])
     @post = @user.posts.build(params[:post])
+    #post = @posts.find(params[:post_id])
   end
 
   def create
@@ -60,6 +62,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
+  end
+
+  def rated_posts
+    @title = "Rated Posts"
+    @user = User.find(params[:id])
+    @rated_posts = @user.rated_posts.paginate(page: params[:page])
+    render 'show_rated_posts'
   end
 
   private

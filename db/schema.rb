@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130127170158) do
+ActiveRecord::Schema.define(:version => 20130130194629) do
 
   create_table "posts", :force => true do |t|
     t.text     "question"
@@ -31,6 +31,17 @@ ActiveRecord::Schema.define(:version => 20130127170158) do
   end
 
   add_index "posts", ["user_id", "created_at"], :name => "index_posts_on_user_id_and_created_at"
+
+  create_table "ratings", :force => true do |t|
+    t.string   "rater_id"
+    t.string   "rated_post_id"
+    t.integer  "value"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "ratings", ["rated_post_id"], :name => "index_ratings_on_rated_post_id"
+  add_index "ratings", ["rater_id"], :name => "index_ratings_on_rater_id"
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"

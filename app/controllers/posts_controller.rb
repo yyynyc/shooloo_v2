@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   end
 
   def create
-  	 @post = current_user.posts.build(params[:post])
+  	@post = current_user.posts.build(params[:post])
     if @post.save
       flash[:success] = "Good job! You have created a math problem."
       redirect_to root_url
@@ -25,5 +25,4 @@ class PostsController < ApplicationController
       @post = current_user.posts.find_by_id(params[:id])
       redirect_to root_url if @post.nil?
   end
-
 end

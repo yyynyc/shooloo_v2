@@ -8,7 +8,17 @@
       <div class="span2">
         <h1 class="user_name"><%= @user.name %></h1>
         <span><%= link_to "view my profile", @user %></span>
-        <span><b>Posts:</b> <%= @user.posts.count %></span>
+        </br>
+        <span>
+          Published
+          <a href="<%= posts_user_path(current_user) %>" >
+            <%= pluralize(current_user.posts.count, "post") %></a>.
+        </span>
+        <span>
+          Rated
+          <a href="<%= rated_posts_user_path(current_user) %>" >
+          <%= pluralize(current_user.rated_posts.count, "post") %></a>.
+        </span>
       </div>
     </section>
     

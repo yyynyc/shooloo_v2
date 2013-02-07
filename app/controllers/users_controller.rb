@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   	@user = User.find(params[:id])
     @posts = @user.posts.paginate(page: params[:page])
     @post = @user.posts.build(params[:post])
-    #post = @posts.find(params[:post_id])
+    @rating=current_user.ratings.build(params[:rating])
   end
 
   def create
@@ -68,6 +68,7 @@ class UsersController < ApplicationController
     @title = "Rated Posts"
     @user = User.find(params[:id])
     @rated_posts = @user.rated_posts.paginate(page: params[:page])
+    @rating=current_user.ratings.build(params[:rating])
     render 'show_rated_posts'
   end
 

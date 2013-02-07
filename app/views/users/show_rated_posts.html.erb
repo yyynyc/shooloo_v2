@@ -6,7 +6,17 @@
           <%= image_tag @user.avatar.url (:thumb) %>
         </div>
         <div class="span2">
-          <h1 class="user_name"><%= @user.name %></h1>
+          <h1 class="user_name"><%= @user.name %></h1>          
+          <span>
+            Published
+            <a href="<%= posts_user_path(current_user) %>" >
+              <%= pluralize(current_user.posts.count, "post") %></a>.
+          </span>
+          <span>
+      Rated
+      <a href="<%= rated_posts_user_path(current_user) %>" >
+      <%= pluralize(current_user.rated_posts.count, "post") %></a>.
+    </span>
         </div>
       </div>
     <section>
@@ -18,7 +28,7 @@
     	<% if @user.rated_posts.any? %>
       		<h3 class="feed_item"><%= @user.name %>'s Rated Posts (<%= @user.rated_posts.count %>)</h3>      	
       		<ol class="posts">
-        		<%= render @rated_posts %>
+        		<%= render partial: 'shared/feed_item', collection: @rated_posts %>
       		</ol>
       		<%= will_paginate @rated_posts %>
      	<% end %>

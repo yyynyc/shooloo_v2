@@ -1,20 +1,23 @@
 ShoolooV2::Application.routes.draw do
 
 resources :sessions, only: [:new, :create, :destroy]
-
+resources :relationships, only: [:create, :destroy]
 resources :posts, only: [:create, :destroy] do 
   member do
     get :raters
   end
 end
-
-resources :relationships, only: [:create, :destroy]
-resources :ratings, only: [:create]
 resources :users do
   member do
     get :following, :followers, :rated_posts, :posts
   end
 end
+resources :ratings, only: [:create, :destroy] do
+  member do
+    get :operations, :improvements, :flags
+  end
+end
+
 
     root to: "static_pages#home"
  
@@ -22,11 +25,8 @@ end
   match '/help', to: 'static_pages#help'
   match '/contact', to: 'static_pages#contact'
   match '/signup', to: 'users#new'
-  match 'signin', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :delete
-
-  
-  
+  match '/signin', to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete  
  
 
   # The priority is based upon order of creation:

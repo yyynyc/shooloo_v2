@@ -7,13 +7,7 @@
       posted <%= time_ago_in_words(feed_item.created_at) %> ago
     </span> 
     for 
-    <span class="timestamp">
-      <%= feed_item.grade %>
-    </span>. 
-    <span class="text-warning">
-     {{ <%= pluralize(feed_item.raters.count, "rating") %> }}
-    </span> 
-         
+    <span class="timestamp"><%= feed_item.grade %></span>.         
     <section class="feed_content">
       <div class="row">
         <section class="feed_item"> 
@@ -23,15 +17,33 @@
           <%= simple_format(feed_item.question) %>                    
         </section>
       </div>
-      <div class="span3 offset5">        
-        <% if current_user?(feed_item.user) %>
-          <%= link_to "DELETE", feed_item, method: :delete,
-            data: { confirm: "Are you sure? Once your post is deleted, all of its related ratings and scores will be erased, too." },
-            title: feed_item.question, class: "btn btn-small btn-default"  %>
-          <%= render partial: 'shared/rating_show_avg' %>
-        <% else %>         
-          <%= render partial: 'posts/rating_form', locals: { local_object: feed_item } %>
-        <% end %>        
+      <div class="row well well-small">
+        <span class="span4">
+          <% if current_user?(feed_item.user) %>          
+            <%= render partial: 'shared/rating_overview', locals: { local_object: feed_item } %>
+          <% else %>           
+            <strong>Total Number of Ratings: <%= feed_item.raters.count %> 
+            </strong>            
+          <% end %>
+        </span> 
+        <span style="float: right;">        
+          <% if current_user?(feed_item.user) %> 
+            <%= link_to "Delete My Post", feed_item, method: :delete,
+              data: { confirm: "Are you sure? Once your post is deleted, all of its related ratings and scores will be erased, too." },
+              title: feed_item.question, class: "btn btn-small btn-default" %>
+            <%= render partial: 'shared/rating_show_avg', locals: { local_object: feed_item } %>
+          <% else %> 
+            <% if feed_item.ratings.find_by_rater_id(current_user.id) %>
+              <%= link_to "Delete My Rating", feed_item.ratings.find_by_rater_id(current_user.id), method: :delete,
+              data: { confirm: "Are you sure?" }
+                %> 
+              <%= render partial: 'shared/rating_show_avg', locals: { local_object: feed_item } %>
+            <% else %>       
+              <%= render partial: 'posts/rating_form', locals: { local_object: feed_item } %>
+              <%#= link_to "Check ANSWER", 'ratings', class: "btn btn-small btn-warning" %>
+            <% end %>
+          <% end %>        
+        </span>
       </div>
     </section>
   </li>

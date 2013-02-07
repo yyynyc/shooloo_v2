@@ -267,13 +267,15 @@ aside {
 
 .modal-text {
   padding: 2em 0em 1em 1em;
-  font-size: 1.2em
+  overflow-y: scroll;
+  height: 200px;
 }
 
 .well-text {
   font-size: 1.5em;
   text-align: center;
   vertical-align: middle;
+  line-height: 1.7em;
 }
 
 .user_name{
@@ -281,12 +283,15 @@ aside {
   font-size: 2em;
 }
 
-#rating {
+#rating, .modal-rating {
   width: 850px; /* SET THE WIDTH OF THE MODAL */
-  margin: -550px 0 0 -470px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+  margin: -450px 0 0 -470px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
   padding: 2em;
-  resize: vertical;
+  .modal-body {
+    max-height: 2000px;
+  }
 }
+
 
 .prompt {
   margin-left: 50px;
@@ -296,3 +301,76 @@ aside {
   color: #0040FF;
   font-weight: bold;
 }
+
+.form-horizontal { 
+  .control-label {  
+  float: left;
+  /*original: width: 140px;*/
+  width: 350px;
+  padding-top: 2px;
+  text-align: left;
+  }
+  .controls {
+  /*original: margin-left: 160px;*/
+  margin-left: 350px;
+  width: 470px;  
+  }
+}
+  
+.btn-formtastic {
+  float: right;
+}
+
+.choice {
+  display: inline-block; 
+  width: 135px;
+}
+
+.form-actions {
+  padding: 5px 5px 5px;
+  background-color: none;
+}
+
+.well-small {
+  padding: 2px;
+  margin: 10px 0px 0px 5px;
+}
+
+.table{
+  width: 75%;  
+  margin-left: 150px; 
+  tr {
+    border: 1px solid #A4A4A4;
+    padding: 1px;
+    td {
+    width: 135px;
+    border-right: 1px solid #A4A4A4;
+    text-align: center;
+    line-height: 1em;
+    }
+  }  
+}
+.overall-rating {
+  width: 37.5%;
+}
+
+.grade {
+  width: 56.5%;
+}
+
+.math {
+  width: 80%;
+}
+
+.operation {
+  width: 64%
+}
+
+.rating {
+  float: left;
+}
+
+
+
+
+

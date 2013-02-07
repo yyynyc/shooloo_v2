@@ -1,77 +1,58 @@
-<%= link_to "Check Answer", "#rating", role: "button",  
-  "data-toggle" => "modal", class: "btn btn-medium btn-default" %>
+<% my_rating = "rating-#{local_object.id}" %>
+<%= link_to "Check ANSWER", "##{my_rating}", role: "button",  
+  "data-toggle" => "modal", class: "btn btn-small btn-warning" %>
 
- <div id="rating" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="ratingLabel" aria-hidden="true">
+ <div id="<%= my_rating%>" class="modal-rating modal hide fade" tabindex="-1" role="dialog" aria-labelledby="ratingLabel" aria-hidden="true">
   <div class="row">    
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <span class="modal-image">
       <%= image_tag local_object.photo.url (:large) %>
-    </span> 
+    </span>
     <span class="modal-text"> 
       <section>         
         <strong>Question:</strong> <%= simple_format(local_object.question) %>
       </section>
-      </span>  
+    </span>   
   </div>
   <div class="row">
     <section class="span9  offset1">
-      <div class="well">        
+      <div class="well well-large">        
         <section class="well-text">
           <strong>Answer: </strong><%= local_object.answer %>
-          <i>- Is this answer correct?</i>  
+          <i>- Is this answer correct?</i><br/>
+          <strong>Intended grade: </strong><%= local_object.grade %>
+          <i>- Is it suitable for this grade?</i><br/> 
         </section>       
       </div>
     </section> 
   </div>         
     
   <div class="modal-body">
-    <section>
-     <%= form_for(@rating) do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
-        <div class="field">
-          <%= f.hidden_field :rated_post_id, :value => local_object.id %>         
-          <%= f.label :value, "Rate this math question" %>
-          <%= f.text_field :value %> 
-          <%= f.submit "Submit", class: "btn btn-large btn-primary" %>     
-        </div> 
+    <section class="form-horizontal">
+      <%= semantic_form_for(@rating) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %> 
+        <%=f.inputs do %>       
+          <%= f.hidden_field :rated_post_id, :value => local_object.id %>      
+          <%= f.input :answer_correctness, as: :select, label: "Is the answer provided above appropariate?", 
+              collection: [["Right", 1], ["Wrong", 2], ["I don't know", 3], ["Not enough information to arrive at any answer", 4]], include_blank: true %>
+          <%= f.input :steps, as: :select, label: "How many steps does it take to solve this problem?", 
+              collection: [["1 step", 1], ["2 steps", 2], ["3 steps", 3], ["4 steps", 4], ["5 steps", 5], ["more than 5 steps", 6]], include_blank: true %>
+          <%= f.input :grade_suitability, as: :select, label: "Is this problem suitable for its intended grade?", 
+              collection: [["No, it is BELOW grade", 1], ["Yes, it is just right", 2], ["No, it is ABOVE grade", 3]], include_blank: true %>
+          <%= f.input :operations, label: "What math operations does this problem involve?", as: :check_boxes, required: true, rating_id: @rating.id, include_blank: false %>
+          <%= f.input :improvements, label: "Which areas of this problem should be improved?", as: :check_boxes, rating_id: @rating.id, 
+            include_blank: false %>
+          <%= f.input :flags, label: "Is there anything inappropriate about this problem?", as: :check_boxes, rating_id: @rating.id, 
+            include_blank: false %> 
+          <%= f.input :overall_rating, label: "Overall, your rating for this math problem is:", as: :radio, collection: [["Excellent work!", true], ["Needs improvements", false]], required: true %>    
+        <% end %>
+        <%= f.actions do %>
+          <%= f.action :submit, as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>
+        <% end %>  
       <% end %>  
     </section>
   </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button  data-toggle="modal" data-target="#rating" class="btn btn-primary" method="post">Submit</button>
-  </div>
-</div>
-
-<script>
-  	// Since we want both pressing 'Enter' and clicking the button to work
-	// We'll subscribe to the submit event, which is triggered by both
-
-	$('#rating').on('submit', function(){
-    $("#rating_form").html("<%= escape_javascript(render('shared/rating_show_avg')) %>")
-		$("#raters").html('<%= @post.raters.count %>')
-
-		//Serialize the form and post it to the server
-		$.post(root_path, $(this).serialize(), function(){
-
-			// When this executes, we know the form was submitted
-
-		    // To give some time for the animation, 
-		    // let's add a delay of 200 ms before the redirect
-		    var delay = 200;
-		    setTimeout(function(){
-		      window.location.href = 'successUrl.html';
-		    }, delay);
-
-		    // Hide the modal
-		    $("#rating").modal('hide');
-
-		});
-
-		// Stop the normal form submission
-		return false;
-	});
-</script>
+  
 
 
 

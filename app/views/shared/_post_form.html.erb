@@ -1,14 +1,6 @@
 <%= form_for @post, :url => posts_path, :html => { :multipart => true }  do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-  	<%= f.label :photo, "Upload a photo from your computer:" %>
-  	<%= f.file_field :photo %>
-
-  	or 
-
-  	<%= f.label :photo_remote_url, "Paste in the url of a photo from the web:" %>
-  	<%= f.text_field :photo_remote_url, placeholder: "Don't include any copyrighted material." %>
-
   	<%= f.label :question, "Compose a math question:" %>
     <%= f.text_area :question, placeholder: "The more steps it takes to solve your problem, the higher rating you will get. " %>
 
@@ -17,6 +9,11 @@
 
     <%= f.label :grade, "Choose a suitable grade:" %>
     <%= f.select :grade, options: ["kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade"] %>
+      <%= f.label :photo, "Upload a photo from your computer:" %>    
+      <%= f.file_field :photo %>
+      <span style="text-align: center;"> or </span>
+      <%= f.label :photo_remote_url, "Paste in the url of a photo from the web:" %>
+      <%= f.text_field :photo_remote_url, placeholder: "Don't include any copyrighted material." %>
   </div>
   <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
 <% end %>

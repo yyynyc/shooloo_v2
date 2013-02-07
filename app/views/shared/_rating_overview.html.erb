@@ -1,0 +1,4 @@
+<strong>
+	Excellent Work: <%= local_object.ratings.where(overall_rating: true).count %>; 
+	Needs Improvements: <%= local_object.ratings.where(overall_rating: false).count %> 
+</strong>

@@ -11,7 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130130194629) do
+ActiveRecord::Schema.define(:version => 20130206161514) do
+
+  create_table "flags", :force => true do |t|
+    t.text     "name"
+    t.integer  "rating_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "improvements", :force => true do |t|
+    t.text     "name"
+    t.integer  "rating_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "operations", :force => true do |t|
+    t.text     "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "rating_id"
+  end
 
   create_table "posts", :force => true do |t|
     t.text     "question"
@@ -35,9 +56,12 @@ ActiveRecord::Schema.define(:version => 20130130194629) do
   create_table "ratings", :force => true do |t|
     t.string   "rater_id"
     t.string   "rated_post_id"
-    t.integer  "value"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "answer_correctness"
+    t.integer  "steps"
+    t.integer  "grade_suitability"
+    t.boolean  "overall_rating"
   end
 
   add_index "ratings", ["rated_post_id"], :name => "index_ratings_on_rated_post_id"

@@ -36,6 +36,10 @@ class Post < ActiveRecord::Base
   has_many :ratings, foreign_key: "rated_post_id", dependent: :destroy
   has_many :raters, through: :ratings, source: :rater
 
+  has_many :improvements, through: :ratings
+  has_many :operations, through: :ratings
+  has_many :flags, through: :ratings
+
   validates :user_id, presence: true
   validates :question, presence: true
   validates :answer, presence: true, length: {maximum: 100}

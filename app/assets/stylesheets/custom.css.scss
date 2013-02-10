@@ -12,10 +12,6 @@ $grayMediumLight: #eaeaea;
 
 /* universal */
 
-html {
-  overflow-y: scroll;
-}
-
 body {
   padding-top: 60px;
 }
@@ -261,8 +257,8 @@ aside {
 }
 
 .modal-image {
-  float: left;
-  margin: 0em 2em 1em 2em;
+  float: right;
+  margin: 1em 2em 1em 2em;
 }
 
 .modal-text {
@@ -273,7 +269,7 @@ aside {
 
 .well-text {
   font-size: 1.5em;
-  text-align: center;
+  text-align: left;
   vertical-align: middle;
   line-height: 1.7em;
 }
@@ -285,11 +281,10 @@ aside {
 
 #rating, .modal-rating {
   width: 850px; /* SET THE WIDTH OF THE MODAL */
-  margin: -450px 0 0 -470px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-  padding: 2em;
-  .modal-body {
-    max-height: 2000px;
-  }
+  margin: -330px 0 0 -470px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+  padding: 2em 2em 2em 5em;
+  overflow-y: scroll;
+  max-height: 600px;
 }
 
 
@@ -370,7 +365,14 @@ aside {
   float: left;
 }
 
+.left-panel {
+  overflow-y: scroll;
+  max-height: 700px;
+}
 
+.right-panel {
+  overflow-y: scroll;
+  max-height: 800px;
+}
 
-
-
+ 

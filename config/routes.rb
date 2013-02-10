@@ -1,15 +1,15 @@
 ShoolooV2::Application.routes.draw do
 
+resources :users do
+  member do
+    get :following, :followers, :rated_posts, :posts
+  end
+end
 resources :sessions, only: [:new, :create, :destroy]
 resources :relationships, only: [:create, :destroy]
 resources :posts, only: [:create, :destroy] do 
   member do
     get :raters
-  end
-end
-resources :users do
-  member do
-    get :following, :followers, :rated_posts, :posts
   end
 end
 resources :ratings, only: [:create, :destroy] do

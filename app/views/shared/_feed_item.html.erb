@@ -1,7 +1,7 @@
 <div class="feed_item">
   <li id="<%= feed_item.id %>">
     <span class="user">
-      <%= link_to feed_item.user.name, feed_item.user %>
+      <%= link_to feed_item.user.screen_name, feed_item.user %>
     </span> 
     <span class="timestamp">
       posted <%= time_ago_in_words(feed_item.created_at) %> ago
@@ -10,10 +10,10 @@
     <span class="timestamp"><%= feed_item.grade %></span>.         
     <section class="feed_content">
       <div class="row">
-        <section class="feed_item"> 
+        <section class="feed_item">
           <span class="image">
-            <%= image_tag feed_item.photo.url (:medium) %>
-          </span>            
+            <%= image_tag feed_item.photo.url (:medium) %>                       
+          </span>           
           <%= simple_format(feed_item.question) %>                    
         </section>
       </div>
@@ -40,7 +40,6 @@
               <%= render partial: 'shared/rating_show_avg', locals: { local_object: feed_item } %>
             <% else %>       
               <%= render partial: 'posts/rating_form', locals: { local_object: feed_item } %>
-              <%#= link_to "Check ANSWER", 'ratings', class: "btn btn-small btn-warning" %>
             <% end %>
           <% end %>        
         </span>

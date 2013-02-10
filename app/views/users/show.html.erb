@@ -1,35 +1,20 @@
-<% provide(:title, @user.name) %>
+<% provide(:title, @user.screen_name) %>
 <div class="row">
-  	<aside class="span4">
-      <div class="row">
-        <div class="span1.5">
-          <%= image_tag @user.avatar.url (:thumb) %>
-        </div>
-        <div class="span2">
-          <h1 class="user_name"><%= @user.name %></h1>
-          <span>
-            Published
-            <a href="<%= posts_user_path(@user) %>" >
-              <%= pluralize(current_user.posts.count, "post") %></a>.
-          </span>
-          <span>
-            Rated
-            <a href="<%= rated_posts_user_path(@user) %>" >
-            <%= pluralize(current_user.rated_posts.count, "post") %></a>.
-          </span>
-        </div>
-      </div>
+  <aside class="span4">
+    <section>
+      <%= render 'shared/user_info', current_user: @user %>
+    </section>
     <section>
       <%= render 'shared/stats' %>
     </section>
-    <section>
+    <section class="left-panel">
       <h4>Create my own math problem.</h4>
         <%= render 'shared/post_form' %>
     </section>
 	</aside>
-	<div class="span8">
+	<div class="span8 right-panel">
       <%= render 'follow_form' if signed_in? %>
-      <h3 class="feed_item"><%= @user.name %>'s Published Posts (<%= @user.posts.count %>)</h3>           
+      <h3 class="feed_item"><%= @user.screen_name %>'s Published Posts (<%= @user.posts.count %>)</h3>           
     	<% if @user.posts.count == 0 %>
         <% if current_user?(@user) %> 
           <section class="prompt">

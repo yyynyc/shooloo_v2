@@ -1,19 +1,19 @@
 <%= render 'shared/error_messages', object: f.object %>
 
-<%= f.label :name, "Real name" %>
-<%= f.text_field :name %>
+<%= f.label :first_name %><%= f.text_field :first_name %>
 
-<%= f.label :email %>
-<%= f.text_field :email %>
+<%= f.label :last_name %><%= f.text_field :last_name %>
 
-<%= f.label :email_confirmation %>
-<%= f.text_field :email_confirmation %>
+<%= f.label :email %><%= f.text_field :email %>
 
-<%= f.label :password %>
-<%= f.password_field :password %>
+<%= f.label :email_confirmation %><%= f.text_field :email_confirmation %>
 
-<%= f.label :password_confirmation %>
-<%= f.password_field :password_confirmation %>
+<%= f.label :grade %><%= f.select :grade, options: ["kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade", "teacher", "parent", "tutor"] %>
 
-<%= f.label :avatar %>
-<%= f.file_field :avatar %>
+<%= f.label :screen_name %><%= f.text_field :screen_name %>
+
+<%= f.label :password %><%= f.password_field :password %>
+
+<%= f.label :password_confirmation %><%= f.password_field :password_confirmation %>
+
+<%= f.label :avatar %><%= f.file_field :avatar %>

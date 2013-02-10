@@ -18,7 +18,8 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :email_confirmation, :name, 
+  attr_accessible :email, :email_confirmation, :screen_name, 
+    :first_name, :last_name, :grade, 
     :password, :password_confirmation, :avatar
   has_attached_file :avatar, 
     :styles => { 
@@ -45,12 +46,18 @@ class User < ActiveRecord::Base
   before_save :create_remember_token
 
 
-  validates :name, presence: true, length: {maximum: 50}
+  validates :first_name, presence: true, length: {maximum: 25}
+  validates :last_name, presence: true, length: {maximum: 25}
+  validates :grade, presence: true
+  VALID_SCREEN_NAME_REGEX = /^[A-Za-z\d_]+$/
+  validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX },
+    uniqueness: {case_sensitive: false}, length: { minimum: 6, maximum: 20}
 	
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, 
   	uniqueness: { case_sensitive: false}
-  validates :email_confirmation, presence: true, format: { with: VALID_EMAIL_REGEX}
+  validates :email_confirmation, presence: true
+  validates_confirmation_of :email
   
 
   validates :password, presence: true, length: {minimum: 6}

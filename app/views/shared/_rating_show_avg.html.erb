@@ -3,31 +3,32 @@
 <%= link_to "Check RATING", "##{my_modal}", role: "button",  
               "data-toggle" => "modal", class: "btn btn-small btn-primary" %>
   <div id="<%=my_modal%>" class="modal-rating modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="row">    
+    <div class="row">   
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
       <span class="modal-image">
-        <%= image_tag local_object.photo.url (:large) %>
+        <%= image_tag local_object.photo.url (:small) %>
       </span>
-      <span class="modal-text"> 
+      <!--<span class="modal-text"> 
         <section>         
           <strong>Question:</strong> <%= simple_format(local_object.question) %><br/> 
           <strong>Answer: </strong><%= local_object.answer %><br/>
             <strong>Intended grade: </strong><%= local_object.grade %>
         </section>
-      </span>   
+      </span> 
     </div>
-    <div class="well well-large">
-      <p><strong>Total number of ratings: </strong><%= local_object.raters.count %><p>
+    <div class="well well-large"> -->
       <p>
         <span class="rating"><strong>Overall rating: </strong></span>
-        <table class="table overall-rating">
+        <table class="table grade">
           <tr>
             <td> Excellent Work </td>
-            <td> Needs Improvments </td>            
+            <td> Needs Improvments </td>
+            <td> <strong>Total Ratings</strong></td>             
           </tr>
           <tr>
             <td> <%= local_object.ratings.where(overall_rating: true).count %> </td>
             <td> <%= local_object.ratings.where(overall_rating: false).count %> </td>
+            <td> <strong><%= local_object.raters.count %></strong> </td>
           </tr>
         </table>      
       </p>
@@ -131,7 +132,7 @@
           </tr>          
         </table>
       </p>    
-    </div>    
+    </div>   
     <button class="btn" data-dismiss="modal" aria-hidden="true" style="float: right;">Close</button>  
   </div>
 

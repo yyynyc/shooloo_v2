@@ -12,7 +12,7 @@ class RatingsController < ApplicationController
             redirect_to root_url
         else 
             flash.now[:notice] = "Something went wrong. Please try again."
-            #redirect_to @rating
+            #redirect_to post_rating_path(@post, @rating)
             redirect_to root_url
         end            
     end

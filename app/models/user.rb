@@ -3,7 +3,7 @@
 # Table name: users
 #
 #  id                  :integer          not null, primary key
-#  name                :string(255)
+#  first_name          :string(255)
 #  email               :string(255)
 #  email_confirmation  :string(255)
 #  created_at          :datetime         not null
@@ -15,6 +15,9 @@
 #  avatar_content_type :string(255)
 #  avatar_file_size    :integer
 #  avatar_updated_at   :datetime
+#  screen_name         :string(255)
+#  grade               :string(255)
+#  last_name           :string(255)
 #
 
 class User < ActiveRecord::Base

@@ -1,13 +1,7 @@
 <% provide(:title, 'Sign Up') %>
 <h1>Sign Up</h1>
-
 <div class="row">
-  <div class="span6 offset3">
-  	<span class="form-horizontal">
-	    <%= form_for@user, :url => users_path, :html => { :multipart => true, :class => "form-horizontal" } do |f| %>
-	      <%= render 'userinfo', f: f %>
-	      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
-	    <% end %>
-	</span>
+  <div class="span6.5 offset3">	    
+	<%= render 'userinfo'%>	      
   </div>
 </div>

@@ -11,6 +11,7 @@ gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git'
 gem 'formtastic'
 gem 'formtastic-bootstrap'
 gem 'pg'
+gem 'taps'
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'

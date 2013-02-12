@@ -3,8 +3,8 @@
 # Table name: ratings
 #
 #  id                 :integer          not null, primary key
-#  rater_id           :string(255)
-#  rated_post_id      :string(255)
+#  rater_id           :integer
+#  rated_post_id      :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  answer_correctness :integer

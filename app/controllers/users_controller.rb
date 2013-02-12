@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(params[:user])
-      flash[:success] = "Profile update successful!"
+      flash[:success] = "Information updated successfully!"
       sign_in @user
       redirect_to @user
     else
@@ -69,6 +69,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @rated_posts = @user.rated_posts.paginate(page: params[:page])
     @rating=current_user.ratings.build(params[:rating])
+    @post  = current_user.posts.build
     render 'show_rated_posts'
   end
 

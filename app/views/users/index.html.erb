@@ -1,19 +1,35 @@
 <% provide(:title, 'All Members') %>
-<h1>All Members and Posts</h1>
+<h1>All Shooloo Members</h1>
 
 <%= will_paginate %>
-
-<ul class="users">
-  <% @users.each do |user| %>
-    <li>
-    	<%= image_tag user.avatar.url (:thumb) %>
-      <%= link_to user.screen_name, user %>
-      <% if current_user.admin? && !current_user?(user) %>
-      	| <%= link_to "delete", user, method: :delete, data: {confirm: "Are you sure?" }%>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-
+	<table class="user-index">
+    	<tr>
+    		<th> Avatar </th>
+    		<th> Screen Name </th>
+    		<th> Grade </th>
+    		<th> Followings </th>
+    		<th> Followers</th>
+    		<th> Published Posts</th>
+    		<th> Rated Posts</th>
+    		<% if current_user.admin? && !current_user?(user) %>
+    			<th> </th>
+    		<% end %>
+    	</tr>    	
+  		<% @users.each do |user| %>
+	    	<tr> 
+	    		<td><%= image_tag user.avatar.url (:thumb) %></td>
+	    		<td><%= link_to user.screen_name, user %></td>
+	      		<td><%= user.grade %></td>
+	      		<td><%= user.followed_users.count %></td>
+	      		<td><%= user.followers.count %></td>
+	      		<td><%= user.posts.count %></td> 
+	      		<td><%= user.rated_posts.count %></td>  		
+	      		<% if current_user.admin? && !current_user?(user) %>
+	      			<td><%= link_to "delete", user, method: :delete, data: 
+	      				{confirm: "Are you sure?" }%></td>
+	      		<% end %>	      		
+	      	</tr>
+	    <% end %>	      
+    </table> 
 <%= will_paginate %>
 

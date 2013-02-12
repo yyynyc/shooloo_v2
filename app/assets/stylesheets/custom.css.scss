@@ -311,6 +311,21 @@ aside {
   width: 470px;  
   }
 }
+
+.form-horizontal-user { 
+  .control-label {  
+  float: left;
+  /*original: width: 140px;*/
+  width: 160px;
+  padding-top: 2px;
+  text-align: left;
+  }
+  .controls {
+  /*original: margin-left: 160px;*/
+  margin-left: 180px;
+  width: 300px;  
+  }
+}
   
 .btn-formtastic {
   float: right;
@@ -373,6 +388,25 @@ aside {
 .right-panel {
   overflow-y: scroll;
   max-height: 800px;
+}
+
+.user-index {
+  width: 100%;  
+  tr {
+    border: 1px solid #A4A4A4;
+    padding: 1px;
+    th {
+    font-size: 1.1em;
+    line-height: 2em;
+    }
+    td {
+    width: 135px;
+    text-align: center;
+    line-height: 1em;
+    
+    }
+  }  
+  
 }
 
  

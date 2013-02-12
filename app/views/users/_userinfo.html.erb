@@ -1,19 +1,49 @@
-<%= render 'shared/error_messages', object: f.object %>
+<% if signed_in? %>
+	<%= semantic_form_for@user, :url => user_path, :html => { :multipart => true, :class => "form-horizontal-user" } do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+		<%=f.inputs do %>         
+			<%= f.input :first_name %>
+			<%= f.input :last_name %>
+			<%= f.input :email %>
+			<%= f.input :email_confirmation %>
+			<%= f.input :grade, as: :select, collection: ["kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade", "teacher", "parent", "tutor"], include_blank: true %>
+			<%= f.input :screen_name%>
+			<%= f.input :password %>
+			<%= f.input :password_confirmation %> 
+			<%= f.input :avatar, as: :file, required: true %>    
+		<% end %>
+		<%= f.actions do %>
+			<%= f.action :submit, label: "Update My Information", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>
+		<% end %>
+	<% end %>
+<% else %>
+	<%= semantic_form_for@user, :url => users_path, :html => { :multipart => true, :class => "form-horizontal-user" } do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+		<%=f.inputs do %>         
+			<%= f.input :first_name %>
+			<%= f.input :last_name %>
+			<%= f.input :email %>
+			<%= f.input :email_confirmation %>
+			<%= f.input :grade, as: :select, collection: ["kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade", "teacher", "parent", "tutor"], include_blank: true %>
+			<%= f.input :screen_name%>
+			<%= f.input :password %>
+			<%= f.input :password_confirmation %> 
+			<%= f.input :avatar, as: :file, required: true %>    
+		<% end %>
+		<%= f.actions do %>
+			<%= f.action :submit, label: "Create My Account", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>			
+		<% end %> 
+	<% end %> 
+<% end %>
 
-<%= f.label :first_name %><%= f.text_field :first_name %>
 
-<%= f.label :last_name %><%= f.text_field :last_name %>
 
-<%= f.label :email %><%= f.text_field :email %>
-
-<%= f.label :email_confirmation %><%= f.text_field :email_confirmation %>
-
-<%= f.label :grade %><%= f.select :grade, options: ["kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade", "teacher", "parent", "tutor"] %>
-
-<%= f.label :screen_name %><%= f.text_field :screen_name %>
-
-<%= f.label :password %><%= f.password_field :password %>
-
-<%= f.label :password_confirmation %><%= f.password_field :password_confirmation %>
-
-<%= f.label :avatar %><%= f.file_field :avatar %>
+<%#= f.label :first_name %><%#= f.text_field :first_name %>
+<%#= f.label :last_name %><%#= f.text_field :last_name %>
+<%#= f.label :email %><%#= f.text_field :email %>
+<%#= f.label :email_confirmation %><%#= f.text_field :email_confirmation %>
+<%#= f.label :grade %><%#= f.select :grade, options: ["kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade", "teacher", "parent", "tutor"] %>
+<%#= f.label :screen_name %><%#= f.text_field :screen_name %>
+<%#= f.label :password %><%#= f.password_field :password %>
+<%#= f.label :password_confirmation %><%#= f.password_field :password_confirmation %>
+<%#= f.label :avatar %><%#= f.file_field :avatar %>

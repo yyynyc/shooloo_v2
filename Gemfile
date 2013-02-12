@@ -39,3 +39,9 @@ group :test do
   gem 'growl', '1.0.3'
 end
 
+# Deploy with Capistrano
+gem 'capistrano'
+
+#Use unicorn as the app server
+gem 'unicorn'
+

@@ -14,7 +14,7 @@
           <span class="image">
             <%= image_tag feed_item.photo.url (:medium) %>                       
           </span>           
-          <%= wrap(simple_format(feed_item.question)) %>                    
+          <%= simple_format(feed_item.question) %>                    
         </section>
       </div>
       <div class="row well well-small">

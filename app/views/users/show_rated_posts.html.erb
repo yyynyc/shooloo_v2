@@ -14,8 +14,8 @@
 	  </aside>
 	<div class="span8 right-panel">
       <%= render 'follow_form' if signed_in? %>
-    	<% if @user.rated_posts.any? %>
-      		<h3 class="feed_item"><%= @user.screen_name %>'s Rated Posts (<%= @user.rated_posts.count %>)</h3>      	
+        <h3 class="feed_item"><%= @user.screen_name %>'s Rated Posts (<%= @user.rated_posts.count %>)</h3>
+    	 <% if @user.rated_posts.any? %>      		      	
       		<ol class="posts">
         		<%= render partial: 'shared/feed_item', collection: @rated_posts %>
       		</ol>

@@ -265,6 +265,7 @@ aside {
   padding: 2em 0em 1em 1em;
   overflow-y: scroll;
   height: 200px;
+  font-size: 1.2em;
 }
 
 .well-text {
@@ -309,6 +310,24 @@ aside {
   /*original: margin-left: 160px;*/
   margin-left: 350px;
   width: 470px;  
+  &.textarea {
+    rows: 10;
+  }
+  }
+}
+.form-horizontal-rating { 
+  .control-label {  
+  float: left;
+  /*original: width: 140px;*/
+  width: 350px;
+  padding-top: 2px;
+  text-align: left;
+  margin-left: 2em;
+  }
+  .controls {
+  /*original: margin-left: 160px;*/
+  margin-left: 380px;
+  width: 500px;  
   }
 }
 
@@ -324,6 +343,24 @@ aside {
   /*original: margin-left: 160px;*/
   margin-left: 180px;
   width: 300px;  
+  }
+}
+
+.form-horizontal-post-update { 
+  .control-label {  
+  float: left;
+  /*original: width: 140px;*/
+  width: 150px;
+  padding-top: 2px;
+  text-align: right;
+  }
+  .controls {
+  /*original: margin-left: 160px;*/
+  margin-left: 180px;
+  width: 600px;  
+  textarea {
+    height: 200px;
+    }
   }
 }
   
@@ -387,7 +424,7 @@ aside {
 
 .right-panel {
   overflow-y: scroll;
-  max-height: 800px;
+  max-height: 870px;
 }
 
 .user-index {
@@ -402,11 +439,14 @@ aside {
     td {
     width: 135px;
     text-align: center;
-    line-height: 1em;
-    
+    line-height: 1em;    
     }
-  }  
-  
+  }   
+}
+
+feed-well {
+  float: left; 
+  text-indent: 10px;
 }
 
  

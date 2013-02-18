@@ -17,10 +17,12 @@
 #  photo_content_type      :string(255)
 #  photo_file_size         :integer
 #  photo_updated_at        :datetime
+#  category                :string(255)
+#
 
 class Post < ActiveRecord::Base
   attr_accessible :answer, :grade, :question, 
-    :photo, :photo_remote_url
+    :photo, :photo_remote_url, :category
   attr_reader :photo_remote_url
   belongs_to :user
 
@@ -44,6 +46,7 @@ class Post < ActiveRecord::Base
   validates :question, presence: true
   validates :answer, presence: true, length: {maximum: 100}
   validates :grade, presence: true
+  validates :category, presence: true
   validates_attachment_presence :photo
   validates_attachment_size :photo, :less_than => 5.megabytes
   validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf']
@@ -64,5 +67,18 @@ class Post < ActiveRecord::Base
     # avatar_file_name == "face.png"
     # avatar_content_type == "image/png"
     @photo_remote_url = url_value
+  end
+
+  def host
+    url = URI.parse(photo_remote_url)
+    p url.host
+  end
+
+  def rating_by(user)
+    # rating_id = "SELECT rating_id FROM ratings
+    #             WHERE rated_post_id = :post_id"
+    # where (:rater_id => current_user.id)
+
+    user.ratings.find_by_rated_post_id(self.id)
   end
 end

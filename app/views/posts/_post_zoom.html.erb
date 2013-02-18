@@ -1,0 +1,22 @@
+<% zoom_post = "zoomPost-#{local_object.id}" %>
+<%= link_to "Zoom", "##{zoom_post}", role: "button",  
+              "data-toggle" => "modal", class: "btn btn-small btn-default" %>
+<div id="<%=zoom_post%>" class="modal-rating modal hide fade" tabindex="-1" role="dialog" aria-labelledby="zoomPostLabel" aria-hidden="true">
+  <div class="row">   
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <span class="image">
+        <%= image_tag local_object.photo.url (:large) %>
+    </span>
+    <span class="modal-text"> 
+        <section>         
+          <strong>Question:</strong> <%= simple_format(local_object.question) %><br/> 
+          <strong>Answer: </strong><%= local_object.answer %><br/>
+          <strong>Intended grade: </strong><%= local_object.grade %>
+        </section>
+    </span>            
+  <div>       
+  <button class="btn btn-formtastic" data-dismiss="modal" aria-hidden="true">Close</button>  
+</div>
+
+
+	

@@ -7,12 +7,13 @@ resources :users do
 end
 resources :sessions, only: [:new, :create, :destroy]
 resources :relationships, only: [:create, :destroy]
-resources :posts, only: [:create, :destroy] do 
+resources :posts do
+  resources :ratings 
   member do
     get :raters
   end
 end
-resources :ratings, only: [:create, :destroy] do
+resources :ratings do
   member do
     get :operations, :improvements, :flags
   end

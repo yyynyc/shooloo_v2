@@ -14,3 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+
+$(function ()  
+{ $("#tips").popover({trigger: 'hover'});  
+});  

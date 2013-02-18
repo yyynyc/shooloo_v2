@@ -7,13 +7,32 @@ class PostsController < ApplicationController
 
   def create
   	@post = current_user.posts.build(params[:post])
-    if @post.save
-      flash[:success] = "Good job! You have created a math problem."
+    #if params[:preview_button]
+      #render 'posts/preview'        
+    #else
+      if @post.save
+        flash[:success] = "Good job! You have created a math problem."
+        redirect_to root_url
+      else
+        @feed_items = []
+        render 'static_pages/home'
+      end
+    #end
+  end
+
+  def edit
+    @post = current_user.posts.find_by_id(params[:id])
+  end
+
+  def update
+    @post = current_user.posts.find_by_id(params[:id])
+    if @post.update_attributes(params[:post])
+      flash[:success] = "You have upddated your post successfully!"
       redirect_to root_url
     else
-      @feed_items = []
-      render 'static_pages/home'
+      render 'edit'
     end
+
   end
 
   def destroy

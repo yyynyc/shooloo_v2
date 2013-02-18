@@ -33,6 +33,6 @@ class Rating < ActiveRecord::Base
   validates :steps, presence: true
   validates :grade_suitability, presence: true
   validates_inclusion_of :overall_rating, in: [true, false]
-  validates_associated :operations, allow_blank: false
+  validates_associated :operations, presence: true
 
 end

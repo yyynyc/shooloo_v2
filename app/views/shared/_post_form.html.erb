@@ -1,19 +1,32 @@
+<h4>Create my own <%= link_to "math problem", "#", "id" => "tips", "rel" => "popover", "title" => "Features of A Great Question", "data-content" => "The more steps it takes to solve your problem, the higher rating you will get. Your answer should include both numbers and units. Do not include any copyrighted materials." %>.</h4>
+
 <%= form_for @post, :url => posts_path, :html => { :multipart => true }  do |f| %>
+  <%# if params[:preview_button] %>
+    <%#= render 'posts/preview' %>
+  <%# end %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-  	<%= f.label :question, "Compose a math question:" %>
-    <%= f.text_area :question, placeholder: "The more steps it takes to solve your problem, the higher rating you will get. " %>
+  	<%= f.label :question, "Question:" %>
+    <%= f.text_area :question %>
 
-    <%= f.label :answer, "Provide your answer:" %>
-    <%= f.text_field :answer, placeholder: "Be sure to include both numbers and units." %>
+    <%= f.label :answer, "Answer:" %>
+    <%= f.text_field :answer %>
 
-    <%= f.label :grade, "Choose a suitable grade:" %>
-    <%= f.select :grade, options: ["kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade"] %>
-      <%= f.label :photo, "Upload a photo from your computer:" %>    
-      <%= f.file_field :photo %>
-      <span style="text-align: center;"> or </span>
-      <%= f.label :photo_remote_url, "Paste in the url of a photo from the web:" %>
-      <%= f.text_field :photo_remote_url, placeholder: "Don't include any copyrighted material." %>
+    <%= f.label :grade, "Suitable Grade:" %>
+    <%= f.select :grade, options: ["","kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade"] %>
+
+    <%= f.label :category, "Category:" %>
+    <%= f.select :category, options: ["", "animals/pets", "books", "fahsion", "food", "games", "money", "movies/TV shows", "music/dance", "news", "party", "puzzles", "school", "shopping", "sports", "travel", "weather", "OTHER"] %>
+
+    <%= f.label :photo, "Upload a photo from your computer:" %>    
+    <%= f.file_field :photo %>
+    <span class="center"> or </span>
+    <%= f.label :photo_remote_url, "Paste in the url of a photo from the web:" %>
+    <%= f.text_field :photo_remote_url %>
   </div>
-  <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
+  <%#= link_to "Preview", "#postPreview", role: "button",  
+      class: "btn btn-large btn-success", "data-toggle" => "modal" %>
+  <%#= f.submit "Preiew", name: "preview_button", class: "btn btn-large btn-success", id: "#postPreview", "data-toggle" => "modal" %>
+  <%#= f.submit "Preiew", name: "preview_button", class: "btn btn-large btn-success" %>
+  <%= f.submit "Save", class: "btn btn-large btn-primary" %>
 <% end %>

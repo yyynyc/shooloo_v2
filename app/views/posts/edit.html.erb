@@ -1,0 +1,25 @@
+<% provide(:title, "Edit Post") %> 
+<h1>Update Your Post</h1>
+
+<div class="row">
+  <div class="span10 offset1">    
+    <%= semantic_form_for @post, :url => post_path, :html => { :multipart => true, class: "form-horizontal-post-update" }  do |f| %>
+	  <%= render 'shared/error_messages', object: f.object %>
+		<%=f.inputs do %> 
+	        <%= f.input :question %>
+		    <%= f.input :answer %>
+		    <%= f.input :grade, as: :select, collection: ["","kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade"] %>
+
+		    <%= f.input :category, as: :select, collection: ["", "animals/pets", "books", "fahsion", "food", "games", "money", "movies/TV shows", "music/dance", "news", "party", "puzzles", "school", "shopping", "sports", "travel", "weather", "OTHER"] %>
+
+		    <%= f.input :photo, as: :file, label: "Photo upload" %> 	  
+		    <%= f.input :photo_remote_url, label: "Photo url" %>
+		<% end %>
+		<%= f.actions do %>
+        	<%= f.action :submit, label: "Update My Post", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>
+      	<% end %> 
+	<% end %>
+  </div>
+</div>
+
+	

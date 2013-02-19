@@ -1,8 +1,8 @@
 
 <% my_modal = "myModal-#{local_object.id}" %>
-<i class="icon-star"></i>
-  <%= link_to "Rating?", "##{my_modal}", "data-toggle" => "modal" %>
-<i class="icon-star"></i>
+
+  <%= link_to "Ratings?", "##{my_modal}", "data-toggle" => "modal", role: "button", class: "btn btn-small btn-default" %>
+
   <div id="<%=my_modal%>" class="modal-rating modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="row">   
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>

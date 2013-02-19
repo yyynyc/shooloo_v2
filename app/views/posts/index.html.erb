@@ -47,30 +47,29 @@
 			      	<span class="timestamp">in </span> 
 			      		<%= post.category %>.
 			      	<span>
-			        	<strong><%= pluralize(post.raters.count, "rating") %></strong>
+			        	<i class="icon-star"></i>
+				        <%= post.raters.count %>
+				        <i class="icon-thumbs-up"></i>
+				        <%= post.ratings.where(overall_rating: true).count %>
 			      	</span>
 		    	</section> 
 		  		<section>
-		  			<%= truncate post.question, :length => 230, 
-		  				:omission => "..." %>
-		  		</section>
-		  		<section class="btn-formtastic"> 
+		  			<%= truncate post.question, :length => 380, 
+		  				:omission => "..." %>		  		
 		  			<% if current_user?(post.user) %> 
 		  				<%#= link_to "", post, method: :delete,
           					data: { confirm: "Are you sure? Once your post is deleted, all of its related ratings and scores will be erased, too." },
           				title: "Delete Post", class: "icon-trash" %>
-        				<%#= link_to " ", edit_post_path(post), title: "Edit Post", class: "icon-edit" %>
-	           			<%= render partial: 'shared/rating_show_avg', locals: { local_object: post } %>
+        				<%= link_to "Read More ", edit_post_path(post), title: "Edit Post" %>
+	           			<%#= render partial: 'shared/rating_show_avg', locals: { local_object: post } %>
 	          		<% else %> 
 	            		<% if post.ratings.find_by_rater_id(current_user.id) %>
 	            			<%#= link_to "", post.ratings.find_by_rater_id(current_user.id), method: :delete, title: "Delete Rating", class: "icon-trash", data: { confirm: "Are you sure?" } %> 
-          					<%#= link_to "", edit_post_rating_path(post, post.rating_by(current_user)), title: "Edit Rating", class: "icon-edit" %>
-	              			<%= render partial: 'shared/rating_show_avg', 
+          					<%= link_to "Read More", edit_post_rating_path(post, post.rating_by(current_user)), title: "Edit Rating" %>
+	              			<%#= render partial: 'shared/rating_show_avg', 
 	              				locals: { local_object: post} %>
 	            		<% else %> 
-	            			<i class="icon-star-empty"></i>
-	              			<%= link_to "Answer?", new_post_rating_path(post) %>
-	              			<i class="icon-star-empty"></i>  
+	              			<%= link_to "Read More", new_post_rating_path(post) %>
 	            		<% end %>
 	          		<% end %>		          	  
 		  		</section>

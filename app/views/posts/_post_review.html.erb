@@ -1,0 +1,24 @@
+<div class="row"> 
+  <div class="span12 offset 1">
+  <span class="image">
+    <%= image_tag @post.photo.url (:large) %>
+  </span>
+  <span class="modal-text"> 
+    <section>         
+      <strong>Question:</strong> <%= simple_format(@post.question) %>
+    </section>
+  </span>
+</div>
+</div>   
+<div class="row"> 
+  <section class="span9 offset1">
+    <div class="well well-small">        
+      <section class="well-text">
+        <strong>Answer: </strong><%= @post.answer %>
+        <i>- Is this answer correct?</i><br/>
+        <strong>Intended grade: </strong><%= @post.grade %>
+        <i>- Is it suitable for this grade?</i><br/> 
+      </section>       
+    </div>
+  </section> 
+</div> 

@@ -15,7 +15,7 @@ class RatingsController < ApplicationController
         @rating=current_user.ratings.build(params[:rating])             
         if @rating.save
             flash[:success] = "Thank you for rating this post!" 
-            redirect_to root_url       
+            redirect_to rated_posts_user_path(current_user)    
         else 
             @post  = @rating.rated_post
             render 'new'     

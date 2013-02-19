@@ -4,16 +4,21 @@
       <span class="user">
         <%= link_to feed_item.user.screen_name, feed_item.user %>
       </span> 
-      <span class="timestamp">posted</span>    
-      <%= time_ago_in_words(feed_item.created_at) %> ago 
+      <span class="timestamp">updated</span>    
+      <%= time_ago_in_words(feed_item.updated_at) %> ago 
       <span class="timestamp">for</span> 
       <%= feed_item.grade %> 
       <span class="timestamp">in </span> 
       <%= feed_item.category %>.
-      <span class="">
+      <!--<span>
         <strong><%= pluralize(feed_item.raters.count, "rating") %></strong>
-      </span> 
-      <%#= render partial: 'posts/post_zoom', locals: { local_object: feed_item } %>
+      </span> -->
+      <span class="btn-formtastic">
+        <i class="icon-star"></i>
+        <%= feed_item.raters.count %>
+        <i class="icon-thumbs-up"></i>
+        <%= feed_item.ratings.where(overall_rating: true).count %>
+      </span>
     </div>       
     <section class="feed_content">
       <div class="row">
@@ -27,21 +32,21 @@
       <div>
         <span class="btn-formtastic">        
           <% if current_user?(feed_item.user) %> 
-            <%= link_to "Delete Post", feed_item, method: :delete,
+            <%= link_to "", feed_item, method: :delete,
               data: { confirm: "Are you sure? Once your post is deleted, all of its related ratings and scores will be erased, too." },
-              title: feed_item.question, class: "btn btn-small btn-danger" %>
-            <%= link_to "Edit Post", edit_post_path(feed_item), class: "btn btn-small btn-success" %>
+              title: "Delete Post", class: "icon-trash" %>
+            <%= link_to " ", edit_post_path(feed_item), title: "Edit Post", class: "icon-edit" %>
             <%#= render partial: 'posts/edit_post', locals: { local_object: feed_item } %>
             <%= render partial: 'shared/rating_show_avg', locals: { local_object: feed_item } %>
           <% else %> 
             <% if feed_item.ratings.find_by_rater_id(current_user.id) %>
-              <%= link_to "Delete Rating", feed_item.ratings.find_by_rater_id(current_user.id), method: :delete, class: "btn btn-small btn-default",
-              data: { confirm: "Are you sure?" }
-                %> 
-              <%= link_to "Edit Rating", edit_post_rating_path(feed_item, feed_item.rating_by(current_user)), class: "btn btn-small btn-info" %>
+              <%= link_to "", feed_item.ratings.find_by_rater_id(current_user.id), method: :delete, title: "Delete Rating", class: "icon-trash icon-large", data: { confirm: "Are you sure?" } %> 
+              <%= link_to "", edit_post_rating_path(feed_item, feed_item.rating_by(current_user)), title: "Edit Rating", class: "icon-edit" %>
               <%= render partial: 'shared/rating_show_avg', locals: { local_object: feed_item } %>
             <% else %> 
-              <%= link_to "Check Answer", new_post_rating_path(feed_item), class: "btn btn-small btn-warning" %>      
+              <i class="icon-star-empty"></i> 
+                <%= link_to "Answer?", new_post_rating_path(feed_item)%> 
+              <i class="icon-star-empty"></i>     
               <%#= render partial: 'posts/rating_form', locals: { local_object: feed_item } %>
             <% end %>
           <% end %>        

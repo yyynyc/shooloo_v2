@@ -2,7 +2,7 @@
 
 <%= form_for @post, :url => posts_path, :html => { :multipart => true }  do |f| %>
   <%# if params[:preview_button] %>
-    <%#= render 'posts/preview' %>
+    <%#= render partial: 'posts/preview' %>
   <%# end %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
@@ -23,10 +23,8 @@
     <span class="center"> or </span>
     <%= f.label :photo_remote_url, "Paste in the url of a photo from the web:" %>
     <%= f.text_field :photo_remote_url %>
-  </div>
-  <%#= link_to "Preview", "#postPreview", role: "button",  
-      class: "btn btn-large btn-success", "data-toggle" => "modal" %>
-  <%#= f.submit "Preiew", name: "preview_button", class: "btn btn-large btn-success", id: "#postPreview", "data-toggle" => "modal" %>
+  </div> 
   <%#= f.submit "Preiew", name: "preview_button", class: "btn btn-large btn-success" %>
   <%= f.submit "Save", class: "btn btn-large btn-primary" %>
 <% end %>
+

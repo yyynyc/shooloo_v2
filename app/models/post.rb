@@ -35,7 +35,8 @@ class Post < ActiveRecord::Base
     url: "/assets/posts/:id/:style/:basename.:extension",
     path: ":rails_root/public/assets/posts/:id/:style/:basename.:extension"
 
-  has_many :ratings, foreign_key: "rated_post_id", dependent: :destroy
+  has_many :ratings, foreign_key: "rated_post_id", dependent: :destroy, 
+          order: "updated_at DESC"
   has_many :raters, through: :ratings, source: :rater
 
   has_many :improvements, through: :ratings
@@ -50,7 +51,8 @@ class Post < ActiveRecord::Base
   validates_attachment_presence :photo
   validates_attachment_size :photo, :less_than => 5.megabytes
   validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf']
-  default_scope order: 'posts.created_at DESC'
+  
+  default_scope order: 'posts.updated_at DESC'
 
   # Returns posts from the users being followed by the given user.
   def self.from_users_followed_by(user)
@@ -69,16 +71,12 @@ class Post < ActiveRecord::Base
     @photo_remote_url = url_value
   end
 
-  def host
-    url = URI.parse(photo_remote_url)
+  def photo_host(url_value)
+    url = URI.parse(url_value)
     p url.host
   end
 
   def rating_by(user)
-    # rating_id = "SELECT rating_id FROM ratings
-    #             WHERE rated_post_id = :post_id"
-    # where (:rater_id => current_user.id)
-
     user.ratings.find_by_rated_post_id(self.id)
   end
 end

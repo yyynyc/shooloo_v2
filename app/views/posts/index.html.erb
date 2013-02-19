@@ -1,0 +1,82 @@
+<% provide(:title, "All Posts") %> 
+<h1> All Posts </h1>
+
+<%= search_form_for @search, url: search_posts_path, method: :post do |f| %>
+	<div class="row">
+		<div class="span8 offset2" >
+			<span class="search-label">
+				<%= f.label :grade_cont, "Grade" %> 
+			</span>
+			<span class="search-field">
+				<%= f.select :grade_cont, options: ["","kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade"]%>
+			</span>	
+			<span class="search-label">
+				<%= f.label :category_cont, "Category" %>
+			</span>
+			<span class="search-field">
+				<%= f.select :category_cont, options: ["", "animals/pets", "books", "fahsion", "food", "games", "money", "movies/TV shows", "music/dance", "news", "party", "puzzles", "school", "shopping", "sports", "travel", "weather", "OTHER"] %>
+			</span>
+			<span class="search-label">
+				<%= f.label :question_cont, "keyword" %>
+			</span>
+			<span class="search-field">
+				<%= f.text_field :question_cont %>
+			</span>	
+			<span class="search-label">
+				<%= f.submit "Search", class: "btn btn-small btn-default" %>
+			</span>
+		</div>
+	</div>
+<% end %>
+
+<ul class="users">
+	<% @posts.each do |post| %>
+		<li>
+			<div class="row">		
+				<span class="image">
+					<%= image_tag post.photo.url (:thumb)%>
+				</span>
+				<section>
+					<span class="user">
+				       <%= link_to post.user.screen_name, post.user %>
+			      	</span> 
+			      	<span class="timestamp">updated</span>    
+			      		<%= time_ago_in_words(post.updated_at) %> ago 
+			      	<span class="timestamp">for</span> 
+			      		<%= post.grade %> 
+			      	<span class="timestamp">in </span> 
+			      		<%= post.category %>.
+			      	<span>
+			        	<strong><%= pluralize(post.raters.count, "rating") %></strong>
+			      	</span>
+		    	</section> 
+		  		<section>
+		  			<%= truncate post.question, :length => 230, 
+		  				:omission => "..." %>
+		  		</section>
+		  		<section class="btn-formtastic"> 
+		  			<% if current_user?(post.user) %> 
+		  				<%#= link_to "", post, method: :delete,
+          					data: { confirm: "Are you sure? Once your post is deleted, all of its related ratings and scores will be erased, too." },
+          				title: "Delete Post", class: "icon-trash" %>
+        				<%#= link_to " ", edit_post_path(post), title: "Edit Post", class: "icon-edit" %>
+	           			<%= render partial: 'shared/rating_show_avg', locals: { local_object: post } %>
+	          		<% else %> 
+	            		<% if post.ratings.find_by_rater_id(current_user.id) %>
+	            			<%#= link_to "", post.ratings.find_by_rater_id(current_user.id), method: :delete, title: "Delete Rating", class: "icon-trash", data: { confirm: "Are you sure?" } %> 
+          					<%#= link_to "", edit_post_rating_path(post, post.rating_by(current_user)), title: "Edit Rating", class: "icon-edit" %>
+	              			<%= render partial: 'shared/rating_show_avg', 
+	              				locals: { local_object: post} %>
+	            		<% else %> 
+	            			<i class="icon-star-empty"></i>
+	              			<%= link_to "Answer?", new_post_rating_path(post) %>
+	              			<i class="icon-star-empty"></i>  
+	            		<% end %>
+	          		<% end %>		          	  
+		  		</section>
+			</div>
+		</li>
+	<% end %>
+</ul>
+<%#= will_paginate %>
+

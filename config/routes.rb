@@ -4,6 +4,7 @@ resources :users do
   member do
     get :following, :followers, :rated_posts, :posts
   end
+  collection { post :search, to: 'users#index' }
 end
 resources :sessions, only: [:new, :create, :destroy]
 resources :relationships, only: [:create, :destroy]
@@ -12,6 +13,7 @@ resources :posts do
   member do
     get :raters
   end
+  collection { post :search, to: 'posts#index' }
 end
 resources :ratings do
   member do

@@ -1,35 +1,56 @@
 <% provide(:title, 'All Members') %>
 <h1>All Shooloo Members</h1>
 
-<%= will_paginate %>
-	<table class="user-index">
-    	<tr>
-    		<th> Avatar </th>
-    		<th> Screen Name </th>
-    		<th> Grade </th>
-    		<th> Followings </th>
-    		<th> Followers</th>
-    		<th> Published Posts</th>
-    		<th> Rated Posts</th>
-    		<% if current_user.admin? && !current_user?(user) %>
-    			<th> </th>
-    		<% end %>
-    	</tr>    	
-  		<% @users.each do |user| %>
-	    	<tr> 
-	    		<td><%= image_tag user.avatar.url (:thumb) %></td>
-	    		<td><%= link_to user.screen_name, user %></td>
-	      		<td><%= user.grade %></td>
-	      		<td><%= user.followed_users.count %></td>
-	      		<td><%= user.followers.count %></td>
-	      		<td><%= user.posts.count %></td> 
-	      		<td><%= user.rated_posts.count %></td>  		
-	      		<% if current_user.admin? && !current_user?(user) %>
-	      			<td><%= link_to "delete", user, method: :delete, data: 
-	      				{confirm: "Are you sure?" }%></td>
-	      		<% end %>	      		
-	      	</tr>
-	    <% end %>	      
-    </table> 
+<%= search_form_for @search, url: search_users_path, method: :post do |f| %>
+	<div class="row">
+		<div class="span8 offset3" >
+			<span class="search-label">
+				<%= f.label :grade_cont, "Grade" %> 
+			</span>
+			<span class="search-field">
+				<%= f.select :grade_cont, options: ["", "Kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade", "Teacher", "Parent", "Tutor"]%>
+			</span>	
+			<span class="search-label">
+				<%= f.label :screen_name_cont, "Screen Name" %>
+			</span>
+			<span class="search-field">
+				<%= f.text_field :screen_name_cont %>
+			</span>	
+			<span class="search-label">
+				<%= f.submit "Search", class: "btn btn-small btn-default" %>
+			</span>
+		</div>
+	</div>
+<% end %>
+
+<table class="user-index">
+	<tr>
+		<th> Avatar </th>
+		<th> Screen Name </th>
+		<th> Grade </th>
+		<th> Followings </th>
+		<th> Followers</th>
+		<th> Published Posts</th>
+		<th> Rated Posts</th>
+		<% if current_user.admin? && !current_user?(user) %>
+			<th> </th>
+		<% end %>
+	</tr>    	
+	<% @users.each do |user| %>
+    	<tr> 
+    		<td><%= image_tag user.avatar.url (:thumb) %></td>
+    		<td><%= link_to user.screen_name, user %></td>
+      		<td><%= user.grade %></td>
+      		<td><%= user.followed_users.count %></td>
+      		<td><%= user.followers.count %></td>
+      		<td><%= user.posts.count %></td> 
+      		<td><%= user.rated_posts.count %></td>  		
+      		<% if current_user.admin? && !current_user?(user) %>
+      			<td><%= link_to "delete", user, method: :delete, data: 
+      				{confirm: "Are you sure?" }%></td>
+      		<% end %>	      		
+      	</tr>
+    <% end %>	      
+</table> 
 <%= will_paginate %>
 

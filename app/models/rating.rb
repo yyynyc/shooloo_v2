@@ -35,4 +35,6 @@ class Rating < ActiveRecord::Base
   validates_inclusion_of :overall_rating, in: [true, false]
   validates_associated :operations, presence: true
 
+  default_scope order: 'ratings.updated_at DESC'
+
 end

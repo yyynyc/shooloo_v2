@@ -3,12 +3,15 @@ class PostsController < ApplicationController
   before_filter :correct_user,   only: :destroy
   
   def index
+    @search = Post.search(params[:q])
+    @posts = @search.result.paginate(page: params[:page], per_page: 30)
+    @search.build_condition
   end
 
   def create
   	@post = current_user.posts.build(params[:post])
     #if params[:preview_button]
-      #render 'posts/preview'        
+      #render partial:'posts/preview'        
     #else
       if @post.save
         flash[:success] = "Good job! You have created a math problem."
@@ -26,13 +29,16 @@ class PostsController < ApplicationController
 
   def update
     @post = current_user.posts.find_by_id(params[:id])
-    if @post.update_attributes(params[:post])
+    #if params[:preview_button] || !@post.update_attributes(params[:post])
+      #render 'edit'
+    #else 
+    if     
+      @post.update_attributes(params[:post])
       flash[:success] = "You have upddated your post successfully!"
       redirect_to root_url
     else
       render 'edit'
     end
-
   end
 
   def destroy

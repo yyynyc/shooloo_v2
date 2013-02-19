@@ -2,8 +2,10 @@ class StaticPagesController < ApplicationController
   def home
   	if signed_in?
       @post  = current_user.posts.build
-      @feed_items = current_user.feed.paginate(page: params[:page])
+      @feed_items = current_user.feed.paginate(page: params[:page], order: "updated_at DESC")
       @rating=current_user.ratings.build 
+      #@search = @feed_items.search(params[:q])
+      #@feed_item = @search.result(:distinct => true)
     end
   end
 

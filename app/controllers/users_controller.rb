@@ -4,14 +4,19 @@ class UsersController < ApplicationController
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user, only: :destroy
 
-
   def new
   	@user = User.new
   end
 
+  def index
+    @search = User.search(params[:q])
+    @users = @search.result.paginate(page: params[:page], per_page: 30, order: 'screen_name ASC')
+    @search.build_condition
+  end
+
   def show
   	@user = User.find(params[:id])
-    @posts = @user.posts.paginate(page: params[:page])
+    @posts = @user.posts.paginate(page: params[:page], order: "updated_at DESC")
     @post = @user.posts.build(params[:post])
     @rating=current_user.ratings.build(params[:rating])
   end
@@ -38,10 +43,6 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
-  end
-
-  def index
-    @users = User.paginate(page: params[:page], per_page: 30, order: 'screen_name ASC')
   end
 
   def destroy

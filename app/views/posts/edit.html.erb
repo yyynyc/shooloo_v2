@@ -1,5 +1,8 @@
 <% provide(:title, "Edit Post") %> 
 <h1>Update Your Post</h1>
+<%# if params[:preview_button] %>
+  <%#= render partial 'posts/post_preview' %>
+<%# end %>
 
 <div class="row">
   <div class="span10 offset1">    
@@ -16,6 +19,7 @@
 		    <%= f.input :photo_remote_url, label: "Photo url" %>
 		<% end %>
 		<%= f.actions do %>
+			<%#= f.action :submit, label: "Preview", as: :button, button_html: { class: " btn btn-large btn-success" }, name: "preview_button" %>
         	<%= f.action :submit, label: "Update My Post", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>
       	<% end %> 
 	<% end %>

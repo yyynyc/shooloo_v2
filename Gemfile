@@ -12,6 +12,7 @@ gem 'formtastic'
 gem 'formtastic-bootstrap'
 gem 'pg'
 gem 'taps'
+gem 'ransack'
 
 
 group :development, :test do

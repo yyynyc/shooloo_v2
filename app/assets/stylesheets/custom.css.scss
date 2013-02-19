@@ -199,6 +199,18 @@ input {
   @extend .error;
  }
 
+ .search-label {
+  display: inline-block;
+ }
+
+ .search-field {
+  width: 100px; 
+  display: inline-block;  
+  margin-right: 1em; 
+  height: 1.5em;
+ }
+
+
  /* users index */
 
 .users {

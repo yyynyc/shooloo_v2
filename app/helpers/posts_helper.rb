@@ -1,7 +1,12 @@
 module PostsHelper
-	def wrap(content)
+  def content_excerpt(content)
+     return unless content
+     raw(truncate content, :length => 25, :omission => '...')
+  end
+
+  def wrap(content)
     sanitize(raw(content.split.map{ |s| wrap_long_string(s) }.join(' ')))
-  	end
+  end
 
   private
 

@@ -20,11 +20,11 @@ class Rating < ActiveRecord::Base
   belongs_to :rated_post, class_name: "Post"
   belongs_to :rater, class_name: "User"
 
-  has_many :operations
+  has_many :operations, order: "position"
   accepts_nested_attributes_for :operations
-  has_many :improvements
+  has_many :improvements, order: "position"
   accepts_nested_attributes_for :improvements
-  has_many :flags
+  has_many :flags, order: "position"
   accepts_nested_attributes_for :flags 
 
   validates :rated_post_id, presence: true

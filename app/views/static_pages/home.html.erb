@@ -12,7 +12,7 @@
       </section>
     </aside>
     <div class="span8 right-panel">
-      <h3 class="feed_item">Posts Published by Members that I Follow</h3>
+      <h3 class="feed_item">Posts Published by Members that I <%= link_to "Follow", "#", "id" => "follow", "rel" => "popover", "title" => "How to Follow Other Members", "data-content" => "Click on the Community section of the menu bar, check out member profiles, click the Follow button on their profile pagees, and their posts as well as your own will automatically show up on your home page." %></h3>
       <%= render 'shared/feed' %>
     </div>
   </div>  

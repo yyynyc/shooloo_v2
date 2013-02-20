@@ -13,6 +13,7 @@ gem 'formtastic-bootstrap'
 gem 'pg'
 gem 'taps'
 gem 'ransack'
+gem 'acts_as_list'
 
 
 group :development, :test do

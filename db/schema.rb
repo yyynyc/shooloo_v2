@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214204334) do
+ActiveRecord::Schema.define(:version => 20130220151834) do
 
   create_table "flags", :force => true do |t|
     t.text     "name"
     t.integer  "rating_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "position"
   end
 
   create_table "improvements", :force => true do |t|
@@ -25,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20130214204334) do
     t.integer  "rating_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "position"
   end
 
   create_table "operations", :force => true do |t|
@@ -32,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20130214204334) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "rating_id"
+    t.integer  "position"
   end
 
   create_table "posts", :force => true do |t|

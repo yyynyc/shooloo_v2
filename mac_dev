@@ -1,0 +1,1465 @@
+--
+-- PostgreSQL database cluster dump
+--
+
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+
+--
+-- Roles
+--
+
+CREATE ROLE "RobinMac";
+ALTER ROLE "RobinMac" WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION;
+CREATE ROLE shooloo;
+ALTER ROLE shooloo WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NOREPLICATION;
+CREATE ROLE yyynyc;
+ALTER ROLE yyynyc WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION;
+
+
+
+
+
+
+--
+-- Database creation
+--
+
+CREATE DATABASE shooloo_development WITH TEMPLATE = template0 OWNER = yyynyc;
+CREATE DATABASE shooloo_production WITH TEMPLATE = template0 OWNER = "RobinMac";
+CREATE DATABASE shooloo_test WITH TEMPLATE = template0 OWNER = yyynyc;
+REVOKE ALL ON DATABASE template1 FROM PUBLIC;
+REVOKE ALL ON DATABASE template1 FROM "RobinMac";
+GRANT ALL ON DATABASE template1 TO "RobinMac";
+GRANT ALL ON DATABASE template1 TO yyynyc;
+GRANT CONNECT ON DATABASE template1 TO PUBLIC;
+
+
+\connect postgres
+
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: postgres; Type: COMMENT; Schema: -; Owner: RobinMac
+--
+
+COMMENT ON DATABASE postgres IS 'default administrative connection database';
+
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: RobinMac
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM "RobinMac";
+GRANT ALL ON SCHEMA public TO "RobinMac";
+GRANT ALL ON SCHEMA public TO yyynyc;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+\connect shooloo_development
+
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: flags; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE flags (
+    id integer NOT NULL,
+    name text,
+    rating_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.flags OWNER TO yyynyc;
+
+--
+-- Name: flags_id_seq; Type: SEQUENCE; Schema: public; Owner: yyynyc
+--
+
+CREATE SEQUENCE flags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.flags_id_seq OWNER TO yyynyc;
+
+--
+-- Name: flags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yyynyc
+--
+
+ALTER SEQUENCE flags_id_seq OWNED BY flags.id;
+
+
+--
+-- Name: improvements; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE improvements (
+    id integer NOT NULL,
+    name text,
+    rating_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.improvements OWNER TO yyynyc;
+
+--
+-- Name: improvements_id_seq; Type: SEQUENCE; Schema: public; Owner: yyynyc
+--
+
+CREATE SEQUENCE improvements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.improvements_id_seq OWNER TO yyynyc;
+
+--
+-- Name: improvements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yyynyc
+--
+
+ALTER SEQUENCE improvements_id_seq OWNED BY improvements.id;
+
+
+--
+-- Name: operations; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE operations (
+    id integer NOT NULL,
+    name text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    rating_id integer
+);
+
+
+ALTER TABLE public.operations OWNER TO yyynyc;
+
+--
+-- Name: operations_id_seq; Type: SEQUENCE; Schema: public; Owner: yyynyc
+--
+
+CREATE SEQUENCE operations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.operations_id_seq OWNER TO yyynyc;
+
+--
+-- Name: operations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yyynyc
+--
+
+ALTER SEQUENCE operations_id_seq OWNED BY operations.id;
+
+
+--
+-- Name: posts; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE posts (
+    id integer NOT NULL,
+    question text,
+    answer character varying(255),
+    grade character varying(255),
+    user_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    attachment_file_name character varying(255),
+    attachment_content_type character varying(255),
+    attachment_file_size integer,
+    attachment_updated_at timestamp without time zone,
+    photo_file_name character varying(255),
+    photo_content_type character varying(255),
+    photo_file_size integer,
+    photo_updated_at timestamp without time zone,
+    category character varying(255)
+);
+
+
+ALTER TABLE public.posts OWNER TO yyynyc;
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE; Schema: public; Owner: yyynyc
+--
+
+CREATE SEQUENCE posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.posts_id_seq OWNER TO yyynyc;
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yyynyc
+--
+
+ALTER SEQUENCE posts_id_seq OWNED BY posts.id;
+
+
+--
+-- Name: ratings; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE ratings (
+    id integer NOT NULL,
+    rater_id integer,
+    rated_post_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    answer_correctness integer,
+    steps integer,
+    grade_suitability integer,
+    overall_rating boolean
+);
+
+
+ALTER TABLE public.ratings OWNER TO yyynyc;
+
+--
+-- Name: ratings_id_seq; Type: SEQUENCE; Schema: public; Owner: yyynyc
+--
+
+CREATE SEQUENCE ratings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ratings_id_seq OWNER TO yyynyc;
+
+--
+-- Name: ratings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yyynyc
+--
+
+ALTER SEQUENCE ratings_id_seq OWNED BY ratings.id;
+
+
+--
+-- Name: relationships; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE relationships (
+    id integer NOT NULL,
+    follower_id integer,
+    followed_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.relationships OWNER TO yyynyc;
+
+--
+-- Name: relationships_id_seq; Type: SEQUENCE; Schema: public; Owner: yyynyc
+--
+
+CREATE SEQUENCE relationships_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.relationships_id_seq OWNER TO yyynyc;
+
+--
+-- Name: relationships_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yyynyc
+--
+
+ALTER SEQUENCE relationships_id_seq OWNED BY relationships.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE schema_migrations (
+    version character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO yyynyc;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    first_name character varying(255),
+    email character varying(255),
+    email_confirmation character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    password_digest character varying(255),
+    remember_token character varying(255),
+    admin boolean DEFAULT false,
+    avatar_file_name character varying(255),
+    avatar_content_type character varying(255),
+    avatar_file_size integer,
+    avatar_updated_at timestamp without time zone,
+    screen_name character varying(255),
+    grade character varying(255),
+    last_name character varying(255)
+);
+
+
+ALTER TABLE public.users OWNER TO yyynyc;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: yyynyc
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO yyynyc;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yyynyc
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: yyynyc
+--
+
+ALTER TABLE ONLY flags ALTER COLUMN id SET DEFAULT nextval('flags_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: yyynyc
+--
+
+ALTER TABLE ONLY improvements ALTER COLUMN id SET DEFAULT nextval('improvements_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: yyynyc
+--
+
+ALTER TABLE ONLY operations ALTER COLUMN id SET DEFAULT nextval('operations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: yyynyc
+--
+
+ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: yyynyc
+--
+
+ALTER TABLE ONLY ratings ALTER COLUMN id SET DEFAULT nextval('ratings_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: yyynyc
+--
+
+ALTER TABLE ONLY relationships ALTER COLUMN id SET DEFAULT nextval('relationships_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: yyynyc
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Data for Name: flags; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY flags (id, name, rating_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: flags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yyynyc
+--
+
+SELECT pg_catalog.setval('flags_id_seq', 1, false);
+
+
+--
+-- Data for Name: improvements; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY improvements (id, name, rating_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: improvements_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yyynyc
+--
+
+SELECT pg_catalog.setval('improvements_id_seq', 1, false);
+
+
+--
+-- Data for Name: operations; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY operations (id, name, created_at, updated_at, rating_id) FROM stdin;
+\.
+
+
+--
+-- Name: operations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yyynyc
+--
+
+SELECT pg_catalog.setval('operations_id_seq', 1, false);
+
+
+--
+-- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY posts (id, question, answer, grade, user_id, created_at, updated_at, attachment_file_name, attachment_content_type, attachment_file_size, attachment_updated_at, photo_file_name, photo_content_type, photo_file_size, photo_updated_at, category) FROM stdin;
+1	teate	teate	1st grade	1	2013-02-19 19:52:19.558695	2013-02-19 19:52:19.558695	\N	\N	\N	\N	dating7.png	image/png	17744	2013-02-19 19:52:19.184899	animals/pets
+2	ateaet	teate	3rd grade	2	2013-02-19 19:54:45.521246	2013-02-19 19:54:45.521246	\N	\N	\N	\N	Friends-Forever-puppies-9460947-1600-1200.jpg	image/jpeg	308488	2013-02-19 19:54:44.649322	animals/pets
+\.
+
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yyynyc
+--
+
+SELECT pg_catalog.setval('posts_id_seq', 2, true);
+
+
+--
+-- Data for Name: ratings; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY ratings (id, rater_id, rated_post_id, created_at, updated_at, answer_correctness, steps, grade_suitability, overall_rating) FROM stdin;
+\.
+
+
+--
+-- Name: ratings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yyynyc
+--
+
+SELECT pg_catalog.setval('ratings_id_seq', 1, false);
+
+
+--
+-- Data for Name: relationships; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY relationships (id, follower_id, followed_id, created_at, updated_at) FROM stdin;
+1	2	1	2013-02-19 19:54:56.057169	2013-02-19 19:54:56.057169
+\.
+
+
+--
+-- Name: relationships_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yyynyc
+--
+
+SELECT pg_catalog.setval('relationships_id_seq', 1, true);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY schema_migrations (version) FROM stdin;
+20130214204334
+20130120151252
+20130120163043
+20130120163822
+20130120200951
+20130122010049
+20130122152345
+20130124153738
+20130125170544
+20130127170158
+20130130194629
+20130202232023
+20130204155058
+20130204235412
+20130205165852
+20130205165909
+20130205172229
+20130205175743
+20130205222848
+20130206161514
+20130210214505
+20130210215833
+20130210220610
+20130214191113
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY users (id, first_name, email, email_confirmation, created_at, updated_at, password_digest, remember_token, admin, avatar_file_name, avatar_content_type, avatar_file_size, avatar_updated_at, screen_name, grade, last_name) FROM stdin;
+1	Robin	a@yang.com	\N	2013-02-19 19:51:26.192751	2013-02-19 19:51:26.192751	$2a$10$JzCjiAyWnuLdGgge5jnly.zkaKvdyGheViCont5/Y26Qejz9jLS0G	QrxsV3U2MPJJuR_sci59dg	f	Elda2.png	image/png	87352	2013-02-19 19:51:24.611147	Elda_Hill	Teacher	Yang
+2	Robin	b@yang.com	\N	2013-02-19 19:53:38.750034	2013-02-19 19:53:38.750034	$2a$10$lAw.tr/FHa1jUB3HSApshO5.NWPC34aJfTtaiBshV1NU2bCF/GCTy	r8e7c4sHlieDGF3nB6hVSw	f	Elda2.png	image/png	87352	2013-02-19 19:53:38.389113	Elda1234	Tutor	Yang
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yyynyc
+--
+
+SELECT pg_catalog.setval('users_id_seq', 2, true);
+
+
+--
+-- Name: flags_pkey; Type: CONSTRAINT; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+ALTER TABLE ONLY flags
+    ADD CONSTRAINT flags_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: improvements_pkey; Type: CONSTRAINT; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+ALTER TABLE ONLY improvements
+    ADD CONSTRAINT improvements_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: operations_pkey; Type: CONSTRAINT; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+ALTER TABLE ONLY operations
+    ADD CONSTRAINT operations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: posts_pkey; Type: CONSTRAINT; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+ALTER TABLE ONLY posts
+    ADD CONSTRAINT posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+ALTER TABLE ONLY ratings
+    ADD CONSTRAINT ratings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: relationships_pkey; Type: CONSTRAINT; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+ALTER TABLE ONLY relationships
+    ADD CONSTRAINT relationships_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_posts_on_user_id_and_created_at; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE INDEX index_posts_on_user_id_and_created_at ON posts USING btree (user_id, created_at);
+
+
+--
+-- Name: index_ratings_on_rated_post_id; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE INDEX index_ratings_on_rated_post_id ON ratings USING btree (rated_post_id);
+
+
+--
+-- Name: index_ratings_on_rater_id; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE INDEX index_ratings_on_rater_id ON ratings USING btree (rater_id);
+
+
+--
+-- Name: index_relationships_on_followed_id; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE INDEX index_relationships_on_followed_id ON relationships USING btree (followed_id);
+
+
+--
+-- Name: index_relationships_on_follower_id; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE INDEX index_relationships_on_follower_id ON relationships USING btree (follower_id);
+
+
+--
+-- Name: index_relationships_on_follower_id_and_followed_id; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_relationships_on_follower_id_and_followed_id ON relationships USING btree (follower_id, followed_id);
+
+
+--
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE INDEX index_users_on_email ON users USING btree (email);
+
+
+--
+-- Name: index_users_on_remember_token; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE INDEX index_users_on_remember_token ON users USING btree (remember_token);
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: RobinMac
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM "RobinMac";
+GRANT ALL ON SCHEMA public TO "RobinMac";
+GRANT ALL ON SCHEMA public TO yyynyc;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+\connect shooloo_production
+
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: flags; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE flags (
+    id integer NOT NULL,
+    name text,
+    rating_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.flags OWNER TO yyynyc;
+
+--
+-- Name: flags_id_seq; Type: SEQUENCE; Schema: public; Owner: yyynyc
+--
+
+CREATE SEQUENCE flags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.flags_id_seq OWNER TO yyynyc;
+
+--
+-- Name: flags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yyynyc
+--
+
+ALTER SEQUENCE flags_id_seq OWNED BY flags.id;
+
+
+--
+-- Name: improvements; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE improvements (
+    id integer NOT NULL,
+    name text,
+    rating_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.improvements OWNER TO yyynyc;
+
+--
+-- Name: improvements_id_seq; Type: SEQUENCE; Schema: public; Owner: yyynyc
+--
+
+CREATE SEQUENCE improvements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.improvements_id_seq OWNER TO yyynyc;
+
+--
+-- Name: improvements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yyynyc
+--
+
+ALTER SEQUENCE improvements_id_seq OWNED BY improvements.id;
+
+
+--
+-- Name: operations; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE operations (
+    id integer NOT NULL,
+    name text,
+    rating_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.operations OWNER TO yyynyc;
+
+--
+-- Name: operations_id_seq; Type: SEQUENCE; Schema: public; Owner: yyynyc
+--
+
+CREATE SEQUENCE operations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.operations_id_seq OWNER TO yyynyc;
+
+--
+-- Name: operations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yyynyc
+--
+
+ALTER SEQUENCE operations_id_seq OWNED BY operations.id;
+
+
+--
+-- Name: posts; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE posts (
+    id integer NOT NULL,
+    question text,
+    answer character varying(255),
+    grade character varying(255),
+    user_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    photo_file_name character varying(255),
+    photo_content_type character varying(255),
+    photo_file_size integer,
+    photo_updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.posts OWNER TO yyynyc;
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE; Schema: public; Owner: yyynyc
+--
+
+CREATE SEQUENCE posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.posts_id_seq OWNER TO yyynyc;
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yyynyc
+--
+
+ALTER SEQUENCE posts_id_seq OWNED BY posts.id;
+
+
+--
+-- Name: ratings; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE ratings (
+    id integer NOT NULL,
+    rater_id integer,
+    rated_post_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    answer_correctness integer,
+    steps integer,
+    grade_suitability integer,
+    overall_rating boolean
+);
+
+
+ALTER TABLE public.ratings OWNER TO yyynyc;
+
+--
+-- Name: ratings_id_seq; Type: SEQUENCE; Schema: public; Owner: yyynyc
+--
+
+CREATE SEQUENCE ratings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ratings_id_seq OWNER TO yyynyc;
+
+--
+-- Name: ratings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yyynyc
+--
+
+ALTER SEQUENCE ratings_id_seq OWNED BY ratings.id;
+
+
+--
+-- Name: relationships; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE relationships (
+    id integer NOT NULL,
+    follower_id integer,
+    followed_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.relationships OWNER TO yyynyc;
+
+--
+-- Name: relationships_id_seq; Type: SEQUENCE; Schema: public; Owner: yyynyc
+--
+
+CREATE SEQUENCE relationships_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.relationships_id_seq OWNER TO yyynyc;
+
+--
+-- Name: relationships_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yyynyc
+--
+
+ALTER SEQUENCE relationships_id_seq OWNED BY relationships.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE schema_migrations (
+    version character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO yyynyc;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    first_name character varying(255),
+    email character varying(255),
+    email_confirmation character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    password_digest character varying(255),
+    remember_token character varying(255),
+    admin boolean DEFAULT false,
+    avatar_file_name character varying(255),
+    avatar_content_type character varying(255),
+    avatar_file_size integer,
+    avatar_updated_at timestamp without time zone,
+    screen_name character varying(255),
+    grade character varying(255),
+    last_name character varying(255)
+);
+
+
+ALTER TABLE public.users OWNER TO yyynyc;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: yyynyc
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO yyynyc;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: yyynyc
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: yyynyc
+--
+
+ALTER TABLE ONLY flags ALTER COLUMN id SET DEFAULT nextval('flags_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: yyynyc
+--
+
+ALTER TABLE ONLY improvements ALTER COLUMN id SET DEFAULT nextval('improvements_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: yyynyc
+--
+
+ALTER TABLE ONLY operations ALTER COLUMN id SET DEFAULT nextval('operations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: yyynyc
+--
+
+ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: yyynyc
+--
+
+ALTER TABLE ONLY ratings ALTER COLUMN id SET DEFAULT nextval('ratings_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: yyynyc
+--
+
+ALTER TABLE ONLY relationships ALTER COLUMN id SET DEFAULT nextval('relationships_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: yyynyc
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Data for Name: flags; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY flags (id, name, rating_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: flags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yyynyc
+--
+
+SELECT pg_catalog.setval('flags_id_seq', 1, false);
+
+
+--
+-- Data for Name: improvements; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY improvements (id, name, rating_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: improvements_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yyynyc
+--
+
+SELECT pg_catalog.setval('improvements_id_seq', 1, false);
+
+
+--
+-- Data for Name: operations; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY operations (id, name, rating_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: operations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yyynyc
+--
+
+SELECT pg_catalog.setval('operations_id_seq', 1, false);
+
+
+--
+-- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY posts (id, question, answer, grade, user_id, created_at, updated_at, photo_file_name, photo_content_type, photo_file_size, photo_updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yyynyc
+--
+
+SELECT pg_catalog.setval('posts_id_seq', 1, false);
+
+
+--
+-- Data for Name: ratings; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY ratings (id, rater_id, rated_post_id, created_at, updated_at, answer_correctness, steps, grade_suitability, overall_rating) FROM stdin;
+\.
+
+
+--
+-- Name: ratings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yyynyc
+--
+
+SELECT pg_catalog.setval('ratings_id_seq', 1, false);
+
+
+--
+-- Data for Name: relationships; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY relationships (id, follower_id, followed_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: relationships_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yyynyc
+--
+
+SELECT pg_catalog.setval('relationships_id_seq', 1, false);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY schema_migrations (version) FROM stdin;
+20130120151252
+20130120163043
+20130120163822
+20130120200951
+20130122010049
+20130122152345
+20130124153738
+20130125170544
+20130127170158
+20130130194629
+20130202232023
+20130204155058
+20130204235412
+20130205165852
+20130205165909
+20130205172229
+20130205175743
+20130205222848
+20130206161514
+20130210214505
+20130210215833
+20130210220610
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: yyynyc
+--
+
+COPY users (id, first_name, email, email_confirmation, created_at, updated_at, password_digest, remember_token, admin, avatar_file_name, avatar_content_type, avatar_file_size, avatar_updated_at, screen_name, grade, last_name) FROM stdin;
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yyynyc
+--
+
+SELECT pg_catalog.setval('users_id_seq', 1, false);
+
+
+--
+-- Name: flags_pkey; Type: CONSTRAINT; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+ALTER TABLE ONLY flags
+    ADD CONSTRAINT flags_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: improvements_pkey; Type: CONSTRAINT; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+ALTER TABLE ONLY improvements
+    ADD CONSTRAINT improvements_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: operations_pkey; Type: CONSTRAINT; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+ALTER TABLE ONLY operations
+    ADD CONSTRAINT operations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: posts_pkey; Type: CONSTRAINT; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+ALTER TABLE ONLY posts
+    ADD CONSTRAINT posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+ALTER TABLE ONLY ratings
+    ADD CONSTRAINT ratings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: relationships_pkey; Type: CONSTRAINT; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+ALTER TABLE ONLY relationships
+    ADD CONSTRAINT relationships_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_posts_on_user_id_and_created_at; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE INDEX index_posts_on_user_id_and_created_at ON posts USING btree (user_id, created_at);
+
+
+--
+-- Name: index_ratings_on_rated_post_id; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE INDEX index_ratings_on_rated_post_id ON ratings USING btree (rated_post_id);
+
+
+--
+-- Name: index_ratings_on_rater_id; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE INDEX index_ratings_on_rater_id ON ratings USING btree (rater_id);
+
+
+--
+-- Name: index_ratings_on_rater_id_and_rated_post_id; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_ratings_on_rater_id_and_rated_post_id ON ratings USING btree (rater_id, rated_post_id);
+
+
+--
+-- Name: index_relationships_on_followed_id; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE INDEX index_relationships_on_followed_id ON relationships USING btree (followed_id);
+
+
+--
+-- Name: index_relationships_on_follower_id; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE INDEX index_relationships_on_follower_id ON relationships USING btree (follower_id);
+
+
+--
+-- Name: index_relationships_on_follower_id_and_followed_id; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_relationships_on_follower_id_and_followed_id ON relationships USING btree (follower_id, followed_id);
+
+
+--
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE INDEX index_users_on_email ON users USING btree (email);
+
+
+--
+-- Name: index_users_on_remember_token; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE INDEX index_users_on_remember_token ON users USING btree (remember_token);
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: yyynyc; Tablespace: 
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: RobinMac
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM "RobinMac";
+GRANT ALL ON SCHEMA public TO "RobinMac";
+GRANT ALL ON SCHEMA public TO yyynyc;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+\connect shooloo_test
+
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: RobinMac
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM "RobinMac";
+GRANT ALL ON SCHEMA public TO "RobinMac";
+GRANT ALL ON SCHEMA public TO yyynyc;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+\connect template1
+
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: template1; Type: COMMENT; Schema: -; Owner: RobinMac
+--
+
+COMMENT ON DATABASE template1 IS 'default template for new databases';
+
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: RobinMac
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM "RobinMac";
+GRANT ALL ON SCHEMA public TO "RobinMac";
+GRANT ALL ON SCHEMA public TO yyynyc;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- PostgreSQL database cluster dump complete
+--
+

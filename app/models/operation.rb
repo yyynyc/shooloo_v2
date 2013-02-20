@@ -7,6 +7,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  rating_id  :integer
+#  position   :integer
 #
 
 class Operation < ActiveRecord::Base

@@ -18,3 +18,6 @@
 $(function ()  
 { $("#tips").popover({trigger: 'hover'});  
 });  
+$(function ()  
+{ $("#follow").popover({trigger: 'hover', placement: 'bottom'});  
+});  

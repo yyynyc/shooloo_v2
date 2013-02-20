@@ -1,7 +1,9 @@
 <% if signed_in? %>
 	<% url = user_path %>
+	<% save = "Update My Information" %>
 <% else %>
 	<% url = users_path %>
+	<% save = "Create My Account" %>
 <% end %>	
 	<%= semantic_form_for@user, :url => url, :html => { :multipart => true, :class => "form-horizontal-user" } do |f| %>
 		<%= render 'shared/error_messages', object: f.object %>
@@ -17,6 +19,6 @@
 			<%= f.input :avatar, as: :file, required: true %>    
 		<% end %>
 		<%= f.actions do %>
-			<%= f.action :submit, label: "Update My Information", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>
+			<%= f.action :submit, label: save, as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>
 		<% end %>
 	<% end %>

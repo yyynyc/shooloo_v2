@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130220151834) do
+ActiveRecord::Schema.define(:version => 20130221200712) do
 
   create_table "flags", :force => true do |t|
     t.text     "name"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(:version => 20130220151834) do
     t.string   "screen_name"
     t.string   "grade"
     t.string   "last_name"
+    t.string   "auth_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

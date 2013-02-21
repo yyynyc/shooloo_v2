@@ -49,7 +49,8 @@ class User < ActiveRecord::Base
   
   before_save { self.email.downcase! } 
   before_save :create_remember_token
-
+  before_save {self.first_name.capitalize!}
+  before_save {self.last_name.capitalize!}
 
   validates :first_name, presence: true, length: {maximum: 25}
   validates :last_name, presence: true, length: {maximum: 25}

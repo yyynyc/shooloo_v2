@@ -16,7 +16,7 @@
 //= require_tree .
 
 $(function ()  
-{ $("#tips").popover({trigger: 'hover'});  
+{ $("#tips").popover({trigger: 'hover', placement: 'bottom'});  
 });  
 $(function ()  
 { $("#follow").popover({trigger: 'hover', placement: 'bottom'});  

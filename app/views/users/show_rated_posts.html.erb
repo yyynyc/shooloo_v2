@@ -19,6 +19,11 @@
         		<%= render partial: 'shared/feed_item', collection: @rated_posts %>
       		</ol>
       		<%= will_paginate @rated_posts %>
+        <% else %>
+          
+          <section class="prompt">
+            <%= render text: "Jazz up with your profile with published posts of your own! Use the form on the left." %>
+          </section> 
      	<% end %>
   	</div>
 </div>

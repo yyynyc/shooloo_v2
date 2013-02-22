@@ -210,6 +210,17 @@ input {
   height: 1.5em;
  }
 
+ .sign-in-label {
+  display: inline-block;
+  width: 5em; 
+  padding-top: 1.5em;
+ }
+
+ .remember-label {
+  display: inline-block;
+  padding-top: 1em;
+ }
+
 
  /* users index */
 
@@ -246,6 +257,11 @@ input {
 
 .timestamp {
   color: $grayLight;
+}
+
+.image_host{
+  color: $grayLight;
+  font-size: 0.8em;
 }
 
 aside {

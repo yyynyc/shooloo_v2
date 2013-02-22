@@ -1,5 +1,7 @@
 ShoolooV2::Application.routes.draw do
 
+  get "password_resets/new"
+
 resources :users do
   member do
     get :following, :followers, :rated_posts, :posts
@@ -20,6 +22,7 @@ resources :ratings do
     get :operations, :improvements, :flags
   end
 end
+resources :password_resets
 
 
     root to: "static_pages#home"

@@ -22,7 +22,7 @@
 
 class Post < ActiveRecord::Base
   attr_accessible :answer, :grade, :question, 
-    :photo, :photo_remote_url, :category
+    :photo, :photo_remote_url, :image_host, :category
   attr_reader :photo_remote_url
   belongs_to :user
 
@@ -66,14 +66,11 @@ class Post < ActiveRecord::Base
     return if url_value.blank?
     self.photo = URI.parse(url_value)
     # Assuming url_value is http://example.com/photos/face.png
-    # avatar_file_name == "face.png"
-    # avatar_content_type == "image/png"
+    # photo_file_name == "face.png"
+    # photo_content_type == "image/png"
     @photo_remote_url = url_value
-  end
-
-  def photo_host(url_value)
-    url = URI.parse(url_value)
-    p url.host
+    url = URI(url_value)
+    self.image_host = url.host    
   end
 
   def rating_by(user)

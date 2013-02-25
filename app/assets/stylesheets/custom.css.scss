@@ -421,7 +421,7 @@ aside {
     width: 135px;
     border-right: 1px solid #A4A4A4;
     text-align: center;
-    line-height: 1em;
+    line-height: 0.9em;
     }
   }  
 }
@@ -472,9 +472,24 @@ aside {
   }   
 }
 
-feed-well {
+.feed-well {
   float: left; 
   text-indent: 10px;
+}
+
+.password-reset {
+  width: 21em;
+}
+
+.password-request-label {
+  display: inline-block; 
+  margin-right: 1em;
+}
+
+.password-request-email {
+  display: inline-block; 
+  width: 20em; 
+  margin-right: 1em;
 }
 
  

@@ -16,13 +16,12 @@
         <h3 class="feed_item"><%= @user.screen_name %>'s Rated Posts (<%= @user.rated_posts.count %>)</h3>
     	 <% if @user.rated_posts.any? %>      		      	
       		<ol class="posts">
-        		<%= render partial: 'shared/feed_item', collection: @rated_posts %>
+        		<%= render partial: 'shared/feed_item', collection: @rated_posts, order: 'ratings.updated_at DESC' %>
       		</ol>
       		<%= will_paginate @rated_posts %>
-        <% else %>
-          
+        <% else %>          
           <section class="prompt">
-            <%= render text: "Jazz up with your profile with published posts of your own! Use the form on the left." %>
+            <%= render text: "Search posts in the Community section and show your friends that you care about what they have to say." %>
           </section> 
      	<% end %>
   	</div>

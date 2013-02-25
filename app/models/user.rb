@@ -43,9 +43,9 @@ class User < ActiveRecord::Base
   has_many :followers, through: :reverse_relationships, source: :follower
 
   has_many :ratings, foreign_key: "rater_id", dependent: :destroy, 
-          order: "updated_at DESC"
+          order: "ratings.updated_at DESC"
   has_many :rated_posts, through: :ratings, source: :rated_post,
-          order: "updated_at DESC"
+          order: "ratings.updated_at DESC"
   
   before_save { self.email.downcase! } 
   before_save :create_remember_token
@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   def send_password_reset
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
-    save! validates: false
+    save! validate: false
     UserMailer.password_reset(self).deliver
   end
 

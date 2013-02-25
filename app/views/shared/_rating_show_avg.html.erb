@@ -7,7 +7,10 @@
     <div class="row">   
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
       <span class="modal-image">
-        <%= image_tag local_object.photo.url (:small) %>
+        <%= image_tag local_object.photo.url (:small) %><br/> 
+        <span style="font-size: 0.7em; line-height: -5em;">Image courtesy of<br/>
+          <%= local_object.image_host %>.
+        </span>                      
       </span>
       <!--<span class="modal-text"> 
         <section>         
@@ -66,25 +69,26 @@
         </table>      
       </p>
       <p>
-        <span class="rating"><strong>Suggested<br/>improvements:</strong>
-        </span>
-        <table class="table math">
+        <span class="rating"><strong>Number of steps <br />to solve problem: </strong></span>
+        <table class="table">
           <tr>
-            <td> Vocabulary </td>
-            <td> Grammer </td>
-            <td> Structure </td>  
-            <td> Concept Clarity </td> 
-            <td> Originality </td>                     
+            <td> 1 step</td>
+            <td> 2 steps </td>
+            <td> 3 steps </td>
+            <td> 4 steps</td>
+            <td> 5 steps</td>
+            <td> >5 steps</td>             
           </tr>
-          <tr>  
-            <td> <%= local_object.improvements.where(name: "vocabulary").count %> </td>
-            <td> <%= local_object.improvements.where(name: "grammer").count %>  </td>
-            <td> <%= local_object.improvements.where(name: "structure").count %> </td>
-            <td> <%= local_object.improvements.where(name: "concept clarity").count %> </td>  
-            <td> <%= local_object.improvements.where(name: "originality").count %> </td>                      
+          <tr>
+            <td> <%= local_object.ratings.where(steps: 1).count %> </td>
+            <td> <%= local_object.ratings.where(steps: 2).count %> </td>
+            <td> <%= local_object.ratings.where(steps: 3).count %> </td>
+            <td> <%= local_object.ratings.where(steps: 4).count %> </td>
+            <td> <%= local_object.ratings.where(steps: 5).count %> </td>
+            <td> <%= local_object.ratings.where(steps: 6).count %> </td>
           </tr>          
-        </table>
-      </p> 
+        </table>      
+      </p>
       <p>
         <span class="rating"><strong>Math operations: </strong></span>
         <table class="table math">
@@ -118,6 +122,26 @@
           </tr>          
         </table>           
       </p>
+       <p>
+        <span class="rating"><strong>Suggested<br/>improvements:</strong>
+        </span>
+        <table class="table math">
+          <tr>
+            <td> Vocabulary </td>
+            <td> Grammer </td>
+            <td> Structure </td>  
+            <td> Concept Clarity </td> 
+            <td> Originality </td>                     
+          </tr>
+          <tr>  
+            <td> <%= local_object.improvements.where(name: "vocabulary").count %> </td>
+            <td> <%= local_object.improvements.where(name: "grammer").count %>  </td>
+            <td> <%= local_object.improvements.where(name: "structure").count %> </td>
+            <td> <%= local_object.improvements.where(name: "concept clarity").count %> </td>  
+            <td> <%= local_object.improvements.where(name: "originality").count %> </td>                      
+          </tr>          
+        </table>
+      </p> 
       <p>
         <span class="rating"><strong>Red flags:</strong></span>
         <table class="table operation">

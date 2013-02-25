@@ -5,11 +5,11 @@
     <%=f.inputs do %>       
       <%= f.hidden_field :rated_post_id, :value => @post.id %>      
       <%= f.input :answer_correctness, as: :select, label: "Is the answer provided above appropariate?", 
-          collection: [["Right", 1], ["Wrong", 2], ["I don't know", 3], ["Not enough information to arrive at any answer", 4]], include_blank: true %>
-      <%= f.input :steps, as: :select, label: "How many steps does it take to solve this problem?", 
-          collection: [["1 step", 1], ["2 steps", 2], ["3 steps", 3], ["4 steps", 4], ["5 steps", 5], ["more than 5 steps", 6]], include_blank: true %>
+          collection: [["Right", 1], ["Wrong", 2], ["I don't know", 3], ["Not enough information to arrive at any answer", 4]], include_blank: true %>      
       <%= f.input :grade_suitability, as: :select, label: "Is this problem suitable for its intended grade?", 
           collection: [["No, it is BELOW grade", 1], ["Yes, it is just right", 2], ["No, it is ABOVE grade", 3]], include_blank: true %>
+      <%= f.input :steps, as: :select, label: "How many steps does it take to solve this problem?", 
+          collection: [["1 step", 1], ["2 steps", 2], ["3 steps", 3], ["4 steps", 4], ["5 steps", 5], ["more than 5 steps", 6]], include_blank: true %>
       <%= f.input :operations, label: "What math operations does this problem involve?", as: :check_boxes, required: true, rating_id: @rating.id, include_blank: false %>
       <%= f.input :improvements, label: "Which areas of this problem should be improved?", as: :check_boxes, rating_id: @rating.id, 
         include_blank: false %>

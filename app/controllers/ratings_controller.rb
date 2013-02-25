@@ -11,7 +11,6 @@ class RatingsController < ApplicationController
     end
 
     def create
-
         @rating=current_user.ratings.build(params[:rating])             
         if @rating.save
             flash[:success] = "Thank you for rating this post!" 

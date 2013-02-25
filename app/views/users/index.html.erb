@@ -32,7 +32,7 @@
 		<th> Followers</th>
 		<th> Published Posts</th>
 		<th> Rated Posts</th>
-		<% if current_user.admin? && !current_user?(user) %>
+		<% if current_user.admin? %>
 			<th> </th>
 		<% end %>
 	</tr>    	
@@ -45,7 +45,7 @@
       		<td><%= user.followers.count %></td>
       		<td><%= user.posts.count %></td> 
       		<td><%= user.rated_posts.count %></td>  		
-      		<% if current_user.admin? && !current_user?(user) %>
+      		<% if current_user.admin? %>
       			<td><%= link_to "delete", user, method: :delete, data: 
       				{confirm: "Are you sure?" }%></td>
       		<% end %>	      		

@@ -148,6 +148,10 @@ GEM
       net-ssh (>= 2.6.5)
     nokogiri (1.5.6)
     pg (0.12.2)
+    piwik_analytics (1.0.2)
+      actionpack
+      activesupport
+      rails (>= 3.0.0)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
@@ -272,6 +276,7 @@ DEPENDENCIES
   jquery-rails (= 2.0.2)
   paperclip!
   pg
+  piwik_analytics
   pry-rails
   rails (= 3.2.10)
   ransack

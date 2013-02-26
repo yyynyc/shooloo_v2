@@ -14,6 +14,7 @@ gem 'pg'
 gem 'taps'
 gem 'ransack'
 gem 'acts_as_list'
+gem 'piwik_analytics'
 
 
 group :development, :test do

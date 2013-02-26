@@ -264,6 +264,11 @@ input {
   font-size: 0.8em;
 }
 
+.image-host-large{
+  color: $grayLight;
+  font-size: 1em;
+}
+
 aside {
   textarea {
     height: 200px;
@@ -484,6 +489,7 @@ aside {
 .password-request-label {
   display: inline-block; 
   margin-right: 1em;
+  margin-top: 1em;
 }
 
 .password-request-email {

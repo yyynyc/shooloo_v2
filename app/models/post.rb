@@ -76,4 +76,15 @@ class Post < ActiveRecord::Base
   def rating_by(user)
     user.ratings.find_by_rated_post_id(self.id)
   end
+
+  #def get_rating_results
+    #rating_results = self.include(:ratings, :flags, :improvements, :operations).all
+    #{
+      #:overall_rating => { 
+
+        #},
+      #:grade_suitability => {},
+    #}
+    #return rating_results
+  #end
 end

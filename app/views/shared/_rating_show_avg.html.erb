@@ -21,6 +21,15 @@
       </span> 
     </div>
     <div class="well well-large"> -->
+    <%#=
+      - rating_results.each | row | 
+        span row.title
+        table
+          - row.data.each | entry |
+            td entry.title
+            td entry.value
+
+    %>
       <p>
         <span class="rating"><strong>Overall rating: </strong></span>
         <table class="table grade">

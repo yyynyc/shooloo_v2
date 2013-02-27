@@ -12,22 +12,22 @@
 production:
   piwik:
     id_site: 1
-    url: localhost
+    url: fun.shooloo.org/piwik
     use_async: false
     disabled: false
 
 development:
   piwik:
     id_site: 1
-    url: localhost
-    disabled: true
+    url: localhost/piwik
+    disabled: false
     use_async: false
     hostname: localhost
 
 test:
   piwik:
     id_site: 1
-    url: localhost
-    disabled: true
+    url: localhost/piwik
+    disabled: false
     use_async: false
     hostname: localhost

@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   
   def index
     @search = Post.search(params[:q])
-    @posts = @search.result.paginate(page: params[:page], per_page: 30)
+    @posts = @search.result.paginate(page: params[:page], per_page: 30, order: 'updated_at DESC')
     @search.build_condition
   end
 

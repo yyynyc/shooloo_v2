@@ -18,6 +18,7 @@
       <%= f.input :overall_rating, label: "Overall, your rating for this math problem is:", as: :radio, collection: [["Excellent work!", true], ["Needs improvements", false]], required: true %>    
     <% end %>
     <%= f.actions do %>
+    <i>&nbsp; &nbsp; &nbsp; * are required fields, the rests are optional.</i>
       <%= f.action :submit, as: :button, button_html: { class: "btn btn-formtastic btn-large btn-primary"} %>
     <% end %>  
   <% end %>  

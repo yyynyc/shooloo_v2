@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, 
   	uniqueness: { case_sensitive: false}
-  validates :email_confirmation, presence: true
+  #validates :email_confirmation, presence: true
   validates_confirmation_of :email
   
 
@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   def send_password_reset
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
-    save! validate: false
+    save!
     UserMailer.password_reset(self).deliver
   end
 

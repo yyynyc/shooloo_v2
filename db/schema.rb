@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130222194838) do
+ActiveRecord::Schema.define(:version => 20130301212609) do
 
   create_table "flags", :force => true do |t|
     t.text     "name"
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(:version => 20130222194838) do
     t.string   "answer"
     t.string   "grade"
     t.integer  "user_id"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20130222194838) do
     t.datetime "photo_updated_at"
     t.string   "category"
     t.string   "image_host"
+    t.integer  "answer_correctness_1_count"
   end
 
   add_index "posts", ["user_id", "created_at"], :name => "index_posts_on_user_id_and_created_at"

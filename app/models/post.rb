@@ -1,4 +1,3 @@
-# == Schema Information
 #
 # Table name: posts
 #
@@ -50,8 +49,8 @@ class Post < ActiveRecord::Base
   validates :category, presence: true
   validates_attachment_presence :photo
   validates_attachment_size :photo, :less_than => 5.megabytes
-  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf']
-  
+  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif']
+
   #default_scope order: 'posts.updated_at DESC'
 
   # Returns posts from the users being followed by the given user.
@@ -77,14 +76,10 @@ class Post < ActiveRecord::Base
     user.ratings.find_by_rated_post_id(self.id)
   end
 
-  #def get_rating_results
-    #rating_results = self.include(:ratings, :flags, :improvements, :operations).all
-    #{
-      #:overall_rating => { 
-
-        #},
-      #:grade_suitability => {},
-    #}
-    #return rating_results
-  #end
+#  after_save do 
+ #   Post.update.all([
+  #    "answer_correctness_1_count = select count (*) from ratings 
+   #     where post.id=? and answer_correctness=1", 
+    #  self.post.id])
+#  end
 end

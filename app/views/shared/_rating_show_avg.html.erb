@@ -12,24 +12,6 @@
           <%= local_object.image_host %>.
         </span>                      
       </span>
-      <!--<span class="modal-text"> 
-        <section>         
-          <strong>Question:</strong> <%= simple_format(local_object.question) %><br/> 
-          <strong>Answer: </strong><%= local_object.answer %><br/>
-            <strong>Intended grade: </strong><%= local_object.grade %>
-        </section>
-      </span> 
-    </div>
-    <div class="well well-large"> -->
-    <%#=
-      - rating_results.each | row | 
-        span row.title
-        table
-          - row.data.each | entry |
-            td entry.title
-            td entry.value
-
-    %>
       <p>
         <span class="rating"><strong>Overall rating: </strong></span>
         <table class="table grade">
@@ -70,7 +52,9 @@
             <td> Not Enough Info </td>            
           </tr>
           <tr>
-            <td> <%= local_object.ratings.where(answer_correctness: 1).count %> </td>
+            <td> <%#= local_object.answer_correctness_1_count %> 
+              <%= local_object.ratings.where(answer_correctness: 1).count %>
+            </td>
             <td> <%= local_object.ratings.where(answer_correctness: 2).count %> </td>
             <td> <%= local_object.ratings.where(answer_correctness: 3).count %> </td>
             <td> <%= local_object.ratings.where(answer_correctness: 4).count %> </td>

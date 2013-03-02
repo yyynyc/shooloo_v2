@@ -33,7 +33,8 @@ class Rating < ActiveRecord::Base
   validates :steps, presence: true
   validates :grade_suitability, presence: true
   validates_inclusion_of :overall_rating, in: [true, false]
-  validates_associated :operations, presence: true
+  validates_associated :operations
+  validates_presence_of :operations
 
   default_scope order: 'ratings.updated_at DESC'
 

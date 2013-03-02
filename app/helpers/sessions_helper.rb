@@ -15,7 +15,7 @@ def sign_in(user)
   end
 
   def current_user
-    @current_user ||= User.find_by_remember_token(cookies[:remember_token]) || User.find_by_auth_token!(cookies[:auth_token]) if cookies[:auth_token]
+    @current_user ||= User.find_by_remember_token(cookies[:remember_token]) #|| User.find_by_auth_token!(cookies[:auth_token]) if cookies[:auth_token]
   end  
 
   def current_user?(user)

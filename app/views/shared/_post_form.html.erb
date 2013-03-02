@@ -1,6 +1,6 @@
 <h4>Create my own <%= link_to "math problem", "#", "id" => "tips", "rel" => "popover", "title" => "Features of A Great Question", "data-content" => "The more steps it takes to solve your problem, the higher rating you will get. Your answer should include both numbers and units. Do not include any copyrighted materials." %>.</h4>
 
-<%= form_for @post, :url => posts_path, :html => { :multipart => true }  do |f| %>
+<%= form_for @post, :url => posts_path, :html => { :multipart => true, onsubmit: "$('button', this).attr('disabled','disabled')"} do |f| %>
   <%# if params[:preview_button] %>
     <%#= render partial: 'posts/preview' %>
   <%# end %>
@@ -25,6 +25,6 @@
     <%= f.text_field :photo_remote_url %>
   </div> 
   <%#= f.submit "Preiew", name: "preview_button", class: "btn btn-large btn-success" %>
-  <%= f.submit "Save", class: "btn btn-large btn-primary" %>
+  <%= f.submit "Save", class: "btn btn-large btn-primary"%>
 <% end %>
 

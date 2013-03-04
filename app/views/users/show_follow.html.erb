@@ -15,13 +15,13 @@
       <% end %>
     </section>
   </aside>
-  <div class="span8 right-panel">
+  <div class="span8">
     <h3><%= @title %></h3>
     <% if @users.any? %>
       <ul class="users">
         <%= render @users %>
       </ul>
-      <%= will_paginate %>
+      <%= will_paginate @users %>
     <% end %>
   </div>
 </div>

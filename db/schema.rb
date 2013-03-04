@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130301212609) do
+ActiveRecord::Schema.define(:version => 20130304195255) do
 
   create_table "flags", :force => true do |t|
     t.text     "name"
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(:version => 20130301212609) do
     t.string   "answer"
     t.string   "grade"
     t.integer  "user_id"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
@@ -55,6 +55,39 @@ ActiveRecord::Schema.define(:version => 20130301212609) do
     t.string   "category"
     t.string   "image_host"
     t.integer  "answer_correctness_1_count"
+    t.integer  "answer_correctness_2_count"
+    t.integer  "answer_correctness_3_count"
+    t.integer  "answer_correctness_4_count"
+    t.integer  "operation_whole_count"
+    t.boolean  "visible"
+    t.integer  "ratings_count"
+    t.integer  "overall_true_count"
+    t.integer  "overall_false_count"
+    t.integer  "grade_below_count"
+    t.integer  "grade_right_count"
+    t.integer  "grade_above_count"
+    t.integer  "steps_1_count"
+    t.integer  "steps_2_count"
+    t.integer  "steps_3_count"
+    t.integer  "steps_4_count"
+    t.integer  "steps_5_count"
+    t.integer  "steps_6_count"
+    t.integer  "operation_decimal_count"
+    t.integer  "operation_fraction_count"
+    t.integer  "operation_percentage_count"
+    t.integer  "operation_negative_count"
+    t.integer  "operation_addition_count"
+    t.integer  "operation_substraction_count"
+    t.integer  "operation_multiplication_count"
+    t.integer  "operation_division_count"
+    t.integer  "vocabulary_count"
+    t.integer  "grammar_count"
+    t.integer  "structure_count"
+    t.integer  "clarity_count"
+    t.integer  "originality_count"
+    t.integer  "plagerism_count"
+    t.integer  "content_count"
+    t.integer  "image_count"
   end
 
   add_index "posts", ["user_id", "created_at"], :name => "index_posts_on_user_id_and_created_at"

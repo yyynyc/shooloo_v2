@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   before_filter :correct_user,   only: :destroy
   
   def index
+    #@search = Post.visible.search(params[:q])
     @search = Post.search(params[:q])
     @posts = @search.result.paginate(page: params[:page], per_page: 30, order: 'updated_at DESC')
     @search.build_condition

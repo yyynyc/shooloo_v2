@@ -14,4 +14,13 @@ class Flag < ActiveRecord::Base
 	attr_accessible :rating_id, :name
   	belongs_to :rating
   	acts_as_list scope: :rating
+
+  	#attr_accessible :name
+  	#belongs_to :post
+  	#belongs_to :user
+
+  	#after_create do 
+  		#Post.update_all('visible=false',['id=?',self.post_id])
+  		
+  	#end
 end

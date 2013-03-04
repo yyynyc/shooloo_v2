@@ -15,9 +15,11 @@
       </span> -->
       <span class="btn-formtastic">
         <i class="icon-star"></i>
-        <%= feed_item.raters.count %>
+        <%= feed_item.ratings_count %>
+        <%#= feed_item.raters.count %>
         <i class="icon-thumbs-up"></i>
-        <%= feed_item.ratings.where(overall_rating: true).count %>
+        <%= feed_item.overall_true_count %>
+        <%#= feed_item.ratings.where(overall_rating: true).count %>
       </span>
     </div>       
     <section class="feed_content">

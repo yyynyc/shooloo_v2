@@ -7,11 +7,11 @@
     <section>
       <%= render 'shared/stats' %>
     </section>
-    <section class="left-panel">
+    <section>
       <%= render 'shared/post_form' %>
     </section>
 	</aside>
-	<div class="span8 right-panel">
+	<div class="span8">
       <%= render 'follow_form' if signed_in? %>
       <h3 class="feed_item"><%= @user.screen_name %>'s Published Posts (<%= @user.posts.count %>)</h3>           
     	<% if @user.posts.count == 0 %>

@@ -24,6 +24,10 @@ textarea {
   resize: vertical;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 .center {
   text-align: center;
   h1 {

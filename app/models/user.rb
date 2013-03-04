@@ -46,6 +46,7 @@ class User < ActiveRecord::Base
           order: "ratings.updated_at DESC"
   has_many :rated_posts, through: :ratings, source: :rated_post,
           order: "ratings.updated_at DESC"
+  has_many :flags
   
   before_save { self.email.downcase! } 
   before_save :create_remember_token
@@ -63,7 +64,6 @@ class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, 
   	uniqueness: { case_sensitive: false}
-  #validates :email_confirmation, presence: true
   validates_confirmation_of :email
   
 

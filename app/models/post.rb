@@ -41,6 +41,7 @@ class Post < ActiveRecord::Base
   has_many :improvements, through: :ratings
   has_many :operations, through: :ratings
   has_many :flags, through: :ratings
+  #has_many :flags
 
   validates :user_id, presence: true
   validates :question, presence: true
@@ -52,6 +53,10 @@ class Post < ActiveRecord::Base
   validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif']
 
   #default_scope order: 'posts.updated_at DESC'
+
+  #def initialize(options={})
+    #super({visible:true}.update(options))
+  #end
 
   # Returns posts from the users being followed by the given user.
   def self.from_users_followed_by(user)
@@ -75,11 +80,4 @@ class Post < ActiveRecord::Base
   def rating_by(user)
     user.ratings.find_by_rated_post_id(self.id)
   end
-
-#  after_save do 
- #   Post.update.all([
-  #    "answer_correctness_1_count = select count (*) from ratings 
-   #     where post.id=? and answer_correctness=1", 
-    #  self.post.id])
-#  end
 end

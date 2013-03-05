@@ -48,6 +48,8 @@
       		<% if current_user.admin? %>
       			<td><%= link_to "delete", user, method: :delete, data: 
       				{confirm: "Are you sure?" }%></td>
+  				<td><%= user.first_name %></td>
+  				<td><%= user.email %></td>
       		<% end %>	      		
       	</tr>
     <% end %>	      

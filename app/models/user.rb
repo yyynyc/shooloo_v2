@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
                   :small => "60x60#",
                   :thumb => "100x100#" }, 
       url: "/assets/posts/:id/:style/:basename.:extension",
-      path: ":rails_root/public/assets/posts/:id/:style/:basename.:extension"
+      path: ":rails_root/public/assets/users/:id/:style/:basename.:extension"
   
   has_secure_password
   has_many :posts, dependent: :destroy, order: "updated_at DESC"

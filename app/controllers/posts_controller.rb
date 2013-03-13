@@ -9,6 +9,11 @@ class PostsController < ApplicationController
     @search.build_condition
   end
 
+  def show
+    index
+    render :action => 'index'
+  end
+
   def create
   	@post = current_user.posts.build(params[:post])
     #if params[:preview_button]

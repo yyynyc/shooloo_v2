@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: 
-    [:index, :edit, :update, :destroy, :following, :followers, :rated_posts]
+  before_filter :signed_in_user
+  skip_before_filter :signed_in_user, only: [:new, :create]
+  #except: 
+    #[:index, :show, :edit, :update, :destroy, :following, :followers, :rated_posts]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user, only: :destroy
 

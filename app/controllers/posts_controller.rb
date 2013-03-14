@@ -1,12 +1,14 @@
 class PostsController < ApplicationController
-	before_filter :signed_in_user, only: [:create, :destroy]
+	before_filter :signed_in_user, only: [:create, :edit, :update, :destroy]
   before_filter :correct_user,   only: :destroy
   
   def index
-    #@search = Post.visible.search(params[:q])
-    @search = Post.search(params[:q])
-    @posts = @search.result.paginate(page: params[:page], per_page: 30, order: 'updated_at DESC')
+    @search = Post.visible.search(params[:q])
+    #@search = Post.search(params[:q])
+    @posts = @search.result.visible.paginate(page: params[:page], per_page: 30, order: 'updated_at DESC')
+    #@posts = @search.result.paginate(page: params[:page], per_page: 30, order: 'updated_at DESC')
     @search.build_condition
+    #@search.build_condition
   end
 
   def show

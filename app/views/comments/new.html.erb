@@ -1,0 +1,27 @@
+<% provide(:title, "Comment Post") %> 
+<%= render partial: 'posts/post_review' %> 
+<br/> 
+<h2> Comments </h2>	
+<ol class="posts">      		
+	<%= render @comments %>
+</ol>
+<%= will_paginate @comments %>
+
+<h2> Post A New Comment </h2>
+<%= form_for @comment, :url => post_comments_path, :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')"} do |f| %>
+  	<%= render 'shared/error_messages', object: f.object %>
+  	<span class="comment">
+    	<%= f.text_area :content %>
+    </span>
+    <span style="display: inline-block;">
+    	<%= f.label :photo, "Upload a photo of your solution here." %>  
+    </span>
+    <span style="line-height: 1em;">  
+    	<%= f.file_field :photo %>
+    </span>
+    <span style="float: right;">
+  		<%= f.submit "Submit Comment", class: "btn btn-large btn-primary"%>
+  	</span>
+<% end %>
+
+

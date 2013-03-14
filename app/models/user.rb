@@ -89,6 +89,8 @@ class User < ActiveRecord::Base
     Post.from_users_followed_by(self)
   end
 
+  scope :visible , where(visible:true)
+
   def following?(other_user)
     relationships.find_by_followed_id(other_user.id)
   end

@@ -1,0 +1,28 @@
+<% provide(:title, @title) %>
+<div class="row">
+  	<aside class="span4">
+      <section>
+        <%= render 'shared/user_info', current_user: @user %>
+      </section>
+      <section>
+        <%= render 'shared/stats' %>
+      </section>
+      <section>
+        <%= render 'shared/post_form' %>
+      </section>    
+	  </aside>
+	<div class="span8">
+      <%= render 'follow_form' if signed_in? %>
+        <h3 class="feed_item"><%= @user.screen_name %>'s Commented Posts (<%= @user.commented_posts.count %>)</h3>
+    	 <% if @user.commented_posts.any? %>      		      	
+      		<ol class="posts">
+        		<%= render partial: 'shared/feed_item', collection: @commented_posts, order: 'comments.created_at DESC' %>
+      		</ol>
+      		<%= will_paginate @commented_posts %>
+        <% else %>          
+          <section class="prompt">
+            <%= render text: "Search posts in the Community section and show your friends that you care about what they have to say." %>
+          </section> 
+     	<% end %>
+  	</div>
+</div>

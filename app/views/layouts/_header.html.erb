@@ -23,6 +23,8 @@
                   <ul class="dropdown-menu">
                     <li><%= link_to "My Published Posts", current_user %></li>
                     <li><%= link_to "My Rated Posts", rated_posts_user_path(current_user) %></li>
+                    <li><%= link_to "My Commented Posts", commented_posts_user_path(current_user) %></li>
+                    <li><%= link_to "My hidden Posts", alarms_path %></li>
                     <li><%= link_to "My Information", edit_user_path(current_user) %></li>
                     <li class="divider"></li>
                     <li>

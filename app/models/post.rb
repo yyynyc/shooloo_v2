@@ -114,10 +114,19 @@ class Post < ActiveRecord::Base
 
   #default_scope order: 'posts.updated_at DESC'
 
-  has_one :alarm, foreign_key: "alarmed_post_id", dependent: :destroy
-  #def initialize(options={})
-    #super({visible:true}.update(options))
-  #end
+  has_many :alarms, foreign_key: "alarmed_post_id", dependent: :destroy
+  def after_initialize
+    @visible = true if @visible.nil?
+  end
+
+  def self.visible
+    where(:visible=>true)
+  end
+
+  def self.hidden
+    where(:visible=>false)
+  end
+  
 
   # Returns posts from the users being followed by the given user.
   def self.from_users_followed_by(user)

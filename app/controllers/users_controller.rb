@@ -18,9 +18,12 @@ class UsersController < ApplicationController
 
   def show
   	@user = User.find(params[:id])
-    @posts = @user.posts.paginate(page: params[:page], order: "updated_at DESC")
+    @posts = @user.posts.visible.paginate(page: params[:page], order: "updated_at DESC")
     @post = @user.posts.build(params[:post])
     @rating=current_user.ratings.build(params[:rating])
+    @alarm = current_user.alarms.build
+#    @comments = @user.comments.paginate(page: params[:page], oreder: "created_at DESC")
+#    @comment = current_user.comments.build(params[:comment])
   end
 
   def create
@@ -70,10 +73,30 @@ class UsersController < ApplicationController
   def rated_posts
     @title = "Rated Posts"
     @user = User.find(params[:id])
-    @rated_posts = @user.rated_posts.paginate(page: params[:page])
+    @rated_posts = @user.rated_posts.visible.paginate(page: params[:page])
     @rating=current_user.ratings.build(params[:rating])
     @post  = current_user.posts.build
+    @alarm = current_user.alarms.build
     render 'show_rated_posts'
+  end
+
+  def commented_posts
+    @title = "Commented Posts"
+    @user = User.find(params[:id])
+    @commented_posts = @user.commented_posts.visible.paginate(page: params[:page])
+    @comment=current_user.comments.build(params[:comment])
+    @post  = current_user.posts.build
+    @alarm = current_user.alarms.build
+    render 'show_commented_posts'
+  end
+
+  def hidden_posts
+    @title = "Hidden Posts"
+    @user = User.find(params[:id])
+    @posts = @user.posts.hidden.paginate(page: params[:page], order: "updated_at DESC")
+    @alarm=current_user.alarms.build(params[:alarm])
+    @post  = current_user.posts.build
+    render 'show_alarmed_posts'
   end
 
   private

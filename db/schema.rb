@@ -11,7 +11,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130304195255) do
+ActiveRecord::Schema.define(:version => 20130314220452) do
+
+  create_table "alarms", :force => true do |t|
+    t.integer  "alarmed_post_id"
+    t.integer  "alarmed_comment_id"
+    t.integer  "alarmer_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "alarms", ["alarmed_comment_id"], :name => "index_alarms_on_alarmed_comment_id"
+  add_index "alarms", ["alarmed_post_id"], :name => "index_alarms_on_alarmed_post_id"
+  add_index "alarms", ["alarmer_id"], :name => "index_alarms_on_alarmer_id"
+
+  create_table "comments", :force => true do |t|
+    t.text     "content"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.integer  "commenter_id"
+    t.integer  "commented_post_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "comments", ["commenter_id", "created_at"], :name => "index_comments_on_commenter_id_and_created_at"
 
   create_table "flags", :force => true do |t|
     t.text     "name"
@@ -88,6 +114,7 @@ ActiveRecord::Schema.define(:version => 20130304195255) do
     t.integer  "plagerism_count"
     t.integer  "content_count"
     t.integer  "image_count"
+    t.integer  "comments_count"
   end
 
   add_index "posts", ["user_id", "created_at"], :name => "index_posts_on_user_id_and_created_at"

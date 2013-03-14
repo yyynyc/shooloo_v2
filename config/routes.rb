@@ -4,7 +4,7 @@ ShoolooV2::Application.routes.draw do
 
 resources :users do
   member do
-    get :following, :followers, :rated_posts, :posts
+    get :following, :followers, :rated_posts, :posts, :commented_posts
   end
   collection { post :search, to: 'users#index' }
 end
@@ -12,6 +12,10 @@ resources :sessions, only: [:new, :create, :destroy]
 resources :relationships, only: [:create, :destroy]
 resources :posts do
   resources :ratings 
+  resources :comments do
+    resources :alarms
+  end
+  resources :alarms
   member do
     get :raters
   end
@@ -23,6 +27,8 @@ resources :ratings do
   end
 end
 resources :password_resets
+resources :comments
+resources :alarms
 
 
     root to: "static_pages#home"

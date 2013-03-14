@@ -20,6 +20,8 @@
         <i class="icon-thumbs-up"></i>
         <%= feed_item.overall_true_count %>
         <%#= feed_item.ratings.where(overall_rating: true).count %>
+        <i class="icon-comment"></i>
+        <%= feed_item.comments_count %>
       </span>
     </div>       
     <section class="feed_content">
@@ -51,7 +53,10 @@
                 <%= link_to "Answer?", new_post_rating_path(feed_item), class: "btn btn-small btn-warning" %>     
               <%#= render partial: 'posts/rating_form', locals: { local_object: feed_item } %>
             <% end %>
-          <% end %>        
+          <% end %> 
+          <%= link_to "Comment", new_post_comment_path(feed_item), class: "btn btn-small btn-success" %>   
+          <%= render partial: 'alarms/alarm', locals: {post:feed_item} %>
+          <%#= link_to "Alarm", new_post_alarm_path(feed_item), class: "btn btn-small btn-warning" %>      
         </span>
       </div>
     </section>

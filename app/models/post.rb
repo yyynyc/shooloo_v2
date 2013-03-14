@@ -1,3 +1,60 @@
+# == Schema Information
+#
+# Table name: posts
+#
+#  id                             :integer          not null, primary key
+#  question                       :text
+#  answer                         :string(255)
+#  grade                          :string(255)
+#  user_id                        :integer
+#  created_at                     :datetime         not null
+#  updated_at                     :datetime         not null
+#  attachment_file_name           :string(255)
+#  attachment_content_type        :string(255)
+#  attachment_file_size           :integer
+#  attachment_updated_at          :datetime
+#  photo_file_name                :string(255)
+#  photo_content_type             :string(255)
+#  photo_file_size                :integer
+#  photo_updated_at               :datetime
+#  category                       :string(255)
+#  image_host                     :string(255)
+#  answer_correctness_1_count     :integer
+#  answer_correctness_2_count     :integer
+#  answer_correctness_3_count     :integer
+#  answer_correctness_4_count     :integer
+#  operation_whole_count          :integer
+#  visible                        :boolean
+#  ratings_count                  :integer
+#  overall_true_count             :integer
+#  overall_false_count            :integer
+#  grade_below_count              :integer
+#  grade_right_count              :integer
+#  grade_above_count              :integer
+#  steps_1_count                  :integer
+#  steps_2_count                  :integer
+#  steps_3_count                  :integer
+#  steps_4_count                  :integer
+#  steps_5_count                  :integer
+#  steps_6_count                  :integer
+#  operation_decimal_count        :integer
+#  operation_fraction_count       :integer
+#  operation_percentage_count     :integer
+#  operation_negative_count       :integer
+#  operation_addition_count       :integer
+#  operation_substraction_count   :integer
+#  operation_multiplication_count :integer
+#  operation_division_count       :integer
+#  vocabulary_count               :integer
+#  grammar_count                  :integer
+#  structure_count                :integer
+#  clarity_count                  :integer
+#  originality_count              :integer
+#  plagerism_count                :integer
+#  content_count                  :integer
+#  image_count                    :integer
+#
+
 #
 # Table name: posts
 #
@@ -31,18 +88,21 @@ class Post < ActiveRecord::Base
                 :medium => "250x250>",
                 :small => "150x150>",
                 :thumb => "100x100>" }, 
-    url: "/assets/posts/:id/:style/:basename.:extension",
-    path: ":rails_root/public/assets/posts/:id/:style/:basename.:extension"
+    url: "/attachments/posts/:id/:style/:basename.:extension",
+    path: ":rails_root/public/attachments/posts/:id/:style/:basename.:extension"
 
   has_many :ratings, foreign_key: "rated_post_id", dependent: :destroy, 
           order: "ratings.updated_at DESC"
   has_many :raters, through: :ratings, source: :rater
 
+  has_many :comments, foreign_key: "commented_post_id", dependent: :destroy, 
+          order: "comments.updated_at DESC"
+  has_many :commenters, through: :comments, source: :commenter
+
   has_many :improvements, through: :ratings
   has_many :operations, through: :ratings
   has_many :flags, through: :ratings
-  #has_many :flags
-
+  
   validates :user_id, presence: true
   validates :question, presence: true
   validates :answer, presence: true, length: {maximum: 100}
@@ -54,6 +114,7 @@ class Post < ActiveRecord::Base
 
   #default_scope order: 'posts.updated_at DESC'
 
+  has_one :alarm, foreign_key: "alarmed_post_id", dependent: :destroy
   #def initialize(options={})
     #super({visible:true}.update(options))
   #end

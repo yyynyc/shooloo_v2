@@ -2,22 +2,25 @@
 #
 # Table name: users
 #
-#  id                  :integer          not null, primary key
-#  first_name          :string(255)
-#  email               :string(255)
-#  email_confirmation  :string(255)
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  password_digest     :string(255)
-#  remember_token      :string(255)
-#  admin               :boolean          default(FALSE)
-#  avatar_file_name    :string(255)
-#  avatar_content_type :string(255)
-#  avatar_file_size    :integer
-#  avatar_updated_at   :datetime
-#  screen_name         :string(255)
-#  grade               :string(255)
-#  last_name           :string(255)
+#  id                     :integer          not null, primary key
+#  first_name             :string(255)
+#  email                  :string(255)
+#  email_confirmation     :string(255)
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  password_digest        :string(255)
+#  remember_token         :string(255)
+#  admin                  :boolean          default(FALSE)
+#  avatar_file_name       :string(255)
+#  avatar_content_type    :string(255)
+#  avatar_file_size       :integer
+#  avatar_updated_at      :datetime
+#  screen_name            :string(255)
+#  grade                  :string(255)
+#  last_name              :string(255)
+#  auth_token             :string(255)
+#  password_reset_token   :string(255)
+#  password_reset_sent_at :datetime
 #
 
 class User < ActiveRecord::Base
@@ -30,8 +33,8 @@ class User < ActiveRecord::Base
                   :medium => "250x250>",
                   :small => "60x60#",
                   :thumb => "100x100#" }, 
-      url: "/assets/posts/:id/:style/:basename.:extension",
-      path: ":rails_root/public/assets/users/:id/:style/:basename.:extension"
+      url: "/attachments/users/:id/:style/:basename.:extension",
+      path: ":rails_root/public/attachments/users/:id/:style/:basename.:extension"
   
   has_secure_password
   has_many :posts, dependent: :destroy, order: "updated_at DESC"
@@ -46,7 +49,15 @@ class User < ActiveRecord::Base
           order: "ratings.updated_at DESC"
   has_many :rated_posts, through: :ratings, source: :rated_post,
           order: "ratings.updated_at DESC"
-  has_many :flags
+ 
+  has_many :comments, foreign_key: "commenter_id", dependent: :destroy, 
+          order: "comments.created_at DESC"
+  has_many :commented_posts, through: :comments, source: :commented_post,
+          order: "comments.created_at DESC"
+
+  has_many :alarms, foreign_key: "alarmer_id"
+  has_many :alarmed_posts, through: :alarms
+  has_many :alarmed_comments, through: :alarms
   
   before_save { self.email.downcase! } 
   before_save :create_remember_token

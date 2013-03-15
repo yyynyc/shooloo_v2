@@ -83,7 +83,8 @@ class UsersController < ApplicationController
   def commented_posts
     @title = "Commented Posts"
     @user = User.find(params[:id])
-    @commented_posts = @user.posts.with_comments.visible.paginate(page: params[:page])
+    #@commented_posts = @user.posts.with_comments.visible.paginate(page: params[:page])
+    @commented_posts = @user.commented_posts.visible.paginate(page: params[:page])
     @comment=current_user.comments.build(params[:comment])
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build

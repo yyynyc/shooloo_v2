@@ -28,10 +28,7 @@ class User < ActiveRecord::Base
     :first_name, :last_name, :grade, 
     :password, :password_confirmation, :avatar
   has_attached_file :avatar, 
-    :styles => { 
-                  :large => "600x600>", 
-                  :medium => "250x250>",
-                  :small => "60x60#",
+    :styles => {  :small => "60x60#",
                   :thumb => "100x100#" }, 
       url: "/attachments/users/:id/:style/:basename.:extension",
       path: ":rails_root/public/attachments/users/:id/:style/:basename.:extension"
@@ -88,8 +85,6 @@ class User < ActiveRecord::Base
   def feed
     Post.from_users_followed_by(self)
   end
-
-  scope :visible , where(visible:true)
 
   def following?(other_user)
     relationships.find_by_followed_id(other_user.id)

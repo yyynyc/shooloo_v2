@@ -1,29 +1,31 @@
 class CommentsController < ApplicationController
 
 	def index
+
     end
 
     def new
         @comment = Comment.new
         @post  = Post.find_by_id(params[:post_id]) 
         @comments = @post.comments.paginate(page: params[:page], per_page: 5, 
-            order: 'created_at DESC')      
+            order: 'created_at DESC') 
+
     end
 
     def create
-           @post  = Post.find(params[:post_id])
-         @comment=current_user.comments.build(params[:comment])
-         @comment.commented_post=@post            
+        @post  = Post.find(params[:post_id])
+        @comment=current_user.comments.build(params[:comment])
+        @comment.commented_post=@post            
         if @comment.save
             flash[:success] = "Thank you for commenting this post!" 
-         @comments = @post.comments.paginate(page: params[:page], per_page: 5, 
-            order: 'created_at DESC')      
+            @comments = @post.comments.paginate(page: params[:page], per_page: 5, 
+                order: 'created_at DESC')      
             render 'new'
         else 
             raise "you need a post" if @post.nil?
-          @comments = @post.comments.paginate(page: params[:page], per_page: 5, 
-            order: 'created_at DESC')      
-          render 'new'     
+            @comments = @post.comments.paginate(page: params[:page], per_page: 5, 
+                order: 'created_at DESC')      
+            render 'new'     
         end            
     end
 

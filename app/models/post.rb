@@ -126,7 +126,6 @@ class Post < ActiveRecord::Base
   def self.hidden
     where(:visible=>false)
   end
-  
 
   # Returns posts from the users being followed by the given user.
   def self.from_users_followed_by(user)

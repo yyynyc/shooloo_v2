@@ -3,6 +3,6 @@
 	<%= image_tag comment.photo.url (:medium) %> 
 	<%= link_to comment.commenter.screen_name, comment.commenter %> commented
 	<%= time_ago_in_words(comment.created_at) %> ago.
-	<%= image_tag comment.commenter.avatar.url (:thumb) %> 
+	<%= image_tag comment.commenter.avatar.url (:small) %> 
 </ol>
  

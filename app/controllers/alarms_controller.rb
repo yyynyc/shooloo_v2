@@ -2,7 +2,16 @@ class AlarmsController < ApplicationController
 	before_filter :signed_in_user
 
 	def index
-		@alarms = current_user.posts.hidden.all
+		@user = current_user
+		@post = Post.new
+		@alarms = @alarmed_posts = current_user.posts.hidden
+		@alarmed_posts = @alarms.paginate(page: params[:page], per_page: 30)
+		if @alarms.empty?
+			@alarmed_post = Post.new
+		else
+			@alarmed_post = @alarms.first
+		end
+		@alarm = Alarm.new
         render 'users/show_alarmed_posts'
 	end
 

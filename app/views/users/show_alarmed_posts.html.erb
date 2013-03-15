@@ -1,0 +1,28 @@
+<% provide(:title, @title) %>
+<div class="row">
+  	<aside class="span4">
+      <section>
+        <%= render 'shared/user_info', current_user: @user %>
+      </section>
+      <section>
+        <%= render 'shared/stats' %>
+      </section>
+      <section>
+        <%= render 'shared/post_form' %>
+      </section>    
+	  </aside>
+	<div class="span8">
+      <%= render 'users/follow_form' if signed_in? %>
+        <h3 class="feed_item"><%= @user.screen_name %>'s Hidden Posts on Which Alarms Have Been Raised (<%= @alarmed_posts.count %>)</h3>
+    	 <% if current_user = @alarmed_post.user %>      		      	
+      		<ol class="posts">
+        		<%= render partial: 'shared/feed_item', collection: @alarmed_posts, order: 'comments.created_at DESC' %>
+      		</ol>
+      		<%= will_paginate @alarmed_posts %>
+        <% else %>          
+          <section class="prompt">
+            <%= render text: "All of your published posts are clean. Keep up with your good work!" %>
+          </section> 
+     	<% end %>
+  	</div>
+</div>

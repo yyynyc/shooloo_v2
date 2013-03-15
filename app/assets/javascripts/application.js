@@ -20,4 +20,7 @@ $(function ()
 });  
 $(function ()  
 { $("#follow").popover({trigger: 'hover', placement: 'bottom'});  
-});  
+}); 
+$(function ()  
+{ $("#hidden").popover({trigger: 'hover', placement: 'bottom'});  
+}); 

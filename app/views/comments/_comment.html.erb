@@ -1,8 +1,27 @@
-<ol class="posts">      		
-	<%= wrap(simple_format(comment.content)) %>              
-	<%= image_tag comment.photo.url (:medium) %> 
-	<%= link_to comment.commenter.screen_name, comment.commenter %> commented
-	<%= time_ago_in_words(comment.created_at) %> ago.
-	<%= image_tag comment.commenter.avatar.url (:small) %> 
+<ol class="posts">
+	<div class= "row">
+		<div class="span1">
+			<%= image_tag comment.commenter.avatar.url (:small) %> 
+		</div>
+		<div style="margin: -.1em 0em 1em 7em;">
+			<span style="float:right;"> 
+				<% unless comment.photo_file_name.nil? %>             
+					<%= image_tag comment.photo.url (:small) %> 
+				<% end %>
+			</span>
+			<span>				
+				<%= link_to comment.commenter.screen_name, comment.commenter %> 
+				<span class="timestamp"> commented </span>
+				<%= time_ago_in_words(comment.created_at) %> ago.
+				<% if current_user?(comment.commenter) %> 
+	            	<%= link_to "", comment, method: :delete,
+	              data: { confirm: "Delete comemnt. Are you sure?" },
+	              title: "Delete comment", class: "icon-trash" %>
+	            <% end %>				
+				<%= wrap(simple_format(comment.content)) %>	
+				<%= render partial: 'alarms/alarm_comment', locals: {post: comment.commented_post, comment:comment} %>			
+			</span>			
+		</div>
+	</div>  
 </ol>
  

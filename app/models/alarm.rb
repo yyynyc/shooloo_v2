@@ -5,6 +5,10 @@ class Alarm < ActiveRecord::Base
   belongs_to :alarmer, class_name: "User"
 
   after_save do 
-    Post.update_all(["visible=?", false], ['id=?',self.alarmed_post.id])
+  	if self.alarmed_post
+    	Post.update_all(["visible=?", false], ['id=?',self.alarmed_post.id])
+    elsif self.alarmed_comment
+    	Comment.update_all(['visible=?', false],['id=?',self.alarmed_comment.id])
+    end
   end
 end

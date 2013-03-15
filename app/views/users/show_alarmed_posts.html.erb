@@ -13,7 +13,7 @@
 	  </aside>
 	<div class="span8">
       <%= render 'users/follow_form' if signed_in? %>
-        <h3 class="feed_item"><%= @user.screen_name %>'s Hidden Posts on Which Alarms Have Been Raised (<%= @alarmed_posts.count %>)</h3>
+        <h3 class="feed_item"><%= @user.screen_name %>'s <%= link_to "Hidden", "#", "id" => "hidden", "rel" => "popover", "title" => "Why Are Posts Hidden", "data-content" => "These posts are hidden from the public view because they have one or more of the following: offensive image, offensive content, watermarked image, or plagerised content. You can republish the post with clean image and content using the form on the left." %> Posts (<%= @alarmed_posts.count %>)</h3>
     	 <% if current_user = @alarmed_post.user %>      		      	
       		<ol class="posts">
         		<%= render partial: 'shared/feed_item', collection: @alarmed_posts, order: 'comments.created_at DESC' %>

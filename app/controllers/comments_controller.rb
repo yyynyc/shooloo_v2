@@ -7,9 +7,9 @@ class CommentsController < ApplicationController
     def new
         @comment = Comment.new
         @post  = Post.find_by_id(params[:post_id]) 
-        @comments = @post.comments.paginate(page: params[:page], per_page: 5, 
-            order: 'created_at DESC') 
-
+        @comments = @post.comments.visible.paginate(page: params[:page], per_page: 5, 
+            order: 'created_at DESC')
+        @alarm = Alarm.new
     end
 
     def create
@@ -18,12 +18,12 @@ class CommentsController < ApplicationController
         @comment.commented_post=@post            
         if @comment.save
             flash[:success] = "Thank you for commenting this post!" 
-            @comments = @post.comments.paginate(page: params[:page], per_page: 5, 
+            @comments = @post.comments.visible.paginate(page: params[:page], per_page: 5, 
                 order: 'created_at DESC')      
-            render 'new'
+            redirect_to new_post_comment_path(@post)
         else 
             raise "you need a post" if @post.nil?
-            @comments = @post.comments.paginate(page: params[:page], per_page: 5, 
+            @comments = @post.comments.visible.paginate(page: params[:page], per_page: 5, 
                 order: 'created_at DESC')      
             render 'new'     
         end            
@@ -50,8 +50,9 @@ class CommentsController < ApplicationController
     end
 
     def destroy
+        @comment = current_user.comments.find(params[:id])
         @comment.destroy
-        redirect_to root_url
+        redirect_to new_post_comment_path(@comment.commented_post)
     end
 
     def correct_user

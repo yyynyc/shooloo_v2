@@ -27,7 +27,9 @@ resources :ratings do
   end
 end
 resources :password_resets
-resources :comments
+resources :comments do
+  resources :alarms
+end
 resources :alarms
 
 

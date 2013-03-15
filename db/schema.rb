@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130314220452) do
+ActiveRecord::Schema.define(:version => 20130315170557) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "alarmed_post_id"
@@ -33,8 +33,9 @@ ActiveRecord::Schema.define(:version => 20130314220452) do
     t.datetime "photo_updated_at"
     t.integer  "commenter_id"
     t.integer  "commented_post_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.boolean  "visible",            :default => true
   end
 
   add_index "comments", ["commenter_id", "created_at"], :name => "index_comments_on_commenter_id_and_created_at"
@@ -68,8 +69,8 @@ ActiveRecord::Schema.define(:version => 20130314220452) do
     t.string   "answer"
     t.string   "grade"
     t.integer  "user_id"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
@@ -85,7 +86,7 @@ ActiveRecord::Schema.define(:version => 20130314220452) do
     t.integer  "answer_correctness_3_count"
     t.integer  "answer_correctness_4_count"
     t.integer  "operation_whole_count"
-    t.boolean  "visible"
+    t.boolean  "visible",                        :default => true
     t.integer  "ratings_count"
     t.integer  "overall_true_count"
     t.integer  "overall_false_count"

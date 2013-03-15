@@ -3,9 +3,9 @@
 <br/> 
 <h2> Comments </h2>	
 <ol class="posts">      		
-	<%= render @comments %>
+	<%= render @comments.visible %>
 </ol>
-<%= will_paginate @comments %>
+<%= will_paginate @comments.visible %>
 
 <h2> Post A New Comment </h2>
 <%= form_for([@post, @comment], :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')"}) do |f| %>

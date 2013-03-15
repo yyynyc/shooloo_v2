@@ -18,16 +18,29 @@ class Comment < ActiveRecord::Base
   attr_accessible :content, :photo
   belongs_to :commented_post, class_name: "Post"
   belongs_to :commenter, class_name: "User"
-  has_many :alarms, foreign_key: "alarmed_comment_id", dependent: :destroy
 
   has_attached_file :photo, 
-    :styles => {:medium => "250x250>"},                
+    :styles => {:large => "800x800>",
+                :small => "60x60>"},                
     url: "/attachments/comments/:id/:style/:basename.:extension",
     path: ":rails_root/public/attachments/comments/:id/:style/:basename.:extension"
 
   validates :commented_post_id, presence: true
   validates :commenter_id, presence: true
   validates :content, presence: true
+
+  has_many :alarms, foreign_key: "alarmed_comment_id", dependent: :destroy
+  def after_initialize
+    @visible = true if @visible.nil?
+  end
+
+  def self.visible
+    where(:visible=>true)
+  end
+
+  def self.hidden
+    where(:visible=>false)
+  end
 
   #default_scope order: 'comments.created_at DESC'
 

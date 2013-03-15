@@ -18,16 +18,23 @@ class AlarmsController < ApplicationController
 	def new
         @alarm = Alarm.new
         @post  = Post.find_by_id(params[:post_id])    
+        @comment = Comment.find_by_id(params[:comment_id])
     end
 
   	def create
         @post  = Post.find(params[:post_id])
+        @comment = Comment.find_by_id(params[:comment_id])
         @alarm=current_user.alarms.build(params[:alarm])
-        @alarm.alarmed_post=@post
+        
+        if @comment
+            @alarm.alarmed_comment=@comment
+        else
+            @alarm.alarmed_post=@post
+        end
         if @alarm.save
             flash[:success] = "Thank you for raising alarm about this post! 
             	It is now taken out of the public view pending moderation."     
-        	redirect_back_or root_url
+        	redirect_to new_post_comment_path(@post)
         else 
         	flash[:notice] = "Sorry, something is wrong."  
         	redirect_back_or root_url

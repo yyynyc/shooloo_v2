@@ -10,16 +10,11 @@
       <%= feed_item.grade %> 
       <span class="timestamp">in </span> 
       <%= feed_item.category %>.
-      <!--<span>
-        <strong><%= pluralize(feed_item.raters.count, "rating") %></strong>
-      </span> -->
       <span class="btn-formtastic">
         <i class="icon-star"></i>
         <%= feed_item.ratings_count %>
-        <%#= feed_item.raters.count %>
         <i class="icon-thumbs-up"></i>
         <%= feed_item.overall_true_count %>
-        <%#= feed_item.ratings.where(overall_rating: true).count %>
         <i class="icon-comment"></i>
         <%= feed_item.comments_count %>
       </span>
@@ -29,20 +24,24 @@
         <section class="feed_item">
           <span class="image">
             <%= image_tag feed_item.photo.url (:medium) %><br/> 
-            <span class="image_host">Image courtesy of <%= feed_item.image_host %>.
-            </span>                      
+            <% unless feed_item.image_host.nil? %>
+              <span class="image_host">Image courtesy of <%= feed_item.image_host %>.
+              </span>
+            <% end %>                      
           </span>           
           <%= wrap(simple_format(feed_item.question)) %>                    
         </section>
       </div>
       <div>
-        <span class="btn-formtastic">        
+        <span class="btn-formtastic">
+          <span style="display: inline-block;"> 
+           <%= render partial: 'alarms/alarm', locals: {post:feed_item} %>
+          </span>       
           <% if current_user?(feed_item.user) %> 
             <%= link_to "", feed_item, method: :delete,
               data: { confirm: "Delete post. Are you sure?" },
               title: "Delete Post", class: "icon-trash" %>
             <%= link_to " ", edit_post_path(feed_item), title: "Edit Post", class: "icon-edit" %>
-            <%#= render partial: 'posts/edit_post', locals: { local_object: feed_item } %>
             <%= render partial: 'shared/rating_show_avg', locals: { local_object: feed_item } %>
           <% else %> 
             <% if feed_item.ratings.find_by_rater_id(current_user.id) %>
@@ -51,12 +50,10 @@
               <%= render partial: 'shared/rating_show_avg', locals: { local_object: feed_item } %>
             <% else %>              
                 <%= link_to "Answer?", new_post_rating_path(feed_item), class: "btn btn-small btn-warning" %>     
-              <%#= render partial: 'posts/rating_form', locals: { local_object: feed_item } %>
             <% end %>
           <% end %> 
           <%= link_to "Comment", new_post_comment_path(feed_item), class: "btn btn-small btn-success" %>   
-          <%= render partial: 'alarms/alarm', locals: {post:feed_item} %>
-          <%#= link_to "Alarm", new_post_alarm_path(feed_item), class: "btn btn-small btn-warning" %>      
+               
         </span>
       </div>
     </section>

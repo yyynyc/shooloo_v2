@@ -29,7 +29,7 @@ class Comment < ActiveRecord::Base
   validates :commenter_id, presence: true
   validates :content, presence: true
 
-  default_scope order: 'comments.created_at DESC'
+  #default_scope order: 'comments.created_at DESC'
 
   after_save do 
     Post.update_all([

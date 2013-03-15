@@ -16,7 +16,7 @@
         <h3 class="feed_item"><%= @user.screen_name %>'s Commented Posts (<%= @user.commented_posts.count %>)</h3>
     	 <% if @user.commented_posts.any? %>      		      	
       		<ol class="posts">
-        		<%= render partial: 'shared/feed_item', collection: @commented_posts, order: 'comments.created_at DESC' %>
+        		<%= render partial: 'shared/feed_item', collection: @commented_posts%>
       		</ol>
       		<%= will_paginate @commented_posts %>
         <% else %>          

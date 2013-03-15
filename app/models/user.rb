@@ -49,8 +49,7 @@ class User < ActiveRecord::Base
  
   has_many :comments, foreign_key: "commenter_id", dependent: :destroy, 
           order: "comments.created_at DESC"
-  has_many :commented_posts, through: :comments, source: :commented_post,
-          order: "comments.created_at DESC"
+  has_many :commented_posts, through: :comments, uniq: true, source: :commented_post
 
   has_many :alarms, foreign_key: "alarmer_id"
   has_many :alarmed_posts, through: :alarms

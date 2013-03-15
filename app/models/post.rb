@@ -127,6 +127,10 @@ class Post < ActiveRecord::Base
     where(:visible=>false)
   end
 
+  def self.with_comments
+    where('exists (select 1 from comments where comments.commented_post_id=posts.id)')
+  end
+
   # Returns posts from the users being followed by the given user.
   def self.from_users_followed_by(user)
     followed_user_ids = "SELECT followed_id FROM relationships

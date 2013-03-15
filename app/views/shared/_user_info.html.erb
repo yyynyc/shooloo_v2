@@ -18,9 +18,9 @@
 			<%= pluralize(current_user.rated_posts.count, "post") %></a>.
 		</span>
 		<span>
-			Commented
+			Made
 			<a href="<%= commented_posts_user_path(current_user) %>" >
-			<%= pluralize(current_user.commented_posts.count, "post") %></a>.
+			<%= pluralize(current_user.commented_posts.count, "comment") %></a>.
 		</span>
 	</div>
 </div>

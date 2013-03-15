@@ -12,7 +12,7 @@
 					:class=>'fancybox' %> 
 				<% end %>
 			</span>
-			<span>				
+			<span>								
 				<%= link_to comment.commenter.screen_name, comment.commenter %> 
 				<span class="timestamp"> commented </span>
 				<%= time_ago_in_words(comment.created_at) %> ago.
@@ -20,9 +20,11 @@
 	            	<%= link_to "", comment, method: :delete,
 	              data: { confirm: "Delete comemnt. Are you sure?" },
 	              title: "Delete comment", class: "icon-trash" %>
-	            <% end %>				
-				<%= wrap(simple_format(comment.content)) %>	
-				<%= render partial: 'alarms/alarm_comment', locals: {post: comment.commented_post, comment:comment} %>			
+	            <% end %>
+	            <span style="display: inline-block;">
+	            	<%= render partial: 'alarms/alarm_comment', locals: {post: comment.commented_post, comment:comment} %>	
+	       		</span>	           			
+				<%= wrap(simple_format(comment.content)) %>			
 			</span>			
 		</div>
 	</div>  

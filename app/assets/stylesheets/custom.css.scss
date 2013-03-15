@@ -506,8 +506,11 @@ aside {
 }
 
 .comment {
-  rows: 4;
-  height: 20px;
+  .control {
+    &.textarea {
+    rows: 2;
+    }
+  }  
 }
 
  

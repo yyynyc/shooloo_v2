@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require fancybox
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
@@ -24,3 +25,6 @@ $(function ()
 $(function ()  
 { $("#hidden").popover({trigger: 'hover', placement: 'bottom'});  
 }); 
+jQuery(function() {
+  $("a.fancybox").fancybox();
+});

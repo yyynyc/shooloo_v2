@@ -15,6 +15,7 @@ gem 'taps'
 gem 'ransack'
 gem 'acts_as_list'
 gem 'piwik_analytics'
+gem 'fancybox-rails'
 
 
 group :development, :test do

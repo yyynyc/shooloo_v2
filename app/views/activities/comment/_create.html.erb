@@ -1,3 +1,7 @@
-commented on post #
-<%= link_to activity.trackable.commented_post.id, new_post_comment_path(activity.trackable.commented_post) %>
-<%= time_ago_in_words(activity.created_at) %> ago.
+<% if activity.trackable %>
+	commented on post #
+	<%= link_to activity.trackable.commented_post.id, new_post_comment_path(activity.trackable.commented_post) %>
+	<%= time_ago_in_words(activity.created_at) %> ago.
+<% else %>
+	added a comment which has since been removed.
+<% end %>

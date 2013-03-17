@@ -50,4 +50,11 @@ class Comment < ActiveRecord::Base
         where commented_post_id=?)", self.commented_post.id],
      	['id=?',self.commented_post.id])
   end
+
+  after_destroy do 
+    Post.update_all([
+      "comments_count = (select count (*) from comments 
+        where commented_post_id=?)", self.commented_post.id],
+      ['id=?',self.commented_post.id])
+  end
 end

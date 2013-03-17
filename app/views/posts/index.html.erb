@@ -51,27 +51,31 @@
 				        <%= post.raters.count %>
 				        <i class="icon-thumbs-up"></i>
 				        <%= post.ratings.where(overall_rating: true).count %>
+				        <i class="icon-comment"></i>
+        				<%= post.comments_count %>     
 			      	</span>
 		    	</section> 
 		  		<section>
 		  			<%= truncate post.question, :length => 380, 
-		  				:omission => "..." %>		  		
+		  				:omission => "..." %> 		  		
 		  			<% if current_user?(post.user) %> 
 		  				<%#= link_to "", post, method: :delete,
           					data: { confirm: "Are you sure? Once your post is deleted, all of its related ratings and scores will be erased, too." },
           				title: "Delete Post", class: "icon-trash" %>
-        				<%= link_to "Read More ", edit_post_path(post), title: "Edit Post" %>
+        				<%= link_to "Edit your post ", edit_post_path(post), title: "Edit Post" %>
 	           			<%#= render partial: 'shared/rating_show_avg', locals: { local_object: post } %>
 	          		<% else %> 
 	            		<% if post.ratings.find_by_rater_id(current_user.id) %>
 	            			<%#= link_to "", post.ratings.find_by_rater_id(current_user.id), method: :delete, title: "Delete Rating", class: "icon-trash", data: { confirm: "Are you sure?" } %> 
-          					<%= link_to "Read More", edit_post_rating_path(post, post.rating_by(current_user)), title: "Edit Rating" %>
+          					<%= link_to "Edit your rating", edit_post_rating_path(post, post.rating_by(current_user)), title: "Edit Rating" %>
 	              			<%#= render partial: 'shared/rating_show_avg', 
 	              				locals: { local_object: post} %>
 	            		<% else %> 
-	              			<%= link_to "Read More", new_post_rating_path(post) %>
+	              			<%= link_to "Rate this post", new_post_rating_path(post) %>
 	            		<% end %>
-	          		<% end %>		          	  
+	          		<% end %>
+	          		or 
+	          		<%= link_to "add comment", new_post_comment_path(post) %>.	          	  
 		  		</section>
 			</div>
 		</li>

@@ -52,7 +52,6 @@ class CommentsController < ApplicationController
 
     def destroy
         @comment = current_user.comments.find(params[:id])
-        @comment.destroy
         track_activity @comment
         redirect_to new_post_comment_path(@comment.commented_post)
     end

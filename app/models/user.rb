@@ -54,6 +54,8 @@ class User < ActiveRecord::Base
   has_many :alarms, foreign_key: "alarmer_id"
   has_many :alarmed_posts, through: :alarms
   has_many :alarmed_comments, through: :alarms
+  has_many :activities_as_initiator, class_name: "Activity", as: :initiator
+  has_many :activities_as_recipient, class_name: "Activity", as: :recipient
   
   before_save { self.email.downcase! } 
   before_save :create_remember_token

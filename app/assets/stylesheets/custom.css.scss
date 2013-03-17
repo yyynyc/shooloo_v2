@@ -505,12 +505,10 @@ aside {
   margin-right: 1em;
 }
 
-.comment {
-  .control {
-    &.textarea {
-    rows: 2;
-    }
-  }  
+.activity {
+  border-bottom: solid 1px #CCC;
+  padding: 16px 0;
 }
+
 
  

@@ -13,6 +13,7 @@ class RatingsController < ApplicationController
     def create
         @rating=current_user.ratings.build(params[:rating])             
         if @rating.save
+            track_activity @rating
             flash[:success] = "Thank you for rating this post!" 
             redirect_to rated_posts_user_path(current_user)    
         else 
@@ -31,6 +32,7 @@ class RatingsController < ApplicationController
     def update
         @rating = current_user.ratings.find_by_id(params[:id])
         if @rating.update_attributes(params[:rating])
+            track_activity @rating
           flash[:success] = "You have updated your rating successfully!"
           redirect_to root_url
         else
@@ -40,6 +42,7 @@ class RatingsController < ApplicationController
 
     def destroy
         @rating.destroy
+        track_activity @rating
         redirect_to root_url
     end
 

@@ -1,5 +1,8 @@
 ShoolooV2::Application.routes.draw do
 
+  resources :activities
+
+
   get "password_resets/new"
 
 resources :users do

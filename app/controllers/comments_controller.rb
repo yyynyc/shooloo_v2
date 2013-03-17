@@ -17,6 +17,7 @@ class CommentsController < ApplicationController
         @comment=current_user.comments.build(params[:comment])
         @comment.commented_post=@post            
         if @comment.save
+            track_activity @comment
             flash[:success] = "Thank you for commenting this post!" 
             @comments = @post.comments.visible.paginate(page: params[:page], per_page: 5, 
                 order: 'created_at DESC')      
@@ -52,6 +53,7 @@ class CommentsController < ApplicationController
     def destroy
         @comment = current_user.comments.find(params[:id])
         @comment.destroy
+        track_activity @comment
         redirect_to new_post_comment_path(@comment.commented_post)
     end
 

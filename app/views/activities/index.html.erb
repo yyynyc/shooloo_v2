@@ -1,0 +1,10 @@
+<% provide(:title, "News Feed") %> 
+
+<h1>All Comments</h1>
+
+<% @activities.each do |activity| %>
+  <%= div_for activity do %>
+    <%= link_to activity.initiator.screen_name, activity.initiator %>
+    <%= render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>
+  <% end %>
+<% end %>

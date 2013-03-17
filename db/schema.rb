@@ -11,10 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130317193418) do
+ActiveRecord::Schema.define(:version => 20130317210919) do
 
   create_table "activities", :force => true do |t|
-    t.integer  "initiator_id"
+    t.integer  "user_id"
     t.string   "action"
     t.integer  "trackable_id"
     t.string   "trackable_type"
@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(:version => 20130317193418) do
     t.integer  "recipient_id"
   end
 
-  add_index "activities", ["initiator_id"], :name => "index_activities_on_user_id"
   add_index "activities", ["trackable_id"], :name => "index_activities_on_trackable_id"
+  add_index "activities", ["user_id"], :name => "index_activities_on_user_id"
 
   create_table "alarms", :force => true do |t|
     t.integer  "alarmed_post_id"

@@ -4,7 +4,7 @@
 
 <% @activities.each do |activity| %>
   <%= div_for activity do %>
-    <%= link_to activity.initiator.screen_name, activity.initiator %>
+    <%= link_to activity.user.screen_name, activity.user %>
     <%= render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>
   <% end %>
 <% end %>

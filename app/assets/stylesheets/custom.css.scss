@@ -310,7 +310,7 @@ aside {
 
 .well-text {
   font-size: 1.5em;
-  text-align: left;
+  text-align: center;
   vertical-align: middle;
   line-height: 1.7em;
 }
@@ -508,6 +508,13 @@ aside {
 .activity {
   border-bottom: solid 1px #CCC;
   padding: 16px 0;
+}
+
+.post_review_user_info {
+  padding: 0.5em 0em 1em 0em;
+  border-top: 1px solid $grayMediumLight;
+  border-bottom: 1px solid $grayMediumLight;
+  margin: 1em 0em 1em 0em;
 }
 
 

@@ -8,9 +8,12 @@
 		</h1>
 		<br/>
 		<span>
-			<% published_posts= pluralize(current_user.posts.count, "post") %>
-			Published			
-		  	<%= link_to "#{published_posts}", current_user %></a>.
+			Published
+			<a href="<%= posts_user_path(current_user) %>" >
+			<%= pluralize(current_user.posts.count, "post") %></a>.
+			<%# published_posts= pluralize(current_user.posts.count, "post") %>
+						
+		  	<%#= link_to "#{published_posts}", current_user %></a>.
 		</span>
 		<span>
 			Rated

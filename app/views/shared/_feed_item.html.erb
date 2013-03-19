@@ -2,7 +2,7 @@
   <li id="<%= feed_item.id %>">
     <div class="row well well-small">
       <span class="user">
-        <%= link_to feed_item.user.screen_name, feed_item.user %>
+        <%= link_to feed_item.user.screen_name, posts_user_path(feed_item.user) %>
       </span> 
       <span class="timestamp">updated</span>    
       <%= time_ago_in_words(feed_item.updated_at) %> ago 
@@ -49,7 +49,7 @@
               <%= link_to "", edit_post_rating_path(feed_item, feed_item.rating_by(current_user)), title: "Edit Rating", class: "icon-edit" %>
               <%= render partial: 'shared/rating_show_avg', locals: { local_object: feed_item } %>
             <% else %>              
-                <%= link_to "Answer?", new_post_rating_path(feed_item), class: "btn btn-small btn-warning" %>     
+                <%= link_to "Check answer", new_post_rating_path(feed_item), class: "btn btn-small btn-default" %>     
             <% end %>
           <% end %> 
           <%= link_to "Comment", new_post_comment_path(feed_item), class: "btn btn-small btn-success" %>   

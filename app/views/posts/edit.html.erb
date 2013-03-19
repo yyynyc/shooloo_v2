@@ -16,7 +16,10 @@
 		    <%= f.input :category, as: :select, collection: ["", "animals/pets", "books", "fahsion", "food", "games", "money", "movies/TV shows", "music/dance", "news", "party", "puzzles", "school", "shopping", "sports", "travel", "weather", "OTHER"] %>
 
 		    <%= f.input :photo, as: :file, label: "Photo upload" %> 	  
-		    <%= f.input :photo_remote_url, label: "Photo url" %>
+		    <%= f.input :photo_remote_url, label: "Photo url", 
+		    hint: (f.object.new_record? || f.object.photo.nil?)?
+				f.template.content_tag(:span, "No photo yet") : 
+				f.template.image_tag(f.object.photo.url(:thumb)) %>
 		<% end %>
 		<%= f.actions do %>
 			<%#= f.action :submit, label: "Preview", as: :button, button_html: { class: " btn btn-large btn-success" }, name: "preview_button" %>

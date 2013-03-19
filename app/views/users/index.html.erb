@@ -22,37 +22,32 @@
 		</div>
 	</div>
 <% end %>
-
-<table class="user-index">
-	<tr>
-		<th> Avatar </th>
-		<th> Screen Name </th>
-		<th> Grade </th>
-		<th> Followings </th>
-		<th> Followers</th>
-		<th> Published Posts</th>
-		<th> Rated Posts</th>
-		<% if current_user.admin? %>
-			<th> </th>
-		<% end %>
-	</tr>    	
 	<% @users.each do |user| %>
-    	<tr> 
-    		<td><%= image_tag user.avatar.url (:thumb) %></td>
-    		<td><%= link_to user.screen_name, user %></td>
-      		<td><%= user.grade %></td>
-      		<td><%= user.followed_users.count %></td>
-      		<td><%= user.followers.count %></td>
-      		<td><%= user.posts.count %></td> 
-      		<td><%= user.rated_posts.count %></td>  		
-      		<% if current_user.admin? %>
-      			<td><%= link_to "delete", user, method: :delete, data: 
-      				{confirm: "Are you sure?" }%></td>
-  				<td><%= user.first_name %></td>
-  				<td><%= user.email %></td>
-      		<% end %>	      		
-      	</tr>
+	<ul class="users">
+	  	<li>
+    		<%= image_tag user.avatar.url (:small) %>
+    		<%= link_to user.screen_name, posts_user_path(user) %> in  
+      		<%= user.grade %> 
+      		is <a href="<%= following_user_path(user) %>">
+      		following <%= user.followed_users.count %></a> members,
+      		has <a href="<%= followers_user_path(user) %>">
+      		<%= user.followers.count %> followers</a>, 
+      		published <a href="<%= posts_user_path(user) %>" >
+			<%= pluralize(user.posts.count, "post") %></a>, 
+      		rated <a href="<%= rated_posts_user_path(user) %>" >
+			<%= pluralize(user.rated_posts.count, "post") %></a>, 
+      		and commented <a href="<%= commented_posts_user_path(user) %>" >
+			<%= pluralize(user.commented_posts.count, "post") %></a>.	
+      		<% if current_user.admin? %><br/>
+      			<%= link_to "delete", user, method: :delete, data: 
+      				{confirm: "Are you sure?" }%>
+      			user #<%= user.id %>,
+  				<%= user.first_name %>
+  				<%= user.last_name %>, 
+  				<%= user.email %>
+      		<% end %>
+      	</li>
+      </ul>	
     <% end %>	      
-</table> 
-<%= will_paginate @users %>
 
+<%= will_paginate @users %>

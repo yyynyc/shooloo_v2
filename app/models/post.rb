@@ -78,8 +78,7 @@
 
 class Post < ActiveRecord::Base
   attr_accessible :answer, :grade, :question, 
-    :photo, :photo_remote_url, :image_host, :category, 
-    :comments_count
+    :photo, :photo_remote_url, :image_host, :category
   attr_reader :photo_remote_url
   belongs_to :user
 
@@ -111,7 +110,7 @@ class Post < ActiveRecord::Base
   validates :category, presence: true
   validates_attachment_presence :photo
   validates_attachment_size :photo, :less_than => 5.megabytes
-  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif']
+  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
 
   #default_scope order: 'posts.updated_at DESC'
 

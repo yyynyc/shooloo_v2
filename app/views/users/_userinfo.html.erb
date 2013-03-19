@@ -16,7 +16,11 @@
 			<%= f.input :screen_name%>
 			<%= f.input :password %>
 			<%= f.input :password_confirmation %> 
-			<%= f.input :avatar, as: :file, required: true %>    
+			<%= f.input :avatar, as: :file, label: "Avatar upload" %> 
+			<%= f.input :avatar_remote_url, label: "or avatar url",
+				hint: (f.object.new_record? || f.object.avatar.nil?)?
+				f.template.content_tag(:span, "No avatar yet") : 
+				f.template.image_tag(f.object.avatar.url(:thumb)) %>   
 		<% end %>
 		<%= f.actions do %>
 			<%= f.action :submit, label: save, as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>

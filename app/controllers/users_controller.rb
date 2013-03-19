@@ -12,16 +12,19 @@ class UsersController < ApplicationController
 
   def index
     @search = User.search(params[:q])
-    @users = @search.result.paginate(page: params[:page], per_page: 30, order: 'screen_name ASC')
+    @users = @search.result.paginate(page: params[:page], per_page: 10, order: 'screen_name ASC')
     @search.build_condition
   end
 
   def show
-  	@user = User.find(params[:id])
-    @posts = @user.posts.visible.paginate(page: params[:page], order: "updated_at DESC")
-    @post = @user.posts.build(params[:post])
-    @rating=current_user.ratings.build(params[:rating])
-    @alarm = current_user.alarms.build
+  	#@search = User.search(params[:q])
+    #@user = User.find(params[:id])
+    #@posts = @user.posts.visible.paginate(page: params[:page], order: "updated_at DESC")
+    #@post = @user.posts.build(params[:post])
+    #@rating=current_user.ratings.build(params[:rating])
+    #@alarm = current_user.alarms.build
+    index
+    render :action =>'index'
 #    @comments = @user.comments.paginate(page: params[:page], oreder: "created_at DESC")
 #    @comment = current_user.comments.build(params[:comment])
   end
@@ -69,6 +72,15 @@ class UsersController < ApplicationController
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
   end
+
+  def posts
+    @user = User.find(params[:id])
+    @posts = @user.posts.visible.paginate(page: params[:page], order: "updated_at DESC")
+    @post = @user.posts.build(params[:post])
+    @rating=current_user.ratings.build(params[:rating])
+    @alarm = current_user.alarms.build
+  end
+
 
   def rated_posts
     @title = "Rated Posts"

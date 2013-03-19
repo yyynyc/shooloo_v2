@@ -1,0 +1,34 @@
+<% provide(:title, @user.screen_name) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <%= render 'shared/user_info', current_user: @user %>
+    </section>
+    <section>
+      <%= render 'shared/stats' %>
+    </section>
+    <section>
+      <%= render 'shared/post_form' %>
+    </section>
+	</aside>
+	<div class="span8">
+      <%= render 'follow_form' if signed_in? %>
+      <h3 class="feed_item"><%= @user.screen_name %>'s Published Posts (<%= @user.posts.count %>)</h3>           
+    	<% if @user.posts.count == 0 %>
+        <% if current_user?(@user) %> 
+          <section class="prompt">
+      		  <%= render text: "Jazz up with your profile with published posts of your own! Use the form on the left." %>
+          </section> 
+        <% else %>
+           <section class="prompt">
+            <%= @user.screen_name %><%= render text: " has not published any posts yet." %>
+          </section>
+        <% end %> 
+      <% else %>    	
+    		<ol class="posts">      		
+          <%= render partial: 'shared/feed_item', collection: @posts  %>
+    		</ol>
+    		<%= will_paginate @posts %>       
+     	<% end %>
+  	</div>
+</div>

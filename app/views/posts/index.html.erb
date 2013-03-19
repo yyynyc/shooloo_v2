@@ -38,9 +38,11 @@
 				</span>
 				<section>
 					<span class="user">
-				       <%= link_to post.user.screen_name, post.user %>
+				       <%= link_to post.user.screen_name, posts_user_path(post.user) %>
 			      	</span> 
-			      	<span class="timestamp">updated</span>    
+			      	<span class="timestamp"> as </span>
+				       <%= post.user.grade %>			      	
+			      	<span class="timestamp">updated a post</span>    
 			      		<%= time_ago_in_words(post.updated_at) %> ago 
 			      	<span class="timestamp">for</span> 
 			      		<%= post.grade %> 

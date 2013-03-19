@@ -7,7 +7,8 @@ class RatingsController < ApplicationController
 
     def new
         @rating = Rating.new
-        @post  = Post.find_by_id(params[:post_id])       
+        @post  = Post.find_by_id(params[:post_id]) 
+        @alarm = Alarm.new      
     end
 
     def create
@@ -26,6 +27,7 @@ class RatingsController < ApplicationController
         raise "you need a post" if @post.nil?
         @rating = @post.ratings.find_by_id(params[:id])
         raise "you need a rating" if @rating.nil?
+        @alarm = Alarm.new
     end
 
     def update

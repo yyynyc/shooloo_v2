@@ -35,7 +35,7 @@ class AlarmsController < ApplicationController
             track_activity @alarm
             flash[:success] = "Thank you for raising alarm about this post! 
             	It is now taken out of the public view pending moderation."     
-        	redirect_to new_post_comment_path(@post)
+        	redirect_to root_url
         else 
         	flash[:notice] = "Sorry, something is wrong."  
         	redirect_back_or root_url

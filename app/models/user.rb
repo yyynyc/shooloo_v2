@@ -25,8 +25,10 @@
 
 class User < ActiveRecord::Base
   attr_accessible :email, :email_confirmation, :screen_name, 
-    :first_name, :last_name, :grade, 
-    :password, :password_confirmation, :avatar
+    :first_name, :last_name, :grade,  
+    :password, :password_confirmation,
+    :avatar, :avatar_remote_url
+  attr_reader :avatar_remote_url
   has_attached_file :avatar, 
     :styles => {  :small => "60x60#",
                   :thumb => "100x100#" }, 
@@ -82,7 +84,7 @@ class User < ActiveRecord::Base
 
   validates_attachment_presence :avatar
   validates_attachment_size :avatar, :less_than => 5.megabytes
-  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png']
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
 
   def feed
     Post.from_users_followed_by(self)
@@ -105,6 +107,13 @@ class User < ActiveRecord::Base
     self.password_reset_sent_at = Time.zone.now
     save! validate: false
     UserMailer.password_reset(self).deliver
+  end
+
+  def avatar_remote_url=(url_value) 
+    return if url_value.blank?
+    self.avatar = URI.parse(url_value)
+    @avatar_remote_url = url_value
+    url = URI(url_value)   
   end
 
 

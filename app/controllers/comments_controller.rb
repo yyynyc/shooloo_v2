@@ -10,6 +10,7 @@ class CommentsController < ApplicationController
         @comments = @post.comments.visible.paginate(page: params[:page], per_page: 5, 
             order: 'created_at DESC')
         @alarm = Alarm.new
+        @rating = Rating.new
     end
 
     def create

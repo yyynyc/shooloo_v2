@@ -1,28 +1,65 @@
-<div class="row"> 
-  <div class="span12 offset 1">
-  <span class="image">
-    <%= image_tag @post.photo.url (:large) %><br/>
-    <% unless @post.image_host.nil? %>
-      <span class="image-host-large">Image courtesy of <%= @post.image_host %>.
-      </span> 
-    <% end %>
+<div class="row">   
+  <div class="post_review_user_info">
+    <span class="btn-formtastic">
+      <i class="icon-star"></i>
+      <%= @post.ratings_count %>
+      <i class="icon-thumbs-up"></i>
+      <%= @post.overall_true_count %>
+      <i class="icon-comment"></i>
+      <%= @post.comments_count %> 
+      <% if current_user?(@post.user) %> 
+        <%= link_to "Delete Post", @post, method: :delete,
+          data: { confirm: "Delete post. Are you sure? You will lose all of your ratings and comments." },
+          title: "Delete Post", class: "btn btn-small btn-default" %>
+        <%= link_to "Edit Post ", edit_post_path(@post), title: "Edit Post", class: "btn btn-small btn-default" %>
+        <%= render partial: 'shared/rating_show_avg', locals: { local_object: @post } %>
+      <% else %> 
+        <% if @post.ratings.find_by_rater_id(current_user.id) %>
+          <%= link_to "Delete Rating", @post.ratings.find_by_rater_id(current_user.id), method: :delete, title: "Delete Rating", class: "btn btn-small btn-default", data: { confirm: "Delete rating. Are you sure?" } %> 
+          <%= link_to "Edit Rating", edit_post_rating_path(@post, @post.rating_by(current_user)), title: "Edit Rating", class: "btn btn-small btn-default" %>
+          <%= render partial: 'shared/rating_show_avg', locals: { local_object: @post } %>
+        <% else %>              
+            <%= link_to "Rate this post", new_post_rating_path(@post), class: "btn btn-small btn-default" %>     
+        <% end %>
+        <%= link_to "Comment", new_post_comment_path(@post), class: "btn btn-small btn-default" %> 
+        <span style="display: inline-block;"> 
+          <%= render partial: 'alarms/alarm', locals: {post: @post} %>
+        </span>    
+      <% end %>         
+    </span>       
+    <span class="user">
+      <%= link_to @post.user.screen_name, posts_user_path(@post.user) %>
+    </span> 
+    <span class="timestamp"> in </span><%= @post.user.grade %>
+    <span class="timestamp">updated </span>    
+    <%= time_ago_in_words(@post.updated_at) %> ago 
+    <span class="timestamp">for</span> 
+    <%= @post.grade %> 
+    <span class="timestamp">in category </span> 
+    <%= @post.category %>.
   </span>
-  <span class="modal-text"> 
-    <section>         
-      <strong>Question:</strong> <%= simple_format(@post.question) %>
-    </section>
-  </span>
-</div>
+  </div>
+  <div class="row">     
+    <span class="image">
+      <%= image_tag @post.photo.url (:large) %><br/>
+      <% unless @post.image_host.nil? %>
+        <span class="image-host-large">Image courtesy of <%= @post.image_host %>.
+        </span><br/> 
+      <% end %>
+    </span>
+    <span class="modal-text"> 
+      <section>         
+        <strong>Question:</strong> <%= simple_format(@post.question) %>
+      </section>
+    </span>
+  </div>
 </div>   
-<div class="row"> 
-  <section class="span9 offset1">
-    <div class="well well-small">        
+<div class="row">   
+    <div class="post_review_user_info">        
       <section class="well-text">
         <strong>Answer: </strong><%= @post.answer %>
         <i>- Is this answer correct?</i><br/>
         <strong>Intended grade: </strong><%= @post.grade %>
-        <i>- Is this problem suitable for this grade?</i><br/> 
-      </section>       
-    </div>
-  </section> 
+        <i>- Is this problem suitable for this grade?</i><br/>           
+    </div>  
 </div> 

@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   def index
     @search = User.search(params[:q])
-    @users = @search.result.paginate(page: params[:page], per_page: 10, order: 'screen_name ASC')
+    @users = @search.result.paginate(page: params[:page], per_page: 30, order: 'screen_name ASC')
     @search.build_condition
   end
 

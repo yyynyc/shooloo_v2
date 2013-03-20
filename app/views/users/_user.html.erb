@@ -23,8 +23,8 @@
 				<a href="<%= rated_posts_user_path(user) %>" >
 				<%= pluralize(user.rated_posts.count, "post") %></a>,
 			commented
-				<a href="<%= commented_posts_user_path(current_user) %>" >
-				<%= pluralize(current_user.commented_posts.count, "post") %></a>.
+				<a href="<%= commented_posts_user_path(user) %>" >
+				<%= pluralize(user.commented_posts.count, "post") %></a>.
 		</div >
 		<div class="span1">			
 			  <div id="follow_form">

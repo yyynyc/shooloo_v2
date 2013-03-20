@@ -13,7 +13,9 @@
 				<% end %>
 			</span>
 			<span>								
-				<%= link_to comment.commenter.screen_name, comment.commenter %> 
+				<%= link_to comment.commenter.screen_name, posts_user_path(comment.commenter) %> 
+				<span class="timestamp"> in </span>
+				<%= comment.commenter.grade %>
 				<span class="timestamp"> commented </span>
 				<%= time_ago_in_words(comment.created_at) %> ago.
 				<% if current_user?(comment.commenter) %> 

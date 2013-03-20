@@ -13,13 +13,13 @@
 	  </aside>
 	<div class="span8">
       <%= render 'users/follow_form' if signed_in? %>
-        <h3 class="feed_item"><%= @user.screen_name %>'s <%= link_to "Hidden", "#", "id" => "hidden", "rel" => "popover", "title" => "Why Are Posts Hidden", "data-content" => "These posts are hidden from the public view because they have one or more of the following: offensive image, offensive content, watermarked image, or plagerised content. You can republish the post with clean image and content using the form on the left." %> Posts (<%= @alarmed_posts.count %>)</h3>
-    	 <% if current_user = @alarmed_post.user %>      		      	
-      		<ol class="posts">
-        		<%= render partial: 'shared/feed_item', collection: @alarmed_posts, order: 'comments.created_at DESC' %>
-      		</ol>
-      		<%= will_paginate @alarmed_posts %>
-        <% else %>          
+      <h3 class="feed_item"><%= @user.screen_name %>'s <%= link_to "Hidden", "#", "id" => "hidden", "rel" => "popover", "title" => "Why Are Posts Hidden", "data-content" => "These posts are hidden from the public view because they have one or more of the following: offensive image, offensive content, watermarked image, or plagerised content. You can republish the post with clean image and content using the form on the left." %> Posts (<%= @alarmed_posts.count %>)</h3>
+    	<% if @alarmed_posts.any? %>      		      	
+    		<ol class="posts">
+      		<%= render partial: 'shared/feed_item', collection: @alarmed_posts %>
+    		</ol>
+    		<%= will_paginate @alarmed_posts %>
+      <% else %>          
           <section class="prompt">
             <%= render text: "All of your published posts are clean. Keep up with your good work!" %>
           </section> 

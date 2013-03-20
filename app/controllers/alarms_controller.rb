@@ -41,4 +41,9 @@ class AlarmsController < ApplicationController
         	redirect_back_or root_url
         end            
     end
+
+    def alarmed_posts
+        @alarms = Alarm.all
+        #@comment = Comment.new  
+    end
 end

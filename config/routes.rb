@@ -7,7 +7,8 @@ ShoolooV2::Application.routes.draw do
 
 resources :users do
   member do
-    get :following, :followers, :rated_posts, :posts, :commented_posts
+    get :following, :followers, :rated_posts, :posts, :commented_posts, :alarmed_posts,
+        :comments, :alarmed_comments
   end
   collection { post :search, to: 'users#index' }
 end
@@ -35,7 +36,6 @@ resources :comments do
 end
 resources :alarms
 
-
     root to: "static_pages#home"
  
   match '/about', to: 'static_pages#about'
@@ -43,7 +43,8 @@ resources :alarms
   match '/contact', to: 'static_pages#contact'
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :delete  
+  match '/signout', to: 'sessions#destroy', via: :delete 
+  match '/alarmed_posts', to: "alarms#alarmed_posts" 
  
 
   # The priority is based upon order of creation:

@@ -103,10 +103,11 @@ class UsersController < ApplicationController
     render 'show_commented_posts'
   end
 
-  def hidden_posts
+  def alarmed_posts
     @title = "Hidden Posts"
     @user = User.find(params[:id])
-    @posts = @user.posts.hidden.paginate(page: params[:page], order: "updated_at DESC")
+    @alarmed_posts = @user.posts.hidden.paginate(page: params[:page], order: "updated_at DESC")
+    #@alarmed_posts = @user.alarmed_posts
     @alarm=current_user.alarms.build(params[:alarm])
     @post  = current_user.posts.build
     render 'show_alarmed_posts'

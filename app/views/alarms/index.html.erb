@@ -1,0 +1,17 @@
+<% provide(:title, "Alarmed Posts") %> 
+
+<h1> Alarmed Posts</h1>
+
+<% @alarmed_posts.each do |alarmed_post| %>
+  <%= div_for alarmed_post do %>
+    <%= link_to alarm.user.first_name, posts_user_path(alarm.user) %>
+    <%= alarm.user.last_name %>
+    raised alarm on 
+    <%= link_to "post", alarmed_post %>
+    written by
+    <%= link_to alarmed_post.user.first_name, alarmed_posts_user_path(alarmed_post.user)%>
+    <%= alarmed_post.user.last_name %>
+    <%= alarm.created_at %>  
+    
+  <% end %>
+<% end %>

@@ -22,17 +22,42 @@
                     Account <b class="caret"></b>
                   </a>
                   <ul class="dropdown-menu">
-                    <li><%= link_to "My Published Posts", posts_user_path(current_user) %></li>
-                    <li><%= link_to "My Rated Posts", rated_posts_user_path(current_user) %></li>
-                    <li><%= link_to "My Commented Posts", commented_posts_user_path(current_user) %></li>
-                    <li><%= link_to "My hidden Posts", alarms_path %></li>
-                    <li><%= link_to "My Information", edit_user_path(current_user) %></li>
+                    <li>
+                      <%= link_to "My Published Posts", posts_user_path(current_user) %>
+                    </li>
+                    <li>
+                      <%= link_to "My Rated Posts", rated_posts_user_path(current_user) %>
+                    </li>
+                    <li>
+                      <%= link_to "My Commented Posts", commented_posts_user_path(current_user) %>
+                    </li>
+                    <li>
+                      <%= link_to "My hidden Posts", alarms_path %>
+                    </li>
+                    <li>
+                      <%= link_to "My Information", edit_user_path(current_user) %></li>
                     <li class="divider"></li>
                     <li>
                       <%= link_to "Sign Out", signout_path, method: "delete" %>
-                   </li>
+                    </li>
                   </ul>
                 </li>
+                <% if current_user.admin? %>
+                  <li id="fat-menu" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Alarms <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <%= link_to "Alarmed Posts", alarms_path %>
+                      </li>
+                      <li>
+                        <%= link_to "Alarmed Comments", rated_posts_user_path(current_user) %>
+                      </li>
+                    </ul>
+                  </li>
+                <% else %>
+                <% end %>
               <% else %>
                 <li><%= link_to "Sign up", signup_path %></li>
                 <li><%= link_to "Sign in", signin_path %></li>

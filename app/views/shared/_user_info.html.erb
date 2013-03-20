@@ -6,14 +6,12 @@
 		<h1 class="user_name">
 		  <%= wrap(current_user.screen_name) %>
 		</h1>
-		<br/>
+		<%= current_user.grade %><br/>
 		<span>
+			
 			Published
 			<a href="<%= posts_user_path(current_user) %>" >
 			<%= pluralize(current_user.posts.count, "post") %></a>.
-			<%# published_posts= pluralize(current_user.posts.count, "post") %>
-						
-		  	<%#= link_to "#{published_posts}", current_user %></a>.
 		</span>
 		<span>
 			Rated

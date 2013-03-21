@@ -43,7 +43,6 @@ class AlarmsController < ApplicationController
     end
 
     def alarmed_posts
-        @alarms = Alarm.all(order: 'created_at desc')
-        #@comment = Comment.new  
+        @alarms = Alarm.all(order: 'created_at desc')  
     end
 end

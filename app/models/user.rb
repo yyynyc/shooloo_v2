@@ -27,8 +27,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :email_confirmation, :screen_name, 
     :first_name, :last_name, :grade,  
     :password, :password_confirmation,
-    :avatar, :avatar_remote_url, 
-    :admin
+    :avatar, :avatar_remote_url
   attr_reader :avatar_remote_url
   has_attached_file :avatar, 
     :styles => {  :small => "60x60#",

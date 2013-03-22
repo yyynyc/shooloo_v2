@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
     def new
         @comment = Comment.new
         @post  = Post.find_by_id(params[:post_id]) 
-        @comments = @post.comments.visible.paginate(page: params[:page], per_page: 5, 
+        @comments = @post.comments.paginate(page: params[:page], per_page: 5, 
             order: 'created_at DESC')
         @alarm = Alarm.new
         @rating = Rating.new

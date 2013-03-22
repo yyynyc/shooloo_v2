@@ -24,11 +24,18 @@
 	              title: "Delete comment", class: "icon-trash" %>
 	            <% end %>
 	            <span style="display: inline-block;">
-	            	<%= render partial: 'alarms/alarm_comment', locals: {post: comment.commented_post, comment:comment} %>	
+	            	<% if comment.visible? %>
+	            		<%= render partial: 'alarms/alarm_comment', locals: {post: comment.commented_post, comment:comment} %>	
+	            	<% else %>
+	            		<% if current_user.admin? %>
+	            			<%= render partial: 'alarms/unalarm_comment', locals: {post: comment.commented_post, comment:comment} %>
+	            		<% end %>
+	            	<% end %>	
 	       		</span>	           			
 				<%= wrap(simple_format(comment.content)) %>			
 			</span>			
 		</div>
 	</div>  
 </ol>
+
  

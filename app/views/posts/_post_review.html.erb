@@ -21,11 +21,17 @@
         <% else %>              
             <%= link_to "Rate this post", new_post_rating_path(@post), class: "btn btn-small btn-default" %>     
         <% end %>
-        <%= link_to "Comment", new_post_comment_path(@post), class: "btn btn-small btn-default" %> 
-        <span style="display: inline-block;"> 
+        <%= link_to "Comment", new_post_comment_path(@post), class: "btn btn-small btn-default" %>          
+      <% end %>
+      <span style="display: inline-block;">
+        <% if @post.visible? %> 
           <%= render partial: 'alarms/alarm', locals: {post: @post} %>
-        </span>    
-      <% end %>         
+        <% else%>
+          <% if current_user.admin? %>
+            <%= render partial: 'alarms/unalarm', locals: {post: @post} %>
+          <% end %>
+        <% end %>
+      </span>            
     </span>       
     <span class="user">
       <%= link_to @post.user.screen_name, posts_user_path(@post.user) %>

@@ -4,6 +4,8 @@
       <span class="user">
         <%= link_to feed_item.user.screen_name, posts_user_path(feed_item.user) %>
       </span> 
+      <span class="timestamp">in</span>    
+      <%= feed_item.user.grade %>
       <span class="timestamp">updated</span>    
       <%= time_ago_in_words(feed_item.updated_at) %> ago 
       <span class="timestamp">for</span> 

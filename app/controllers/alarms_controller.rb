@@ -42,6 +42,17 @@ class AlarmsController < ApplicationController
         end            
     end
 
+    def destroy
+        @alarm = Alarm.find(params[:id])
+        unless @alarm.alarmed_post_id.nil?
+            @post = Alarm.find(params[:id]).alarmed_post 
+        else
+            @comment = Alarm.find(params[:id]).alarmed_comment
+        end 
+        @alarm.destroy
+        redirect_back_or alarmed_posts_path
+    end
+
     def alarmed_posts
         @alarms = Alarm.all(order: 'created_at desc')  
     end

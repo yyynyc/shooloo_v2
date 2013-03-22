@@ -12,7 +12,7 @@
     </section>
 	</aside>
 	<div class="span8">
-      <%= render 'follow_form' if signed_in? %>
+      <%= render partial:'follow_form', locals: {user: @user} if signed_in? %>
       <h3 class="feed_item"><%= @user.screen_name %>'s Published Posts (<%= @user.posts.count %>)</h3>           
     	<% if @user.posts.count == 0 %>
         <% if current_user?(@user) %> 

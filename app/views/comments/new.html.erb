@@ -1,10 +1,13 @@
 <% provide(:title, "Comment Post") %> 
 <%= render partial: 'posts/post_review' %> 
 <h2> Comments </h2>	
-<ol class="posts">      		
+<ol class="posts">
+  <% if current_user.admin? %>
+    <%= render @comments.hidden %>
+  <% end %>   		
 	<%= render @comments.visible %>
+
 </ol>
-<%= will_paginate @comments.visible %>
 
 <h2> Post A New Comment </h2>
 <%= form_for([@post, @comment], :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')"}) do |f| %>

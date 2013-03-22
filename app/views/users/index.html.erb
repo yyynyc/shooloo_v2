@@ -37,7 +37,8 @@
       		rated <a href="<%= rated_posts_user_path(user) %>" >
 			<%= pluralize(user.rated_posts.count, "post") %></a>, 
       		and commented <a href="<%= commented_posts_user_path(user) %>" >
-			<%= pluralize(user.commented_posts.count, "post") %></a>.	
+			<%= pluralize(user.commented_posts.count, "post") %></a>.
+			<%#= render partial: 'follow_form', locals:{user: user} %>	
       		<% if current_user.admin? %><br/>
       			<%= link_to "delete", user, method: :delete, data: 
       				{confirm: "Are you sure?" }%>

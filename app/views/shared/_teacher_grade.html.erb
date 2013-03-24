@@ -1,0 +1,27 @@
+<% teacher_grade = "grade-#{local_object.id}" %>
+<%= link_to "Grade?", "##{teacher_grade}", role: "button",  
+  "data-toggle" => "modal", class: "btn btn-small btn-warning" %>
+
+ <div id="<%= teacher_grade%>" class="modal-rating modal hide fade" tabindex="-1" role="dialog" aria-labelledby="gradeLabel" aria-hidden="true">
+  <div class="row">    
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>  
+  <div class="modal-body">
+    <section class="form-horizontal">
+      <%= semantic_form_for @post, :url => post_path, :html => { :multipart => true, onsubmit: "$('button', this).attr('disabled','disabled')", class: "form-horizontal-post-update" }  do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <%=f.inputs do %> 
+            <%= f.input :grade, as: :select, collection: ["","kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12th grade"] %>
+        <% end %>
+        <%= f.actions do %>
+          <%= f.action :submit, label: "Change Grade", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>
+        <% end %> 
+      <% end %>
+    </section>
+  </div>
+  
+
+
+
+
+

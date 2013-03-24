@@ -44,7 +44,8 @@ resources :alarms
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete 
-  match '/alarmed_posts', to: "alarms#alarmed_posts" 
+  match '/alarmed_posts', to: "alarms#alarmed_posts"
+  match '/my_alerts', to: "users#show_activity"
  
 
   # The priority is based upon order of creation:

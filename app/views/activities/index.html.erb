@@ -6,12 +6,12 @@
   <%= div_for activity do %>
   	<% unless activity.user.nil? %>
   		<%= image_tag activity.user.avatar.url (:small) %>  		
-	    <%= link_to activity.user.screen_name, activity.user %>
+	    <%= link_to activity.user.screen_name, posts_user_path(activity.user) %>
 	    in 
-	    <%= activity.user.grade %>
+	    <i><%= activity.user.grade %></i>
 	    <%= render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>
 	<% else %>
-		<% render text: "A user who made the comment has since been banned from this web site." %>  
+		<% render text: "A user and his/her posts, comemnts and ratings have been deleted from this web site." %>  
     <% end %>
   <% end %>
 <% end %>

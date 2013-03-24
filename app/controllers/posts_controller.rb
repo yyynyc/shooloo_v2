@@ -1,14 +1,12 @@
 class PostsController < ApplicationController
 	before_filter :signed_in_user, only: [:create, :edit, :update, :destroy]
   before_filter :correct_user,   only: :destroy
+  #before_filter :admin, only: [:edit, :update, :destroy]
   
   def index
     @search = Post.visible.search(params[:q])
-    #@search = Post.search(params[:q])
     @posts = @search.result.visible.paginate(page: params[:page], per_page: 30, order: 'updated_at DESC')
-    #@posts = @search.result.paginate(page: params[:page], per_page: 30, order: 'updated_at DESC')
     @search.build_condition
-    #@search.build_condition
   end
 
   def show
@@ -60,4 +58,9 @@ class PostsController < ApplicationController
       @post = current_user.posts.find_by_id(params[:id])
       redirect_to root_url if @post.nil?
   end
+
+  #def admin
+    #current_user.admin
+    #@post = Post.find(params[:id])
+  #end
 end

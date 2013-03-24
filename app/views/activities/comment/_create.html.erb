@@ -1,7 +1,14 @@
+
 <% if activity.trackable %>
-	commented on post #
-	<%= link_to activity.trackable.commented_post.id, new_post_comment_path(activity.trackable.commented_post) %>
-	<%= time_ago_in_words(activity.created_at) %> ago.
+	<%# if current_user = activity.trackable.commented_post.user %>
+		added a comment on <%= activity.created_at.strftime("%b %d, %Y") %>
+		to post # 
+		<%= link_to activity.trackable.commented_post.id, new_post_comment_path(activity.trackable.commented_post) %> 
+		written by 
+		<%= link_to activity.trackable.commented_post.user.screen_name, posts_user_path(activity.trackable.commented_post.user) %>
+		in <%= activity.trackable.commented_post.user.grade %>.
+			<%= image_tag activity.trackable.commented_post.user.avatar.url (:small) %>  
+	<%# end %>
 <% else %>
 	added a comment which has since been removed.
 <% end %>

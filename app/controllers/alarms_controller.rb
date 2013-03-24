@@ -32,7 +32,7 @@ class AlarmsController < ApplicationController
             @alarm.alarmed_post=@post
         end
         if @alarm.save
-            track_activity @alarm
+            #track_activity @alarm
             flash[:success] = "Thank you for raising alarm! 
             	It is now taken out of the public view pending moderation."     
         	redirect_to root_url

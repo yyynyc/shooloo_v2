@@ -37,9 +37,9 @@
       <%= link_to @post.user.screen_name, posts_user_path(@post.user) %>
     </span> 
     <span class="timestamp"> in </span><%= @post.user.grade %>
-    <span class="timestamp">updated </span>    
-    <%= time_ago_in_words(@post.updated_at) %> ago 
-    <span class="timestamp">for</span> 
+    <span class="timestamp">updated on </span>    
+    <%= @post.updated_at.strftime("%b %d, %Y") %>  
+    <span class="timestamp"> for</span> 
     <%= @post.grade %> 
     <span class="timestamp">in category </span> 
     <%= @post.category %>.

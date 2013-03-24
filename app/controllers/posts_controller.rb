@@ -52,6 +52,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
+    track_activity @post
     redirect_to root_url
   end
 

@@ -1,0 +1,7 @@
+<% if activity.trackable %>
+	raised alarm on post #
+	<%= link_to activity.trackable.alarmed_post.id, new_post_comment_path(activity.trackable.commented_post) %>
+	<%= activity.created_at.strftime("%b %d, %Y") %>.
+<% else %>
+	added a comment which has since been removed.
+<% end %>

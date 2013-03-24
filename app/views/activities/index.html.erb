@@ -1,10 +1,18 @@
 <% provide(:title, "News Feed") %> 
 
-<h1>All Activities</h1>
+<h1>All Commenting Activities</h1>
 
 <% @activities.each do |activity| %>
   <%= div_for activity do %>
-    <%= link_to activity.user.screen_name, activity.user %>
-    <%= render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>
+  	<% unless activity.user.nil? %>
+  		<%= image_tag activity.user.avatar.url (:small) %>  		
+	    <%= link_to activity.user.screen_name, activity.user %>
+	    in 
+	    <%= activity.user.grade %>
+	    <%= render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>
+	<% else %>
+		<% render text: "A user who made the comment has since been banned from this web site." %>  
+    <% end %>
   <% end %>
 <% end %>
+

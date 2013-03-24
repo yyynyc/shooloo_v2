@@ -6,8 +6,8 @@
       </span> 
       <span class="timestamp">in</span>    
       <%= feed_item.user.grade %>
-      <span class="timestamp">updated</span>    
-      <%= time_ago_in_words(feed_item.updated_at) %> ago 
+      <span class="timestamp">updated on </span>    
+      <%= feed_item.updated_at.strftime("%b %d, %Y") %> 
       <span class="timestamp">for</span> 
       <%= feed_item.grade %> 
       <span class="timestamp">in </span> 

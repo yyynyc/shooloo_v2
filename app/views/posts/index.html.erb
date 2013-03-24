@@ -42,8 +42,8 @@
 			      	</span> 
 			      	<span class="timestamp"> as </span>
 				       <%= post.user.grade %>			      	
-			      	<span class="timestamp">updated a post</span>    
-			      		<%= time_ago_in_words(post.updated_at) %> ago 
+			      	<span class="timestamp">updated a post on </span>    
+			      		<%= post.updated_at.strftime("%b %d, %Y") %>  
 			      	<span class="timestamp">for</span> 
 			      		<%= post.grade %> 
 			      	<span class="timestamp">in </span> 

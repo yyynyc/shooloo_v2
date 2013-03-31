@@ -1,13 +1,13 @@
 <% if activity.trackable %>
-		added a comment on <%= activity.created_at.strftime("%b %d, %Y") %>
-		to post  
-		#<%= link_to activity.trackable.commented_post.id, new_post_comment_path(activity.trackable.commented_post) %> 
-		written by 
-		<%= link_to activity.trackable.commented_post.user.screen_name, posts_user_path(activity.trackable.commented_post.user) %>
-		in <i><%= activity.trackable.commented_post.user.grade %></i>.
-		<span class="btn-formtastic">
-			<%= image_tag activity.trackable.commented_post.user.avatar.url (:small) %> 
-		</span> 
+	added a comment on <%= activity.created_at.strftime("%b %d, %Y") %>
+	to post  
+	#<%= link_to activity.trackable.commented_post.id, new_post_comment_path(activity.trackable.commented_post) %> 
+	written by 
+	<%= link_to activity.trackable.commented_post.user.screen_name, posts_user_path(activity.trackable.commented_post.user) %>
+	in <i><%= activity.trackable.commented_post.user.grade %></i>.
+	<span class="btn-formtastic">
+		<%= image_tag activity.trackable.commented_post.user.avatar.url (:small) %> 
+	</span> 
 <% else %>
 	added a comment which has since been removed.
 <% end %>

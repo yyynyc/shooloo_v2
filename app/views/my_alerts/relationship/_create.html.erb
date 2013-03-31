@@ -1,0 +1,6 @@
+<% if activity.trackable %>
+	has started following you since 
+	<%= activity.created_at.strftime("%b %d, %Y") %>
+<% else %>
+	started following you but since unfollowed you.
+<% end %>

@@ -17,4 +17,10 @@ class Relationship < ActiveRecord::Base
 
   validates :follower_id, presence: true
   validates :followed_id, presence: true
+
+  after_create do
+    Activity.create!(action: "create", trackable: self, user_id: self.follower_id, recipient_id: self.followed_id)
+  end
+
+
 end

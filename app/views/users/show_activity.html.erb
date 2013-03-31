@@ -13,7 +13,7 @@
           <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>
         <% end %>
       <% else %>
-        <% render text: "A user who has commented or rated your posts has been deleted from this web site." %>  
+        <% render text: "A user who has commented or rated your posts or who has followed you has been deleted from this web site." %>  
       <% end %>
     <% end %>
   <% end %>

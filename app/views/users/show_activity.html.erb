@@ -9,9 +9,9 @@
         <%= link_to activity.user.screen_name, activity.user %>
         in 
         <i><%= activity.user.grade %></i>
-        <%= render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>
+        <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>
       <% else %>
-        <% render text: "A user and his/her posts, comemnts and ratings have been deleted from this web site." %>  
+        <% render text: "A user who has commented or rated your posts has been deleted from this web site." %>  
       <% end %>
     <% end %>
   <% end %>

@@ -1,13 +1,12 @@
 class CommentsController < ApplicationController
 
 	def index
-
     end
 
     def new
         @comment = Comment.new
         @post  = Post.find_by_id(params[:post_id]) 
-        @comments = @post.comments.paginate(page: params[:page], per_page: 5, 
+        @comments = @post.comments.paginate(page: params[:page],
             order: 'created_at DESC')
         @alarm = Alarm.new
         @rating = Rating.new
@@ -18,7 +17,6 @@ class CommentsController < ApplicationController
         @comment=current_user.comments.build(params[:comment])
         @comment.commented_post=@post            
         if @comment.save
-            #track_activity @comment
             flash[:success] = "Thank you for commenting this post!" 
             @comments = @post.comments.visible.paginate(page: params[:page], per_page: 5, 
                 order: 'created_at DESC')      

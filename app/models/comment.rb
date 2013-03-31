@@ -60,8 +60,5 @@ class Comment < ActiveRecord::Base
 
   after_create do
     Activity.create!(action: "create", trackable: self, user_id: self.commenter_id, recipient_id: self.commented_post.user_id)
-    #Activity.create! action: "create", trackable: self, user: self.user, recipient: self.commented_post.commenter
-    #set = Set.new
-    #set << self.commented_post
   end
 end

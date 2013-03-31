@@ -1,5 +1,5 @@
 <% if activity.trackable %>
-	added a comment to
+	added a <strong>COMMENT</strong> to
 	<%= link_to "your post", new_post_comment_path(activity.trackable.commented_post) %> 
 	on <%= activity.created_at.strftime("%b %d, %Y") %>
 <% else %>

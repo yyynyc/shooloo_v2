@@ -1,0 +1,12 @@
+<% if activity.trackable %>
+	<% unless activity.trackable.alarmed_post_id.nil? %>
+		<%= link_to "your post", new_post_comment_path(activity.trackable.alarmed_post) %>.
+		No one other than teachers can see the post now.
+	<% else %>
+		your comment 
+		on post #<%= link_to activity.trackable.alarmed_comment.commented_post.id, new_post_comment_path(activity.trackable.alarmed_comment.commented_post) %>.
+		No one other than teachers can see the comment now.
+	<% end %>
+<% else %>
+	your post or comment but has since been unlarmed by the teacher.	
+<% end %>

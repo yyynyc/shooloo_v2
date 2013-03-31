@@ -5,11 +5,15 @@
 <% @activities.each do |activity| %>
   <%= div_for activity do %>
   	<% unless activity.user.nil? %>
-  		<%= image_tag activity.user.avatar.url (:small) %>  		
-	    <%= link_to activity.user.screen_name, posts_user_path(activity.user) %>
-	    in 
-	    <i><%= activity.user.grade %></i>
-	    <%= render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>
+  		<% unless activity.trackable_type == "Alarm" %>
+	  		<%= image_tag activity.user.avatar.url (:small) %>  		
+		    <%= link_to activity.user.screen_name, posts_user_path(activity.user) %>
+		    in 
+		    <i><%= activity.user.grade %></i>
+		<% else %>
+			On <%= activity.created_at.strftime("%b %d, %Y") %>, an alarm was raised on 
+		<% end %>	
+		<%= render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>		   
 	<% else %>
 		<% render text: "A user and his/her posts, comemnts and ratings have been deleted from this web site." %>  
     <% end %>

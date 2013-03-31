@@ -6,12 +6,15 @@
     <%= div_for activity do %>
       <% unless activity.user.nil? %>
         <% unless current_user?(activity.user) %>
-          <%= image_tag activity.user.avatar.url (:small) %>      
-          <%= link_to activity.user.screen_name, activity.user %>
-          in 
-          <i><%= activity.user.grade %></i>
-          <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>
-        <% end %>
+          <% unless activity.trackable_type == "Alarm" %>
+            <%= image_tag activity.user.avatar.url (:small) %>      
+            <%= link_to activity.user.screen_name, activity.user %>
+            in <i><%= activity.user.grade %></i>
+          <% else %>
+            On <%= activity.created_at.strftime("%b %d, %Y") %>, an <strong>ALARM</strong> was raised on 
+          <% end %>
+          <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %> 
+         <% end %>         
       <% else %>
         <% render text: "A user who has commented or rated your posts or who has followed you has been deleted from this web site." %>  
       <% end %>

@@ -21,4 +21,14 @@ class Alarm < ActiveRecord::Base
       Comment.update_all(['visible=?', true],['id=?',self.alarmed_comment.id])
     end
   end
+
+  after_create do
+    if self.alarmed_post
+      Activity.create!(action: "create", trackable: self, 
+        user_id: self.alarmer_id, recipient_id: self.alarmed_post.user_id)
+    elsif self.alarmed_comment
+      Activity.create!(action: "create", trackable: self, 
+        user_id: self.alarmer_id, recipient_id: self.alarmed_comment.commenter_id)
+    end    
+  end
 end

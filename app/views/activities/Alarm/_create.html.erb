@@ -1,7 +1,14 @@
 <% if activity.trackable %>
-	raised alarm on post #
-	<%= link_to activity.trackable.alarmed_post.id, new_post_comment_path(activity.trackable.commented_post) %>
-	<%= activity.created_at.strftime("%b %d, %Y") %>.
+	<% unless activity.trackable.alarmed_post_id.nil? %>
+		<strong> a post </strong>
+		written by <%= link_to activity.trackable.alarmed_post.user.screen_name, posts_user_path(activity.trackable.alarmed_post.user) %>.
+		No one other than teachers can see the post now.
+	<% else %>
+		<strong> a comment </strong> 
+		made by <%= link_to activity.trackable.alarmed_comment.commenter.screen_name, posts_user_path(activity.trackable.alarmed_comment.commenter) %>
+		on post #<%= link_to activity.trackable.alarmed_comment.commented_post.id, new_post_comment_path(activity.trackable.alarmed_comment.commented_post) %>.
+		No one other than teachers can see the comment now.
+	<% end %>
 <% else %>
-	added a comment which has since been removed.
+	a post or comment but has since been unlarmed by the teacher.
 <% end %>

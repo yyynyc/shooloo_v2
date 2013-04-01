@@ -13,8 +13,7 @@
 		<% else %>
 			On <%= activity.created_at.strftime("%b %d, %Y") %>, an alarm was raised on 
 		<% end %>	
-		<%= render partial: "activities/#{activity.trackable_type.underscore}/#{activity.action}", locals: {activity: activity} %>	
-		<%#= render "activities/#{activity.trackable_type}/_#{activity.action}", activity: activity %>	   
+		<%= render partial: "activities/#{activity.trackable_type.underscore}/#{activity.action}", locals: {activity: activity} %>	   
 	<% else %>
 		<% render text: "A user and his/her posts, comemnts and ratings have been deleted from this web site." %>  
     <% end %>

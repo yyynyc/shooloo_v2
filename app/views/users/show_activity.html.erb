@@ -8,7 +8,7 @@
         <% unless current_user?(activity.user) %>
           <% unless activity.trackable_type == "Alarm" %>
             <%= image_tag activity.user.avatar.url (:small) %>      
-            <%= link_to activity.user.screen_name, activity.user %>
+            <%= link_to activity.user.screen_name, posts_user_path(activity.user) %>
             in <i><%= activity.user.grade %></i>
           <% else %>
             On <%= activity.created_at.strftime("%b %d, %Y") %>, an <strong>ALARM</strong> was raised on 
@@ -22,7 +22,7 @@
   <% end %>
   <%= will_paginate @my_activities %>  
 <% else %>
-  You don't have any alerts.
+  You don't have any news. Follow other members, and they will follow you back. Comment on other members' posts, and they will comment on yours. Then you will enjoy news alerts every day.
 <% end %> 
      
   	

@@ -1,7 +1,8 @@
 <% if activity.trackable %>
 	added a <strong>RATING</strong> to
 	<%= link_to "your post", new_post_comment_path(activity.trackable.rated_post) %> 
-	on <%= activity.created_at.strftime("%b %d, %Y") %>
+	on <%= activity.created_at.strftime("%b %d, %Y") %>. Express your thanks and 
+	<strong><%= link_to "rate #{activity.user.screen_name}'s posts", posts_user_path(activity.user) %></strong>.
 <% else %>
 	added a rating to your post and then deleted it.
 <% end %> 

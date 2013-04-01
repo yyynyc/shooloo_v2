@@ -63,9 +63,7 @@
 <div class="row">   
     <div class="post_review_user_info">        
       <section class="well-text">
-        <strong>Answer: </strong><%= @post.answer %>
-        <i>- Is this answer correct?</i><br/>
-        <strong>Intended grade: </strong><%= @post.grade %>
-        <i>- Is this problem suitable for this grade?</i><br/>           
+        Is <span class="post_review_answer"><%= @post.answer %></span> the right answer?<br/>
+        Is this problem suitable for <span class="post_review_answer"><%= @post.grade %></span>?<br/>           
     </div>  
 </div> 

@@ -30,6 +30,8 @@ class Comment < ActiveRecord::Base
   validates :content, presence: true
 
   has_many :alarms, foreign_key: "alarmed_comment_id", dependent: :destroy
+
+
   def after_initialize
     @visible = true if @visible.nil?
   end

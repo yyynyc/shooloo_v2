@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class UsersController < ApplicationController
   before_filter :signed_in_user
   skip_before_filter :signed_in_user, only: [:new, :create]
@@ -96,7 +98,13 @@ class UsersController < ApplicationController
     @title = "Commented Posts"
     @user = User.find(params[:id])
     #@commented_posts = @user.posts.with_comments.visible.paginate(page: params[:page])
-    @commented_posts = @user.commented_posts.visible.paginate(page: params[:page])
+    #@commented_posts = @user.commented_posts.visible.paginate(page: params[:page])
+    #@commented_posts = Post.select('DISTINCT posts.*').visible()
+      #.joins(:comments).where('comments.commenter_id = ?', @user.id)
+      #.order('comments.created_at DESC')
+      #.paginate(page: params[:page])
+    # puts @commented_posts
+    @commented_posts = @user.comments(order: "created_at DESC").collect(&:commented_post).keep_if{ |x| x.visible == true }.uniq.paginate(page: params[:page], per_page: 30)
     @comment=current_user.comments.build(params[:comment])
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build

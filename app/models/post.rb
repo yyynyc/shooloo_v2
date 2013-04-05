@@ -128,7 +128,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.with_comments
-    where('exists (select 1 from comments where comments.commented_post_id=posts.id)')
+    where('exists (select 1 from comments where comments.commented_post_id=post.id)')
   end
 
   # Returns posts from the users being followed by the given user.

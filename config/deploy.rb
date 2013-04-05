@@ -50,6 +50,7 @@ namespace :deploy do
   before "deploy", "deploy:check_revision"
 
   task 'symlink_attachments' do
+    run "rm -rf #{release_path}/public/attachments"
     run "ln -nfs #{shared_path}/attachments #{release_path}/public/attachments"
   end
   after 'deploy:finalize_update', 'deploy:symlink_attachments'

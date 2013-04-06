@@ -1,4 +1,34 @@
 <% provide(:title, 'About') %>
 
-<h1>About Shooloo Games</h1>
-<p>Shooloo Games is designed to help K-12 students apply math to real life situations. Students who plays Shooloo games frequently improve their math test scores by 30%. The improvement is especially profound in math word problems.</p>
+<h1>About Shooloo</h1>
+<ul class="nav nav-tabs">
+	<li class="active"><%= link_to "About", about_path %></li>
+	<li><%= link_to "Team", team_path %></li>
+	<li><%= link_to "Advisors", advisors_path  %></li>
+</ul>
+<%= image_tag("/attachments/computer.jpg", size: "200x100>", alt: "Shooloo Common Core Math", style: "float: right; margin-left: 2em;") %>
+<div class="about">
+<p>In January 2013, Robin Yang, a Wall Street veteran, set out to create a collaborative platform for K-12 students to learn math and English.</p>
+
+<p>Having taught elementary school students financial literacy previously, Robin discovered that many students could compute numbers but had great difficulty in translating word problems into math equations. Being an English Language Learner herself, Robin realized that language understanding is as important as mathematical computation in solving word problems. </p>
+
+<p>She embarked on a journey to find an effective solution to teach students problem solving skills. To her surprise, she found that although there are many math software applications on the market, all of them focus on computation instead of problem solving. There are also a plethora of word problem worksheets on the Internet, but they are usually written from adults’ point of view and far removed from children’s interests and hobbies.</p>
+
+<p>From her own teaching experience, Robin knew that American students are very creative and expressive. So why not leverage students’ imagination and creativity and let them apply math to their own lives? Hence, Shooloo was born.</p>
+
+<p>Shooloo means “Number Joy” in Chinese. At Shooloo, students write their own math stories, publish them onto the Internet, get feedback from their peers and teachers, crystalize their mathematical thinking, and continuously improve their own writing.</p>
+
+<p>Since students started using Shooloo in March 2013, they have published word problems on a large variety of subjects, including animals and pets, food, fashion, shopping, money, music, movies, sports, video games, and pretty much every walk of life.</p>
+
+<p>Students enjoy Shooloo so much that they publish word problems not only during school days, but also on weekends and holidays. Through Shooloo, they discover the joy of numbers and words, and form comradery in learning. Meanwhile, teachers leverage Shooloo to identify students’ stumbling blocks, help them prepare state exams, and bring them up to speed with the Common Core State Standard.</p>
+
+<p>Shooloo has been made possible through close collaboration between its <%= link_to "team", team_path %> and its educational <%= link_to "advisors", advisors_path %>. Together, we work hard to help all children realize their full potentials in math and writing and to prepare them for a bright future in college and career. </p>
+
+</div>
+
+
+
+
+
+
+

@@ -39,6 +39,8 @@ resources :alarms
     root to: "static_pages#home"
  
   match '/about', to: 'static_pages#about'
+  match '/team', to: 'static_pages#team'
+  match '/advisors', to: 'static_pages#advisors'
   match '/help', to: 'static_pages#help'
   match '/contact', to: 'static_pages#contact'
   match '/terms', to: 'static_pages#terms'

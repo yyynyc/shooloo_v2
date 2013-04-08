@@ -43,6 +43,7 @@ resources :alarms
   match '/advisors', to: 'static_pages#advisors'
   match '/help', to: 'static_pages#help'
   match '/contact', to: 'static_pages#contact'
+  match '/rules', to: 'static_pages#rules'
   match '/terms', to: 'static_pages#terms'
   match '/privacy', to: 'static_pages#privacy'
   match '/signup', to: 'users#new'

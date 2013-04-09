@@ -10,17 +10,21 @@
 		<%=f.inputs do %>         
 			<%= f.input :first_name %>
 			<%= f.input :last_name %>
-			<%= f.input :email %>
-			<%= f.input :email_confirmation %>
+			<%= f.input :email, label: "Parent's email", placeholder: "Useful to recover your forgotten password" %>
+			<%= f.input :email_confirmation, placeholder: "Must be the same as parent's email" %>
 			<%= f.input :grade, as: :select, collection: ["Kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade", "Teacher", "Parent", "Tutor"], include_blank: true %>
-			<%= f.input :screen_name%>
-			<%= f.input :password %>
-			<%= f.input :password_confirmation %> 
+			<%= f.input :screen_name, placeholder: "Must be DIFFERETN from your real name"%>
+			<%= f.input :password, placeholder: "Must be at least 6 characters long with no space or punctuation" %>
+			<%= f.input :password_confirmation, placeholder: "Must be the same as password"  %> 
 			<%= f.input :avatar, as: :file, label: "Avatar upload" %> 
 			<%= f.input :avatar_remote_url, label: "or avatar url",
 				hint: (f.object.new_record? || f.object.avatar.nil?)?
 				f.template.content_tag(:span, "No avatar yet") : 
-				f.template.image_tag(f.object.avatar.url(:thumb)) %>   
+				f.template.image_tag(f.object.avatar.url(:thumb)) %>
+			<div class='privacy'>	
+			<%= f.input :privacy, as: :boolean, label: "I agree with the ".html_safe + link_to("Terms of Service", terms_path) +" and the ".html_safe + link_to("Privacy Statement", privacy_path) + ".".html_safe, input_html: {checked: 'checked'}, required: true %>
+			<%= f.input :rules, label: "I agree with the ".html_safe + link_to("Rules of Conduct", rules_path) + ".".html_safe, as: :boolean, input_html: {checked: 'checked'}, required: true %>	
+			</div>	
 		<% end %>
 		<%= f.actions do %>
 			<%= f.action :submit, label: save, as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>

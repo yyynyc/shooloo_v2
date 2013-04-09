@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :email_confirmation, :screen_name, 
     :first_name, :last_name, :grade,  
     :password, :password_confirmation,
-    :avatar, :avatar_remote_url
+    :avatar, :avatar_remote_url, :privacy, :rules
   attr_reader :avatar_remote_url
   has_attached_file :avatar, 
     :styles => {  :small => "60x60#",
@@ -81,6 +81,8 @@ class User < ActiveRecord::Base
 
   validates :password, presence: true, length: {minimum: 6}
   validates :password_confirmation, presence: true
+  validates :privacy, presence: true
+  validates :rules, presence: true
 
   validates_attachment_presence :avatar
   validates_attachment_size :avatar, :less_than => 5.megabytes

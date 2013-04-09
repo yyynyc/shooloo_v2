@@ -535,3 +535,13 @@ aside {
 .photo_home{
   border-radius: 5px;
 }
+.privacy {
+  .control-label{
+  margin-left: -1000px;
+  display: inline-block;
+  }
+  .checkbox {
+  margin-left: -180px;
+  width: 500px;
+  }
+}

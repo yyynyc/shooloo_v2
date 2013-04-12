@@ -11,20 +11,24 @@
 <% else %>        
   <% @my_activities.each do |activity| %>
     <% unless current_user?(activity.user) %> 
-      <%= div_for activity do %>
-        <% if activity.user.nil? %> 
-           <%= render text: "A user who has commented or rated your posts or who has followed you has been deleted from this web site." %> 
-        <% else %>          
-          <% if activity.trackable_type == "Alarm" %>
-            On <%= activity.created_at.strftime("%b %d, %Y") %>, an <strong>ALARM</strong> was raised on 
-          <% else %>
-            <%= image_tag activity.user.avatar.url (:small) %>      
-            <%= link_to activity.user.screen_name, posts_user_path(activity.user) %>
-            in <i><%= activity.user.grade %></i>
+      <div class="users">
+        <li>      
+          <% if activity.user.nil? %> 
+             <%= render text: "A user who has commented or rated your posts or who has followed you has been deleted from this web site." %> 
+          <% else %>          
+            <% if activity.trackable_type == "Alarm" %>
+              On <%= activity.created_at.strftime("%b %d, %Y") %>, an <strong>ALARM</strong> was raised on 
+            <% else %>
+              <div style="float: left; margin-right: 1em;">
+                <%= image_tag activity.user.avatar.url (:small) %>  
+              </div>   
+              <%= link_to activity.user.screen_name, posts_user_path(activity.user) %>
+              in <i><%= activity.user.grade %></i>
+            <% end %>
+            <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>  
           <% end %>
-          <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>  
-        <% end %>
-      <% end %>    
+        </li>
+      </div>       
       <%= will_paginate @my_activities %>
     <% end %>
   <% end %>   

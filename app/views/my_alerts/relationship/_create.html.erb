@@ -1,6 +1,6 @@
 <% if activity.trackable %>
 	has started <strong>FOLLOWING</strong> you since 
-	<%= activity.created_at.strftime("%b %d, %Y") %>. Express your thanks and 
+	<%= activity.created_at.strftime("%b %d, %Y") %>. <strong><%= link_to "Publish a word problem", root_url %></strong> to impress <%= activity.user.screen_name %>. Also Express your thanks and 
 	<strong><%= link_to "follow #{activity.user.screen_name} back", posts_user_path(activity.user) %></strong>.
 <% else %>
 	started following you but since unfollowed you.

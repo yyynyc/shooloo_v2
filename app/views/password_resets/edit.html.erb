@@ -2,8 +2,8 @@
 <h1>New Password</h1>
 
 <div class="row">
-  <div class="span4.5 offset4">
-    <%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
+  <div class="span4.5 offset3">
+    <%= semantic_form_for @user, :url => password_reset_path(params[:id]), html: {class: "form-horizontal-user" } do |f| %>
       <% if @user.errors.any? %>
         <div class="error_messages">
           <h2>Form is invalid</h2>
@@ -14,14 +14,12 @@
           </ul>
         </div>
       <% end %>
-      <div class="password-reset">
-        <%= f.label :password %>
-        <%= f.password_field :password %>
-      </div>
-      <div class="password-reset">
-        <%= f.label :password_confirmation %>
-        <%= f.password_field :password_confirmation %>
-      </div>
+      <%= f.input :password, placeholder: "Must be at least 6 characters long with no space or punctuation" %>
+      <%= f.input :password_confirmation, placeholder: "Must be the same as password"  %> 
+      <div class='privacy'> 
+        <%= f.input :privacy, as: :boolean, label: "I agree with the ".html_safe + link_to("Terms of Service", terms_path) +" and the ".html_safe + link_to("Privacy Statement", privacy_path) + ".".html_safe, input_html: {checked: 'checked'}, required: true %>
+        <%= f.input :rules, label: "I agree with the ".html_safe + link_to("Rules of Conduct", rules_path) + ".".html_safe, as: :boolean, input_html: {checked: 'checked'}, required: true %> 
+      </div>  
       <div><%= f.submit "Update Password", class: "btn btn-small btn-primary btn-formtastic" %>
       </div>
     <% end %>

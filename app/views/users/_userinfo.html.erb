@@ -13,7 +13,7 @@
 			<%= f.input :email, label: "Parent's email", placeholder: "Useful to recover your forgotten password" %>
 			<%= f.input :email_confirmation, placeholder: "Must be the same as parent's email" %>
 			<%= f.input :grade, as: :select, collection: ["Kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade", "Teacher", "Parent", "Tutor"], include_blank: true %>
-			<%= f.input :screen_name, placeholder: "Must be DIFFERETN from your real name"%>
+			<%= f.input :screen_name, placeholder: "Must be DIFFERENT from your real name"%>
 			<%= f.input :password, placeholder: "Must be at least 6 characters long with no space or punctuation" %>
 			<%= f.input :password_confirmation, placeholder: "Must be the same as password"  %> 
 			<%= f.input :avatar, as: :file, label: "Avatar upload" %> 

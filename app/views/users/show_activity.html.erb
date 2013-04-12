@@ -1,28 +1,33 @@
 
 <% provide(:title, "Activity Alerts") %>
 <h1 > My News Alerts </h1>
-<% unless @my_activities.nil? %>          
+<%= @test %>
+<% if @my_activities.blank? %> 
+<div class="about"> 
+  <p> You don't have any news yet.</p> 
+  <p>  Go to Home and use the form there to publish your own math word problem first. Then comment on other members' posts, and they will get an alert to comment on your posts. Also when you follow other members, and they will get an alert and follow you back. </p>
+  <p>Then you will enjoy news alerts every day. </p>
+</div>
+<% else %>        
   <% @my_activities.each do |activity| %>
     <% unless current_user?(activity.user) %> 
       <%= div_for activity do %>
-        <% unless activity.user.nil? %>          
-          <% unless activity.trackable_type == "Alarm" %>
+        <% if activity.user.nil? %> 
+           <%= render text: "A user who has commented or rated your posts or who has followed you has been deleted from this web site." %> 
+        <% else %>          
+          <% if activity.trackable_type == "Alarm" %>
+            On <%= activity.created_at.strftime("%b %d, %Y") %>, an <strong>ALARM</strong> was raised on 
+          <% else %>
             <%= image_tag activity.user.avatar.url (:small) %>      
             <%= link_to activity.user.screen_name, posts_user_path(activity.user) %>
             in <i><%= activity.user.grade %></i>
-          <% else %>
-            On <%= activity.created_at.strftime("%b %d, %Y") %>, an <strong>ALARM</strong> was raised on 
           <% end %>
-          <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>        
-        <% else %>
-          <% render text: "A user who has commented or rated your posts or who has followed you has been deleted from this web site." %>  
+          <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>  
         <% end %>
       <% end %>    
-      <%= will_paginate @my_activities %> 
+      <%= will_paginate @my_activities %>
     <% end %>
-  <% end %> 
-<% else %>
-  You don't have any news. Follow other members, and they will follow you back. Comment on other members' posts, and they will comment on yours. Then you will enjoy news alerts every day.
+  <% end %>   
 <% end %> 
      
   	

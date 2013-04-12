@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
 		      #cookies[:auth_token] = user.auth_token
 		    #end
       		sign_in user
-      		redirect_back_or root_url
+      		redirect_back_or my_alerts_path
     	else
       		flash.now[:error] = 'Invalid email/password combination'
       		render 'new'

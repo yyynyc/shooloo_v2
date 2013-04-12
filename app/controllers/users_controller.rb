@@ -97,13 +97,6 @@ class UsersController < ApplicationController
   def commented_posts
     @title = "Commented Posts"
     @user = User.find(params[:id])
-    #@commented_posts = @user.posts.with_comments.visible.paginate(page: params[:page])
-    #@commented_posts = @user.commented_posts.visible.paginate(page: params[:page])
-    #@commented_posts = Post.select('DISTINCT posts.*').visible()
-      #.joins(:comments).where('comments.commenter_id = ?', @user.id)
-      #.order('comments.created_at DESC')
-      #.paginate(page: params[:page])
-    # puts @commented_posts
     @commented_posts = @user.comments(order: "created_at DESC").collect(&:commented_post).keep_if{ |x| x.visible == true }.uniq.paginate(page: params[:page], per_page: 30)
     @comment=current_user.comments.build(params[:comment])
     @post  = current_user.posts.build
@@ -115,7 +108,6 @@ class UsersController < ApplicationController
     @title = "Hidden Posts"
     @user = User.find(params[:id])
     @alarmed_posts = @user.posts.hidden.paginate(page: params[:page], order: "updated_at DESC")
-    #@alarmed_posts = @user.alarmed_posts
     @alarm=current_user.alarms.build(params[:alarm])
     @post  = current_user.posts.build
     render 'show_alarmed_posts'

@@ -41,6 +41,11 @@ class Rating < ActiveRecord::Base
   after_create do
     Activity.create!(action: "create", trackable: self, 
       user_id: self.rater_id, recipient_id: self.rated_post.user_id)
+
+    self.rated_post.raters.uniq.each do |rater|
+      Activity.create!(action: "create", trackable: self, 
+        user_id: self.rater_id, recipient_id: rater.id)
+    end
   end
   
   after_save :update_rating_counts

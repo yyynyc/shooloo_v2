@@ -153,4 +153,16 @@ class Post < ActiveRecord::Base
   def rating_by(user)
     user.ratings.find_by_rated_post_id(self.id)
   end
+
+  after_update do
+    self.commenters.uniq.each do |commenter|
+      Activity.create!(action: "create", trackable: self, 
+        user_id: self.user_id, recipient_id: commenter.id)
+    end
+
+    self.raters.uniq.each do |rater|
+      Activity.create!(action: "create", trackable: self, 
+        user_id: self.user_id, recipient_id: rater.id)
+    end
+  end
 end

@@ -1,8 +1,10 @@
 <% if activity.trackable %>
 	added a <strong>COMMENT</strong> to
-	<%= link_to "your post", new_post_comment_path(activity.trackable.commented_post) %> 
-	on <%= activity.created_at.strftime("%b %d, %Y") %>. Express your thanks and 
-	<strong><%= link_to "comment on #{activity.user.screen_name}'s posts", posts_user_path(activity.user) %></strong>.
+	<%= link_to "a post you have published or commented", new_post_comment_path(activity.trackable.commented_post) %> 
+	on <%= activity.created_at.strftime("%b %d, %Y") %>. <br/>
+	Revise <%= link_to "your post", new_post_comment_path(activity.trackable.commented_post) %> and respond to comments. <br/>
+	Add comments to
+	<%= link_to "#{activity.user.screen_name}'s posts", posts_user_path(activity.user) %>.
 <% else %>
-	added a comment to your post and then deleted it.
+	added then deleted a comment to a post you have published or commented.
 <% end %>

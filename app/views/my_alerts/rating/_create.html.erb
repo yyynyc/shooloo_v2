@@ -1,8 +1,10 @@
 <% if activity.trackable %>
 	added a <strong>RATING</strong> to
-	<%= link_to "your post", new_post_comment_path(activity.trackable.rated_post) %> 
-	on <%= activity.created_at.strftime("%b %d, %Y") %>. Express your thanks and 
-	<strong><%= link_to "rate #{activity.user.screen_name}'s posts", posts_user_path(activity.user) %></strong>.
+	<%= link_to "a post that you have published or rated", new_post_comment_path(activity.trackable.rated_post) %> 
+	on <%= activity.created_at.strftime("%b %d, %Y") %>.<br/>
+	Check out the aggregated rating results to <%= link_to "this post", new_post_comment_path(activity.trackable.rated_post) %>. <br/>
+	Check out 
+	<%= link_to "#{activity.user.screen_name}'s posts", posts_user_path(activity.user) %> and add your rating.
 <% else %>
-	added a rating to your post and then deleted it.
+	added and then deleted a rating to a post you have published or rated.
 <% end %> 

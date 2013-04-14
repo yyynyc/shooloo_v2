@@ -1,7 +1,7 @@
 <% provide(:title, 'All Members') %>
 <h1>All Shooloo Members</h1>
 
-<%= search_form_for @search, url: search_users_path, method: :post do |f| %>
+<%= search_form_for @search, url: search_users_path, method: :get do |f| %>
 	<div class="row">
 		<div class="span8 offset3" >
 			<span class="search-label">
@@ -25,20 +25,24 @@
 	<% @users.each do |user| %>
 	<ul class="users">
 	  	<li>
-    		<%= image_tag user.avatar.url (:small) %>
+	  		<div class='btn-formtastic'>
+				<%= render partial: 'follow_form', locals:{user: user} %>
+			</div>	
+	  		<div class='avatar'>
+    			<%= image_tag user.avatar.url (:small) %>
+    		</div>
     		<%= link_to user.screen_name, posts_user_path(user) %> in  
-      		<%= user.grade %> 
+      		<%= user.grade %> <br/>
       		is <a href="<%= following_user_path(user) %>">
       		following <%= user.followed_users.count %></a> members,
       		has <a href="<%= followers_user_path(user) %>">
-      		<%= user.followers.count %> followers</a>, 
+      		<%= user.followers.count %> followers</a>, <br/>
       		published <a href="<%= posts_user_path(user) %>" >
 			<%= pluralize(user.posts.count, "post") %></a>, 
       		rated <a href="<%= rated_posts_user_path(user) %>" >
 			<%= pluralize(user.rated_posts.count, "post") %></a>, 
       		and commented <a href="<%= commented_posts_user_path(user) %>" >
 			<%= pluralize(user.commented_posts.count, "post") %></a>.
-			<%#= render partial: 'follow_form', locals:{user: user} %>	
       		<% if current_user.admin? %><br/>
       			<%= link_to "delete", user, method: :delete, data: 
       				{confirm: "Are you sure?" }%>

@@ -1,0 +1,11 @@
+User.select('users.id,count(distinct ratings.id) + count(distinct posts.id) as  c').joins(:ratings,:posts).group('users.id').all
+
+User.find_by_sql("
+select users.id, count(distinct ratings.id) + count(distinct comments.id) count
+from users
+left join posts on posts.user_id=users.id
+left join comments on comments.commented_post_id=posts.id
+left join ratings on ratings.rated_post_id=posts.id
+group by users.id
+
+").map { |u| [u.id, u.count]}

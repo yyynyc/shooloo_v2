@@ -12,7 +12,7 @@
       </section>    
 	  </aside>
 	<div class="span8">
-      <%= render 'follow_form' if signed_in? %>
+      <%= render partial:'follow_form', locals: {user: @user} if signed_in? %>
         <h3 class="feed_item"><%= @user.screen_name %>'s Commented Posts (<%= @user.commented_posts.count %>)</h3>
     	 <% if @user.commented_posts.any? %>      		      	
       		<ol class="posts">

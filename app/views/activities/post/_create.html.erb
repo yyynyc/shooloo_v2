@@ -1,0 +1,13 @@
+<% if activity.trackable %>
+	<strong>REVISED</strong> on 
+	<%= activity.created_at.strftime("%b %d, %Y") %>
+	<%= link_to "a post", new_post_comment_path(activity.trackable) %> 
+	based on feedback from <%= link_to User.find(activity.recipient_id).screen_name, posts_user_path(User.find(activity.recipient_id)) %>
+	in <i><%= User.find(activity.recipient_id).grade %></i>.
+	<span class="btn-formtastic">
+		<%= image_tag User.find(activity.recipient_id).avatar.url (:small) %> 
+	</span>. 
+<% else %>
+	deleted a post that others have commented or rated.
+<% end %>
+

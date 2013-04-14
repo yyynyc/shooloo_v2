@@ -3,6 +3,9 @@
 		<div class="span1.5">	
   			<%= image_tag user.avatar.url (:thumb) %>
 		</div>
+		<div class="btn-formtastic">			
+			<%= render partial: 'follow_form', locals:{user: user} %>		
+		</div>
 		<div class="span5.5">    
 		  <%= link_to user.screen_name, posts_user_path(user) %>,
 		  <%= user.grade %> <br/>
@@ -25,10 +28,7 @@
 			commented
 				<a href="<%= commented_posts_user_path(user) %>" >
 				<%= pluralize(user.commented_posts.count, "post") %></a>.
-		</div >
-		<div class="span1">			
-			<%#= render partial: 'follow_form', locals:{user: user} %>		
-		</div>
+		</div >		
 	</div>
   <% if current_user.admin? && !current_user?(user) %></br>
     <%= link_to "delete", user, method: :delete,

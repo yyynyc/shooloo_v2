@@ -7,4 +7,9 @@ class Activity < ActiveRecord::Base
   	def self.destroy_old_data
   		delete_all(['created_at < ?', 30.days.ago])
   	end
+
+
+  	def recipient
+  		User.find(self.recipient_id)
+  	end
 end

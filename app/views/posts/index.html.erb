@@ -1,7 +1,7 @@
 <% provide(:title, "All Posts") %> 
 <h1> All Posts </h1>
 
-<%= search_form_for @search, url: search_posts_path, method: :post do |f| %>
+<%= search_form_for @search, url: search_posts_path, method: :get do |f| %>
 	<div class="row">
 		<div class="span8 offset2" >
 			<span class="search-label">

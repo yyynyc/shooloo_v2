@@ -1,4 +1,5 @@
 require "bundler/capistrano"
+require "whenever/capistrano"
 
 server "198.74.59.151", :web, :app, :db, primary: true
 

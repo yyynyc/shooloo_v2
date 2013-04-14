@@ -5,6 +5,6 @@ class Activity < ActiveRecord::Base
   	belongs_to :user
 
   	def self.destroy_old_data
-  		delete_all(['created_at < ?', 21.days.ago])
+  		delete_all(['created_at < ?', 30.days.ago])
   	end
 end

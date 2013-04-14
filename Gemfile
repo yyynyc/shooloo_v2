@@ -16,6 +16,7 @@ gem 'ransack'
 gem 'acts_as_list'
 gem 'piwik_analytics'
 gem 'fancybox-rails'
+gem 'whenever', :require => false
 
 
 group :development, :test do

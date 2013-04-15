@@ -8,13 +8,11 @@
               <li><%= link_to "Home", root_path %></li>         
               <% if signed_in? %>
                 <li>
-                  <span style='display: inline-block;'>
                     <%= link_to "My Alerts", my_alerts_path %>
-                  </span>
-                  <span style='background-color: #f03d25; border: 2px solid #c0311e; color: #fff; font-size: 1em; line_height: normal; padding: 0 2px; position: relative;'>
-                    <%= Activity.where(recipient_id: current_user.id).where('user_id not in (?)', current_user.id).where(read: nil).count %>
-                  </span>
                 </li> 
+                <li class='alert_bubble'>
+                  <%= Activity.where(recipient_id: current_user.id).where('user_id not in (?)', current_user.id).where(read: nil).count %>
+                </li>
                 <% if current_user.admin? %>
                   <li><%= link_to "Alarms", alarmed_posts_path %></li> 
                 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130408213704) do
+ActiveRecord::Schema.define(:version => 20130414185433) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20130408213704) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "recipient_id"
+    t.boolean  "read"
   end
 
   add_index "activities", ["trackable_id"], :name => "index_activities_on_trackable_id"
@@ -67,6 +68,13 @@ ActiveRecord::Schema.define(:version => 20130408213704) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "position"
+  end
+
+  create_table "nudges", :force => true do |t|
+    t.integer  "nudger_id"
+    t.integer  "nudged_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "operations", :force => true do |t|

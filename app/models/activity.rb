@@ -1,6 +1,6 @@
 
 class Activity < ActiveRecord::Base
-	attr_accessible :action, :trackable, :recipient_id, :user_id
+	attr_accessible :action, :trackable, :recipient_id, :user_id, :read
   	belongs_to :trackable, polymorphic: true
   	belongs_to :user
 

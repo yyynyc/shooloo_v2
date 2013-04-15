@@ -12,7 +12,10 @@
   <% @my_activities.each do |activity| %>
     <% unless current_user?(activity.user) %> 
       <div class="users">
-        <li>      
+        <li>  
+          <div class='btn-formtastic'>
+            <%= render partial: 'users/read_form', locals: {activity: activity} %>
+          </div>    
           <% if activity.user.nil? %> 
              <%= render text: "A user who has commented or rated your posts or who has followed you has been deleted from this web site." %> 
           <% else %>          

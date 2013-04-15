@@ -36,7 +36,9 @@ class User < ActiveRecord::Base
       path: ":rails_root/public/attachments/users/:id/:style/:basename.:extension"
   
   has_secure_password
+
   has_many :posts, dependent: :destroy, order: "updated_at DESC"
+
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
   has_many :reverse_relationships, foreign_key: "followed_id",
@@ -56,9 +58,15 @@ class User < ActiveRecord::Base
   has_many :alarms, foreign_key: "alarmer_id"
   has_many :alarmed_posts, through: :alarms
   has_many :alarmed_comments, through: :alarms
+
   has_many :activities
-  #has_many :activities_as_initiator, class_name: "Activity", as: :initiator
-  #has_many :activities_as_recipient, class_name: "Activity", as: :recipient
+
+  has_many :nudges, foreign_key: "nudger_id", dependent: :destroy
+  has_many :nudged_users, through: :nudges, source: :nudged
+  has_many :reverse_nudges, foreign_key: "nudged_id",
+                                   class_name:  "Nudge",
+                                   dependent:   :destroy
+  has_many :nudgers, through: :reverse_nudges, source: :nudger
   
   before_save { self.email.downcase! } 
   before_save :create_remember_token
@@ -118,6 +126,13 @@ class User < ActiveRecord::Base
     url = URI(url_value)   
   end
 
+  def read!(activity)
+    Activity.find_by_id(activity.id).update_attributes!(read: true)
+  end
+
+  def unread!(activity)
+    Activity.find_by_id(activity.id).update_attributes!(read: nil)
+  end
 
   private
 

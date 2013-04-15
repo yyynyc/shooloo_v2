@@ -1,0 +1,9 @@
+<%  if !@activity.read? %>
+	$("#read_form_<%= @activity.id %>").html("<%= escape_javascript(
+	render(partial:'users/read_no', 
+	locals:{activity:@activity})) %>")
+<% else %>
+	$("#read_form_<%= @activity.id %>").html("<%= escape_javascript(
+	render(partial:'users/read', locals:{activity:@activity})) %>")
+
+<% end %>

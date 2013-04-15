@@ -1,0 +1,8 @@
+<div id="read_form_<%= activity.id %>">
+  <% unless activity.read? %>
+   	<%= render partial: 'users/read', locals: {activity: activity} %>
+  <% else %>
+    <%= render partial: 'users/read_no', locals: {activity: activity} %>
+  <% end %>
+ </div>
+ 

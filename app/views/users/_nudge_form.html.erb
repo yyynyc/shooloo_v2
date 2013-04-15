@@ -1,0 +1,9 @@
+<% unless current_user?(user) %>
+  <div id="nudge_form_<%= user.id %>">
+  <% if current_user.nudging?(user) %>
+    <%= render partial: 'users/nudge_reversed', locals: {user: user} %>
+  <% else %>
+    <%= render partial: 'users/nudge_initiate', locals: {user: user} %>
+  <% end %>
+  </div>
+<% end %>

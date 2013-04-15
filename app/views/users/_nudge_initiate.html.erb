@@ -1,0 +1,5 @@
+<%= form_for(current_user.nudges.build(nudged_id: user.id), 
+			remote: true) do |f| %>
+  <div><%= f.hidden_field :nudged_id %></div>
+  <%= f.submit " NUDGE ", class: "btn btn-medium btn-success" %>
+<% end %>

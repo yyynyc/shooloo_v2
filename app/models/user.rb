@@ -134,6 +134,18 @@ class User < ActiveRecord::Base
     Activity.find_by_id(activity.id).update_attributes!(read: nil)
   end
 
+  def nudging?(other_user)
+    nudges.find_by_nudged_id(other_user.id)
+  end
+
+  def nudge!(other_user)
+    Nudge.create!(nudged_id: other_user.id)
+  end
+
+  def disnudge!(other_user)
+    nudges.find_by_nudged_id(other_user.id).destroy
+  end
+
   private
 
     def create_remember_token

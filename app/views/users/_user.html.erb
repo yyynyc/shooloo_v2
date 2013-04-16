@@ -4,7 +4,7 @@
   			<%= image_tag user.avatar.url (:thumb) %>
 		</div>
 		<div class="btn-formtastic">
-			<%#= render partial: 'nudge_form', locals:{user: user} %>			
+			<%= render partial: 'nudge_form', locals:{user: user} %>		
 			<%= render partial: 'follow_form', locals:{user: user} %>
 		</div>
 		<div class="span5.5">    

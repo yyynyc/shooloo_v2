@@ -1,0 +1,15 @@
+<% if activity.trackable %>	
+	<span style='font-size: 1.5em;'><strong>NUDGED</strong></span> you on 
+	<%= activity.created_at.strftime("%b %d, %Y") %>
+	and is eagerly waiting to see your activities.
+	<i class='icon-hand-left icon-large'></i><br/>
+	<span style='color: #d00000;'>
+		Don't let <%= activity.user.screen_name %> wait too long; otherwise you may lose <%= activity.user.screen_name %>'s' attention forever! 
+	</span><br/>
+	<strong><%= link_to "Publish", root_url %></strong> your own word problem today and add comments/ratings to
+	<%= link_to "#{activity.user.screen_name}'s posts", posts_user_path(activity.user) %>.
+<% else %>
+	has <span style='font-size: 1.5em;'><strong>NUDGED</strong></span> you and is eagerly waiting to see your activities.
+	<i class='icon-hand-left icon-large'></i><br/>
+	<strong><%= link_to "Publish", root_url %></strong> your own word problem today.
+<% end %>

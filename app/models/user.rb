@@ -139,7 +139,7 @@ class User < ActiveRecord::Base
   end
 
   def nudge!(other_user)
-    Nudge.create!(nudged_id: other_user.id)
+   nudges.create!(nudged_id: other_user.id)
   end
 
   def disnudge!(other_user)

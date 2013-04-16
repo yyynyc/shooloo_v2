@@ -2,7 +2,7 @@
 	<strong>REVISED</strong> 
 	<%= link_to "a post you have commented or rated", new_post_comment_path(activity.trackable) %> 
 	on <%= activity.created_at.strftime("%b %d, %Y") %>. 
-	<i class='icon-edit'></i><br/>
+	<i class='icon-pencil icon-medium'></i><br/>
 	Add more comments or revise your rating to <%= link_to "this post", new_post_comment_path(activity.trackable) %>. <br/>
 	Check out
 	<%= link_to "#{activity.user.screen_name}'s other posts", posts_user_path(activity.user) %>.

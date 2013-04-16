@@ -6,10 +6,8 @@ class Alarm < ActiveRecord::Base
 
   after_save do 
   	if self.alarmed_post
-    	#Post.update_all(["visible=?", false], ['id=?',self.alarmed_post.id])
       self.alarmed_post.update_attribute(:visible, false)
     elsif self.alarmed_comment
-    	#Comment.update_all(['visible=?', false],['id=?',self.alarmed_comment.id])
       self.alarmed_comment.update_attribute(:visible, false)
     end
   end

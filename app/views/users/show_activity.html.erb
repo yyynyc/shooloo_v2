@@ -11,7 +11,7 @@
 <% else %>        
   <% @my_activities.each do |activity| %>
     <% unless current_user?(activity.user) %> 
-      <div class="users">
+      <ul class="users">
         <li>  
           <div class='btn-formtastic'>
             <%= render partial: 'users/read_form', locals: {activity: activity} %>
@@ -34,11 +34,11 @@
             <% end %>
             <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>  
           <% end %>
-        </li>
-      </div>       
-      <%= will_paginate @my_activities %>
+        </li>        
+      </ul>        
     <% end %>
   <% end %>   
 <% end %> 
+<%= will_paginate @my_activities %>
      
   	

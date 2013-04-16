@@ -64,14 +64,9 @@ class Comment < ActiveRecord::Base
     Activity.create!(action: "create", trackable: self, 
       user_id: self.commenter_id, recipient_id: self.commented_post.user_id)
 
-    self.commented_post.commenters.uniq.each do |commenter|
+    self.commented_post.commenters.uniq.each do |c|
       Activity.create!(action: "create", trackable: self, 
-        user_id: self.commenter_id, recipient_id: commenter.id)
+        user_id: self.commenter_id, recipient_id: c.id)
     end
-
-#   self.commenter.nudgers.each do
-#     Activity.create!(action: "create", trackable: self, 
-#        user_id: self.commenter_id, recipient_id: self.commenter.nudger_id)
-#    end
   end
 end

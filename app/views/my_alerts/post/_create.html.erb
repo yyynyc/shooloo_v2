@@ -1,11 +1,15 @@
 <% if activity.trackable %>
-	<strong>REVISED</strong> 
-	<%= link_to "a post you have commented or rated", new_post_comment_path(activity.trackable) %> 
-	on <%= activity.created_at.strftime("%b %d, %Y") %>. 
+	<span class='alert-heading'>
+		<strong><%= link_to "UPDATED", new_post_comment_path(activity.trackable) %></strong> 		
+		a post on <%= activity.created_at.strftime("%b %d, %Y") %>
+	</span> 
 	<i class='icon-pencil icon-medium'></i><br/>
-	Add more comments or revise your rating to <%= link_to "this post", new_post_comment_path(activity.trackable) %>. <br/>
+	that you have commented or rated. Add more comments or revise your rating to <%= link_to "this post", new_post_comment_path(activity.trackable) %>. <br/>
 	Check out
 	<%= link_to "#{activity.user.screen_name}'s other posts", posts_user_path(activity.user) %>.
 <% else %>
-	deleted a post you have commented or rated.
+	<span class='alert-heading'>
+		deleted a post you have commented or rated.
+	</span>
+	<i class='icon-trash'></i>
 <% end %>

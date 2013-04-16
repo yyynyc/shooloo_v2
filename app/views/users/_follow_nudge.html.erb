@@ -1,0 +1,8 @@
+<% if signed_in? %>
+  <span class='follow-nudge'>
+    <%= render partial:'follow_form', locals: {user: @user} %>
+  </span>
+  <span class='follow-nudge'>
+    <%= render partial: 'nudge_form', locals:{user: @user} %>
+  </span>  
+<% end %> 

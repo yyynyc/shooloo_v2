@@ -1,10 +1,15 @@
 <% if activity.trackable %>
-	has started <strong>FOLLOWING</strong> you since 
-	<%= activity.created_at.strftime("%b %d, %Y") %>.
+	<span class='alert-heading'>
+		has started <strong><%= link_to "FOLLOWING", posts_user_path(activity.user) %></strong> you since 
+		<%= activity.created_at.strftime("%b %d, %Y") %>.
+	</span>
 	<i class='icon-user icon-medium'></i> <br/>
-	<strong><%= link_to "Publish a word problem", root_url %></strong> to impress <%= activity.user.screen_name %>. <br/>
+	<strong><%= link_to "Publish", root_url %></strong> a word problem now to impress <%= activity.user.screen_name %>. <br/>
 	Express your thanks and 
-	<%= link_to "follow #{activity.user.screen_name} back", posts_user_path(activity.user) %>.
+	<%= link_to "follow #{activity.user.screen_name}", posts_user_path(activity.user) %> back.
 <% else %>
-	started following you but since unfollowed you.
+	<span class='alert-heading'>
+		started following you but since unfollowed you.
+	</span>
+	<i class='icon-trash'></i>
 <% end %>

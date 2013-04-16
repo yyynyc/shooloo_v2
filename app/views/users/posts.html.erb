@@ -12,23 +12,25 @@
     </section>
 	</aside>
 	<div class="span8">
-      <%= render partial:'follow_form', locals: {user: @user} if signed_in? %>
-      <h3 class="feed_item"><%= @user.screen_name %>'s Published Posts (<%= @user.posts.count %>)</h3>           
-    	<% if @user.posts.count == 0 %>
-        <% if current_user?(@user) %> 
-          <section class="prompt">
-      		  <%= render text: "Jazz up with your profile with published posts of your own! Use the form on the left." %>
-          </section> 
-        <% else %>
-           <section class="prompt">
-            <%= @user.screen_name %><%= render text: " has not published any posts yet." %>
-          </section>
-        <% end %> 
-      <% else %>    	
-    		<ol class="posts">      		
-          <%= render partial: 'shared/feed_item', collection: @posts  %>
-    		</ol>
-    		<%= will_paginate @posts %>       
-     	<% end %>
-  	</div>
+    <%= render 'users/follow_nudge' %> 
+    <h3 class="feed_item">
+      <%= @user.screen_name %>'s Published Posts (<%= @user.posts.count %>)
+    </h3>           
+  	<% if @user.posts.count == 0 %>
+      <% if current_user?(@user) %> 
+        <section class="prompt">
+    		  <%= render text: "Jazz up with your profile with published posts of your own! Use the form on the left." %>
+        </section> 
+      <% else %>
+         <section class="prompt">
+          <%= @user.screen_name %><%= render text: " has not published any posts yet." %>
+        </section>
+      <% end %> 
+    <% else %>    	
+  		<ol class="posts">      		
+        <%= render partial: 'shared/feed_item', collection: @posts  %>
+  		</ol>
+  		<%= will_paginate @posts %>       
+   	<% end %>
+  </div>
 </div>

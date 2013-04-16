@@ -12,17 +12,19 @@
       </section>    
 	  </aside>
 	<div class="span8">
-      <%= render partial:'follow_form', locals: {user: @user} if signed_in? %>
-        <h3 class="feed_item"><%= @user.screen_name %>'s Rated Posts (<%= @user.rated_posts.count %>)</h3>
-    	 <% if @user.rated_posts.any? %>      		      	
-      		<ol class="posts">
-        		<%= render partial: 'shared/feed_item', collection: @rated_posts, order: 'ratings.updated_at DESC' %>
-      		</ol>
-      		<%= will_paginate @rated_posts %>
-        <% else %>          
-          <section class="prompt">
-            <%= render text: "Search posts in the Community section and show your friends that you care about what they have to say." %>
-          </section> 
-     	<% end %>
-  	</div>
+    <%= render 'users/follow_nudge' %> 
+    <h3 class="feed_item">
+      <%= @user.screen_name %>'s Rated Posts (<%= @user.rated_posts.count %>)
+    </h3>
+  	<% if @user.rated_posts.any? %>      		      	
+  		<ol class="posts">
+    		<%= render partial: 'shared/feed_item', collection: @rated_posts, order: 'ratings.updated_at DESC' %>
+  		</ol>
+  		<%= will_paginate @rated_posts %>
+    <% else %>          
+      <section class="prompt">
+        <%= render text: "Search posts in the Community section and show your friends that you care about what they have to say." %>
+      </section> 
+ 	  <% end %>
+	</div>
 </div>

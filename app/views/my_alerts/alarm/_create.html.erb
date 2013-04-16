@@ -1,14 +1,21 @@
 <% if activity.trackable %>
 	<% unless activity.trackable.alarmed_post_id.nil? %>
-		<%= link_to "your post", new_post_comment_path(activity.trackable.alarmed_post) %>.
-	<i class='icon-bell icon-medium'></i>	<br/>
-	No one other than teachers can see the post now. Go to Account/My Hidden Posts and update your hidden post. Make sure it does NOT have any of the following: 1) watermarked image; 2) content that has nothing to do with math; 3) offensive image; 4) offensive content; 5) plagerized content. After you clean up your post, you may ask your teacher to unalarm it. 
+		<span class='alert-heading'>
+			<%= link_to "your post", new_post_comment_path(activity.trackable.alarmed_post) %>.
+		</span>
+		<i class='icon-bell icon-medium'></i>	<br/>
+		No one other than teachers can see the post now. Go to Account/My Hidden Posts and update your hidden post. Make sure it does NOT have any of the following: 1) watermarked image; 2) content that has nothing to do with math; 3) offensive image; 4) offensive content; 5) plagerized content. After you clean up your post, you may ask your teacher to unalarm it. 
 	<% else %>
-		your comment 
-		on post #<%= link_to activity.trackable.alarmed_comment.commented_post.id, new_post_comment_path(activity.trackable.alarmed_comment.commented_post) %>.
-		<i class='icon-bell'></i>	<br/>
+		<span class='alert-heading'>
+			your comment 
+			on #<%= link_to "a post", new_post_comment_path(activity.trackable.alarmed_comment.commented_post) %>.
+		</span>	
+		<i class='icon-bell icon-medium'></i>	<br/>
 		No one other than teachers can see the comment now. If you believe your comment was clean and friendly, you may ask  your teacher to unalarm it. 
 	<% end %>
 <% else %>
-	your post or comment but has since been unlarmed by the teacher.	
+	<span class='alert-heading'>
+		your post or comment but has since been unlarmed.
+	</span>	
+	<i class='icon-trash'></i>
 <% end %>

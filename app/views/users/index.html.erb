@@ -52,15 +52,17 @@
 					</span>
 				</div>
 			</div>
-			<div class='row'>	
-	      		<% if current_user.admin? %><br/>
-	      			<%= link_to "delete", user, method: :delete, data: 
-	      				{confirm: "Are you sure?" }%>
-	      			user #<%= user.id %>,
-	  				<%= user.first_name %>
-	  				<%= user.last_name %>, 
-	  				<%= user.email %>
-	      		<% end %>
+			<div class='row'>
+				<span class='follow-nudge'>	
+	      			<% if current_user.admin? %><br/>
+		      			<%= link_to "delete", user, method: :delete, data: 
+		      				{confirm: "Are you sure?" }%>
+		      			user #<%= user.id %>,
+		  				<%= user.first_name %>
+		  				<%= user.last_name %>, 
+		  				<%= user.email %>
+		      		<% end %>
+		      	</span>	
 	      	</div>	
       	</li>
       </ul>	

@@ -154,14 +154,21 @@ class Post < ActiveRecord::Base
     user.ratings.find_by_rated_post_id(self.id)
   end
 
+  after_create do
+    self.user.nudgers.uniq.each do |nudger|
+      Activity.create!(action: "create", trackable: self, 
+        user_id: self.user_id, recipient_id: nudger.id)
+    end
+  end
+
   after_update do
     self.commenters.uniq.each do |commenter|
-      Activity.create!(action: "create", trackable: self, 
+      Activity.create!(action: "update", trackable: self, 
         user_id: self.user_id, recipient_id: commenter.id)
     end
 
     self.raters.uniq.each do |rater|
-      Activity.create!(action: "create", trackable: self, 
+      Activity.create!(action: "update", trackable: self, 
         user_id: self.user_id, recipient_id: rater.id)
     end
   end

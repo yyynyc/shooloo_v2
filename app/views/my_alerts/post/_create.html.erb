@@ -1,15 +1,16 @@
 <% if activity.trackable %>
 	<span class='alert-heading'>
-		<strong><%= link_to "UPDATED", new_post_comment_path(activity.trackable) %></strong> 		
-		a post on <%= activity.created_at.strftime("%b %d, %Y") %>
+		<strong><%= link_to "PUBLISHED", new_post_comment_path(activity.trackable) %></strong> 		
+		a new post on <%= activity.created_at.strftime("%b %d, %Y") %>
 	</span> 
-	<i class='icon-pencil icon-medium'></i><br/>
-	that you have commented or rated. Add more comments or revise your rating to <%= link_to "this post", new_post_comment_path(activity.trackable) %>. <br/>
-	Check out
-	<%= link_to "#{activity.user.screen_name}'s other posts", posts_user_path(activity.user) %>.
+	<i class='icon-music icon-large'></i><br/>	
+	under your nudge. Comment or rate 
+	<%= link_to "#{activity.user.screen_name}'s post", new_post_comment_path(activity.trackable) %>.
+	<br/>	
+	Show <%= link_to "#{activity.user.screen_name}", posts_user_path(activity.user) %> how pleased you are.
 <% else %>
 	<span class='alert-heading'>
-		deleted a post you have commented or rated.
+		deleted a post. Encourage <%= link_to "#{activity.user.screen_name}", new_post_comment_path(activity.trackable) %> to publish another post. 
 	</span>
 	<i class='icon-trash'></i>
 <% end %>

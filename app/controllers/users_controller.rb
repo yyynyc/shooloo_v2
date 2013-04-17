@@ -114,7 +114,8 @@ class UsersController < ApplicationController
   end
 
   def show_activity
-    @my_activities = Activity.where(recipient_id: current_user.id).order('created_at DESC')
+    @my_activities = Activity.where(recipient_id: current_user.id).paginate(page: params[:page], 
+      per_page: 40, order: 'created_at DESC')
     @alert_count = Activity.where(recipient_id: current_user.id).where('user_id not in (?)', current_user.id).where(read: nil).count
   end
   

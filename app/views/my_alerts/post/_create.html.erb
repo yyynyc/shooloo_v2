@@ -1,7 +1,9 @@
 <% if activity.trackable %>
 	<span class='alert-heading'>
 		<strong><%= link_to "PUBLISHED", new_post_comment_path(activity.trackable) %></strong> 		
-		a new post on <%= activity.created_at.strftime("%b %d, %Y") %>
+		a new post 
+		(#<%= link_to activity.trackable.id, new_post_comment_path(activity.trackable) %>) 
+		on <%= activity.created_at.strftime("%b %d, %Y") %>
 	</span> 
 	<i class='icon-music icon-large'></i><br/>	
 	under your nudge. Comment or rate 

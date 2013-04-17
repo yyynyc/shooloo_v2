@@ -42,9 +42,11 @@ class Rating < ActiveRecord::Base
     Activity.create!(action: "create", trackable: self, 
       user_id: self.rater_id, recipient_id: self.rated_post.user_id)
 
-    self.rated_post.raters.uniq.each do |r|
-      Activity.create!(action: "create", trackable: self, 
-        user_id: self.rater_id, recipient_id: r.id)
+    if self.rated_post.raters.count > 1
+      self.rated_post.raters.uniq.each do |r|
+        Activity.create!(action: "create", trackable: self, 
+          user_id: self.rater_id, recipient_id: r.id)
+      end
     end
   end
   

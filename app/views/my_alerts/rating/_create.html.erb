@@ -1,7 +1,8 @@
 <% if activity.trackable %>
 	<span class='alert-heading'>
 		added a <strong><%= link_to "RATING", new_post_comment_path(activity.trackable.rated_post) %></strong> 
-		on <%= activity.created_at.strftime("%b %d, %Y") %> to a post
+		on <%= activity.created_at.strftime("%b %d, %Y") %> to post
+		(#<%= link_to activity.trackable.rated_post.id, new_post_comment_path(activity.trackable.rated_post) %>)
 	</span>
 	<i class='icon-star icon-medium'></i><br/>
 	that you have published or rated.

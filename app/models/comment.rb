@@ -64,9 +64,11 @@ class Comment < ActiveRecord::Base
     Activity.create!(action: "create", trackable: self, 
       user_id: self.commenter_id, recipient_id: self.commented_post.user_id)
 
-    self.commented_post.commenters.uniq.each do |c|
-      Activity.create!(action: "create", trackable: self, 
-        user_id: self.commenter_id, recipient_id: c.id)
-    end
+     if self.commented_post.comments.count > 1
+      self.commented_post.commenters.uniq.each do |c|
+        Activity.create!(action: "create", trackable: self, 
+          user_id: self.commenter_id, recipient_id: c.id)
+      end
+    end 
   end
 end

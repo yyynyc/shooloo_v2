@@ -2,7 +2,7 @@ class Like < ActiveRecord::Base
   attr_accessible :comment_id, :post_id, :user_id
   belongs_to :post
   belongs_to :comment
-  belongs_to :user_id
+  belongs_to :user
 
   after_create do
     if self.post

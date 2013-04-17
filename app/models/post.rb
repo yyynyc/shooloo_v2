@@ -91,6 +91,9 @@ class Post < ActiveRecord::Base
     url: "/attachments/posts/:id/:style/:basename.:extension",
     path: ":rails_root/public/attachments/posts/:id/:style/:basename.:extension"
 
+  has_many :alarms, foreign_key: "alarmed_post_id", dependent: :destroy
+  has_many :likes, dependent: :destroy
+
   has_many :ratings, foreign_key: "rated_post_id", dependent: :destroy, 
           order: "ratings.updated_at DESC"
   has_many :raters, through: :ratings, source: :rater
@@ -112,9 +115,6 @@ class Post < ActiveRecord::Base
   validates_attachment_size :photo, :less_than => 5.megabytes
   validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
 
-  #default_scope order: 'posts.updated_at DESC'
-
-  has_many :alarms, foreign_key: "alarmed_post_id", dependent: :destroy
   def after_initialize
     @visible = true if @visible.nil?
   end

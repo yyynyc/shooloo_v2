@@ -30,6 +30,7 @@ class Comment < ActiveRecord::Base
   validates :content, presence: true
 
   has_many :alarms, foreign_key: "alarmed_comment_id", dependent: :destroy
+  has_many :likes, dependent: :destroy
 
 
   def after_initialize

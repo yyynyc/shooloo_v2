@@ -22,7 +22,7 @@
             <% if activity.trackable_type == "Alarm" %>
               <span class='alert-heading'>
                   On <%= activity.created_at.strftime("%b %d, %Y") %>, an <strong>ALARM</strong> was raised on
-              </span> 
+              </span>                
             <% else %>
               <div class="avatar">
                 <%= image_tag activity.user.avatar.url (:small) %>  

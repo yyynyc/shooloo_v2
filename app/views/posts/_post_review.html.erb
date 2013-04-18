@@ -1,69 +1,57 @@
 <div class="row">   
-  <div class="post_review_user_info">
-    <span class="btn-formtastic">
-      <i class="icon-star"></i>
-      <%= @post.ratings_count %>
-      <i class="icon-thumbs-up"></i>
-      <%= @post.overall_true_count %>
-      <i class="icon-comment"></i>
-      <%= @post.comments_count %> 
-      <% if current_user?(@post.user) %> 
-        <%= link_to "Delete Post", @post, method: :delete,
-          data: { confirm: "Delete post. Are you sure? You will lose all of your ratings and comments." },
-          title: "Delete Post", class: "btn btn-small btn-default" %>
-        <%= link_to "Edit Post ", edit_post_path(@post), title: "Edit Post", class: "btn btn-small btn-default" %>
-        <%= render partial: 'shared/rating_show_avg', locals: { local_object: @post } %>
-      <% else %> 
-        <% if @post.ratings.find_by_rater_id(current_user.id) %>
-          <%= link_to "Delete Rating", @post.ratings.find_by_rater_id(current_user.id), method: :delete, title: "Delete Rating", class: "btn btn-small btn-default", data: { confirm: "Delete rating. Are you sure?" } %> 
-          <%= link_to "Edit Rating", edit_post_rating_path(@post, @post.rating_by(current_user)), title: "Edit Rating", class: "btn btn-small btn-default" %>
-          <%= render partial: 'shared/rating_show_avg', locals: { local_object: @post } %>
-        <% else %>              
-            <%= link_to "Rate this post", new_post_rating_path(@post), class: "btn btn-small btn-default" %>     
-        <% end %>
-        <%= link_to "Comment", new_post_comment_path(@post), class: "btn btn-small btn-default" %>          
-      <% end %>
-      <span style="display: inline-block;">
-        <% if @post.visible? %> 
-          <%= render partial: 'alarms/alarm', locals: {post: @post} %>
-        <% else%>
-          <% if current_user.admin? %>
-            <%= render partial: 'alarms/unalarm', locals: {post: @post} %>
-          <% end %>
-        <% end %>
-      </span>            
-    </span>       
-    <span class="user">
-      <%= link_to @post.user.screen_name, posts_user_path(@post.user) %>
-    </span> 
-    <span class="timestamp"> in </span><%= @post.user.grade %>
-    <span class="timestamp">updated on </span>    
-    <%= @post.updated_at.strftime("%b %d, %Y") %>  
-    <span class="timestamp"> for</span> 
-    <%= @post.grade %> 
-    <span class="timestamp">in category </span> 
-    <%= @post.category %>.
+  <div class="post_review_user_info">      
+    <%= render partial: 'posts/post_user', locals: {post: @post} %>
+    <%= render partial: 'posts/post_stats', locals: {post: @post} %>
+    <br/>
+  </div>
+</div>
+<div class="row">     
+  <span class="image">
+    <%= image_tag @post.photo.url (:large) %><br/>
+    <% unless @post.image_host.nil? %>
+      <span class="image-host-large">Image courtesy of <%= @post.image_host %>.
+      </span><br/> 
+    <% end %>
   </span>
-  </div>
-  <div class="row">     
-    <span class="image">
-      <%= image_tag @post.photo.url (:large) %><br/>
-      <% unless @post.image_host.nil? %>
-        <span class="image-host-large">Image courtesy of <%= @post.image_host %>.
-        </span><br/> 
+  <span class="modal-text">         
+    <strong>Question:</strong> 
+    <%= simple_format(@post.question) %>
+  </span>
+</div>
+<div class="row">
+  <% if current_user?(@post.user) %> 
+    <%= link_to "Delete Post", @post, method: :delete,
+      data: { confirm: "Delete post. Are you sure? You will lose all of your ratings and comments." },
+      title: "Delete Post", class: "btn btn-small btn-default" %>
+    <%= link_to "Edit Post ", edit_post_path(@post), title: "Edit Post", class: "btn btn-small btn-success" %>
+    <%= render partial: 'shared/rating_show_avg', locals: { local_object: @post } %>
+  <% else %> 
+    <% if @post.visible? %>
+      <span class='search-label'> 
+      <%= render partial: 'alarms/alarm', locals: {post: @post} %>   
+      </span>
+      <% if @post.ratings.find_by_rater_id(current_user.id) %>
+        <%= link_to "Delete Rating", @post.ratings.find_by_rater_id(current_user.id), method: :delete, title: "Delete Rating", class: "btn btn-small btn-default", data: { confirm: "Delete rating. Are you sure?" } %> 
+        <%= link_to "Edit Rating", edit_post_rating_path(@post, @post.rating_by(current_user)), title: "Edit Rating", class: "btn btn-small btn-default" %>
+        <%= render partial: 'shared/rating_show_avg', locals: { local_object: @post } %>
+      <% else %>              
+          <%= link_to "Rate this post", new_post_rating_path(@post), class: "btn btn-small btn-default" %>     
       <% end %>
-    </span>
-    <span class="modal-text"> 
-      <section>         
-        <strong>Question:</strong> <%= simple_format(@post.question) %>
-      </section>
-    </span>
-  </div>
-</div>   
+      <span class='search-label'> 
+        <%= render partial: 'likes/like_form', locals: {like: @like, post: @post } %>
+      </span>  
+    <% else %> 
+      <% if current_user.admin? %>
+        <%= render partial: 'alarms/unalarm', locals: {post: @post} %>
+      <% end %>
+    <% end %>
+  <% end %><br/>
+</div>  
 <div class="row">   
-    <div class="post_review_user_info">        
-      <section class="well-text">
-        Is <span class="post_review_answer"><%= @post.answer %></span> the right answer?<br/>
-        Is this problem suitable for <span class="post_review_answer"><%= @post.grade %></span>?<br/>           
-    </div>  
+  <div class="post_review_user_info">        
+    <section class="well-text">
+      Is <span class="post_review_answer"><%= @post.answer %></span> the right answer?<br/>
+      Is this problem suitable for <span class="post_review_answer"><%= @post.grade %></span>?
+    </section>          
+  </div>  
 </div> 

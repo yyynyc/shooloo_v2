@@ -37,7 +37,7 @@
       <div>
         <span class="btn-formtastic">
           <span style="display: inline-block;"> 
-           <%= render partial: 'alarms/alarm', locals: {post:feed_item} %>
+           <%= render partial: 'alarms/alarm', locals: {post: feed_item} %>
           </span>       
           <% if current_user?(feed_item.user) %> 
             <%= link_to "Delete post", feed_item, method: :delete,
@@ -53,6 +53,9 @@
             <% else %>              
                 <%= link_to "Check answer", new_post_rating_path(feed_item), class: "btn btn-small btn-default" %>     
             <% end %>
+            <span class='search-label'> 
+              <%= render partial: 'likes/like_form', locals: {post: feed_item, like: @like} %>
+            </span>  
           <% end %> 
           <%= link_to "Comment", new_post_comment_path(feed_item), class: "btn btn-small btn-success" %> 
           <% if current_user.admin? %>

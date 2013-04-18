@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130415223422) do
+ActiveRecord::Schema.define(:version => 20130417221005) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -71,12 +71,16 @@ ActiveRecord::Schema.define(:version => 20130415223422) do
   end
 
   create_table "likes", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "comment_id"
-    t.integer  "post_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "liked_post_id"
+    t.integer  "liked_comment_id"
+    t.integer  "liker_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
+
+  add_index "likes", ["liked_comment_id"], :name => "index_likes_on_liked_comment_id"
+  add_index "likes", ["liked_post_id"], :name => "index_likes_on_liked_post_id"
+  add_index "likes", ["liker_id"], :name => "index_likes_on_liker_id"
 
   create_table "nudges", :force => true do |t|
     t.integer  "nudger_id"

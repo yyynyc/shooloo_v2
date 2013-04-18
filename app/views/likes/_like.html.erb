@@ -1,0 +1,6 @@
+<%= form_for(like, :url => post_likes_path(post.id), remote: true) do |f| %>
+	<%= f.hidden_field :liked_post_id, value: post.id %>
+	<button type="submit", class="btn btn-small btn-success">
+		<i class='icon-heart icon-white'></i> LIKE 
+	</button>
+<% end %>

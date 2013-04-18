@@ -1,19 +1,3 @@
-# == Schema Information
-#
-# Table name: comments
-#
-#  id                 :integer          not null, primary key
-#  comment            :text
-#  photo_file_name    :string(255)
-#  photo_content_type :string(255)
-#  photo_file_size    :integer
-#  photo_updated_at   :datetime
-#  commenter_id       :integer
-#  commented_post_id  :integer
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#
-
 class Comment < ActiveRecord::Base
   attr_accessible :content, :photo
   belongs_to :commented_post, class_name: "Post"
@@ -30,8 +14,8 @@ class Comment < ActiveRecord::Base
   validates :content, presence: true
 
   has_many :alarms, foreign_key: "alarmed_comment_id", dependent: :destroy
-  has_many :likes, dependent: :destroy
-
+  has_many :likes, foreign_key: "liked_comment_id", dependent: :destroy
+  has_many :likers, through: :likes, source: :liker
 
   def after_initialize
     @visible = true if @visible.nil?

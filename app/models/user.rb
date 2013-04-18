@@ -39,7 +39,6 @@ class User < ActiveRecord::Base
 
   has_many :posts, dependent: :destroy, order: "updated_at DESC"
   has_many :activities, dependent: :destroy
-  has_many :likes, dependent: :destroy
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
@@ -60,6 +59,10 @@ class User < ActiveRecord::Base
   has_many :alarms, foreign_key: "alarmer_id"
   has_many :alarmed_posts, through: :alarms
   has_many :alarmed_comments, through: :alarms
+
+  has_many :likes, foreign_key: "liker_id", dependent: :destroy
+  has_many :liked_posts, through: :likes, source: :liked_post
+  has_many :liked_comments, through: :likes, source: :liked_comment
 
   has_many :nudges, foreign_key: "nudger_id", dependent: :destroy
   has_many :nudged_users, through: :nudges, source: :nudged

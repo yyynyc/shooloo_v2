@@ -1,16 +1,6 @@
 class Like < ActiveRecord::Base
-  attr_accessible :comment_id, :post_id, :user_id
-  belongs_to :post
-  belongs_to :comment
-  belongs_to :user
-
-  after_create do
-    if self.post
-      Activity.create!(action: "create", trackable: self, 
-        user_id: self.user_id, recipient_id: self.post.user_id)
-    elsif self.alarmed_comment
-      Activity.create!(action: "create", trackable: self, 
-        user_id: self.user_id, recipient_id: self.comment.user_id)
-    end    
-  end
+  attr_accessible :liked_comment_id, :liked_post_id
+  belongs_to :liked_post, class_name: "Post"
+  belongs_to :liked_comment, class_name: "Comment"
+  belongs_to :liker, class_name: "User"
 end

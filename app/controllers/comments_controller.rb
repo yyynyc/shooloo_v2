@@ -11,6 +11,7 @@ class CommentsController < ApplicationController
             order: 'created_at DESC')
         @alarm = Alarm.new
         @rating = Rating.new
+        @like = Like.new
     end
 
     def create

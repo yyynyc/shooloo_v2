@@ -1,9 +1,3 @@
 $("#like_form_<%= @post.id %>").html("<%= escape_javascript(
-	render(partial:'likes/unlike', locals: {object: @post} )
-	) %>"
-)
+	render(partial:'likes/unlike', locals: {like: @like, post: @post})) %>")
 
-$("#like_form_<%= @comment.id %>").html("<%= escape_javascript(
-	render(partial:'likes/unlike', locals: {object: @comment})
-	) %>"
-)

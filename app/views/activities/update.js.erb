@@ -2,8 +2,9 @@
 	$("#read_form_<%= @activity.id %>").html("<%= escape_javascript(
 	render(partial:'users/read_no', 
 	locals:{activity:@activity})) %>")
+ 	$('#alert_bubble').html(<%= alert_count %>);
 <% else %>
 	$("#read_form_<%= @activity.id %>").html("<%= escape_javascript(
 	render(partial:'users/read', locals:{activity:@activity})) %>")
-
+	$('#alert_bubble').html(<%= alert_count %>);
 <% end %>

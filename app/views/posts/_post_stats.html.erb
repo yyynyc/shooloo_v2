@@ -1,6 +1,12 @@
+<i class="icon-heart "></i>
+<%= link_to post.likes_count, "#", "id" => "like", "rel" => "tooltip", 
+	"title" => "#{liker_list(post)} like your post." %>
+<%=  %> |
 <i class="icon-star"></i>
-<%= post.ratings_count %>
+<%= link_to post.ratings_count, "#", "id" => "rate", "rel" => "tooltip", 
+	"title" => "#{rater_list(post)} people rated your post." %>
 <i class="icon-thumbs-up"></i>
-<%= post.overall_true_count %>
+<%= post.overall_true_count %> |
 <i class="icon-comment"></i>
-<%= post.comments_count %>
+<%= link_to post.comments_count, "#", "id" => "comment", "rel" => "tooltip", 
+	"title" => "#{commenter_list(post)} people rated your post." %>

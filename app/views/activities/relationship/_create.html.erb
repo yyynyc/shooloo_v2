@@ -1,5 +1,5 @@
 <% if activity.trackable %>
-	has started following   
+	has started <strong>FOLLOWING</strong> 
 	<%= link_to activity.trackable.followed.screen_name, posts_user_path(activity.trackable.followed) %>
 	in <i><%= activity.trackable.followed.grade %></i>
 	since <%= activity.created_at.strftime("%b %d, %Y") %>.

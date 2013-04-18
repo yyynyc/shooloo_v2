@@ -81,6 +81,8 @@ class UsersController < ApplicationController
     @post = @user.posts.build(params[:post])
     @rating=current_user.ratings.build(params[:rating])
     @alarm = current_user.alarms.build
+    @like = current_user.likes.build
+    @liked_post = @like.liked_post
   end
 
 
@@ -91,6 +93,8 @@ class UsersController < ApplicationController
     @rating=current_user.ratings.build(params[:rating])
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build
+    @like = current_user.likes.build
+    @liked_post = @like.liked_post
     render 'show_rated_posts'
   end
 
@@ -101,6 +105,8 @@ class UsersController < ApplicationController
     @comment=current_user.comments.build(params[:comment])
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build
+    @like = current_user.likes.build
+    @liked_post = @like.liked_post
     render 'show_commented_posts'
   end
 
@@ -110,6 +116,8 @@ class UsersController < ApplicationController
     @alarmed_posts = @user.posts.hidden.paginate(page: params[:page], order: "updated_at DESC")
     @alarm=current_user.alarms.build(params[:alarm])
     @post  = current_user.posts.build
+    @like = current_user.likes.build
+    @liked_post = @like.liked_post
     render 'show_alarmed_posts'
   end
 

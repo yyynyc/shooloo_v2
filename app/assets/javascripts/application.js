@@ -25,6 +25,15 @@ $(function ()
 $(function ()  
 { $("#hidden").popover({trigger: 'hover', placement: 'bottom'});  
 }); 
+$(function ()  
+{ $("#like").tooltip({trigger: 'hover', placement: 'top'});  
+}); 
+$(function ()  
+{ $("#rate").tooltip({trigger: 'hover', placement: 'top'});  
+});
+$(function ()  
+{ $("#comment").tooltip({trigger: 'hover', placement: 'top'});  
+});
 jQuery(function() {
   $("a.fancybox").fancybox();
 });

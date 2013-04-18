@@ -1,5 +1,5 @@
 <% if activity.trackable %>
-	nudged  
+	<strong>NUDGED</strong>  
 	<%= link_to activity.trackable.nudged.screen_name, posts_user_path(activity.trackable.nudged) %>
 	in <i><%= activity.trackable.nudged.grade %></i>
 	on <%= activity.created_at.strftime("%b %d, %Y") %>.

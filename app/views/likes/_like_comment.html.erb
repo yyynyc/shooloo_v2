@@ -1,0 +1,7 @@
+<%= form_for(like, :url => comment_likes_path(comment.id), 
+	remote: true) do |f| %>
+	<%= f.hidden_field :liked_comment_id, value: comment.id %>
+	<button type="submit", class="btn btn-small btn-success">
+		<i class='icon-heart icon-white'></i> LIKE 
+	</button>
+<% end %>

@@ -12,6 +12,8 @@ class CommentsController < ApplicationController
         @alarm = Alarm.new
         @rating = Rating.new
         @like = Like.new
+        @liked_post = @like.liked_post
+        @liked_comment = @like.liked_comment
     end
 
     def create
@@ -54,7 +56,6 @@ class CommentsController < ApplicationController
     def destroy
         @comment = current_user.comments.find(params[:id])
         @comment.destroy
-        #track_activity @comment
         redirect_to new_post_comment_path(@comment.commented_post)
     end
 

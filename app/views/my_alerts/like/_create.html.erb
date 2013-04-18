@@ -1,0 +1,19 @@
+<% if activity.trackable %>
+	<% unless activity.trackable.liked_post_id.nil? %>
+		<span class='alert-heading'>
+			<strong><%= link_to "LIKED", new_post_comment_path(activity.trackable.liked_post) %></strong>  
+			on <%= activity.created_at.strftime("%b %d, %Y") %> your post 
+			(#<%= link_to activity.trackable.liked_post.id, new_post_comment_path(activity.trackable.liked_post) %>)
+		</span>
+		<i class='icon-heart icon-medium'></i>	<br/>
+		Tell
+		<%= link_to "#{activity.user.screen_name}", posts_user_path(activity.user) %> that your appreciate the attention. <br/>
+		Like
+		<%= link_to "#{activity.user.screen_name}'s posts", posts_user_path(activity.user) %> in return.
+	<% end %>
+<% else %>
+	<span class='alert-heading'>
+		your post or comment but has since changed.
+	</span>	
+	<i class='icon-trash'></i>
+<% end %>

@@ -1,0 +1,5 @@
+<%= form_for(Like.find_by_liked_comment_id(comment.id), 
+	html: { method: :delete }, remote: true) do |f| %>
+	<%= f.hidden_field :liked_comment_id %>
+ 	<%= f.submit "Unlike", class: "btn btn-small" %>
+<% end %>

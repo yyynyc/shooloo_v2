@@ -1,0 +1,9 @@
+<div id="like_form_comment_<%= comment.id %>">
+  <% if current_user.likes.find_by_liked_comment_id(comment.id).nil? %>
+   	<%= render partial: 'likes/like_comment', locals: 
+   		{like: like, comment: comment} %>
+  <% else %>
+    <%= render partial: 'likes/unlike_comment', locals: 
+    	{like: like, comment: comment} %>
+  <% end %>
+ </div>

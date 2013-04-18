@@ -41,7 +41,10 @@
 		      		rated <a href="<%= rated_posts_user_path(user) %>" >
 					<%= pluralize(user.rated_posts.count, "post") %></a>, 
 		      		and commented <a href="<%= commented_posts_user_path(user) %>" >
-					<%= pluralize(user.commented_posts.count, "post") %></a>.
+					<%= pluralize(user.commented_posts.count, "post") %></a>.<br/>
+					<%= user.reputation(7.days) %>
+					<%= user.reputation(30.days) %>
+					<%= user.reputation(90.days) %>
 				</div>
 				<div class='span3' >
 					<span class='search-field'>

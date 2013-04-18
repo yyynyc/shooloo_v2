@@ -9,7 +9,6 @@
     raised alarm on 
         <% unless alarm.alarmed_post_id.nil? %>
             post #
-            <%#= link_to alarm.alarmed_post_id, alarm.alarmed_post %> 
             <%= link_to alarm.alarmed_post_id, new_post_comment_path(alarm.alarmed_post) %>
             written by
             <%= alarm.alarmed_post.user.first_name %>

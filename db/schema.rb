@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130417221005) do
+ActiveRecord::Schema.define(:version => 20130418193938) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20130417221005) do
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
     t.boolean  "visible",            :default => true
+    t.integer  "likes_count"
   end
 
   add_index "comments", ["commenter_id", "created_at"], :name => "index_comments_on_commenter_id_and_created_at"
@@ -149,6 +150,7 @@ ActiveRecord::Schema.define(:version => 20130417221005) do
     t.integer  "content_count"
     t.integer  "image_count"
     t.integer  "comments_count"
+    t.integer  "likes_count"
   end
 
   add_index "posts", ["user_id", "created_at"], :name => "index_posts_on_user_id_and_created_at"

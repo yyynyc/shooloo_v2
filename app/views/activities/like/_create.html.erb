@@ -1,0 +1,15 @@
+<% if activity.trackable %>
+	<% unless activity.trackable.liked_post_id.nil? %>
+		<strong>LIKED</strong> on <%= activity.created_at.strftime("%b %d, %Y") %>
+		a post  
+		#<%= link_to activity.trackable.liked_post.id, new_post_comment_path(activity.trackable.liked_post) %> 
+		written by 
+		<%= link_to activity.trackable.liked_post.user.screen_name, posts_user_path(activity.trackable.liked_post.user) %>
+		in <i><%= activity.trackable.liked_post.user.grade %></i>.
+		<span class="btn-formtastic">
+			<%= image_tag activity.trackable.liked_post.user.avatar.url (:small) %> 
+		</span>
+	<% end %> 
+<% else %>
+	liked a post or comment but has since changed.
+<% end %>

@@ -1,24 +1,9 @@
 <div class="feed_item">
   <li id="<%= feed_item.id %>">
     <div class="row well well-small">
-      <span class="user">
-        <%= link_to feed_item.user.screen_name, posts_user_path(feed_item.user) %>
-      </span> 
-      <span class="timestamp">in</span>    
-      <%= feed_item.user.grade %>
-      <span class="timestamp">updated on </span>    
-      <%= feed_item.updated_at.strftime("%b %d, %Y") %> 
-      <span class="timestamp">for</span> 
-      <%= feed_item.grade %> 
-      <span class="timestamp">in </span> 
-      <%= feed_item.category %>.
+      <%= render partial: 'posts/post_user', locals: {post: feed_item} %>
       <span class="btn-formtastic">
-        <i class="icon-star"></i>
-        <%= feed_item.ratings_count %>
-        <i class="icon-thumbs-up"></i>
-        <%= feed_item.overall_true_count %>
-        <i class="icon-comment"></i>
-        <%= feed_item.comments_count %>
+        <%= render partial: 'posts/post_stats', locals: {post: feed_item} %>
       </span>
     </div>       
     <section class="feed_content">
@@ -36,7 +21,7 @@
       </div>
       <div>
         <span class="btn-formtastic">
-          <span style="display: inline-block;"> 
+          <span class='search-label'> 
            <%= render partial: 'alarms/alarm', locals: {post: feed_item} %>
           </span>       
           <% if current_user?(feed_item.user) %> 

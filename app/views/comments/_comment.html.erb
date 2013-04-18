@@ -22,16 +22,22 @@
 	            	<%= link_to "", comment, method: :delete,
 	              data: { confirm: "Delete comemnt. Are you sure?" },
 	              title: "Delete comment", class: "icon-trash" %>
-	            <% end %>
-	            <span style="display: inline-block;">
-	            	<% if comment.visible? %>
-	            		<%= render partial: 'alarms/alarm_comment', locals: {post: comment.commented_post, comment:comment} %>	
-	            	<% else %>
-	            		<% if current_user.admin? %>
-	            			<%= render partial: 'alarms/unalarm_comment', locals: {post: comment.commented_post, comment:comment} %>
-	            		<% end %>
-	            	<% end %>	
-	       		</span>	           			
+	            <% end %>	          
+            	<% if comment.visible? %>
+            		<span class='search-label'>
+            			<%= render partial: 'alarms/alarm_comment', locals: {post: comment.commented_post, comment:comment} %>
+            		</span>
+            		<span class='search-label'>	
+            			<%= render partial: 'likes/like_form_comment', locals: 
+            			{like: @like, comment: comment} %>
+            		</span>
+            	<% else %>
+            		<% if current_user.admin? %>
+            			<span class='search-label'>	
+            				<%= render partial: 'alarms/unalarm_comment', locals: {post: comment.commented_post, comment:comment} %>
+            			</span>
+            		<% end %>
+            	<% end %>	           			
 				<%= wrap(simple_format(comment.content)) %>			
 			</span>			
 		</div>

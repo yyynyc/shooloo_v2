@@ -8,5 +8,22 @@ module ApplicationHelper
 			"#{base_title} | #{page_title}" 
 		end
 	end
+
+	def liker_list(post)
+		post.likers.map(&:screen_name).join(', ')
+	end
+
+	def rater_list(post)
+		post.raters.map(&:screen_name).join(', ')
+	end
+
+	def commenter_list(post)
+		post.commenters.uniq.map(&:screen_name).join(', ')
+	end
+
+	def alert_count
+		Activity.where(recipient_id: current_user.id).where('user_id not in (?)', 
+			current_user.id).where(read: nil).count
+	end
 end
 

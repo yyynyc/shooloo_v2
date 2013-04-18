@@ -149,6 +149,23 @@ class User < ActiveRecord::Base
     nudges.find_by_nudged_id(other_user.id).destroy
   end
 
+  def reputation(age)
+    if age
+      age = 'and posts.created_at >= now() - interval ' + quote_value("#{age} second")
+    else
+      age = ''
+    end
+    User.find_by_sql("
+      select count(distinct ratings.id) + count(distinct comments.id) count
+      from users
+      left join posts on posts.user_id=users.id
+      left join comments on comments.commented_post_id=posts.id
+      left join ratings on ratings.rated_post_id=posts.id
+      where users.id=#{self.id}
+      #{age}
+    ").map { |u| u.count}.first
+  end
+
   private
 
     def create_remember_token

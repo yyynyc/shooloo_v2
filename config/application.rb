@@ -1,3 +1,5 @@
+ENV['SSL_CERT_FILE'] = File.join(File.dirname(__FILE__), 'cacert.pem')
+
 require File.expand_path('../boot', __FILE__)
 
 # Pick the frameworks you want:

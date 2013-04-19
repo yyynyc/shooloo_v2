@@ -19,31 +19,32 @@
   </span>
 </div>
 <div class="row">
-  <% if current_user?(@post.user) %> 
-    <%= link_to "Delete Post", @post, method: :delete,
-      data: { confirm: "Delete post. Are you sure? You will lose all of your ratings and comments." },
-      title: "Delete Post", class: "btn btn-small btn-default" %>
-    <%= link_to "Edit Post ", edit_post_path(@post), title: "Edit Post", class: "btn btn-small btn-success" %>
-    <%= render partial: 'shared/rating_show_avg', locals: { local_object: @post } %>
-  <% else %> 
-    <% if @post.visible? %>
-      <span class='search-label'> 
+  <% if !@post.visible? %>   
+    <% if current_user.admin? %>
+      <%= render partial: 'alarms/unalarm', locals: {post: @post} %>
+    <% end %>
+  <% else %>
+    <span class='search-label'> 
       <%= render partial: 'alarms/alarm', locals: {post: @post} %>   
-      </span>
+    </span>
+    <% if current_user?(@post.user) %> 
+      <%= link_to raw('<i class="icon-trash"></i> Post'), @post, method: :delete,
+        data: { confirm: "Delete post. Are you sure? You will lose all of your ratings and comments." },
+        title: "Delete Post", class: "btn btn-small btn-default" %>
+      <%= render partial: 'shared/rating_show_avg', locals: { local_object: @post } %>
+      <%= link_to raw('<i class="icon-pencil icon-white"></i> Post'), edit_post_path(@post), title: "Edit Post", class: "btn btn-small btn-success" %>          
+    <% else %>              
+      
       <% if @post.ratings.find_by_rater_id(current_user.id) %>
-        <%= link_to "Delete Rating", @post.ratings.find_by_rater_id(current_user.id), method: :delete, title: "Delete Rating", class: "btn btn-small btn-default", data: { confirm: "Delete rating. Are you sure?" } %> 
-        <%= link_to "Edit Rating", edit_post_rating_path(@post, @post.rating_by(current_user)), title: "Edit Rating", class: "btn btn-small btn-default" %>
+        <%= link_to raw('<i class="icon-trash"></i> Rating'), @post.ratings.find_by_rater_id(current_user.id), method: :delete, title: "Delete Rating", class: "btn btn-small btn-default", data: { confirm: "Delete rating. Are you sure?" } %> 
+        <%= link_to raw('<i class="icon-pencil"></i> Rating'), edit_post_rating_path(@post, @post.rating_by(current_user)), title: "Edit Rating", class: "btn btn-small btn-default" %>
         <%= render partial: 'shared/rating_show_avg', locals: { local_object: @post } %>
-      <% else %>              
-          <%= link_to "Rate this post", new_post_rating_path(@post), class: "btn btn-small btn-default" %>     
+      <% else %>
+        <%= link_to raw('<i class="icon-star"></i> Rate'), new_post_rating_path(@post), class: "btn btn-small btn-default" %>  
       <% end %>
       <span class='search-label'> 
         <%= render partial: 'likes/like_form', locals: {like: @like, post: @post } %>
-      </span>  
-    <% else %> 
-      <% if current_user.admin? %>
-        <%= render partial: 'alarms/unalarm', locals: {post: @post} %>
-      <% end %>
+      </span>       
     <% end %>
   <% end %><br/>
 </div>  

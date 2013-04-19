@@ -7,6 +7,7 @@ class PostsController < ApplicationController
     @search = Post.visible.search(params[:q])
     @posts = @search.result.visible.paginate(page: params[:page], per_page: 30, order: 'updated_at DESC')
     @search.build_condition
+    @like = current_user.likes.build(params[:like])
   end
 
   def show

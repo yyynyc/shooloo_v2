@@ -33,35 +33,33 @@
 	<% @posts.each do |post| %>
 		<li>
 			<div class="row">		
-				<span class="image">
-					<%= image_tag post.photo.url (:thumb)%>
-				</span>
-				<section>
-					<%= render partial: 'posts/post_user', locals: {post: post} %>			      	
-			        <%= render partial: 'posts/post_stats', locals: {post: post} %>			      	
-		    	</section> 
-		  		<section>
-		  			<%= truncate post.question, :length => 380, 
-		  				:omission => "..." %> 		  		
-		  			<% if current_user?(post.user) %> 
-		  				<%#= link_to "", post, method: :delete,
-          					data: { confirm: "Are you sure? Once your post is deleted, all of its related ratings and scores will be erased, too." },
-          				title: "Delete Post", class: "icon-trash" %>
-        				<%= link_to "Edit your post ", edit_post_path(post), title: "Edit Post" %>
-	           			<%#= render partial: 'shared/rating_show_avg', locals: { local_object: post } %>
-	          		<% else %> 
-	            		<% if post.ratings.find_by_rater_id(current_user.id) %>
-	            			<%#= link_to "", post.ratings.find_by_rater_id(current_user.id), method: :delete, title: "Delete Rating", class: "icon-trash", data: { confirm: "Are you sure?" } %> 
-          					<%= link_to "Edit your rating", edit_post_rating_path(post, post.rating_by(current_user)), title: "Edit Rating" %>
-	              			<%#= render partial: 'shared/rating_show_avg', 
-	              				locals: { local_object: post} %>
-	            		<% else %> 
-	              			<%= link_to "Rate this post", new_post_rating_path(post) %>
-	            		<% end %>
-	          		<% end %>
-	          		or 
-	          		<%= link_to "add comment", new_post_comment_path(post) %>.	          	  
-		  		</section>
+				<div class="span1.5">
+					<%= image_tag post.photo.url (:thumb)%>					
+				</div>
+				<div class="span10">
+					<span class="btn-formtastic">
+						<%= render partial: 'likes/like_form', locals: {like: @like, post: post } %>	
+					</span>
+					<section>
+						<%= render partial: 'posts/post_user', locals: {post: post} %>			      	
+				        <%= render partial: 'posts/post_stats', locals: {post: post} %>			        		      	
+			    	</section> 
+			  		<section>			  			
+			  			<%= truncate post.question, :length => 280, 
+			  				:omission => "..." %> 		  		
+			  			<% if current_user?(post.user) %> 		  				
+	        				<%= link_to "Edit your post ", edit_post_path(post), title: "Edit Post" %>
+		          		<% else %> 
+		            		<% if post.ratings.find_by_rater_id(current_user.id) %>
+	          					<%= link_to "Edit your rating", edit_post_rating_path(post, post.rating_by(current_user)), title: "Edit Rating" %>
+		            		<% else %> 
+		              			<%= link_to "Rate this post", new_post_rating_path(post) %>
+		            		<% end %>
+		          		<% end %>
+		          		or 
+		          		<%= link_to "add comment", new_post_comment_path(post) %>.	          	  
+			  		</section>
+			  	</div>
 			</div>
 		</li>
 	<% end %>

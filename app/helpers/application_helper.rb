@@ -13,6 +13,10 @@ module ApplicationHelper
 		post.likers.map(&:screen_name).join(', ')
 	end
 
+	def comment_liker_list(comment)
+		comment.likers.map(&:screen_name).join(', ')
+	end
+
 	def rater_list(post)
 		post.raters.map(&:screen_name).join(', ')
 	end

@@ -172,6 +172,6 @@ class Rating < ActiveRecord::Base
       self.rated_post.id,
       self.rated_post.id], ['id=?',self.rated_post.id])
   end
-
-  def cr_
 end
+
+

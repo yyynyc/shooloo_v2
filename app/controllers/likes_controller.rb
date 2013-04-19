@@ -8,7 +8,7 @@ class LikesController < ApplicationController
   end
 
   def create
-    if params[:post_id].present
+    if params.has_key?(:post_id)
       @post = Post.find(params[:post_id])
       @like = current_user.likes.create!(params[:like])
       respond_to do |format|
@@ -16,8 +16,8 @@ class LikesController < ApplicationController
         format.js
       end
       @like.liked_post = @post
-    else
-    @comment = Comment.find(params[:comment_id])   
+    elsif params.has_key?(:comment_id)
+      @comment = Comment.find(params[:comment_id])   
       @like = current_user.likes.create!(params[:like])
       respond_to do |format|
         format.html {redirect_to root_url }
@@ -26,7 +26,7 @@ class LikesController < ApplicationController
         end
       end
       @like.liked_comment = @comment
-      
+      @comment.commented_post = @commented_post
     end
   end
 

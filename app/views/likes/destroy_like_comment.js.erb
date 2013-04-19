@@ -1,3 +1,5 @@
 $("#like_form_comment_<%= @comment.id %>").html("<%= escape_javascript(
 	render(partial:'likes/like_comment', 
 		locals: {like: @like, comment: @comment})) %>")
+
+$("#comment_likes_count-<%=@comment.id%>").html('<%= @comment.likes_count %>')

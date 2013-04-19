@@ -1,9 +1,14 @@
-<% @user ||= current_user %>
+<% if @user ||= current_user%>
 <div class="stats">
-	<strong>
-		<%= link_to @user.followed_users.count, following_user_path(@user) %>
-	</strong> following
-	<strong>
-		<%= link_to @user.followers.count, followers_user_path(@user) %>
-	</strong> followers
+	<span>
+		<strong>
+			<%= link_to @user.followed_users.count, following_user_path(@user) %>
+		</strong> following
+	</span>
+	<span>
+		<strong>
+			<%= link_to @user.followers.count, followers_user_path(@user) %>
+		</strong> followers
+	</span>
 </div>
+<% end %>	

@@ -9,6 +9,15 @@
 		<span class="btn-formtastic">
 			<%= image_tag activity.trackable.liked_post.user.avatar.url (:small) %> 
 		</span>
+	<% else %>
+		<strong>LIKED</strong> on <%= activity.created_at.strftime("%b %d, %Y") %>
+		a comment to post  
+		#<%= link_to activity.trackable.liked_comment.commented_post.id, new_post_comment_path(activity.trackable.liked_comment.commented_post) %> 
+		commented by 
+		<%= link_to activity.trackable.liked_comment.commenter.screen_name, posts_user_path(activity.trackable.liked_comment.commenter) %>
+		in <i><%= activity.trackable.liked_comment.commenter.grade %></i>.
+		<span class="btn-formtastic">
+			<%= image_tag activity.trackable.liked_comment.commenter.avatar.url (:small) %> 	
 	<% end %> 
 <% else %>
 	liked a post or comment but has since changed.

@@ -82,7 +82,6 @@ class UsersController < ApplicationController
     @rating=current_user.ratings.build(params[:rating])
     @alarm = current_user.alarms.build
     @like = current_user.likes.build
-    @liked_post = @like.liked_post
   end
 
 
@@ -94,7 +93,6 @@ class UsersController < ApplicationController
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build
     @like = current_user.likes.build
-    @liked_post = @like.liked_post
     render 'show_rated_posts'
   end
 
@@ -106,7 +104,6 @@ class UsersController < ApplicationController
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build
     @like = current_user.likes.build
-    @liked_post = @like.liked_post
     render 'show_commented_posts'
   end
 
@@ -117,14 +114,12 @@ class UsersController < ApplicationController
     @alarm=current_user.alarms.build(params[:alarm])
     @post  = current_user.posts.build
     @like = current_user.likes.build
-    @liked_post = @like.liked_post
     render 'show_alarmed_posts'
   end
 
   def show_activity
     @my_activities = Activity.where(recipient_id: current_user.id).paginate(page: params[:page], 
       per_page: 40, order: 'created_at DESC')
-    @alert_count = Activity.where(recipient_id: current_user.id).where('user_id not in (?)', current_user.id).where(read: nil).count
   end
   
 

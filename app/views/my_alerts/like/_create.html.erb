@@ -1,19 +1,31 @@
 <% if activity.trackable %>
-	<% unless activity.trackable.liked_post_id.nil? %>
+	<% if !activity.trackable.liked_post_id.nil? %>
 		<span class='alert-heading'>
-			<strong><%= link_to "LIKED", new_post_comment_path(activity.trackable.liked_post) %></strong>  
-			on <%= activity.created_at.strftime("%b %d, %Y") %> your post 
-			(#<%= link_to activity.trackable.liked_post.id, new_post_comment_path(activity.trackable.liked_post) %>)
+			<strong><%= link_to "LIKED your post", new_post_comment_path(activity.trackable.liked_post) %></strong>
+			(#<%= link_to activity.trackable.liked_post.id, new_post_comment_path(activity.trackable.liked_post) %>)  
+			on <%= activity.created_at.strftime("%b %d, %Y") %>.			
 		</span>
 		<i class='icon-heart icon-medium'></i>	<br/>
 		Tell
-		<%= link_to "#{activity.user.screen_name}", posts_user_path(activity.user) %> that your appreciate the attention. <br/>
+		<%= link_to "#{activity.user.screen_name}", posts_user_path(activity.user) %> that you appreciate the attention. <br/>
 		Like
 		<%= link_to "#{activity.user.screen_name}'s posts", posts_user_path(activity.user) %> in return.
+	<% elsif !activity.trackable.liked_comment_id.nil?  %>
+		<span class='alert-heading'>
+			<strong><%= link_to "LIKED your comment", new_post_comment_path(activity.trackable.liked_comment.commented_post) %></strong>
+			on post 
+			(#<%= link_to activity.trackable.liked_comment.commented_post.id, new_post_comment_path(activity.trackable.liked_comment.commented_post) %>)  
+			on <%= activity.created_at.strftime("%b %d, %Y") %>.
+		</span>
+		<i class='icon-heart icon-medium'></i>	<br/>
+		Tell
+		<%= link_to "#{activity.user.screen_name}", posts_user_path(activity.user) %> that you appreciate the attention. <br/>
+		Like
+		<%= link_to "#{activity.user.screen_name}'s comments", commented_posts_user_path(activity.user) %> in return.
 	<% end %>
 <% else %>
 	<span class='alert-heading'>
-		your post or comment but has since changed.
+		liked your post or comment but has since changed.
 	</span>	
 	<i class='icon-trash'></i>
 <% end %>

@@ -37,25 +37,8 @@
 					<%= image_tag post.photo.url (:thumb)%>
 				</span>
 				<section>
-					<span class="user">
-				       <%= link_to post.user.screen_name, posts_user_path(post.user) %>
-			      	</span> 
-			      	<span class="timestamp"> as </span>
-				       <%= post.user.grade %>			      	
-			      	<span class="timestamp">updated a post on </span>    
-			      		<%= post.updated_at.strftime("%b %d, %Y") %>  
-			      	<span class="timestamp">for</span> 
-			      		<%= post.grade %> 
-			      	<span class="timestamp">in </span> 
-			      		<%= post.category %>.
-			      	<span>
-			        	<i class="icon-star"></i>
-				        <%= post.raters.count %>
-				        <i class="icon-thumbs-up"></i>
-				        <%= post.ratings.where(overall_rating: true).count %>
-				        <i class="icon-comment"></i>
-        				<%= post.comments_count %>     
-			      	</span>
+					<%= render partial: 'posts/post_user', locals: {post: post} %>			      	
+			        <%= render partial: 'posts/post_stats', locals: {post: post} %>			      	
 		    	</section> 
 		  		<section>
 		  			<%= truncate post.question, :length => 380, 

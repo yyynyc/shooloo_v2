@@ -7,8 +7,7 @@
 		  <%= wrap(current_user.screen_name) %>
 		</h1>
 		<%= current_user.grade %><br/>
-		<span>
-			
+		<span>			
 			Published
 			<a href="<%= posts_user_path(current_user) %>" >
 			<%= pluralize(current_user.posts.count, "post") %></a>.

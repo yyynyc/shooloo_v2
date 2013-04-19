@@ -150,21 +150,47 @@ class User < ActiveRecord::Base
   end
 
   def reputation(age)
-    if age
-      age = 'and posts.created_at >= now() - interval ' + quote_value("#{age} second")
-    else
-      age = ''
-    end
-    User.find_by_sql("
-      select count(distinct ratings.id) + count(distinct comments.id) count
-      from users
-      left join posts on posts.user_id=users.id
+    User.cr_joins.cr_for(self.id).cr_sum.first.count.to_i
+  end
+
+  def self.cr_from(user_id)
+    where('ratings.rater_id= ? or comments.commenter_id=? ', user_id, user_id)
+  end
+
+  def cr_age(age)
+    where('posts.created_at >= now() - interval ' + quote_value("#{age} second"))
+  end
+
+  def self.cr_for(user_id)
+    where('users.id=?', user_id)
+  end
+
+  def self.cr_joins
+    joins(' left join posts on posts.user_id=users.id
       left join comments on comments.commented_post_id=posts.id
       left join ratings on ratings.rated_post_id=posts.id
-      where users.id=#{self.id}
-      #{age}
-    ").map { |u| u.count}.first
+    ')
   end
+
+  def self.cr_sum
+    select('count(distinct ratings.id) + count(distinct comments.id) count')
+end
+
+  def self.cr_sum_with_id
+    select('count(distinct ratings.id) + count(distinct comments.id) count, users.id')
+    end
+
+  def self.cr_order_desc
+    order('count(distinct ratings.id) + count(distinct comments.id) desc')
+  end
+
+  def self.cr_group_user
+    group('users.id')
+  end
+
+  def self.cr_count
+    first.count.to_i
+    end
 
   private
 

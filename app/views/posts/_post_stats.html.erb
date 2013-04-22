@@ -1,14 +1,23 @@
 <i class="icon-heart "></i>
-<%= post.likes_count %>
-<%#= link_to post.likes_count, "#", "id" => "like", "rel" => "tooltip", 
-	"title" => "#{liker_list(post)} liked your post." %> |
+<span id="post_likes_count-<%=post.id%>" %>
+	<% if post.likes.count >0 %>
+		<%= link_to post.likes.count, "#", "class" => "like", "rel" => "tooltip", 
+			"title" => "#{liker_list(post)} liked your post." %> 		
+	<% end %>
+</span> |
+
 <i class="icon-star"></i>
-<%= post.ratings_count %>
-<%#= link_to post.ratings_count, "#", "id" => "rate", "rel" => "tooltip", 
-	"title" => "#{rater_list(post)} rated your post." %>
+<% if post.ratings_count.to_i >0 %>
+	<%= link_to post.ratings_count, "#", "class" => "rate", "rel" => "tooltip", 
+		"title" => "#{rater_list(post)} rated your post." %>
+<% end %>
 <i class="icon-thumbs-up"></i>
 <%= post.overall_true_count %> |
+
 <i class="icon-comment"></i>
-<%= post.comments_count %>
-<%#= link_to post.comments_count, "#", "id" => "comment", "rel" => "tooltip", 
-	"title" => "#{commenter_list(post)} commented on your post." %>
+<% if post.comments_count.to_i >0 %>
+	<%= link_to post.comments_count, "#", "class" => "comment", "rel" => "tooltip", 
+		"title" => "#{commenter_list(post)} commented on your post." %>
+<% end %>
+
+

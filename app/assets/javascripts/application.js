@@ -26,16 +26,16 @@ $(function ()
 { $("#hidden").popover({trigger: 'hover', placement: 'bottom'});  
 }); 
 $(function ()  
-{ $("#like").tooltip({trigger: 'hover', placement: 'bottom'});  
+{ $(".like").tooltip({trigger: 'hover', placement: 'bottom'});  
 }); 
 $(function ()  
-{ $("#like_comment").tooltip({trigger: 'hover', placement: 'bottom'});  
+{ $(".like_comment").tooltip({trigger: 'hover', placement: 'bottom'});  
 });
 $(function ()  
-{ $("#rate").tooltip({trigger: 'hover', placement: 'bottom'});  
+{ $(".rate").tooltip({trigger: 'hover', placement: 'bottom'});  
 });
 $(function ()  
-{ $("#comment").tooltip({trigger: 'hover', placement: 'bottom'});  
+{ $(".comment").tooltip({trigger: 'hover', placement: 'bottom'});  
 });
 jQuery(function() {
   $("a.fancybox").fancybox();

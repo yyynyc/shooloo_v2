@@ -1,3 +1,4 @@
 $("#like_form_<%= @post.id %>").html("<%= escape_javascript(
 	render(partial:'likes/unlike', locals: {like: @like, post: @post})) %>")
 
+$("#post_likes_count-<%=@post.id%>").html('<%= @post.likes.count %>')

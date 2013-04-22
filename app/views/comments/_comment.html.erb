@@ -32,15 +32,15 @@
 	            			<%= render partial: 'likes/like_form_comment', locals: {like: @like, comment: comment} %>
 	            		<% end %>
             		</span>
-            		<!--<span class='search-label'>	
-            			<i class="icon-heart icon-medium"></i>
-            			<span class="alert-heading" id="comment_likes_count-<%=comment.id%>"> 
-            			<span class="alert-heading">
-            				<%#= comment.likes_count %>
-            				<%#= link_to comment.likes_count, "#", "id" => "like_comment", "rel" => "tooltip", 
-            				"title" => "#{comment_liker_list(comment)} liked your comment." %>
-            			</span>
-            		</span>-->
+            		
+	            		<span class='search-label'>	
+	            			<i class="icon-heart icon-medium"></i>
+	            			<span class="alert-heading" id="comment_likes_count-<%=comment.id%>">
+	            				<%= link_to comment.likes.count, "#", "class" => "like_comment", "rel" => "tooltip", 
+	            				"title" => "#{comment_liker_list(comment)} liked your comment." %>
+	            			</span>
+	            		</span>
+	            
             	<% else %>
             		<% if current_user.admin? %>
             			<span class='search-label'>	

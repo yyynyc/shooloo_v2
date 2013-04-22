@@ -39,6 +39,8 @@
 	            				<% if comment.likes.count >0 %>
 		            				<%= link_to comment.likes.count, "#", "class" => "like_comment", "rel" => "tooltip", 
 		            					"title" => "#{comment_liker_list(comment)} liked your comment." %>
+		            			<% else %>
+		            				<%= comment.likes.count %>		
 		            			<% end %>
 		            			</span>
 	            		</span>

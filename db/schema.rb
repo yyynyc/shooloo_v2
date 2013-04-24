@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130418193938) do
+ActiveRecord::Schema.define(:version => 20130422190626) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -201,6 +201,11 @@ ActiveRecord::Schema.define(:version => 20130418193938) do
     t.datetime "password_reset_sent_at"
     t.boolean  "privacy"
     t.boolean  "rules"
+    t.integer  "posts_count"
+    t.integer  "rated_posts_count"
+    t.integer  "commented_posts_count"
+    t.integer  "followers_count"
+    t.integer  "followed_users_count"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

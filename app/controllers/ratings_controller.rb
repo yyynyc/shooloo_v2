@@ -8,7 +8,8 @@ class RatingsController < ApplicationController
     def new
         @rating = Rating.new
         @post  = Post.find_by_id(params[:post_id]) 
-        @alarm = Alarm.new      
+        @alarm = Alarm.new 
+        @like = Like.new     
     end
 
     def create

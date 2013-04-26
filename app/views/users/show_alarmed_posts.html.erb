@@ -2,10 +2,10 @@
 <div class="row">
   	<aside class="span4">
       <section>
-        <%= render 'shared/user_info', current_user: @user %>
+        <%= render 'shared/user_info', user: @user %>
       </section>
       <section>
-        <%= render 'shared/stats' %>
+        <%= render 'shared/stats', user: @user %>
       </section>
       <section>
         <%= render 'shared/post_form' %>

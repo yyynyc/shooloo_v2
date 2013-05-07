@@ -1,12 +1,12 @@
 <div class="stats">
 	<span>
 		<strong>
-			<%= link_to user.followed_users.count, following_user_path(user) %>
-		</strong> following
+			<%= link_to "#{user.followed_users.count} following", following_user_path(user) %>
+		</strong> 
 	</span>
 	<span>
 		<strong>
-			<%= link_to user.followers.count, followers_user_path(user) %>
-		</strong> followers
+			<%= link_to "#{user.followers.count} followers", followers_user_path(user) %>
+		</strong> 
 	</span>
 </div>

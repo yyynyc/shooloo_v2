@@ -1,7 +1,15 @@
 require "bundler/capistrano"
 #require "whenever/capistrano"
 
-server "198.74.59.151", :web, :app, :db, primary: true
+task :live do
+  server "198.74.59.151", :web, :app, :db, primary: true
+  set :env, 'live'
+end
+
+task :stage do
+  server "198.46.141.7", :web, :app, :db, primary: true
+  set :env, 'stage'
+end
 
 set :application, "shooloo_v2"
 set :user, "deployer"

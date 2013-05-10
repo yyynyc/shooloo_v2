@@ -12,11 +12,11 @@ describe "PostPages" do
     describe "with invalid information" do
 
       it "should not create a post" do
-        expect { click_button "Submit" }.not_to change(Post, :count)
+        expect { click_button "Save" }.not_to change(Post, :count)
       end
 
       describe "error messages" do
-        before { click_button "Submit" }
+        before { click_button "Save" }
         it { should have_content('error') } 
       end
     end
@@ -26,12 +26,13 @@ describe "PostPages" do
     		fill_in 'post_question', with: "Lorem ipsum"
     		fill_in 'post_answer', with: "whatever"
     		select	"5th grade", from: 'post_grade'
+        select "books", from: 'post_category'
         attach_file 'post_photo', Rails.root.join('spec', 'support', 'math.jpg')
     	end
          
    	
       it "should create a post" do
-        expect { click_button "Submit" }.to change(Post, :count).by(1)
+        expect { click_button "Save" }.to change(Post, :count).by(1)
       end
     end
   end
@@ -43,7 +44,7 @@ describe "PostPages" do
       before { visit root_path }
 
       it "should delete a post" do
-        expect { click_link "DELETE" }.to change(Post, :count).by(-1)
+        expect { click_link 'Delete Post' }.to change(Post, :count).by(-1)
       end
     end
   end

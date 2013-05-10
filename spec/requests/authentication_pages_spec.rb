@@ -31,16 +31,16 @@ describe "AuthenticationPages" do
       			let(:user) { FactoryGirl.create(:user) }
       			before { sign_in user }
 
-      			it { should have_selector('title', text: user.name) }
-      			it { should have_link('Profile', href: user_path(user)) }
-            it { should have_link('Community',    href: users_path) }
-            it { should have_link('Settings',    href: edit_user_path(user)) }
+      			it { should have_selector('title', text: "Activity Alerts") }
+      			it { should have_link('My Published Posts', href: posts_user_path(user)) }
+            it { should have_link('All Users',    href: users_path) }
+            it { should have_link('My Information',    href: edit_user_path(user)) }
 
-      			it { should have_link('Sign out', href: signout_path) }
+      			it { should have_link('Sign Out', href: signout_path) }
       			it { should_not have_link('Sign in', href: signin_path) }
 
       			describe "followed by signout" do
-        			before { click_link "Sign out" }
+        			before { click_link "Sign Out" }
         			it { should have_link('Sign in') }
       			end
     		  end
@@ -128,7 +128,7 @@ describe "AuthenticationPages" do
             end
 
             it "should render the default (profile) page" do
-              page.should have_selector('title', text: user.name) 
+              page.should have_selector('title', text: "Activity Alerts") 
             end
           end
         end
@@ -137,7 +137,9 @@ describe "AuthenticationPages" do
 
     describe "as wrong user" do
       let(:user) { FactoryGirl.create(:user) }
-      let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
+      let(:wrong_user) { FactoryGirl.create(:user, 
+                        email: "wrong@example.com", 
+                        email_confirmation: "wrong@example.com") }
       before { sign_in user }
 
       describe "visiting Users#edit page" do

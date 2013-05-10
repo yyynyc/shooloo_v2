@@ -13,16 +13,16 @@ describe "UserPages" do
   describe "profile page" do
   	let(:user) {FactoryGirl.create(:user)}
     let!(:m1) { FactoryGirl.create(:post, user: user, question: "Question 1", 
-      answer: "Answer 1", grade: "2nd grade", 
+      answer: "Answer 1", grade: "2nd grade", category: "books", 
       photo: File.new(Rails.root + 'spec/support/math.jpg')) }
     let!(:m2) { FactoryGirl.create(:post, user: user, question: "Question 2", 
-      answer: "Answer 2", grade: "5th grade", 
+      answer: "Answer 2", grade: "5th grade", category: "money",
       photo: File.new(Rails.root + 'spec/support/math.jpg')) }
 
-  	before {visit user_path(user)}
+  	before {visit posts_user_path(user)}
 
-  	it {should have_selector('h1', text: user.name)}
-  	it {should have_selector('title', text: user.name)}
+  	it {should have_selector('h1', text: user.screen_name)}
+  	it {should have_selector('title', text: user.screen_name)}
 
     describe "posts" do
       it { should have_content(m1.question) }
@@ -91,11 +91,11 @@ describe "UserPages" do
 
     describe "with invalid information" do
       it "should not create a user" do
-        expect { click_button submit }.not_to change(User, :count)
+        expect { click_button "Create My Account" }.not_to change(User, :count)
       end
 
       describe "after submission" do
-        before { click_button submit }
+        before { click_button "Create My Account" }
 
         it { should have_selector('title', text: 'Sign Up') }
         it { should have_content('error') }
@@ -104,25 +104,28 @@ describe "UserPages" do
 
     describe "with valid information" do
       before do
-        fill_in "Real name", with: "Example User"
+        fill_in :first_name, with: "Example"
+        fill_in :last_name, with: "User"
         fill_in "Email", with: "user@example.com"
         fill_in "Email confirmation", with: "user@example.com"
+        select "Tutor", from: 'Grade'
+        fill_in "Screen name", with: "Test_User"
         fill_in "Password", with: "foobar"
         fill_in "Password confirmation", with: "foobar"
         attach_file "Avatar", Rails.root.join('spec', 'support', 'math.jpg')
       end
 
       it "should create a user" do
-        expect { click_button submit }.to change(User, :count).by(1)
+        expect { click_button "Create My Account" }.to change(User, :count).by(1)
       end
 
       describe "after saving the user" do
-        before { click_button submit }
+        before { click_button "Create My Account"}
         let(:user) { User.find_by_email('user@example.com') }
 
-        it { should have_selector('title', text: user.name) }
+        it { should have_selector('title', text: user.screen_name) }
         it { should have_selector('div.alert.alert-success', text: 'Welcome') }
-        it { should have_link('Sign out')}
+        it { should have_link('Sign Out')}
       end
     end
 
@@ -134,24 +137,27 @@ describe "UserPages" do
       end
 
       describe "page" do
-        it { should have_selector('h1',    text: "Update your profile") }
+        it { should have_selector('h1',    text: "Update Your Information") }
         it { should have_selector('title', text: "Edit user") }      
       end
 
       describe "with invalid information" do
-        before { click_button "Save changes" }
+        before { click_button "Update My Information" }
 
         it { should have_content('error') }
       end
 
       describe "with valid information" do
-        let(:new_name)  { "New Name" }
+        let(:new_name)  { "New_Name" }
         let(:new_email) { "new@example.com" }
         before do
-          fill_in "Real name",             with: new_name
-          fill_in "Email",            with: new_email
+          fill_in "First Name", with: user.first_name
+          fill_in "Last Name", with: user.last_name
+          fill_in "Screen name", with: new_name
+          fill_in "Email", with: new_email
           fill_in "Email confirmation", with: new_email
-          fill_in "Password",         with: user.password
+          select "Tutor", from: "Grade"
+          fill_in "Password", with: user.password
           fill_in "Password confirmation", with: user.password
           attach_file "Avatar", Rails.root.join('spec', 'support', 'math.jpg')
           click_button "Save changes"
@@ -174,8 +180,8 @@ describe "UserPages" do
       visit users_path
     end
 
-    it { should have_selector('title', text: 'All Members') }
-    it { should have_selector('h1',    text: 'All Members') }
+    it { should have_selector('title', text: 'All Users') }
+    it { should have_selector('h1',    text: 'All Shooloo Members') }
 
     describe "pagination" do
 
@@ -185,8 +191,8 @@ describe "UserPages" do
       it { should have_selector('div.pagination') }
 
       it "should list each user" do
-        User.paginate(order: 'name ASC', page: 1).each do |user|
-          page.should have_selector('li', text: user.name)
+        User.paginate(order: 'screen_name ASC', page: 1).each do |user|
+          page.should have_selector('li', text: user.screen_name)
         end
       end
     end
@@ -202,11 +208,11 @@ describe "UserPages" do
           visit users_path
         end
 
-        it { should have_link('delete', href: user_path(User.first)) }
+        it { should have_link('delete', href: posts_user_path(User.first)) }
         it "should be able to delete another user" do
           expect { click_link('delete') }.to change(User, :count).by(-1)
         end
-        it { should_not have_link('delete', href: user_path(admin)) }
+        it { should_not have_link('delete', href: posts_user_path(admin)) }
       end
     end 
   end

@@ -1,39 +1,21 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id                     :integer          not null, primary key
-#  first_name             :string(255)
-#  email                  :string(255)
-#  email_confirmation     :string(255)
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  password_digest        :string(255)
-#  remember_token         :string(255)
-#  admin                  :boolean          default(FALSE)
-#  avatar_file_name       :string(255)
-#  avatar_content_type    :string(255)
-#  avatar_file_size       :integer
-#  avatar_updated_at      :datetime
-#  screen_name            :string(255)
-#  grade                  :string(255)
-#  last_name              :string(255)
-#  auth_token             :string(255)
-#  password_reset_token   :string(255)
-#  password_reset_sent_at :datetime
-#
-
 require 'spec_helper'
 
 describe User do
-  before {@user = User.new(name: "Example User", email: "user@example.com", 
-  	email_confirmation: "user@example.com", password: "foobar",
+  before {@user = User.new(first_name: "Example", 
+    last_name: "User", 
+    email: "user@example.com", 
+  	email_confirmation: "user@example.com", 
+    grade: "Tutor",
+    screen_name: "some_user",
+    password: "foobar",
     password_confirmation: "foobar", 
+    privacy: true,
+    rules: true,
     avatar: File.new(Rails.root + 'spec/support/math.jpg'))}
 
   subject {@user}
 
-  it {should respond_to(:name)}
+  it {should respond_to(:first_name, :last_name)}
   it {should respond_to(:email)}
   it {should respond_to(:email_confirmation)}
   it {should respond_to(:password_digest)}
@@ -64,8 +46,8 @@ describe User do
     it { should be_admin }
   end
 
-  describe "when name is not present" do
-  	before { @user.name = ""}
+  describe "when first name is not present" do
+  	before { @user.first_name = ""}
   	it {should_not be_valid}
   end
 
@@ -79,15 +61,18 @@ describe User do
     it {should_not be_valid}
   end
 
-  describe "when user name is too long" do
-  	before { @user.name = "a" * 51}
+  describe "when user last_name is too long" do
+  	before { @user.last_name = "a" * 51}
   	it {should_not be_valid}
   end
 
   describe "when email format is invalid" do
     it "should be invalid" do
-      addresses = %w[user@foo,com user_at_foo.org example.user@foo.
-                     foo@bar_baz.com foo@bar+baz.com]
+      addresses = %w[user@foo,com 
+                      user_at_foo.org 
+                      example.user@foo.
+                      foo@bar_baz.com 
+                      foo@bar+baz.com]
       addresses.each do |invalid_address|
         @user.email = invalid_address
         @user.should_not be_valid
@@ -97,9 +82,13 @@ describe User do
 
   describe "when email format is valid" do
     it "should be valid" do
-      addresses = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn]
+      addresses = %w[user@foo.COM 
+                     A_US-ER@f.b.org 
+                     frst.lst@foo.jp 
+                     a+b@baz.cn]
       addresses.each do |valid_address|
         @user.email = valid_address
+        @user.email_confirmation = valid_address
         @user.should be_valid
       end      
     end
@@ -155,7 +144,8 @@ describe User do
 
     it "should be saved as all lower-case" do
       @user.email = mixed_case_email
-      @user.save
+      @user.email_confirmation = mixed_case_email
+      @user.save!
       @user.reload.email.should == mixed_case_email.downcase
     end
   end
@@ -197,8 +187,10 @@ describe User do
       before do
         @user.follow!(followed_user)
         3.times { followed_user.posts.create!(question: "Lorem ipsum", 
-          answer: "Lorem ipsum", grade: "5", 
-          photo: File.new(Rails.root + 'spec/support/math.jpg') ) }
+                  answer: "Lorem ipsum", 
+                  grade: "5", 
+                  category: "books", 
+                  photo: File.new(Rails.root + 'spec/support/math.jpg') ) }
       end
 
       its(:feed) { should include(newer_post) }

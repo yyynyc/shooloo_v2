@@ -1,7 +1,7 @@
 <li>
 	<div class="row">
 		<div class="span1.5">	
-  			<%= image_tag user.avatar.url (:thumb) %>
+  			<%= link_to image_tag(user.avatar.url(:thumb)), posts_user_path(user) %>
 		</div>
 		<div class="btn-formtastic">
 			<%= render partial: 'nudge_form', locals:{user: user} %>		

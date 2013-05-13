@@ -9,7 +9,7 @@
       <% if @users.any? %>
         <div class="user_avatars">
           <% @users.each do |user| %>
-            <%= image_tag user.avatar.url (:small) %>
+            <%= link_to image_tag(user.avatar.url (:small)), posts_user_path(user) %>
           <% end %>
         </div>
       <% end %>

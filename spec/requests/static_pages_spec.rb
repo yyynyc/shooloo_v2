@@ -19,8 +19,8 @@ describe "StaticPages" do
     describe "for signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
       before do
-        FactoryGirl.create(:post, user: user, question: "Lorem ipsum", answer: "whatever", grade: "5")
-        FactoryGirl.create(:post, user: user, question: "Dolor sit amet", answer: "whatever", grade: "5")
+        FactoryGirl.create(:post, user: user, question: "Lorem ipsum", answer: "whatever", grade: "5th grade", category: "books")
+        FactoryGirl.create(:post, user: user, question: "Dolor sit amet", answer: "whatever", grade: "6th grade", category: "shopping")
         sign_in user
         visit root_path
       end

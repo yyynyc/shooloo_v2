@@ -24,7 +24,7 @@
               </span>                
             <% else %>
               <div class="avatar">
-                <%= image_tag activity.user.avatar.url (:small) %>  
+                <%= link_to image_tag(activity.user.avatar.url(:small)), posts_user_path(activity.user)  %>  
               </div>   
               <span class='alert-heading'>
                 <%= link_to activity.user.screen_name, posts_user_path(activity.user) %>

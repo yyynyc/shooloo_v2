@@ -13,5 +13,4 @@
 class Operation < ActiveRecord::Base
   attr_accessible :rating_id, :name
   belongs_to :rating
-  acts_as_list scope: :rating
 end

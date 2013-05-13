@@ -13,8 +13,6 @@ gem 'formtastic-bootstrap'
 gem 'pg'
 gem 'taps'
 gem 'ransack'
-gem 'acts_as_list'
-gem 'piwik_analytics'
 gem 'fancybox-rails'
 gem 'whenever', :require => false
 

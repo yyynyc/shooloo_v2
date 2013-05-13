@@ -10,7 +10,7 @@
       <div class="row">
         <section class="feed_item">
           <span class="image">
-            <%= image_tag feed_item.photo.url (:medium) %><br/> 
+            <%= image_tag(feed_item.photo.url (:medium), alt: "Shooloo Common Core Math")  %><br/> 
             <% unless feed_item.image_host.nil? %>
               <span class="image_host">Image courtesy of <%= feed_item.image_host %>.
               </span>

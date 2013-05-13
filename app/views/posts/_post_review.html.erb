@@ -7,7 +7,7 @@
 </div>
 <div class="row">     
   <span class="image">
-    <%= image_tag @post.photo.url (:large) %><br/>
+    <%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math")  %><br/>
     <% unless @post.image_host.nil? %>
       <span class="image-host-large">Image courtesy of <%= @post.image_host %>.
       </span><br/> 

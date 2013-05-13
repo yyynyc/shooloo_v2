@@ -7,7 +7,7 @@
     <div class="row">   
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
       <span class="modal-image">
-        <%= image_tag local_object.photo.url (:small) %><br/> 
+        <%= image_tag(local_object.photo.url(:small), alt: "Shooloo Common Core Math") %><br/> 
           Image courtesy of<br>
           <%= local_object.image_host %>.                     
       </span>

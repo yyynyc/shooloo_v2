@@ -5,9 +5,6 @@
 		written by 
 		<%= link_to activity.trackable.rated_post.user.screen_name, posts_user_path(activity.trackable.rated_post.user) %>
 		in <i><%= activity.trackable.rated_post.user.grade %></i>.
-		<span class="btn-formtastic">
-			<%= image_tag activity.trackable.rated_post.user.avatar.url (:small) %> 
-		</span> 
 <% else %>
 	added a rating to your post and then deleted it.
 <% end %>

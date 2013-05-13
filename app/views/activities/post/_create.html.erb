@@ -3,9 +3,6 @@
 	a new post on <%= activity.created_at.strftime("%b %d, %Y") %>	
 	after being nudged by <%= link_to activity.recipient.screen_name, posts_user_path(activity.recipient) %>
 	in <i><%= activity.recipient.grade %></i>.
-	<span class="btn-formtastic">
-		<%= image_tag activity.recipient.avatar.url (:small) %> 
-	</span>
 	<br/>	
 <% else %>
 	deleted a post. 

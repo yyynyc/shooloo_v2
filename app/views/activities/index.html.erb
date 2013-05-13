@@ -6,10 +6,7 @@
 	<% unless activity.trackable_type == "Alarm" %>
 	  	<div class='users'>
 	  		<li>
-			  	<% unless activity.user.nil? %>	
-			  		<div class='avatar'> 		
-			  			<%= image_tag activity.user.avatar.url (:small) %> 
-			  		</div> 		
+			  	<% unless activity.user.nil? %>			
 				    <%= link_to activity.user.screen_name, posts_user_path(activity.user) %>
 				    in 
 				    <i><%= activity.user.grade %></i>

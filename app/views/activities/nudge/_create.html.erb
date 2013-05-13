@@ -3,9 +3,6 @@
 	<%= link_to activity.trackable.nudged.screen_name, posts_user_path(activity.trackable.nudged) %>
 	in <i><%= activity.trackable.nudged.grade %></i>
 	on <%= activity.created_at.strftime("%b %d, %Y") %>.
-	<span class="btn-formtastic">
-		<%= image_tag activity.trackable.nudged.avatar.url (:small) %> 
-	</span> 
 <% else %>
 	has nudged another member.
 <% end %>

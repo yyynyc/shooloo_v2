@@ -3,9 +3,6 @@
 	<%= link_to activity.trackable.followed.screen_name, posts_user_path(activity.trackable.followed) %>
 	in <i><%= activity.trackable.followed.grade %></i>
 	since <%= activity.created_at.strftime("%b %d, %Y") %>.
-	<span class="btn-formtastic">
-		<%= image_tag activity.trackable.followed.avatar.url (:small) %> 
-	</span> 
 <% else %>
 	started following another member but has since unfollowed that member.
 <% end %>

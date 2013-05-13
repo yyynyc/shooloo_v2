@@ -15,24 +15,17 @@ describe User do
 
   subject {@user}
 
-  it {should respond_to(:first_name, :last_name)}
-  it {should respond_to(:email)}
-  it {should respond_to(:email_confirmation)}
-  it {should respond_to(:password_digest)}
-  it {should respond_to(:password)}
-  it {should respond_to(:password_confirmation)}
-  it {should respond_to(:admin)}
-  it {should respond_to(:authenticate)}
-  it {should respond_to(:remember_token)}
-  it {should respond_to(:posts)}
-  it {should respond_to(:feed)}
-  it { should respond_to(:relationships) }
-  it { should respond_to(:followed_users) }
-  it { should respond_to(:following?) }
-  it { should respond_to(:follow!) } 
-  it { should respond_to(:reverse_relationships) }
-  it { should respond_to(:followers) }
-  it { should respond_to(:avatar) }
+  it {should respond_to(
+    :first_name, :last_name, 
+    :email, :email_confirmation,
+    :password, :password_confirmation, :password_digest,
+    :grade, :avatar, :privacy, :rules, :admin,
+    :authenticate, :remember_token, 
+    :posts, :feed, :comments, :ratings, :likes, :alarms, :activities,
+    :relationships, :reverse_relationships,
+    :followed_users, :followers, 
+    :following?, :follow!
+    ) }  
 
   it {should be_valid}
   it {should_not be_admin}
@@ -62,7 +55,7 @@ describe User do
   end
 
   describe "when user last_name is too long" do
-  	before { @user.last_name = "a" * 51}
+  	before { @user.last_name = "a" * 26}
   	it {should_not be_valid}
   end
 

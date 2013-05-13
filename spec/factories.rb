@@ -9,7 +9,7 @@ FactoryGirl.define do
     password_confirmation "foobar"
     privacy "true"
     rules "true"
-    grade "tutor"
+    grade "Tutor"
     avatar File.new(Rails.root + 'spec/support/math.jpg') 
 
     factory :admin do
@@ -24,5 +24,10 @@ FactoryGirl.define do
     user
     category "sports"
     photo File.new(Rails.root + 'spec/support/math.jpg') 
+  end
+
+  factory :activity do
+    user 
+
   end
 end

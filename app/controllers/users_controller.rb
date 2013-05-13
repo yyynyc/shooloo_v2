@@ -27,15 +27,15 @@ class UsersController < ApplicationController
     #@alarm = current_user.alarms.build
     index
     render :action =>'index'
-#    @comments = @user.comments.paginate(page: params[:page], oreder: "created_at DESC")
-#    @comment = current_user.comments.build(params[:comment])
+    #@comments = @user.comments.paginate(page: params[:page], order: "created_at DESC")
+    #@comment = current_user.comments.build(params[:comment])
   end
 
   def create
   	@user = User.new(params[:user])
   	if @user.save
   		sign_in @user
-  		flash[:success] = "Welcome to Shooloo Games!"
+  		flash[:success] = "Welcome to Shooloo Learning!"
   		redirect_to posts_user_path(@user)
   	else
   		render 'new'
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       flash[:success] = "Information updated successfully!"
       sign_in @user
-      redirect_to @user
+      redirect_to root_path
     else
       render 'edit'
     end

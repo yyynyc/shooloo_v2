@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130422182735) do
+ActiveRecord::Schema.define(:version => 20130513225236) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -208,7 +208,7 @@ ActiveRecord::Schema.define(:version => 20130422182735) do
     t.integer  "followed_users_count"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+  add_index "users", ["screen_name"], :name => "index_users_on_screen_name", :unique => true
 
 end

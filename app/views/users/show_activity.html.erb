@@ -1,12 +1,12 @@
 <% provide(:title, "Activity Alerts") %>
 <h1 > My News Alerts </h1>
-<%= @test %>
+
 <% if @my_activities.blank? %> 
-<div class="about"> 
-  <p> Welcome to Shooloo. You don't have any news yet.</p> 
-  <p>  Go to Home and use the form there to publish your own math word problem first. Then comment on other members' posts, and they will get an alert to comment on your posts. Also when you follow other members, and they will get an alert and follow you back. </p>
-  <p>Then you will enjoy news alerts every day. </p>
-</div>
+  <div class="about"> 
+    <p> Welcome to Shooloo. You don't have any news yet.</p> 
+    <p>  Go to Home and use the form there to publish your own math word problem first. Then comment on other members' posts, and they will get an alert to comment on your posts. Also when you follow other members, and they will get an alert and follow you back. </p>
+    <p>Then you will enjoy news alerts every day. </p>
+  </div>
 <% else %>        
   <% @my_activities.each do |activity| %>
     <% unless current_user?(activity.user) %> 

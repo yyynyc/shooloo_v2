@@ -61,11 +61,6 @@ describe "AuthenticationPages" do
             it { should have_selector('title', text: 'Sign In') }
           end
 
-          describe "visiting the post index" do
-            before { visit posts_path }
-            it { should have_selector('title', text: 'Sign In') }
-          end
-
           describe "visiting the my alerts page" do
             before { visit my_alerts_path }
             it { should have_selector('title', text: 'Sign In') }
@@ -100,6 +95,11 @@ describe "AuthenticationPages" do
         end     
 
         describe "in the Posts controller" do
+
+          describe "visiting the post index" do
+            before { visit posts_path }
+            it { should have_selector('title', text: 'Sign In') }
+          end
 
           describe "submitting to the create action" do
             before { post posts_path }

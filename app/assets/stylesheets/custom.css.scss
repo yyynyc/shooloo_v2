@@ -212,8 +212,12 @@ input {
 
  .sign-in-label {
   display: inline-block;
-  width: 5em; 
-  padding-top: 1.5em;
+  width: 7em; 
+  padding-top: 1.5em;  
+ }
+
+ #screen-name-label {
+  color: red
  }
 
  .remember-label {
@@ -596,4 +600,46 @@ aside {
   color: #fff;
 }
 
+#logo-home {
+  margin-left: -4.5em;
+  margin-bottom: -3em;
+}
+
+#h1-home {
+  text-align: left; 
+  font-size: 2.5em; 
+  letter-spacing: 0.01em; 
+  font-weight: bold; 
+  line-height: 2em; 
+  margin-top: -1.5em; 
+  color: #666;
+}
+
+#tagline-home {
+  font-size: 1.5em; 
+  font-weight: bold; 
+  line-height: 2em; 
+  margin-top: 1em; 
+  color: #666;
+}
+
+#signup-home {
+  margin-top: 3em;
+}
+
+#home-center {
+  margin-top: 4em; 
+  padding-top: 2m; 
+  border-top: 1px dotted #dedede;
+}
+
+#home-center-text-margin {
+  margin: 4em 0em 2em 0em; 
+  text-align: center;
+}
+
+#home-center-text {
+  font-size: 2em; 
+  font-weight: bold;
+}
 

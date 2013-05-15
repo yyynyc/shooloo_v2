@@ -46,12 +46,13 @@ class User < ActiveRecord::Base
                                    dependent:   :destroy
   has_many :nudgers, through: :reverse_nudges, source: :nudger
   
-  before_save { self.email.downcase! } 
-  before_save :create_remember_token
-  before_save {self.first_name.capitalize!}
-  before_save {self.last_name.capitalize!}
-  before_create { generate_token(:auth_token) }
-
+  before_save do
+    self.email.downcase!
+    create_remember_token
+    self.first_name.capitalize!
+    self.last_name.capitalize!
+  end
+  
   validates :first_name, presence: true, length: {maximum: 25}
   validates :last_name, presence: true, length: {maximum: 25}
   validates :grade, presence: true
@@ -59,9 +60,8 @@ class User < ActiveRecord::Base
   validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX },
     uniqueness: {case_sensitive: false}, length: { minimum: 6, maximum: 20}
 	
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\Z/i
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, 
-  	uniqueness: { case_sensitive: false}
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX } 
   validates_confirmation_of :email, on: :create
   
 

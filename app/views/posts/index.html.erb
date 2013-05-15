@@ -34,7 +34,11 @@
 		<li>
 			<div class="row">		
 				<div class="span1.5">
-					<%= image_tag post.photo.url (:thumb)%>					
+					<%= link_to image_tag(post.photo.url (:thumb), 
+						alt: "Shooloo Common Core Math Problem ##{post.id}", 
+						title: "Shooloo Common Core Math Problem ##{post.id}"), 
+						new_post_comment_path(post)
+						 %>	
 				</div>
 				<div class="span10">
 					<span class="btn-formtastic">

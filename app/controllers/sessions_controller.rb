@@ -3,23 +3,17 @@ class SessionsController < ApplicationController
 	end
 
 	def create
-		user = User.find_by_email(params[:session][:email].downcase)
+		user = User.find_by_screen_name(params[:session][:screen_name])
     	if user && user.authenticate(params[:session][:password])
-    		#if params[:remember_me] 
-      			#cookies.permanent[:auth_token] = user.auth_token
-		    #else
-		      #cookies[:auth_token] = user.auth_token
-		    #end
       		sign_in user
       		redirect_back_or my_alerts_path
     	else
-      		flash.now[:error] = 'Invalid email/password combination'
+      		flash.now[:error] = 'Invalid screen name/password combination'
       		render 'new'
     	end
 	end
 
 	def destroy
-		#cookies.delete(:auth_token)
 		sign_out
 		redirect_to root_url
 	end

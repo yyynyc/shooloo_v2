@@ -2,12 +2,12 @@
 <h1>Sign In</h1>
 
 <div class="row">
-  <div class="span4 offset4 well">
+  <div class="span4.5 offset4 well">
     <%= form_for(:session, url: sessions_path) do |f| %>
       <section>
-        <span class="sign-in-label"><%= f.label :email %>
+        <span class="sign-in-label" id="screen-name-label"><%= f.label :screen_name, "Screen Name" %>
         </span>
-        <span class="search-label"><%= f.text_field :email%>
+        <span class="search-label"><%= f.text_field :screen_name%>
         </span>
       </section>
 

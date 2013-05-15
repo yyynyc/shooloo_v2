@@ -18,10 +18,10 @@ FactoryGirl.define do
   end
 
   factory :post do
+    user
     question "Lorem ipsum"
     answer "blah blah"
     grade "5"
-    user
     category "sports"
     photo File.new(Rails.root + 'spec/support/math.jpg') 
   end

@@ -87,10 +87,21 @@ describe User do
     end
   end
 
-  describe "when email address is already taken" do
+  describe "email address with mixed case" do
+    let(:mixed_case_email) { "Foo@ExAMPle.CoM" }
+
+    it "should be saved as all lower-case" do
+      @user.email = mixed_case_email
+      @user.email_confirmation = mixed_case_email
+      @user.save!
+      @user.reload.email.should == mixed_case_email.downcase
+    end
+  end
+
+  describe "when screen_name is already taken" do
   	before do
-      user_with_same_email = @user.dup
-      user_with_same_email.save
+      user_with_same_screen_name = @user.dup
+      user_with_same_screen_name.save
     end
 
     it { should_not be_valid }
@@ -118,7 +129,7 @@ describe User do
 
   describe "return value of authenticate method" do
     before { @user.save }
-    let(:found_user) { User.find_by_email(@user.email) }
+    let(:found_user) { User.find_by_screen_name(@user.screen_name) }
 
     describe "with valid password" do
       it { should == found_user.authenticate(@user.password) }
@@ -131,18 +142,7 @@ describe User do
       specify { user_for_invalid_password.should be_false }
     end
   end
-
-  describe "email address with mixed case" do
-    let(:mixed_case_email) { "Foo@ExAMPle.CoM" }
-
-    it "should be saved as all lower-case" do
-      @user.email = mixed_case_email
-      @user.email_confirmation = mixed_case_email
-      @user.save!
-      @user.reload.email.should == mixed_case_email.downcase
-    end
-  end
-
+  
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }

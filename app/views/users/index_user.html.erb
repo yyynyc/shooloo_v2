@@ -38,7 +38,7 @@
 	</tr>    	
 	<% @users.each do |user| %>
     	<tr> 
-    		<td><%= image_tag user.avatar.url (:thumb) %></td>
+    		<td><%= image_tag(user.avatar.url (:thumb), alt: "Shooloo member #{user.screen_name}", title: "Shooloo member #{user.screen_name}")  %></td>
     		<td><%= link_to user.screen_name, user %></td>
       		<td><%= user.grade %></td>
       		<td><%= user.followed_users.count %></td>

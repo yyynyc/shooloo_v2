@@ -10,7 +10,10 @@
       <div class="row">
         <section class="feed_item">
           <span class="image">
-            <%= image_tag(feed_item.photo.url (:medium), alt: "Shooloo Common Core Math")  %><br/> 
+            <%= link_to image_tag(feed_item.photo.url (:medium), 
+              alt: "Shooloo Common Core Math Problem ##{feed_item.id}", 
+              title: "Shooloo Common Core Math Problem ##{feed_item.id}"),
+              new_post_comment_path(feed_item)  %><br/> 
             <% unless feed_item.image_host.nil? %>
               <span class="image_host">Image courtesy of <%= feed_item.image_host %>.
               </span>

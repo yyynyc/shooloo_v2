@@ -47,7 +47,7 @@ describe "UserPages" do
 
       describe "after saving the user" do
         before { click_button "Create My Account"}
-        let(:user) { User.find_by_email('user@example.com') }
+        let(:user) { User.find_by_screen_name('Test_User') }
 
         it { should have_selector('title', text: full_title(user.screen_name + '_Published_Posts')) }
         it { should have_selector('div.alert.alert-success', text: 'Welcome to Shooloo Learning!') }
@@ -68,7 +68,11 @@ describe "UserPages" do
       end
 
       describe "with invalid information" do
-        before { click_button "Update My Information" }
+        let(:new_email) {"new@example"}
+        before do
+          fill_in 'user_email', with: new_email
+          click_button "Update My Information"
+        end  
 
         it { should have_content('error') }
       end
@@ -91,6 +95,7 @@ describe "UserPages" do
           click_button "Update My Information"
         end
 
+        it { should_not have_selector('title', text: " | ")}
         it { should have_selector('div.alert.alert-success') }
         it { should have_link('Sign Out', href: signout_path) }
         specify { user.reload.screen_name.should  == new_name }
@@ -135,11 +140,11 @@ describe "UserPages" do
           visit users_path
         end
 
-        it { should have_link('delete', href: posts_user_path(User.first)) }
+        it { should have_link('delete', href: user_path(User.first)) }
         it "should be able to delete another user" do
           expect { click_link('delete') }.to change(User, :count).by(-1)
         end
-        it { should_not have_link('delete', href: posts_user_path(admin)) }
+        it { should_not have_link('delete', href: user_path(admin)) }
       end
     end 
   end
@@ -156,17 +161,15 @@ describe "UserPages" do
 
   describe "profile page" do
     let(:user) {FactoryGirl.create(:user)}
+    before {sign_in user}
+
     let!(:m1) { FactoryGirl.create(:post, user: user, question: "Question 1", 
       answer: "Answer 1", grade: "2nd grade", category: "books", 
       photo: File.new(Rails.root + 'spec/support/math.jpg')) }
     let!(:m2) { FactoryGirl.create(:post, user: user, question: "Question 2", 
       answer: "Answer 2", grade: "5th grade", category: "money",
       photo: File.new(Rails.root + 'spec/support/math.jpg')) }
-    
-    before do      
-      sign_in user
-      visit posts_user_path(user)
-    end
+    before { visit posts_user_path(user) }  
 
     it {should have_selector('h1', text: user.screen_name)}
     it {should have_selector('title', text: full_title(user.screen_name + '_Published_Posts'))}

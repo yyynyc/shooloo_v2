@@ -3,8 +3,8 @@ class LikesController < ApplicationController
 
   def new
     @like = Like.post
-    @new  = Post.find_by_id(params[:post_id])    
-    @comment = Comment.find_by_id(params[:comment_id])
+    @post  = Post.find(params[:post_id])    
+    @comment = Comment.find(params[:comment_id])
   end
 
   def create

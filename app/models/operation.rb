@@ -11,6 +11,6 @@
 #
 
 class Operation < ActiveRecord::Base
-  attr_accessible :rating_id, :name
+  attr_accessible :rating_id, :name, :position
   belongs_to :rating
 end

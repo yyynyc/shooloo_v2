@@ -8,24 +8,39 @@ namespace :db do
 end
 
   def make_users 
-    admin = User.create!(name: "Example User",
-                 email: "example@railstutorial.org",
-                 email_confirmation: "example@railstutorial.org", 
-                 password: "foobar",
-                 password_confirmation: "foobar",                 
-                 avatar: File.new(Rails.root + 'app/assets/images/rails.png'))
+    admin = User.create!(first_name: "Example",
+                last_name: "User",
+                grade: "5th grade",
+                screen_name: "Faker_Test",
+                email: "example@railstutorial.org",
+                email_confirmation: "example@railstutorial.org", 
+                password: "foobar",
+                password_confirmation: "foobar", 
+                privacy: true,
+                rules: true,                
+                avatar: File.new(Rails.root + 'app/assets/images/rails.png'))
     admin.toggle!(:admin)
 
     99.times do |n|
-      name  = Faker::Name.name
+      first_name  = Faker::Name.first_name
+      last_name = Faker::Name.last_name
+      grade = "4th grade"
+      screen_name = "test_user_#{n+1}"
       email = "example-#{n+1}@railstutorial.org"
       password  = "password"
+      privacy = true
+      rules = true
       avatar = File.new(Rails.root + 'app/assets/images/rails.png')
-      User.create!(name: name,
+      User.create!(first_name: first_name,
+                   last_name: last_name,
+                   grade: grade,
+                   screen_name: screen_name,
                    email: email,
                    email_confirmation: email,
                    password: password,
                    password_confirmation: password,
+                   privacy: privacy,
+                   rules: rules,
                    avatar: avatar)
     end
   end
@@ -35,10 +50,11 @@ end
     50.times do
       question = Faker::Lorem.sentence(5)
       answer = Faker::Lorem.sentence(1)
-      grade = Faker::Lorem.sentence(1)
+      grade = "5th grade"
+      category = "books"
       photo = File.new(Rails.root + 'spec/support/math.jpg')
       users.each { |user| user.posts.create!(question: question, answer: answer, 
-        grade: grade, photo: photo) }
+        grade: grade, category: category, photo: photo) }
     end
   end
 

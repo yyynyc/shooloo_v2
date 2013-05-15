@@ -6,29 +6,29 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Operation.create([
-	{name: 'whole number', postion: 1},
-	{name: 'decimal point', postion: 2},
-	{name: 'fraction', postion: 3},
-	{name: 'percentage', postion: 4},
-	{name: 'negative number', postion: 5},
-	{name: 'addition', postion: 6},
-	{name: 'substraction', postion: 7},
-	{name: 'multiplication', postion: 8},
-	{name: 'division', postion: 9}
+	{name: 'whole number', position: 1},
+	{name: 'decimal point', position: 2},
+	{name: 'fraction', position: 3},
+	{name: 'percentage', position: 4},
+	{name: 'negative number', position: 5},
+	{name: 'addition', position: 6},
+	{name: 'substraction', position: 7},
+	{name: 'multiplication', position: 8},
+	{name: 'division', position: 9}
 	])
 
 Improvement.create([
-	{name: 'vocabulary', postion: 1},
-	{name: 'grammar', postion: 2},
-	{name: 'structure', postion: 3},
-	{name: 'concept clarity', postion: 4},
-	{name: 'originality', postion: 5}
+	{name: 'vocabulary', position: 1},
+	{name: 'grammar', position: 2},
+	{name: 'structure', position: 3},
+	{name: 'concept clarity', position: 4},
+	{name: 'originality', position: 5}
 	])
 
 Flag.create([
-	{name: 'plagerized content', postion: 1},
-	{name: 'offensive content', postion: 2},
-	{name: 'offensive image', postion: 3}
+	{name: 'plagerized content', position: 1},
+	{name: 'offensive content', position: 2},
+	{name: 'offensive image', position: 3}
 	])
 
 admin1 = User.create(
@@ -40,6 +40,8 @@ admin1 = User.create(
 		screen_name: 'Elda_Hills', 
 		password: 'adminshooloo',
 		password_confirmation: 'adminshooloo', 
+		privacy: true, 
+		rules: true,
 		avatar: File.new(Rails.root + 'app/assets/images/Elda.jpg')}  
 	)
 admin1.admin = true
@@ -53,7 +55,9 @@ admin2 = User.create(
 		grade: 'Tutor',
 		screen_name: 'Enchanted_Collar',
 		password: 'adminshooloo',
-		password_confirmation: 'adminshooloo',                 
+		password_confirmation: 'adminshooloo', 
+		privacy: true,
+		rules: true,                
 		avatar: File.new(Rails.root + 'app/assets/images/enchanted.jpg')}    
 	)
 admin2.admin = true

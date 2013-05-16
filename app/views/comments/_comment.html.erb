@@ -20,7 +20,7 @@
 				<%= comment.created_at.strftime("%b %d, %Y") %>.
 				<% if current_user?(comment.commenter) %> 
 	            	<%= link_to "", comment, method: :delete,
-	              data: { confirm: "Delete comemnt. Are you sure?" },
+	              data: { confirm: "Delete comment. Are you sure?" },
 	              title: "Delete comment", class: "icon-trash" %>
 	            <% end %>	          
             	<% if comment.visible? %>

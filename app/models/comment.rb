@@ -9,9 +9,8 @@ class Comment < ActiveRecord::Base
     url: "/attachments/comments/:id/:style/:basename.:extension",
     path: ":rails_root/public/attachments/comments/:id/:style/:basename.:extension"
 
-  validates :commented_post_id, presence: true
-  validates :commenter_id, presence: true
-  validates :content, presence: true
+  validates_presence_of :commented_post_id, :commenter_id,
+            :content, :visible
 
   has_many :alarms, foreign_key: "alarmed_comment_id", dependent: :destroy
   has_many :likes, foreign_key: "liked_comment_id", dependent: :destroy

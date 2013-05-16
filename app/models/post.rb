@@ -30,11 +30,8 @@ class Post < ActiveRecord::Base
   has_many :operations, through: :ratings
   has_many :flags, through: :ratings
   
-  validates :user_id, presence: true
-  validates :question, presence: true
+  validates_presence_of :user_id, :question, :grade, :category
   validates :answer, presence: true, length: {maximum: 100}
-  validates :grade, presence: true
-  validates :category, presence: true
   validates_attachment_presence :photo
   validates_attachment_size :photo, :less_than => 5.megabytes
   validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']

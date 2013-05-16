@@ -5,7 +5,7 @@ describe "UserPages" do
 
   describe "signup" do
     before { visit signup_path }
-    let(:submit) { "Create my account" }
+    let(:submit) { "Create My Account" }
 
     describe "page" do
       it {should have_selector('h1', text: 'Sign Up')}
@@ -49,7 +49,6 @@ describe "UserPages" do
         before { click_button "Create My Account"}
         let(:user) { User.find_by_screen_name('Test_User') }
 
-        it { should have_selector('title', text: full_title(user.screen_name + '_Published_Posts')) }
         it { should have_selector('div.alert.alert-success', text: 'Welcome to Shooloo Learning!') }
         it { should have_link('My Alerts')}
       end
@@ -63,14 +62,14 @@ describe "UserPages" do
       end
 
       describe "page" do
-        it { should have_selector('h1',    text: "Update Your Information") }
+        it { should have_selector('h1', text: "Update Your Information") }
         it { should have_selector('title', text: "Edit user") }      
       end
 
       describe "with invalid information" do
         let(:new_email) {"new@example"}
         before do
-          fill_in 'user_email', with: new_email
+          fill_in "Parent's email ", with: new_email
           click_button "Update My Information"
         end  
 
@@ -159,7 +158,7 @@ describe "UserPages" do
     it {should have_selector('title', text: full_title('Activity Alerts'))}
   end
 
-  describe "profile page" do
+  describe "user's published post page" do
     let(:user) {FactoryGirl.create(:user)}
     before {sign_in user}
 

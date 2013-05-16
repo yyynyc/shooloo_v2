@@ -26,8 +26,10 @@ FactoryGirl.define do
     photo File.new(Rails.root + 'spec/support/math.jpg') 
   end
 
-  factory :activity do
-    user 
-
+  factory :comment do
+    commenter(:user)
+    commented_post(:post)
+    content "This is a good question"
+    visible true    
   end
 end

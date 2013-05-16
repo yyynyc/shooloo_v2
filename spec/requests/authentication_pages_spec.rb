@@ -114,8 +114,8 @@ describe "AuthenticationPages" do
 
         describe "when attempting to visit a protected page" do
           before do
-            visit edit_user_path(user)
-            fill_in "Email",    with: user.email
+            visit posts_path
+            fill_in "Screen Name", with: user.screen_name
             fill_in "Password", with: user.password
             click_button "Sign in"
           end
@@ -123,7 +123,7 @@ describe "AuthenticationPages" do
           describe "after signing in" do
 
             it "should render the desired protected page" do
-              page.should have_selector('title', text: 'Edit user')
+              page.should have_selector('title', text: full_title('All Members'))
             end
           end
 
@@ -131,12 +131,12 @@ describe "AuthenticationPages" do
             before do
               delete signout_path
               visit signin_path
-              fill_in "Email",    with: user.email
+              fill_in "Screen Name", with: user.screen_name
               fill_in "Password", with: user.password
               click_button "Sign in"
             end
 
-            it "should render the default (profile) page" do
+            it "should render the default (alerts) page" do
               page.should have_selector('title', text: "Activity Alerts") 
             end
           end
@@ -159,6 +159,18 @@ describe "AuthenticationPages" do
       describe "submitting a PUT request to the Users#update action" do
         before { put user_path(wrong_user) }
         specify { response.should redirect_to(root_path) }
+      end
+    end
+
+    describe "as non-admin user" do
+      let(:user) {FactoryGirl.create(:user)}
+      let(:non_admin) {FactoryGirl.create(:user)}
+
+      before { sign_in non_admin }
+
+      describe "submitting a DELETE request to the Users#destroy action" do
+        before {delete user_path(user)}
+        specify {response.should redirect_to(root_path)}
       end
     end
 	end

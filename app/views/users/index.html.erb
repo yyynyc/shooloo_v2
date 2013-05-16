@@ -71,7 +71,7 @@
 			</div>
 			<div class='row'>
 				<span class='follow-nudge'>	
-	      			<% if current_user.admin? %><br/>
+	      			<% if current_user.admin? && !user.admin? %><br/>
 		      			<%= link_to "delete", user, method: :delete, data: 
 		      				{confirm: "Are you sure?" }%>
 		      			user #<%= user.id %>,

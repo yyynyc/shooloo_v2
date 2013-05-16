@@ -157,6 +157,10 @@ describe User do
     let!(:newer_post) do
       FactoryGirl.create(:post, user: @user, created_at: 1.hour.ago)
     end
+    let!(:post) { FactoryGirl.create(:post)  }
+    let!(:comment) do
+      FactoryGirl.create(:comment, commenter: @user, commented_post: post)
+    end
 
     it "should have the right posts in the right order" do
       @user.posts.should == [newer_post, older_post]
@@ -168,6 +172,15 @@ describe User do
       posts.should_not be_empty
       posts.each do |post|
         Post.find_by_id(post.id).should be_nil
+      end
+    end
+
+    it "should destroy associated comments" do
+      comments = @user.comments.dup
+      @user.destroy
+      comments.should_not be_empty
+      comments.each do |comment|
+        Comment.find_by_id(comment.id).should be_nil
       end
     end
 

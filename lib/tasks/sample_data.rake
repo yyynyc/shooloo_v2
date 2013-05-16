@@ -4,6 +4,7 @@ namespace :db do
     make_users
     make_posts
     make_relationships
+    make_comments
   end
 end
 
@@ -21,7 +22,7 @@ end
                 avatar: File.new(Rails.root + 'app/assets/images/rails.png'))
     admin.toggle!(:admin)
 
-    99.times do |n|
+   35.times do |n|
       first_name  = Faker::Name.first_name
       last_name = Faker::Name.last_name
       grade = "4th grade"
@@ -47,7 +48,7 @@ end
 
   def make_posts
     users = User.all(limit: 6)
-    50.times do
+    31.times do
       question = Faker::Lorem.sentence(5)
       answer = Faker::Lorem.sentence(1)
       grade = "5th grade"
@@ -61,13 +62,24 @@ end
   def make_relationships
     users = User.all
     user  = users.first
-    followed_users = users[2..50]
-    followers      = users[3..40]
+    followed_users = users[2..10]
+    followers      = users[3..20]
     followed_users.each { |followed| user.follow!(followed) }
     followers.each      { |follower| follower.follow!(user) }
   end
 
-  def make_ratings
-    users = User.all
-    user = users.first
+  def make_comments
+    users = User.all(limit: 4)
+    posts = Post.all(limit: 5)
+    20.times do
+      content = Faker::Lorem.sentence(1)
+      users.each do |user|
+        posts.each do |post|
+          comment = user.comments.create(content: content)
+          comment.commented_post = post
+          comment.save!
+        end
+      end
+    end
   end
+

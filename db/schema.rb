@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130513225236) do
+ActiveRecord::Schema.define(:version => 20130516141825) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -196,7 +196,6 @@ ActiveRecord::Schema.define(:version => 20130513225236) do
     t.string   "screen_name"
     t.string   "grade"
     t.string   "last_name"
-    t.string   "auth_token"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.boolean  "privacy"

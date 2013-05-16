@@ -33,7 +33,7 @@
 	</div>
   <% if current_user.admin? && !current_user?(user) %></br>
     <%= link_to "delete", user, method: :delete,
-                                  data: { confirm: "You sure?" } %>,
+        data: { confirm: "You sure?" } %>,
     <%= user.first_name %>
 	<%= user.last_name %>, 
 	<%= user.email %>

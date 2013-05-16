@@ -17,14 +17,6 @@
         <span class="search-label"><%= f.password_field :password %>
         </span>
       </section>
-      <section>
-        <span class="remember-label">
-          <%= f.label :remember_me, "Remember me on this computer." %>
-        </span>
-        <span class="search-label">      
-          <%= f.check_box :remember_me, {}, 1, params[:remember_me] %>
-        </span>      
-      </section>
       <section style="margin: 1em 1em -1em 0em;">
         <%= f.submit "Sign in", class: "btn btn-small btn-primary btn-formtastic" %>
       </section>

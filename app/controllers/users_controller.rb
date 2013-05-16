@@ -3,7 +3,7 @@ require 'will_paginate/array'
 class UsersController < ApplicationController
   before_filter :signed_in_user
   skip_before_filter :signed_in_user, only: [:new, :create]
-  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: [:edit, :update, :destroy]
 
   def new
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   	if @user.save
   		sign_in @user
   		flash[:success] = "Welcome to Shooloo Learning!"
-  		redirect_to posts_user_path(@user)
+  		redirect_to root_path
   	else
   		render 'new'
   	end

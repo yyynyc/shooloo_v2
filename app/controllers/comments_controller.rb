@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
     before_filter :signed_in_user
     
 	def index
+        render 'new'
     end
 
     def new
@@ -27,6 +28,8 @@ class CommentsController < ApplicationController
             redirect_to new_post_comment_path(@post)
         else 
             raise "you need a post" if @post.nil?
+            @post  = @comment.commented_post
+            @alarm = @post.alarms.build
             @comments = @post.comments.visible.paginate(page: params[:page], per_page: 5, 
                 order: 'created_at DESC')      
             render 'new'     

@@ -27,7 +27,7 @@ describe Comment do
 
     it "should not allow access to commented_post_id" do
       expect do
-        Comment.new(commenteed_post_id: post.id)
+        Comment.new(commented_post_id: post.id)
       end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
     end   
 

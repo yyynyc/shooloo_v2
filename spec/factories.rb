@@ -19,9 +19,9 @@ FactoryGirl.define do
 
   factory :post do
     user
-    question "Lorem ipsum"
-    answer "blah blah"
-    grade "5"
+    question "Factory_created Question"
+    answer "Fatory-created Answer"
+    grade "8th grade"
     category "sports"
     photo File.new(Rails.root + 'spec/support/math.jpg') 
   end

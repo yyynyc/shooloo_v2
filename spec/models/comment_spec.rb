@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Comment do
   let (:user) {FactoryGirl.create(:user)}
-  let (:post) {FactoryGirl.create(:post)}
+  let (:poster) {FactoryGirl.create(:user)}
+  let (:post) {FactoryGirl.create(:post, user: poster)}
   before do 
   	@comment = user.comments.build(content: "Lorem ipsum", 
   			photo: File.new(Rails.root + 'spec/support/math.jpg'))

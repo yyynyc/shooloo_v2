@@ -5,10 +5,13 @@ describe "RatingPages" do
 
 	  let(:user) { FactoryGirl.create(:user) }
 	  let (:poster) { FactoryGirl.create(:user) }
-	  before { sign_in user }
 	  let(:post) { FactoryGirl.create(:post, user: poster) }
 	  let(:rating) { FactoryGirl.create(:rating, rater: user, 
 	  		rated_post: post) }
+
+	  before do
+	  	sign_in user
+	  end
 
 	  describe "rating creation" do
 	    before { visit new_post_rating_path(post) }
@@ -62,7 +65,6 @@ describe "RatingPages" do
 	    		before do 
 	    			select " ", from: 'rating_answer_correctness'
 	    			click_button "Update Rating"
-	    			page.save_and_open_page
 	    		end
 		        it { should have_content('error') }		     
 		    end

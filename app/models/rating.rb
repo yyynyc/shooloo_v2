@@ -27,14 +27,10 @@ class Rating < ActiveRecord::Base
   has_many :flags, order: "position"
   accepts_nested_attributes_for :flags 
 
-  validates :rated_post_id, presence: true
-  validates :rater_id, presence: true
-  validates :answer_correctness, presence: true
-  validates :steps, presence: true
-  validates :grade_suitability, presence: true
+  validates_presence_of :rated_post_id, :rater_id, :answer_correctness, 
+    :steps, :grade_suitability, :operations
   validates_inclusion_of :overall_rating, in: [true, false]
   validates_associated :operations
-  validates_presence_of :operations
 
   default_scope order: 'ratings.updated_at DESC'
 

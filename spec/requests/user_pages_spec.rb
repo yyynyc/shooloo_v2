@@ -69,7 +69,7 @@ describe "UserPages" do
       describe "with invalid information" do
         let(:new_email) {"new@example"}
         before do
-          fill_in "Parent's email ", with: new_email
+          fill_in "Parent's email", with: new_email
           click_button "Update My Information"
         end  
 
@@ -160,7 +160,11 @@ describe "UserPages" do
 
   describe "user's published post page" do
     let(:user) {FactoryGirl.create(:user)}
-    before {sign_in user}
+    before do 
+      sign_in user
+      m1
+      m2
+    end
 
     let!(:m1) { FactoryGirl.create(:post, user: user, question: "Question 1", 
       answer: "Answer 1", grade: "2nd grade", category: "books", 

@@ -19,16 +19,19 @@ class RatingsController < ApplicationController
             redirect_to rated_posts_user_path(current_user)    
         else 
             @post  = @rating.rated_post
+            @alarm = @post.alarms.build
+            @like = @post.likes.build
             render 'new'     
         end            
     end
 
     def edit
-        @post  = current_user.feed.find_by_id(params[:post_id])
+        @post = current_user.rated_posts.find(params[:post_id]) 
         raise "you need a post" if @post.nil?
         @rating = @post.ratings.find_by_id(params[:id])
         raise "you need a rating" if @rating.nil?
-        @alarm = Alarm.new
+        @alarm = @post.alarms.build
+        @like = @post.likes.build
     end
 
     def update
@@ -37,6 +40,9 @@ class RatingsController < ApplicationController
           flash[:success] = "You have updated your rating successfully!"
           redirect_to root_url
         else
+          @post = @rating.rated_post
+          @alarm = @post.alarms.build
+          @like = @post.likes.build
           render 'edit'
         end
     end

@@ -114,7 +114,7 @@ describe "AuthenticationPages" do
 
         describe "when attempting to visit a protected page" do
           before do
-            visit posts_path
+            visit users_path
             fill_in "Screen Name", with: user.screen_name
             fill_in "Password", with: user.password
             click_button "Sign in"

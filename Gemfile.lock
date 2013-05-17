@@ -129,6 +129,8 @@ GEM
       thor (~> 0.14)
     json (1.8.0)
     kgio (2.8.0)
+    launchy (2.3.0)
+      addressable (~> 2.3)
     libwebsocket (0.1.7.1)
       addressable
       websocket
@@ -276,6 +278,7 @@ DEPENDENCIES
   guard-rspec (= 1.2.1)
   guard-spork (= 1.2.0)
   jquery-rails (= 2.0.2)
+  launchy
   paperclip!
   pg
   pry-nav

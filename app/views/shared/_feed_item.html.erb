@@ -18,8 +18,10 @@
               <span class="image_host">Image courtesy of <%= feed_item.image_host %>.
               </span>
             <% end %>                      
-          </span>           
-          <%= wrap(simple_format(feed_item.question)) %>                    
+          </span>  
+          <span class="wrap_long_string">      
+            <%= simple_format(feed_item.question) %>
+          </span>                    
         </section>
       </div>
       <div>

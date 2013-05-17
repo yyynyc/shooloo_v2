@@ -32,4 +32,19 @@ FactoryGirl.define do
     content "This is a good question"
     visible true    
   end
+
+  factory :operation do
+    sequence(:name)  { |n| "operation ##{n}" }
+    sequence(:position)  { |n| "First #{n}" }
+  end
+
+  factory :rating do
+    rater(:user)
+    rated_post(:post)
+    answer_correctness "1"
+    steps "1"
+    grade_suitability "1"
+    overall_rating true 
+    operations { FactoryGirl.create_list(:operation, 9) }
+  end
 end

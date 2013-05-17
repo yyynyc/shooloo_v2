@@ -20,4 +20,53 @@ describe Rating do
   its(:rater) {should == user}
   its(:rated_post) {should == post}
   it {should be_valid}
+
+   describe "accessible attributes" do
+    it "should not allow access to rater_id" do
+      expect do
+        Rating.new(rater_id: user.id)
+      end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+    end   
+
+    it "should not allow access to rated_post_id" do
+      expect do
+        Rating.new(rated_post_id: post.id)
+      end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+    end  
+  end
+
+  describe "when rater is not present" do
+    before { @rating.rater_id = nil }
+    it { should_not be_valid }
+  end
+
+  describe "when rated_post is not present" do
+    before { @rating.rated_post_id = nil }
+    it { should_not be_valid }
+  end
+
+  describe "when none of the math operations is chosen" do
+    before { @rating.operations = [] }
+    it { should_not be_valid }
+  end
+
+  describe "when answer_correctness is not present" do
+    before { @rating.answer_correctness = nil }
+    it { should_not be_valid }
+  end
+
+  describe "when the number of solution steps is not present" do
+    before { @rating.steps = nil }
+    it { should_not be_valid }
+  end
+
+  describe "when grade suitability is not present" do
+    before { @rating.grade_suitability = nil }
+    it { should_not be_valid }
+  end
+
+  describe "when overall_rating is not present" do
+    before { @rating.overall_rating = nil }
+    it { should_not be_valid }
+  end
 end

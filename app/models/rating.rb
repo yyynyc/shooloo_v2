@@ -1,18 +1,3 @@
-# == Schema Information
-#
-# Table name: ratings
-#
-#  id                 :integer          not null, primary key
-#  rater_id           :integer
-#  rated_post_id      :integer
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  answer_correctness :integer
-#  steps              :integer
-#  grade_suitability  :integer
-#  overall_rating     :boolean
-#
-
 class Rating < ActiveRecord::Base
   attr_accessible :rated_post_id, :answer_correctness, :steps, :grade_suitability, 
 				  :operation_ids, :improvement_ids, :flag_ids, :overall_rating 

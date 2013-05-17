@@ -5,6 +5,7 @@ namespace :db do
     make_posts
     make_relationships
     make_comments
+    make_ratings
   end
 end
 
@@ -79,6 +80,24 @@ end
           comment.commented_post = post
           comment.save!
         end
+      end
+    end
+  end
+
+  def make_ratings
+    users = User.all
+    posts = Post.all
+    raters = users[2..10]
+    rated_posts = posts[20..30]
+    raters.each do |user|
+      rated_posts.each do |post|
+        rating = user.ratings.create(answer_correctness: 1, 
+            steps: 1,
+            grade_suitability: 1,
+            overall_rating: true,
+            operation_ids: Operation.find(1).id)
+        rating.rated_post = post
+        rating.save!
       end
     end
   end

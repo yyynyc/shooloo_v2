@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
     before_filter :signed_in_user
+    before_filter :correct_user, only: :destroy
     
 	def index
         render 'new'
@@ -7,7 +8,7 @@ class CommentsController < ApplicationController
 
     def new
         @comment = Comment.new
-        @post  = Post.find_by_id(params[:post_id]) 
+        @post  = Post.find(params[:post_id]) 
         @comments = @post.comments.paginate(page: params[:page],
             order: 'created_at DESC')
         @alarm = Alarm.new

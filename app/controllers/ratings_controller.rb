@@ -1,5 +1,5 @@
 class RatingsController < ApplicationController
-	before_filter :signed_in_user, only: [:create, :edit, :update, :destroy]
+	before_filter :signed_in_user
     before_filter :correct_user,   only: :destroy
 
     def index
@@ -7,15 +7,16 @@ class RatingsController < ApplicationController
 
     def new
         @rating = Rating.new
-        @post  = Post.find_by_id(params[:post_id]) 
+        @post  = Post.find(params[:post_id]) 
         @alarm = Alarm.new 
         @like = Like.new     
     end
 
     def create
-        @rating=current_user.ratings.build(params[:rating])             
+        @rating = current_user.ratings.build(params[:rating])     
         if @rating.save
             flash[:success] = "Thank you for rating this post!" 
+            @rating.rated_post = @post
             redirect_to rated_posts_user_path(current_user)    
         else 
             @post  = @rating.rated_post

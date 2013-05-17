@@ -13,7 +13,6 @@ describe "CommentPages" do
     before { visit new_post_comment_path(post) }
 
     describe "with invalid information" do
-
       it "should not create a comment" do
         expect { click_button "Submit Comment" }.not_to change(Comment, :count)
       end
@@ -41,7 +40,7 @@ describe "CommentPages" do
     describe "as correct user" do
       before { visit new_post_comment_path(post)}
 
-      it "should delete a post" do
+      it "should delete a comment" do
         expect { click_link 'Delete comment' }.to change(Comment, :count).by(-1)
       end
     end

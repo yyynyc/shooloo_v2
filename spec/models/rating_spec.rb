@@ -67,18 +67,4 @@ describe Rating do
       it { should_not be_valid }
     end
   end
-
-  describe "a user can't rate her own post" do
-    before do
-      @rating = poster.ratings.build(answer_correctness: 1, 
-          steps: 1, 
-          grade_suitability: 1, 
-          overall_rating: true)
-      @operations = @rating.operations.build
-      @rating.rated_post = post
-    end
-    its(:rater) {should == poster}
-    its(:rated_post) {should == post}
-    it {should_not be_valid}
-  end
 end

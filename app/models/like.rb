@@ -4,6 +4,8 @@ class Like < ActiveRecord::Base
   belongs_to :liked_comment, class_name: "Comment"
   belongs_to :liker, class_name: "User"
 
+  validates_presence_of :liker_id  
+
   def post_update_likes
     Post.update_all([
         "likes_count = (select count (*) from likes 

@@ -34,11 +34,6 @@ describe Like do
 			before { @like.liker_id = nil }
 			it { should_not be_valid }
 		end
-
-		describe "when liked_post_id is not present" do
-		    before { @like.liked_post_id = nil }
-		    it { should_not be_valid }
-		end   
 	end
 
 	describe "like comment" do
@@ -53,19 +48,5 @@ describe Like do
 		its(:liker) { should == user}
 		its(:liked_comment) {should == comment}
 		it {should be_valid}
-
-		describe "accessible attributes" do
-		    it "should not allow access to liker_id" do
-		      expect do
-		        Like.new(liker_id: user.id)
-		      end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
-		    end   
-
-		    it "should not allow access to liked_comment_id" do
-		      expect do
-		        Comment.new(liked_comment_id: comment.id)
-		      end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
-		    end		 
-	  	end   
 	end
 end

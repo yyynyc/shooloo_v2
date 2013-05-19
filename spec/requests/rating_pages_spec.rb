@@ -6,6 +6,7 @@ describe "RatingPages" do
 	  let(:user) { FactoryGirl.create(:user) }
 	  let (:poster) { FactoryGirl.create(:user) }
 	  let(:post) { FactoryGirl.create(:post, user: poster) }
+	  let(:operation) { FactoryGirl.create(:operation) }
 	  let(:rating) { FactoryGirl.create(:rating, rater: user, 
 	  		rated_post: post) }
 
@@ -33,12 +34,13 @@ describe "RatingPages" do
 	    		select "No, it is BELOW grade", from: 'rating_grade_suitability'
 	    		select "1 step", from: 'rating_steps'
 	    		check('rating_operation_ids_1')
-	    		select "Excellent work!", from: 'rating_overall_rating'
+	    		choose("Excellent work!")
 	    	end
 	         
 		    it "should create a rating" do
-		       expect { click_button "Create Rating" }.to 
-		       change(Rating, :count).by(1)
+		       expect {
+		       	click_button "Create Rating"
+		       }.to(change(Rating, :count).by(1))
 		    end
 	    end
 	end
@@ -63,10 +65,10 @@ describe "RatingPages" do
 
 	    	describe "with invalid information" do
 	    		before do 
-	    			select " ", from: 'rating_answer_correctness'
+	    			select "", from: 'rating_answer_correctness'
 	    			click_button "Update Rating"
 	    		end
-		        it { should have_content('error') }		     
+		         it { should have_content('error') }		     
 		    end
 		end
 	end

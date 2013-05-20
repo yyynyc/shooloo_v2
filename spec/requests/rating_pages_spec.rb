@@ -6,7 +6,9 @@ describe "RatingPages" do
 	  let(:user) { FactoryGirl.create(:user) }
 	  let (:poster) { FactoryGirl.create(:user) }
 	  let(:post) { FactoryGirl.create(:post, user: poster) }
-	  let(:operation) { FactoryGirl.create(:operation) }
+	  9.times do
+	  	FactoryGirl.create(:operation)
+	  end
 	  let(:rating) { FactoryGirl.create(:rating, rater: user, 
 	  		rated_post: post) }
 
@@ -33,8 +35,9 @@ describe "RatingPages" do
 	    		select "Right", from: 'rating_answer_correctness'
 	    		select "No, it is BELOW grade", from: 'rating_grade_suitability'
 	    		select "1 step", from: 'rating_steps'
-	    		check('rating_operation_ids_1')
+	    		check("operation #1")
 	    		choose("Excellent work!")
+	    		
 	    	end
 	         
 		    it "should create a rating" do

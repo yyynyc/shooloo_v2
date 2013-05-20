@@ -1,5 +1,5 @@
 class Rating < ActiveRecord::Base
-  attr_accessible :answer_correctness, :steps, :grade_suitability, 
+  attr_accessible :rated_post_id, :answer_correctness, :steps, :grade_suitability, 
 				  :operation_ids, :improvement_ids, :flag_ids, :overall_rating 
 
   belongs_to :rated_post, class_name: "Post"

@@ -13,15 +13,18 @@ class RatingsController < ApplicationController
     end
 
     def create
-        @rating = current_user.ratings.build(params[:rating])     
+        @rating = current_user.ratings.build(params[:rating])
         if @rating.save
-            flash[:success] = "Thank you for rating this post!" 
             @rating.rated_post = @post
-            redirect_to rated_posts_user_path(current_user)    
-        else 
-            @post  = @rating.rated_post
-            @alarm = @post.alarms.build
-            @like = @post.likes.build
+            @alarm =current_user.alarms.build(params[:alarm])
+            @like = current_user.likes.build(params[:like])
+            flash[:success] = "Thank you for rating this post!" 
+            redirect_to rated_posts_user_path(current_user)      
+        else
+            @post = @rating.rated_post
+            raise "you need a post" if @post.nil?
+            @alarm =current_user.alarms.build(params[:alarm])
+            @like = current_user.likes.build(params[:like])            
             render 'new'     
         end            
     end

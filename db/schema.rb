@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130516141825) do
+ActiveRecord::Schema.define(:version => 20130521152543) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(:version => 20130516141825) do
   add_index "alarms", ["alarmed_comment_id"], :name => "index_alarms_on_alarmed_comment_id"
   add_index "alarms", ["alarmed_post_id"], :name => "index_alarms_on_alarmed_post_id"
   add_index "alarms", ["alarmer_id"], :name => "index_alarms_on_alarmer_id"
+
+  create_table "authorizations", :force => true do |t|
+    t.integer  "authorized_id"
+    t.integer  "authorizer_id"
+    t.string   "approval",      :default => "pending"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+  end
+
+  add_index "authorizations", ["authorized_id"], :name => "index_authorizations_on_authorized_id"
+  add_index "authorizations", ["authorizer_id"], :name => "index_authorizations_on_authorizer_id"
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -168,6 +179,17 @@ ActiveRecord::Schema.define(:version => 20130516141825) do
 
   add_index "ratings", ["rated_post_id"], :name => "index_ratings_on_rated_post_id"
   add_index "ratings", ["rater_id"], :name => "index_ratings_on_rater_id"
+
+  create_table "referrals", :force => true do |t|
+    t.integer  "referred_id"
+    t.integer  "referrer_id"
+    t.string   "approval",    :default => "pending", :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
+  add_index "referrals", ["referred_id"], :name => "index_referrals_on_referred_id"
+  add_index "referrals", ["referrer_id"], :name => "index_referrals_on_referrer_id"
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"

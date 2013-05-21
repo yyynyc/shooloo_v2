@@ -1,7 +1,11 @@
 
 <% my_modal = "myModal-#{local_object.id}" %>
 
-  <%= link_to raw('<i class="icon-star"></i> Results'), "##{my_modal}", "data-toggle" => "modal", role: "button", class: "btn btn-small btn-default" %>
+  <%= link_to raw('<i class="icon-star"></i> Results'), "##{my_modal}", 
+        "data-toggle" => "modal", 
+        role: "button", 
+        class: "btn btn-small btn-default", 
+        title: "Rating Results" %>
 
   <div id="<%=my_modal%>" class="modal-rating modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="row">   

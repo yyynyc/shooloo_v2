@@ -1,5 +1,6 @@
 class ActivitiesController < ApplicationController
 	before_filter :signed_in_user
+	load_and_authorize_resource
 	
 	def index
     	@activities = Activity.paginate(page: params[:page], per_page: 30, 

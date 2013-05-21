@@ -1,5 +1,6 @@
 class RelationshipsController < ApplicationController
   before_filter :signed_in_user
+  load_and_authorize_resource
 
   respond_to :html, :js
 

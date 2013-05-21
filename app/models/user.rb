@@ -45,7 +45,21 @@ class User < ActiveRecord::Base
                                    class_name:  "Nudge",
                                    dependent:   :destroy
   has_many :nudgers, through: :reverse_nudges, source: :nudger
-  
+
+  has_many :referrals, foreign_key: "referred_id", dependent: :destroy
+  has_many :referrers, through: :referrals#, conditions: {approval: "accepted"}
+  has_many :reverse_referrals, foreign_key: "referrer_id", 
+          class_name: "Referral", dependent: :destroy
+  has_many :referred_users, through: :reverse_referrals, 
+          source: :referred#, conditions: {approval: "accepted"}
+
+  has_many :authorizations, foreign_key: "authorized_id", dependent: :destroy
+  has_many :authorizers, through: :authorizations
+  has_many :reverse_authorizations, foreign_key: "authorizer_id", 
+          class_name: "Authorization", dependent: :destroy
+  has_many :authorized_users, through: :reverse_authorization, 
+          source: :authorized
+
   before_save do
     self.email.downcase!
     create_remember_token

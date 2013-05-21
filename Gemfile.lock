@@ -48,6 +48,7 @@ GEM
     bootstrap-will_paginate (0.0.6)
       will_paginate
     builder (3.0.4)
+    cancan (1.6.10)
     capistrano (2.14.2)
       highline
       net-scp (>= 1.0.0)
@@ -264,6 +265,7 @@ DEPENDENCIES
   bcrypt-ruby (= 3.0.1)
   bootstrap-sass (= 2.1)
   bootstrap-will_paginate (= 0.0.6)
+  cancan
   capistrano
   capybara (= 1.1.2)
   coffee-rails (= 3.2.2)

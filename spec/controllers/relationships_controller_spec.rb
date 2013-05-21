@@ -7,34 +7,48 @@ describe RelationshipsController do
 
   before { sign_in user }
 
-  describe "creating a relationship with Ajax" do
-
+  describe "when user does not have referral" do
     it "should increment the Relationship count" do
       expect do
         xhr :post, :create, relationship: { followed_id: other_user.id }
-      end.to change(Relationship, :count).by(1)
-    end
-
-    it "should respond with success" do
-      xhr :post, :create, relationship: { followed_id: other_user.id }
-      response.should be_success
+      end.to change(Relationship, :count).by(0)
     end
   end
 
-  describe "destroying a relationship with Ajax" do
+  describe "when user has referral" do
+    let(:referrer) { FactoryGirl.create(:user)}
+    before {user.referrals.create!(referrer_id: referrer.id, 
+          approval: "accepted")} 
 
-    before { user.follow!(other_user) }
-    let(:relationship) { user.relationships.find_by_followed_id(other_user) }
+    describe "creating a relationship with Ajax" do
 
-    it "should decrement the Relationship count" do
-      expect do
-        xhr :delete, :destroy, id: relationship.id
-      end.to change(Relationship, :count).by(-1)
+      it "should increment the Relationship count" do
+        expect do
+          xhr :post, :create, relationship: { followed_id: other_user.id }
+        end.to change(Relationship, :count).by(1)
+      end
+
+      it "should respond with success" do
+        xhr :post, :create, relationship: { followed_id: other_user.id }
+        response.should be_success
+      end
     end
 
-    it "should respond with success" do
-      xhr :delete, :destroy, id: relationship.id
-      response.should be_success
+    describe "destroying a relationship with Ajax" do
+
+      before { user.follow!(other_user) }
+      let(:relationship) { user.relationships.find_by_followed_id(other_user) }
+
+      it "should decrement the Relationship count" do
+        expect do
+          xhr :delete, :destroy, id: relationship.id
+        end.to change(Relationship, :count).by(-1)
+      end
+
+      it "should respond with success" do
+        xhr :delete, :destroy, id: relationship.id
+        response.should be_success
+      end
     end
   end
 end

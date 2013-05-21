@@ -1,5 +1,6 @@
 class LikesController < ApplicationController
   before_filter :signed_in_user
+  load_and_authorize_resource
 
   def new
     @like = Like.post

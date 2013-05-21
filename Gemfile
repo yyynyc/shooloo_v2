@@ -15,6 +15,7 @@ gem 'taps'
 gem 'ransack'
 gem 'fancybox-rails'
 gem 'whenever', :require => false
+gem 'cancan'
 
 
 group :development, :test do

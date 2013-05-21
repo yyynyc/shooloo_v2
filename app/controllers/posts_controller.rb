@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
 	before_filter :signed_in_user
   before_filter :correct_user,   only: :destroy
+  load_and_authorize_resource
   #before_filter :admin, only: [:edit, :update, :destroy]
   
   def index

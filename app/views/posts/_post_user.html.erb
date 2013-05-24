@@ -1,10 +1,13 @@
 <span class="user">
   <%= link_to post.user.screen_name, posts_user_path(post.user) %>
 </span> 
-<span class="timestamp"> in </span><%= post.user.grade %>
+<span class="timestamp"> as a </span><%= post.user.role %>
+<% if !post.user.grade.nil? %>
+	<span class="timestamp"> in </span>grade <%= post.user.grade %>
+<% end %><br/>
 <span class="timestamp">updated on </span>    
 <%= post.updated_at.strftime("%b %d, %Y") %>  
 <span class="timestamp"> for</span> 
-<%= post.grade %> 
+grade <%= post.grade %> 
 <span class="timestamp">in category </span> 
 <%= post.category %>.

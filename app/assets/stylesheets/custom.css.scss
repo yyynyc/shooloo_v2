@@ -243,14 +243,11 @@ input {
 
 /* posts */
 
-/* posts */
-
 .posts {
   list-style: none;
-  margin: 10px 0 0 0;
-  
+  margin: 0em 0 0 0;
   li {
-    padding: 10px 0;
+    padding: 1em 0 0 0;
     border-top: 1px solid #e8e8e8;
   }
 }
@@ -683,3 +680,35 @@ aside {
   }
 }
 
+.abilities {
+  list-style: none;
+  margin: 0em 0em 0em 2em;
+  li {
+    padding: 1em 0 1em 0;
+    border-top: 1px solid #e8e8e8;
+  }
+}
+
+.yes {
+  color: green;
+  a {
+  color: inherit;
+  letter-spacing: 0.1em;
+  text-shadow: -1px 1px 0.5px #000;
+  border-bottom: 1px dashed;
+  &:hover {
+    color: blue;
+    }
+  }
+}
+
+.no {
+  color: #990000;
+  a {
+  color: inherit;
+  text-decoration: underline;
+  &:hover {
+    color: blue;
+    }
+  }
+}

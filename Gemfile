@@ -12,7 +12,7 @@ gem 'formtastic'
 gem 'formtastic-bootstrap'
 gem 'pg'
 gem 'taps'
-gem 'ransack'
+gem 'ransack', :git => "git://github.com/ernie/ransack.git"
 gem 'fancybox-rails'
 gem 'whenever', :require => false
 gem 'cancan'

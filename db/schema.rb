@@ -183,7 +183,7 @@ ActiveRecord::Schema.define(:version => 20130523204502) do
   create_table "referrals", :force => true do |t|
     t.integer  "referred_id"
     t.integer  "referrer_id"
-    t.string   "approval",    :default => "pending"
+    t.string   "approval",    :default => "pending", :null => false
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
   end
@@ -228,8 +228,6 @@ ActiveRecord::Schema.define(:version => 20130523204502) do
     t.integer  "followers_count"
     t.integer  "followed_users_count"
     t.string   "role",                   :default => "student"
-    t.integer  "auth_req_count",         :default => 0
-    t.string   "auth_status"
   end
 
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"

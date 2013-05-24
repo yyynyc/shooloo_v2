@@ -4,7 +4,7 @@ class AuthorizationsController < ApplicationController
 
   def new
     @teachers = User.where( 
-      'users.grade' => 'Teacher')
+      'users.role' => 'teacher')
   	@authorizer = @teachers.search(params[:q])
     @authorizers = @authorizer.result
   end

@@ -4,12 +4,38 @@
 <%= search_form_for @search, url: search_users_path, 
 		method: :post do |f| %>
 	<div class="row">
-		<div class="span8 offset3" >
+		<div class="span8 offset2" >
+			<% if current_user.admin? %>
+				<p><span class="search-label">
+					<%= f.label :first_name_cont, "First Name" %>
+				</span>
+				<span class="search-field">
+					<%= f.text_field :first_name_cont %>
+				</span>
+				<span class="search-label">
+					<%= f.label :last_name_cont, "Last Name" %>
+				</span>
+				<span class="search-field">
+					<%= f.text_field :last_name_cont %>
+				</span>
+				<span class="search-label">
+					<%= f.label :email_cont, "Email" %>
+				</span>
+				<span class="search-field">
+					<%= f.text_field :email_cont %>
+				</span></p>	
+			<% end %>
 			<span class="search-label">
-				<%= f.label :grade_cont, "Grade" %> 
+				<%= f.label :role_cont, "Role" %> 
 			</span>
 			<span class="search-field">
-				<%= f.select :grade_cont, options: ["", "Kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade", "Teacher", "Parent", "Tutor"]%>
+				<%= f.select :role_cont, options: [nil, "student", "teacher", "parent", "tutor"]%>
+			</span>	
+			<span class="search-label">
+				<%= f.label :grade_eq, "Grade" %> 
+			</span>
+			<span class="search-field">
+				<%= f.select :grade_eq, options: [nil, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]%>
 			</span>	
 			<span class="search-label">
 				<%= f.label :screen_name_cont, "Screen Name" %>
@@ -33,9 +59,14 @@
     				title: "Shooloo member #{user.screen_name}"), 
     				posts_user_path(user) %>	    			
     		</div>
-    		<div class="span5">
-	    		<%= link_to user.screen_name, posts_user_path(user) %> in  
-	      		<%= user.grade %> <br/>
+    		<div class="span7">
+	    		<span class="alert-heading">
+	    			<%= link_to user.screen_name, posts_user_path(user) %>
+		    		-- <%= user.role %>
+		    		<% if !user.grade.nil? %>
+		    		 in grade <%= user.grade %> 
+		      		<% end %>
+		      	</span>--<br/>
 	      		is <a href="<%= following_user_path(user) %>">
 	      		following <%= user.followed_users.count %></a> members,
 	      		has <a href="<%= followers_user_path(user) %>">
@@ -47,7 +78,7 @@
 	      		and commented <a href="<%= commented_posts_user_path(user) %>" >
 				<%= pluralize(user.commented_posts.count, "post") %></a>.<br/>
 			</div>
-			<div class="span1 offset2">
+			<div class="span1">
 				<% if current_user.admin? %>
 					<%#= user.reputation(7.days) %>
 					<%#= user.reputation(30.days) %>

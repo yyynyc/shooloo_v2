@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :email_confirmation, :screen_name, 
-    :first_name, :last_name, :grade,  
+    :first_name, :last_name, :grade, :role,  
     :password, :password_confirmation,
     :avatar, :avatar_remote_url, :privacy, :rules,
     :referrals_attributes, :authorizations_attributes

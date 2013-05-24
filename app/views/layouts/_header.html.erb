@@ -7,15 +7,35 @@
             <ul class="nav pull-right">
               <li><%= link_to "Home", root_path %></li>         
               <% if signed_in? %>
+              <% if current_user.admin? || current_user.role == "teacher" %>
+                  <li><%= link_to "Alarms", alarmed_posts_path %></li> 
+                <% end %>
                 <li>
-                    <%= link_to "My Alerts", my_alerts_path %>
+                    <%= link_to "Alerts", my_alerts_path %>
                 </li> 
                 <li class="alert_bubble" id="alert_bubble">
                   <%= alert_count %>
                 </li>
-                <% if current_user.admin? %>
-                  <li><%= link_to "Alarms", alarmed_posts_path %></li> 
-                <% end %>
+                <li id="fat-menu" class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Posts <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <%= link_to "My Published Posts", posts_user_path(current_user) %>
+                    </li>
+                    <li>
+                      <%= link_to "My hidden Posts", alarmed_posts_user_path(current_user) %>
+                    </li> 
+                    <li class="divider"></li>
+                    <li>
+                      <%= link_to "My Rated Posts", rated_posts_user_path(current_user) %>
+                    </li>
+                    <li>
+                      <%= link_to "My Commented Posts", commented_posts_user_path(current_user) %>
+                    </li>                    
+                  </ul>
+                </li>
                 <li id="fat-menu" class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     Community <b class="caret"></b>
@@ -24,29 +44,36 @@
                     <li><%= link_to "All Users", users_path %></li>
                     <li><%= link_to "All Posts", posts_path %></li>
                     <% if current_user.admin? %>
+                      <li class="divider"></li>
                       <li><%= link_to "All News", activities_path %></li>
                     <% end %>  
                   </ul>
                 </li>
                 <li id="fat-menu" class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    Permissions <b class="caret"></b>
+                    Abilities <b class="caret"></b>
                   </a>
                   <ul class="dropdown-menu">
                     <li>
+                      <%= link_to "What I Can Do", 
+                          my_abilities_path %>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
                       <%= link_to "Request Authorizations", 
                           new_authorization_path %>
-                    </li>
-                    <%# if current_user.admin? %>
-                      <li>
-                        <%= link_to "Grant Authorizations", 
-                            authorizations_path %>
-                      </li>
-                     <%# end %> 
+                    </li>                    
                     <li>
                       <%= link_to "Request Referrals", 
                           new_authorization_path %>
                     </li>
+                    <li class="divider"></li>
+                    <% if can? :update, Authorization %>
+                      <li>
+                        <%= link_to "Grant Authorizations", 
+                            authorizations_path %>
+                      </li>
+                    <% end %> 
                     <li>
                       <%= link_to " Grant Referrals", 
                           new_authorization_path %>
@@ -58,18 +85,6 @@
                     Account <b class="caret"></b>
                   </a>
                   <ul class="dropdown-menu">
-                    <li>
-                      <%= link_to "My Published Posts", posts_user_path(current_user) %>
-                    </li>
-                    <li>
-                      <%= link_to "My Rated Posts", rated_posts_user_path(current_user) %>
-                    </li>
-                    <li>
-                      <%= link_to "My Commented Posts", commented_posts_user_path(current_user) %>
-                    </li>
-                    <li>
-                      <%= link_to "My hidden Posts", alarmed_posts_user_path(current_user) %>
-                    </li>
                     <li>
                       <%= link_to "My Information", edit_user_path(current_user) %></li>
                     <li class="divider"></li>

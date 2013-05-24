@@ -59,6 +59,7 @@ end
   match '/signout', to: 'sessions#destroy', via: :delete 
   match '/alarmed_posts', to: "alarms#alarmed_posts"
   match '/my_alerts', to: "users#show_activity"
+  match '/my_abilities', to: "users#my_abilities"
  
 
   # The priority is based upon order of creation:

@@ -8,8 +8,11 @@
 			<%= render partial: 'follow_form', locals:{user: user} %>
 		</div>
 		<div class="span5.5">    
-		  <%= link_to user.screen_name, posts_user_path(user) %>,
-		  <%= user.grade %> <br/>
+		  <%= link_to user.screen_name, posts_user_path(user) %><br/>
+		  <%= user.role %>
+		  <% if !user.grade.nil? %>
+		   in grade <%= user.grade %> 
+		  <% end %><br/>
 		  <a href="<%= following_user_path(user) %>">
 		    <strong id="following" class="stat">
 		      <%= user.followed_users.count %>

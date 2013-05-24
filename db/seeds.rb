@@ -36,12 +36,13 @@ admin1 = User.create(
 		last_name: 'Yang',
 		email: 'yyynyc@gmail.com',
 		email_confirmation: 'yyynyc@gmail.com',
-		grade: 'Tutor',
+		grade: nil,
 		screen_name: 'Elda_Hills', 
-		password: 'adminshooloo',
-		password_confirmation: 'adminshooloo', 
+		password: 'admin1',
+		password_confirmation: 'admin1', 
 		privacy: true, 
 		rules: true,
+		role: 'teacher'
 		avatar: File.new(Rails.root + 'app/assets/images/Elda.jpg')}  
 	)
 admin1.admin = true
@@ -52,14 +53,12 @@ admin2 = User.create(
 		last_name: 'Yang',
 		email: 'ryang@prosperityprana.com',	
 		email_confirmation: 'ryang@prosperityprana.com',
-		grade: 'Tutor',
+		grade: nil,
 		screen_name: 'Enchanted_Collar',
-		password: 'adminshooloo',
-		password_confirmation: 'adminshooloo', 
+		password: 'admin2',
+		password_confirmation: 'admin2', 
 		privacy: true,
-		rules: true,                
+		rules: true, 
+		role: 'teacher'               
 		avatar: File.new(Rails.root + 'app/assets/images/enchanted.jpg')}    
 	)
-admin2.admin = true
-admin2.save!
-

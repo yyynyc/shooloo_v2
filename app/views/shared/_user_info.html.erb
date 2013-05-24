@@ -6,7 +6,10 @@
 		<h1 class="user_name">
 		  <%= wrap(user.screen_name) %>
 		</h1>
-		<%= user.grade %><br/>
+		<%= user.role %>
+		<% if !user.grade.nil? %>
+			in grade <%= user.grade %>
+		<% end %><br/>
 		<span>			
 			Published
 			<a href="<%= posts_user_path(user) %>" >

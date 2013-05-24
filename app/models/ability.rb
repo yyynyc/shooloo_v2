@@ -8,14 +8,13 @@ class Ability
 
         if user.admin?
             can :manage, :all
-        elsif user.grade == "Teacher" && 
-            user.authorizations.where(approval: "accepted").any?
+        elsif user.role == "teacher" && 
+            user.authorized_users.count >=15
             can :update, Authorization
-            can :destroy, Alarm
+            can :manage, Alarm
             can :crud, [Post, Comment, Rating]
             can :update, Referral
             can [:create, :destroy], [Like, Relationship, Nudge]
-            can :create, Alarm
             can :read, :all
             can :update, Activity
             can :create, [Referral, Authorization]

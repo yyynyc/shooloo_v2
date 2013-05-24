@@ -646,7 +646,7 @@ aside {
 
 .welcome {
   font-size: 1.2em;
-  margin: 3em 0em 0em 2.5em;
+  margin: 3em 0em 0em 2em;
   padding: 1em 2em 1em 2em;
   background-color: #FEE8D6;
   border: 1px solid #E8E8E8;
@@ -656,7 +656,7 @@ aside {
   margin-top: 1.5em;
   }
   h1 {
-  letter-spacing: 0.05em;
+  letter-spacing: 0.01em;
   font-size: 2em;
   font-weight: bold;
   text-align: center;
@@ -706,7 +706,9 @@ aside {
   color: #990000;
   a {
   color: inherit;
-  text-decoration: underline;
+  letter-spacing: 0.1em;
+  text-shadow: -1px 1px 0.5px #000;
+  border-bottom: 1px dashed;
   &:hover {
     color: blue;
     }

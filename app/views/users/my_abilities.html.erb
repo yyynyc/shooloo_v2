@@ -48,7 +48,7 @@
 					<%= render 'shared/can_yes' %>
 				</li>
 				<li>
-					<strong>Raise alarm on inappropriate posts/comments:</strong>
+					<strong>Raise alarms:</strong>
 					<%= render 'shared/can_yes' %>
 				</li>
 			</span>
@@ -75,7 +75,7 @@
 					<%= render 'shared/cannot_refer' %>
 				</li>
 				<li>
-					<strong>Raise alarm on inappropriate posts/comments:</strong>
+					<strong>Raise alarms:</strong>
 					<%= render 'shared/cannot_refer' %>
 				</li>
 			</span>
@@ -111,28 +111,30 @@
 				</li>
 			</span>
 		<% end %>
-		<% if can? :manage, Alarm %>
-			<span class='yes'>
-				<li>
-					<strong>Grant <%= link_to "authorizations", authorizations_path %> to new members:</strong>
-					<%= render 'shared/can_yes' %>
-				</li>
-				<li>
-					<strong><%= link_to "Unalarm", alarmed_posts_path %> posts published by my students:</strong>
-					<%= render 'shared/can_yes' %>
-				</li>
-			</span>
-		<% else %>
-			<span  class='no'>
-				<li>
-					<strong>Grant authorizations to new members:</strong>
-					<%= render 'shared/cannot_teacher' %>
-				</li>
-				<li>
-					<strong>Unalarm posts published by my students:</strong>
-					<%= render 'shared/cannot_teacher' %>
-				</li>
-			</span>
+		<% if current_user.role == "teacher" %>
+			<% if can? :manage, Alarm %>
+				<span class='yes'>
+					<li>
+						<strong>Grant <%= link_to "authorizations", authorizations_path %> to new members:</strong>
+						<%= render 'shared/can_yes' %>
+					</li>
+					<li>
+						<strong><%= link_to "Unalarm", alarmed_posts_path %> posts published by my students:</strong>
+						<%= render 'shared/can_yes' %>
+					</li>
+				</span>
+			<% else %>
+				<span  class='no'>
+					<li>
+						<strong>Grant authorizations to new members:</strong>
+						<%= render 'shared/cannot_teacher' %>
+					</li>
+					<li>
+						<strong>Unalarm posts published by my students:</strong>
+						<%= render 'shared/cannot_teacher' %>
+					</li>
+				</span>
+			<% end %>
 		<% end %>
 	</ul>
 </div>

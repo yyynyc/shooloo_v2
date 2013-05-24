@@ -7,9 +7,14 @@
 <% end %>	
 	<%= semantic_form_for@user, :url => url, :html => { :multipart => true, :class => "form-horizontal-user" } do |f| %>
 		<%= render 'shared/error_messages', object: f.object %>
-		<%=f.inputs do %>         
+		<%=f.inputs do %>
+		<% if !signed_in? %>
 			<%= f.input :first_name %>
 			<%= f.input :last_name %>
+		<% elsif current_user.authorizations.where(approval: "accepted").blank? && current_user.referrals.where(approval: "accepted").blank? %>         
+			<%= f.input :first_name %>
+			<%= f.input :last_name %>
+		<% end %>
 			<%= f.input :email, label: "Parent's email", placeholder: "Useful to recover your forgotten password" %>
 			<%= f.input :email_confirmation, placeholder: "Must be the same as parent's email" %>
 			<%= f.input :grade, as: :select, collection: ["Kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade", "Teacher", "Parent", "Tutor"], include_blank: true %>

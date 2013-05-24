@@ -5,7 +5,7 @@ describe User do
     last_name: "User", 
     email: "user@example.com", 
   	email_confirmation: "user@example.com", 
-    grade: "Tutor",
+    grade: "3",
     screen_name: "some_user",
     password: "foobar",
     password_confirmation: "foobar", 

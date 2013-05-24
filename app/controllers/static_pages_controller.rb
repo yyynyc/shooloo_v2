@@ -7,8 +7,6 @@ class StaticPagesController < ApplicationController
       @comment = current_user.comments.build
       @alarm = current_user.alarms.build
       @like = current_user.likes.build
-      #@search = @feed_items.search(params[:q])
-      #@feed_item = @search.result(:distinct => true)
     end
   end
 

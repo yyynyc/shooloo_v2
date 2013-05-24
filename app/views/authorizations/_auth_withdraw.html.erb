@@ -1,0 +1,11 @@
+<% authorization=current_user.authorizations.find_by_authorizer_id(user) %>
+
+<span>
+	Request sent on <%= authorization.created_at.strftime("%b %d, %Y") %>
+</span>
+<span style="display: inline-block">
+	<%= form_for(authorization, html: { method: :delete },
+	             remote: true) do |f| %>
+	  <%= f.submit "Withdraw Request", class: "btn btn-medium" %>
+	<% end %>
+</span>

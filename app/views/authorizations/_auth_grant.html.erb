@@ -1,0 +1,23 @@
+<% authorization=current_user.reverse_authorizations.find_by_authorized_id(user) %>
+
+<span>
+	Request received on <%= authorization.created_at.strftime("%b %d, %Y") %>.
+</span><br/>
+<% if current_user.authorized_users.count >=15 %>
+	<span style="display: inline-block; margin-top: 0.7em;">
+		<% if authorization.approval == "pending" || authorization.approval == "accepted"%>
+			<%= render partial: 'authorizations/auth_declined', 
+				locals: {authorization: authorization} %>
+		<% elsif authorization.approval == "declined" %>
+			<%= render partial: 'authorizations/auth_grant_decline' %>
+		<% end %>
+	</span>
+	<span style="display: inline-block; margin-top: 0.7em;">
+		<% if authorization.approval == "pending" || authorization.approval == "declined" %>
+			<%= render partial: 'authorizations/auth_granted', 
+				locals: {authorization: authorization} %>
+		<% elsif authorization.approval == "accepted" %>
+			<%= render partial: 'authorizations/auth_grant_accept' %>
+		<% end %>		
+	</span>	
+<% end %>

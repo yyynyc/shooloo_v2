@@ -2,7 +2,6 @@ class PostsController < ApplicationController
 	before_filter :signed_in_user
   before_filter :correct_user,   only: :destroy
   load_and_authorize_resource
-  #before_filter :admin, only: [:edit, :update, :destroy]
   
   def index
     @search = Post.visible.search(params[:q])
@@ -17,18 +16,16 @@ class PostsController < ApplicationController
   end
 
   def create
+    @query = User.joins(:authorizations).where(
+        'authorizations.approval' => 'accepted').search(params[:q])
   	@post = current_user.posts.build(params[:post])
-    #if params[:preview_button]
-      #render partial:'posts/preview'        
-    #else
-      if @post.save
-        flash[:success] = "Good job! You have created a math problem."
-        redirect_to root_url
-      else
-        @feed_items = []
-        render 'static_pages/home'
-      end
-    #end
+    if @post.save
+      flash[:success] = "Good job! You have created a math problem."
+      redirect_to root_url
+    else
+      @feed_items = []
+      render 'static_pages/home'
+    end
   end
 
   def edit
@@ -37,9 +34,6 @@ class PostsController < ApplicationController
 
   def update
     @post = current_user.posts.find_by_id(params[:id])
-    #if params[:preview_button] || !@post.update_attributes(params[:post])
-      #render 'edit'
-    #else 
     if     
       @post.update_attributes(params[:post])
       flash[:success] = "You have upddated your post successfully!"
@@ -59,9 +53,4 @@ class PostsController < ApplicationController
       @post = current_user.posts.find_by_id(params[:id])
       redirect_to root_url if @post.nil?
   end
-
-  #def admin
-    #current_user.admin
-    #@post = Post.find(params[:id])
-  #end
 end

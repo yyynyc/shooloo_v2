@@ -1,0 +1,5 @@
+<%= form_for(authorization, url: decline_authorization_path(authorization),
+             remote: true, data:{type: :js}) do |f| %>
+  <%= f.hidden_field :approval, value: "declined" %>
+  <%= f.submit "Decline Authorization", class: "btn btn-medium btn-danger" %>
+<% end %>

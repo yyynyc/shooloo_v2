@@ -1,0 +1,59 @@
+<h1>Obtain Authorization</h1>
+
+<div class="about">
+	<p>To publish your own posts and comment on your friends' posts, get authorized by your current math teacher first. Make sure <strong>your first and last names</strong> are spelled correctly in <%= link_to "your profile", edit_user_path(current_user) %>; otherwise your teacher will not authorize you. Once you become authorized, you will gain the power to <%= link_to "grant referrals", '#' %> to others.</p>
+
+	<p>Find my math teacher among Shooloo members:</P>
+</div>
+<%= search_form_for @authorizer, url: search_authorizations_path, method: :post do |f| %>
+	<div class="row">
+		<div class="span8 offset3" >
+			<span>
+				<span class="search-label">
+					<%= f.label :first_name_cont, "First Name" %> 
+				</span>
+				<span class="search-field">
+					<%= f.text_field :first_name_cont %>
+				</span>	
+				<span class="search-label">
+					<%= f.label :last_name_cont, "Last Name" %>
+				</span>
+				<span class="search-field">
+					<%= f.text_field :last_name_cont %>
+				</span>				
+			</span>	
+			<span class="search-label">
+				<%= f.submit "Search", class: "btn btn-small btn-default" %>
+			</span>
+		</div>
+	</div>
+<% end %>
+<div class='about'>
+	<% unless @authorizers == @teachers %>
+		<div class = "auth">
+			<% if @authorizers.count ==0 %>
+				<p>I am sorry, but we can't find your teacher among our members. <strong>Invite your teacher</strong> to join so that you can enjoy all the fun of Shooloo!</p>
+			<% else %>
+				<p> Found the following teacher: </p>
+				<% @authorizers.each do |user| %>
+					<ul class="posts">
+			  			<li>
+			  				<div class='row'>	  		
+			    				<div class="span3 offset1">
+				    				<%= user.first_name %>
+				  					<%= user.last_name %>
+								</div>
+								<div class="span7" >
+									<%= render partial: 'authorizations/authorization', locals: {user: user} %>
+								</div>
+							</div>
+					  	</li>
+					</ul>	
+				<% end %> 
+			<% end %>
+		</div>
+	<% end %>
+</div>
+<div class="about">
+	<p><strong>If you are a teacher</strong>, <%= link_to "get verification", '#' %> from the Shooloo administrator first so that your students can find you in the member database. Afterwards, ask your students to sign up and request your authorization. Once at least <%= link_to "15 students have requested", '#' %> your authorization, you yourself will become an authorized teacher and gain the power to <%= link_to "grant authorization", '#' %> to others as well as many other powers far beyond what a student can get. </p>
+</div>

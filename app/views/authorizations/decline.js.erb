@@ -1,0 +1,2 @@
+$("#edit_authorization_<%= @authorization.id %>").html("<%= escape_javascript(
+	render(partial:'authorizations/auth_grant_decline')) %>")

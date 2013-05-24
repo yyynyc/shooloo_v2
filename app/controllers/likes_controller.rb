@@ -40,9 +40,9 @@ class LikesController < ApplicationController
       format.html {redirect_to root_url}
       format.js do
         unless @post
-      render action: 'destroy_like_comment' 
-    end
-  end
+          render action: 'destroy_like_comment' 
+        end
+      end
     end 
   end
 end

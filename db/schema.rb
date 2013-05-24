@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130521152543) do
+ActiveRecord::Schema.define(:version => 20130523204502) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -183,7 +183,7 @@ ActiveRecord::Schema.define(:version => 20130521152543) do
   create_table "referrals", :force => true do |t|
     t.integer  "referred_id"
     t.integer  "referrer_id"
-    t.string   "approval",    :default => "pending", :null => false
+    t.string   "approval",    :default => "pending"
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
   end
@@ -206,8 +206,8 @@ ActiveRecord::Schema.define(:version => 20130521152543) do
     t.string   "first_name"
     t.string   "email"
     t.string   "email_confirmation"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
     t.string   "password_digest"
     t.string   "remember_token"
     t.boolean  "admin",                  :default => false
@@ -216,7 +216,7 @@ ActiveRecord::Schema.define(:version => 20130521152543) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "screen_name"
-    t.string   "grade"
+    t.integer  "grade"
     t.string   "last_name"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
@@ -227,6 +227,9 @@ ActiveRecord::Schema.define(:version => 20130521152543) do
     t.integer  "commented_posts_count"
     t.integer  "followers_count"
     t.integer  "followed_users_count"
+    t.string   "role",                   :default => "student"
+    t.integer  "auth_req_count",         :default => 0
+    t.string   "auth_status"
   end
 
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"

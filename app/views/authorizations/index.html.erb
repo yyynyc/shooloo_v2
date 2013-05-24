@@ -1,0 +1,30 @@
+<h1>Grant Authorization</h1>
+
+<% if @auth_seekers.any? %>
+	<div class="about">
+		<p>The following students have requested your authorization. Once more than 15 students appear in the following list, a "Grant Authorization" button will appear right beside each student name, and you will be able to authorize them to publish posts and comments.</p>
+	</div>
+	<% @auth_seekers.each do |user| %>
+		<ul class="posts">
+  			<li>
+  				<div class='row'>	  		
+    				<div class="span1 offset1">
+    					<%= link_to image_tag(user.avatar.url (:small), :alt => "Shooloo member #{user.screen_name}", :title => "Shooloo member #{user.screen_name}"), posts_user_path(user) %>
+    				</div>
+    				<div class='span3'>
+    					<strong>Real name: </strong><%= user.first_name %> <%= user.last_name %></br>
+    					<strong>Grade:</strong> <%= user.grade %></br>
+    					<strong>Screen name:</strong> <%= user.screen_name %>
+					</div>
+					<div class='span5' >
+						<%= render partial: 'authorizations/auth_grant', locals: {user: user} %>
+					</div>
+				</div>
+		  	</li>
+		</ul>	
+	<% end %> 
+<% else %>
+	<div class="about">
+		<p> No students have requested your authorization yet. You won't be able to publish any posts/comments or grant authorizations to anyone unless at least 15 of your students have requested your authorization.</p>
+	</div>
+<% end %>

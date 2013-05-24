@@ -54,7 +54,7 @@ describe "UserPages" do
       end
     end
 
-    describe "edit" do
+    describe "edit without any accepted authorization or referral" do
       let(:user) { FactoryGirl.create(:user) }
       before do
         sign_in user
@@ -63,9 +63,11 @@ describe "UserPages" do
 
       describe "page" do
         it { should have_selector('h1', text: "Update Your Information") }
-        it { should have_selector('title', text: "Edit user") }      
+        it { should have_selector('title', text: "Edit user") } 
+        it { should have_field ("First name")}     
       end
 
+      
       describe "with invalid information" do
         let(:new_email) {"new@example"}
         before do
@@ -100,6 +102,34 @@ describe "UserPages" do
         specify { user.reload.screen_name.should  == new_name }
         specify { user.reload.email.should == new_email }
       end
+    end
+
+    describe "edit with acceptedt authorization" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:authorizer) { FactoryGirl.create(:user)}
+      before do
+        sign_in user
+        user.authorizations.create!(authorizer_id: authorizer.id, 
+        approval: "accepted")
+        visit edit_user_path(user)
+      end
+      
+      it {should_not have_field("First name")}
+      it {should_not have_field("Last name")}
+    end
+
+    describe "edit with acceptedt referral" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:referrer) { FactoryGirl.create(:user)}
+      before do
+        sign_in user
+        user.referrals.create!(referrer_id: referrer.id, 
+        approval: "accepted")
+        visit edit_user_path(user)
+      end
+      
+      it {should_not have_field("First name")}
+      it {should_not have_field("Last name")}
     end
   end
 

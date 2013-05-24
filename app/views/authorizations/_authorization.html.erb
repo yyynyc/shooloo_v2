@@ -1,0 +1,9 @@
+<% unless current_user?(user) %>
+  <div id="authorization_form_<%= user.id %>">
+	  <% if current_user.authorized_by?(user) %>
+	    <%= render partial: 'authorizations/auth_withdraw', locals: {user: user} %>
+	  <% else %>
+	    <%= render partial: 'authorizations/auth_request', locals: {user: user} %>
+	  <% end %>
+  </div>
+<% end %>

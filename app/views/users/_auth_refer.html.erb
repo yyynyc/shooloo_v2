@@ -1,0 +1,23 @@
+<%= search_form_for @query, method: :get do |f| %>
+	<div class="row">
+		<div class="span8 offset3" >
+			<span>
+				<span class="search-label">
+					<%= f.label :first_name_cont, "First Name" %> 
+				</span>
+				<span class="search-field">
+					<%= f.text_field :first_name_cont %>
+				</span>	
+				<span class="search-label">
+					<%= f.label :last_name_cont, "Last Name" %>
+				</span>
+				<span class="search-field">
+					<%= f.text_field :last_name_cont %>
+				</span>				
+			</span>	
+			<span class="search-label">
+				<%= f.submit "Search", class: "btn btn-small btn-default" %>
+			</span>
+		</div>
+	</div>
+<% end %>

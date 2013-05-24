@@ -1,0 +1,2 @@
+$("#authorization_form_<%= @user.id %>").html("<%= escape_javascript(
+	render(partial:'authorizations/auth_withdraw', locals:{user:@user})) %>")

@@ -2,7 +2,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :email_confirmation, :screen_name, 
     :first_name, :last_name, :grade,  
     :password, :password_confirmation,
-    :avatar, :avatar_remote_url, :privacy, :rules
+    :avatar, :avatar_remote_url, :privacy, :rules,
+    :referrals_attributes, :authorizations_attributes
   attr_reader :avatar_remote_url
   has_attached_file :avatar, 
     :styles => {  :small => "60x60#",
@@ -52,13 +53,15 @@ class User < ActiveRecord::Base
           class_name: "Referral", dependent: :destroy
   has_many :referred_users, through: :reverse_referrals, 
           source: :referred#, conditions: {approval: "accepted"}
+  accepts_nested_attributes_for :referrals
 
   has_many :authorizations, foreign_key: "authorized_id", dependent: :destroy
   has_many :authorizers, through: :authorizations
   has_many :reverse_authorizations, foreign_key: "authorizer_id", 
           class_name: "Authorization", dependent: :destroy
-  has_many :authorized_users, through: :reverse_authorization, 
+  has_many :authorized_users, through: :reverse_authorizations, 
           source: :authorized
+  accepts_nested_attributes_for :authorizations
 
   before_save do
     self.email.downcase!
@@ -69,7 +72,6 @@ class User < ActiveRecord::Base
   
   validates :first_name, presence: true, length: {maximum: 25}
   validates :last_name, presence: true, length: {maximum: 25}
-  validates :grade, presence: true
   VALID_SCREEN_NAME_REGEX = /^[A-Za-z\d_]+$/
   validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX },
     uniqueness: {case_sensitive: false}, length: { minimum: 6, maximum: 20}
@@ -136,6 +138,26 @@ class User < ActiveRecord::Base
 
   def disnudge!(other_user)
     nudges.find_by_nudged_id(other_user.id).destroy
+  end
+
+  def authorized_by?(other_user)
+    authorizations.find_by_authorizer_id(other_user.id)
+  end
+
+  def auth_request!(other_user)
+    authorizations.create!(authorizer_id: other_user.id)
+  end
+
+  def auth_withdraw!(other_user)
+    authorizations.find_by_authorizer_id(other_user.id).destroy
+  end
+
+  def auth_grant!(other_user)
+    reverse_authorizations.find_by_authorized_id(other_user.id).update_attributes!(approval: "accepted")
+  end
+
+  def auth_decline!(other_user)
+    reverse_authorizations.find_by_authorized_id(other_user.id).update_attributes!(approval: "declined")
   end
 
   def reputation(age)

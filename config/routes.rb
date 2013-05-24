@@ -1,11 +1,5 @@
 ShoolooV2::Application.routes.draw do
 
-  resources :activities
-  resources :abilities
-
-
-  get "password_resets/new"
-
 resources :users do
   member do
     get :following, :followers,  
@@ -35,13 +29,20 @@ resources :ratings do
     get :operations, :improvements, :flags
   end
 end
-resources :password_resets
 resources :comments do
   resources :alarms
   resources :likes, only: [:create, :destroy]
 end
 resources :alarms, only: [:create, :destroy]
 resources :likes, only: [:create, :destroy]
+resources :activities
+resources :password_resets
+resources :authorizations do 
+  member do
+    put :decline
+  end
+  collection { post :search, to: 'authorizations#new' }
+end
 
     root to: "static_pages#home"
  

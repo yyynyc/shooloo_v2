@@ -8,23 +8,27 @@ class UsersController < ApplicationController
 
   def new
   	@user = User.new
+    @authorization = @user.authorizations.build
   end
 
   def index
+#    @search = User.joins(:authorizations).where(
+#      'authorizations.approval' => 'accepted').search(params[:q]) ||
+#      User.joins(:referrals).where(
+#      'referrals.approval' => 'accepted').search(params[:q])
     @search = User.search(params[:q])
     @users = @search.result.paginate(page: params[:page], per_page: 30, order: 'screen_name ASC')
     @search.build_condition
   end
 
   def show
-  	#@search = User.search(params[:q])
+    index
+    render :action =>'index'
     #@user = User.find(params[:id])
     #@posts = @user.posts.visible.paginate(page: params[:page], order: "updated_at DESC")
     #@post = @user.posts.build(params[:post])
     #@rating=current_user.ratings.build(params[:rating])
     #@alarm = current_user.alarms.build
-    index
-    render :action =>'index'
     #@comments = @user.comments.paginate(page: params[:page], order: "created_at DESC")
     #@comment = current_user.comments.build(params[:comment])
   end

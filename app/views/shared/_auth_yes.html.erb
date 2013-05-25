@@ -1,0 +1,14 @@
+<span class='yes'>
+	<li>
+		<strong><%=link_to "Comment", posts_user_path(User.find(2)) %> on others' posts:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+	<li>
+		<strong><%=link_to "Publish", root_path %> my own posts:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+	<li>
+		<strong><%=link_to "Grant", referrals_path %> referrals to new members:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+</span>

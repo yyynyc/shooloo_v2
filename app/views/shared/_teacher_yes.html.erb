@@ -1,0 +1,10 @@
+<span class='yes'>
+	<li>
+		<strong>Grant <%= link_to "authorizations", authorizations_path %> to new members:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+	<li>
+		<strong><%= link_to "Unalarm", alarmed_posts_path %> posts published by my students:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+</span>

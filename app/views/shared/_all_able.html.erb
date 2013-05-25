@@ -1,0 +1,22 @@
+<span class="yes">
+	<li>
+		<strong>Read profiles of all Shooloo <%=link_to "members", users_path %>:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+	<li>
+		<strong>Read overviews of all Shooloo <%=link_to "posts", posts_path %>:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+	<li>
+		<strong>Receive <%=link_to "alert", my_alerts_path %> on what concerns me or those I care:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+	<li>
+		<strong>Update my own <%=link_to "profile", edit_user_path(current_user) %>:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+	<li>
+		<strong>Request <%=link_to "referrals", new_referral_path %> and <%=link_to "authorizations", new_authorization_path %>:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+</span>

@@ -65,19 +65,21 @@
                     </li>                    
                     <li>
                       <%= link_to "Request Referrals", 
-                          new_authorization_path %>
+                          new_referral_path %>
                     </li>
-                    <li class="divider"></li>
+                    <% if can? :update, Referral %>
+                      <li class="divider"></li>
+                      <li>
+                        <%= link_to " Grant Referrals", 
+                            new_referral_path %>
+                      </li>
+                    <% end %>
                     <% if can? :update, Authorization %>
                       <li>
                         <%= link_to "Grant Authorizations", 
                             authorizations_path %>
                       </li>
                     <% end %> 
-                    <li>
-                      <%= link_to " Grant Referrals", 
-                          new_authorization_path %>
-                    </li>
                   </ul>
                 </li>
                 <li id="fat-menu" class="dropdown">

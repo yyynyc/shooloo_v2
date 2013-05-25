@@ -1,139 +1,26 @@
+<% provide(:title, "My Abilities") %>
+
 <h1> My Abilities </h1>
 <div class='alert-heading'>
 	<p>I CAN enjoy the following activities at Shooloo:</p>
 
 	<ul class='abilities'>
-		<span class="yes">
-			<li>
-				<strong>Read profiles of all Shooloo <%=link_to "members", users_path %>:</strong>
-				<%= render 'shared/can_yes' %>
-			</li>
-			<li>
-				<strong>Read overviews of all Shooloo <%=link_to "posts", posts_path %>:</strong>
-				<%= render 'shared/can_yes' %>
-			</li>
-			<li>
-				<strong>Receive <%=link_to "alert", my_alerts_path %> on what concerns me or those I care:</strong>
-				<%= render 'shared/can_yes' %>
-			</li>
-			<li>
-				<strong>Update my own <%=link_to "profile", edit_user_path(current_user) %>:</strong>
-				<%= render 'shared/can_yes' %>
-			</li>
-			<li>
-				<strong>Request <%=link_to "referrals", '#' %> and <%=link_to "authorizations", new_authorization_path %>:</strong>
-				<%= render 'shared/can_yes' %>
-			</li>
-		</span>
+		<%= render 'shared/all_able' %>
 		<% if can? :crud, Rating %>
-			<span class="yes">
-				<li>
-					<strong>Being <%=link_to "found", users_path %> by other members:</strong>
-					<%= render 'shared/can_yes' %>
-				</li>
-				<li>
-					<strong><%=link_to "Follow", posts_user_path(User.find(2)) %> others and get followers:</strong>
-					<%= render 'shared/can_yes' %>
-				</li>
-				<li>
-					<strong><%=link_to "Nudge", users_path %> others into doing something:</strong>
-					<%= render 'shared/can_yes' %>
-				</li>
-				<li>
-					<strong><%=link_to "Like", posts_user_path(User.find(2)) %> others'posts and comments:</strong>
-					<%= render 'shared/can_yes' %>
-				</li>
-				<li>
-					<strong><%=link_to "Rate", posts_path %> others' posts:</strong>
-					<%= render 'shared/can_yes' %>
-				</li>
-				<li>
-					<strong>Raise alarms:</strong>
-					<%= render 'shared/can_yes' %>
-				</li>
-			</span>
+			<%= render 'shared/ref_yes' %>
 		<% else %>
-			<span class="no">
-				<li>
-					<strong>Being found by other members:</strong>
-					<%= render 'shared/cannot_refer' %>
-				</li>		
-				<li>
-					<strong>Follow others and get followers:</strong>
-					<%= render 'shared/cannot_refer' %>
-				</li>
-				<li>
-					<strong>Nudge others into doing something:</strong>
-					<%= render 'shared/cannot_refer' %>
-				</li>
-				<li>
-					<strong>Like others'posts and comments:</strong>
-					<%= render 'shared/cannot_refer' %>
-				</li>
-				<li>
-					<strong>Rate others' posts:</strong>
-					<%= render 'shared/cannot_refer' %>
-				</li>
-				<li>
-					<strong>Raise alarms:</strong>
-					<%= render 'shared/cannot_refer' %>
-				</li>
-			</span>
+			<%= render 'shared/ref_no' %>
 		<% end %>
 		<% if can? :crud, Post %>
-			<span class='yes'>
-				<li>
-					<strong><%=link_to "Comment", posts_user_path(User.find(2)) %> on others' posts:</strong>
-					<%= render 'shared/can_yes' %>
-				</li>
-				<li>
-					<strong><%=link_to "Publish", root_path %> my own posts:</strong>
-					<%= render 'shared/can_yes' %>
-				</li>
-				<li>
-					<strong><%=link_to "Grant", '#' %> referrals to new members:</strong>
-					<%= render 'shared/can_yes' %>
-				</li>
-			</span>
+			<%= render 'shared/auth_yes' %>
 		<% else %>
-			<span class='no'>
-				<li>
-					<strong>Comment on others' posts:</strong>
-					<%= render 'shared/cannot_auth' %>
-				</li>
-				<li>
-					<strong>Publish my own posts:</strong>
-					<%= render 'shared/cannot_auth' %>
-				</li>
-				<li>
-					<strong>Grant referrals to new members:</strong>
-					<%= render 'shared/cannot_auth' %>
-				</li>
-			</span>
+			<%= render 'shared/auth_no' %>
 		<% end %>
 		<% if current_user.role == "teacher" %>
 			<% if can? :manage, Alarm %>
-				<span class='yes'>
-					<li>
-						<strong>Grant <%= link_to "authorizations", authorizations_path %> to new members:</strong>
-						<%= render 'shared/can_yes' %>
-					</li>
-					<li>
-						<strong><%= link_to "Unalarm", alarmed_posts_path %> posts published by my students:</strong>
-						<%= render 'shared/can_yes' %>
-					</li>
-				</span>
+				<%= render 'shared/teacher_yes' %>
 			<% else %>
-				<span  class='no'>
-					<li>
-						<strong>Grant authorizations to new members:</strong>
-						<%= render 'shared/cannot_teacher' %>
-					</li>
-					<li>
-						<strong>Unalarm posts published by my students:</strong>
-						<%= render 'shared/cannot_teacher' %>
-					</li>
-				</span>
+				
 			<% end %>
 		<% end %>
 	</ul>

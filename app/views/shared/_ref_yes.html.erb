@@ -1,0 +1,26 @@
+<span class="yes">
+	<li>
+		<strong>Being <%=link_to "found", users_path %> by other members:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+	<li>
+		<strong><%=link_to "Follow", posts_user_path(User.find(2)) %> others and get followers:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+	<li>
+		<strong><%=link_to "Nudge", users_path %> others into doing something:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+	<li>
+		<strong><%=link_to "Like", posts_user_path(User.find(2)) %> others'posts and comments:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+	<li>
+		<strong><%=link_to "Rate", posts_path %> others' posts:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+	<li>
+		<strong>Raise alarms:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+</span>

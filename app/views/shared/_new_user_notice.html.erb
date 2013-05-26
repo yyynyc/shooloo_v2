@@ -4,11 +4,17 @@
 	</h1>
 	<p class='center'><img src="/attachments/Chinese_smile.gif" alt="Shooloo Math Can Do" align="center"></p>
 
-	<p>You can now see the lists of <%= link_to "all posts", posts_path %> and <%= link_to "all users", users_path %>.</p>
+	<% if cannot? :crud, Rating %>
+		<p>Check out the list of <strong><%= link_to "fun activities", my_abilities_path %></strong>  you can enjoy now and will be able to enjoy once you become an authorized member!</p>
 
-	<p>To <strong>enjoy all previlidges</strong>, including being able to publish your own math problems and/or add comments, you need to <strong><%= link_to "get authorization", new_authorization_path %></strong> from your current math teacher first.</p>
+		<p>Right now you can now see the lists of <%= link_to "all posts", posts_path %> and <%= link_to "all users", users_path %>.</p>
 
-	<p>Alternatively, if you want to <strong>get followers</strong>, rate other members' posts, or let others find out, then please <strong><%= link_to "get referral", new_referral_path %></strong> from or friend or relative of yours is already an authorized member.</p>
+		<p>To <strong>enjoy all previlidges</strong>, including being able to publish your own math problems and/or add comments, you need to <strong><%= link_to "get authorization", new_authorization_path %></strong> from your current math teacher first.</p>
 
-	<p>Check out <strong><%= link_to "all the fun", my_abilities_path %></strong>  you will be able to enjoy once you become an authorized member!</p>
+		<p>Alternatively, if you want to <strong>get followers</strong>, rate other members' posts, or let others find out, then please <strong><%= link_to "get referral", new_referral_path %></strong> from or friend or relative of yours is already an authorized member.</p>
+	<% elsif cannot? :crud, Post %>
+		Once you <%= link_to "follow", users_path %> other members, their posts will be automatically fed into your home page. To be able to add your own posts, <strong><%= link_to "get authorization", new_authorization_path %></strong> from your current math teacher first.</p>	
+	<% else %>
+		Publish your own posts using the form on the left. Once you <%= link_to "follow", users_path %> other members, their posts will be automatically fed into your home page as well. Then your home page will be a lot more fun to read!
+	<% end %>	
 </div>

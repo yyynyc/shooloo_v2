@@ -59,25 +59,29 @@
                           my_abilities_path %>
                     </li>
                     <li class="divider"></li>
-                    <li>
-                      <%= link_to "Request Authorizations", 
-                          new_authorization_path %>
-                    </li>                    
-                    <li>
-                      <%= link_to "Request Referrals", 
-                          new_referral_path %>
-                    </li>
-                    <% if can? :update, Referral %>
-                      <li class="divider"></li>
-                      <li>
-                        <%= link_to " Grant Referrals", 
-                            new_referral_path %>
-                      </li>
-                    <% end %>
                     <% if can? :update, Authorization %>
                       <li>
                         <%= link_to "Grant Authorizations", 
                             authorizations_path %>
+                        <%= link_to " Grant Referrals", 
+                            new_referral_path %>
+                      </li>
+                    <% elsif can? :update, Referral %>
+                      <li>
+                        <%= link_to " Grant Referrals", 
+                            new_referral_path %>
+                      </li>
+                    <% elsif can? :crud, Rating %>  
+                      <li>
+                      <%= link_to "Request Authorizations", 
+                          new_authorization_path %>
+                      </li>
+                    <% else %>
+                      <li>
+                        <%= link_to "Request Authorizations", 
+                          new_authorization_path %>
+                        <%= link_to "Request Referrals", 
+                            new_referral_path %>
                       </li>
                     <% end %> 
                   </ul>

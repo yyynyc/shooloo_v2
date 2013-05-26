@@ -4,10 +4,16 @@
 <% if @my_activities.blank? %> 
   <div class='welcome'> 
     <p> Welcome back!</p>
-    <p> I am sorry, but you don't have any news yet no one can find you in the <%= link_to "member list", users_path %>.</p>
+    <p> I am sorry, but you don't have any news alert yet. </p>
     <p class='center'><img src="/attachments/cry.gif" alt="Shooloo Math Can Do"></p> 
-    <p>  To make your profile appear in the member list, <%= link_to "obtain referrals", new_referral_path %> from your friends who are already members or from the Shooloo site admin. Better yet, to gain more abilities, <%= link_to "get authorization", new_authorization_path %> from your current teacher. Then you will be pleasantly surprised by news alerts that you've gained new followers, got praises from your friends, and many more fun activities. </p>
-     <p class='center'><img src="/attachments/smile.gif" alt="Shooloo Math Can Do"></p>
+    <% if cannot? :crud, Rating %>
+      <p>Right now no one can find you. To make your profile appear in the member list, <%= link_to "obtain referrals", new_referral_path %> from your friends who are already members or from the Shooloo site admin. Better yet, to gain more abilities, <%= link_to "get authorization", new_authorization_path %> from your current teacher. Then you will be pleasantly surprised by news alerts that you've gained new followers, got praises from your friends, and many more fun activities. </p>
+    <% elsif cannot? :crud, Post %>
+      <p>Because you have not published any pots or commented on someone else's post, it is hard to get yourself noticed by other Shooloo members. To gain the ability of publishing posts and comments, <%= link_to "get authorization", new_authorization_path %> from your current teacher. Then you will be pleasantly surprised by news alerts that you've got praises from your friends and many more fun activities. </p>
+    <% else %>
+      Go to <%= link_to "Home", root_path %> and publish a post using the form on the left-hand side. Then <%= link_to "follow", users_path %> those members who are active<a href="#", id="follow", rel = "popover", title = "How to Follow Other Members", data-content = "Click on the Community section of the menu bar, check out member profiles, click the Follow button on their profile pagees, and their posts as well as your own will automatically show up on your home page."><i class='icon-question-sign'></i></a> and <%= link_to "comment", posts_path %> on their posts. They will start paying attention to you and adding comments/ratings to your posts. Then you will be able to enjoy fun news alerts all day long!  
+    <% end %>  
+    <p class='center'><img src="/attachments/smile.gif" alt="Shooloo Math Can Do"></p>
   </div>
 <% else %>        
   <% @my_activities.each do |activity| %>
@@ -32,8 +38,11 @@
                   posts_user_path(activity.user)  %>  
               </div>   
               <span class='alert-heading'>
-                <%= link_to activity.user.screen_name, posts_user_path(activity.user) %>
-                in <i><%= activity.user.grade %></i>
+                <%= link_to activity.user.screen_name, posts_user_path(activity.user) %> 
+                (<i>a <%= activity.user.role %>
+                <% if !activity.user.grade.nil? %>
+                  in grade <%= activity.user.grade %>
+                <% end %></i>)
               </span>
             <% end %>
             <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>  

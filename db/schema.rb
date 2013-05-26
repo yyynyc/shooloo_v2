@@ -183,7 +183,7 @@ ActiveRecord::Schema.define(:version => 20130523204502) do
   create_table "referrals", :force => true do |t|
     t.integer  "referred_id"
     t.integer  "referrer_id"
-    t.string   "approval",    :default => "pending", :null => false
+    t.string   "approval",    :default => "pending"
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
   end
@@ -227,6 +227,8 @@ ActiveRecord::Schema.define(:version => 20130523204502) do
     t.integer  "commented_posts_count"
     t.integer  "followers_count"
     t.integer  "followed_users_count"
+    t.integer  "auth_req_count",         :default => 0
+    t.string   "auth_status"
     t.string   "role",                   :default => "student"
   end
 

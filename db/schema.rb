@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523204502) do
+ActiveRecord::Schema.define(:version => 20130527183220) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -183,9 +183,13 @@ ActiveRecord::Schema.define(:version => 20130523204502) do
   create_table "referrals", :force => true do |t|
     t.integer  "referred_id"
     t.integer  "referrer_id"
-    t.string   "approval",    :default => "pending"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.string   "approval",                :default => "pending"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+    t.boolean  "name_true"
+    t.boolean  "role_true"
+    t.boolean  "screen_name_appropriate"
+    t.boolean  "avatar_appropriate"
   end
 
   add_index "referrals", ["referred_id"], :name => "index_referrals_on_referred_id"

@@ -22,10 +22,7 @@ class AuthorizationsController < ApplicationController
   end
 
   def index
-    @auth_seekers = current_user.authorized_users.all
-#    @user = @auth_seekers.find(params[:id])
-#    @user = User.find(params[:authorization][:authorized_id])
-    
+    @auth_seekers = current_user.authorized_users.all   
   end
 
   def update

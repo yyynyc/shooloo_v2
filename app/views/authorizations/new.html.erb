@@ -1,11 +1,11 @@
 <% provide provide(:title, "Request Authorization") %>
 
-<h1>Obtain Authorization</h1>
+<h1>Request Authorization</h1>
 
- <p class='center'><img src="/attachments/computer.gif" alt="Shooloo Math Can Do"></p> 
+<p class='center'><img src="/attachments/computer.gif" alt="Shooloo Math Can Do"></p> 
 
 <div class="about">
-	<p>To publish your own posts and comment on your friends' posts, get authorized by your current math teacher first. Make sure <strong>your first and last names</strong> are spelled correctly in <%= link_to "your profile", edit_user_path(current_user) %>; otherwise your teacher will not authorize you. Once you become authorized, you will gain the power to <%= link_to "grant referrals", '#' %> to others.</p>
+	<p>To publish your own posts and comment on your friends' posts, get authorized by your current math teacher first. Make sure <strong>your first and last names</strong> are spelled correctly in <%= link_to "your profile", edit_user_path(current_user) %>; otherwise your teacher will not authorize you. Once you become authorized, you will gain the power to <%= link_to "grant referrals", 'referrals_path' %> to others.</p>
 
 	<p>Find my math teacher among Shooloo members:</P>
 </div>

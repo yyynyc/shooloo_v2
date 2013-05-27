@@ -1,0 +1,15 @@
+<% referral=current_user.reverse_referrals.find_by_referred_id(user) %>
+
+<p>
+	Request received on <%= referral.created_at.strftime("%b %d, %Y") %>.
+</p>
+<% if can? :update, referral %>
+		<% if referral.approval == "pending" %>
+			<%= render partial: 'referrals/ref_review', 
+				locals: {referral: referral, user: user} %>
+		<% else %>
+			<%= render partial: 'referrals/ref_grant_result',
+				locals: {referral: referral, user: user} %>
+		<% end %>		
+	</span>	
+<% end %>

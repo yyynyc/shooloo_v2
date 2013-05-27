@@ -64,12 +64,12 @@
                         <%= link_to "Grant Authorizations", 
                             authorizations_path %>
                         <%= link_to " Grant Referrals", 
-                            new_referral_path %>
+                            referrals_path %>
                       </li>
                     <% elsif can? :update, Referral %>
                       <li>
                         <%= link_to " Grant Referrals", 
-                            new_referral_path %>
+                            referrals_path %>
                       </li>
                     <% elsif can? :crud, Rating %>  
                       <li>

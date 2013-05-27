@@ -1,0 +1,3 @@
+$("#referral_form_<%= @user.id %>").html(
+	"<%= escape_javascript(render(partial:'referrals/ref_request', 
+		locals:{user:@user})) %>")

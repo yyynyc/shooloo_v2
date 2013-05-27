@@ -1,2 +1,30 @@
-<h1>Referrals#index</h1>
-<p>Find me in app/views/referrals/index.html.erb</p>
+<% provide(:title, "Grant Referral") %>
+
+<h1>Grant Referral</h1>
+
+<p class='center'><img src="/attachments/blow_kiss.gif" alt="Shooloo Math Can Do"></p>
+
+<% if @ref_seekers.any? %>
+	<div class="about">
+		<p>The following people have requested your referral to become Shooloo members. Please read each question carefully and answer it truthfully. Do NOT grant referral to anyone you don't personally know; otherwise if that person misbehaves, you will lose your own previlidge of publishing posts and comments.</p>
+	</div>
+	<% @ref_seekers.each do |user| %>
+		<ul class="posts">
+  			<li>
+  				<div class='row'>	  		
+    				<div class="span1 offset1">
+    					<%= link_to image_tag(user.avatar.url (:small), :alt => "Shooloo member #{user.screen_name}", :title => "Shooloo member #{user.screen_name}"), posts_user_path(user) %>
+    				</div>
+    				<div class='span10'>
+    					<%= render partial: 'referrals/ref_grant', locals: {user: user} %>
+    				</div>
+				</div>
+		  	</li>
+		</ul>	
+	<% end %> 
+<% else %>
+	<div class="about">
+		<p> No one has requested your referrals yet. Get your friends and relatives to sign up and then provide them with your referrals. The more friends you have as Shooloo members, the more followers you will get, and the more fun you will have. </p>
+	</div>
+<% end %>
+

@@ -1,0 +1,25 @@
+<div class='span5'>    					
+	<p>Do you know <span class='refer'><%= user.first_name %> <%= user.last_name %></span>?</p> 
+	<p>Is this person really a <span class='refer'><%= user.role %>
+		<% if !user.grade.nil? %>
+			in grade <%= user.grade %>
+		<% end %></span>?</p>
+	<p>Is the screen name <span class='refer'><%= user.screen_name %></span> appropriate?</p>
+	<p>Is this person's <span class='refer'>avatar image</span> appropriate?</p>		 	
+</div>
+<div class='span4 form-horizontal-refer'>
+	<%= semantic_form_for(current_user.reverse_referrals.find_by_referred_id(user), remote: true, data:{type: :js}) do |f| %>
+		<div class='row'>
+			<div class='span2'>
+				<%= f.input :name_true, as: :radio, collection: [["Yes", true], ["No", false]], required: true %>
+				<%= f.input :role_true, as: :radio, collection: [["Yes", true], ["No", false]], required: true %>
+				<%= f.input :screen_name_appropriate, as: :radio, collection: [["Yes", true], ["No", false]], required: true %>
+				<%= f.input :avatar_appropriate, as: :radio, collection: [["Yes", true], ["No", false]], required: true %>
+			</div>
+			<div class='span1 ref-submit'>
+				<%= f.submit "Submit", 
+				class: "btn btn-medium btn-success" %>
+			</div>
+		</div>
+	<% end %>
+</div>

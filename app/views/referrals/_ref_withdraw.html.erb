@@ -1,0 +1,11 @@
+<% referral=current_user.referrals.find_by_referrer_id(user) %>
+
+<span>
+	Request sent on <%= referral.created_at.strftime("%b %d, %Y") %>
+</span>
+<span style="display: inline-block">
+	<%= form_for(referral, html: { method: :delete },
+	             remote: true) do |f| %>
+	  <%= f.submit "Withdraw Request", class: "btn btn-medium" %>
+	<% end %>
+</span>

@@ -714,3 +714,34 @@ aside {
     }
   }
 }
+
+.refer {
+  letter-spacing: 0.1em;
+  text-shadow: -1px 1px 0.5px #000;
+}
+
+.form-horizontal-refer { 
+  .control-label {  
+  float: left;
+  width: 10em;
+  line-height: 1em;
+  margin-left: -3000px;
+  margin-bottom: 0px;
+  text-align: left;
+  }
+  .controls {
+  margin-left: 0px;
+  width: 400px; 
+  }
+  .choice {
+  width: 40px;
+  &:first-child {
+    padding-top: 0em; 
+    } 
+  }
+}
+
+.ref-submit {
+  padding-top: 7em;
+  margin-left: -1em;
+}

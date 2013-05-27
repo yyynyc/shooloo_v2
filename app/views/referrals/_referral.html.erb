@@ -1,0 +1,11 @@
+<% if current_user?(user) %>
+<i>Sorry, but you can't request referral from yourself.</i>
+<% else %>
+  <div id="referral_form_<%= user.id %>">
+	  <% if current_user.referred_by?(user) %>
+	    <%= render partial: 'referrals/ref_withdraw', locals: {user: user} %>
+	  <% else %>
+	    <%= render partial: 'referrals/ref_request', locals: {user: user} %>
+	  <% end %>
+  </div>
+<% end %>

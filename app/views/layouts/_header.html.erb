@@ -63,6 +63,8 @@
                       <li>
                         <%= link_to "Grant Authorizations", 
                             authorizations_path %>
+                      </li>
+                      <li>
                         <%= link_to " Grant Referrals", 
                             referrals_path %>
                       </li>
@@ -76,10 +78,14 @@
                       <%= link_to "Request Authorizations", 
                           new_authorization_path %>
                       </li>
-                    <% else %>
-                      <li>
-                        <%= link_to "Request Authorizations", 
-                          new_authorization_path %>
+                     <% else %> 
+                      <% unless current_user.role == "teacher" %>
+                        <li>
+                          <%= link_to "Request Authorizations", 
+                            new_authorization_path %>
+                        </li>
+                      <% end %>  
+                      <li>    
                         <%= link_to "Request Referrals", 
                             new_referral_path %>
                       </li>

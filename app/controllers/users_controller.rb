@@ -12,10 +12,6 @@ class UsersController < ApplicationController
   end
 
   def index
-#    @search = User.joins(:authorizations).where(
-#      'authorizations.approval' => 'accepted').search(params[:q]) ||
-#      User.joins(:referrals).where(
-#      'referrals.approval' => 'accepted').search(params[:q])
     @search = User.search(params[:q])
     @users = @search.result.paginate(page: params[:page], 
       per_page: 30, order: 'screen_name ASC')

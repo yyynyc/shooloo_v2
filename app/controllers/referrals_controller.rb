@@ -3,9 +3,14 @@ class ReferralsController < ApplicationController
   respond_to :html, :js
 
   def new
-    @authorized_users = User.joins(:authorizations).where('authorizations.approval' => "accepted")
+    @authorized_users = User.joins(:authorizations).where(
+      'authorizations.approval' => "accepted")
   	@referrer = @authorized_users.search(params[:q])
     @referrers = @referrer.result
+    @teachers = User.joins(:referrals).where(
+      'users.role' => "teacher", 'referrals.approval' => "accepted")
+    @teacher_referrer = @teachers.search(params[:q])
+    @teacher_referrers = @teacher_referrer.result
   end
 
   def create

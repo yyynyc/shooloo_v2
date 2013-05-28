@@ -9,7 +9,7 @@ class Authorization < ActiveRecord::Base
   after_create do
     Activity.create!(action: "create", trackable: self, 
     	user_id: self.authorized_id, recipient_id: self.authorizer_id)
-    if self.authorizer.authorized_users.count >= 15
+    if self.authorizer.authorized_users.count == 15
    		Activity.create!(action: "legitimize", trackable: self, 
     	user_id: self.authorized_id, recipient_id: self.authorizer_id)
    	end 

@@ -6,16 +6,22 @@ class Authorization < ActiveRecord::Base
 
   validates_presence_of :authorized_id, :authorizer_id, :approval
 
-#	after_create :update_teacher_auth_req_count 
-  	
-#  def update_teacher_auth_req_count 
-#  	@teacher = User.find(self.authorizer.id)
-#  	@teacher.auth_req_count += 1
-#   @teacher.save!
-#  end
+  after_create do
+    Activity.create!(action: "create", trackable: self, 
+    	user_id: self.authorized_id, recipient_id: self.authorizer_id)
+    if self.authorizer.authorized_users.count >= 15
+   		Activity.create!(action: "legitimize", trackable: self, 
+    	user_id: self.authorized_id, recipient_id: self.authorizer_id)
+   	end 
+  end
 
-#  after_create do
-#    Activity.create!(action: "create", trackable: self, 
-#    	user_id: self.authorized_id, recipient_id: self.authorizer_id)
-#  end
+  after_update do
+    if self.approval == "accepted"
+      Activity.create!(action: "accept", trackable: self, 
+      user_id: self.authorizer_id, recipient_id: self.authorized_id)
+    elsif self.approval == "declined"
+      Activity.create!(action: "decline", trackable: self, 
+      user_id: self.authorizer_id, recipient_id: self.authorized_id)
+    end      
+  end
 end

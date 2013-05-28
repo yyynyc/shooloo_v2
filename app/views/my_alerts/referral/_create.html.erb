@@ -1,0 +1,14 @@
+<% if activity.trackable %>
+	<span class='alert-heading'>
+		<strong><%= link_to "requested your REFERRAL", referrals_path %></strong> 
+		on <%= activity.created_at.strftime("%b %d, %Y") %>. 
+	</span>
+	<i class='icon-certificate icon-medium'></i><br/>
+	Until you grant referral, 
+	<%= link_to activity.user.screen_name, posts_user_path(activity.user) %> won't be able to follow you or rate your posts.
+<% else %>
+	<span class='alert-heading'>
+		has requested your referral but has since withdrawn it.
+	</span>
+	<i class='icon-trash'></i>
+<% end %> 

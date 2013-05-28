@@ -11,15 +11,22 @@
 	<%= semantic_form_for(current_user.reverse_referrals.find_by_referred_id(user), remote: true, data:{type: :js}) do |f| %>
 		<div class='row'>
 			<div class='span2'>
-				<%= f.input :name_true, as: :radio, collection: [["Yes", true], ["No", false]], required: true %>
-				<%= f.input :role_true, as: :radio, collection: [["Yes", true], ["No", false]], required: true %>
-				<%= f.input :screen_name_appropriate, as: :radio, collection: [["Yes", true], ["No", false]], required: true %>
-				<%= f.input :avatar_appropriate, as: :radio, collection: [["Yes", true], ["No", false]], required: true %>
+				<%= f.inputs do %>				
+					<%= f.semantic_fields_for :ref_check do |c| %>
+						<%=c.hidden_field :referral_id, value: current_user.reverse_referrals.find_by_referred_id(user).id %>
+						<%= c.input :name_true, as: :radio, collection: [["Yes", true], ["No", false]], required: true %>
+						<%= c.input :role_true, as: :radio, collection: [["Yes", true], ["No", false]], required: true %>
+						<%= c.input :screen_name_appropriate, as: :radio, collection: [["Yes", true], ["No", false]], required: true %>
+						<%= c.input :avatar_appropriate, as: :radio, collection: [["Yes", true], ["No", false]], required: true %>
+					<% end %>				
+				<% end %>	
 			</div>
 			<div class='span1 ref-submit'>
-				<%= f.submit "Submit", 
-				class: "btn btn-medium btn-success" %>
+				<%= f.actions do %>				
+					<%= f.action :submit, label: "Submit", as: :button, button_html: { class: " btn btn-formtastic btn-medium btn-primary", :disabled_with => 'Wait...' } %>				
+				<% end %>
 			</div>
+			
 		</div>
 	<% end %>
 </div>

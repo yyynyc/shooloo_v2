@@ -1,0 +1,11 @@
+<% if activity.trackable %>
+	<strong>requested Referral</strong> on <%= activity.created_at.strftime("%b %d, %Y") %>
+	from
+	<%= link_to activity.recipient.screen_name, posts_user_path(activity.recipient) %>
+	(a <%= activity.recipient.role %> 
+    <% if !activity.recipient.grade.nil? %>
+    	in grade <%= activity.recipient.grade %>
+    <% end %>).
+<% else %>
+	requested a referral but has since withdrawn it.
+<% end %>

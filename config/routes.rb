@@ -51,7 +51,7 @@ resources :authorizations do
 end
 resources :referrals do 
   member do
-    put :decline
+    resources :ref_checks
   end
   collection { post :search, to: 'referrals#new' }
 end

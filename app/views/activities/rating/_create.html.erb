@@ -1,10 +1,11 @@
 <% if activity.trackable %>
-		added a <strong>RATING</strong> on <%= activity.created_at.strftime("%b %d, %Y") %>
-		to post  
-		#<%= link_to activity.trackable.rated_post.id, new_post_comment_path(activity.trackable.rated_post) %> 
-		written by 
-		<%= link_to activity.trackable.rated_post.user.screen_name, posts_user_path(activity.trackable.rated_post.user) %>
-		in <i><%= activity.trackable.rated_post.user.grade %></i>.
+	added a <strong>RATING</strong> on <%= activity.created_at.strftime("%b %d, %Y") %>
+	to post  
+	#<%= link_to activity.trackable.rated_post.id, new_post_comment_path(activity.trackable.rated_post) %> 
+	written by 
+	<%= link_to activity.trackable.rated_post.user.screen_name, posts_user_path(activity.trackable.rated_post.user) %>
+	(a <%= activity.trackable.rated_post.user.role %>
+	in grade <%= activity.trackable.rated_post.user.grade %>).
 <% else %>
 	added a rating to your post and then deleted it.
 <% end %>

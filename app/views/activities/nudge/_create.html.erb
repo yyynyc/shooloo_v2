@@ -1,7 +1,8 @@
 <% if activity.trackable %>
 	<strong>NUDGED</strong>  
 	<%= link_to activity.trackable.nudged.screen_name, posts_user_path(activity.trackable.nudged) %>
-	in <i><%= activity.trackable.nudged.grade %></i>
+	(a <%= activity.trackable.nudged.role  %>
+	in grade <%= activity.trackable.nudged.grade %>)
 	on <%= activity.created_at.strftime("%b %d, %Y") %>.
 <% else %>
 	has nudged another member.

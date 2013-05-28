@@ -1,0 +1,15 @@
+<% if activity.trackable %>
+	<span class='alert-heading'>
+		<strong>grantede you a referral</strong> 
+		on <%= activity.created_at.strftime("%b %d, %Y") %>.
+		Congrats! 
+	</span>
+	<i class='icon-certificate icon-medium'></i><br/>
+	Express your thanks and 
+	<%= link_to "follow #{activity.user.screen_name}", posts_user_path(activity.user) %>.
+<% else %>
+	<span class='alert-heading'>
+		has granted you the referral but has changed mind.
+	</span>
+	<i class='icon-trash'></i>
+<% end %> 

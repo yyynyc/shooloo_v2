@@ -1,7 +1,8 @@
 <% if activity.trackable %>
 	has started <strong>FOLLOWING</strong> 
 	<%= link_to activity.trackable.followed.screen_name, posts_user_path(activity.trackable.followed) %>
-	in <i><%= activity.trackable.followed.grade %></i>
+	(a <%= activity.trackable.followed.role %>
+	in grade <%= activity.trackable.followed.grade %>)
 	since <%= activity.created_at.strftime("%b %d, %Y") %>.
 <% else %>
 	started following another member but has since unfollowed that member.

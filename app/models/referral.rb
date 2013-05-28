@@ -1,24 +1,28 @@
 class Referral < ActiveRecord::Base
-  attr_accessible :referrer_id, :approval, :name_true, :role_true, 
-  	:screen_name_appropriate, :avatar_appropriate
+  attr_accessible :referrer_id, :approval, :ref_check_attributes
 
   belongs_to :referred, class_name: "User"
   belongs_to :referrer, class_name: "User"
 
-  validates_presence_of :referred_id, :referrer_id, :approval
+  validates_presence_of :referred_id, :referrer_id, :approval, on: :create
+  validates_presence_of :ref_checks, on: :update
+  validates_associated :ref_checks, on: :update
 
-  #after_update do
-  #	if self.name_true=="true" && self.role_true=="true" &&
-  #		self.screen_name_appropriate=="true" &&
-  #		self.avatar_appropriate=="true"
-  #		self.update_attributes!(approval: "accepted")
-  #	else
-  #		self.update_attributes!(approval: "declined")
-  #	end
-  #end
+  has_many :ref_checks
+  accepts_nested_attributes_for :ref_checks
 
-#  after_create do
-#    Activity.create!(action: "create", trackable: self, 
-#    	user_id: self.referred_id, recipient_id: self.referrer_id)
-#  end
+  after_create do
+    Activity.create!(action: "create", trackable: self, 
+    	user_id: self.referred_id, recipient_id: self.referrer_id)
+  end
+
+  after_update do
+    if self.approval == "accepted"
+      Activity.create!(action: "accept", trackable: self, 
+      user_id: self.referrer_id, recipient_id: self.referred_id)
+    elsif self.approval == "declined"
+      Activity.create!(action: "decline", trackable: self, 
+      user_id: self.referrer_id, recipient_id: self.referred_id)
+    end      
+  end
 end

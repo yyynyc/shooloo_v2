@@ -3,7 +3,8 @@
 	<%= link_to "a post", new_post_comment_path(activity.trackable) %> 
 	on <%= activity.created_at.strftime("%b %d, %Y") %>
 	based on feedback from <%= link_to activity.recipient.screen_name, posts_user_path(activity.recipient) %>
-	in <i><%= activity.recipient.grade %></i>.
+	(a <%= activity.recipient.role %>
+	in grade <%= activity.recipient.grade %>).
 <% else %>
 	deleted a post that others have commented or rated.
 <% end %>

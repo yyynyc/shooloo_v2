@@ -172,14 +172,6 @@ class User < ActiveRecord::Base
     referrals.find_by_referrer_id(other_user.id).destroy
   end
 
-  def ref_grant!(other_user)
-    reverse_referrals.find_by_referred_id(other_user.id).update_attributes!(approval: "accepted")
-  end
-
-  def ref_decline!(other_user)
-    reverse_referrals.find_by_referred_id(other_user.id).update_attributes!(approval: "declined")
-  end
-
   def reputation(age)
     User.cr_joins.cr_for(self.id).cr_sum.first.count.to_i
   end

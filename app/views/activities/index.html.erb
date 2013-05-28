@@ -8,8 +8,10 @@
 	  		<li>
 			  	<% unless activity.user.nil? %>			
 				    <%= link_to activity.user.screen_name, posts_user_path(activity.user) %>
-				    in 
-				    <i><%= activity.user.grade %></i>
+				    (a <%= activity.user.role %>  
+				    <% if !activity.user.grade.nil? %>
+				    	in grade <%= activity.user.grade %>
+				    <% end %>)
 				    <%= render partial: "activities/#{activity.trackable_type.underscore}/#{activity.action}", locals: {activity: activity} %>		   
 				<% else %>
 					<% render text: "A user and his/her posts, comemnts and ratings have been deleted from this web site." %>  

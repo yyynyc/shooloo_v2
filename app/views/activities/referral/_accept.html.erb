@@ -1,0 +1,8 @@
+<% if activity.trackable %>
+	<strong>granted a referral</strong> 
+	on <%= activity.created_at.strftime("%b %d, %Y") %>
+	to 
+	<%= link_to activity.recipient.screen_name, posts_user_path(activity.recipient) %>.
+<% else %>
+	has granted a referral but has changed mind.
+<% end %> 

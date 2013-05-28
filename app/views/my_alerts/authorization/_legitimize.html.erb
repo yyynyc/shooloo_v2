@@ -1,0 +1,13 @@
+<% if activity.trackable %>
+	<span class='alert-heading'>
+		<strong><%= link_to "Grant Authorizations", authorizations_path %></strong>. 
+	</span>
+	<p class='search-label'><img src="/attachments/bravo.gif" alt="Shooloo Math Can Do" width='80'></p><br/>
+	Now your students can publish their own posts or comments once you grant them authorizations.
+	
+<% else %>
+	<span class='alert-heading'>
+		Sorry, you still can't authorize your students yet.
+	</span>
+	<i class='icon-trash'></i>
+<% end %> 

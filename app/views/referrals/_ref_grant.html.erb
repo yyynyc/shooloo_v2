@@ -7,9 +7,12 @@
 		<% if referral.approval == "pending" %>
 			<%= render partial: 'referrals/ref_review', 
 				locals: {referral: referral, user: user} %>
-		<% else %>
-			<%= render partial: 'referrals/ref_grant_result',
-				locals: {referral: referral, user: user} %>
-		<% end %>		
+		<% elsif referral.approval == "accepted" %>
+			<%= render partial: 'referrals/ref_grant_accept', 
+					locals: {referral: referral, user: user} %>
+		<% elsif referral.approval == "declined" %>	
+			<%= render partial: 'referrals/ref_grant_decline',
+					locals: {referral: referral, user: user} %>
+		<% end %>			
 	</span>	
 <% end %>

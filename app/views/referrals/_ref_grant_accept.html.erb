@@ -1,2 +1,2 @@
-<p>You have granted referral on <%= referral.updated_at.strftime("%b %d, %Y") %><p>
-<p>to <%= user.first_name %> <%= user.last_name %> whose screen name is <%= user.screen_name %>.</p>
+<p>You <span class='refer'>granted</span> referral on <%= referral.updated_at.strftime("%b %d, %Y") %><p>
+<p>to <span class='refer'><%= user.first_name %> <%= user.last_name %></span> whose screen name is <span class='refer'><%= link_to user.screen_name, posts_user_path(user) %></span>.</p>

@@ -1,0 +1,8 @@
+<% if activity.trackable %>	
+	<strong>declined a referral request</strong> 
+	on <%= activity.created_at.strftime("%b %d, %Y") %>
+	from
+	<%= link_to activity.recipient.screen_name, posts_user_path(activity.recipient) %>.
+<% else %>
+	has declined  a referral but has changed mind.
+<% end %> 

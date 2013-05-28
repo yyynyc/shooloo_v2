@@ -1,0 +1,17 @@
+<% if activity.trackable %>
+	<span class='alert-heading'>
+		<strong>grantede you an authorization</strong> 
+		on <%= activity.created_at.strftime("%b %d, %Y") %>.
+		Congrats! 
+	</span>
+	<p class='search-label'><img src="/attachments/bravo.gif" alt="Shooloo Math Can Do" width='80'></p><br/>
+	Express your thanks and 
+	<%= link_to "comment on #{activity.user.screen_name}'s posts", posts_user_path(activity.user) %>.
+	 or <%= link_to "publish your own posts", root_path %>.
+	 You've also gained the power to <%= link_to "grant referals", referrals_path %> to new users now.
+<% else %>
+	<span class='alert-heading'>
+		has granted you the authorization but has changed mind.
+	</span>
+	<i class='icon-trash'></i>
+<% end %> 

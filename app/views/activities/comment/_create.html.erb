@@ -4,7 +4,8 @@
 	#<%= link_to activity.trackable.commented_post.id, new_post_comment_path(activity.trackable.commented_post) %> 
 	written by 
 	<%= link_to activity.trackable.commented_post.user.screen_name, posts_user_path(activity.trackable.commented_post.user) %>
-	in <i><%= activity.trackable.commented_post.user.grade %></i>. 
+	(a <%= activity.trackable.commented_post.user.role %>
+	in grade <%= activity.trackable.commented_post.user.grade %>). 
 <% else %>
 	added a comment which has since been removed.
 <% end %>

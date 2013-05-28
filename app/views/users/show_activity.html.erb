@@ -11,7 +11,7 @@
     <% elsif cannot? :crud, Post %>
       <p>Because you have not published any pots or commented on someone else's post, it is hard to get yourself noticed by other Shooloo members. To gain the ability of publishing posts and comments, <%= link_to "get authorization", new_authorization_path %> from your current teacher. Then you will be pleasantly surprised by news alerts that you've got praises from your friends and many more fun activities. </p>
     <% else %>
-      Go to <%= link_to "Home", root_path %> and publish a post using the form on the left-hand side. Then <%= link_to "follow", users_path %> those members who are active<a href="#", id="follow", rel = "popover", title = "How to Follow Other Members", data-content = "Click on the Community section of the menu bar, check out member profiles, click the Follow button on their profile pagees, and their posts as well as your own will automatically show up on your home page."><i class='icon-question-sign'></i></a> and <%= link_to "comment", posts_path %> on their posts. They will start paying attention to you and adding comments/ratings to your posts. Then you will be able to enjoy fun news alerts all day long!  
+      Go to <%= link_to "Home", root_path %> and publish a post using the form on the left-hand side. Then <%= link_to "follow", users_path %> those members who are active<a href="#", id="follow", rel = "popover", title = "Who Should You Follow?", data-content = "Click on the Community section of the menu bar, check out member profiles, click the Follow button on their profile pagees, and their posts as well as your own will automatically show up on your home page."><i class='icon-question-sign'></i></a> and <%= link_to "comment", posts_path %> on their posts. They will start paying attention to you and adding comments/ratings to your posts. Then you will be able to enjoy fun news alerts all day long!  
     <% end %>  
     <p class='center'><img src="/attachments/smile.gif" alt="Shooloo Math Can Do"></p>
   </div>
@@ -29,6 +29,10 @@
             <% if activity.trackable_type == "Alarm" %>
               <span class='alert-heading'>
                   On <%= activity.created_at.strftime("%b %d, %Y") %>, an <strong>ALARM</strong> was raised on
+              </span> 
+            <% elsif activity.action == "legitimize" %>
+              <span class='alert-heading'>
+                  Congrats! On <%= activity.created_at.strftime("%b %d, %Y") %>, you gained the power to
               </span>                
             <% else %>
               <div class="avatar">

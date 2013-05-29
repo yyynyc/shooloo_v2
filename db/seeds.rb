@@ -42,11 +42,10 @@ admin1 = User.create(
 		password_confirmation: 'admin1', 
 		privacy: true, 
 		rules: true,
-		role: 'teacher'
+		role: 'teacher',
+		visible: true,
 		avatar: File.new(Rails.root + 'app/assets/images/Elda.jpg')}  
 	)
-admin1.admin = true
-admin1.save!
 
 admin2 = User.create(
 	{first_name: 'Robin',
@@ -59,6 +58,9 @@ admin2 = User.create(
 		password_confirmation: 'admin2', 
 		privacy: true,
 		rules: true, 
-		role: 'teacher'               
+		role: 'teacher', 
+		visible: true,               
 		avatar: File.new(Rails.root + 'app/assets/images/enchanted.jpg')}    
 	)
+admin2.admin = true
+admin2.save!

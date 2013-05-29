@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :email_confirmation, :screen_name, 
-    :first_name, :last_name, :grade, :role,  
+    :first_name, :last_name, :grade, :role, :visible, 
     :password, :password_confirmation,
     :avatar, :avatar_remote_url, :privacy, :rules,
     :referrals_attributes, :authorizations_attributes
@@ -89,6 +89,14 @@ class User < ActiveRecord::Base
   validates_attachment_presence :avatar
   validates_attachment_size :avatar, :less_than => 5.megabytes
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
+
+  def self.visible
+    where(:visible=>true)
+  end
+
+  def self.hidden
+    where(:visible=>false)
+  end
 
   def feed
     Post.from_users_followed_by(self)

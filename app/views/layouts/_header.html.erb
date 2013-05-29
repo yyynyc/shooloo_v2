@@ -74,11 +74,18 @@
                             referrals_path %>
                       </li>
                     <% elsif can? :crud, Rating %>  
-                      <li>
-                      <%= link_to "Request Authorizations", 
-                          new_authorization_path %>
-                      </li>
-                     <% else %> 
+                      <% if current_user.role == "teacher" %>
+                        <li>
+                          <%= link_to "Grant Authorizations", 
+                              authorizations_path %>
+                        </li>
+                      <% else %>
+                        <li>
+                        <%= link_to "Request Authorizations", 
+                            new_authorization_path %>
+                        </li>
+                      <% end%>
+                    <% else %> 
                       <% unless current_user.role == "teacher" %>
                         <li>
                           <%= link_to "Request Authorizations", 

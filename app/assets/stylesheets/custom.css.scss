@@ -665,7 +665,7 @@ aside {
 
 
 .auth {
-  margin: 1.5em 0em 2em 0em;
+  margin: 1.5em 6em 2em 3em;
   padding: 1em 1em 1em 1em;
   background-color: #FEE8D6;
   border: 1px solid #E8E8E8;
@@ -744,4 +744,15 @@ aside {
 .ref-submit {
   padding-top: 4.8em;
   margin-left: -1em;
+}
+
+.line {
+  border-top: 1px solid #eaeaea; margin: 0 5em 1em 2em;
+}
+
+.box {
+  border: 1px solid #e6e6e6; 
+  padding: 1em 0 1em 0em; 
+  margin: 2em 2em 2em 2em; 
+  box-shadow: 8px 8px 5px #888888;
 }

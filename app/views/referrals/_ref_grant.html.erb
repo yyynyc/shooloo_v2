@@ -15,4 +15,13 @@
 					locals: {referral: referral, user: user} %>
 		<% end %>			
 	</span>	
+<% else %>
+	<p>You don't have the power to grant referrals yet.</p>
+	<p> 
+		<% if current_user.role == "teacher" %>
+			<%= link_to "Obtain referral", new_referral_path %> from another teacher who is Shooloo member or from the Shooloo administrator.
+		<% else %>
+			<%= link_to "Obtain authorization", new_authorization_path %> from your current math teacher first.
+		<% end %>
+	</p>
 <% end %>

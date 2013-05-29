@@ -22,6 +22,10 @@ class Authorization < ActiveRecord::Base
     elsif self.approval == "declined"
       Activity.create!(action: "decline", trackable: self, 
       user_id: self.authorizer_id, recipient_id: self.authorized_id)
-    end      
+    end 
+
+    if self.authorized.authorizations.where('approval' => "accepted").any?
+      self.authorized.update_attributes!(visible: true)
+    end     
   end
 end

@@ -1,8 +1,8 @@
 <% authorization=current_user.reverse_authorizations.find_by_authorized_id(user) %>
 
-<span>
+<p>
 	Request received on <%= authorization.created_at.strftime("%b %d, %Y") %>.
-</span><br/>
+</p>
 <% if can? :update, authorization %>
 	<span class="password-request-label">
 		<% if authorization.approval == "pending" || authorization.approval == "accepted"%>
@@ -20,4 +20,8 @@
 			<%= render partial: 'authorizations/auth_grant_accept' %>
 		<% end %>		
 	</span>	
+<% else %>
+	<p class="no">
+		"Grant Authorization" button will appear once more than 15 students have appeared in this list.
+	</p>	
 <% end %>

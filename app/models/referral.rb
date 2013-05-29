@@ -23,6 +23,10 @@ class Referral < ActiveRecord::Base
     elsif self.approval == "declined"
       Activity.create!(action: "decline", trackable: self, 
       user_id: self.referrer_id, recipient_id: self.referred_id)
-    end      
+    end
+
+    if self.referred.referrals.where('approval' => "accepted").any?
+      self.referred.update_attributes!(visible: true)
+    end
   end
 end

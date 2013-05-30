@@ -32,7 +32,7 @@ describe "UserPages" do
         fill_in 'user_last_name', with: "User"
         fill_in 'user_email', with: "user@example.com"
         fill_in 'user_email_confirmation', with: "user@example.com"
-        select "Tutor", from: 'user_grade'
+        select "4", from: 'user_grade'
         fill_in 'user_screen_name', with: "Test_User"
         fill_in 'user_password', with: "foobar"
         fill_in 'user_password_confirmation', with: "foobar"
@@ -50,7 +50,7 @@ describe "UserPages" do
         let(:user) { User.find_by_screen_name('Test_User') }
 
         it { should have_selector('div.alert.alert-success', text: 'Welcome to Shooloo Learning!') }
-        it { should have_link('My Alerts')}
+        it { should have_link('Alerts')}
       end
     end
 
@@ -87,7 +87,7 @@ describe "UserPages" do
           fill_in 'user_screen_name', with: new_name
           fill_in 'user_email', with: new_email
           fill_in 'user_email_confirmation', with: new_email
-          select "Tutor", from: 'user_grade'
+          select "4", from: 'user_grade'
           fill_in 'user_password', with: user.password
           fill_in 'user_password_confirmation', with: user.password
           attach_file 'user_avatar', Rails.root.join('spec', 'support', 'math.jpg')
@@ -134,7 +134,7 @@ describe "UserPages" do
   end
 
   describe "index" do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user, visible: true) }
 
     before(:each) do
       sign_in user
@@ -146,7 +146,7 @@ describe "UserPages" do
 
     describe "pagination" do
 
-      before(:all) { 30.times { FactoryGirl.create(:user) } }
+      before(:all) { 30.times { FactoryGirl.create(:user, visible: true) } }
       after(:all)  { User.delete_all }
 
       it { should have_selector('div.pagination') }
@@ -163,7 +163,7 @@ describe "UserPages" do
       it { should_not have_link('delete') }
 
       describe "as an admin user" do
-        let(:admin) { FactoryGirl.create(:admin) }
+        let(:admin) { FactoryGirl.create(:admin, visible: true) }
         before do
           sign_in admin
           visit users_path

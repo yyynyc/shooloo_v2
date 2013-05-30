@@ -16,6 +16,7 @@ gem 'ransack', :git => "git://github.com/ernie/ransack.git"
 gem 'fancybox-rails'
 gem 'whenever', :require => false
 gem 'cancan'
+gem 'wicked'
 
 
 group :development, :test do

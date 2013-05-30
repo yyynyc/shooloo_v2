@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, 
     :styles => {  :small => "60x60#",
                   :thumb => "100x100#" }, 
+      default_url: "/attachments/blank.png",
       url: "/attachments/users/:id/:style/:basename.:extension",
       path: ":rails_root/public/attachments/users/:id/:style/:basename.:extension"
   
@@ -64,21 +65,21 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :authorizations
 
   before_save do
-    self.email.downcase!
+    #self.email.downcase!
     create_remember_token
-    self.first_name.capitalize!
-    self.last_name.capitalize!
+    #self.first_name.capitalize!
+    #self.last_name.capitalize!
   end
   
-  validates :first_name, presence: true, length: {maximum: 25}
-  validates :last_name, presence: true, length: {maximum: 25}
-  VALID_SCREEN_NAME_REGEX = /^[A-Za-z\d_]+$/
-  validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX },
-    uniqueness: {case_sensitive: false}, length: { minimum: 6, maximum: 20}
+  #validates :first_name, presence: true, length: {maximum: 25}
+  #validates :last_name, presence: true, length: {maximum: 25}
+  #VALID_SCREEN_NAME_REGEX = /^[A-Za-z\d_]+$/
+  #validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX },
+  #  uniqueness: {case_sensitive: false}, length: { minimum: 6, maximum: 20}
 	
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX } 
-  validates_confirmation_of :email, on: :create
+  #VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  #validates :email, presence: true, format: { with: VALID_EMAIL_REGEX } 
+  #validates_confirmation_of :email, on: :create
   
 
   validates :password, presence: true, length: {minimum: 6}, on: :create
@@ -86,9 +87,9 @@ class User < ActiveRecord::Base
   validates :privacy, presence: true
   validates :rules, presence: true
 
-  validates_attachment_presence :avatar
-  validates_attachment_size :avatar, :less_than => 5.megabytes
-  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
+  #validates_attachment_presence :avatar
+  #validates_attachment_size :avatar, :less_than => 5.megabytes
+  #validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
 
   def self.visible
     where(:visible=>true)

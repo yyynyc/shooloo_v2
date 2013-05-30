@@ -69,8 +69,8 @@
 				</div>
 			</div> 
 			<div class="span3" >
-				<% user=User.find(2) %>
-				<%= render partial: 'referrals/referral', locals: {user: user} %>
+				<%= render partial: 'referrals/referral', 
+					locals: {user: @user} %>
 			</div>
 		</div>
 	</div>		

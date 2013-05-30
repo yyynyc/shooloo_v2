@@ -34,8 +34,9 @@ class UsersController < ApplicationController
   	@user = User.new(params[:user])
   	if @user.save
   		sign_in @user
-  		flash[:success] = "Welcome to Shooloo Learning!"
-  		redirect_to root_path
+  		#redirect_to user_steps_path
+      flash[:success] = "Welcome to Shooloo Learning!"
+      redirect_to root_path
   	else
   		render 'new'
   	end

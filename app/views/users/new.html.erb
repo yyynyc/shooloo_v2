@@ -2,6 +2,21 @@
 <h1>Sign Up</h1>
 <div class="row">
   <div class="span6.5 offset3">	    
-	<%= render 'userinfo'%>	      
+	<%#= render 'userinfo'%>
+	<%= semantic_form_for@user, :url => users_path, :html => { :multipart => true, :class => "form-horizontal-user" } do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+		<%=f.inputs do %>
+			<%= f.input :screen_name, placeholder: "Must be DIFFERENT from your real name"%>
+			<%= f.input :password, placeholder: "Must be at least 6 characters long with no space or punctuation" %>
+			<%= f.input :password_confirmation, placeholder: "Must be the same as password"  %> 
+			<div class='privacy'>	
+			<%= f.input :privacy, as: :boolean, label: "I agree with the ".html_safe + link_to("Terms of Service", terms_path) +" and the ".html_safe + link_to("Privacy Statement", privacy_path) + ".".html_safe, input_html: {checked: 'checked'}, required: true %>
+			<%= f.input :rules, label: "I agree with the ".html_safe + link_to("Rules of Conduct", rules_path) + ".".html_safe, as: :boolean, input_html: {checked: 'checked'}, required: true %>	
+			</div>	
+		<% end %>
+		<%= f.actions do %>
+			<%= f.action :submit, label: "Create My Account", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary", :disabled_with => 'Wait...' } %>
+		<% end %>
+	<% end %>	      
   </div>
 </div>

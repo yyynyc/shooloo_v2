@@ -9,7 +9,9 @@ FactoryGirl.define do
     password_confirmation "foobar"
     privacy "true"
     rules "true"
-    grade "Tutor"
+    role "student"
+    grade "7"
+    visible "false"
     avatar File.new(Rails.root + 'spec/support/math.jpg') 
 
     factory :admin do

@@ -13,6 +13,8 @@
 			<div class='span2'>
 				<%= f.inputs do %>				
 					<%= f.semantic_fields_for :ref_check do |c| %>
+						<%= render 'shared/error_messages', 
+							object: c.object %>
 						<%=c.hidden_field :referral_id, value: current_user.reverse_referrals.find_by_referred_id(user).id %>
 						<%= c.input :name_true, as: :radio, collection: [["Yes", true], ["No", false]], required: true %>
 						<%= c.input :role_true, as: :radio, collection: [["Yes", true], ["No", false]], required: true %>

@@ -175,14 +175,16 @@ describe Ability do
 
 	describe "a teacher has authorization" do
 		before do
-			user = FactoryGirl.create(:user, grade: "Teacher")
-			user.authorizations.create!(authorizer_id: authorizer.id, 
-				approval: "accepted")
-			@ability = Ability.new(user)
+			15.times {FactoryGirl.create(:user)}
+		   	authorizer = FactoryGirl.create(:user, role: "teacher", visible: true)
+			User.all.each do |user|			
+				user.authorizations.create!(authorizer_id: authorizer.id)
+			end
+			@ability = Ability.new(authorizer)
 		end 
 		
 		it "should be able to unalarm posts" do
-			@ability.can?(:destroy, Alarm).should be_true
+			@ability.can?(:manage, Alarm).should be_true
 		end
 
 		it "should be able to create posts" do

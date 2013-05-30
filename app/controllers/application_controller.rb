@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   rescue_from CanCan::AccessDenied do |exception|
-  	flash[:error] = "You don't have pemission to do this. Get referrals or authorization first."
-  	redirect_to root_url
+  	flash[:error] = "Sorry, but you don't have the ability to do this now. Get referrals or authorization first."
+  	redirect_to my_abilities_path
   end
 
   def track_activity(trackable, action = params[:action])

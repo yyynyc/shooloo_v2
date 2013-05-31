@@ -1,6 +1,6 @@
 <% if current_user?(user) %>
 <i>Sorry, but you can't request referral from yourself.</i>
-<% else %>
+<% elsif can? [:create, :destroy], Authorization %>
   <div id="referral_form_<%= user.id %>">
 	  <% if current_user.referred_by?(user) %>
 	    <%= render partial: 'referrals/ref_withdraw', locals: {user: user} %>
@@ -8,4 +8,13 @@
 	    <%= render partial: 'referrals/ref_request', locals: {user: user} %>
 	  <% end %>
   </div>
+<% else%>
+	<i>
+		<p>
+			Sorry, but you can't request any referral yet because <%= link_to "your profile", edit_user_path(current_user) %> is incomplete.
+		</p>
+		<p>
+			Please make sure all information in <%= link_to "your profile", edit_user_path(current_user) %> is complete and correct first and then request authorizations.
+		</p>
+	</i>
 <% end %>

@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  after_update :update_states
+  after_update :create_states
   
   VALID_SCREEN_NAME_REGEX = /^[A-Za-z\d_]+$/
   validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX },
@@ -196,7 +196,7 @@ class User < ActiveRecord::Base
     referrals.find_by_referrer_id(other_user.id).destroy
   end
   
-  def update_states
+  def create_states
     if self.role == "student" &&
           !self.screen_name.nil? &&
           !self.first_name.nil? &&
@@ -207,7 +207,7 @@ class User < ActiveRecord::Base
           !self.parent_email.nil? &&
           !self.rules == true &&
           !self.privacy == true
-        self.states.create!(complete: "true")
+        states.create!(complete: "true")
     elsif self.role == "teacher" &&
           !self.screen_name.nil? &&
           !self.first_name.nil? &&

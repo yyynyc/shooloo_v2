@@ -11,42 +11,46 @@ class Ability
         elsif user.role == "teacher" && 
             user.referrals.where(approval: "accepted").any? &&
             user.authorized_users.count >=15
-            can :update, Authorization
+            can :update, [Authorization, Referral]
+            can :create, Authorization
             can :manage, Alarm
             can :crud, [Post, Comment, Rating]
-            can :update, Referral
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :read, :all
-            can :update, Activity
-            can :create, [Referral, Authorization]
+            can :update, Activity         
             can :update, User do |guest|
               User.try(:user) == user || user.admin?
             end
         elsif user.authorizations.where(approval: "accepted").any?
-            can :crud, [Post, Comment, Rating]
             can :update, Referral
+            can :crud, [Post, Comment, Rating]
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :create, Alarm
             can :read, :all
             can :update, Activity
-            can :create, [Referral, Authorization]
             can :update, User do |guest|
               User.try(:user) == user || user.admin?
             end
         elsif user.referrals.where(approval: "accepted").any?
+            can [:create, :destroy], Authorization
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :crud, Rating
             can :create, Alarm
             can :update, Activity
-            can :create, [Referral, Authorization]
             can :update, User do |guest|
               User.try(:user) == user || user.admin?
             end 
             can :read, :all
+        elsif user.states.where(complete: true).any?
+            can [:create, :destroy], [Referral, Authorization]
+            can :read, :all
+            can :update, Activity
+            can :update, User do |guest|
+              User.try(:user) == user || user.admin?
+            end
         else
             can :read, :all
             can :update, Activity
-            can :create, [Referral, Authorization]
             can :update, User do |guest|
               User.try(:user) == user || user.admin?
             end

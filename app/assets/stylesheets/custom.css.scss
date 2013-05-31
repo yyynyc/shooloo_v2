@@ -370,16 +370,17 @@ aside {
 
 .form-horizontal-user { 
   .control-label {  
-  float: left;
-  /*original: width: 140px;*/
-  width: 160px;
-  padding-top: 2px;
-  text-align: left;
+    float: left;
+    width: 7em;
+    padding-top: 2px;
+    text-align: left;
   }
   .controls {
-  /*original: margin-left: 160px;*/
-  margin-left: 180px;
-  width: 300px;  
+    margin-left: 8em;
+    width: 300px; 
+  }
+  .form-actions {
+    margin: 1em 26em 0em 0em;
   }
 }
 
@@ -410,10 +411,10 @@ aside {
   width: 135px;
 }
 
-.form-actions {
+/*.form-actions {
   padding: 5px 5px 5px;
   background-color: none;
-}
+}*/
 
 .well-small {
   padding: 2px;
@@ -539,7 +540,7 @@ aside {
   display: inline-block;
   }
   .checkbox {
-  margin-left: -180px;
+  margin-left: -8em;
   width: 500px;
   }
 }
@@ -762,4 +763,8 @@ aside {
   margin: 0 0 0 0;
   border-top: 0px;
   background-color: transparent;
+}
+
+.border-right{
+  border-right: 1px solid $grayLight;
 }

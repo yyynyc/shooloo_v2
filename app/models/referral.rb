@@ -1,12 +1,12 @@
 class Referral < ActiveRecord::Base
-  attr_accessible :referrer_id, :approval, :ref_check_attributes
+  attr_accessible :referrer_id, :approval, :ref_checks_attributes, :ref_checks
 
   belongs_to :referred, class_name: "User"
   belongs_to :referrer, class_name: "User"
 
   validates_presence_of :referred_id, :referrer_id, :approval, on: :create
-  validates_presence_of :ref_checks, on: :update
-  validates_associated :ref_checks, on: :update
+  #validates_presence_of :ref_checks, on: :update
+  #validates_associated :ref_checks, on: :update
 
   has_many :ref_checks
   accepts_nested_attributes_for :ref_checks

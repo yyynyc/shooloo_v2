@@ -21,20 +21,12 @@ class UsersController < ApplicationController
   def show
     index
     render :action =>'index'
-    #@user = User.find(params[:id])
-    #@posts = @user.posts.visible.paginate(page: params[:page], order: "updated_at DESC")
-    #@post = @user.posts.build(params[:post])
-    #@rating=current_user.ratings.build(params[:rating])
-    #@alarm = current_user.alarms.build
-    #@comments = @user.comments.paginate(page: params[:page], order: "created_at DESC")
-    #@comment = current_user.comments.build(params[:comment])
   end
 
   def create
   	@user = User.new(params[:user])
   	if @user.save
   		sign_in @user
-  		#redirect_to user_steps_path
       flash[:success] = "Welcome to Shooloo Learning!"
       redirect_to root_path
   	else
@@ -43,6 +35,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = current_user
   end
 
   def update

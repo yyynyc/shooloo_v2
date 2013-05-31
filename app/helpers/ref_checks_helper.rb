@@ -1,0 +1,2 @@
+module RefChecksHelper
+end

@@ -1,8 +1,44 @@
 <% provide(:title, "Edit user") %> 
 <h1>Update Your Information</h1>
-
-<div class="row">
-  <div class="span6.5 offset3">    
-    <%= render 'userinfo'%>
-  </div>
-</div>
+<%= semantic_form_for@user, :url => user_path, :html => { :multipart => true, :class => "form-horizontal-user" } do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+	<%=f.inputs do %>
+	<div class="row">
+		<div class="span6 border-right">
+			<%= f.input :screen_name, placeholder: "Must be DIFFERENT from your real name"%>	
+			<% if current_user.authorizations.where(approval: "accepted").blank? && current_user.referrals.where(approval: "accepted").blank? %>      
+				<%= f.input :first_name %>
+				<%= f.input :last_name %>
+				<%= f.input :role, label: "I am a", as: :select, collection: ["student", "teacher", "parent", "tutor", "other"]  %>
+			<% end %>
+			<% if current_user.role == "student" %>    
+				<%= f.input :grade, as: :select, collection: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], include_blank: true %>
+				<%= f.input :school_name %>
+			<% end %>
+			<span class='privacy' id='signup-home'>
+				<%= f.input :privacy, as: :boolean, label: "I agree with the ".html_safe + link_to("Terms of Service", terms_path) +" and the ".html_safe + link_to("Privacy Statement", privacy_path) + ".".html_safe, input_html: {checked: 'checked'}, required: true %>
+				<%= f.input :rules, label: "I agree with the ".html_safe + link_to("Rules of Conduct", rules_path) + ".".html_safe, as: :boolean, input_html: {checked: 'checked'}, required: true %>	
+			</span>						
+		</div>
+		<div class="span5">
+			<% if current_user.role == "student" %> 
+				<%= f.input :parent_email, label: "My parent's email", placeholder: "Useful to recover your forgotten password" %>				
+			<% elsif current_user.role == "teacher" %>
+				<%= f.input :school_name %>
+				<%= f.input :school_url %>
+			<% else %>
+				<%= f.input :social_media_url, placeholder: "Useful to recover your forgotten password" %>
+			<% end %>
+			<%= f.input :personal_email, label: "My own email", placeholder: "Useful to recover your forgotten password" %>
+			<%= f.input :avatar, as: :file, label: "Avatar upload" %> 
+			<%= f.input :avatar_remote_url, label: "or avatar url",
+				hint: (f.object.new_record? || f.object.avatar.nil?)?
+				f.template.content_tag(:span, "No avatar yet") : 
+				f.template.image_tag(f.object.avatar.url(:small)) %>	
+		</div>
+	</div>		
+	<% end %>	
+	<%= f.actions do %>		
+		<%= f.action :submit, label: "Update My Information", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary", :disabled_with => 'Wait...' } %>		
+	<% end %>
+<% end %>

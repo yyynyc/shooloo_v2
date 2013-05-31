@@ -1,10 +1,10 @@
-<% @referral=current_user.reverse_referrals.find_by_referred_id(@user) %>
-<% if @referral.approval == "accepted" %>
+
+<% if referral.approval == "accepted" %>
 	<%= render partial: 'referrals/ref_grant_accept', 
 			locals: {referral: referral, user: user} %>
-<% elsif @referral.approval == "declined" %>	
+<% elsif referral.approval == "declined" %>	
 	<%= render partial: 'referrals/ref_grant_decline',
 			locals: {referral: referral, user: user} %>
 <% else %>
-	update not saved!
+	Sorry, but your update is not saved!
 <% end %>		

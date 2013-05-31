@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130530205217) do
+ActiveRecord::Schema.define(:version => 20130528151325) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -216,16 +216,10 @@ ActiveRecord::Schema.define(:version => 20130530205217) do
   add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
-  create_table "states", :force => true do |t|
-    t.integer  "user_id"
-    t.boolean  "complete"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.string   "first_name"
-    t.string   "parent_email"
+    t.string   "email"
+    t.string   "email_confirmation"
     t.datetime "created_at",                                    :null => false
     t.datetime "updated_at",                                    :null => false
     t.string   "password_digest"
@@ -250,12 +244,6 @@ ActiveRecord::Schema.define(:version => 20130530205217) do
     t.integer  "auth_req_count",         :default => 0
     t.string   "auth_status"
     t.string   "role",                   :default => "student"
-    t.boolean  "visible",                :default => false
-    t.string   "personal_email"
-    t.string   "school_name"
-    t.string   "school_url"
-    t.string   "social_media_url"
-    t.string   "email_sent_to"
   end
 
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"

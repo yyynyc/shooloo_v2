@@ -1,20 +1,19 @@
-<% referral=current_user.reverse_referrals.find_by_referred_id(user) %>
+<% referral=current_user.reverse_referrals.find_by_referred_id(user.id) %>
 
 <p>
 	Request received on <%= referral.created_at.strftime("%b %d, %Y") %>.
 </p>
 <% if can? :update, referral %>
+	<div id="ref_grant_<= @ref_check.id %>">	
 		<% if referral.approval == "pending" %>
 			<%= render partial: 'referrals/ref_review', 
-				locals: {referral: referral, user: user} %>
-		<% elsif referral.approval == "accepted" %>
-			<%= render partial: 'referrals/ref_grant_accept', 
-					locals: {referral: referral, user: user} %>
-		<% elsif referral.approval == "declined" %>	
-			<%= render partial: 'referrals/ref_grant_decline',
-					locals: {referral: referral, user: user} %>
-		<% end %>			
-	</span>	
+				locals: {referral: referral, user: user, ref_check: @ref_check} %>
+		<% else %>
+			<%= render partial: 'referrals/ref_grant_result', 
+					locals: {referral: referral, user: user, 
+						ref_check: @ref_check} %>				
+		<% end %>
+	</div>
 <% else %>
 	<p>You don't have the power to grant referrals yet.</p>
 	<p> 

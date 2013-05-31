@@ -16,7 +16,7 @@
     					<%= link_to image_tag(user.avatar.url (:small), :alt => "Shooloo member #{user.screen_name}", :title => "Shooloo member #{user.screen_name}"), posts_user_path(user) %>
     				</div>
     				<div class='span10'>
-    					<%= render partial: 'referrals/ref_grant', locals: {user: user} %>
+    					<%= render partial: 'referrals/ref_grant', locals: {user: user, referral: @referral, ref_check: @ref_check} %>
     				</div>
 				</div>
 		  	</li>

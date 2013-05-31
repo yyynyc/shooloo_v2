@@ -1,5 +1,6 @@
 ShoolooV2::Application.routes.draw do
 
+
 resources :users do
   member do
     get :following, :followers,  
@@ -44,11 +45,9 @@ resources :authorizations do
   collection { post :search, to: 'authorizations#new' }
 end
 resources :referrals do 
-  member do
-    resources :ref_checks
-  end
   collection { post :search, to: 'referrals#new' }
 end
+resources :ref_checks
 resources :user_steps
     root to: "static_pages#home"
  

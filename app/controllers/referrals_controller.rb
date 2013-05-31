@@ -27,13 +27,13 @@ class ReferralsController < ApplicationController
   end
 
   def index
-    @ref_seekers = current_user.referred_users.all  
+    @ref_seekers = current_user.referred_users.all
   end
 
   def update
     @referral = Referral.find(params[:id])
     @user = @referral.referred
-    if @referral.save
+    if @ref_check.save
       respond_with @referrals
     else
       flash[:error] = "Something is wrong!"

@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :email_confirmation, :screen_name, 
+  attr_accessible :parent_email, :personal_email, :screen_name, 
     :first_name, :last_name, :grade, :role, :visible, 
     :password, :password_confirmation,
     :avatar, :avatar_remote_url, :privacy, :rules,
+    :school_name, :school_url, :social_medial_url,
     :referrals_attributes, :authorizations_attributes
   attr_reader :avatar_remote_url
   has_attached_file :avatar, 
@@ -14,6 +15,7 @@ class User < ActiveRecord::Base
   
   has_secure_password
 
+  has_many :states, dependent: :destroy
   has_many :posts, dependent: :destroy, order: "updated_at DESC"
   has_many :activities, dependent: :destroy
 
@@ -65,28 +67,41 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :authorizations
 
   before_save do
-    #self.email.downcase!
     create_remember_token
-    #self.first_name.capitalize!
-    #self.last_name.capitalize!
   end
-  
-  #validates :first_name, presence: true, length: {maximum: 25}
-  #validates :last_name, presence: true, length: {maximum: 25}
-  #VALID_SCREEN_NAME_REGEX = /^[A-Za-z\d_]+$/
-  #validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX },
-  #  uniqueness: {case_sensitive: false}, length: { minimum: 6, maximum: 20}
-	
-  #VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  #validates :email, presence: true, format: { with: VALID_EMAIL_REGEX } 
-  #validates_confirmation_of :email, on: :create
-  
 
-  validates :password, presence: true, length: {minimum: 6}, on: :create
+  before_update do
+    unless self.personal_email.nil?
+      self.personal_email.downcase!
+    end
+    unless self.parent_email.nil?
+      self.parent_email.downcase!
+    end
+    unless self.first_name.nil?
+      self.first_name.capitalize!
+    end
+    unless self.last_name.nil?
+      self.last_name.capitalize!
+    end
+  end
+
+  after_update :update_states
+  
+  VALID_SCREEN_NAME_REGEX = /^[A-Za-z\d_]+$/
+  validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX },
+    uniqueness: {case_sensitive: false}, length: { minimum: 6, maximum: 20}
+     validates :password, presence: true, length: {minimum: 6}, on: :create
   validates_confirmation_of :password_confirmation
   validates :privacy, presence: true
   validates :rules, presence: true
 
+  validates :first_name, length: {maximum: 25}
+  validates :last_name, length: {maximum: 25}
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :parent_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX } 
+  validates :personal_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX },
+    uniqueness: {case_sensitive: false} 
+  #validates_confirmation_of :email, on: :create
   #validates_attachment_presence :avatar
   #validates_attachment_size :avatar, :less_than => 5.megabytes
   #validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
@@ -180,6 +195,43 @@ class User < ActiveRecord::Base
   def ref_withdraw!(other_user)
     referrals.find_by_referrer_id(other_user.id).destroy
   end
+  
+  def update_states
+    if self.role == "student" &&
+          !self.screen_name.nil? &&
+          !self.first_name.nil? &&
+          !self.last_name.nil? &&
+          !self.role.nil? &&
+          !self.grade.nil? &&
+          !self.school_name.nil? &&
+          !self.parent_email.nil? &&
+          !self.rules == true &&
+          !self.privacy == true
+        self.states.create!(complete: "true")
+    elsif self.role == "teacher" &&
+          !self.screen_name.nil? &&
+          !self.first_name.nil? &&
+          !self.last_name.nil? &&
+          !self.role.nil? &&
+          !self.school_name.nil? &&
+          !self.school_url.nil? &&
+          !self.personal_email.nil? &&
+          !self.rules == true &&
+          !self.privacy == true
+        self.states.create!(complete: "true")
+    elsif !self.role == "teacher" &&
+          !tself.role == "student" &&
+          !self.screen_name.nil? &&
+          !self.first_name.nil? &&
+          !self.last_name.nil? &&
+          !self.role.nil? &&
+          !self.social_medial_url.nil? &&
+          !self.personal_email.nil? &&
+          !self.rules == true &&
+          !self.privacy == true
+        self.states.create!(complete: "true")
+    end
+  end
 
   def reputation(age)
     User.cr_joins.cr_for(self.id).cr_sum.first.count.to_i
@@ -222,7 +274,7 @@ end
 
   def self.cr_count
     first.count.to_i
-    end
+  end
 
   private
 

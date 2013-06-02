@@ -2,7 +2,7 @@
 <%= render partial: 'posts/post_review' %> 
 <h2> Comments </h2>	
 <ol class="posts">
-  <% if current_user.admin? %>
+  <% if current_user.admin? || current_user.role == "teacher" %>
     <%= render @comments.hidden %>
   <% end %>   		
 	<%= render @comments.visible %>

@@ -516,6 +516,9 @@ aside {
   border-bottom: 1px solid $grayMediumLight;
   margin: 1em 0em 1em 0em;
   line-height: 2em;
+  p {
+    float: right;
+  }
 }
 
 .post_review_answer {

@@ -1,8 +1,14 @@
 <div class="row">   
-  <div class="post_review_user_info">      
+  <div class="post_review_user_info">     
     <%= render partial: 'posts/post_user', locals: {post: @post} %>
+    <% if !@post.visible? %>   
+      <% if current_user.admin? || current_user.role == "teacher" %>
+        <div class="btn-formtastic">
+          <%= render partial: 'alarms/unalarm', locals: {post: @post} %>
+        </div>
+      <% end %>
+    <% end %>     
     <%= render partial: 'posts/post_stats', locals: {post: @post} %>
-    <br/>
   </div>
 </div>
 <div class="row">     
@@ -19,11 +25,7 @@
   </span>
 </div>
 <div class="row">
-  <% if !@post.visible? %>   
-    <% if current_user.admin? %>
-      <%= render partial: 'alarms/unalarm', locals: {post: @post} %>
-    <% end %>
-  <% else %>
+  <% if @post.visible? %>
     <span class='search-label'> 
       <%= render partial: 'alarms/alarm', locals: {post: @post} %>   
     </span>

@@ -13,10 +13,10 @@
   	<%= render 'shared/error_messages', object: f.object %>
     <%= f.text_area :content, rows: 5 %>
     <span style="display: inline-block;">
-    	<%= f.label :photo, "Upload a photo of your solution here." %>  
+    	<%#= f.label :photo, "Upload a photo of your solution here." %>  
     </span>
     <span style="line-height: 1em;">  
-    	<%= f.file_field :photo %>
+    	<%#= f.file_field :photo %>
     </span>
     <span style="float: right;">
   		<%= f.submit "Submit Comment", class: "btn btn-large btn-primary"%>

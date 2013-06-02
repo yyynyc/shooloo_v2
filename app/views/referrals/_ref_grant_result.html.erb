@@ -1,4 +1,5 @@
-
+<% referral=current_user.reverse_referrals.find_by_referred_id(user.id) %>
+ 
 <% if referral.approval == "accepted" %>
 	<%= render partial: 'referrals/ref_grant_accept', 
 			locals: {referral: referral, user: user} %>

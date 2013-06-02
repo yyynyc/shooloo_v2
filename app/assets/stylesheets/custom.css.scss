@@ -149,16 +149,18 @@ aside {
 
 .stats {
   overflow: auto;
-  magin-bottom: 1em;
-  padding-bottom: 0.5em;
+  margin-top: 0.2em;
   border-bottom: 1px solid $grayLighter;
   span {
     float: left;
-    padding: 0 10px;
+    padding: 0.5em 0.5em 0.1em 0.5em;
     border-left: 1px solid $grayLighter;
     color: gray;
+    p {
+      line-height: 0.7em;
+      text-align: center;
+    }
     &:first-child {
-      padding-left: 0;
       border: 0;
     }
   }

@@ -1,12 +1,25 @@
 <div class="stats">
-	<span>
-		<strong>
-			<%= link_to "#{user.followed_users.count} following", following_user_path(user) %>
-		</strong> 
+	<span>			
+		<p>Published</p>
+		<p><%= link_to pluralize(user.posts.count, "post"), posts_user_path(user) %></p>
 	</span>
 	<span>
-		<strong>
-			<%= link_to "#{user.followers.count} followers", followers_user_path(user) %>
-		</strong> 
+		<p>Rated</p>
+		<p><%= link_to pluralize(user.rated_posts.count, "post"), rated_posts_user_path(user) %></p>
+	</span>
+	<span>
+		<p>Commented</p>
+		<p><%= link_to pluralize(user.commented_posts.count, "post"), commented_posts_user_path(user) %></p>
 	</span>
 </div>
+<div class="stats">
+	<span>
+		<p>Following</p>
+		<p><%= link_to pluralize(user.followed_users.count, "member"), following_user_path(user) %></p>
+	</span>
+	<span>
+		<p>Followed by</p>
+		<p><%= link_to pluralize(user.followers.count, "member"), followers_user_path(user) %></p>
+	</span>
+</div>
+

@@ -208,6 +208,7 @@ class User < ActiveRecord::Base
           !self.rules == true &&
           !self.privacy == true
         states.create!(complete: "true")
+        
     elsif self.role == "teacher" &&
           !self.screen_name.nil? &&
           !self.first_name.nil? &&

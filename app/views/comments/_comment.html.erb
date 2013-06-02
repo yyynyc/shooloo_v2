@@ -5,12 +5,12 @@
 		</div>
 		<div style="margin: -.1em 0em 1em 7em;">
 			<span style="float:right;"> 
-				<% unless comment.photo_file_name.nil? %>   
+				<%# unless comment.photo_file_name.nil? %>   
 				<%#= link_to            \
 					image_tag(comment.photo.url(:small)), 
 					comment.photo.url(:large),
 					:class=>'fancybox' %> 
-				<% end %>
+				<%# end %>
 			</span>
 			<span>								
 				<%= link_to comment.commenter.screen_name, posts_user_path(comment.commenter) %> 

@@ -22,7 +22,7 @@
   		  <h1> Let's get moving!</h1>
         <p class='center'><img src="/attachments/moving.gif" alt="Shooloo Math Can Do" align="center"></p>
         <div class='about'>
-        <p>Use the form on the left and publish your own posts.</p>
+        <p>Use the form on the left and <strong>publish</strong> your own posts.</p>
         <p>Impress your friends now!</p>
         </div>
       <% else %>
@@ -30,11 +30,8 @@
         <p class='center'><img src="/attachments/bored.gif" alt="Shooloo Math Can Do" align="center"></p>
         <div class='about'>
         <p><%= @user.screen_name %> has not published any posts yet.</p> 
-          <p>Nudge <%= @user.screen_name %> into some action. Press the button below.</p>
+          <p><strong>Nudge</strong> <%= @user.screen_name %> into some action. Press the green button above that says "NUDGE".</p>
         </div>
-        <div style="text-align: center;">
-          <%= render partial: 'nudge_form', locals:{user: @user} %>
-        </div>  
       <% end %> 
     </div>
     <% else %>    	

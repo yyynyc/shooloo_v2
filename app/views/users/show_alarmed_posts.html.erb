@@ -16,15 +16,30 @@
     <h3 class="feed_item">
       <%= @user.screen_name %>'s <%= link_to "Hidden", "#", "id" => "hidden", "rel" => "popover", "title" => "Why Are Posts Hidden", "data-content" => "These posts are hidden from the public view because they have one or more of the following: offensive image, offensive content, watermarked image, or plagerised content. You can republish the post with clean image and content using the form on the left." %> Posts (<%= @alarmed_posts.count %>)
     </h3>
-  	<% if @alarmed_posts.any? %>      		      	
+  	<% if @alarmed_posts.any? %>
+      <h3>The following posts of yours have something inappropriate. Please clean up your posts first and then ask your teacher to unalarm your posts.</h3>     		      	
   		<ol class="posts">
     		<%= render partial: 'shared/feed_item', collection: @alarmed_posts %>
   		</ol>
   		<%= will_paginate @alarmed_posts %>
     <% else %>          
-        <section class="prompt">
-          <%= render text: "All of your published posts are clean. Keep up with your good work!" %>
-        </section> 
+      <div class="box">        
+        <% if current_user.posts.visible.any? %>
+          <h1> Good work!</h1>
+          <p class='center'><img src="/attachments/thumb_up.gif" alt="Shooloo Math Can Do" align="center"></p>
+          <div class='about'>
+          <p>All of your published posts are clean.</p>
+          <p>Keep up with the good work!</p>
+          </div>
+        <% else %>
+          <h1> Let's get moving!</h1>
+          <p class='center'><img src="/attachments/moving.gif" alt="Shooloo Math Can Do" align="center"></p>
+          <div class='about'>
+          <p>You have not published any posts yet. Use the form on the left and <strong>publish</strong> your own posts.</p>
+          <p>Impress your friends now!</p>
+          </div>
+        <% end %>        
+      </div> 
    	<% end %>
 	</div>
 </div>

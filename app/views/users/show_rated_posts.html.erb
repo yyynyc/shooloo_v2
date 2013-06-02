@@ -22,9 +22,23 @@
   		</ol>
   		<%= will_paginate @rated_posts %>
     <% else %>          
-      <section class="prompt">
-        <%= render text: "Search posts in the Community section and show your friends that you care about what they have to say." %>
-      </section> 
+      <div class="box">
+        <% if current_user?(@user) %> 
+          <h1> Let's get moving!</h1>
+          <p class='center'><img src="/attachments/moving.gif" alt="Shooloo Math Can Do" align="center"></p>
+          <div class='about'>
+          <p>Go to the <%= link_to "All Posts", posts_path %> section and <strong>rate</strong> those posts you find interesting.</p>
+          <p>Show your friends that you care!</p>
+          </div>
+        <% else %>
+          <h1> Sigh...</h1>
+          <p class='center'><img src="/attachments/bored_3.gif" alt="Shooloo Math Can Do" align="center"></p>
+          <div class='about'>
+          <p><%= @user.screen_name %> has not rated anyone's posts yet.</p> 
+            <p><strong>Nudge</strong> <%= @user.screen_name %> into rating your posts. Press the green button above that says "NUDGE".</p>
+          </div> 
+        <% end %> 
+      </div> 
  	  <% end %>
 	</div>
 </div>

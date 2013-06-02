@@ -1,19 +1,19 @@
-<% if activity.trackable %>	
+<% if activity.trackable %>
+	<span class='btn-formtastic'><img src="/attachments/miss_u.gif" alt="Shooloo Math Can Do" width='80'></span>	
 	<span class='alert-heading'>
 		<strong><%= link_to "NUDGED", posts_user_path(activity.user) %></strong> you on 
 		<%= activity.created_at.strftime("%b %d, %Y") %>
-	</span>
-	<i class='icon-hand-left icon-large'></i><br/>
+	</span><br/>
 	<span class='red-color'>
 		and is eagerly waiting to see your activities. Don't let <%= activity.user.screen_name %> wait too long! 
 	</span><br/>
 	<strong><%= link_to "Publish", root_url %></strong> your own word problem today and add comments/ratings to
 	<%= link_to "#{activity.user.screen_name}'s posts", posts_user_path(activity.user) %>.
 <% else %>
+	<span class='btn-formtastic'><img src="/attachments/miss_u.gif" alt="Shooloo Math Can Do" width='80'></span>
 	<span class='alert-heading'>
 		has <strong>NUDGED</strong> you.
-	</span>
-	<i class='icon-hand-left icon-large'></i><br/>
+	</span><br/>
 	<%= link_to "Publish", root_url %> your own word problem today.<br/>
 	Show your friends that you care about them. Add comments or ratings!
 <% end %>

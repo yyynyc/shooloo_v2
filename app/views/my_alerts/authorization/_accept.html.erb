@@ -1,11 +1,10 @@
 <% if activity.trackable %>
-	<span class='btn-formtastic'><img src="/attachments/bravo.gif" alt="Shooloo Math Can Do" width='80'></span>
+	<span class='btn-formtastic'><img src="/attachments/congrats.gif" alt="Shooloo Math Can Do" width='80'></span>
 	<span class='alert-heading'>
 		<strong>granted you an authorization</strong> 
 		on <%= activity.created_at.strftime("%b %d, %Y") %>.
 	</span>
 	<br/>
-
 	Express your thanks and 
 	<%= link_to "comment", posts_user_path(activity.user) %> on <%= activity.user.screen_name %>'s posts
 	 or <%= link_to "publish", root_path %> your own posts.<br/>

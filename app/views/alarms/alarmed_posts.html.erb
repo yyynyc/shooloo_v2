@@ -4,22 +4,29 @@
 
 <% @alarms.each do |alarm| %>    
   <%= div_for alarm do %>
-    <%= link_to alarm.alarmer.first_name, posts_user_path(alarm.alarmer) %>
-    <%= alarm.alarmer.last_name %>
-    raised alarm on 
-        <% unless alarm.alarmed_post_id.nil? %>
-            post #
-            <%= link_to alarm.alarmed_post_id, new_post_comment_path(alarm.alarmed_post) %>
-            written by
-            <%= alarm.alarmed_post.user.first_name %>
-            <%= alarm.alarmed_post.user.last_name %>
-        <% else %>
-            comment #
-            <%= link_to alarm.alarmed_comment_id, new_post_comment_path(alarm.alarmed_comment.commented_post) %>
-            written by
-            <%= alarm.alarmed_comment.commenter.first_name %>
-            <%= alarm.alarmed_comment.commenter.last_name %>
-        <% end %>
-        at <%= alarm.created_at %> 
+    <% if current_user.admin? ||
+        current_user.authorized_users.include?(alarm.alarmer) ||
+        current_user == alarm.alarmer ||
+        (current_user.authorized_users.include?(alarm.alarmed_post.user) if 
+            !alarm.alarmed_post_id.nil?) ||
+        (current_user.authorized_users.include?(alarm.alarmed_comment.commenter) if !alarm.alarmed_comment_id.nil?)  %>
+        <%= link_to alarm.alarmer.first_name, posts_user_path(alarm.alarmer) %>
+        <%= alarm.alarmer.last_name %>
+        raised alarm on 
+            <% unless alarm.alarmed_post_id.nil? %>
+                post 
+                #<%= link_to alarm.alarmed_post_id, new_post_comment_path(alarm.alarmed_post) %>
+                written by
+                <%= alarm.alarmed_post.user.first_name %>
+                <%= alarm.alarmed_post.user.last_name %>
+            <% else %>
+                comment 
+                #<%= link_to alarm.alarmed_comment_id, new_post_comment_path(alarm.alarmed_comment.commented_post) %>
+                written by
+                <%= link_to alarm.alarmed_comment.commenter.first_name %>
+                <%= alarm.alarmed_comment.commenter.last_name %>
+            <% end %>
+            at <%= alarm.created_at %> 
+    <% end %>        
   <% end %>
 <% end %>

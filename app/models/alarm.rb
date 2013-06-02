@@ -24,9 +24,35 @@ class Alarm < ActiveRecord::Base
     if self.alarmed_post
       Activity.create!(action: "create", trackable: self, 
         user_id: self.alarmer_id, recipient_id: self.alarmed_post.user_id)
+      self.alarmed_post.user.authorizers.each do |authorizer|
+        Activity.create!(action: "create", trackable: self, 
+        user_id: self.alarmer_id, recipient_id: authorizer.id)
+      end
     elsif self.alarmed_comment
       Activity.create!(action: "create", trackable: self, 
         user_id: self.alarmer_id, recipient_id: self.alarmed_comment.commenter_id)
-    end    
+      self.alarmed_comment.commenter.authorizers.each do |authorizer|
+        Activity.create!(action: "create", trackable: self, 
+        user_id: self.alarmer_id, recipient_id: authorizer.id)
+      end
+    end 
+    self.alarmer.authorizers.each do |authorizer|
+        Activity.create!(action: "create", trackable: self, 
+        user_id: self.alarmer_id, recipient_id: authorizer.id)
+    end
+    User.where(admin: true).each do |admin|
+      Activity.create!(action: "create", trackable: self, 
+      user_id: self.alarmer_id, recipient_id: admin.id)
+    end
+  end
+
+  def correct_user
+    current_user.admin? ||
+    current_user.authorized_users.include?(alarm.alarmer) ||
+    current_user == alarm.alarmer ||
+    (current_user.authorized_users.include?(alarm.alarmed_post.user) if 
+        !alarm.alarmed_post_id.nil?) ||
+    (current_user.authorized_users.include?(alarm.alarmed_comment.commenter) if 
+        !alarm.alarmed_comment_id.nil?) 
   end
 end

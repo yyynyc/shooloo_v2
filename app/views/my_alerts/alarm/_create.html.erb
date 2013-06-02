@@ -1,17 +1,33 @@
 <% if activity.trackable %>
 	<% unless activity.trackable.alarmed_post_id.nil? %>
-		<span class='alert-heading'>
-			<%= link_to "your post (##{activity.trackable.alarmed_post.id})", new_post_comment_path(activity.trackable.alarmed_post) %>.
-		</span>
-		<i class='icon-bell icon-medium'></i>	<br/>
-		No one other than teachers can see the post now. Go to Posts/My Hidden Posts and update your hidden post. Make sure it does NOT have any of the following: 1) watermarked image; 2) content that has nothing to do with math; 3) offensive image; 4) offensive content; 5) plagerized content. After you clean up your post, you may ask your teacher to unalarm it. 
+		<% if current_user == activity.trackable.alarmed_post.user %>
+			<span class='alert-heading'>
+				<%= link_to "your post (##{activity.trackable.alarmed_post.id})", new_post_comment_path(activity.trackable.alarmed_post) %>.
+			</span>
+			<i class='icon-bell icon-medium'></i>	<br/>
+			No one other than teachers can see the post now. Go to Posts/My Hidden Posts and update your hidden post. Make sure it does NOT have any of the following: 1) watermarked image; 2) content that has nothing to do with math; 3) offensive image; 4) offensive content; 5) plagerized content. After you clean up your post, you may ask your teacher to unalarm it. 
+		<% else %>
+			<span class='alert-heading'>
+				your student's <%= link_to "post (##{activity.trackable.alarmed_post.id})", new_post_comment_path(activity.trackable.alarmed_post) %>.
+			</span>
+			<i class='icon-bell icon-medium'></i>	<br/>
+			Check out details in the <%= link_to "Alarms", alarmed_posts_path %> section and take actions as you deem appropriate.
+		<% end %>
 	<% else %>
-		<span class='alert-heading'>
-			your comment 
-			on #<%= link_to "a post (##{activity.trackable.commented_post.id}) ", new_post_comment_path(activity.trackable.alarmed_comment.commented_post) %>.
-		</span>	
-		<i class='icon-bell icon-medium'></i>	<br/>
-		No one other than teachers can see the comment now. If you believe your comment was clean and friendly, you may ask  your teacher to unalarm it. 
+		<% if current_user == activity.trackable.alarmed_comment.commenter %>
+			<span class='alert-heading'>
+				your comment 
+				on <%= link_to "a post (##{activity.trackable.commented_post.id}) ", new_post_comment_path(activity.trackable.alarmed_comment.commented_post) %>.
+			</span>	
+			<i class='icon-bell icon-medium'></i>	<br/>
+			No one other than teachers can see the comment now. If you believe your comment was clean and friendly, you may ask your teacher to unalarm it. 
+		<% else %>
+			<span class='alert-heading'>
+				your student's comment on <%= link_to "a post (##{activity.trackable.commented_post.id}) ", new_post_comment_path(activity.trackable.alarmed_comment.commented_post) %>.
+			</span>
+			<i class='icon-bell icon-medium'></i>	<br/>
+			Check out details in the <%= link_to "Alarms", alarmed_posts_path %> section and take actions as you deem appropriate.
+		<% end %>
 	<% end %>
 <% else %>
 	<span class='alert-heading'>

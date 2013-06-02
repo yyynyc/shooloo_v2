@@ -34,7 +34,7 @@ resources :comments do
   resources :alarms
   resources :likes, only: [:create, :destroy]
 end
-resources :alarms, only: [:create, :destroy]
+resources :alarms
 resources :likes, only: [:create, :destroy]
 resources :activities
 resources :password_resets

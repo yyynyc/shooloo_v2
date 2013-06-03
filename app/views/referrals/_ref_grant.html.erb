@@ -4,7 +4,7 @@
 	Request received on <%= referral.created_at.strftime("%b %d, %Y") %>.
 </p>
 <% if can? :update, referral %>
-	<div id="ref_grant_<= @ref_check.id %>">	
+	<div id="ref_grant_<%= referral.id %>">	
 		<% if referral.approval == "pending" %>
 			<%= render partial: 'referrals/ref_review', 
 				locals: {referral: referral, user: user, ref_check: @ref_check} %>

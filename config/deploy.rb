@@ -1,5 +1,6 @@
 require "bundler/capistrano"
-#require "whenever/capistrano"
+set :whenever_command, "bundle exec whenever"
+require "whenever/capistrano"
 
 task :live do
   server "198.74.59.151", :web, :app, :db, primary: true

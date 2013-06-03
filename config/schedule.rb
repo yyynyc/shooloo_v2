@@ -1,4 +1,4 @@
-Every 1.day, :at => '4:00 am' do
+every 1.day, :at => '4:00 am' do
 	runner "Activity.destroy_old_data"
 end
 

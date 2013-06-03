@@ -1,13 +1,16 @@
 <% if activity.trackable %>
-	<span class='alert-heading'>
+	<span class='btn-formtastic'><img src="/attachments/congrats.gif" 
+        alt=" Shooloo Math Can Do" width='80'></span>
+    <span class='alert-heading'>
+          Congrats! On <%= activity.created_at.strftime("%b %d, %Y") %>, you gained the power to
 		<strong><%= link_to "Grant Authorizations", authorizations_path %></strong>. 
 	</span>
 	<br/>
-	Grant your students authorizations now so that they can publish their own posts or comments.
-	
+	Grant your students authorizations now so that they can publish their own posts or comments.	
 <% else %>
 	<span class='alert-heading'>
-		Sorry, you still can't authorize your students yet.
+		You gained the power to grant authorization but then lost it<br/>
+		because some of your students have withdrawn their requests. 
 	</span>
 	<i class='icon-trash'></i>
 <% end %> 

@@ -161,6 +161,7 @@ aside {
       text-align: center;
     }
     &:first-child {
+      padding-left: 0;
       border: 0;
     }
   }
@@ -748,7 +749,7 @@ aside {
 }
 
 .ref-submit {
-  padding-top: 4.8em;
+  padding-top: 6.8em;
   margin-left: -1em;
 }
 

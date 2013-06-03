@@ -3,9 +3,13 @@
 <h1> My Abilities </h1>
 <div class='alert-heading'>
 	<p>I CAN enjoy the following activities at Shooloo:</p>
-
 	<ul class='abilities'>
 		<%= render 'shared/all_able' %>
+		<% if can? :create, Referral %>
+			<%= render 'shared/req_yes' %>
+		<% else %>
+			<%= render 'shared/req_no' %>
+		<% end %>
 		<% if can? :crud, Rating %>
 			<%= render 'shared/ref_yes' %>
 		<% else %>

@@ -1,6 +1,6 @@
 <% if current_user?(user) %>
 <i>Sorry, but you can't request referral from yourself.</i>
-<% elsif can? [:create, :destroy], Authorization %>
+<% elsif can? :create, Referral %>
   <div id="referral_form_<%= user.id %>">
 	  <% if current_user.referred_by?(user) %>
 	    <%= render partial: 'referrals/ref_withdraw', locals: {user: user} %>

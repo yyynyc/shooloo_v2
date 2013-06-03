@@ -51,11 +51,11 @@ class User < ActiveRecord::Base
   has_many :nudgers, through: :reverse_nudges, source: :nudger
 
   has_many :referrals, foreign_key: "referred_id", dependent: :destroy
-  has_many :referrers, through: :referrals#, conditions: {approval: "accepted"}
+  has_many :referrers, through: :referrals
   has_many :reverse_referrals, foreign_key: "referrer_id", 
           class_name: "Referral", dependent: :destroy
   has_many :referred_users, through: :reverse_referrals, 
-          source: :referred#, conditions: {approval: "accepted"}
+          source: :referred
   accepts_nested_attributes_for :referrals
 
   has_many :authorizations, foreign_key: "authorized_id", dependent: :destroy
@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  after_update :create_states
+  after_save :create_states
   
   VALID_SCREEN_NAME_REGEX = /^[A-Za-z\d_]+$/
   validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX },
@@ -101,6 +101,7 @@ class User < ActiveRecord::Base
   validates :parent_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX } 
   validates :personal_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX },
     uniqueness: {case_sensitive: false} 
+  #validates_presence_of :school_name, :if => :active_student?
   #validates_confirmation_of :email, on: :create
   #validates_attachment_presence :avatar
   #validates_attachment_size :avatar, :less_than => 5.megabytes
@@ -205,10 +206,9 @@ class User < ActiveRecord::Base
           !self.grade.nil? &&
           !self.school_name.nil? &&
           !self.parent_email.nil? &&
-          !self.rules == true &&
-          !self.privacy == true
-        states.create!(complete: "true")
-        
+          self.rules == true &&
+          self.privacy == true
+        State.create!(user_id: self.id, complete: "true")        
     elsif self.role == "teacher" &&
           !self.screen_name.nil? &&
           !self.first_name.nil? &&
@@ -217,9 +217,9 @@ class User < ActiveRecord::Base
           !self.school_name.nil? &&
           !self.school_url.nil? &&
           !self.personal_email.nil? &&
-          !self.rules == true &&
-          !self.privacy == true
-        self.states.create!(complete: "true")
+          self.rules == true &&
+          self.privacy == true
+        State.create!(user_id: self.id, complete: "true") 
     elsif !self.role == "teacher" &&
           !tself.role == "student" &&
           !self.screen_name.nil? &&
@@ -228,9 +228,9 @@ class User < ActiveRecord::Base
           !self.role.nil? &&
           !self.social_medial_url.nil? &&
           !self.personal_email.nil? &&
-          !self.rules == true &&
-          !self.privacy == true
-        self.states.create!(complete: "true")
+          self.rules == true &&
+          self.privacy == true
+        State.create!(user_id: self.id, complete: "true") 
     end
   end
 

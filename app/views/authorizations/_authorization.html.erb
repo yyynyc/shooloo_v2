@@ -1,6 +1,6 @@
 <% if current_user?(user) %>
 <i>Sorry, but you can't request authorization from yourself.</i>
-<% elsif can? [:create, :destroy], Authorization %>
+<% elsif can? :create, Authorization %>
   <div id="authorization_form_<%= user.id %>">
 	  <% if current_user.authorized_by?(user) %>
 	    <%= render partial: 'authorizations/auth_withdraw', locals: {user: user} %>

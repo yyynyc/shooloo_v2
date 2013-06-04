@@ -1,0 +1,35 @@
+Dear <%= user.screen_name %>,
+
+Check out these activities you've missed on Shooloo:
+
+<% @my_activities.where(read: nil).each do |activity| %>
+  <ul class="users">
+    <li>  
+      <% if activity.user.nil? %> 
+         <%= render text: "A user who has commented or rated your posts or who has followed you has been deleted from this web site." %> 
+      <% else %>          
+        <% if activity.trackable_type == "Alarm" %>
+          <span class='alert-heading'>
+              On <%= activity.created_at.strftime("%b %d, %Y") %>, an <strong>ALARM</strong> was raised on
+          </span> 
+        <% elsif activity.action == "legitimize" %>
+        <% else %>
+          <div class="avatar">
+            <%= link_to image_tag(activity.user.avatar.url(:small), 
+              alt: "Shooloo member #{activity.user.screen_name}",
+              title: "Shooloo member #{activity.user.screen_name}"),
+              posts_user_path(activity.user)  %>  
+          </div>   
+          <span class='alert-heading'>
+            <%= link_to activity.user.screen_name, posts_user_path(activity.user) %> 
+            (<i>a <%= activity.user.role %>
+            <% if !activity.user.grade.nil? %>
+              in grade <%= activity.user.grade %>
+            <% end %></i>)
+          </span>
+        <% end %>
+        <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>  
+      <% end %>
+    </li>        
+  </ul>        
+<% end %>

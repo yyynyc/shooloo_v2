@@ -11,8 +11,15 @@ class UserMailer < ActionMailer::Base
     mail to: user.personal_email, subject: "Shooloo Password Reset"
   end
 
-  def signup_confirmation(user)
+  def parental_consent(user)
     @user = user
-    mail to: user.personal_email, subject: "Sign Up Confirmation"
+    mail to: user.parent_email, 
+        subject: "Confirm Your Child's Membership of Shooloo (a math program)"
+  end
+
+  def activity_alart(user)
+    @user = user
+    mail to: user.personal_email, 
+        subject: "Your Activity Alerts From Shooloo"
   end
 end

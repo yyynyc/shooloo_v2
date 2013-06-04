@@ -1,0 +1,10 @@
+class StatesController < ApplicationController
+	def create
+		@user = current_user
+		@state = State.create!(user_id: @user.id, complete: true)
+		unless @user.parent_email.nil?
+        UserMailer.parental_consent(@user).deliver
+      end
+	end
+end
+

@@ -207,8 +207,10 @@ class User < ActiveRecord::Base
           !self.school_name.nil? &&
           !self.parent_email.nil? &&
           self.rules == true &&
-          self.privacy == true
-        State.create!(user_id: self.id, complete: "true")        
+          self.privacy == true &&
+          State.where(user_id: self.id).blank?   
+        State.create!(user_id: self.id, complete: "true") 
+        UserMailer.parental_consent(self).deliver    
     elsif self.role == "teacher" &&
           !self.screen_name.nil? &&
           !self.first_name.nil? &&
@@ -218,7 +220,8 @@ class User < ActiveRecord::Base
           !self.school_url.nil? &&
           !self.personal_email.nil? &&
           self.rules == true &&
-          self.privacy == true
+          self.privacy == true &&
+          State.where(user_id: self.id).blank?   
         State.create!(user_id: self.id, complete: "true") 
     elsif !self.role == "teacher" &&
           !tself.role == "student" &&
@@ -229,8 +232,9 @@ class User < ActiveRecord::Base
           !self.social_medial_url.nil? &&
           !self.personal_email.nil? &&
           self.rules == true &&
-          self.privacy == true
-        State.create!(user_id: self.id, complete: "true") 
+          self.privacy == true &&
+          State.where(user_id: self.id).blank?   
+        State.create!(user_id: self.id, complete: "true")           
     end
   end
 

@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   	if @user.save
   		sign_in @user
       flash[:success] = "Welcome to Shooloo Learning!"
-      redirect_to root_path
+      redirect_to my_abilities_path
   	else
   		render 'new'
   	end

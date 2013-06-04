@@ -3,8 +3,7 @@ require 'spec_helper'
 describe User do
   before {@user = User.new(first_name: "Example", 
     last_name: "User", 
-    email: "user@example.com", 
-  	email_confirmation: "user@example.com", 
+    parent_email: "user@example.com",  
     grade: "3",
     screen_name: "some_user",
     password: "foobar",
@@ -17,7 +16,7 @@ describe User do
 
   it {should respond_to(
     :first_name, :last_name, 
-    :email, :email_confirmation,
+    :parent_email, :personal_email,
     :password, :password_confirmation, :password_digest,
     :grade, :avatar, :privacy, :rules, :admin,
     :authenticate, :remember_token, 
@@ -39,21 +38,6 @@ describe User do
     it { should be_admin }
   end
 
-  describe "when first name is not present" do
-  	before { @user.first_name = ""}
-  	it {should_not be_valid}
-  end
-
-  describe "when email is not present" do
-  	before { @user.email = @user.email_confirmation = ""}
-  	it {should_not be_valid}
-  end
-
-  describe "when email does not match email_confirmation" do
-    before { @user.email_confirmation = "mismatch" }
-    it {should_not be_valid}
-  end
-
   describe "when user last_name is too long" do
   	before { @user.last_name = "a" * 26}
   	it {should_not be_valid}
@@ -67,7 +51,7 @@ describe User do
                       foo@bar_baz.com 
                       foo@bar+baz.com]
       addresses.each do |invalid_address|
-        @user.email = invalid_address
+        @user.parent_email = invalid_address
         @user.should_not be_valid
       end      
     end
@@ -80,8 +64,7 @@ describe User do
                      frst.lst@foo.jp 
                      a+b@baz.cn]
       addresses.each do |valid_address|
-        @user.email = valid_address
-        @user.email_confirmation = valid_address
+        @user.parent_email = valid_address
         @user.should be_valid
       end      
     end
@@ -91,10 +74,9 @@ describe User do
     let(:mixed_case_email) { "Foo@ExAMPle.CoM" }
 
     it "should be saved as all lower-case" do
-      @user.email = mixed_case_email
-      @user.email_confirmation = mixed_case_email
-      @user.save!
-      @user.reload.email.should == mixed_case_email.downcase
+      @user.parent_email = mixed_case_email
+      @user.update_attributes!(grade: 9)
+      @user.reload.parent_email.should == mixed_case_email.downcase
     end
   end
 

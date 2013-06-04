@@ -3,8 +3,7 @@ FactoryGirl.define do
     sequence(:screen_name)  { |n| "Person_#{n}" }
     sequence(:first_name)  { |n| "First #{n}" }
     sequence(:last_name)  { |n| "Last #{n}" }
-    sequence(:email) { |n| "person_#{n}@example.com"} 
-    sequence(:email_confirmation) { |n| "person_#{n}@example.com"}  
+    sequence(:parent_email) { |n| "person_#{n}@example.com"}   
     password "foobar"
     password_confirmation "foobar"
     privacy "true"

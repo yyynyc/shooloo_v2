@@ -12,7 +12,7 @@ describe "CommentPages" do
     before { visit new_post_comment_path(post) }
    
     it "should not be able to create any commdent" do
-      page.should have_content("You don't have pemission to do this.")
+      page.should have_content("Sorry")
       user.comments.count.should == 0
     end
   end

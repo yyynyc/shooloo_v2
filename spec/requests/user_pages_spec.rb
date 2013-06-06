@@ -28,17 +28,12 @@ describe "UserPages" do
     describe "with valid information" do
 
       before do
-        fill_in 'user_first_name', with: "Example"
-        fill_in 'user_last_name', with: "User"
-        fill_in 'user_email', with: "user@example.com"
-        fill_in 'user_email_confirmation', with: "user@example.com"
-        select "4", from: 'user_grade'
+        select "student", from: 'user_role'
         fill_in 'user_screen_name', with: "Test_User"
         fill_in 'user_password', with: "foobar"
         fill_in 'user_password_confirmation', with: "foobar"
         check 'user_privacy'
         check 'user_rules'
-        attach_file 'user_avatar', Rails.root.join('spec', 'support', 'math.jpg')
       end
 
       it "should create a user" do
@@ -71,7 +66,7 @@ describe "UserPages" do
       describe "with invalid information" do
         let(:new_email) {"new@example"}
         before do
-          fill_in "Parent's email", with: new_email
+          fill_in "My parent's email", with: new_email
           click_button "Update My Information"
         end  
 
@@ -85,26 +80,24 @@ describe "UserPages" do
           fill_in 'user_first_name', with: user.first_name
           fill_in 'user_last_name', with: user.last_name
           fill_in 'user_screen_name', with: new_name
-          fill_in 'user_email', with: new_email
-          fill_in 'user_email_confirmation', with: new_email
+          fill_in 'user_parent_email', with: new_email
+          fill_in 'user_school_name', with: "New School"
           select "4", from: 'user_grade'
-          fill_in 'user_password', with: user.password
-          fill_in 'user_password_confirmation', with: user.password
           attach_file 'user_avatar', Rails.root.join('spec', 'support', 'math.jpg')
           check 'user_privacy'
           check 'user_rules'
           click_button "Update My Information"
         end
 
-        it { should_not have_selector('title', text: " | ")}
+        it { should have_selector('title', text: full_title('My Abilities'))}
         it { should have_selector('div.alert.alert-success') }
         it { should have_link('Sign Out', href: signout_path) }
         specify { user.reload.screen_name.should  == new_name }
-        specify { user.reload.email.should == new_email }
+        specify { user.reload.parent_email.should == new_email }
       end
     end
 
-    describe "edit with acceptedt authorization" do
+    describe "edit with accepted authorization" do
       let(:user) { FactoryGirl.create(:user) }
       let(:authorizer) { FactoryGirl.create(:user)}
       before do

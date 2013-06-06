@@ -16,7 +16,6 @@ gem 'ransack', :git => "git://github.com/ernie/ransack.git"
 gem 'fancybox-rails'
 gem 'whenever', :require => false
 gem 'cancan'
-gem 'wicked'
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'
@@ -26,10 +25,6 @@ group :development, :test do
   gem 'annotate', '2.5.0'
   gem 'pry-rails'
   gem 'pry-nav'
-end
-
-group :development do
-  gem "letter_opener"
 end
 
 # Gems used only for assets and not required

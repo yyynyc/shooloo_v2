@@ -19,7 +19,7 @@ describe "PostPages" do
       end
 
     it "should not be able to create any post" do
-      page.should have_content("You don't have pemission to do this. Get referrals or authorization first.")
+      page.should have_content("Sorry")
       user.posts.count.should == 0
     end
   end

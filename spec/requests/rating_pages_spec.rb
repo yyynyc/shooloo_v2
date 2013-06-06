@@ -19,7 +19,7 @@ describe "RatingPages" do
 	   	before { visit new_post_rating_path(post) }
 	   
 	    it "should not be able to create any rating" do
-	      page.should have_content("You don't have pemission to do this.")
+	      page.should have_content("Sorry")
 	      user.ratings.count.should == 0
 	    end
 	end 

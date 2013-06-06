@@ -67,7 +67,7 @@
                       <li>
                         <%= link_to " Grant Referrals", 
                             referrals_path %>
-                      </li>
+                      </li>        
                     <% elsif can? :update, Referral %>
                       <li>
                         <%= link_to " Grant Referrals", 
@@ -96,7 +96,18 @@
                         <%= link_to "Request Referrals", 
                             new_referral_path %>
                       </li>
-                    <% end %> 
+                    <% end %>
+                    <% if current_user.admin? %>
+                      <li class="divider"></li>
+                      <li>
+                        <%= link_to "Request Authorizations", 
+                            new_authorization_path %>
+                      </li>
+                      <li>    
+                        <%= link_to "Request Referrals", 
+                            new_referral_path %>
+                      </li>
+                    <% end %>
                   </ul>
                 </li>
                 <li id="fat-menu" class="dropdown">

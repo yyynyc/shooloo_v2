@@ -4,12 +4,12 @@ class User < ActiveRecord::Base
     :password, :password_confirmation,
     :avatar, :avatar_remote_url, :privacy, :rules,
     :school_name, :school_url, :social_medial_url,
-    :referrals_attributes, :authorizations_attributes, :admin
+    :referrals_attributes, :authorizations_attributes
   attr_reader :avatar_remote_url
   has_attached_file :avatar, 
     :styles => {  :small => "60x60#",
                   :thumb => "100x100#" }, 
-      default_url: "/attachments/blank.png",
+      default_url: "/attachments/blank.jpg",
       url: "/attachments/users/:id/:style/:basename.:extension",
       path: ":rails_root/public/attachments/users/:id/:style/:basename.:extension"
   
@@ -99,8 +99,8 @@ class User < ActiveRecord::Base
   validates :last_name, length: {maximum: 25}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :parent_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX } 
-  validates :personal_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }#,
-    #uniqueness: {case_sensitive: false} 
+  validates :personal_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX },
+    uniqueness: {case_sensitive: false} 
   #validates_presence_of :school_name, :if => :active_student?
   #validates_confirmation_of :email, on: :create
   #validates_attachment_presence :avatar

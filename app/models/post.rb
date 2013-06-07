@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
   attr_accessible :answer, :grade, :question, 
-    :photo, :photo_remote_url, :image_host, :category
+    :photo, :photo_remote_url, :image_host, :category, :user_id
   attr_reader :photo_remote_url
   belongs_to :user
 

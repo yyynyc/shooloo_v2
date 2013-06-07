@@ -1,9 +1,13 @@
 <% unless current_user?(user) %>
-  <div id="nudge_form_<%= user.id %>">
-  <% if current_user.nudging?(user) %>
-    <%= render partial: 'users/nudge_reversed', locals: {user: user} %>
-  <% else %>
-    <%= render partial: 'users/nudge_initiate', locals: {user: user} %>
-  <% end %>
-  </div>
+	<% if can? :create, Nudge %>	
+	  	<div id="nudge_form_<%= user.id %>">
+		  <% if current_user.nudging?(user) %>
+		    <%= render partial: 'users/nudge_reversed', locals: {user: user} %>
+		  <% else %>
+		    <%= render partial: 'users/nudge_initiate', locals: {user: user} %>
+		  <% end %>
+  		</div>
+  	<% else %>
+		<%= link_to "NUDGE", my_abilities_path(error: true), class: "btn btn-medium btn-success" %>
+	<% end %> 	
 <% end %>

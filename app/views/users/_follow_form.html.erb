@@ -1,9 +1,13 @@
 <% unless current_user?(user) %>
-  <div id="follow_form_<%= user.id %>">
-	  <% if current_user.following?(user) %>
-	    <%= render partial: 'users/unfollow', locals: {user: user} %>
-	  <% else %>
-	    <%= render partial: 'users/follow', locals: {user: user} %>
-	  <% end %>
-  </div>
+	<% if can? :create, Relationship %>	
+	  	<div id="follow_form_<%= user.id %>">
+			<% if current_user.following?(user) %>
+			    <%= render partial: 'users/unfollow', locals: {user: user} %>
+			<% else %>
+			    <%= render partial: 'users/follow', locals: {user: user} %>
+			<% end %>
+	  	</div>
+	<% else %>
+		<%= link_to "Follow", my_abilities_path(error: true), class: "btn btn-medium btn-primary" %>
+	<% end %>  	
 <% end %>

@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
     before_filter :signed_in_user
     before_filter :correct_user, only: :destroy
-    load_and_authorize_resource
+    load_and_authorize_resource except: :new
     
 	def index
         render 'new'

@@ -6,6 +6,12 @@ class UsersController < ApplicationController
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: [:destroy]
 
+  def my_abilities
+    if params[:error]
+      flash.now[:error] = "Sorry, but you don't have the ability to do this now. Get referrals or authorization first."
+    end
+  end
+
   def new
   	@user = User.new
     @authorization = @user.authorizations.build

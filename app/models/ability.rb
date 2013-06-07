@@ -12,7 +12,7 @@ class Ability
             user.referrals.where(approval: "accepted").any? &&
             user.authorized_users.count >=15
             can :update, [Authorization, Referral]
-            can :create, Authorization
+            can [:create, :destroy], [Referral, Authorization]
             can :manage, Alarm
             can :crud, [Post, Comment, Rating]
             can [:create, :destroy], [Like, Relationship, Nudge]
@@ -23,6 +23,7 @@ class Ability
             end
         elsif user.authorizations.where(approval: "accepted").any?
             can :update, Referral
+            can [:create, :destroy], [Referral, Authorization]
             can :crud, [Post, Comment, Rating]
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :create, Alarm
@@ -32,7 +33,7 @@ class Ability
               User.try(:user) == user || user.admin?
             end
         elsif user.referrals.where(approval: "accepted").any?
-            can [:create, :destroy], Authorization
+            can [:create, :destroy], [Referral, Authorization]
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :crud, Rating
             can :create, Alarm

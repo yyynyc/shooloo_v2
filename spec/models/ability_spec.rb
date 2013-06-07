@@ -87,7 +87,7 @@ describe Ability do
 			@ability.cannot?(:create, Nudge).should be_true
 		end
 
-		it "should be not able to create ratings" do
+		it "should not be able to create ratings" do
 			@ability.cannot?(:create, Rating).should be_true
 		end
 
@@ -152,8 +152,8 @@ describe Ability do
 			@ability.can?(:create, Alarm).should be_true
 		end
 
-		it "should NOT be able to request referrals" do
-			@ability.cannot?(:create, Referral).should be_true
+		it "should be able to request referrals" do
+			@ability.can?(:create, Referral).should be_true
 		end
 
 		it "should be able to request authorizations" do
@@ -212,12 +212,12 @@ describe Ability do
 			@ability.can?(:create, Alarm).should be_true
 		end
 
-		it "should NOT be able to request referrals" do
-			@ability.cannot?(:create, Referral).should be_true
+		it "should be able to request referrals" do
+			@ability.can?(:create, Referral).should be_true
 		end
 
-		it "should NOT be able to request authorizations" do
-			@ability.cannot?(:create, Authorization).should be_true
+		it "should be able to request authorizations" do
+			@ability.can?(:create, Authorization).should be_true
 		end
 
 		it "should be able to change read button to unread in my alerts" do
@@ -276,8 +276,8 @@ describe Ability do
 			@ability.can?(:create, Alarm).should be_true
 		end
 
-		it "should NOT be able to request referrals" do
-			@ability.cannot?(:create, Referral).should be_true
+		it "should be able to request referrals" do
+			@ability.can?(:create, Referral).should be_true
 		end
 
 		it "should be able to request authorizations" do

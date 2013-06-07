@@ -11,7 +11,6 @@ class ReferralsController < ApplicationController
       'users.role' => "teacher", 'referrals.approval' => "accepted")
     @teacher_referrer = @teachers.search(params[:q])
     @teacher_referrers = @teacher_referrer.result
-    @user=User.find(2)
   end
 
   def create

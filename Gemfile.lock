@@ -141,6 +141,8 @@ GEM
     kgio (2.8.0)
     launchy (2.3.0)
       addressable (~> 2.3)
+    letter_opener (1.1.1)
+      launchy (~> 2.2)
     libwebsocket (0.1.7.1)
       addressable
       websocket
@@ -286,6 +288,7 @@ DEPENDENCIES
   guard-spork (= 1.2.0)
   jquery-rails (= 2.0.2)
   launchy
+  letter_opener
   paperclip!
   pg
   pry-nav

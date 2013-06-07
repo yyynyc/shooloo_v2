@@ -7,5 +7,7 @@ describe State do
     @user.save!
   end
 
-  @user.states.should_not == []
+  it "a new record in State should be automatically created once a user completes profile info" do
+  	@user.states.should_not be_empty
+  end
 end

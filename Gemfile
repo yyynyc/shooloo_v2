@@ -27,6 +27,8 @@ group :development, :test do
   gem 'pry-nav'
 end
 
+gem "letter_opener", :group => :development
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

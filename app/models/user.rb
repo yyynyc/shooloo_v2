@@ -209,7 +209,7 @@ class User < ActiveRecord::Base
           self.rules == true &&
           self.privacy == true &&
           State.where(user_id: self.id).blank?   
-        State.create!(user_id: self.id, complete: "true") 
+        State.create!(user_id: self.id, complete: "true")
         UserMailer.parental_consent(self).deliver    
     elsif self.role == "teacher" &&
           !self.screen_name.nil? &&

@@ -1,8 +1,12 @@
 <div id="like_form_<%= post.id %>">
-  <% if current_user.likes.find_by_liked_post_id(post.id).nil? %>
-   	<%= render partial: 'likes/like', locals: {like: like, post: post} %>
-  <% else %>
-    <%= render partial: 'likes/unlike', locals: {like: like, post: post} %>
-  <% end %>
+	<% if can? :create, Like %>	
+	  <% if current_user.likes.find_by_liked_post_id(post.id).nil? %>
+	   	<%= render partial: 'likes/like', locals: {like: like, post: post} %>
+	  <% else %>
+	    <%= render partial: 'likes/unlike', locals: {like: like, post: post} %>
+	  <% end %>
+	<% else %>
+		<%= link_to raw('<i class="icon-heart icon-white"></i> Like'), my_abilities_path(error: true), class: "btn btn-small btn-success" %>
+	<% end %>	  
  </div>
  

@@ -1,0 +1,47 @@
+<% if current_user.admin? %>
+	<p class="text_center"><span class="search-label">
+		<%= f.label :first_name_cont, "First Name" %>
+	</span>
+	<span class="search-field">
+		<%= f.text_field :first_name_cont %>
+	</span>
+	<span class="search-label">
+		<%= f.label :last_name_cont, "Last Name" %>
+	</span>
+	<span class="search-field">
+		<%= f.text_field :last_name_cont %>
+	</span>
+	<span class="search-label">
+		<%= f.label :parent_email_cont, "Parent's email" %>
+	</span>
+	<span class="search-field">
+		<%= f.text_field :parent_email_cont %>
+	</span>	
+	<span class="search-label">
+		<%= f.label :personal_email_cont, "Personal email" %>
+	</span>
+	<span class="search-field">
+		<%= f.text_field :personal_email_cont %>
+	</span></p>	
+<% end %>			
+<p class="text_center"><span class="search-label">
+	<%= f.label :role_cont, "Role" %> 
+</span>
+<span class="search-field">
+	<%= f.select :role_cont, options: [nil, "student", "teacher", "parent", "tutor"]%>
+</span>	
+<span class="search-label">
+	<%= f.label :grade_eq, "Grade" %> 
+</span>
+<span class="search-field">
+	<%= f.select :grade_eq, options: [nil, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]%>
+</span>	
+<span class="search-label">
+	<%= f.label :screen_name_cont, "Screen Name" %>
+</span>
+<span class="search-field">
+	<%= f.text_field :screen_name_cont %>
+</span>	
+<span class="search-label">
+	<%= f.submit "Search", class: "btn btn-small btn-default" %>
+</span></p>

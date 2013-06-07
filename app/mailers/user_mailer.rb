@@ -19,7 +19,8 @@ class UserMailer < ActionMailer::Base
 
   def activity_alert(user)
     @user = user
-    unless Activity.where(read: nil, recipient_id: @user.id).blank? 
+    unless @user.personal_email.blank? || 
+        Activity.where(read: nil, recipient_id: @user.id).blank? 
       mail to: user.personal_email, 
         subject: "Your Activity Alerts From Shooloo"
     end

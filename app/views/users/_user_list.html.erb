@@ -1,0 +1,68 @@
+<ul class="users">
+  	<li>
+  		<div class='row'>
+	  		<div class='span1'>
+    			<%= link_to image_tag(user.avatar.url(:small), 
+    				alt: "Shooloo member #{user.screen_name}", 
+    				title: "Shooloo member #{user.screen_name}"), 
+    				posts_user_path(user) %>	    			
+    		</div>
+    		<div class="span7">
+	    		<span class="alert-heading">
+	    			<%= link_to user.screen_name, posts_user_path(user) %>
+		    		-- <%= user.role %>
+		    		<% if !user.grade.nil? %>
+		    		 in grade <%= user.grade %> 
+		      		<% end %> --
+		      	</span><br/>
+	      		is <a href="<%= following_user_path(user) %>">
+	      		following <%= user.followed_users.count %></a> members,
+	      		has <a href="<%= followers_user_path(user) %>">
+	      		<%= user.followers.count %> followers</a>, <br/>
+	      		published <a href="<%= posts_user_path(user) %>" >
+				<%= pluralize(user.posts.count, "post") %></a>, 
+	      		rated <a href="<%= rated_posts_user_path(user) %>" >
+				<%= pluralize(user.rated_posts.count, "post") %></a>, 
+	      		and commented <a href="<%= commented_posts_user_path(user) %>" >
+				<%= pluralize(user.commented_posts.count, "post") %></a>.<br/>
+			</div>
+			<div class="span1">
+				<% if current_user.admin? %>
+					<%#= user.reputation(7.days) %>
+					<%#= user.reputation(30.days) %>
+					<div class="row">
+						<strong>POINTS</strong><br/>
+					</div>
+					<div>
+						<span class="text_center"><%= user.reputation(90.days) %></span>
+					</div>
+				<% else %>
+					&nbsp;
+				<% end %>
+			</div>
+			<div class='span3' >
+				<span class='search-field'>
+					<%= render partial: 'nudge_form', locals:{user: user} %>
+				</span>
+				<span class='search-label'>					
+					<%= render partial: 'follow_form', locals:{user: user} %>
+				</span>
+			</div>
+		</div>
+		<div class='row'>
+			<span class='follow-nudge'>	
+      			<% if current_user.admin? && !user.admin? %><br/>
+	      			<%= link_to "delete", user, method: :delete, data: 
+	      				{confirm: "Are you sure?" }%>
+	      			user #<%= user.id %>,
+	  				<%= user.first_name %>
+	  				<%= user.last_name %>, 
+	  				Parent Email: 
+	  					<%= user.parent_email unless user.parent_email.nil? %>,
+	  				Personal email: 
+	  					<%= user.personal_email unless user.personal_email.nil? %>.
+	      		<% end %>
+	      	</span>	
+      	</div>	
+  	</li>
+</ul>	

@@ -1,12 +1,15 @@
-every 1.day, :at => '4:00 am' do
+every 1.day, :at => '3:00 am' do
 	runner "Activity.destroy_old_data"
 end
 
-#unless @user.personal_email.nil?
-	#every 1.day, :at => '2:00 pm' do
-		#runner "UserMailer.activity_alert(@user).deliver"
-	#end
-#end
+every 1.day, :at => '4:00 am' do
+	runner "Nudge.destroy_old_data"
+end
+
+every 1.day, :at => '5:00 am' do
+	runner "User.daily_alert"
+end
+
 
 # Use this file to easily define all of your cron jobs.
 #

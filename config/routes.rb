@@ -65,6 +65,7 @@ resources :user_steps
   match '/alarmed_posts', to: "alarms#alarmed_posts"
   match '/my_alerts', to: "users#show_activity"
   match '/my_abilities', to: "users#my_abilities"
+  match 'hidden', to: "users#hidden"
  
 
   # The priority is based upon order of creation:

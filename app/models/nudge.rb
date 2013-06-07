@@ -12,4 +12,7 @@ class Nudge < ActiveRecord::Base
     	user_id: self.nudger_id, recipient_id: self.nudged_id)
   end
 
+    def self.destroy_old_data
+  		delete_all(['created_at < ?', 7.days.ago])
+  	end
 end	

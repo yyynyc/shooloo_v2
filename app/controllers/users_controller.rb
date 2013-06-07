@@ -24,6 +24,14 @@ class UsersController < ApplicationController
     @search.build_condition
   end
 
+  def hidden
+    @search_hidden = User.hidden.search(params[:q])
+    @users_hidden = @search_hidden.result.paginate(page: params[:page], 
+      per_page: 30, order: 'screen_name ASC')
+    @search_hidden.build_condition
+    render 'hidden'
+  end
+
   def show
     index
     render :action =>'index'

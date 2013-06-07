@@ -281,6 +281,10 @@ end
     first.count.to_i
   end
 
+  def self.daily_alert
+    User.all.each { |u| UserMailer.activity_alert(u).deliver }
+  end
+
   private
 
     def create_remember_token

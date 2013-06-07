@@ -1,13 +1,6 @@
-<% if activity.trackable %>
-	<span class='btn-formtastic'><img src="/attachments/congrats.gif" 
-        alt=" Shooloo Math Can Do" width='80'></span>
-    <span class='alert-heading'>
-          On <%= activity.created_at.strftime("%b %d, %Y") %>, <%= activity.recipient.screen_name %> gained the power to
-		<strong><%= link_to "Grant Authorizations", authorizations_path %></strong>. 
-	</span>	
+<% if activity.trackable %>	
+	On <%= activity.created_at.strftime("%b %d, %Y") %>, <%= activity.recipient.screen_name %> gained the power to
+	<strong><%= link_to "Grant Authorizations", authorizations_path %></strong>.
 <% else %>
-	<span class='alert-heading'>
-		<%= activity.recipient.screen_name %> gained the power to grant authorization but then lost it. 
-	</span>
-	<i class='icon-trash'></i>
+	<%= activity.recipient.screen_name %> gained the power to grant authorization but then lost it. 
 <% end %> 

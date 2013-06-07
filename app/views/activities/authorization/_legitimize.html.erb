@@ -1,6 +1,6 @@
 <% if activity.trackable %>	
-	On <%= activity.created_at.strftime("%b %d, %Y") %>, <%= activity.recipient.screen_name %> gained the power to
-	<strong><%= link_to "Grant Authorizations", authorizations_path %></strong>.
+	On <%= activity.created_at.strftime("%b %d, %Y") %>, <%= link_to activity.recipient.screen_name, posts_user_path(activity.recipient) %> gained the power to
+	<strong>grant authorizations</strong>.
 <% else %>
 	<%= activity.recipient.screen_name %> gained the power to grant authorization but then lost it. 
 <% end %> 

@@ -28,4 +28,8 @@ class Authorization < ActiveRecord::Base
       self.authorized.update_attributes!(visible: true)
     end     
   end
+
+  before_destroy do
+    self.authorized.update_attributes!(visible: false)
+  end
 end

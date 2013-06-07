@@ -67,8 +67,8 @@
 		    		-- <%= user.role %>
 		    		<% if !user.grade.nil? %>
 		    		 in grade <%= user.grade %> 
-		      		<% end %>
-		      	</span>--<br/>
+		      		<% end %> --
+		      	</span><br/>
 	      		is <a href="<%= following_user_path(user) %>">
 	      		following <%= user.followed_users.count %></a> members,
 	      		has <a href="<%= followers_user_path(user) %>">

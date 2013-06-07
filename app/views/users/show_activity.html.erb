@@ -42,8 +42,7 @@
                 <%= link_to activity.user.screen_name, posts_user_path(activity.user) %> 
                 (<i>a <%= activity.user.role %>
                 <% if !activity.user.grade.nil? %>
-                  in grade <%= activity.user.grade %>
-                <% end %></i>)
+                  in grade <%= activity.user.grade %><% end %></i>)
               </span>
             <% end %>
             <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>  

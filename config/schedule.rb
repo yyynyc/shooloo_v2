@@ -2,11 +2,11 @@ every 1.day, :at => '4:00 am' do
 	runner "Activity.destroy_old_data"
 end
 
-unless @user.personal_email.nil?
-	every 1.day, :at => '2:00 pm' do
-		runner "UserMailer.activity_alert(@user).deliver"
-	end
-end
+#unless @user.personal_email.nil?
+	#every 1.day, :at => '2:00 pm' do
+		#runner "UserMailer.activity_alert(@user).deliver"
+	#end
+#end
 
 # Use this file to easily define all of your cron jobs.
 #

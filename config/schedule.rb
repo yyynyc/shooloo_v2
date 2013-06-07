@@ -4,7 +4,8 @@ end
 
 unless @user.personal_email.nil?
 	every 1.day, :at => '2:00 pm' do
-	runner "UserMailer.activity_alert(@user).deliver"
+		runner "UserMailer.activity_alert(@user).deliver"
+	end
 end
 
 # Use this file to easily define all of your cron jobs.

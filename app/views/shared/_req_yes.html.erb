@@ -1,14 +1,14 @@
 <span class="yes">
 	<li>
 		<% if can? :create, Rating %> 
-		<strong>Request referrals and authorizations:</strong>
-		<%= render 'shared/can_yes' %>
+			<strong>Request referrals and authorizations:</strong>
+			<%= render 'shared/can_yes' %>
 		<% elsif can? :create, Post %>
-		<strong>Request referrals and authorizations:</strong>
-		<%= render 'shared/can_yes' %>
+			<strong>Request referrals and authorizations:</strong>
+			<%= render 'shared/can_yes' %>
 		<% else %>
-		<strong>Request <%=link_to "referrals", new_referral_path %> and <%=link_to "authorizations", new_authorization_path %>:</strong>
-		<%= render 'shared/can_yes' %>
+			<strong>Request <%=link_to "referrals", new_referral_path %> and <%=link_to "authorizations", new_authorization_path %>:</strong>
+			<%= render 'shared/can_yes' %>
 		<% end %>
 	</li>
 </span>

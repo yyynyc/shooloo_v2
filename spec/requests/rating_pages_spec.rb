@@ -15,8 +15,11 @@ describe "RatingPages" do
 
 	before { sign_in user }
 		
-	describe "whe user does not have referral" do
-	   	before { visit new_post_rating_path(post) }
+	describe "user who does not have referral" do
+	   	before do
+	   	 visit new_post_rating_path(post)
+	   	 click_button "Create Rating" 
+	   	end
 	   
 	    it "should not be able to create any rating" do
 	      page.should have_content("Sorry")
@@ -24,7 +27,7 @@ describe "RatingPages" do
 	    end
 	end 
 
-  	describe "when user has referral" do
+  	describe "user who has referral" do
     	before {user.referrals.create!(referrer_id: referrer.id, 
         approval: "accepted")} 
 

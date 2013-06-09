@@ -216,7 +216,7 @@ describe "UserPages" do
 
         it "should not increment the followed user count" do
           expect do
-            click_button "Follow"
+            click_link "Follow"
           end.to change(user.followed_users, :count).by(0)
         end
       end

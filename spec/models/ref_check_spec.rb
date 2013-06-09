@@ -12,7 +12,10 @@ describe RefCheck do
 
   it { should be_valid }
   its(:referral) { should == referral }
-  its(:referral) {should_receive(:update_attributes!)}
+
+  describe "referral should be updated automatically once ref_check is complete" do
+     its(:referral) {should_receive(:update_attributes!)}
+  end 
 
   describe "ref_checks methods" do    
     it { should respond_to(:referral_id, :name_true, :role_true,

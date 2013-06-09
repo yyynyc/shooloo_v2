@@ -9,9 +9,12 @@ describe "CommentPages" do
   let(:post) { FactoryGirl.create(:post, user: user) }
 
   describe "whe user does not have authorization" do
-    before { visit new_post_comment_path(post) }
+    before do
+      visit new_post_comment_path(post)
+      click_button "Submit Comment"
+    end  
    
-    it "should not be able to create any commdent" do
+    it "should not be able to create any comment" do
       page.should have_content("Sorry")
       user.comments.count.should == 0
     end

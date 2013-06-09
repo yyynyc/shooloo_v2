@@ -1,56 +1,54 @@
 Dear <%=@user.first_name %>(<%= @user.screen_name %>),
 
-Check out these activities you've missed on Shooloo:
+Check out these activities you've missed on Shooloo. For more details, visit https://fun.shooo.org/my_alerts/.
 
 <% Activity.where(read: nil, recipient_id: @user.id).order('created_at DESC').each do |activity| %> 
-  <% unless activity.user == @user %>
-    <% if activity.user.nil? %> 
-        A user who has commented or rated your posts or who has followed you has been deleted from this web site.
-    <% else %>          
-      <% if activity.trackable_type == "Alarm" %>
-        An ALARM was raised on your post or comment.
-      <% elsif activity.trackable_type == "Authorization" %>
-        <% if activity.action == "legitimize" %>
-      	"Congrats! You gained the power to grant authorizations."
-        <% elsif activity.action == "accept" %>
-        "Congrats! You have been authorized to publish your own posts and comments." 
-        <% elsif activity.action == "create" %>
-        <%= activity.user.first_name %> <%= activity.user.last_name %> has requested your authorization. 
-        <% elsif activity.action == "decline" %>
-        "Sorry, your authorization request has been declined." %>
-        <% end %>
-      <% elsif activity.trackable_type == "Comment" %>
-        <%= activity.user.screen_name %> has commented on your post.
-      <% elsif activity.trackable_type == "Like" %>
-        <%= activity.user.screen_name %> has liked your post or comment.  
-      <% elsif activity.trackable_type == "Nudge" %>
-        <%= activity.user.screen_name %> has nudged you.
-      <% elsif activity.trackable_type == "Post" %>
-        <% if activity.action == "create" %>
-        <%= activity.user.screen_name %> has published a new post.
-        <% elsif activity.action == "destroy" %>
-        <%= activity.user.screen_name %> has deleted a post.
-        <% elsif activity.action == "update" %>
-        <%= activity.user.screen_name %> has updated a post.
-        <% end %> 
-      <% elsif activity.trackable_type == "Rating" %>
-        <%= activity.user.screen_name %> has rated your post. 
-      <% elsif activity.trackable_type == "Relationship" %>
-        <%= activity.user.screen_name %> is now following you. 
-      <% elsif activity.trackable_type == "Referral" %>
-        <% if activity.action == "accept" %>
-        Congrats! Your referral request has been approved. Check out the new abilities you have gained by visiting fun.shooloo.org.
-        <% elsif activity.action == "create" %>
-        <%= activity.user.first_name %> <%= activity.user.last_name %> has requested your referral. 
-        <% elsif activity.action == "decline" %>
-        Sorry, your referral request has been declined. Update your profile information and request a new referral now.
-        <% end %>        
-      <% end %>   
-    <% end %>
+  <% if activity.user.nil? %> 
+      A user who has commented or rated your posts or who has followed you has been deleted from this web site.
+  <% else %>          
+    <% if activity.trackable_type == "Alarm" %>
+      An ALARM was raised on your post or comment.
+    <% elsif activity.trackable_type == "Authorization" %>
+      <% if activity.action == "legitimize" %>
+    	Congrats! You gained the power to grant authorizations.
+      <% elsif activity.action == "accept" %>
+      Congrats! You have been authorized to publish your own posts and comments. 
+      <% elsif activity.action == "create" %>
+      <%= activity.user.first_name %> <%= activity.user.last_name %> has requested your authorization. 
+      <% elsif activity.action == "decline" %>
+      Sorry, your authorization request has been declined.
+      <% end %>
+    <% elsif activity.trackable_type == "Comment" %>
+      <%= activity.user.screen_name %> has commented on your post.
+    <% elsif activity.trackable_type == "Like" %>
+      <%= activity.user.screen_name %> has liked your post or comment.  
+    <% elsif activity.trackable_type == "Nudge" %>
+      <%= activity.user.screen_name %> has nudged you.
+    <% elsif activity.trackable_type == "Post" %>
+      <% if activity.action == "create" %>
+      <%= activity.user.screen_name %> has published a new post.
+      <% elsif activity.action == "destroy" %>
+      <%= activity.user.screen_name %> has deleted a post.
+      <% elsif activity.action == "update" %>
+      <%= activity.user.screen_name %> has updated a post.
+      <% end %> 
+    <% elsif activity.trackable_type == "Rating" %>
+      <%= activity.user.screen_name %> has rated your post. 
+    <% elsif activity.trackable_type == "Relationship" %>
+      <%= activity.user.screen_name %> is now following you. 
+    <% elsif activity.trackable_type == "Referral" %>
+      <% if activity.action == "accept" %>
+      Congrats! Your referral request has been approved. Check out the new abilities you have gained by visiting fun.shooloo.org.
+      <% elsif activity.action == "create" %>
+      <%= activity.user.first_name %> <%= activity.user.last_name %> has requested your referral. 
+      <% elsif activity.action == "decline" %>
+      Sorry, your referral request has been declined. Update your profile information and request a new referral now.
+      <% end %>        
+    <% end %>   
   <% end %>
 <% end %>
 
-Visit https://fun.shooloo.org now and enjoy the fun!
+Visit https://fun.shooloo.org/my_alerts now and enjoy the fun!
 
 The Shooloo Team
 

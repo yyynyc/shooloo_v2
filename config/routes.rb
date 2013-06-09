@@ -15,6 +15,7 @@ resources :relationships, only: [:create, :destroy]
 resources :nudges, only: [:create, :destroy]
 resources :posts do
   resources :likes, only: [:create, :destroy]
+  resources :invites, only: :create
   resources :ratings 
   resources :comments do
     resources :alarms, only: [:create, :destroy]
@@ -36,6 +37,7 @@ resources :comments do
 end
 resources :alarms
 resources :likes, only: [:create, :destroy]
+resources :invites, only: :create
 resources :activities
 resources :password_resets
 resources :authorizations do 

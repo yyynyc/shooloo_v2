@@ -14,7 +14,7 @@ class Ability
             can :update, [Authorization, Referral]
             can [:create, :destroy], [Referral, Authorization]
             can :manage, Alarm
-            can :crud, [Post, Comment, Rating]
+            can :crud, [Post, Comment, Invite, Rating]
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :read, :all
             can :update, Activity         
@@ -24,7 +24,7 @@ class Ability
         elsif user.authorizations.where(approval: "accepted").any?
             can :update, Referral
             can [:create, :destroy], [Referral, Authorization]
-            can :crud, [Post, Comment, Rating]
+            can :crud, [Post, Comment, Invite, Rating]
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :create, Alarm
             can :read, :all

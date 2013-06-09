@@ -3,7 +3,7 @@ class LikesController < ApplicationController
   load_and_authorize_resource
 
   def new
-    @like = Like.post
+    @like = Like.new
     @post  = Post.find(params[:post_id])    
     @comment = Comment.find(params[:comment_id])
   end

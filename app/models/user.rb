@@ -66,6 +66,12 @@ class User < ActiveRecord::Base
           source: :authorized
   accepts_nested_attributes_for :authorizations
 
+  has_many :invites, foreign_key: "inviter_id", dependent: :destroy
+  has_many :invitees, through: :invites
+  has_many :reverse_invites, foreign_key: "invitee_id",
+            class_name:  "Invite", dependent: :destroy
+  has_many :inviters, through: :reverse_invites
+
   before_save do
     create_remember_token
   end

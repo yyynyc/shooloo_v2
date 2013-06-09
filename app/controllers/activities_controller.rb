@@ -3,8 +3,8 @@ class ActivitiesController < ApplicationController
 	load_and_authorize_resource
 	
 	def index
-    	@activities = Activity.paginate(page: params[:page], per_page: 30, 
-    		order: 'created_at DESC')
+    	@activities = Activity.joins(:user).where(users: {admin: false}).paginate(
+    		page: params[:page], per_page: 30, order: 'created_at DESC')
   	end
 
   	def update

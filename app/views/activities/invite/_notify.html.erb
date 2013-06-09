@@ -1,0 +1,10 @@
+<% if activity.trackable %>	
+	<strong>INVITED</strong> his/her followers to comment on
+	post #<%= link_to activity.trackable.post.id, new_post_comment_path(activity.trackable.post) %> 
+	written by 
+	<%= link_to activity.trackable.post.user.screen_name, posts_user_path(activity.trackable.post.user) %>
+	in <i><%= activity.trackable.post.user.grade %></i>
+	on <%= activity.created_at.strftime("%b %d, %Y") %>.	
+<% else %>
+	sent an invitation but has since withdrawn it.
+<% end %>

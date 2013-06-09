@@ -29,6 +29,10 @@ class Post < ActiveRecord::Base
   has_many :improvements, through: :ratings
   has_many :operations, through: :ratings
   has_many :flags, through: :ratings
+
+  has_many :invites, dependent: :destroy
+  has_many :inviters, through: :invites
+  has_many :invitees, through: :invites
   
   validates_presence_of :user_id, :question, :grade, :category
   validates :answer, presence: true, length: {maximum: 100}

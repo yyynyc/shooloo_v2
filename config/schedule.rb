@@ -1,12 +1,12 @@
-every 1.day, :at => '3:00 am' do
+every :day, :at => '3:00 am' do
 	runner "Activity.destroy_old_data"
 end
 
-every 1.day, :at => '4:00 am' do
+every :day, :at => '4:00 am' do
 	runner "Nudge.destroy_old_data"
 end
 
-every 1.day, :at => '5:00 am' do
+every :day, :at => '5:00 am' do
 	runner "User.daily_alert"
 end
 

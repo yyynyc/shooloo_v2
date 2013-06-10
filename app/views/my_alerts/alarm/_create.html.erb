@@ -17,7 +17,7 @@
 		<% if current_user == activity.trackable.alarmed_comment.commenter %>
 			<span class='alert-heading'>
 				your comment 
-				on <%= link_to "a post (##{activity.trackable.commented_post.id}) ", new_post_comment_path(activity.trackable.alarmed_comment.commented_post) %>.
+				on <%= link_to "a post (##{activity.trackable.alarmed_comment.commented_post.id}) ", new_post_comment_path(activity.trackable.alarmed_comment.commented_post) %>.
 			</span>	
 			<i class='icon-bell icon-medium'></i>	<br/>
 			No one other than teachers can see the comment now. If you believe your comment was clean and friendly, you may ask your teacher to unalarm it. 

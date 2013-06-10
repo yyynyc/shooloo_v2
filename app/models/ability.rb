@@ -17,7 +17,7 @@ class Ability
             can :crud, [Post, Comment, Invite, Rating]
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :read, :all
-            can :update, Activity         
+            can :crud, Activity         
             can :update, User do |guest|
               User.try(:user) == user || user.admin?
             end
@@ -28,7 +28,7 @@ class Ability
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :create, Alarm
             can :read, :all
-            can :update, Activity
+            can :crud, Activity
             can :update, User do |guest|
               User.try(:user) == user || user.admin?
             end
@@ -37,7 +37,7 @@ class Ability
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :crud, Rating
             can :create, Alarm
-            can :update, Activity
+            can :crud, Activity
             can :update, User do |guest|
               User.try(:user) == user || user.admin?
             end 
@@ -45,13 +45,13 @@ class Ability
         elsif user.states.where(complete: true).any?
             can [:create, :destroy], [Referral, Authorization]
             can :read, :all
-            can :update, Activity
+            can :crud, Activity
             can :update, User do |guest|
               User.try(:user) == user || user.admin?
             end
         else
             can :read, :all
-            can :update, Activity
+            can :crud, Activity
             can :update, User do |guest|
               User.try(:user) == user || user.admin?
             end

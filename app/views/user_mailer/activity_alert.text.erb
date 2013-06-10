@@ -36,6 +36,8 @@ Check out these activities you've missed on Shooloo. For more details, visit htt
       <%= activity.user.screen_name %> has rated your post. 
     <% elsif activity.trackable_type == "Relationship" %>
       <%= activity.user.screen_name %> is now following you. 
+    <% elsif activity.trackable_type == "Invite" %>
+      <%= activity.user.screen_name %> has invited you to comment on a post.  
     <% elsif activity.trackable_type == "Referral" %>
       <% if activity.action == "accept" %>
       Congrats! Your referral request has been approved. Check out the new abilities you have gained by visiting fun.shooloo.org.

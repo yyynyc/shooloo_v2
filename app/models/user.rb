@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   
   has_secure_password
 
-  has_many :states, dependent: :destroy
+  has_many :states#, dependent: :destroy
   has_many :posts, dependent: :destroy, order: "updated_at DESC"
   has_many :activities, dependent: :destroy
 
@@ -66,10 +66,10 @@ class User < ActiveRecord::Base
           source: :authorized
   accepts_nested_attributes_for :authorizations
 
-  has_many :invites, foreign_key: "inviter_id", dependent: :destroy
+  has_many :invites, foreign_key: "inviter_id"#, dependent: :destroy
   has_many :invitees, through: :invites
   has_many :reverse_invites, foreign_key: "invitee_id",
-            class_name:  "Invite", dependent: :destroy
+            class_name:  "Invite"#, dependent: :destroy
   has_many :inviters, through: :reverse_invites
 
   before_save do
@@ -105,8 +105,8 @@ class User < ActiveRecord::Base
   validates :last_name, length: {maximum: 25}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :parent_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX } 
-  validates :personal_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX },
-    uniqueness: {case_sensitive: false} 
+  validates :personal_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }#,
+    #uniqueness: {case_sensitive: false} 
   #validates_presence_of :school_name, :if => :active_student?
   #validates_confirmation_of :email, on: :create
   #validates_attachment_presence :avatar

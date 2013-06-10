@@ -3,8 +3,8 @@ require 'will_paginate/array'
 class UsersController < ApplicationController
   before_filter :signed_in_user
   skip_before_filter :signed_in_user, only: [:new, :create]
-  #before_filter :correct_user, only: [:edit, :update]
-  #before_filter :admin_user, only: [:destroy]
+  before_filter :correct_user, only: [:edit, :update]
+  before_filter :admin_user, only: [:destroy]
 
   def my_abilities
     if params[:error]
@@ -106,8 +106,8 @@ class UsersController < ApplicationController
   def commented_posts
     @title = "Commented Posts"
     @user = User.find(params[:id])
-    #@commented_posts = @user.comments(order: "created_at DESC").collect(&:commented_post).keep_if{ |x| x.visible == true }.uniq.paginate(page: params[:page], per_page: 30)
-    @commented_posts = @user.commented_posts.visible.paginate(page: params[:page])
+    @commented_posts = @user.comments(order: "created_at DESC").collect(&:commented_post).keep_if{ |x| x.visible == true }.uniq.paginate(page: params[:page], per_page: 30)
+    #@commented_posts = @user.commented_posts.visible.paginate(page: params[:page])
     @comment=current_user.comments.build(params[:comment])
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build

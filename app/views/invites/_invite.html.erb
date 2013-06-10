@@ -1,14 +1,14 @@
 <%#= form_for(invite, :url => post_invites_path(post.id), remote: true) do |f| %>
 <%= form_for(current_user.invites.build(post_id: post.id), remote: true) do |f| %>
 	<%= f.hidden_field :post_id, value: post.id %>
-	<button type="submit", class="btn btn-small btn-success", onclick="invite_alert()">
+	<button type="submit", class="btn btn-small btn-success", onclick="invite_confirm()">
 		<i class='icon-envelope icon-white'></i> Invite
 	</button>
 <% end %>
 
 
 <script>
-	function invite_alert (){
-		alert('All of your followers will get an invitation to comemnt on this post. Continue?');
+	function invite_confirm (){
+		confirm('All of your followers will get an invitation to comemnt on this post. Continue?');
 	}
 </script>

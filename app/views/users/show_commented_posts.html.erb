@@ -18,7 +18,8 @@
     </h3>
   	<% if @user.commented_posts.any? %>      		      	
   		<ol class="posts">
-    		<%= render partial: 'shared/feed_item', collection: @commented_posts, order: 'comments.updated_at DESC' %>
+    		<%#= render partial: 'shared/feed_item', collection: @commented_posts, order: 'comments.updated_at DESC' %>
+        <%= render partial: 'shared/feed_item', collection: @commented_posts %>
   		</ol>
   		<%= will_paginate @commented_posts %>
     <% else %>          

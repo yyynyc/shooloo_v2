@@ -6,7 +6,8 @@ resources :users do
     get :following, :followers,  
         :posts, :rated_posts, :commented_posts, :alarmed_posts,
         :comments, :alarmed_comments, 
-        :liked_posts, :liked_comments
+        :liked_posts, :liked_comments, 
+        :inviter, :invited
   end
   collection { post :search, to: 'users#index' }
 end
@@ -24,7 +25,7 @@ resources :posts do
   member do
     get :raters
   end
-  collection { post :search, to: 'posts#index' }
+  collection { get :search, to: 'posts#index' }
 end
 resources :ratings do
   member do

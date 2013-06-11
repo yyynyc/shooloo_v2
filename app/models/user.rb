@@ -230,7 +230,7 @@ class User < ActiveRecord::Base
           State.where(user_id: self.id).blank?   
         State.create!(user_id: self.id, complete: "true") 
     elsif !self.role == "teacher" &&
-          !tself.role == "student" &&
+          !self.role == "student" &&
           !self.screen_name.nil? &&
           !self.first_name.nil? &&
           !self.last_name.nil? &&

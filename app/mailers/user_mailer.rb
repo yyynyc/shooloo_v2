@@ -22,7 +22,7 @@ class UserMailer < ActionMailer::Base
     unless @user.personal_email.blank? || 
         Activity.where(read: nil, recipient_id: @user.id).blank? 
       mail to: user.personal_email, 
-        subject: user.first_name: "Your Activity Alerts From Shooloo"
+        subject: "#{user.first_name}: Your Activity Alerts From Shooloo"
     end
   end
 end

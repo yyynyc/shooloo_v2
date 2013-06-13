@@ -16,11 +16,10 @@ class PostsController < ApplicationController
   end
 
   def create
-    @query = User.joins(:authorizations).where(
-        'authorizations.approval' => 'accepted').search(params[:q])
   	@post = current_user.posts.build(params[:post])
     if @post.save
-      flash[:success] = "Good job! You have created a math problem."
+      flash[:success] = "Fantastic! You've just earned some points! 
+        You are one step clcoser toward getting a gift."
       redirect_to root_url
     else
       @feed_items = []
@@ -45,7 +44,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    track_activity @post
+     flash[:success] = "Sorry, you've just lost some points."
     redirect_to root_url
   end
 

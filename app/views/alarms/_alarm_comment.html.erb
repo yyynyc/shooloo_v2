@@ -1,4 +1,4 @@
 <%= form_for @alarm, :url => post_comment_alarms_path(post.id, comment.id) do |f| %>
   <div><%= f.hidden_field :alarmed_comment_id %></div>
-  <%= f.submit "Alarm", class: "btn btn-small btn-default", confirm: "Are you sure? Is this comment really inappropriate? Raising false alarms may ban you from this web site." %>
+  <%= f.submit "Alarm", class: "btn btn-small btn-default", confirm: "You should raise an alarm only if this comment contains users' real names or contact information, has offensive remarks, or has nothing to do with math.  If the admin decides your alarm is appropriate, she will award you bonus points. However, if you raise false alarms, penalty points will be deducted out of your account. Continue?" %>
 <% end %>

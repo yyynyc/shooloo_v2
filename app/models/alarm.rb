@@ -22,6 +22,8 @@ class Alarm < ActiveRecord::Base
 
   after_create do
     if self.alarmed_post
+      Event.create!(benefactor_id: 2, beneficiary_id: self.alarmed_post.user_id, 
+        event: "alarm post", value: ShoolooV2::ALARM_POST)
       Activity.create!(action: "create", trackable: self, 
         user_id: self.alarmer_id, recipient_id: self.alarmed_post.user_id)
       self.alarmed_post.user.authorizers.each do |authorizer|
@@ -29,6 +31,8 @@ class Alarm < ActiveRecord::Base
         user_id: self.alarmer_id, recipient_id: authorizer.id)
       end
     elsif self.alarmed_comment
+      Event.create!(benefactor_id: 2, beneficiary_id: self.alarmed_comment.commenter_id, 
+        event: "alarm comment", value: ShoolooV2::ALARM_COMMENT)
       Activity.create!(action: "create", trackable: self, 
         user_id: self.alarmer_id, recipient_id: self.alarmed_comment.commenter_id)
       self.alarmed_comment.commenter.authorizers.each do |authorizer|
@@ -43,6 +47,16 @@ class Alarm < ActiveRecord::Base
     User.where(admin: true).each do |admin|
       Activity.create!(action: "create", trackable: self, 
       user_id: self.alarmer_id, recipient_id: admin.id)
+    end
+  end
+
+  after_destroy do
+    if self.alarmed_post
+      Event.create!(benefactor_id: 2, beneficiary_id: self.alarmed_post.user_id, 
+        event: "unalarm post", value: ShoolooV2::UNALARM_POST)
+    elsif self.alarmed_comment
+      Event.create!(benefactor_id: 2, beneficiary_id: self.alarmed_comment.commenter_id, 
+        event: "unalarm comment", value: ShoolooV2::UNALARM_COMMENT)
     end
   end
 

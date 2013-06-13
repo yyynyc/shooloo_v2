@@ -37,17 +37,16 @@ class Comment < ActiveRecord::Base
      	['id=?',self.commented_post.id])
   end
 
-  after_destroy do 
-    Post.update_all([
-      "comments_count = (select count (*) from comments 
-        where commented_post_id=?)", self.commented_post.id],
-      ['id=?',self.commented_post.id])
-  end
-
   after_create do
     unless self.commenter_id == self.commented_post.user_id
       Activity.create!(action: "create", trackable: self, 
         user_id: self.commenter_id, recipient_id: self.commented_post.user_id)
+      Event.create!(benefactor_id: self.commenter_id, 
+        beneficiary_id: self.commented_post.user_id, 
+        event: "new comment", value: ShoolooV2::COMMENT_NEW)
+      Event.create!(benefactor_id: self.commenter_id, 
+        beneficiary_id: 2, 
+        event: "comment bonus", value: ShoolooV2::COMMENT_BONUS)
     end
 
      if self.commented_post.comments.count > 1
@@ -56,5 +55,18 @@ class Comment < ActiveRecord::Base
           user_id: self.commenter_id, recipient_id: c.id)
       end
     end 
+  end
+
+  after_destroy do 
+    Post.update_all([
+      "comments_count = (select count (*) from comments 
+        where commented_post_id=?)", self.commented_post.id],
+      ['id=?',self.commented_post.id])
+    Event.create!(benefactor_id: self.commenter_id, 
+      beneficiary_id: self.commented_post.user_id, 
+      event: "delete comment", value: ShoolooV2::COMMENT_DELETE)
+    Event.create!(benefactor_id: self.commenter_id, 
+      beneficiary_id: 2, 
+      event: "delete comment bounus", value: ShoolooV2::COMMENT_BONUS_DELETE)
   end
 end

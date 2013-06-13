@@ -1,5 +1,5 @@
 <%= form_for(current_user.nudges.build(nudged_id: user.id), 
 			remote: true) do |f| %>
   <div><%= f.hidden_field :nudged_id %></div>
-  <%= f.submit " NUDGE ", class: "btn btn-medium btn-success" %>
+  <%= f.submit " NUDGE ", class: "btn btn-medium btn-success", confirm: "You will EARN some points if you click, but you can NOT reverse the nudge till 7 days later. Continue?" %>
 <% end %>

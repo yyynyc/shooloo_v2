@@ -1,16 +1,18 @@
 class Invite < ActiveRecord::Base
-  attr_accessible :invitee_id, :inviter_id, :post_id
+  attr_accessible :inviter_id, :invited_post_id
 
-  belongs_to :inviter, class_name: "User"
-  belongs_to :invitee, class_name: "User"
-  belongs_to :post
+  belongs_to :inviter, class_name: "User" 
+  belongs_to :invited_post, class_name: "Post"
 
-  validates_presence_of :inviter_id, :post_id
+  validates_presence_of :inviter_id, :invited_post_id
 
   after_create do
-  	unless self.inviter == self.post.user
+  	unless self.inviter == self.invited_post.user
   		Activity.create!(action: "notify", trackable: self, 
-			user_id: self.inviter_id, recipient_id: self.post.user_id)
+			user_id: self.inviter_id, recipient_id: self.invited_post.user_id)
+      Event.create!(benefactor_id: self.inviter_id, 
+        beneficiary_id: self.invited_post.user_id, 
+        event: "invite to comment others' post", value: ShoolooV2::INVITE_COMMENT)
   	end
   	if self.inviter.admin?
   		User.all.each do |u|

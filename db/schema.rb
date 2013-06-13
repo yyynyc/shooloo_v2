@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130609161553) do
+ActiveRecord::Schema.define(:version => 20130612233321) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -66,6 +66,15 @@ ActiveRecord::Schema.define(:version => 20130609161553) do
 
   add_index "comments", ["commenter_id", "created_at"], :name => "index_comments_on_commenter_id_and_created_at"
 
+  create_table "events", :force => true do |t|
+    t.integer  "benefactor_id"
+    t.integer  "beneficiary_id"
+    t.string   "event"
+    t.integer  "value"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "flags", :force => true do |t|
     t.text     "name"
     t.integer  "rating_id"
@@ -84,9 +93,9 @@ ActiveRecord::Schema.define(:version => 20130609161553) do
 
   create_table "invites", :force => true do |t|
     t.integer  "inviter_id"
-    t.integer  "post_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "invited_post_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "likes", :force => true do |t|
@@ -200,13 +209,9 @@ ActiveRecord::Schema.define(:version => 20130609161553) do
   create_table "referrals", :force => true do |t|
     t.integer  "referred_id"
     t.integer  "referrer_id"
-    t.string   "approval",                :default => "pending"
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
-    t.boolean  "name_true"
-    t.boolean  "role_true"
-    t.boolean  "screen_name_appropriate"
-    t.boolean  "avatar_appropriate"
+    t.string   "approval",    :default => "pending", :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   add_index "referrals", ["referred_id"], :name => "index_referrals_on_referred_id"
@@ -222,6 +227,15 @@ ActiveRecord::Schema.define(:version => 20130609161553) do
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
+
+  create_table "scores", :force => true do |t|
+    t.integer  "week"
+    t.integer  "benefactor_id"
+    t.integer  "beneficiary_id"
+    t.integer  "weekly_tally"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "states", :force => true do |t|
     t.integer  "user_id"
@@ -254,8 +268,6 @@ ActiveRecord::Schema.define(:version => 20130609161553) do
     t.integer  "commented_posts_count"
     t.integer  "followers_count"
     t.integer  "followed_users_count"
-    t.integer  "auth_req_count",         :default => 0
-    t.string   "auth_status"
     t.string   "role",                   :default => "student"
     t.boolean  "visible",                :default => false
     t.string   "personal_email"

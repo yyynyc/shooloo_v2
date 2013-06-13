@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   	@user = User.new(params[:user])
   	if @user.save
   		sign_in @user
-      flash[:success] = "Welcome to Shooloo Learning!"
+      flash[:success] = "Welcome! You've just earned some points! You are one step closer toward getting a gift."
       redirect_to my_abilities_path
   	else
   		render 'new'

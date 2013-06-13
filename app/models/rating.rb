@@ -20,9 +20,12 @@ class Rating < ActiveRecord::Base
   default_scope order: 'ratings.updated_at DESC'
 
   after_create do
+    update_rating_counts
     Activity.create!(action: "create", trackable: self, 
       user_id: self.rater_id, recipient_id: self.rated_post.user_id)
-
+    Event.create!(benefactor_id: self.rater_id, 
+      beneficiary_id: self.rated_post.user_id, 
+      event: "new rating", value: ShoolooV2::RATING_NEW)
     if self.rated_post.raters.count > 1
       self.rated_post.raters.uniq.each do |r|
         Activity.create!(action: "create", trackable: self, 
@@ -31,8 +34,12 @@ class Rating < ActiveRecord::Base
     end
   end
   
-  after_save :update_rating_counts
-  after_destroy :update_rating_counts
+  after_destroy do
+    update_rating_counts
+    Event.create!(benefactor_id: self.rater_id, 
+      beneficiary_id: self.rated_post.user_id, 
+      event: "delete rating", value: ShoolooV2::RATING_DELETE)
+  end
 
   def update_rating_counts
     Post.update_all([

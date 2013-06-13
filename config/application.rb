@@ -68,4 +68,34 @@ module ShoolooV2
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
   end
+    SIGN_UP = 10
+    PROFILE_COMPLETE = 40
+    REFERRAL_REQUEST = 20 
+    REFERRAL_WITHDRAW = -20
+    AUTHORIZATION_REQUEST = 30 
+    AUTHORIZATION_WITHDRAW = -30 
+    SIGN_IN = 10
+    POST_NEW = 15
+    POST_DELETE = -15
+    COMMENT_NEW = 10    
+    COMMENT_DELETE = -10
+    COMMENT_BONUS = 15
+    COMMENT_BONUS_DELETE = -15
+    RATING_NEW = 6
+    RATING_DELETE = -6
+    REFERRAL_GRANT = 60
+    AUTHORIZATION_GRANT = 4
+    LIKE_POST = 1
+    UNLIKE_POST = -1
+    LIKE_COMMENT = 1
+    UNLIKE_COMMENT = -1
+    NUDGE = 2
+    FOLLOW = 4
+    UNFOLLOW = -4
+    INVITE_COMMENT = 5
+    ALARM_POST = -30
+    UNALARM_POST = 30
+    ALARM_COMMENT = -20
+    UNALARM_COMMENT = 20
+    INVITE_JOIN = 10
 end

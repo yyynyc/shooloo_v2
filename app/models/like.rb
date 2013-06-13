@@ -23,26 +23,30 @@ class Like < ActiveRecord::Base
   after_create do 
     if self.liked_post
       post_update_likes
+      Activity.create!(action: "create", trackable: self, 
+        user_id: self.liker_id, recipient_id: self.liked_post.user_id)
+      Event.create!(benefactor_id: self.liker_id, beneficiary_id: self.liked_post.user_id, 
+        event: "like post", value: ShoolooV2::LIKE_POST)
     elsif self.liked_comment
       comment_update_likes
+      Activity.create!(action: "c reate", trackable: self, 
+        user_id: self.liker_id, recipient_id: self.liked_comment.commenter_id)
+      Event.create!(benefactor_id: self.liker_id, beneficiary_id: self.liked_comment.commenter_id, 
+        event: "like comment", value: ShoolooV2::LIKE_COMMENT)
     end     
   end
 
   after_destroy do 
     if self.liked_post
       post_update_likes
+      Event.create!(benefactor_id: self.liker_id, beneficiary_id: self.liked_post.user_id, 
+        event: "unlike post", value: ShoolooV2::UNLIKE_POST)
     elsif self.liked_comment
       comment_update_likes
+      Event.create!(benefactor_id: self.liker_id, beneficiary_id: self.liked_comment.commenter_id, 
+        event: "unlike comment", value: ShoolooV2::UNLIKE_COMMENT)
     end  
   end
-
-  after_create do
-    if self.liked_post
-      Activity.create!(action: "create", trackable: self, 
-        user_id: self.liker_id, recipient_id: self.liked_post.user_id)
-    elsif self.liked_comment
-      Activity.create!(action: "create", trackable: self, 
-        user_id: self.liker_id, recipient_id: self.liked_comment.commenter_id)
-    end
-  end
 end
+
+  

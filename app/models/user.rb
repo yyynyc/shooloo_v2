@@ -67,10 +67,19 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :authorizations
 
   has_many :invites, foreign_key: "inviter_id", dependent: :destroy
-  has_many :invitees, through: :invites
-  has_many :reverse_invites, foreign_key: "invitee_id",
-            class_name:  "Invite", dependent: :destroy
-  has_many :inviters, through: :reverse_invites
+  has_many :invited_posts, through: :invites, source: :invited_post
+
+  has_many :events, foreign_key: "benefactor_id", dependent: :destroy
+  has_many :beneficiaries, through: :events
+  has_many :reverse_events, foreign_key: "beneficiary_id",
+            class_name:  "Event", dependent: :destroy
+  has_many :benefators, through: :reverse_events
+
+  has_many :scores, foreign_key: "benefactor_id", dependent: :destroy
+  has_many :beneficiaries, through: :scores
+  has_many :reverse_scores, foreign_key: "beneficiary_id",
+            class_name:  "Score", dependent: :destroy
+  has_many :benefators, through: :reverse_scores
 
   before_save do
     create_remember_token
@@ -91,8 +100,14 @@ class User < ActiveRecord::Base
     end
   end
 
-  after_save :create_states
-  
+  after_create do 
+    Event.create!(benefactor_id: self.id, 
+      beneficiary_id: 2, 
+      event: "sign up", value: ShoolooV2::SIGN_UP)
+  end
+
+  after_update :create_states
+
   VALID_SCREEN_NAME_REGEX = /^[A-Za-z\d_]+$/
   validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX },
     uniqueness: {case_sensitive: false}, length: { minimum: 6, maximum: 20}
@@ -135,6 +150,10 @@ class User < ActiveRecord::Base
 
   def unfollow!(other_user)
     relationships.find_by_followed_id(other_user.id).destroy
+  end
+
+  def invite!(post)
+    invites.create!(invited_post_id: post.id)
   end
 
   def send_password_reset
@@ -215,8 +234,7 @@ class User < ActiveRecord::Base
           self.rules == true &&
           self.privacy == true &&
           State.where(user_id: self.id).blank?   
-        State.create!(user_id: self.id, complete: "true")
-        UserMailer.parental_consent(self).deliver    
+        State.create!(user_id: self.id, complete: "true")  
     elsif self.role == "teacher" &&
           !self.screen_name.nil? &&
           !self.first_name.nil? &&
@@ -269,7 +287,7 @@ class User < ActiveRecord::Base
 
   def self.cr_sum
     select('count(distinct ratings.id) + count(distinct comments.id) count')
-end
+  end
 
   def self.cr_sum_with_id
     select('count(distinct ratings.id) + count(distinct comments.id) count, users.id')
@@ -291,9 +309,10 @@ end
     User.all.each { |u| UserMailer.activity_alert(u).deliver }
   end
 
-  private
+private
 
-    def create_remember_token
-      self.remember_token = SecureRandom.urlsafe_base64
-    end
+  def create_remember_token
+    self.remember_token = SecureRandom.urlsafe_base64
+  end
+
 end

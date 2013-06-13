@@ -1,0 +1,32 @@
+<% provide(:title, "Receiving Gifts") %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <%= render 'shared/user_info', user: @user %>
+    </section>
+    <section>
+      <%= render 'shared/stats', user: @user %>
+    </section>
+    <section>
+      <%= render 'shared/post_form' %>
+    </section>
+	</aside>
+	<div class="span8">
+    <% if current_user.scores.any? %>
+      <ul>
+        <% User.all.each do |u| %>
+          <% unless u.scores.where(benefactor_id: current_user.id).blank? %>
+            <li>
+              You've got 
+              <%= @score.weekly_tally %> points from 
+              <%= @score.beneficiary.screen_name %> this week
+            </li>
+          <% end %>  
+        <% end %> 
+      </ul>
+    <% else %>
+      <p>I am sorry, but you will not get any gift this week because you have not done anything. </p>
+      <p> Comment on your friends' posts. Publish your own posts. The more you do, the more points you will get, and the more likely you will get a gift. </p> 
+    <% end %> 
+  </div>
+</div>

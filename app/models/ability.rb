@@ -9,8 +9,7 @@ class Ability
         if user.admin?
             can :manage, :all
         elsif user.role == "teacher" && 
-            user.referrals.where(approval: "accepted").any? &&
-            user.authorized_users.count >=15
+            user.authorizations.where(approval: "accepted").any? 
             can :update, [Authorization, Referral]
             can [:create, :destroy], [Referral, Authorization]
             can :manage, Alarm

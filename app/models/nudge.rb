@@ -10,6 +10,8 @@ class Nudge < ActiveRecord::Base
   after_create do
     Activity.create!(action: "create", trackable: self, 
     	user_id: self.nudger_id, recipient_id: self.nudged_id)
+    Event.create!(benefactor_id: self.nudger_id, beneficiary_id: self.nudged_id, 
+        event: "nudge", value: ShoolooV2::NUDGE)
   end
 
     def self.destroy_old_data

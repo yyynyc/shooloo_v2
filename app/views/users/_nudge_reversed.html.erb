@@ -1,6 +1,1 @@
-
-<%= form_for(current_user.nudges.find_by_nudged_id(user),
-             html: { method: :delete },
-             remote: true) do |f| %>
-  <%= f.submit "disnudge", class: "btn btn-medium" %>
-<% end %>
+<button class="btn btn-medium btn-default">nudged</button>

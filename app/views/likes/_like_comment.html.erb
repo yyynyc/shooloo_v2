@@ -1,7 +1,13 @@
 <%= form_for(like, :url => comment_likes_path(comment.id), 
 	remote: true) do |f| %>
 	<%= f.hidden_field :liked_comment_id, value: comment.id %>
-	<button type="submit", class="btn btn-small btn-success">
+	<button type="submit", class="btn btn-small btn-success", onclick="like_comment_confirm()">
 		<i class='icon-heart icon-white'></i> LIKE 
 	</button>
 <% end %>
+
+<script>
+	function like_comment_confirm (){
+		confirm('You will EARN some points if you click. Continue?');
+	}
+</script>

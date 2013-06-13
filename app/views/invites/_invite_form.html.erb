@@ -1,6 +1,6 @@
 <div id="invite_form_<%= post.id %>">
 	<% if can? :create, Invite %>	
-	  <% if current_user.invites.find_by_post_id(post.id).nil? %>
+	  <% if current_user.invites.find_by_invited_post_id(post.id).nil? %>
 	   	<%= render partial: 'invites/invite',  
 	   			locals: {invite: invite, post: post} %>
 	  <% else %>	    

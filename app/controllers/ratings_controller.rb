@@ -19,7 +19,7 @@ class RatingsController < ApplicationController
             @rating.rated_post = @post
             @alarm =current_user.alarms.build(params[:alarm])
             @like = current_user.likes.build(params[:like])
-            flash[:success] = "Thank you for rating this post!" 
+            flash[:success] = "Woohoo! You've just earned more points! You are one step closer toward getting a gift." 
             redirect_to rated_posts_user_path(current_user)      
         else
             @post = @rating.rated_post

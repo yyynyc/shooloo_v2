@@ -30,7 +30,7 @@ class Post < ActiveRecord::Base
   has_many :operations, through: :ratings
   has_many :flags, through: :ratings
 
-  has_many :invites, dependent: :destroy
+  has_many :invites, foreign_key: "invited_post_id", dependent: :destroy
   has_many :inviters, through: :invites
   has_many :invitees, through: :invites
   
@@ -80,10 +80,17 @@ class Post < ActiveRecord::Base
   end
 
   after_create do
+    Event.create!(benefactor_id: self.user_id, beneficiary_id: 2, 
+        event: "new post", value: ShoolooV2::POST_NEW)
     self.user.nudgers.uniq.each do |nudger|
       Activity.create!(action: "create", trackable: self, 
         user_id: self.user_id, recipient_id: nudger.id)
     end
+  end
+
+  after_destroy do
+    Event.create!(benefactor_id: self.user_id, beneficiary_id: 2, 
+        event: "delete post", value: ShoolooV2::POST_DELETE)
   end
 
   after_update do

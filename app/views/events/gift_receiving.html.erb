@@ -15,7 +15,8 @@
     <% if current_user.scores.any? %>
       <ul>
         <% User.all.each do |u| %>
-          <% unless u.scores.where(benefactor_id: current_user.id).blank? %>
+          <% unless u.scores.where(benefactor_id: current_user.id, 
+            week: Time.now.strftime('%W'), year: Time.now.strftime('%Y')).blank? %>
             <li>
               You've got 
               <%= @score.weekly_tally %> points from 

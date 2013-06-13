@@ -1,6 +1,7 @@
 class CreateScores < ActiveRecord::Migration
   def change
     create_table :scores do |t|
+      t.integer :year
       t.integer :week
       t.integer :benefactor_id
       t.integer :beneficiary_id

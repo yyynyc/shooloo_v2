@@ -229,6 +229,7 @@ ActiveRecord::Schema.define(:version => 20130612233321) do
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
   create_table "scores", :force => true do |t|
+    t.integer  "year"
     t.integer  "week"
     t.integer  "benefactor_id"
     t.integer  "beneficiary_id"

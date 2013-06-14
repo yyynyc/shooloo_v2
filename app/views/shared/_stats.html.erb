@@ -23,3 +23,21 @@
 	</span>
 </div>
 
+<div class="stats">
+	<span>
+		<p>Received </p>		
+		<% if user==current_user %>
+			<p><%= link_to pluralize(user.reverse_gifts.count, "gift"), gift_receiving_path %></p>
+		<% else %>	
+			<p><%= pluralize(user.reverse_gifts.count, "gift")%></p>
+		<% end %>	
+	</span>
+	<span>
+		<p>Sent</p>
+		<% if user==current_user %>
+			<p><%= link_to pluralize(user.gifts.count, "gift"), gift_giving_path %></p>
+		<% else %>
+			<p><%= pluralize(user.gifts.count, "gift")%></p>
+		<% end %>
+	</span>
+</div>

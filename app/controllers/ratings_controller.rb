@@ -20,7 +20,7 @@ class RatingsController < ApplicationController
             @alarm =current_user.alarms.build(params[:alarm])
             @like = current_user.likes.build(params[:like])
             flash[:success] = "Woohoo! You've just earned more points! You are one step closer toward getting a gift." 
-            redirect_to rated_posts_user_path(current_user)      
+            redirect_to gift_receiving_path    
         else
             @post = @rating.rated_post
             raise "you need a post" if @post.nil?
@@ -54,7 +54,7 @@ class RatingsController < ApplicationController
 
     def destroy
         @rating.destroy
-        redirect_to root_url
+        redirect_to gift_receiving_path
     end
 
     def correct_user

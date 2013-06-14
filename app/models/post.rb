@@ -80,7 +80,7 @@ class Post < ActiveRecord::Base
   end
 
   after_create do
-    Event.create!(benefactor_id: self.user_id, beneficiary_id: 2, 
+    Event.create!(benefactor_id: self.user_id, beneficiary_id: 1, 
         event: "new post", value: ShoolooV2::POST_NEW)
     self.user.nudgers.uniq.each do |nudger|
       Activity.create!(action: "create", trackable: self, 
@@ -89,7 +89,7 @@ class Post < ActiveRecord::Base
   end
 
   after_destroy do
-    Event.create!(benefactor_id: self.user_id, beneficiary_id: 2, 
+    Event.create!(benefactor_id: self.user_id, beneficiary_id: 1, 
         event: "delete post", value: ShoolooV2::POST_DELETE)
   end
 

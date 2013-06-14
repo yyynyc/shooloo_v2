@@ -52,6 +52,8 @@ resources :referrals do
 end
 resources :ref_checks
 resources :user_steps
+resources :gifts
+
     root to: "static_pages#home"
  
   match '/about', to: 'static_pages#about'
@@ -70,6 +72,7 @@ resources :user_steps
   match '/my_abilities', to: "users#my_abilities"
   match '/hidden', to: "users#hidden"
   match '/gift_receiving', to: "events#gift_receiving"
+  match '/gift_giving', to: "events#gift_giving"
  
 
   # The priority is based upon order of creation:

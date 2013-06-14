@@ -404,6 +404,29 @@ aside {
     }
   }
 }
+
+.form-horizontal-gift {
+  margin-top: -20px;
+  margin-bottom: -10px; 
+  .control-label {  
+  float: left;
+  width: 80px;
+  }
+  .controls {
+  margin-left: 90px;
+  width: 100px;
+    select{
+      height: 26px;
+      line-height: 26px; 
+    }   
+  }
+  .hidden {
+  margin-left: -1000px;
+  }  
+}
+.button {
+   margin-top: -70px;
+}
   
 .btn-formtastic {
   float: right;

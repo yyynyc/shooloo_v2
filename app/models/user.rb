@@ -81,6 +81,12 @@ class User < ActiveRecord::Base
             class_name:  "Score", dependent: :destroy
   has_many :benefators, through: :reverse_scores
 
+  has_many :gifts, foreign_key: "giver_id", dependent: :destroy
+  has_many :receivers, through: :gifts
+  has_many :reverse_gifts, foreign_key: "receiver_id",
+            class_name:  "Gift", dependent: :destroy
+  has_many :givers, through: :reverse_gifts
+
   before_save do
     create_remember_token
   end
@@ -102,7 +108,7 @@ class User < ActiveRecord::Base
 
   after_create do 
     Event.create!(benefactor_id: self.id, 
-      beneficiary_id: 2, 
+      beneficiary_id: 1, 
       event: "sign up", value: ShoolooV2::SIGN_UP)
   end
 

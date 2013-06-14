@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
             flash[:success] = "Hooray! You've just earned more points! You are one step closer toward getting a gift." 
             @comments = @post.comments.visible.paginate(page: params[:page], per_page: 5, 
                 order: 'created_at DESC')      
-            redirect_to new_post_comment_path(@post)
+            redirect_to gift_receiving_path
         else 
             raise "you need a post" if @post.nil?
             @post  = @comment.commented_post
@@ -61,7 +61,7 @@ class CommentsController < ApplicationController
     def destroy
         @comment = current_user.comments.find(params[:id])
         @comment.destroy
-        redirect_to new_post_comment_path(@comment.commented_post)
+        redirect_to gift_receiving_path
     end
 
     def correct_user

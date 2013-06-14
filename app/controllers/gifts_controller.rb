@@ -1,7 +1,7 @@
 class GiftsController < ApplicationController
 
 	before_filter :signed_in_user
-
+	
 	def update
 		@gift = Gift.find(params[:id])
 		@user = @gift.receiver

@@ -9,69 +9,84 @@
     </section>
 	</aside>
 	<div class="span8">    
-    <% if @gifts_sent.any? %>
-      <h3> Gifts Sent This Week</h3>  
-    <% end %>
-    <h3> Members About to Become Your Fans:</h3>
-    <% if @reverse_scores.any? %>
-      <ul class="users">
-        <% @reverse_scores.order('weekly_tally DESC').each do |s| %>
+    <% if @gifts.any? %>
+      <h3> Gift Choices</h3> 
+      <ul class="gifts">
+        <% Choice.where(visible: true).each do |choice| %>
           <li>
-            <div class="span1">
-              <%= link_to image_tag(s.benefactor.avatar.url (:small), :alt => "Shooloo member #{s.benefactor.screen_name}", :title => "Shooloo member #{s.benefactor.screen_name}"), posts_user_path(s.benefactor) %>
-            </div>
-            <div class="span6">
-              <% gift = current_user.gifts.find_by_receiver_id_and_week_and_year(
-                  s.benefactor.id, Time.now.strftime('%W'), Time.now.strftime('%Y')) %>
-              <% if gift.sent? %>
-                <%= render partial: 'gifts/sent'%>
-              <% elsif !gift.sent? %>
-                <p><strong>Hooray! <%= s.benefactor.screen_name %>has become your fan of the week.</strong> </p>
-                <p> 
-                  Send <%= s.benefactor.screen_name %> a gift now!
-                  <%= semantic_form_for(s.benefactor.reverse_gifts.find_by_giver_id_and_week_and_year(current_user.id, 
-                    Time.now.strftime('%W'), Time.now.strftime('%Y')),
-                      remote: true, data:{type: :js},  
-                      :html => { :multipart => true, 
-                      onsubmit: "$('button', this).attr('disabled','disabled')", 
-                      class: "form-horizontal-gift" }) do |f| %>
-                    <%= render 'shared/error_messages', object: f.object %> 
-                    <%= f.input :sent, as: :hidden, name: " ", value: true, class: "hidden" %>       
-                    <span class="password-request-label">
-                      <%= f.input :choice, as: :select, label: "Gift Choice", 
-                        collection: ["","1", "2", "3", "4"] %>
-                    </span>   
-                    <span class="password-request-label">               
-                      <%= f.submit "Send", class: "button btn btn-small btn-primary" %>
-                    </span>               
-                  <% end %>
-                </p> 
-              <% else %>  
-                <p><%= s.benefactor.screen_name %> has got
-                <%= s.weekly_tally %> 
-                points from you this week </p>
-                <div class="progress progress-success">
-                  <div class="bar" style="float: left; width: 0%;" 
-                    data-percentage="<%=s.progress%>">
-                  </div>
-                </div> 
-              <% end %>
-            </div>                
-          </li>
+            <%= link_to            \
+                  image_tag(choice.image.url(:small)), 
+                  choice.image.url(:large),
+                  :class=>'fancybox' %><br/>
+            <span class="image_host">
+              #<%= choice.id %>
+            </span>
+          </li>      
         <% end %>
-      </ul>
-    <% else %>
-      <div class="welcome">
-        <% if current_user.posts.blank? %>
-          <p>I am sorry, but no one has become your fan yet. </p>
-          <p class='center'><img src="/attachments/cry.gif" alt="Shooloo Math Can Do"></p>
-          <p> Publish a post so that your friends can have something to like, rate, and comment on.</p> 
-        <% else %>
-          <p> Good job pulishing math problemz of your own! However, it appears that no one has seen them or become your fan of the week.</p>
-          <img src="/attachments/pout.gif" alt="Shooloo Math Can Do" width="50" >
-          <p> It will be more fun if your friends see them, commenting on them, and becoming your fan. Comment on your friends' posts first to get their attention, and then invite them to comment on your posts. The more attention you give to your friends, the more attention you will get from them. </p>
+      </ul>  
+    <% end %>
+    <div class="user_avatars">
+    <h3> Members About to Become Your Fans:</h3>
+      <% if @reverse_scores.any? %>
+        <ul class="users">
+          <% @reverse_scores.order('weekly_tally DESC').each do |s| %>
+            <li>
+              <div class="span1">
+                <%= link_to image_tag(s.benefactor.avatar.url (:small), :alt => "Shooloo member #{s.benefactor.screen_name}", :title => "Shooloo member #{s.benefactor.screen_name}"), posts_user_path(s.benefactor) %>
+              </div>
+              <div class="span6">
+                <% gift = current_user.gifts.find_by_receiver_id_and_week_and_year(
+                    s.benefactor.id, Time.now.strftime('%W'), Time.now.strftime('%Y')) %>
+                <% if gift.sent? %>
+                  <%= render partial: 'gifts/sent'%>
+                <% elsif !gift.sent? %>
+                  <p><strong>Hooray! <%= s.benefactor.screen_name %> has become your fan of the week.</strong> </p>
+                  <p> 
+                    Send <%= s.benefactor.screen_name %> a gift now!
+                    <%= semantic_form_for(s.benefactor.reverse_gifts.find_by_giver_id_and_week_and_year(current_user.id, 
+                      Time.now.strftime('%W'), Time.now.strftime('%Y')),
+                        remote: true, data:{type: :js},  
+                        :html => { :multipart => true, 
+                        onsubmit: "$('button', this).attr('disabled','disabled')", 
+                        class: "form-horizontal-gift" }) do |f| %>
+                      <%= render 'shared/error_messages', object: f.object %> 
+                      <%= f.input :sent, as: :hidden, name: " ", value: true, class: "hidden" %>       
+                      <span class="password-request-label">
+                        <%= f.input :choice, as: :select, label: "Gift Choice", 
+                          collection: ["","4", "5", "6", "7"] %>
+                      </span>   
+                      <span class="password-request-label">               
+                        <%= f.submit "Send", class: "button btn btn-small btn-primary" %>
+                      </span>               
+                    <% end %>
+                  </p> 
+                <% else %>  
+                  <p><%= s.benefactor.screen_name %> has got
+                  <%= s.weekly_tally %> 
+                  points from you this week </p>
+                  <div class="progress progress-success">
+                    <div class="bar" style="float: left; width: 0%;" 
+                      data-percentage="<%=s.progress%>">
+                    </div>
+                  </div> 
+                <% end %>
+              </div>                
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <div class="welcome">
+          <% if current_user.posts.blank? %>
+            <p>I am sorry, but no one has become your fan yet. </p>
+            <p class='center'><img src="/attachments/cry.gif" alt="Shooloo Math Can Do"></p>
+            <p> Publish a post so that your friends can have something to like, rate, and comment on.</p> 
+          <% else %>
+            <p> Good job pulishing math problemz of your own! However, it appears that no one has seen them or become your fan of the week.</p>
+            <img src="/attachments/pout.gif" alt="Shooloo Math Can Do" width="50" >
+            <p> It will be more fun if your friends see them, commenting on them, and becoming your fan. Comment on your friends' posts first to get their attention, and then invite them to comment on your posts. The more attention you give to your friends, the more attention you will get from them. </p>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div> 
   </div>
 </div>

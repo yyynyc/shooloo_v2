@@ -12,6 +12,10 @@
 		<%= render 'shared/can_yes' %>
 	</li>
 	<li>
+		<strong> <%= link_to "Send", gift_giving_path %> and <%= link_to "receive", gift_receiving_path %> gifts:</strong>
+		<%= render 'shared/can_yes' %>
+	</li>
+	<li>
 		<strong>Update my own <%=link_to "profile", edit_user_path(current_user) %>:</strong>
 		<%= render 'shared/can_yes' %>
 	</li>

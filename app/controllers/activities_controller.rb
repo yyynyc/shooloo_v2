@@ -1,6 +1,5 @@
 class ActivitiesController < ApplicationController
 	before_filter :signed_in_user
-	load_and_authorize_resource
 	
 	def index
     	@activities = Activity.joins(:user).where(users: {admin: false}).paginate(

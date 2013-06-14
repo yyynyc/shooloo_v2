@@ -170,9 +170,6 @@ aside {
 .user_avatars {
   overflow: auto;
   margin-top: 10px;
-  .gravatar {
-    margin: 1px 1px;
-  }
 }
 
 /* forms */
@@ -421,7 +418,7 @@ aside {
     }   
   }
   .hidden {
-  margin-left: -1000px;
+  margin-left: -2000px;
   }  
 }
 .button {
@@ -796,4 +793,17 @@ aside {
 
 .border-right{
   border-right: 1px solid $grayLight;
+}
+
+.gifts {
+  list-style: none;
+  margin: 0;
+  border-top: 1px solid $grayLighter;
+  border-bottom: 1px solid $grayLighter;
+  li {
+    overflow: auto;
+    padding: 10px 0;    
+    display: inline-block;
+    margin-left: 3em;
+  }
 }

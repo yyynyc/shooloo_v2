@@ -53,6 +53,7 @@ end
 resources :ref_checks
 resources :user_steps
 resources :gifts
+resources :choices
 
     root to: "static_pages#home"
  

@@ -1,0 +1,40 @@
+<% provide(:title, "Gift Choices") %> 
+
+<div class="row">
+	<aside class="span4">
+	  <section>
+	    <%= render 'shared/user_info', user: current_user %>
+	  </section>
+	  <h4>Add A New Gift Choice</h4>
+		<%= form_for @choice, :url => choices_path, :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')"} do |f| %>
+		  <%= render 'shared/error_messages', object: f.object %>
+		  <div class="field">
+		  	<%= f.label :name, "Name:" %>
+		    <%= f.text_field :name %>
+		    <%= f.label :image, "Upload image:" %>    
+		    <%= f.file_field :image %>
+		    <%= f.label :visible, "Visible to all:" %>    
+		    <%= f.check_box :visible %>
+		  </div> 
+		  <%= f.submit "Save", class: "btn btn-large btn-primary"%>
+		<% end %>
+	</aside>
+	<div class="span8">
+		<h3>Gift Choices</h3>
+		<% unless @choices.blank? %>
+			<ol class="posts">
+				<% @choices.each do |choice| %>
+					<li id="<%= choice.id %>">
+						<%= link_to            \
+							image_tag(choice.image.url(:small)), 
+							choice.image.url(:large),
+							:class=>'fancybox' %>
+						<%= choice.id %>
+						<%= choice.name %>	
+					</li>
+				<% end %> 
+			</ol>
+			<%= will_paginate @choices %>
+		<% end %>
+	</div>	
+</div>

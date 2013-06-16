@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       		sign_in user      		
       		redirect_back_or gift_receiving_path
           unless Event.where(benefactor_id: user.id, event: "sign in").where(
-              'Date(created_at)=?', Date.today).any?
+              'Date(created_at)=?', Date.today).any? || user.id == 1
       		  Event.create!(benefactor_id: user.id, beneficiary_id: 1, 
         		  event: "sign in", value: ShoolooV2::SIGN_IN)
             flash[:success] = "Welcome back! You've just earned some points! 

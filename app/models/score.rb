@@ -17,12 +17,12 @@ class Score < ActiveRecord::Base
 	  		Gift.create!(week: self.week, year: self.year,
 				receiver_id: self.benefactor_id, 
 	  			giver_id: 2, 
-	  			choice_id: 2, sent: true)
+	  			choice_id: 3, sent: true)
 	  	elsif self.beneficiary.role == "teacher"
 	  		Gift.create!(week: self.week, year: self.year,
 				receiver_id: self.benefactor_id, 
 	  			giver_id: self.beneficiary_id, 
-	  			choice_id: "3", sent: true)
+	  			choice_id: "2", sent: true)
 	  	else 
 	  		Gift.create!(week: self.week, year: self.year,
 				receiver_id: self.benefactor_id, 

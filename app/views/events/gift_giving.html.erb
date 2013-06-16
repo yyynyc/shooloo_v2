@@ -19,7 +19,7 @@
                   choice.image.url(:large),
                   :class=>'fancybox' %><br/>
             <span class="image_host">
-              #<%= choice.id %>
+              <%= choice.name %>
             </span>
           </li>      
         <% end %>
@@ -39,7 +39,8 @@
                     s.benefactor.id, Time.now.strftime('%W'), Time.now.strftime('%Y')) %>
                 <% if !gift.nil? %>    
                   <% if gift.sent? %>
-                    <%= render partial: 'gifts/sent'%>
+                    <%= render partial: 'gifts/sent', 
+                        locals: { user: gift.receiver, gift: gift }%>
                   <% elsif !gift.sent? %>
                     <p><strong>Hooray! <%= s.benefactor.screen_name %> has become your fan.</strong> </p>
                     <p> 
@@ -51,10 +52,15 @@
                           onsubmit: "$('button', this).attr('disabled','disabled')", 
                           class: "form-horizontal-gift" }) do |f| %>
                         <%= render 'shared/error_messages', object: f.object %> 
-                        <%= f.input :sent, as: :hidden, name: " ", value: true, class: "hidden" %>       
+                        <%= f.input :sent, as: :hidden, value: true, class: "hidden" %>     
                         <span class="password-request-label">
-                          <%= f.input :choice, as: :select, label: "Gift Choice", 
-                            collection: ["","4", "5", "6", "7"] %>
+                          <% if current_user.admin? %>
+                            <%= f.input :choice_id, as: :select, label: "Gift Choice", 
+                              collection: [["Eli with friends", 1], ["Mrs. Becker with Kids", 2], ["William giving Eli a Gift", 3], ["Eli upwrapping gift", 4],["Eli with gift", 5], ["Eli & Earl", 6], ["Eli lifting Earl", 7], ["Eli feasting with Earl", 8], ["Eli & Elda", 9], ["Ruby Heart", 10], ["Eli & Earl saving Skipper", 11]] %>
+                          <% else %>
+                            <%= f.input :choice_id, as: :select, label: "Gift Choice", 
+                              collection: [["Eli upwrapping gift", 4],["Eli with gift", 5], ["Eli & Earl", 6], ["Eli lifting Earl", 7], ["Eli feasting with Earl", 8], ["Eli & Elda", 9], ["Ruby Heart", 10], ["Eli & Earl saving Skipper", 11]] %>
+                          <% end %>    
                         </span>   
                         <span class="password-request-label">               
                           <%= f.submit "Send", class: "button btn btn-small btn-primary" %>

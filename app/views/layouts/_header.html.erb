@@ -26,7 +26,11 @@
                     </li>
                     <li>
                       <%= link_to "Giving Gifts", gift_giving_path %>
-                    </li>             
+                    </li>
+                    <% if current_user.admin? %>
+                      <li class="divider"></li>
+                      <li><%= link_to "Gift Choices", choices_path %></li>              
+                    <% end %>             
                   </ul>
                 </li>
                 <li id="fat-menu" class="dropdown">

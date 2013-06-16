@@ -1,6 +1,8 @@
 Dear <%=@user.first_name %>(<%= @user.screen_name %>),
 
-Check out these activities you've missed on Shooloo. For more details, visit https://fun.shooo.org/my_alerts/.
+You can now receive gifts from and send gifts to your friends on Shooloo. Check out https://fun.shooloo.org/gift_receiving/.
+
+The following are the activities you've missed on Shooloo. For more details, visit https://fun.shooo.org/my_alerts/.
 
 <% Activity.where(read: nil, recipient_id: @user.id).order('created_at DESC').each do |activity| %> 
   <% if activity.user.nil? %> 

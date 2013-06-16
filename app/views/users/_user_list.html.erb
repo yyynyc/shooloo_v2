@@ -19,8 +19,10 @@
 	      		following <%= user.followed_users.count %></a> members,
 	      		has <a href="<%= followers_user_path(user) %>">
 	      		<%= user.followers.count %> followers</a>, 
-	      		received <%= pluralize(user.reverse_gifts.count, "gift") %>, 
-			  	and sent <%= pluralize(user.gifts.count, "gift")%>,<br/>
+	      		received 
+	      		<%= pluralize(user.reverse_gifts.where(sent: true).count, "gift") %>, 
+			  	and sent 
+			  	<%= pluralize(user.gifts.where(sent: true).count, "gift")%>,<br/>
 	      		published <a href="<%= posts_user_path(user) %>" >
 				<%= pluralize(user.posts.count, "post") %></a>, 
 	      		rated <a href="<%= rated_posts_user_path(user) %>" >

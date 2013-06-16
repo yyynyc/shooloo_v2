@@ -33,9 +33,9 @@
 				<a href="<%= commented_posts_user_path(user) %>" >
 				<%= pluralize(user.commented_posts.count, "post") %></a>,<br/>
 			received 
-				<%= pluralize(user.reverse_gifts.count, "gift") %>, 
+				<%= pluralize(user.reverse_gifts.where(sent: true).count, "gift") %>, 
 			sent 
-				<%= pluralize(user.gifts.count, "gift")%>.	
+				<%= pluralize(user.gifts.where(sent: true).count, "gift")%>.	
 		</div >		
 	</div>
   <% if current_user.admin? && !current_user?(user) %></br>

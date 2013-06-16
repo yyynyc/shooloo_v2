@@ -18,8 +18,8 @@ class PostsController < ApplicationController
   def create
   	@post = current_user.posts.build(params[:post])
     if @post.save
-      flash[:success] = "Fantastic! You've just earned some points! 
-        You are one step clcoser toward getting a gift."
+      flash[:success] = "Fantastic! Thank you for your post. 
+        Now try to gather some fans for your posts."
       redirect_to gift_giving_path
     else
       @feed_items = []

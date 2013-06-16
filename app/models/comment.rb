@@ -37,17 +37,26 @@ class Comment < ActiveRecord::Base
      	['id=?',self.commented_post.id])
   end
 
+  before_save do
+    if Comment.where(commenter_id: self.commenter_id, 
+      commented_post_id: self.commented_post_id).blank?
+      self.new_comment = "true"
+    end
+  end
+
   after_create do
     unless self.commenter_id == self.commented_post.user_id
       Activity.create!(action: "create", trackable: self, 
         user_id: self.commenter_id, recipient_id: self.commented_post.user_id)
-      Event.create!(benefactor_id: self.commenter_id, 
-        beneficiary_id: self.commented_post.user_id, 
-        event: "new comment", value: ShoolooV2::COMMENT_NEW)
-      if self.commented_post.user.admin? || self.commented_post.user.role == "teacher"
+      if self.new_comment?
         Event.create!(benefactor_id: self.commenter_id, 
           beneficiary_id: self.commented_post.user_id, 
-          event: "comment bonus", value: ShoolooV2::COMMENT_BONUS)
+          event: "new comment", value: ShoolooV2::COMMENT_NEW)
+        if self.commented_post.user.admin? || self.commented_post.user.role == "teacher"
+          Event.create!(benefactor_id: self.commenter_id, 
+            beneficiary_id: self.commented_post.user_id, 
+            event: "comment bonus", value: ShoolooV2::COMMENT_BONUS)
+        end
       end
     end
 

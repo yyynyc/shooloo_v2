@@ -1,0 +1,9 @@
+<% if activity.trackable %>
+	<strong>NEEDS a GIFT</strong> from 
+	<%= link_to activity.recipient.screen_name, posts_user_path(activity.recipient) %>
+	(a <%= activity.recipient.role %>
+	in grade <%= activity.recipient.grade %>)
+	on <%= activity.created_at.strftime("%b %d, %Y") %>. 
+<% else %>
+	becomes eligible for a gift but has since been disqualified.
+<% end %>

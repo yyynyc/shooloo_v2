@@ -1,0 +1,15 @@
+<% if activity.trackable %>
+	<span class='btn-formtastic'>
+		<img src="/attachments/gift.gif" alt="Shooloo Math Can Do" width='80'>
+	</span>
+	<span class='alert-heading'>
+		has sent you a <strong><%= link_to "GIFT", gift_receiving_path %></strong>!
+	</span><br/>
+	Tell
+	<%= link_to "#{activity.user.screen_name}", posts_user_path(activity.user) %> how much you appreciate the gift and comment on <%= link_to "#{activity.user.screen_name}'s posts", posts_user_path(activity.user) %> .
+<% else %>
+	<span class='alert-heading'>
+		sent you a gift but has since changed.
+	</span>
+	<i class='icon-trash'></i>
+<% end %>

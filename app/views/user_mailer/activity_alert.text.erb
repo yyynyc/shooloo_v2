@@ -48,6 +48,14 @@ The following are the activities you've missed on Shooloo. For more details, vis
       <% elsif activity.action == "decline" %>
       Sorry, your referral request has been declined. Update your profile information and request a new referral now.
       <% end %>        
+    <% elsif activity.trackable_type == "Gift" %>
+      <% if activity.action == "create" %>
+      Congrats! <%=activity.user.screen_name %> has become your fan of the week. Send her/him a gift now!
+      <% elsif activity.action == "notify" %>
+      Congrats! You have become <%= activity.user.screen_name %>'s fan of the week. 
+      <% elsif activity.action == "sent" %>
+      Hooray! <%= activity.user.screen_name %> has sent you a gift!
+      <% end %>        
     <% end %>   
   <% end %>
 <% end %>

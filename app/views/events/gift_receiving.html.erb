@@ -29,7 +29,7 @@
       <h3> Gifts About to Receive</h3>
       <% if @scores.any? %>       
         <ul class="users">
-          <% @scores.order('weekly_tally DESC').each do |s| %>
+          <% @scores.each do |s| %>
           <li>
             <div class="span1">
               <%= link_to image_tag(s.beneficiary.avatar.url (:small), :alt => "Shooloo member #{s.beneficiary.screen_name}", :title => "Shooloo member #{s.beneficiary.screen_name}"), posts_user_path(s.beneficiary) %>
@@ -41,7 +41,7 @@
                 <p>If don't receive a gift within a day, remind <%= link_to s.beneficiary.screen_name, posts_user_path(s.beneficiary) %> to log in and send you the gift.</p>
               <% elsif s.beneficiary.gifts.where(receiver_id: current_user.id, 
                 week: Time.now.strftime('%W'), year: Time.now.strftime('%Y'), sent: true).any? %>
-                <p><strong>Hooray! Gift received!</strong></p> 
+                <p><strong>Hooray! Gift received from <%=s.beneficiary.screen_name %>!</strong> See panel above.</p> 
               <% else %>  
                 <p>Your progress towards getting a gift from  
                 <%= link_to s.beneficiary.screen_name, posts_user_path(s.beneficiary) %> 

@@ -1,0 +1,9 @@
+<% if activity.trackable %>
+	<strong>SHOULD SEND a GIFT</strong> to 
+	<%= link_to activity.recipient.screen_name, posts_user_path(activity.recipient) %>
+	(a <%= activity.recipient.role %>
+	in grade <%= activity.recipient.grade %>)
+	on <%= activity.created_at.strftime("%b %d, %Y") %>. 
+<% else %>
+	has gained a fan but has since changed.
+<% end %>

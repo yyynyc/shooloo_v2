@@ -5,7 +5,7 @@ class EventsController < ApplicationController
 	def gift_receiving
 		@user = current_user
 		@scores = @user.scores.where(week: Time.now.strftime('%W'), 
-        	year: Time.now.strftime('%Y'))
+        	year: Time.now.strftime('%Y')).order('weekly_tally DESC')
 		@received_gifts = @user.reverse_gifts.where(week: Time.now.strftime('%W'), 
         	year: Time.now.strftime('%Y'), sent: true)
 		render 'gift_receiving'
@@ -13,12 +13,12 @@ class EventsController < ApplicationController
 
 	def gift_giving
 		@user = current_user
+		@gifts_unsent = @user.gifts.where(sent: nil).order('created_at DESC')
+		@choices_visible = Choice.where(visible: true)
 		@reverse_scores = @user.reverse_scores.where(week: Time.now.strftime('%W'), 
-        	year: Time.now.strftime('%Y'))	
-		@gifts = @user.gifts.where(week: Time.now.strftime('%W'), 
-    		year: Time.now.strftime('%Y'))
-		@gifts_sent = @gifts.where(sent: true) 
-		@gifts_unsent = @gifts.where(sent: nil) 		
+        	year: Time.now.strftime('%Y')).order('weekly_tally ASC')	
+		@gifts_current_week = @user.gifts.where(week: Time.now.strftime('%W'), 
+    		year: Time.now.strftime('%Y'))		 		
 		render 'gift_giving'
 	end
 end

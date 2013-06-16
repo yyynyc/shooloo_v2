@@ -1,2 +1,2 @@
 $("#edit_gift_<%= @gift.id %>").html("<%= escape_javascript(
-	render(partial:'gifts/sent')) %>")
+	render(partial:'gifts/sent'), locals: {gift: @gift}) %>")

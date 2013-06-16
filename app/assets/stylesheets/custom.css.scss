@@ -780,7 +780,7 @@ aside {
 .box {
   border: 1px solid #e6e6e6; 
   padding: 1em 2em 1em 2em; 
-  margin: 2em 2em 2em 2em; 
+  margin: 2em 0em 2em 0em; 
   box-shadow: 8px 8px 5px #888888;
 }
 
@@ -806,4 +806,9 @@ aside {
     display: inline-block;
     margin-left: 3em;
   }
+}
+
+.gift_choice {
+  height: 200px;
+  overflow-y: scroll;
 }

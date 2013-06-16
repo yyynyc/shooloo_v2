@@ -1,0 +1,15 @@
+<% if activity.trackable %>
+	<span class='btn-formtastic'>
+		<img src="/attachments/applaude.gif" alt="Shooloo Math Can Do" width='80'>
+	</span>
+	<span class='alert-heading'>
+		<strong><%= link_to "should send", gift_receiving_path %></strong> you a gift soon.
+	</span><br/>
+	If you don't receive a gift within a day or two, remind 
+	<%= link_to "#{activity.user.screen_name}", posts_user_path(activity.user) %> to log in and send you the gift.
+<% else %>
+	<span class='alert-heading'>
+		got you as the fan of the week but has since changed.
+	</span>
+	<i class='icon-trash'></i>
+<% end %>

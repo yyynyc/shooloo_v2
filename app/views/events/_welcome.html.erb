@@ -1,0 +1,12 @@
+<div class="welcome">
+  <% if user.posts.blank? %>
+    <p>I am sorry, but no one has become your fan yet. </p>
+    <p class='center'><img src="/attachments/cry.gif" alt="Shooloo Math Can Do"></p>
+    <p> Publish a post so that your friends can have something to like, rate, and comment.</p> 
+  <% else %>
+    <p> Good job pulishing math problems of your own! However, it appears that no one has seen them or become your fan of the week.</p>
+    <p class='center'><img src="/attachments/pout.gif" alt="Shooloo Math Can Do"></p>
+    <p> It will be more fun if your friends see them, commenting on them, and becoming your fans.</p>
+    <p> Comment on your friends' posts first to get their attention, and then invite them to comment on your posts. The more attention you give to your friends, the more attention you will get from them. </p>
+  <% end %>
+</div>

@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
             flash[:success] = "Hooray! Thank you for your comment. Now check your progress of getting a gift." 
             @comments = @post.comments.visible.paginate(page: params[:page], per_page: 5, 
                 order: 'created_at DESC')      
-            redirect_to gift_receiving_path
+            redirect_to new_post_comment_path(@post)
         else 
             raise "you need a post" if @post.nil?
             @post  = @comment.commented_post

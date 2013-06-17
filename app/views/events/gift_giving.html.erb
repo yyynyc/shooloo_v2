@@ -7,6 +7,17 @@
     <section>
       <%= render 'shared/stats', user: @user %>
     </section>
+    <% if @sent_gifts.any? %>      
+      <div class="giver">
+        Sent <strong><%= @sent_gifts.count %> gifts</strong> to the following<br/> 
+        <strong><%= @receivers.count %> members</strong>:
+      </div>         
+      <div class="user_avatars">
+          <% @receivers.each do |receiver| %>
+          <%= link_to image_tag(receiver.avatar.url (:small), :alt => "Shooloo member #{receiver.screen_name}", :title => "Shooloo member #{receiver.screen_name}"), posts_user_path(receiver) %>
+        <% end %>
+      </div>      
+    <% end %>
 	</aside>
 	<div class="span8">    
     <% if @gifts_unsent.any? %>      

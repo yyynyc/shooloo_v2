@@ -7,12 +7,23 @@
     <section>
       <%= render 'shared/stats', user: @user %>
     </section>
+    <% if @received_gifts.any? %>      
+      <div class="giver">
+        Received <strong><%= @received_gifts.count %> gifts</strong> from the following<br/>
+        <strong><%= @givers.count %> members</strong>:
+      </div>         
+      <div class="user_avatars">
+          <% @givers.each do |giver| %>
+          <%= link_to image_tag(giver.avatar.url (:small), :alt => "Shooloo member #{giver.screen_name}", :title => "Shooloo member #{giver.screen_name}"), posts_user_path(giver) %>
+        <% end %>
+      </div>      
+    <% end %>
 	</aside>
 	<div class="span8">    
-    <% if @received_gifts.any? %>
+    <% if @received_gifts_current_week.any? %>
       <h3> Gifts Received This Week</h3> 
       <ul class="gifts">
-        <% @received_gifts.order('updated_at DESC').each do |gift| %>
+        <% @received_gifts_current_week.each do |gift| %>
           <li>
             <%= link_to            \
                   image_tag(gift.choice.image.url(:small)), 
@@ -26,7 +37,7 @@
       </ul> 
     <% end %>
     <div class="user_avatars">
-      <h3> Gifts About to Receive</h3>
+      <h3> Gifts to Receive This Week</h3>
       <% if @scores.any? %>       
         <ul class="users">
           <% @scores.each do |s| %>

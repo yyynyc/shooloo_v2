@@ -1,3 +1,5 @@
+job_type :runner,  "cd :path && bundle exec script/rails runner -e :environment ':task' :output"
+
 every :day, :at => '3:00 am' do
 	runner "Activity.destroy_old_data"
 end

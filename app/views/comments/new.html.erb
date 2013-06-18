@@ -12,15 +12,9 @@
 <%= form_for([@post, @comment], :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')"}) do |f| %>
   	<%= render 'shared/error_messages', object: f.object %>
     <%= f.text_area :content, rows: 5 %>
-    <span style="display: inline-block;">
-    	<%= f.label :photo, "Upload a photo of your solution here." %>  
-    </span>
-    <span style="line-height: 1em;">  
-    	<%= f.file_field :photo %>
-    </span>
-    <span style="float: right;">
-  		<%= f.submit "Submit Comment", class: "btn btn-large btn-primary" %>
-  	</span>
+    <div class="right_align">
+  	<%= f.submit "Submit Comment", class: "btn btn-large btn-primary" %>
+  </div>
 <% end %>
 
 

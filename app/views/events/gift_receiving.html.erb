@@ -36,43 +36,44 @@
         <% end %>
       </ul> 
     <% end %>
-    <div class="user_avatars">
-      <h3> Gifts to Receive This Week</h3>
-      <div class="box">
-        <i><strong>Hint:</strong> comment, rate and like your friends posts, and you will earn points towards getting a gift from them.</i>
-      </div>
-      <% if @scores.any? %>       
-        <ul class="users">
-          <% @scores.each do |s| %>
-          <li>
-            <div class="span1">
-              <%= link_to image_tag(s.beneficiary.avatar.url (:small), :alt => "Shooloo member #{s.beneficiary.screen_name}", :title => "Shooloo member #{s.beneficiary.screen_name}"), posts_user_path(s.beneficiary) %>
-            </div>
-            <div class="span6">
-              <% if s.beneficiary.gifts.where(receiver_id: current_user.id, 
-                week: Time.now.strftime('%W'), year: Time.now.strftime('%Y'), sent: nil).any? %>
-                <p><strong>Congrats! You have become a fan of <%= link_to s.beneficiary.screen_name, posts_user_path(s.beneficiary) %>.</strong></p> 
-                <p>If don't receive a gift within a day, remind <%= link_to s.beneficiary.screen_name, posts_user_path(s.beneficiary) %> to log in and send you the gift.</p>
-              <% elsif s.beneficiary.gifts.where(receiver_id: current_user.id, 
-                week: Time.now.strftime('%W'), year: Time.now.strftime('%Y'), sent: true).any? %>
-                <p><strong>Hooray! Gift received from <%=s.beneficiary.screen_name %>!</strong> See panel above.</p> 
-              <% else %>  
-                <p>Your progress towards getting a gift from  
-                <%= link_to s.beneficiary.screen_name, posts_user_path(s.beneficiary) %> 
-                this week: </p>
-                <div class="progress progress-success">
-                  <div class="bar" style="float: left; width: 0%;" data-percentage="<%=s.progress%>">
-                  </div>
-                </div> 
-              <% end %>
-            </div>                
-          </li>
-          <% end %>
-        </ul>
-      <% else %>
-        <p>I am sorry, but you will not get any gift this week because you have not done anything. </p>
-        <p> Comment on your friends' posts. Publish your own posts. The more you do, the more points you will get, and the more likely you will get a gift. </p> 
-      <% end %> 
+    <h3> Gifts to Receive This Week</h3>
+    <div class="box">
+      <i><strong>Hint:</strong> comment, rate and like your friends posts, and you will earn points towards getting a gift from them.</i>
     </div>
+    <% if @scores.any? %>       
+      <ul class="users">
+        <% @scores.each do |s| %>
+        <li>
+          <div class="span1">
+            <%= link_to image_tag(s.beneficiary.avatar.url (:small), :alt => "Shooloo member #{s.beneficiary.screen_name}", :title => "Shooloo member #{s.beneficiary.screen_name}"), posts_user_path(s.beneficiary) %>
+          </div>
+          <div class="span6">
+            <% if s.beneficiary.gifts.where(receiver_id: current_user.id, 
+              week: Time.now.strftime('%W'), year: Time.now.strftime('%Y'), sent: nil).any? %>
+              <p><strong>Congrats! You have become a fan of <%= link_to s.beneficiary.screen_name, posts_user_path(s.beneficiary) %>.</strong></p> 
+              <p>If don't receive a gift within a day, remind <%= link_to s.beneficiary.screen_name, posts_user_path(s.beneficiary) %> to log in and send you the gift.</p>
+            <% elsif s.beneficiary.gifts.where(receiver_id: current_user.id, 
+              week: Time.now.strftime('%W'), year: Time.now.strftime('%Y'), sent: true).any? %>
+              <p><strong>Hooray! Gift received from <%=s.beneficiary.screen_name %>!</strong> See panel above.</p> 
+            <% else %>  
+              <p>Your progress towards getting a gift from  
+              <%= link_to s.beneficiary.screen_name, posts_user_path(s.beneficiary) %> 
+              this week: </p>
+              <div class="progress progress-success">
+                <div class="bar" style="float: left; width: 0%;" data-percentage="<%=s.progress%>">
+                </div>
+              </div> 
+            <% end %>
+          </div>                
+        </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="giver">
+        <p>It feels so lonely not receiving gifts from anyone. </p>
+         <p class='center'><img src="/attachments/cry.gif" alt="Shooloo Math Can Do"></p>
+        <p> Comment, rate, and like your friends' posts. The more attention you give to your friends, the more points you will get, and the more likely you will receive a gift. </p> 
+      </div>  
+    <% end %> 
   </div>
 </div>

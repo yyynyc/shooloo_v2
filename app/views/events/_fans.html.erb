@@ -4,7 +4,7 @@
       <div class="span1">
         <%= link_to image_tag(s.benefactor.avatar.url (:small), :alt => "Shooloo member #{s.benefactor.screen_name}", :title => "Shooloo member #{s.benefactor.screen_name}"), posts_user_path(s.benefactor) %>
       </div>
-      <div class="span6">
+      <div class="span5">
         <% gift = current_user.gifts.find_by_receiver_id_and_week_and_year(
             s.benefactor.id, Time.now.strftime('%W'), Time.now.strftime('%Y')) %>
         <% if !gift.nil? %>    
@@ -15,9 +15,7 @@
             <p><strong>Hooray! <%= s.benefactor.screen_name %> has become your fan.</strong> Send a gift to now!</p>                
           <% end %>
         <% else %>  
-          <p><%= s.benefactor.screen_name %> has got
-          <%= s.weekly_tally %> 
-          points from you this week </p>
+          <p><%= s.benefactor.screen_name %>'s progress towards becoming your fan:</p>
           <div class="progress progress-success">
             <div class="bar" style="float: left; width: 0%;" 
               data-percentage="<%=s.progress%>">

@@ -23,7 +23,7 @@
           <div class="span1">
             <%= link_to image_tag(gift.receiver.avatar.url (:small), :alt => "Shooloo member #{gift.receiver.screen_name}", :title => "Shooloo member #{gift.receiver.screen_name}"), posts_user_path(gift.receiver) %>
           </div>
-          <div class="span6">
+          <div class="span5">
             <% if gift.sent? %>
                     <%= render partial: 'gifts/sent', 
                         locals: { user: gift.receiver, gift: gift }%>
@@ -37,7 +37,9 @@
                     onsubmit: "$('button', this).attr('disabled','disabled')", 
                     class: "form-horizontal-gift" }) do |f| %>
                   <%= render 'shared/error_messages', object: f.object %> 
-                  <%= f.input :sent, as: :hidden, value: true, class: "hidden" %>     
+                  <%= f.input :sent, as: :hidden, value: true, class: "hidden" %> 
+                  <%= f.input :week, as: :hidden, value: Time.now.strftime('%W'), class: "hidden" %>   
+                  <%= f.input :year, as: :hidden, value: Time.now.strftime('%Y'), class: "hidden" %>  
                   <span class="password-request-label">
                     <% if current_user.admin? %>
                       <%= f.input :choice_id, as: :select, label: "Gift Choice", 

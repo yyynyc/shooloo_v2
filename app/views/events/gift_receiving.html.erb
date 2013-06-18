@@ -21,7 +21,7 @@
 	</aside>
 	<div class="span8">    
     <% if @received_gifts_current_week.any? %>
-      <h3> Gifts Received This Week</h3> 
+      <h3> Gifts Received This Week</h3>       
       <ul class="gifts">
         <% @received_gifts_current_week.each do |gift| %>
           <li>
@@ -38,6 +38,9 @@
     <% end %>
     <div class="user_avatars">
       <h3> Gifts to Receive This Week</h3>
+      <div class="box">
+        <i><strong>Hint:</strong> comment, rate and like your friends posts, and you will earn points towards getting a gift from them.</i>
+      </div>
       <% if @scores.any? %>       
         <ul class="users">
           <% @scores.each do |s| %>

@@ -10,6 +10,7 @@ class Post < ActiveRecord::Base
                 :medium => "250x250>",
                 :small => "150x150>",
                 :thumb => "100x100>" }, 
+    default_url: "/attachments/Shooloo_logo_small.png",            
     url: "/attachments/posts/:id/:style/:basename.:extension",
     path: ":rails_root/public/attachments/posts/:id/:style/:basename.:extension"
 
@@ -36,9 +37,9 @@ class Post < ActiveRecord::Base
   
   validates_presence_of :user_id, :question, :grade, :category
   validates :answer, presence: true, length: {maximum: 100}
-  validates_attachment_presence :photo
-  validates_attachment_size :photo, :less_than => 5.megabytes
-  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
+  #validates_attachment_presence :photo
+  #validates_attachment_size :photo, :less_than => 5.megabytes
+  #validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
 
   def after_initialize
     @visible = true if @visible.nil?

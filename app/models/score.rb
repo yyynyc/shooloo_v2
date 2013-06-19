@@ -8,12 +8,12 @@ class Score < ActiveRecord::Base
 	  	Gift.where(week: self.week, year: self.year,
 	  		receiver_id: self.benefactor_id, 
 	  		giver_id: self.beneficiary_id).blank?
-	  	if self.beneficiary_id == "1" 
+	  	if self.beneficiary_id == 1 
 	  		Gift.create!(week: self.week, year: self.year,
 				receiver_id: self.benefactor_id, 
 	  			giver_id: 1, 
-	  			choice_id: "1", sent: true)
-	  	elsif self.beneficiary_id == "2" 
+	  			choice_id: 1, sent: true)
+	  	elsif self.beneficiary_id == 2 
 	  		Gift.create!(week: self.week, year: self.year,
 				receiver_id: self.benefactor_id, 
 	  			giver_id: 2, 
@@ -22,7 +22,7 @@ class Score < ActiveRecord::Base
 	  		Gift.create!(week: self.week, year: self.year,
 				receiver_id: self.benefactor_id, 
 	  			giver_id: self.beneficiary_id, 
-	  			choice_id: "2", sent: true)
+	  			choice_id: 2, sent: true)
 	  	else 
 	  		Gift.create!(week: self.week, year: self.year,
 				receiver_id: self.benefactor_id, 

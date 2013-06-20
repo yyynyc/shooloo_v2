@@ -107,9 +107,11 @@ class UsersController < ApplicationController
   def commented_posts
     @title = "Commented Posts"
     @user = User.find(params[:id])
-    #@commented_posts = @user.comments.order('created_at DESC').collect(&:commented_post).keep_if{ |x| x.visible == true }.uniq.paginate(page: params[:page], per_page: 10)
-    @commented_posts = @user.commented_posts.visible.paginate(page: params[:page], 
-      per_page: 10, order: "updated_at DESC")
+    @commented_posts = @user.comments.order('created_at DESC').collect(
+      &:commented_post).keep_if{ |x| x.visible == true }.uniq.paginate(
+      page: params[:page], per_page: 10)
+    #@commented_posts = @user.commented_posts.visible.paginate(page: params[:page], 
+    #  per_page: 10, order: "updated_at DESC")
     @comment=current_user.comments.build(params[:comment])
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build

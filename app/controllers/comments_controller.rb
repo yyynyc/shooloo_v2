@@ -25,14 +25,14 @@ class CommentsController < ApplicationController
         @comment.commented_post=@post            
         if @comment.save
             flash[:success] = "Hooray! Thank you for your comment. Now check your progress of getting a gift." 
-            @comments = @post.comments.visible.paginate(page: params[:page], per_page: 5, 
+            @comments = @post.comments.visible.paginate(page: params[:page], 
                 order: 'created_at DESC')      
             redirect_to new_post_comment_path(@post)
         else 
             raise "you need a post" if @post.nil?
             @post  = @comment.commented_post
             @alarm = @post.alarms.build
-            @comments = @post.comments.visible.paginate(page: params[:page], per_page: 5, 
+            @comments = @post.comments.visible.paginate(page: params[:page],  
                 order: 'created_at DESC')      
             render 'new'     
         end            

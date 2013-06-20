@@ -84,7 +84,7 @@ class UsersController < ApplicationController
 
   def posts
     @user = User.find(params[:id])
-    @posts = @user.posts.visible.paginate(page: params[:page], order: "updated_at DESC")
+    @posts = @user.posts.visible.paginate(page: params[:page], per_page: 10, order: "updated_at DESC")
     @post = @user.posts.build(params[:post])
     @rating=current_user.ratings.build(params[:rating])
     @alarm = current_user.alarms.build(params[:alarm])
@@ -95,7 +95,8 @@ class UsersController < ApplicationController
   def rated_posts
     @title = "Rated Posts"
     @user = User.find(params[:id])
-    @rated_posts = @user.rated_posts.visible.paginate(page: params[:page])
+    @rated_posts = @user.rated_posts.visible.paginate(page: params[:page], 
+      per_page: 10, order: "updated_at DESC")
     @rating=current_user.ratings.build(params[:rating])
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build
@@ -106,8 +107,9 @@ class UsersController < ApplicationController
   def commented_posts
     @title = "Commented Posts"
     @user = User.find(params[:id])
-    @commented_posts = @user.comments.order('created_at DESC').collect(&:commented_post).keep_if{ |x| x.visible == true }.uniq.paginate(page: params[:page], per_page: 30)
-    #@commented_posts = @user.commented_posts.visible.paginate(page: params[:page])
+    #@commented_posts = @user.comments.order('created_at DESC').collect(&:commented_post).keep_if{ |x| x.visible == true }.uniq.paginate(page: params[:page], per_page: 10)
+    @commented_posts = @user.commented_posts.visible.paginate(page: params[:page], 
+      per_page: 10, order: "updated_at DESC")
     @comment=current_user.comments.build(params[:comment])
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build
@@ -127,7 +129,7 @@ class UsersController < ApplicationController
 
   def show_activity
     @my_activities = Activity.where(recipient_id: current_user.id).paginate(page: params[:page], 
-      per_page: 40, order: 'created_at DESC')
+      per_page: 30, order: 'created_at DESC')
   end
   
 

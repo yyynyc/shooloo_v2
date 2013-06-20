@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
     :first_name, :last_name, :grade, :role, :visible, 
     :password, :password_confirmation,
     :avatar, :avatar_remote_url, :privacy, :rules,
-    :school_name, :school_url, :social_medial_url,
+    :school_name, :school_url, :social_media_url,
     :referrals_attributes, :authorizations_attributes
   attr_reader :avatar_remote_url
   has_attached_file :avatar, 
@@ -254,13 +254,13 @@ class User < ActiveRecord::Base
           self.privacy == true &&
           State.where(user_id: self.id).blank?   
         State.create!(user_id: self.id, complete: "true") 
-    elsif !self.role == "teacher" &&
-          !self.role == "student" &&
+    elsif self.role != "teacher" &&
+          self.role != "student" &&
           !self.screen_name.nil? &&
           !self.first_name.nil? &&
           !self.last_name.nil? &&
           !self.role.nil? &&
-          !self.social_medial_url.nil? &&
+          !self.social_media_url.nil? &&
           !self.personal_email.nil? &&
           self.rules == true &&
           self.privacy == true &&

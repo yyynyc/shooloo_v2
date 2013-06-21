@@ -20,7 +20,7 @@ class PostsController < ApplicationController
     if @post.save
       flash[:success] = "Fantastic! Thank you for your post. 
         Now try to gather some fans for your posts."
-      redirect_to gift_giving_path
+      redirect_to root_path
     else
       @feed_items = []
       render 'static_pages/home'

@@ -10,6 +10,7 @@
 			<%= f.input :password, placeholder: "Must be at least 6 characters long with no space or punctuation" %>
 			<%= f.input :password_confirmation, placeholder: "Must be the same as password"  %> 
 			<%= f.input :role, label: "I am a", as: :select, collection: ["student", "teacher", "parent", "tutor", "other"]  %>
+			<%= f.input :personal_email, label: "Email", placeholder: "Your own or your parent's email" %>
 			<div class='privacy'>	
 			<%= f.input :privacy, as: :boolean, label: "I agree with the ".html_safe + link_to("Terms of Service", terms_path) +" and the ".html_safe + link_to("Privacy Statement", privacy_path) + ".".html_safe, input_html: {checked: 'checked'}, required: true %>
 			<%= f.input :rules, label: "I agree with the ".html_safe + link_to("Rules of Conduct", rules_path) + ".".html_safe, as: :boolean, input_html: {checked: 'checked'}, required: true %>	

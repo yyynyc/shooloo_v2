@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   	if @user.save
   		sign_in @user
       flash[:success] = "Welcome! You've just earned some points! You are one step closer toward getting a gift."
-      redirect_to my_abilities_path
+      redirect_to posts_path
   	else
   		render 'new'
   	end

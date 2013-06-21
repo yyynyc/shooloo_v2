@@ -8,7 +8,7 @@ class EventsController < ApplicationController
         	year: Time.now.strftime('%Y')).where('weekly_tally > ?', 0).order('weekly_tally DESC')
 		@received_gifts = @user.reverse_gifts.where(sent: true).order('updated_at DESC')
 		@received_gifts_current_week = @user.reverse_gifts.where(
-			week: Time.now.strftime('%W'), year: Time.now.strftime('%Y'), 
+			sent_week: Time.now.strftime('%W'), sent_year: Time.now.strftime('%Y'), 
 			sent: true).order('updated_at DESC')
 		@givers = @received_gifts.collect(&:giver).uniq
 		render 'gift_receiving'

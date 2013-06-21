@@ -1,0 +1,20 @@
+<h1>Contact Us</h1>
+<div class="row">
+  <div class="span8 offset2">
+  	<div class="center timestamp" >	
+  <p >We would love to hear from you! <br/> Fill out the form below and we will get in touch with you as soon as we can.</p>
+  </div>	    
+	<%= semantic_form_for@message, html: {class: "form-horizontal-contact"} do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+		<%=f.inputs do %>
+			<%= f.input :name, placeholder: "Your real first and last name" %>
+			<%= f.input :email, placeholder: "Your or your parent's real email address if you want to hear back from us." %>
+			<%= f.input :subject %>
+			<%= f.input :body, label: "Message" %>
+		<% end %>
+		<%= f.actions do %>
+			<%= f.action :submit, label: "Send", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary", :disabled_with => 'Wait...' } %>
+		<% end %>
+	<% end %>	      
+  </div>
+</div>

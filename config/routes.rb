@@ -1,6 +1,8 @@
 ShoolooV2::Application.routes.draw do
 
 
+  get "contact/new"
+
 resources :users do
   member do
     get :following, :followers,  
@@ -55,6 +57,7 @@ resources :ref_checks
 resources :user_steps
 resources :gifts
 resources :choices
+resources :messages
 
     root to: "static_pages#home"
  
@@ -62,7 +65,6 @@ resources :choices
   match '/team', to: 'static_pages#team'
   match '/advisors', to: 'static_pages#advisors'
   match '/help', to: 'static_pages#help'
-  match '/contact', to: 'static_pages#contact'
   match '/rules', to: 'static_pages#rules'
   match '/terms', to: 'static_pages#terms'
   match '/privacy', to: 'static_pages#privacy'
@@ -75,6 +77,7 @@ resources :choices
   match '/hidden', to: "users#hidden"
   match '/gift_receiving', to: "events#gift_receiving"
   match '/gift_giving', to: "events#gift_giving"
+  match '/contact', to: "messages#new"
  
 
   # The priority is based upon order of creation:

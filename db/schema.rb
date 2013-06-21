@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130621152106) do
+ActiveRecord::Schema.define(:version => 20130621182344) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -136,6 +136,15 @@ ActiveRecord::Schema.define(:version => 20130621152106) do
   add_index "likes", ["liked_comment_id"], :name => "index_likes_on_liked_comment_id"
   add_index "likes", ["liked_post_id"], :name => "index_likes_on_liked_post_id"
   add_index "likes", ["liker_id"], :name => "index_likes_on_liker_id"
+
+  create_table "messages", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "nudges", :force => true do |t|
     t.integer  "nudger_id"
@@ -264,6 +273,15 @@ ActiveRecord::Schema.define(:version => 20130621152106) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
+
+  create_table "simple_captcha_data", :force => true do |t|
+    t.string   "key",        :limit => 40
+    t.string   "value",      :limit => 6
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "simple_captcha_data", ["key"], :name => "idx_key"
 
   create_table "states", :force => true do |t|
     t.integer  "user_id"

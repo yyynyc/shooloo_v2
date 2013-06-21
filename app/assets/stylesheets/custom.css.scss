@@ -384,6 +384,22 @@ aside {
   }
 }
 
+.form-horizontal-contact { 
+  .control-label {  
+    float: left;
+    width: 5px;
+    padding-top: 2px;
+    text-align: left;
+  }
+  .controls {
+    margin-left: 8em;
+    width: 500px;
+    textarea {
+      height: 200px;
+    }
+  } 
+}
+
 .form-horizontal-post-update { 
   .control-label {  
   float: left;

@@ -11,6 +11,9 @@
 			<%= f.input :email, placeholder: "Your or your parent's real email address if you want to hear back from us." %>
 			<%= f.input :subject %>
 			<%= f.input :body, label: "Message" %>
+			<div style="margin-left: 8em">
+				<%= recaptcha_tags ssl: true, display: {theme: 'clean'}, label: "Verify" %>
+			</div>
 		<% end %>
 		<%= f.actions do %>
 			<%= f.action :submit, label: "Send", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary", :disabled_with => 'Wait...' } %>

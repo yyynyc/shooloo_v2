@@ -11,6 +11,10 @@ class Gift < ActiveRecord::Base
 		  user_id: self.receiver_id, recipient_id: self.giver_id)
   	Activity.create!(action: "notify", trackable: self, 
 		  user_id: self.giver_id, recipient_id: self.receiver_id)
+    if self.sent?
+      Activity.create!(action: "sent", trackable: self, 
+        user_id: self.giver_id, recipient_id: self.receiver_id)
+    end
   end
 
   after_update do

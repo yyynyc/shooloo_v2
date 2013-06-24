@@ -21,7 +21,7 @@
 	</aside>
 	<div class="span8">    
     <% if @received_gifts_current_week.any? %>
-      <h3> Gifts Received This Week</h3>       
+      <h3> Gifts Received in the Past 14 Days</h3>       
       <ul class="gifts">
         <% @received_gifts_current_week.each do |gift| %>
           <li>

@@ -6,12 +6,22 @@ class MessagesController < ApplicationController
 
   def create
   	@message = Message.new(params[:message])
-  	if verify_recaptcha(@message) && @message.save
-  		flash[:success] = "Message was sent successfully."
-  		Contact.notification(@message).deliver
-  		redirect_to root_path
-  	else
-  		render 'new'
-  	end
+    if signed_in?
+      if @message.save
+        flash[:success] = "Message was sent successfully."
+        Contact.notification(@message).deliver
+        redirect_to root_path
+      else
+        render 'new'
+      end
+    else
+    	if verify_recaptcha(@message) && @message.save
+    		flash[:success] = "Message was sent successfully."
+    		Contact.notification(@message).deliver
+    		redirect_to root_path
+    	else
+    		render 'new'
+    	end
+    end
   end
 end

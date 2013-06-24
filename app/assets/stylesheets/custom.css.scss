@@ -397,7 +397,10 @@ aside {
     textarea {
       height: 200px;
     }
-  } 
+  }
+  .hidden {
+  margin-left: -2000px;
+  }  
 }
 
 .form-horizontal-post-update { 
@@ -837,4 +840,8 @@ aside {
 
 .right_align {
   text-align:right;
+}
+
+.negative-top {
+  margin-top: -1em;
 }

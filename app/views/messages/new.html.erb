@@ -1,23 +1,46 @@
 <h1>Contact Us</h1>
-<div class="row">
-  <div class="span8 offset2">
-  	<div class="center timestamp" >	
-  <p >We would love to hear from you! <br/> Fill out the form below and we will get in touch with you as soon as we can.</p>
-  </div>	    
-	<%= semantic_form_for@message, html: {class: "form-horizontal-contact"} do |f| %>
-		<%= render 'shared/error_messages', object: f.object %>
-		<%=f.inputs do %>
-			<%= f.input :name, placeholder: "Your real first and last name" %>
-			<%= f.input :email, placeholder: "Your or your parent's real email address if you want to hear back from us." %>
-			<%= f.input :subject %>
-			<%= f.input :body, label: "Message" %>
-			<div style="margin-left: 8em">
-				<%= recaptcha_tags ssl: true, display: {theme: 'clean'}, label: "Verify" %>
-			</div>
-		<% end %>
-		<%= f.actions do %>
-			<%= f.action :submit, label: "Send", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary", :disabled_with => 'Wait...' } %>
-		<% end %>
-	<% end %>	      
-  </div>
-</div>
+<% if signed_in? %>
+	<div class="row">
+	  <div class="span8 offset2">
+	  	<div class="center box negative-top">	
+		  <p >We would love to hear from you! <br/> First, make sure that your personal email address is <%= link_to "your profile", edit_user_path(current_user) %> is real and valid.<br/> We will send a response to your personal email address as soon as we can!</p>
+		</div>	    
+		<%= semantic_form_for@message, html: {class: "form-horizontal-contact"} do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+			<%=f.inputs do %>
+				<%= f.input :name, as: :hidden, value: "#{current_user.first_name} #{current_user.last_name} (#{current_user.screen_name})", 
+					class: "hidden" %>
+				<%= f.input :email, as: :hidden, value: "#{current_user.personal_email}", class: "hidden" %>
+				<%= f.input :subject %>
+				<%= f.input :body, label: "Message" %>
+			<% end %>
+			<%= f.actions do %>
+				<%= f.action :submit, label: "Send", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary", :disabled_with => 'Wait...' } %>
+			<% end %>
+		<% end %>	      
+	  </div>
+	</div>
+<% else %>
+	<div class="row">
+	  <div class="span8 offset2">
+	  	<div class="center timestamp" >	
+		  <p >We would love to hear from you! <br/> Fill out the form below and we will get in touch with you as soon as we can.</p>
+		</div>	    
+		<%= semantic_form_for@message, html: {class: "form-horizontal-contact"} do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+			<%=f.inputs do %>
+				<%= f.input :name, placeholder: "Your real first and last name" %>
+				<%= f.input :email, placeholder: "Your or your parent's real email address if you want to hear back from us." %>
+				<%= f.input :subject %>
+				<%= f.input :body, label: "Message" %>
+				<div style="margin-left: 8em">
+					<%= recaptcha_tags ssl: true, display: {theme: 'clean'} %>
+				</div>
+			<% end %>
+			<%= f.actions do %>
+				<%= f.action :submit, label: "Send", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary", :disabled_with => 'Wait...' } %>
+			<% end %>
+		<% end %>	      
+	  </div>
+	</div>
+<% end %>	

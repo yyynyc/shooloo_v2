@@ -20,10 +20,10 @@
     <% end %>
 	</aside>
 	<div class="span8">    
-    <% if @received_gifts_current_week.any? %>
+    <% if @received_gifts_14_days.any? %>
       <h3> Gifts Received in the Past 14 Days</h3>       
       <ul class="gifts">
-        <% @received_gifts_current_week.each do |gift| %>
+        <% @received_gifts_14_days.each do |gift| %>
           <li>
             <%= link_to            \
                   image_tag(gift.choice.image.url(:small)), 

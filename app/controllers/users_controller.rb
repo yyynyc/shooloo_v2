@@ -133,6 +133,39 @@ class UsersController < ApplicationController
     @my_activities = Activity.where(recipient_id: current_user.id).paginate(page: params[:page], 
       per_page: 30, order: 'created_at DESC')
   end
+
+  def change_password
+    @user = current_user
+    render 'password_change'
+  end
+  
+  def update_password
+    @user = current_user
+    raise "no user" if @user.nil?
+    if User.authenticate(@user.password, params[:user][:old_password])
+      sign_in @user
+      if ((params[:user][:password] == params[:user][:password_confirmation]) && 
+          !params[:user][:password_confirmation].blank?)
+        @user.password_confirmation = params[:user][:password_confirmation]
+        @user.password = params[:user][:password]
+        
+        if @user.save!
+            flash[:notice] = "Password successfully updated"
+            redirect_to root_path
+        else
+            flash[:alert] = "Password not changed"
+            render :action => 'change_password'
+        end           
+      else
+        flash[:alert] = "New Password mismatch" 
+        render :action => 'change_password'
+      end
+    else
+      flash[:alert] = "Old password incorrect" 
+      render :action => 'change_password'
+    end
+  end
+
   
 
   private

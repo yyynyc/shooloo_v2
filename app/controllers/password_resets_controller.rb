@@ -3,9 +3,9 @@ class PasswordResetsController < ApplicationController
 	end
 
   	def create
-	  user = User.find_by_email(params[:email])
+	  user = User.find_by_screen_name(params[:screen_name])
 	  user.send_password_reset if user
-	  redirect_to root_url, :notice => "Email sent with password reset instructions."
+	  redirect_to root_url, :notice => "Password reset instruction has been sent to your personal email address on file."
 	end
 
 	def edit
@@ -17,7 +17,7 @@ class PasswordResetsController < ApplicationController
 	  if @user.password_reset_sent_at < 6.hours.ago
 	    redirect_to new_password_reset_path, :alert => "Password reset has expired."
 	  elsif @user.update_attributes(params[:user])
-	    redirect_to root_url, :notice => "Password has been reset!"
+	    redirect_to signin_path, :notice => "Password has been reset!"
 	  else
 	    render :edit
 	  end

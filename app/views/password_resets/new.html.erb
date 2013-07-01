@@ -7,10 +7,10 @@
 		<%= form_tag password_resets_path, :method => :post do %>
 	  		<section>
 			  	<span class="password-request-label">
-			    	<%= label_tag :email %>
+			    	<%= label_tag :screen_name %>
 			    </span>
 			    <span class="password-request-email">
-			    	<%= text_field_tag :email, params[:email] %>
+			    	<%= text_field_tag :screen_name, params[:screen_name] %>
 				</span>
 				<span class="password-request-label">
 					<%= submit_tag "Reset Password", class: "btn btn-medium btn-primary" %>

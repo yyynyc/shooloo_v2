@@ -10,10 +10,13 @@ resources :users do
         :comments, :alarmed_comments, 
         :liked_posts, :liked_comments, 
         :inviter, :invited, 
-        :show_activity, :my_abilities, :gift_receiving, :gift_giving
+        :show_activity, :my_abilities, :gift_receiving, :gift_giving, 
+        :change_password
+    post :update_password
   end
   collection { post :search, to: 'users#index' }
 end
+
 resources :sessions, only: [:new, :create, :destroy]
 resources :relationships, only: [:create, :destroy]
 resources :nudges, only: [:create, :destroy]
@@ -78,6 +81,7 @@ resources :messages
   match '/gift_receiving', to: "events#gift_receiving"
   match '/gift_giving', to: "events#gift_giving"
   match '/contact', to: "messages#new"
+  match '/password', to: "users#password_change"
  
 
   # The priority is based upon order of creation:

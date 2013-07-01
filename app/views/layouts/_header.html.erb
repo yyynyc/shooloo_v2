@@ -134,7 +134,11 @@
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <%= link_to "My Information", edit_user_path(current_user) %></li>
+                  <%= link_to "My Information", edit_user_path(current_user) %>
+                </li>
+                <li>
+                  <%#= link_to "My Password", password_path %>
+                </li>
                 <li class="divider"></li>
                 <li>
                   <%= link_to "Sign Out", signout_path, method: "delete" %>

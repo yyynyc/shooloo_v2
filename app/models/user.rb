@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
     :avatar, :avatar_remote_url, :privacy, :rules,
     :school_name, :school_url, :social_media_url,
     :referrals_attributes, :authorizations_attributes
+  attr_accessor :updating_password
   attr_reader :avatar_remote_url
   has_attached_file :avatar, 
     :styles => {  :small => "60x60#",
@@ -118,8 +119,8 @@ class User < ActiveRecord::Base
   VALID_SCREEN_NAME_REGEX = /^[A-Za-z\d_]+$/
   validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX },
     uniqueness: {case_sensitive: false}, length: { minimum: 6, maximum: 20}
-     validates :password, presence: true, length: {minimum: 6}, on: :create
-  validates_confirmation_of :password_confirmation
+  validates :password, presence: true, length: {minimum: 6}, :if => :should_validate_password?
+  validates_confirmation_of :password, :if => :should_validate_password? 
   validates :privacy, presence: true
   validates :rules, presence: true
 
@@ -134,6 +135,10 @@ class User < ActiveRecord::Base
   #validates_attachment_presence :avatar
   #validates_attachment_size :avatar, :less_than => 5.megabytes
   #validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
+
+  def should_validate_password? 
+    updating_password || new_record?
+  end
 
   def self.visible
     where(:visible=>true)

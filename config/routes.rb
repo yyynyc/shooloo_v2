@@ -21,7 +21,7 @@ resources :sessions, only: [:new, :create, :destroy]
 resources :relationships, only: [:create, :destroy]
 resources :nudges, only: [:create, :destroy]
 
-resources :posts, path: '/common_core/math/word_problems' do
+resources :posts, path: '/Common_Core/Math/Practice/MP3/word_problems' do
   resources :likes, only: [:create, :destroy]
   resources :invites, only: :create
   resources :ratings 

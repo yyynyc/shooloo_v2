@@ -12,6 +12,9 @@ every :day, :at => '5:00 am' do
 	runner "User.daily_alert"
 end
 
+every :day, :at => '2:00 am' do
+	rake "-s sitemap:refresh"
+end
 
 # Use this file to easily define all of your cron jobs.
 #

@@ -2,6 +2,8 @@ require "bundler/capistrano"
 set :whenever_command, "bundle exec whenever"
 require "whenever/capistrano"
 
+SitemapGenerator::Sitemap.sitemaps_path = 'shared/'
+
 task :live do
   server "198.74.59.151", :web, :app, :db, primary: true
   set :env, 'live'
@@ -65,4 +67,9 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/attachments #{release_path}/public/attachments"
   end
   after 'deploy:finalize_update', 'deploy:symlink_attachments'
+
+  after "deploy", "refresh_sitemaps"
+  task :refresh_sitemaps do
+    run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake sitemap:refresh"
+  end
 end

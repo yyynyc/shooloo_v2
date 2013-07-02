@@ -81,7 +81,7 @@ resources :messages
   match '/gift_receiving', to: "events#gift_receiving"
   match '/gift_giving', to: "events#gift_giving"
   match '/contact', to: "messages#new"
-  match '/password', to: "users#change_password"
+  
  
 
   # The priority is based upon order of creation:

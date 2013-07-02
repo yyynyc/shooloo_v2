@@ -17,6 +17,7 @@ gem 'fancybox-rails'
 gem 'whenever', :require => false
 gem 'cancan'
 gem "recaptcha", :require => "recaptcha/rails"
+gem 'sitemap_generator'
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'

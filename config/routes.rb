@@ -20,7 +20,8 @@ end
 resources :sessions, only: [:new, :create, :destroy]
 resources :relationships, only: [:create, :destroy]
 resources :nudges, only: [:create, :destroy]
-resources :posts do
+
+resources :posts, path: '/common_core/math/word_problems' do
   resources :likes, only: [:create, :destroy]
   resources :invites, only: :create
   resources :ratings 
@@ -33,6 +34,7 @@ resources :posts do
   end
   collection { get :search, to: 'posts#index' }
 end
+
 resources :ratings do
   member do
     get :operations, :improvements, :flags

@@ -6,6 +6,7 @@ SitemapGenerator.verbose = false
 
 SitemapGenerator::Sitemap.create do
   add about_path, :priority => 0.9, :changefreq => 'monthly'
+  add posts_path, :priority => 0.8, :changefreq => 'daily'
   add signup_path, :priority => 0.7, :changefreq => 'never'  
   add contact_path, :priority => 0.6, :changefreq => 'monthly'
   add team_path, :priority => 0.5, :changefreq => 'monthly'

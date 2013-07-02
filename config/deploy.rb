@@ -2,8 +2,6 @@ require "bundler/capistrano"
 set :whenever_command, "bundle exec whenever"
 require "whenever/capistrano"
 
-SitemapGenerator::Sitemap.sitemaps_path = 'shared/'
-
 task :live do
   server "198.74.59.151", :web, :app, :db, primary: true
   set :env, 'live'

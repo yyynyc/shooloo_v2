@@ -5,6 +5,8 @@
 #   git config --global core.excludesfile ~/.gitignore_global
 
 /public/attachments
+/public/sitemap.xml
+/public/sitemap.xml.gz
 
 # Ignore bundler config
 /.bundle

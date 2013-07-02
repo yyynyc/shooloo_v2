@@ -17,6 +17,27 @@ class CommentsController < ApplicationController
         @like = Like.new
         @liked_post = @like.liked_post
         @liked_comment = @like.liked_comment
+        set_meta_tags title: 'Comment on Common Core Math Problem #'+ @post.id.to_s, 
+            description: 'Shooloo members critique the reasoning of Common Core math 
+                problem #' + @post.id.to_s,
+            name: 'Shooloo Common Core math word problems',
+            about: 'Math',
+            dateCreated: @post.updated_at.strftime('%m-%d-%Y').to_s,
+            timeRequired: 'PT0H5M', 
+            author: @post.user.screen_name.to_s,
+            publisher: 'Shooloo Inc.',
+            inLanguage: 'EN_US',
+            typicalAgeRange: '8-10,10-12,12-14',
+            interactivityType: 'Active,Expositive',
+            learningResourceType: 'Assessment,Discussion,On-Line,Worksheet',
+            useRightsUrl: 'http://creativecommons.org/licenses/by-nc-nd/3.0/',
+            educationalRole: 'teacher, student, tutor, specialist, parent',
+            educationalUse: 'Assessment,Cooperative Learning,Discovery Learning,Interactive,Journaling,Peer Coaching,Peer Response,Problem Solving,Questioning,Reciprocal Teaching,Reflection,Reinforcement,Review,Writing',
+            educationalAlignment: 'Common Core State Standard',
+            alignmentType: 'requires',
+            targetName: 'CCSS.Math.Practice.MP3',
+            targetUrl: 'http://www.corestandards.org/Math/Practice/MP3',
+            targetDescription: 'Construct viable arguments and critique the reasoning of others'
     end
 
     def create

@@ -7,6 +7,10 @@ class ChoicesController < ApplicationController
 	def index
 		@choice = Choice.new
 		@choices = Choice.all.paginate(page: params[:page], order: 'updated_at DESC')
+		set_meta_tags title: 'Gift Choices', 
+        description: 'Shooloo admin adds new gift choices', 
+        noindex: true,
+        nofollow: true
 	end
 
 	def create

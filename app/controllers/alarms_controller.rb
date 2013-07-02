@@ -14,6 +14,11 @@ class AlarmsController < ApplicationController
 		end
 		@alarm = Alarm.new
         render 'users/show_alarmed_posts'
+        set_meta_tags title: 'Alarmed Posts', 
+            description: 'Posts that are invisible to the public', 
+            keywords: 'Shooloo, Common Core, CCSS, math, word problems',
+            noindex: true,
+            nofollow: true
 	end
 
 	def new

@@ -10,11 +10,18 @@ class UsersController < ApplicationController
     if params[:error]
       flash.now[:error] = "Sorry, but you don't have the ability to do this now. Get referrals or authorization first."
     end
+    set_meta_tags title: 'My Powers', 
+        description: "Shooloo member's access to various activities",
+        noindex: true,
+        nofollow: true            
   end
 
   def new
   	@user = User.new
     @authorization = @user.authorizations.build
+    set_meta_tags title: 'Sign Up', 
+        description: 'Shooloo member sign up',
+        keywords: 'Shooloo, sign up'
   end
 
   def index
@@ -22,6 +29,10 @@ class UsersController < ApplicationController
     @users = @search.result.paginate(page: params[:page], 
       per_page: 30, order: 'screen_name ASC')
     @search.build_condition
+    set_meta_tags title: 'Members', 
+        description: "index of Shooloo members",
+        noindex: true,
+        nofollow: true 
   end
 
   def hidden
@@ -30,11 +41,19 @@ class UsersController < ApplicationController
       per_page: 30, order: 'screen_name ASC')
     @search_hidden.build_condition
     render 'hidden'
+    set_meta_tags title: 'Hidden Users', 
+        description: "List of Shooloo users that have not been approved of memberships",
+        noindex: true,
+        nofollow: true 
   end
 
   def show
     index
     render :action =>'index'
+    set_meta_tags title: 'Members', 
+        description: "index of Shooloo members",
+        noindex: true,
+        nofollow: true 
   end
 
   def create
@@ -50,6 +69,10 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
+    set_meta_tags title: 'Update My Information', 
+        description: "Shooloo member updates personal information",
+        noindex: true,
+        nofollow: true 
   end
 
   def update
@@ -68,17 +91,19 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def following
-    @title = "Following"
+  def following    
     @user = User.find(params[:id])
     @users = @user.followed_users.paginate(page: params[:page])
+    @title = "Shooloo Members that #{@user.screen_name} Follows"
+    @description = "List of Shooloo members that #{@user.screen_name} follows"
     render 'show_follow'
   end
 
   def followers
-    @title = "Followers"
     @user = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
+    @title = "#{@user.screen_name}'s' Followers"
+    @description = "List of Shooloo members that follow #{@user.screen_name}"
     render 'show_follow'
   end
 
@@ -89,11 +114,31 @@ class UsersController < ApplicationController
     @rating=current_user.ratings.build(params[:rating])
     @alarm = current_user.alarms.build(params[:alarm])
     @like = current_user.likes.build(params[:like])
+    set_meta_tags title: "Common Core Math Word Problems Written by #{@user.screen_name}", 
+        description: "List of common core math word problems written by #{@user.screen_name}",
+        name: 'Shooloo Common Core math word problems',
+        about: 'Math',
+        keywords: 'Shooloo, common core, CCSS, math, word problem, student, real life, cooperative learning',
+        dateCreated: @user.created_at.strftime('%m-%d-%Y').to_s,
+        timeRequired: 'PT0H5M', 
+        author: @user.screen_name.to_s,
+        publisher: 'Shooloo Inc.',
+        inLanguage: 'EN_US',
+        typicalAgeRange: ['8-10', '10-12', '12-14'],
+        interactivityType: ['Active', 'Expositive'],
+        learningResourceType: ['Assessment', 'Discussion', 'On-Line', 'Worksheet'],
+        useRightsUrl: 'http://creativecommons.org/licenses/by-nc-nd/3.0/',
+        educationalRole: ['teacher', 'student', 'tutor', 'specialist', 'parent'],
+        educationalUse: ['Assessment', 'Cooperative Learning', 'Discovery Learning', 'Interactive', 'Journaling', 'Peer Coaching', 'Peer Response', 'Problem Solving', 'Questioning', 'Reciprocal Teaching', 'Reflection', 'Reinforcement', 'Review', 'Writing'],
+        educationalAlignment: 'Common Core State Standard',
+        alignmentType: 'requires',
+        targetName: ['CCSS.Math.Practice.MP3', 'CCSS.Math.Practice.MP4'],
+        targetUrl: ['http://www.corestandards.org/Math/Practice/MP3', 'http://www.corestandards.org/Math/Practice/MP4'],
+        targetDescription: ['Construct viable arguments and critique the reasoning of others', 'Model real life with mathematics']
   end
 
 
   def rated_posts
-    @title = "Rated Posts"
     @user = User.find(params[:id])
     @rated_posts = @user.rated_posts.visible.paginate(page: params[:page], 
       per_page: 10, order: "updated_at DESC")
@@ -102,10 +147,30 @@ class UsersController < ApplicationController
     @alarm = current_user.alarms.build
     @like = current_user.likes.build
     render 'show_rated_posts'
+    set_meta_tags title: "Common Core Math Word Problems Rated by #{@user.screen_name}", 
+        description: "List of common core math word problems rated by #{@user.screen_name}",
+        name: 'Shooloo Common Core math word problems',
+        about: 'Math',
+        keywords: 'Shooloo, common core, CCSS, math, word problem, student, real life, cooperative learning',
+        dateCreated: @user.created_at.strftime('%m-%d-%Y').to_s,
+        timeRequired: 'PT0H5M', 
+        author: @user.screen_name.to_s,
+        publisher: 'Shooloo Inc.',
+        inLanguage: 'EN_US',
+        typicalAgeRange: ['8-10', '10-12', '12-14'],
+        interactivityType: ['Active', 'Expositive'],
+        learningResourceType: ['Assessment', 'Discussion', 'On-Line', 'Worksheet'],
+        useRightsUrl: 'http://creativecommons.org/licenses/by-nc-nd/3.0/',
+        educationalRole: ['teacher', 'student', 'tutor', 'specialist', 'parent'],
+        educationalUse: ['Assessment', 'Cooperative Learning', 'Discovery Learning', 'Interactive', 'Journaling', 'Peer Coaching', 'Peer Response', 'Problem Solving', 'Questioning', 'Reciprocal Teaching', 'Reflection', 'Reinforcement', 'Review', 'Writing'],
+        educationalAlignment: 'Common Core State Standard',
+        alignmentType: 'requires',
+        targetName: ['CCSS.Math.Practice.MP3', 'CCSS.Math.Practice.MP4'],
+        targetUrl: ['http://www.corestandards.org/Math/Practice/MP3', 'http://www.corestandards.org/Math/Practice/MP4'],
+        targetDescription: ['Construct viable arguments and critique the reasoning of others', 'Model real life with mathematics']
   end
 
   def commented_posts
-    @title = "Commented Posts"
     @user = User.find(params[:id])
     @commented_posts = @user.comments.order('created_at DESC').collect(
       &:commented_post).keep_if{ |x| x.visible == true }.uniq.paginate(
@@ -117,25 +182,57 @@ class UsersController < ApplicationController
     @alarm = current_user.alarms.build
     @like = current_user.likes.build
     render 'show_commented_posts'
+    set_meta_tags title: "Common Core Math Word Problems Critiqued by #{@user.screen_name}", 
+        description: "List of common core math word problems commented by #{@user.screen_name}",
+        name: 'Shooloo Common Core math word problems',
+        about: 'Math',
+        keywords: 'Shooloo, common core, CCSS, math, word problem, critique, real life, cooperative learning',
+        dateCreated: @user.created_at.strftime('%m-%d-%Y').to_s,
+        timeRequired: 'PT0H5M', 
+        author: @user.screen_name.to_s,
+        publisher: 'Shooloo Inc.',
+        inLanguage: 'EN_US',
+        typicalAgeRange: ['8-10', '10-12', '12-14'],
+        interactivityType: ['Active', 'Expositive'],
+        learningResourceType: ['Assessment', 'Discussion', 'On-Line', 'Worksheet'],
+        useRightsUrl: 'http://creativecommons.org/licenses/by-nc-nd/3.0/',
+        educationalRole: ['teacher', 'student', 'tutor', 'specialist', 'parent'],
+        educationalUse: ['Assessment', 'Cooperative Learning', 'Discovery Learning', 'Interactive', 'Journaling', 'Peer Coaching', 'Peer Response', 'Problem Solving', 'Questioning', 'Reciprocal Teaching', 'Reflection', 'Reinforcement', 'Review', 'Writing'],
+        educationalAlignment: 'Common Core State Standard',
+        alignmentType: 'requires',
+        targetName: ['CCSS.Math.Practice.MP3', 'CCSS.Math.Practice.MP4'],
+        targetUrl: ['http://www.corestandards.org/Math/Practice/MP3', 'http://www.corestandards.org/Math/Practice/MP4'],
+        targetDescription: ['Construct viable arguments and critique the reasoning of others', 'Model real life with mathematics']
   end
 
   def alarmed_posts
-    @title = "Hidden Posts"
     @user = User.find(params[:id])
     @alarmed_posts = @user.posts.hidden.paginate(page: params[:page], order: "updated_at DESC")
     @alarm=current_user.alarms.build(params[:alarm])
     @post  = current_user.posts.build
     @like = current_user.likes.build
     render 'show_alarmed_posts'
+    set_meta_tags title: "Invisible Math Problems Written by #{@user.screen_name}", 
+        description: "List of math problems written by #{@user.screen_name} but have been alarmed",
+        noindex: true,
+        nofollow: true
   end
 
   def show_activity
     @my_activities = Activity.where(recipient_id: current_user.id).paginate(page: params[:page], 
       per_page: 30, order: 'created_at DESC')
+    set_meta_tags title: "My News Alerts", 
+        description: "Shooloo member's activity feed",
+        noindex: true,
+        nofollow: true
   end
 
   def change_password
     @user = current_user
+    set_meta_tags title: "Update My Password", 
+        description: "Shooloo member change password",
+        noindex: true,
+        nofollow: true
   end
   
   def update_password

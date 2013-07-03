@@ -10,7 +10,29 @@ class RatingsController < ApplicationController
         @rating = Rating.new
         @post  = Post.find(params[:post_id]) 
         @alarm = Alarm.new 
-        @like = Like.new     
+        @like = Like.new  
+        set_meta_tags title: 'Rate Common Core Math Word Problem #'+ @post.id.to_s, 
+            description: 'Shooloo members give feedback on Common Core math 
+                problem #' + @post.id.to_s,
+            name: 'Shooloo Common Core math word problems',
+            about: 'Math',
+            keywords: 'Shooloo, common core, CCSS, math, word problem, rate, real life, cooperative learning',
+            dateCreated: @post.updated_at.strftime('%m-%d-%Y').to_s,
+            timeRequired: 'PT0H5M', 
+            author: @post.user.screen_name.to_s,
+            publisher: 'Shooloo Inc.',
+            inLanguage: 'EN_US',
+            typicalAgeRange: ['8-10', '10-12', '12-14'],
+            interactivityType: ['Active', 'Expositive'],
+            learningResourceType: ['Assessment', 'Discussion', 'On-Line', 'Worksheet'],
+            useRightsUrl: 'http://creativecommons.org/licenses/by-nc-nd/3.0/',
+            educationalRole: ['teacher', 'student', 'tutor', 'specialist', 'parent'],
+            educationalUse: ['Assessment', 'Cooperative Learning', 'Discovery Learning', 'Interactive', 'Journaling', 'Peer Coaching', 'Peer Response', 'Problem Solving', 'Questioning', 'Reciprocal Teaching', 'Reflection', 'Reinforcement', 'Review', 'Writing'],
+            educationalAlignment: 'Common Core State Standard',
+            alignmentType: 'requires',
+            targetName: ['CCSS.Math.Practice.MP3', 'CCSS.Math.Practice.MP4'],
+            targetUrl: ['http://www.corestandards.org/Math/Practice/MP3', 'http://www.corestandards.org/Math/Practice/MP4'],
+            targetDescription: ['Construct viable arguments and critique the reasoning of others', 'Model real life with mathematics']   
     end
 
     def create
@@ -37,6 +59,28 @@ class RatingsController < ApplicationController
         raise "you need a rating" if @rating.nil?
         @alarm = @post.alarms.build
         @like = @post.likes.build
+        set_meta_tags title: 'Edit Rating of Common Core Math Word Problem #'+ @post.id.to_s, 
+            description: 'Shooloo members edit rating of Common Core math 
+                problem #' + @post.id.to_s,
+            name: 'Shooloo Common Core math word problems',
+            about: 'Math',
+            keywords: 'Shooloo, common core, CCSS, math, word problem, rate, edit, real life, cooperative learning',
+            dateCreated: @post.updated_at.strftime('%m-%d-%Y').to_s,
+            timeRequired: 'PT0H5M', 
+            author: @post.user.screen_name.to_s,
+            publisher: 'Shooloo Inc.',
+            inLanguage: 'EN_US',
+            typicalAgeRange: ['8-10', '10-12', '12-14'],
+            interactivityType: ['Active', 'Expositive'],
+            learningResourceType: ['Assessment', 'Discussion', 'On-Line', 'Worksheet'],
+            useRightsUrl: 'http://creativecommons.org/licenses/by-nc-nd/3.0/',
+            educationalRole: ['teacher', 'student', 'tutor', 'specialist', 'parent'],
+            educationalUse: ['Assessment', 'Cooperative Learning', 'Discovery Learning', 'Interactive', 'Journaling', 'Peer Coaching', 'Peer Response', 'Problem Solving', 'Questioning', 'Reciprocal Teaching', 'Reflection', 'Reinforcement', 'Review', 'Writing'],
+            educationalAlignment: 'Common Core State Standard',
+            alignmentType: 'requires',
+            targetName: ['CCSS.Math.Practice.MP3', 'CCSS.Math.Practice.MP4'],
+            targetUrl: ['http://www.corestandards.org/Math/Practice/MP3', 'http://www.corestandards.org/Math/Practice/MP4'],
+            targetDescription: ['Construct viable arguments and critique the reasoning of others', 'Model real life with mathematics']   
     end
 
     def update

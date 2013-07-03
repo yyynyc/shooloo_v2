@@ -4,9 +4,9 @@ class ActivitiesController < ApplicationController
 	def index
     	@activities = Activity.joins(:user).where(users: {admin: false}).paginate(
     		page: params[:page], per_page: 30, order: 'created_at DESC')
-    	set_meta_tags title: 'All Member News', 
+    	set_meta_tags title: 'Community News', 
     		description: 'Shooloo member activities in the past 30 days', 
-    		keywords: 'Shooloo, member, activities',
+    		keywords: %w[Shooloo, community],
     		noindex: true,
     		nofollow: true
   	end

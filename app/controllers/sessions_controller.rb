@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
 	def new
+    set_meta_tags title: 'Sign In', 
+        description: 'Shooloo member signs in', 
+        keywords: 'Shooloo, sign in'
 	end
 
 	def create

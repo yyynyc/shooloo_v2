@@ -6,7 +6,3 @@ en:
     attributes:
       user:
         password_digest: "Password"
-  application:
-    root: 
-      description: "the world's largest Common Core math word problem bank 
-      created by students for students"

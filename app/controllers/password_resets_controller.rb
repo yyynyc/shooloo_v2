@@ -1,5 +1,10 @@
 class PasswordResetsController < ApplicationController
-	def new  	
+	def new 
+		set_meta_tags title: 'Request Password Reset', 
+    		description: 'Shooloo member requests to reset password', 
+    		keywords: %w[Shooloo password reset],
+    		noindex: true,
+    		nofollow: true
 	end
 
   	def create
@@ -10,6 +15,11 @@ class PasswordResetsController < ApplicationController
 
 	def edit
 	  @user = User.find_by_password_reset_token!(params[:id])
+	  set_meta_tags title: 'Password Reset', 
+    		description: 'Shooloo member resets password', 
+    		keywords: %w[Shooloo password reset],
+    		noindex: true,
+    		nofollow: true
 	end
 
 	def update

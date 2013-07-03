@@ -1,4 +1,8 @@
-<% provide(:title, 'Hidden Users') %>
+<% title 'Hidden Users' %>
+<% description "List of Shooloo users that have not been approved of memberships" %>
+<% noindex %>
+<% nofollow %>
+
 <h1>Hidden Users</h1>
 
 <%= search_form_for @search_hidden, url: search_users_path, 

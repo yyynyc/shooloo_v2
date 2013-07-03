@@ -11,6 +11,11 @@ class ReferralsController < ApplicationController
       'users.role' => "teacher", 'referrals.approval' => "accepted")
     @teacher_referrer = @teachers.search(params[:q])
     @teacher_referrers = @teacher_referrer.result
+    set_meta_tags title: 'Request Referrals', 
+        description: 'Shooloo member request referrals from existing members', 
+        keywords: %w[Shooloo],
+        noindex: true,
+        nofollow: true
   end
 
   def create
@@ -27,6 +32,11 @@ class ReferralsController < ApplicationController
 
   def index
     @ref_seekers = current_user.referred_users.all
+    set_meta_tags title: 'Grant Referrals', 
+        description: 'Shooloo member grant referrals to new members', 
+        keywords: %w[Shooloo],
+        noindex: true,
+        nofollow: true
   end
 
   def update

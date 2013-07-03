@@ -2,6 +2,9 @@ class MessagesController < ApplicationController
 
   def new
   	@message = Message.new
+    set_meta_tags title: 'Contact Us', 
+        description: 'Contact form', 
+        keywords: %w[Shooloo, contact]
   end
 
   def create

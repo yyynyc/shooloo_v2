@@ -19,7 +19,7 @@ class StaticPagesController < ApplicationController
             publisher: 'Shooloo Inc.',
             inLanguage: 'EN_US',
             typicalAgeRange: ['8-10', '10-12', '12-14'],
-            interactivityType: ['Active', 'Expositive'],
+            interactivityType: 'Mixed',
             learningResourceType: ['Assessment', 'Discussion', 'On-Line', 'Worksheet'],
             useRightsUrl: 'http://creativecommons.org/licenses/by-nc-nd/3.0/',
             educationalRole: ['teacher', 'student', 'tutor', 'specialist', 'parent'],

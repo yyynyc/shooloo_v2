@@ -1,76 +1,99 @@
-<% provide(:title, "All Posts") %> 
-<h1> Common Core Word Problems </h1>
+<div itemscope itemtype="http://schema.org/CreativeWork">
+  <span itemprop="description" content="Sign in Shooloo to access over 1,000 student-authored math word problems aligned with the Common Core State Standard."></span>
+  <span itemprop="name" content="Shooloo Learning"></span>
+  <span itemprop="about" content="Math"></span>
+  <span itemprop="audience" content="student, teacher, tutor, specialist, parent"></span>
+  <span itemprop="name" content="Shooloo Learning"></span>
+  <span itemprop="educationalUse" content="assessment, cooperative learning, discovery learning, interactive, journaling, peer coaching, peer response, problem solving, questioning, reciprocal teaching, reflection, reinforcement, review, writing"></span>
+  <span itemprop="genre" content="word problem"></span>
+  <span itemprop="inLanguage" content="EN_US"></span>
+  <span itemprop="interactivityType" content="mixed"></span>
+  <span itemprop="isFamilyFriendly" content="true"></span>
+  <span itemprop="keywords" content="Shooloo, Common Core, math, word problem, student, critique, peer, feedback"></span>
+  <span itemprop="learningResourceType" content="assessment, discusssion, on-line, worksheet"></span>
+  <span temprop="publisher" content="Shooloo Inc."></span>
+  <span temprop="timeRequired" content="P5M"></span>
+  <span temprop="typicalAgeRange" content="8-10, 10-12, 12-14"></span>
+  <span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject"></span>
+  <span itemprop="educationalFramework" content="Common Core State Standard"></span>
+  <span itemprop="alignmentType" content="requires"></span>   
+  <span itemprop="targetName" content="CCSS.Math.Practice.MP3, CCSS.Math.Practice.MP4"></span>
+  <span itemprop="targetUrl" content="http://www.corestandards.org/Math/Practice/MP3, http://www.corestandards.org/Math/Practice/MP4"></span>
+  <span itemprop="targetDescription", content="construct viable argument, critique the reasoning of others, model real life with mathematics"></span>
 
-<%= search_form_for @search, url: search_posts_path, method: :get do |f| %>
-	<div class="row">
-		<div class="span8 offset2" >
-			<span class="search-label">
-				<%= f.label :grade_cont, "Grade" %> 
-			</span>
-			<span class="search-field">
-				<%= f.select :grade_cont, options: ["","kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade"]%>
-			</span>	
-			<span class="search-label">
-				<%= f.label :category_cont, "Category" %>
-			</span>
-			<span class="search-field">
-				<%= f.select :category_cont, options: ["", "animals/pets", "books", "fahsion", "food", "games", "money", "movies/TV shows", "music/dance", "news", "party", "puzzles", "school", "shopping", "sports", "travel", "weather", "OTHER"] %>
-			</span>
-			<span class="search-label">
-				<%= f.label :question_cont, "keyword" %>
-			</span>
-			<span class="search-field">
-				<%= f.text_field :question_cont %>
-			</span>	
-			<span class="search-label">
-				<%= f.submit "Search", class: "btn btn-small btn-default" %>
-			</span>
-		</div>
-	</div>
-<% end %>
+	<h1> Common Core Word Problems </h1>
 
-<ul class="users">
-	<% @posts.each do |post| %>
-		<li>
-			<div class="row">		
-				<div class="span1.5">
-					<%= link_to image_tag(post.photo.url (:thumb), 
-						alt: "Shooloo Common Core Math Problem ##{post.id}", 
-						title: "Shooloo Common Core Math Problem ##{post.id}"), 
-						new_post_comment_path(post)
-						 %>	
-				</div>
-				<div class="span10">
-					<% if signed_in? %>
-						<span class="btn-formtastic"> 
-							<%= render(partial: 'likes/like_form', locals: {like: @like, post: post }) unless current_user?(post.user) %>	
-						</span>
-					<% end %>	
-					<section>
-						<%= render partial: 'posts/post_user', locals: {post: post} %>			      	
-				        <%= render partial: 'posts/post_stats', locals: {post: post} %>			        		      	
-			    	</section> 
-			  		<section>			  			
-			  			<%= truncate post.question, :length => 280, 
-			  				:omission => "..." %> 
-			  			<% if signed_in? %>			  		
-				  			<% if current_user?(post.user) %> 		  				
-		        				<%= link_to "Edit your post ", edit_post_path(post), title: "Edit Post" %>
-			          		<% else %> 
-			            		<% if post.ratings.find_by_rater_id(current_user.id) %>
-		          					<%= link_to "Edit your rating", edit_post_rating_path(post, post.rating_by(current_user)), title: "Edit Rating" %>
-			            		<% else %> 
-			              			<%= link_to "Rate this post", new_post_rating_path(post)  %>
-			            		<% end %>
-			          		<% end %>
-			          		or 
-			          		<%= link_to "add comment", new_post_comment_path(post) %>.	
-			          	<% end %>	          	  
-			  		</section>
-			  	</div>
+	<%= search_form_for @search, url: search_posts_path, method: :get do |f| %>
+		<div class="row">
+			<div class="span8 offset2" >
+				<span class="search-label">
+					<%= f.label :grade_cont, "Grade" %> 
+				</span>
+				<span class="search-field">
+					<%= f.select :grade_cont, options: ["","kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade"]%>
+				</span>	
+				<span class="search-label">
+					<%= f.label :category_cont, "Category" %>
+				</span>
+				<span class="search-field">
+					<%= f.select :category_cont, options: ["", "animals/pets", "books", "fahsion", "food", "games", "money", "movies/TV shows", "music/dance", "news", "party", "puzzles", "school", "shopping", "sports", "travel", "weather", "OTHER"] %>
+				</span>
+				<span class="search-label">
+					<%= f.label :question_cont, "keyword" %>
+				</span>
+				<span class="search-field">
+					<%= f.text_field :question_cont %>
+				</span>	
+				<span class="search-label">
+					<%= f.submit "Search", class: "btn btn-small btn-default" %>
+				</span>
 			</div>
-		</li>
+		</div>
 	<% end %>
-</ul>
-<%= will_paginate @posts %>
+
+	<ul class="users">
+		<% @posts.each do |post| %>
+			<li>
+				<div class="row">		
+					<div class="span1.5">
+						<%= link_to image_tag(post.photo.url (:thumb), 
+							alt: "Shooloo Common Core Math Problem ##{post.id}", 
+							title: "Shooloo Common Core Math Problem ##{post.id}"), 
+							new_post_comment_path(post)
+							 %>	
+					</div>
+					<div class="span10">
+						<% if signed_in? %>
+							<span class="btn-formtastic"> 
+								<%= render(partial: 'likes/like_form', locals: {like: @like, post: post }) unless current_user?(post.user) %>	
+							</span>
+						<% end %>	
+						<section>
+							<%= render partial: 'posts/post_user', locals: {post: post} %>			      	
+					        <%= render partial: 'posts/post_stats', locals: {post: post} %>			        		      	
+				    	</section> 
+				  		<section>			  			
+				  			<%= truncate post.question, :length => 280, 
+				  				:omission => "..." %> 
+				  			<% if signed_in? %>			  		
+					  			<% if current_user?(post.user) %> 		  				
+			        				<%= link_to "Edit your post ", edit_post_path(post), title: "Edit Post" %>
+				          		<% else %> 
+				            		<% if post.ratings.find_by_rater_id(current_user.id) %>
+			          					<%= link_to "Edit your rating", edit_post_rating_path(post, post.rating_by(current_user)), title: "Edit Rating" %>
+				            		<% else %> 
+				              			<%= link_to "Rate this post", new_post_rating_path(post)  %>
+				            		<% end %>
+				          		<% end %>
+				          		or 
+				          		<%= link_to "add comment", new_post_comment_path(post) %>.	
+				          	<% end %>	          	  
+				  		</section>
+				  	</div>
+				</div>
+			</li>
+		<% end %>
+	</ul>
+	<%= will_paginate @posts %>
+</div>	
 

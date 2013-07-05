@@ -1,8 +1,8 @@
 class SessionsController < ApplicationController
 	def new
     set_meta_tags title: 'Sign In', 
-        description: 'Shooloo member signs in', 
-        keywords: 'Shooloo, sign in'
+        description: 'Sign in Shooloo to access over 1,000 student-authored math word problems aligned with the Common Core State Standard.', 
+        keywords: 'Shooloo, sign in, math, word problem, Common Core'
 	end
 
 	def create

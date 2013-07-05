@@ -1,31 +1,31 @@
-<% provide(:title, 'About') %>
+<div itemscope itemtype="http://schema.org/CreativeWork">
+	<h1>About Shooloo</h1>
+	<ul class="nav nav-tabs">
+		<li class="active"><%= link_to "About", about_path %></li>
+		<li><%= link_to "Team", team_path %></li>
+		<li><%= link_to "Advisors", advisors_path  %></li>
+	</ul>
+	<span itemprop="image">
+		<%= image_tag("/attachments/computer.jpg", size: "200x100>", alt: "Shooloo Common Core Math", style: "float: right; margin-left: 2em; border-radius: 5px;", title: "Shooloo Common Core Math") %>
+	</span>	
+	<div class="about">
+		<p>Does your child excel in <span itemprop="about">math</span> computation but struggle with <span itemprop="genre">word problems</span>? Do your students’ test scores drop after switching over to the <span itemprop="keywords">Common Core State Standards</span>? If so, then <span itemprop="name">Shooloo Learning</span> (<span itemprop="url">http://shooloo.org/</span>) is the answer for you!</p>
 
-<h1>About Shooloo</h1>
-<ul class="nav nav-tabs">
-	<li class="active"><%= link_to "About", about_path %></li>
-	<li><%= link_to "Team", team_path %></li>
-	<li><%= link_to "Advisors", advisors_path  %></li>
-</ul>
-<%= image_tag("/attachments/computer.jpg", size: "200x100>", alt: "Shooloo Common Core Math", style: "float: right; margin-left: 2em; border-radius: 5px;", title: "Shooloo Common Core Math") %>
-<div class="about">
-<p>In January 2013, Robin Yang, a Wall Street veteran, set out to create a collaborative platform for K-12 students to learn math and English.</p>
+		<div itemscope itemtype="http://schema.org/AlignmentObject">
+			<p>Shooloo Learning aligns with the <span itemprop="educationalFramework">Common Core State Standards</span> for Mathematical Practices, which <span itemprop="alignmentType">requires</span> <span itemprop="targetName">CCSS.Math.Practice.MP3</span> (<span itemprop="targetUrl">http://www.corestandards.org/Math/Practice/MP3</span>) and <span itemprop="targetName">CCSS.Math.Practice.MP4</span> (<span itemprop="targetUrl">http://www.corestandards.org/Math/Practice/MP4</span>). At Shooloo.org, students publish their own math word problems, <span itemprop="targetDescription">construct viable arguments, critique the reasoning of others</span>, and <span itemprop="targetDescription">model real life with mathematics</span>. 
+			</p>
+		</div>
 
-<p>Having taught elementary school students financial literacy previously, Robin discovered that many students could compute numbers but had great difficulty in translating word problems into math equations. Being an English Language Learner herself, Robin realized that language understanding is as important as mathematical computation in solving word problems. </p>
+		<p><span itemprop="audience">Students, teachers, tutors, parents, and learning specialists</span> alike enjoy Shooloo immensely. Our student members are typically in the age range of <span temprop="typicalAgeRange">8-10, 10-12, and 12-14</span>, i.e., in upper elementary and middle school grades where word problems constitute majority of the math exams. Shooloo is especially beneficial for <span itemprop="keywords">English Language Learners</span> and <span itemprop="keywords">Title I</span> students. Through <span itemprop="keywords">Shooloo</span>, students overcome their fear of <span itemprop="keywords">word problems</span>, discover the joy of writing their own <span itemprop="keywords">math stories</span>, attain <span itemprop="keywords">confidence</span> with encouragement from their peers, and exercise <span itemprop="keywords">perseverance in solving math problems</span>. </p>
 
-<p>She embarked on a journey to find an effective solution to teach students problem solving skills. To her surprise, she found that although there are many math software applications on the market, all of them focus on computation instead of problem solving. There are also a plethora of word problem worksheets on the Internet, but they are usually written from adults’ point of view and far removed from children’s interests and hobbies.</p>
+		<p>Founded in 2013, Shooloo now has <span itemprop="description">the world’s largest repository of student-authored math word problems</span>, suitable for <span itemprop="learningResourceType">on-line learning,  worksheet, discussion, and assessment</span>. It is the perfect medium for <span itemprop="educationalUse">cooperative learning, discovery learning, interactive learning, journaling, peer coaching, peer response, problem solving, questioning, reciprocal teaching, reinforcement, review, and writing</span>.</p>
 
-<p>From her own teaching experience, Robin knew that American students are very creative and expressive. So why not leverage students’ imagination and creativity and let them apply math to their own lives? Hence, Shooloo was born.</p>
+		<p>All of our word problems are complete with <span itemprop="keywords">“I Can”</span> statements and tagged with the associated <span itemprop="keywords">Common Core State Standard</span>. At click of a button, student can easily compile their own <span itemprop="keywords">“I Can” journals</span>, and teachers can <span itemprop="keywords">assess</span> which students struggle with which Common Core State Standard and thus can provide <span itemprop="keywords">individualized coaching</span>. </p>
 
-<p>Shooloo means “Number Joy” in Chinese. At Shooloo, students write their own math stories, publish them onto the Internet, get feedback from their peers and teachers, crystalize their mathematical thinking, and continuously improve their own writing.</p>
+		<p><span temprop="publisher">Shooloo</span> transforms math learning into a fun social experience. Like its name in Chinese which means “Number Joy”, Shooloo strives to bring the joy of numbers to the hearts of all students and teachers!</p>
 
-<p>Since students started using Shooloo in March 2013, they have published word problems on a large variety of subjects, including animals and pets, food, fashion, shopping, money, music, movies, sports, video games, and pretty much every walk of life.</p>
-
-<p>Students enjoy Shooloo so much that they publish word problems not only during school days, but also on weekends and holidays. Through Shooloo, they discover the joy of numbers and words, and form comradery in learning. Meanwhile, teachers leverage Shooloo to identify students’ stumbling blocks, help them prepare state exams, and bring them up to speed with the Common Core State Standard.</p>
-
-<p>Shooloo has been made possible through close collaboration between its <%= link_to "team", team_path %> and its educational <%= link_to "advisors", advisors_path %>. Together, we work hard to help all children realize their full potentials in math and writing and to prepare them for a bright future in college and career. </p>
-
+	</div>
 </div>
-
 
 
 

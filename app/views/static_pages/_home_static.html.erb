@@ -10,8 +10,10 @@
         Math Word Problem Bank<br/>
         Created by Students for Students<br/>
       </div>
-      <div id='signup-home'>
-        <%= link_to "Sign Up - It's Free!", signup_path, class: "btn btn-large btn-primary" %>
+      <div id='signup-home' itemscope itemtype="http://schema.org/PriceSpecification">
+        <span itemprop="price" content="free">
+          <%= link_to "Sign Up - It's Free!", signup_path, class: "btn btn-large btn-primary" %>
+        </span>  
       </div>
     </div>
     <div class="span7">

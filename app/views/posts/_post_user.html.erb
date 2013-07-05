@@ -5,7 +5,7 @@
 <% if !post.user.grade.nil? %>
 	<span class="timestamp"> in </span>grade <%= post.user.grade %>
 <% end %>
-<% if current_user.admin? %>
+<% if signed_in? && current_user.admin? %>
 	(<%= post.user.first_name %> <%= post.user.last_name %>)
 <% end %><br/>
 <span class="timestamp">updated on </span>    

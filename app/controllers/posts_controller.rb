@@ -1,13 +1,16 @@
 class PostsController < ApplicationController
 	before_filter :signed_in_user
-  before_filter :correct_user,   only: :destroy
+  skip_before_filter :signed_in_user, only: :index
+  before_filter :correct_user, only: :destroy
   load_and_authorize_resource
   
   def index
     @search = Post.visible.search(params[:q])
     @posts = @search.result.visible.paginate(page: params[:page], per_page: 30, order: 'updated_at DESC')
     @search.build_condition
-    @like = current_user.likes.build(params[:like])
+    if signed_in?
+      @like = current_user.likes.build(params[:like])
+    end
     set_meta_tags title: 'Common Core Math Word Problems', 
             description: 'Index of all Common Core math word problems published on Shooloo',
             name: 'Shooloo Common Core math word problems',

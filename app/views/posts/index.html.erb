@@ -1,5 +1,5 @@
 <% provide(:title, "All Posts") %> 
-<h1> All Posts </h1>
+<h1> Common Core Word Problems </h1>
 
 <%= search_form_for @search, url: search_posts_path, method: :get do |f| %>
 	<div class="row">
@@ -41,27 +41,31 @@
 						 %>	
 				</div>
 				<div class="span10">
-					<span class="btn-formtastic"> 
-						<%= render(partial: 'likes/like_form', locals: {like: @like, post: post }) unless current_user?(post.user) %>	
-					</span>
+					<% if signed_in? %>
+						<span class="btn-formtastic"> 
+							<%= render(partial: 'likes/like_form', locals: {like: @like, post: post }) unless current_user?(post.user) %>	
+						</span>
+					<% end %>	
 					<section>
 						<%= render partial: 'posts/post_user', locals: {post: post} %>			      	
 				        <%= render partial: 'posts/post_stats', locals: {post: post} %>			        		      	
 			    	</section> 
 			  		<section>			  			
 			  			<%= truncate post.question, :length => 280, 
-			  				:omission => "..." %> 		  		
-			  			<% if current_user?(post.user) %> 		  				
-	        				<%= link_to "Edit your post ", edit_post_path(post), title: "Edit Post" %>
-		          		<% else %> 
-		            		<% if post.ratings.find_by_rater_id(current_user.id) %>
-	          					<%= link_to "Edit your rating", edit_post_rating_path(post, post.rating_by(current_user)), title: "Edit Rating" %>
-		            		<% else %> 
-		              			<%= link_to "Rate this post", new_post_rating_path(post)  %>
-		            		<% end %>
-		          		<% end %>
-		          		or 
-		          		<%= link_to "add comment", new_post_comment_path(post) %>.	          	  
+			  				:omission => "..." %> 
+			  			<% if signed_in? %>			  		
+				  			<% if current_user?(post.user) %> 		  				
+		        				<%= link_to "Edit your post ", edit_post_path(post), title: "Edit Post" %>
+			          		<% else %> 
+			            		<% if post.ratings.find_by_rater_id(current_user.id) %>
+		          					<%= link_to "Edit your rating", edit_post_rating_path(post, post.rating_by(current_user)), title: "Edit Rating" %>
+			            		<% else %> 
+			              			<%= link_to "Rate this post", new_post_rating_path(post)  %>
+			            		<% end %>
+			          		<% end %>
+			          		or 
+			          		<%= link_to "add comment", new_post_comment_path(post) %>.	
+			          	<% end %>	          	  
 			  		</section>
 			  	</div>
 			</div>

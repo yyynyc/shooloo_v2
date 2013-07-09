@@ -11,6 +11,9 @@ class PostsController < ApplicationController
     if signed_in?
       @like = current_user.likes.build(params[:like])
     end
+    @grades = Grade.all
+    @domains = Domain.all
+    @standards = Standard.all
     set_meta_tags title: 'Common Core Math Word Problems', 
             description: 'Index of all Common Core math word problems published on Shooloo',
             name: 'Shooloo Common Core math word problems',

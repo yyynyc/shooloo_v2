@@ -114,6 +114,9 @@ class UsersController < ApplicationController
     @rating=current_user.ratings.build(params[:rating])
     @alarm = current_user.alarms.build(params[:alarm])
     @like = current_user.likes.build(params[:like])
+    @grades = Grade.all
+    @domains = Domain.all
+    @standards = Standard.all
     set_meta_tags title: "Common Core Math Word Problems Written by #{@user.screen_name}", 
         description: "List of common core math word problems written by #{@user.screen_name}",
         name: 'Shooloo Common Core math word problems',
@@ -146,6 +149,9 @@ class UsersController < ApplicationController
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build
     @like = current_user.likes.build
+    @grades = Grade.all
+    @domains = Domain.all
+    @standards = Standard.all
     render 'show_rated_posts'
     set_meta_tags title: "Common Core Math Word Problems Rated by #{@user.screen_name}", 
         description: "List of common core math word problems rated by #{@user.screen_name}",
@@ -181,6 +187,9 @@ class UsersController < ApplicationController
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build
     @like = current_user.likes.build
+    @grades = Grade.all
+    @domains = Domain.all
+    @standards = Standard.all
     render 'show_commented_posts'
     set_meta_tags title: "Common Core Math Word Problems Critiqued by #{@user.screen_name}", 
         description: "List of common core math word problems commented by #{@user.screen_name}",
@@ -211,6 +220,9 @@ class UsersController < ApplicationController
     @alarm=current_user.alarms.build(params[:alarm])
     @post  = current_user.posts.build
     @like = current_user.likes.build
+    @grades = Grade.all
+    @domains = Domain.all
+    @standards = Standard.all
     render 'show_alarmed_posts'
     set_meta_tags title: "Invisible Math Problems Written by #{@user.screen_name}", 
         description: "List of math problems written by #{@user.screen_name} but have been alarmed",

@@ -7,6 +7,9 @@ class StaticPagesController < ApplicationController
       @comment = current_user.comments.build
       @alarm = current_user.alarms.build
       @like = current_user.likes.build
+      @grades = Grade.all
+      @domains = Domain.all
+      @standards = Standard.all
     end
     set_meta_tags title: 'Common Core Math Problems Created by Students for Students', 
             description: "World's largest repository of student-authored common core math word problems",

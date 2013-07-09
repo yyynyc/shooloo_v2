@@ -9,9 +9,6 @@
     <%= f.label :answer, "Answer:" %>
     <%= f.text_field :answer %>
 
-    <%= f.label :grade, "Suitable Grade:" %>
-    <%= f.select :grade, options: ["","kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade"] %>
-
     <%= f.label :category, "Category:" %>
     <%= f.select :category, options: ["", "animals/pets", "books", "fahsion", "food", "games", "money", "movies/TV shows", "music/dance", "news", "party", "puzzles", "school", "shopping", "sports", "travel", "weather", "OTHER"] %>
 
@@ -21,7 +18,18 @@
     <%= f.label :photo_remote_url, "Paste in the url of a photo from the web:" %>
     <%= f.text_field :photo_remote_url %>
   </div> 
-  <%#= f.submit "Preiew", name: "preview_button", class: "btn btn-large btn-success" %>
+  <div class="field">
+    <%= f.label :grade_id, "This question is suitable grade:" %>
+    <%= f.collection_select :grade_id, Grade.order(:number), :id, :name, include_blank: true %>
+  </div>
+  <div class="field">
+    <%= f.label :domain_id, "This question requires skills in:" %>
+    <%= f.grouped_collection_select :domain_id, Grade.order(:name), :domains, :name, :id, :name, include_blank: true %>
+  </div>
+  <div class="field">
+    <%= f.label :standard_id, "To solve this problem, I CAN:" %>
+    <%= f.grouped_collection_select :standard_id, Domain.order(:symbol), :standards, :symbol, :id, :ICan, include_blank: true %>
+  </div>
   <%= f.submit "Save", class: "btn btn-large btn-primary"%>
 <% end %>
 

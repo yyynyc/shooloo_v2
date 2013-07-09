@@ -3,6 +3,9 @@ class Post < ActiveRecord::Base
     :photo, :photo_remote_url, :image_host, :category
   attr_reader :photo_remote_url
   belongs_to :user
+  belongs_to :standard
+  belongs_to :domain
+  belongs_to :grade
 
   has_attached_file :photo, 
     :styles => { 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130621182344) do
+ActiveRecord::Schema.define(:version => 20130708211814) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -80,6 +80,14 @@ ActiveRecord::Schema.define(:version => 20130621182344) do
 
   add_index "comments", ["commenter_id", "created_at"], :name => "index_comments_on_commenter_id_and_created_at"
 
+  create_table "domains", :force => true do |t|
+    t.integer  "grade_id"
+    t.string   "name"
+    t.string   "symbol"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "events", :force => true do |t|
     t.integer  "benefactor_id"
     t.integer  "beneficiary_id"
@@ -108,6 +116,13 @@ ActiveRecord::Schema.define(:version => 20130621182344) do
     t.datetime "updated_at",  :null => false
     t.integer  "sent_week"
     t.integer  "sent_year"
+  end
+
+  create_table "grades", :force => true do |t|
+    t.integer  "number"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "improvements", :force => true do |t|
@@ -214,6 +229,9 @@ ActiveRecord::Schema.define(:version => 20130621182344) do
     t.integer  "image_count"
     t.integer  "comments_count"
     t.integer  "likes_count"
+    t.integer  "grade_id"
+    t.integer  "domain_id"
+    t.integer  "standard_id"
   end
 
   add_index "posts", ["user_id", "created_at"], :name => "index_posts_on_user_id_and_created_at"
@@ -282,6 +300,16 @@ ActiveRecord::Schema.define(:version => 20130621182344) do
   end
 
   add_index "simple_captcha_data", ["key"], :name => "idx_key"
+
+  create_table "standards", :force => true do |t|
+    t.integer  "domain_id"
+    t.integer  "grade_id"
+    t.string   "symbol"
+    t.text     "description"
+    t.text     "ICan"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "states", :force => true do |t|
     t.integer  "user_id"

@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20130708211814) do
     t.integer  "grade_id"
     t.string   "name"
     t.string   "symbol"
+    t.string   "core"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -304,7 +305,9 @@ ActiveRecord::Schema.define(:version => 20130708211814) do
   create_table "standards", :force => true do |t|
     t.integer  "domain_id"
     t.integer  "grade_id"
-    t.string   "symbol"
+    t.text     "symbol"
+    t.text     "short"
+    t.text     "url"
     t.text     "description"
     t.text     "ICan"
     t.datetime "created_at",  :null => false

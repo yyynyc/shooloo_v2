@@ -3,7 +3,9 @@ class CreateStandards < ActiveRecord::Migration
     create_table :standards do |t|
       t.integer :domain_id
       t.integer :grade_id
-      t.string :symbol
+      t.text :symbol
+      t.text :short
+      t.text :url
       t.text :description
       t.text :ICan
 

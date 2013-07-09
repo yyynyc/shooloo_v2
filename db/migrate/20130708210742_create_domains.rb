@@ -4,6 +4,7 @@ class CreateDomains < ActiveRecord::Migration
       t.integer :grade_id
       t.string :name
       t.string :symbol
+      t.string :core
 
       t.timestamps
     end

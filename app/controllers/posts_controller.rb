@@ -11,7 +11,7 @@ class PostsController < ApplicationController
     if signed_in?
       @like = current_user.likes.build(params[:like])
     end
-    @grades = Grade.all
+    @levels = Level.all
     @domains = Domain.all
     @standards = Standard.all
     set_meta_tags title: 'Common Core Math Word Problems', 

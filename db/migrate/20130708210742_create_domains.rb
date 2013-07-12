@@ -1,7 +1,7 @@
 class CreateDomains < ActiveRecord::Migration
   def change
     create_table :domains do |t|
-      t.integer :grade_id
+      t.integer :level_id
       t.string :name
       t.string :symbol
       t.string :core

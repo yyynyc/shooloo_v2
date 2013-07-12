@@ -7,7 +7,7 @@ class StaticPagesController < ApplicationController
       @comment = current_user.comments.build
       @alarm = current_user.alarms.build
       @like = current_user.likes.build
-      @grades = Grade.all
+      @levels = Level.all
       @domains = Domain.all
       @standards = Standard.all
     end

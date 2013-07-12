@@ -19,16 +19,16 @@
     <%= f.text_field :photo_remote_url %>
   </div> 
   <div class="field">
-    <%= f.label :grade_id, "This question is suitable grade:" %>
-    <%= f.collection_select :grade_id, Grade.order(:number), :id, :name, include_blank: true %>
+    <%= f.label :level_id, "This question is suitable for students in:" %>
+    <%= f.collection_select :level_id, Level.order(:number), :id, :name, include_blank: true %>
   </div>
   <div class="field">
     <%= f.label :domain_id, "This question requires skills in:" %>
-    <%= f.grouped_collection_select :domain_id, Grade.order(:name), :domains, :name, :id, :name, include_blank: true %>
+    <%= f.grouped_collection_select :domain_id, Level.order(:name), :domains, :name, :id, :name, prompt: "" %>
   </div>
   <div class="field">
     <%= f.label :standard_id, "To solve this problem, I CAN:" %>
-    <%= f.grouped_collection_select :standard_id, Domain.order(:symbol), :standards, :symbol, :id, :ICan, include_blank: true %>
+    <%= f.grouped_collection_select :standard_id, Domain.order(:name), :standards, :name, :id, :ICan, include_blank: true %>
   </div>
   <%= f.submit "Save", class: "btn btn-large btn-primary"%>
 <% end %>

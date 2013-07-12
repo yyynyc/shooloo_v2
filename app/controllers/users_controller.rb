@@ -114,7 +114,7 @@ class UsersController < ApplicationController
     @rating=current_user.ratings.build(params[:rating])
     @alarm = current_user.alarms.build(params[:alarm])
     @like = current_user.likes.build(params[:like])
-    @grades = Grade.all
+    @levels = Level.all
     @domains = Domain.all
     @standards = Standard.all
     set_meta_tags title: "Common Core Math Word Problems Written by #{@user.screen_name}", 
@@ -149,7 +149,7 @@ class UsersController < ApplicationController
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build
     @like = current_user.likes.build
-    @grades = Grade.all
+    @levels = Level.all
     @domains = Domain.all
     @standards = Standard.all
     render 'show_rated_posts'
@@ -187,7 +187,7 @@ class UsersController < ApplicationController
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build
     @like = current_user.likes.build
-    @grades = Grade.all
+    @levels = Level.all
     @domains = Domain.all
     @standards = Standard.all
     render 'show_commented_posts'
@@ -220,7 +220,7 @@ class UsersController < ApplicationController
     @alarm=current_user.alarms.build(params[:alarm])
     @post  = current_user.posts.build
     @like = current_user.likes.build
-    @grades = Grade.all
+    @levels = Level.all
     @domains = Domain.all
     @standards = Standard.all
     render 'show_alarmed_posts'
@@ -254,7 +254,7 @@ class UsersController < ApplicationController
       sign_in @user
       @user.password_confirmation = params[:user][:password_confirmation]
       @user.password = params[:user][:password]
-      if @user.save!
+      if @user.save
         sign_in @user
         flash[:notice] = "Password successfully updated"
         redirect_to root_path

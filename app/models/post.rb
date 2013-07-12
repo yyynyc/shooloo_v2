@@ -1,11 +1,12 @@
 class Post < ActiveRecord::Base
   attr_accessible :answer, :grade, :question, 
-    :photo, :photo_remote_url, :image_host, :category
+    :photo, :photo_remote_url, :image_host, :category, 
+    :level_id, :domain_id, :standard_id
   attr_reader :photo_remote_url
   belongs_to :user
   belongs_to :standard
   belongs_to :domain
-  belongs_to :grade
+  belongs_to :level
 
   has_attached_file :photo, 
     :styles => { 
@@ -38,7 +39,7 @@ class Post < ActiveRecord::Base
   has_many :inviters, through: :invites
   has_many :invitees, through: :invites
   
-  validates_presence_of :user_id, :question, :grade, :category
+  validates_presence_of :user_id, :question, :category, :level_id, :domain_id, :standard_id
   validates :answer, presence: true, length: {maximum: 100}
   #validates_attachment_presence :photo
   #validates_attachment_size :photo, :less_than => 5.megabytes

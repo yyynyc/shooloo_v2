@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130708211814) do
+ActiveRecord::Schema.define(:version => 20130710143235) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(:version => 20130708211814) do
   add_index "comments", ["commenter_id", "created_at"], :name => "index_comments_on_commenter_id_and_created_at"
 
   create_table "domains", :force => true do |t|
-    t.integer  "grade_id"
+    t.integer  "level_id"
     t.string   "name"
     t.string   "symbol"
     t.string   "core"
@@ -119,13 +119,6 @@ ActiveRecord::Schema.define(:version => 20130708211814) do
     t.integer  "sent_year"
   end
 
-  create_table "grades", :force => true do |t|
-    t.integer  "number"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "improvements", :force => true do |t|
     t.text     "name"
     t.integer  "rating_id"
@@ -139,6 +132,13 @@ ActiveRecord::Schema.define(:version => 20130708211814) do
     t.integer  "invited_post_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+
+  create_table "levels", :force => true do |t|
+    t.integer  "number"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "likes", :force => true do |t|
@@ -230,7 +230,7 @@ ActiveRecord::Schema.define(:version => 20130708211814) do
     t.integer  "image_count"
     t.integer  "comments_count"
     t.integer  "likes_count"
-    t.integer  "grade_id"
+    t.integer  "level_id"
     t.integer  "domain_id"
     t.integer  "standard_id"
   end
@@ -264,9 +264,13 @@ ActiveRecord::Schema.define(:version => 20130708211814) do
   create_table "referrals", :force => true do |t|
     t.integer  "referred_id"
     t.integer  "referrer_id"
-    t.string   "approval",    :default => "pending", :null => false
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.string   "approval",                :default => "pending"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+    t.boolean  "name_true"
+    t.boolean  "role_true"
+    t.boolean  "screen_name_appropriate"
+    t.boolean  "avatar_appropriate"
   end
 
   add_index "referrals", ["referred_id"], :name => "index_referrals_on_referred_id"
@@ -304,7 +308,7 @@ ActiveRecord::Schema.define(:version => 20130708211814) do
 
   create_table "standards", :force => true do |t|
     t.integer  "domain_id"
-    t.integer  "grade_id"
+    t.integer  "level_id"
     t.text     "symbol"
     t.text     "short"
     t.text     "url"
@@ -345,6 +349,8 @@ ActiveRecord::Schema.define(:version => 20130708211814) do
     t.integer  "commented_posts_count"
     t.integer  "followers_count"
     t.integer  "followed_users_count"
+    t.integer  "auth_req_count",         :default => 0
+    t.string   "auth_status"
     t.string   "role",                   :default => "student"
     t.boolean  "visible",                :default => false
     t.string   "personal_email"

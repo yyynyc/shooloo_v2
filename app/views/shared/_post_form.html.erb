@@ -11,12 +11,6 @@
 
     <%= f.label :category, "Category:" %>
     <%= f.select :category, options: ["", "animals/pets", "books", "fahsion", "food", "games", "money", "movies/TV shows", "music/dance", "news", "party", "puzzles", "school", "shopping", "sports", "travel", "weather", "OTHER"] %>
-
-    <%= f.label :photo, "Upload a photo from your computer:" %>    
-    <%= f.file_field :photo %>
-    <span class="center"> or </span>
-    <%= f.label :photo_remote_url, "Paste in the url of a photo from the web:" %>
-    <%= f.text_field :photo_remote_url %>
   </div> 
   <div class="field">
     <%= f.label :level_id, "This question is suitable for students in:" %>
@@ -29,7 +23,15 @@
   <div class="field">
     <%= f.label :standard_id, "To solve this problem, I CAN:" %>
     <%= f.grouped_collection_select :standard_id, Domain.order(:name), :standards, :name, :id, :ICan, include_blank: true %>
-  </div>
+  </div>  
+  <div class="field">
+    <%= f.label :photo, "Upload a photo from your computer:" %>    
+    <%= f.file_field :photo %>
+    <span class="center"> or </span>
+    <%= f.label :photo_remote_url, "Paste in the url of a photo from the web:" %>
+    <%= f.text_field :photo_remote_url %>
+  </div> 
+
   <%= f.submit "Save", class: "btn btn-large btn-primary"%>
 <% end %>
 

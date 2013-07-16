@@ -66,7 +66,7 @@ namespace :deploy do
   end
   after 'deploy:finalize_update', 'deploy:symlink_attachments'
 
-  after "deploy", "refresh_sitemaps"
+  after "deploy", "deploy:refresh_sitemaps"
   task :refresh_sitemaps do
     run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake sitemap:refresh"
   end

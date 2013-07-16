@@ -1,7 +1,8 @@
 jQuery ->
-  $('#post_domain_id').parent().hide()
+  if $('#post_domain_id').parent('form').attr('action') == 'create'
+    $('#post_domain_id').parent().hide()
   domains = $('#post_domain_id').html()  
-  $('#post_level_id').change ->
+  doit = ->
     level = $('#post_level_id :selected').text()
     console.log(level)
     escaped_level = level.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1')    
@@ -13,10 +14,13 @@ jQuery ->
     else
       $('#post_domain_id').html($("<option>").attr('selected',true)) 
       $('#post_domain_id').parent().hide()
+  doit()
+  $('#post_level_id').change doit
 
-  $('#post_standard_id').parent().hide()
+  if $('#post_standard_id').parent('form').attr('action') == 'create'
+    $('#post_standard_id').parent().hide()
   standards = $('#post_standard_id').html()
-  $('#post_domain_id').change ->
+  doitagain = ->
     domain = $('#post_domain_id :selected').text() 
     escaped_domain = domain.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1')   
     choices = $(standards).filter("optgroup[label=#{escaped_domain}]").html()
@@ -27,3 +31,5 @@ jQuery ->
     else     
       $('#post_standard_id').html($("<option>").attr('selected',true)) 
       $('#post_standard_id').parent().hide()
+  doitagain()
+  $('#post_domain_id').change doitagain

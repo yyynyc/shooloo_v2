@@ -4,7 +4,7 @@
 
 <div class="row">
   <div class="span10 offset1">    
-    <%= semantic_form_for @post, :url => post_path, :html => { :multipart => true, onsubmit: "$('button', this).attr('disabled','disabled')", class: "form-horizontal-post-update" }  do |f| %>
+    <%= semantic_form_for @post, :url => post_path, :html => { :multipart => true, onsubmit: "$('button', this).attr('disabled','disabled')", class: "form-horizontal-post-update", 'data-action' => 'update' }  do |f| %>
 	  <%= render 'shared/error_messages', object: f.object %>
 		<%=f.inputs do %> 
 	        <%= f.input :question %>
@@ -17,8 +17,8 @@
 				f.template.content_tag(:span, "No photo yet") : 
 				f.template.image_tag(f.object.photo.url(:thumb)) %>
 			<%= f.input :level_id, as: :select, include_blank: true, label: "Grade", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
-	    	<%= f.input :domain_id, as: :select, include_blank: true, label: "Skills", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name)  %>  
-	    	<%= f.input :standard_id, as: :select, include_blank: true, label: "I CAN", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan) %>
+	    	<%= f.input :domain_id, as: :select, include_blank: true, label: "Skills", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
+	    	<%= f.input :standard_id, as: :select, include_blank: true, label: "I CAN", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %>
 
 		<% end %>
 		<%= f.actions do %>

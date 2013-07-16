@@ -8,7 +8,7 @@ every :day, :at => '4:00 am' do
 	runner "Nudge.destroy_old_data"
 end
 
-every :day, :at => '5:00 am' do
+every :friday, :at => '5:00 am' do
 	runner "User.daily_alert"
 end
 

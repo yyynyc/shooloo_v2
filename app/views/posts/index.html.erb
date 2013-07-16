@@ -22,46 +22,71 @@
   </div>
 
 	<h1> Common Core Word Problems </h1>
-	<% if signed_in? %>
-		<% if current_user.authorizations.blank? %>			
-			<div class="row center box about">
-				<strong>Get authorization<strong> to search problems by Common Core State Standards and by "I can" statements.
-			</div>
-		<% else %>
-			You can search common core.
+	
+	<%= search_form_for @search, url: search_posts_path, method: :get do |f| %>		
+		<% if !signed_in? %>
+			<div class="row center auth about">
+				Join Shooloo to search over 1,000 math word problems<br/> by Common Core State Standards and by "I can" statements!
+			</div>		
+		<% else %>	
+			<% if current_user.authorizations.blank? %>			
+				<div class="row center box about">
+					<strong>Get authorization<strong> to search problems by Common Core State Standards and by "I can" statements.
+				</div>
+			<% else %>
+				<div class="row center bottom-margin">
+					<span class="search-label">
+						<%= f.label :standard_ICan_cont, "I can" %>
+					</span>
+					<span class="search-field">
+						<%= f.text_field :standard_ICan_cont %>
+					</span>	
+					<span class="search-label">
+						<%= f.label :domain_core_cont, "CCSS Domain" %>
+					</span>
+					<span class="search-field">
+						<%= f.text_field :domain_core_cont %>
+					</span>	
+					<span class="search-label">
+						<%= f.label :standard_short_cont, "CCSS Standard" %>
+					</span>
+					<span class="search-field">
+						<%= f.text_field :standard_short_cont %>
+					</span>	
+					<span class="search-label">
+						<%= f.label :standard_description_cont, "CCSS Description" %>
+					</span>
+					<span class="search-field">
+						<%= f.text_field :standard_description_cont %>
+					</span>								
+				</div>
+			<% end %>
 		<% end %>
-	<% else %>	
-		<div class="row center auth about">
-			Join Shooloo to search over 1,000 math word problems<br/> by Common Core State Standards and by "I can" statements!
-		</div>
-	<% end %>
-
-	<%= search_form_for @search, url: search_posts_path, method: :get do |f| %>
-		<div class="row">
-			<div class="span8 offset2" >
+		<div class="row center">	
+			<span class="search-label">
+				<%= f.label :level_name_cont, "Grade" %>
+			</span>
+			<span class="search-field">
+				<%= f.collection_select :level_name_cont, Level.order(:number), :name, :name, include_blank: true %>
+			</span>
+			<span class="search-label">
+				<%= f.label :category_cont, "Category" %>
+			</span>
+			<span class="search-field">
+				<%= f.select :category_cont, options: ["", "animals/pets", "books", "fahsion", "food", "games", "money", "movies/TV shows", "music/dance", "current events", "party", "puzzles", "school", "shopping", "special occasions" "sports", "travel", "weather", "OTHER"] %>
+			</span>
+			<% if signed_in? && ((current_user.role=="teacher" && current_user.authorizations.any?) || current_user.admin?) %>
 				<span class="search-label">
-					<%= f.label :grade_cont, "Grade" %> 
+					<%= f.label :quality_name_cont, "Question Quality" %>
 				</span>
 				<span class="search-field">
-					<%= f.select :grade_cont, options: ["","kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade"]%>
-				</span>	
-				<span class="search-label">
-					<%= f.label :category_cont, "Category" %>
+					<%= f.collection_select :quality_name_cont, Quality.order(:id), :name, :name, include_blank: true %>
 				</span>
-				<span class="search-field">
-					<%= f.select :category_cont, options: ["", "animals/pets", "books", "fahsion", "food", "games", "money", "movies/TV shows", "music/dance", "news", "party", "puzzles", "school", "shopping", "sports", "travel", "weather", "OTHER"] %>
-				</span>
-				<span class="search-label">
-					<%= f.label :question_cont, "keyword" %>
-				</span>
-				<span class="search-field">
-					<%= f.text_field :question_cont %>
-				</span>	
-				<span class="search-label">
-					<%= f.submit "Search", class: "btn btn-small btn-default" %>
-				</span>
-			</div>
-		</div>
+			<% end %>		
+			<span class="search-label">
+				<%= f.submit "Search", class: "btn btn-small btn-default" %>
+			</span>
+		</div>	
 	<% end %>
 
 	<ul class="users">

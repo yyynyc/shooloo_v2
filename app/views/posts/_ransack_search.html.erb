@@ -1,0 +1,13 @@
+<%= f.condition_fields do |c| %>
+	<%= c.attribute_fields do |a| %>
+		<% if current_user.admin? || current_user.authorizations.any? %>
+			<%= a.attribute_select associations: [:level, :domain, :standard]%>
+		<% else %>
+			<%= a.attribute_select associations: [:level]%>
+		<% end %>	
+	<% end %>
+	<%= c.predicate_select %>
+	<%= c.value_fields do |v| %>
+		<%= v.text_field :value %>
+	<% end %>
+<% end %>

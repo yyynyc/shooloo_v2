@@ -3,6 +3,7 @@ jQuery ->
   domains = $('#post_domain_id').html()  
   $('#post_level_id').change ->
     level = $('#post_level_id :selected').text()
+    console.log(level)
     escaped_level = level.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1')    
     options = $(domains).filter("optgroup[label=#{escaped_level}]").html()
     if options

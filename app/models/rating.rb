@@ -13,9 +13,8 @@ class Rating < ActiveRecord::Base
   accepts_nested_attributes_for :flags 
 
   validates_presence_of :rated_post_id, :rater_id, :answer_correctness, 
-    :steps, :grade_suitability, :operations
+    :steps, :grade_suitability
   validates_inclusion_of :overall_rating, in: [true, false]
-  validates_associated :operations
 
   default_scope order: 'ratings.updated_at DESC'
 
@@ -74,34 +73,7 @@ class Rating < ActiveRecord::Base
       steps_5_count = (select count (*) from ratings 
         where rated_post_id=? and steps=5),
       steps_6_count = (select count (*) from ratings 
-        where rated_post_id=? and steps=6),
-      operation_whole_count = (select count (*) from operations, ratings 
-        where rated_post_id=? and name='whole number'
-        and ratings.id=operations.rating_id),
-      operation_decimal_count = (select count (*) from operations, ratings 
-        where rated_post_id=? and name='decimal point'
-        and ratings.id=operations.rating_id),
-      operation_fraction_count = (select count (*) from operations, ratings 
-        where rated_post_id=? and name='fraction'
-        and ratings.id=operations.rating_id),
-      operation_percentage_count = (select count (*) from operations, ratings 
-        where rated_post_id=? and name='percentage'
-        and ratings.id=operations.rating_id),
-      operation_negative_count = (select count (*) from operations, ratings 
-        where rated_post_id=? and name='negative number'
-        and ratings.id=operations.rating_id),
-      operation_addition_count = (select count (*) from operations, ratings 
-        where rated_post_id=? and name='addition'
-        and ratings.id=operations.rating_id),
-      operation_substraction_count = (select count (*) from operations, ratings 
-        where rated_post_id=? and name='substraction'
-        and ratings.id=operations.rating_id),
-      operation_multiplication_count = (select count (*) from operations, ratings 
-        where rated_post_id=? and name='multiplication'
-        and ratings.id=operations.rating_id),
-      operation_division_count = (select count (*) from operations, ratings 
-        where rated_post_id=? and name='division'
-        and ratings.id=operations.rating_id),
+        where rated_post_id=? and steps=6),      
       vocabulary_count = (select count (*) from improvements, ratings 
         where rated_post_id=? and name='vocabulary'
         and ratings.id=improvements.rating_id),
@@ -116,28 +88,7 @@ class Rating < ActiveRecord::Base
         and ratings.id=improvements.rating_id),
       originality_count = (select count (*) from improvements, ratings 
         where rated_post_id=? and name='originality'
-        and ratings.id=improvements.rating_id),
-      plagerism_count = (select count (*) from flags, ratings 
-        where rated_post_id=? and name='plagerized content'
-        and ratings.id=flags.rating_id),
-      content_count = (select count (*) from flags, ratings 
-        where rated_post_id=? and name='offensive content'
-        and ratings.id=flags.rating_id),
-      image_count = (select count (*) from flags, ratings 
-        where rated_post_id=? and name='offensive'
-        and ratings.id=flags.rating_id)",
-      self.rated_post.id,
-      self.rated_post.id,
-      self.rated_post.id,
-      self.rated_post.id,
-      self.rated_post.id,
-      self.rated_post.id,
-      self.rated_post.id,
-      self.rated_post.id,
-      self.rated_post.id,
-      self.rated_post.id,
-      self.rated_post.id,
-      self.rated_post.id,
+        and ratings.id=improvements.rating_id)",
       self.rated_post.id,
       self.rated_post.id, 
       self.rated_post.id,

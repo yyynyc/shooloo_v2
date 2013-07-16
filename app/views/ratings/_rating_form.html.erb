@@ -4,15 +4,13 @@
     <%= render 'shared/error_messages', object: f.object %> 
     <%=f.inputs do %>       
       <%= f.hidden_field :rated_post_id, :value => @post.id %>      
-      <%= f.input :answer_correctness, as: :select, label: "Is the answer provided above appropariate?", 
+      <%= f.input :answer_correctness, as: :select, label: "Is the answer provided above correct?", 
           collection: [["Right", 1], ["Wrong", 2], ["I don't know", 3], ["Not enough information to arrive at any answer", 4]], include_blank: true %>      
-      <%= f.input :grade_suitability, as: :select, label: "Is this problem suitable for its intended grade?", 
-          collection: [["No, it is BELOW grade", 1], ["Yes, it is just right", 2], ["No, it is ABOVE grade", 3]], include_blank: true %>
+      <%= f.input :ccss_suitability, as: :select, label: "Is this I-can-statement suitable for this problem?", 
+          collection: [["Yes, it is just right", 2], ["No, grade is wrong", 1],["No, skill is wrong", 3], ["No, I-can is wrong", 4]], include_blank: true %>
       <%= f.input :steps, as: :select, label: "How many steps does it take to solve this problem?", 
           collection: [["1 step", 1], ["2 steps", 2], ["3 steps", 3], ["4 steps", 4], ["5 steps", 5], ["more than 5 steps", 6]], include_blank: true %>
-      <%= f.input :operations, label: "What math operations does this problem involve?", as: :check_boxes, collection: Operation.order(:position), required: true, include_blank: false %>
       <%= f.input :improvements, label: "Which areas of this problem should be improved?", as: :check_boxes, collection: Improvement.order(:position), include_blank: false %>
-      <%= f.input :flags, label: "Is there anything inappropriate?", as: :check_boxes, collection: Flag.order(:position), include_blank: false %> 
       <%= f.input :overall_rating, label: "Overall, your rating for this math problem is:", as: :radio, collection: [["Excellent work!", true], ["Needs improvements", false]], required: true %>    
     <% end %>
     <%= f.actions do %>

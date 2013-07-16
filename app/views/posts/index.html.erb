@@ -1,5 +1,5 @@
 <div itemscope itemtype="http://schema.org/CreativeWork">
-  <span itemprop="description" content="Sign in Shooloo to access over 1,000 student-authored math word problems aligned with the Common Core State Standard."></span>
+  <span itemprop="description" content="Join Shooloo to access over 1,000 student-authored math word problems aligned with the Common Core State Standard and completed with I-can statements."></span>
   <span itemprop="name" content="Shooloo Learning"></span>
   <span itemprop="about" content="Math"></span>
   <span itemprop="audience" content="student, teacher, tutor, specialist, parent"></span>
@@ -13,7 +13,7 @@
   <span temprop="publisher" content="Shooloo Inc."></span>
   <span temprop="timeRequired" content="P5M"></span>
   <span temprop="typicalAgeRange" content="8-10, 10-12, 12-14"></span>
-  <div itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject"></span>
+  <div itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
     <span itemprop="educationalFramework" content="Common Core State Standard"></span>
     <span itemprop="alignmentType" content="requires"></span>   
     <span itemprop="targetName" content="CCSS.Math.Practice.MP3, CCSS.Math.Practice.MP4"></span>
@@ -22,6 +22,19 @@
   </div>
 
 	<h1> Common Core Word Problems </h1>
+	<% if signed_in? %>
+		<% if current_user.authorizations.blank? %>			
+			<div class="row center box about">
+				<strong>Get authorization<strong> to search problems by Common Core State Standards and by "I can" statements.
+			</div>
+		<% else %>
+			You can search common core.
+		<% end %>
+	<% else %>	
+		<div class="row center auth about">
+			Join Shooloo to search over 1,000 math word problems<br/> by Common Core State Standards and by "I can" statements!
+		</div>
+	<% end %>
 
 	<%= search_form_for @search, url: search_posts_path, method: :get do |f| %>
 		<div class="row">

@@ -25,13 +25,10 @@
           </tr>
           <tr>
             <td> <%= local_object.overall_true_count %> 
-              <%#= local_object.ratings.where(overall_rating: true).count %> 
             </td>
             <td> <%= local_object.overall_false_count %> 
-              <%#= local_object.ratings.where(overall_rating: false).count %> 
             </td>
             <td> <strong> <%= local_object.ratings_count %>
-              <%#= local_object.ratings.count %>
             </strong> </td>
           </tr>
         </table>      
@@ -40,20 +37,16 @@
         <span class="rating"><strong>Grade suitability: </strong></span>
         <table class="table grade">
           <tr>
-            <td> Below Grade </td>
             <td> Just Rgiht </td>
-            <td> Above Grade </td>           
+            <td> Wrong Grade </td>            
+            <td> Wrong Skill </td>
+            <td> Wrong I-can </td>           
           </tr>
           <tr>
-            <td> <%= local_object.grade_below_count %> 
-              <%#= local_object.ratings.where(grade_suitability: 1).count %> 
-            </td>
-            <td> <%= local_object.grade_right_count %>
-              <%#= local_object.ratings.where(grade_suitability: 2).count %> 
-            </td>
-            <td> <%= local_object.grade_above_count %>
-              <%#= local_object.ratings.where(grade_suitability: 3).count %> 
-            </td>            
+            <td><%= local_object.ccss_right_count %></td>
+            <td> <%= local_object.ccss_wrong_grade_count %></td>
+            <td> <%= local_object.ccss_wrong_skill_count %></td>
+            <td><%= local_object.ccss_wrong_ican_count %></td>            
           </tr>          
         </table>      
       </p>      
@@ -67,18 +60,10 @@
             <td> Not Enough Info </td>            
           </tr>
           <tr>
-            <td> <%= local_object.answer_correctness_1_count %> 
-              <%#= local_object.ratings.where(answer_correctness: 1).count %>
-            </td>
-            <td> <%= local_object.answer_correctness_2_count %>
-              <%#= local_object.ratings.where(answer_correctness: 2).count %> 
-            </td>
-            <td> <%= local_object.answer_correctness_3_count %>
-              <%#= local_object.ratings.where(answer_correctness: 3).count %> 
-            </td>
-            <td> <%= local_object.answer_correctness_4_count %>
-              <%#= local_object.ratings.where(answer_correctness: 4).count %> 
-            </td>
+            <td><%= local_object.answer_correctness_1_count %></td>
+            <td><%= local_object.answer_correctness_2_count %></td>
+            <td><%= local_object.answer_correctness_3_count %></td>
+            <td><%= local_object.answer_correctness_4_count %></td>
           </tr>          
         </table>      
       </p>
@@ -94,78 +79,16 @@
             <td> >5 steps</td>             
           </tr>
           <tr>
-            <td> <%= local_object.steps_1_count %>
-              <%#= local_object.ratings.where(steps: 1).count %> 
-            </td>
-            <td> <%= local_object.steps_2_count %>
-              <%#= local_object.ratings.where(steps: 2).count %> 
-            </td>
-            <td> <%= local_object.steps_3_count %>
-              <%#= local_object.ratings.where(steps: 3).count %> 
-            </td>
-            <td> <%= local_object.steps_4_count %>
-              <%#= local_object.ratings.where(steps: 4).count %> 
-            </td>
-            <td> <%= local_object.steps_5_count %>
-              <%#= local_object.ratings.where(steps: 5).count %> 
-            </td>
-            <td> <%= local_object.steps_6_count %>
-              <%#= local_object.ratings.where(steps: 6).count %> 
-            </td>
+            <td><%= local_object.steps_1_count %></td>
+            <td><%= local_object.steps_2_count %></td>
+            <td><%= local_object.steps_3_count %></td>
+            <td><%= local_object.steps_4_count %></td>
+            <td> <%= local_object.steps_5_count %></td>
+            <td> <%= local_object.steps_6_count %></td>
           </tr>          
         </table>      
-      </p>
+      </p> 
       <p>
-        <span class="rating"><strong>Math operations: </strong></span>
-        <table class="table math">
-          <tr>            
-            <td> Whole Number </td> 
-            <td> Decimal Point </td>
-            <td> Fraction </td> 
-            <td> Percentage </td>
-            <td> Negative Number </td>                    
-          </tr>
-          <tr>
-            <td> <%= local_object.operation_whole_count %>
-              <%#= local_object.operations.where(name: "whole number").count %> </td> 
-            <td> <%= local_object.operation_decimal_count %>
-              <%#= local_object.operations.where(name: "decimal point").count %>
-            </td> 
-            <td> <%= local_object.operation_fraction_count %>
-              <%#= local_object.operations.where(name: "fraction").count %> 
-            </td> 
-            <td> <%= local_object.operation_percentage_count %>
-              <%#= local_object.operations.where(name: "percentage").count %> 
-            </td> 
-            <td> <%= local_object.operation_negative_count %>
-              <%#= local_object.operations.where(name: "negative number").count %> 
-            </td>     
-          </tr>          
-        </table> 
-        <table class="table operation">
-          <tr> 
-            <td> Addition </td>
-            <td> Substraction </td>
-            <td> Multiplication </td>  
-            <td> Division </td>             
-          </tr>
-          <tr>   
-            <td> <%= local_object.operation_addition_count %>
-              <%#= local_object.operations.where(name: "addition").count %> 
-            </td>
-            <td> <%= local_object.operation_substraction_count %>
-              <%#= local_object.operations.where(name: "substraction").count %>
-            </td>
-            <td> <%= local_object.operation_multiplication_count %>
-              <%#= local_object.operations.where(name: "multiplication").count %> 
-            </td>
-            <td> <%= local_object.operation_division_count %>
-              <%#= local_object.operations.where(name: "division").count %> 
-            </td>           
-          </tr>          
-        </table>           
-      </p>
-       <p>
         <span class="rating"><strong>Suggested<br/>improvements:</strong>
         </span>
         <table class="table math">
@@ -177,45 +100,14 @@
             <td> Originality </td>                     
           </tr>
           <tr>  
-            <td> <%= local_object.vocabulary_count %>
-              <%#= local_object.improvements.where(name: "vocabulary").count %> 
-            </td>
-            <td> <%= local_object.grammar_count %>
-              <%#= local_object.improvements.where(name: "grammer").count %>  
-            </td>
-            <td> <%= local_object.structure_count %>
-              <%#= local_object.improvements.where(name: "structure").count %> 
-            </td>
-            <td> <%= local_object.clarity_count %>
-              <%#= local_object.improvements.where(name: "concept clarity").count %> 
-            </td>  
-            <td> <%= local_object.originality_count %>
-              <%#= local_object.improvements.where(name: "originality").count %>
-            </td>                      
+            <td><%= local_object.vocabulary_count %></td>
+            <td><%= local_object.grammar_count %></td>
+            <td><%= local_object.structure_count %></td>
+            <td><%= local_object.clarity_count %></td>  
+            <td><%= local_object.originality_count %></td>
           </tr>          
         </table>
-      </p> 
-      <p>
-        <span class="rating"><strong>Red flags:</strong></span>
-        <table class="table operation">
-          <tr>
-            <td> Plagerized Content </td>
-            <td> Offensive Content </td>
-            <td> Offensive Image </td>                                 
-          </tr>
-          <tr>
-            <td> <%= local_object.plagerism_count %>
-              <%#= local_object.flags.where(name: "plagerized content").count %> 
-            </td>
-            <td> <%= local_object.content_count %>
-              <%#= local_object.flags.where(name: "offensive content").count %>  
-            </td>
-            <td> <%= local_object.image_count %>
-              <%#= local_object.flags.where(name: "offensive image").count %> 
-            </td>                      
-          </tr>          
-        </table>
-      </p>    
+      </p>     
     </div>   
     <button class="btn" data-dismiss="modal" aria-hidden="true" style="float: right;">Close</button>  
   </div>

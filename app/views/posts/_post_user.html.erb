@@ -1,16 +1,30 @@
 <span class="user">
   <%= link_to post.user.screen_name, posts_user_path(post.user) %>
 </span> 
-<span class="timestamp"> as a </span><%= post.user.role %>
-<% if !post.user.grade.nil? %>
-	<span class="timestamp"> in </span>grade <%= post.user.grade %>
-<% end %>
-<% if signed_in? && current_user.admin? %>
-	(<%= post.user.first_name %> <%= post.user.last_name %>)
-<% end %><br/>
+<span class="timestamp">- </span><% if !post.user.grade.nil? %>grade <%= post.user.grade %> <% end %><%= post.user.role %><span class="timestamp"> -</span>
 <span class="timestamp">updated on </span>    
-<%= post.updated_at.strftime("%b %d, %Y") %>  
+<%= post.updated_at.strftime("%b %d, %Y") %>
+<span class="timestamp">in category </span> 
+<%= post.category %>
+<% unless post.level.nil? %>
+	<span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
+	<br/><span class="timestamp"><span itemprop="alignmentType">require</span>d by</span> 
+	<%= post.level.name %>
+	<span class="timestamp" itemprop="educationalFramework">Common Core</span> 
+	<%= post.domain.core %>
+	<span class="timestamp"> standard</span> 
+	<%= post.standard.short %>
+	<span itemprop="targetName" content="<%= post.standard.symbol %>"></span>
+    <span itemprop="targetUrl" content="<%= post.standard.url %>"></span>
+    <span itemprop="targetDescription", content="<%= post.standard.description %>"></span>
+  </span>
+<% end %>
+
+<% if signed_in? && current_user.admin? %>
+	<br/>(<%= post.user.first_name %> <%= post.user.last_name %>)
+<% end %>
 <span class="timestamp"> for</span> 
 grade <%= post.grade %> 
-<span class="timestamp">in category </span> 
-<%= post.category %>.
+
+
+  

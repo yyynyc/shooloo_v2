@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130715215724) do
+ActiveRecord::Schema.define(:version => 20130716162533) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -223,9 +223,16 @@ ActiveRecord::Schema.define(:version => 20130715215724) do
     t.integer  "ccss_wrong_grade_count"
     t.integer  "ccss_wrong_skill_count"
     t.integer  "ccss_wrong_ican_count"
+    t.integer  "quality_id"
   end
 
   add_index "posts", ["user_id", "created_at"], :name => "index_posts_on_user_id_and_created_at"
+
+  create_table "qualities", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "ratings", :force => true do |t|
     t.integer  "rater_id"

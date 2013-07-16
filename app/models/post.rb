@@ -1,12 +1,13 @@
 class Post < ActiveRecord::Base
   attr_accessible :answer, :grade, :question, 
     :photo, :photo_remote_url, :image_host, :category, 
-    :level_id, :domain_id, :standard_id
+    :level_id, :domain_id, :standard_id, :quality_id
   attr_reader :photo_remote_url
   belongs_to :user
   belongs_to :standard
   belongs_to :domain
   belongs_to :level
+  belongs_to :quality
 
   has_attached_file :photo, 
     :styles => { 

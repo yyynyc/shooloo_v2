@@ -72,6 +72,14 @@ if User.count == 0
 	admin2.save!
 end
 
+if Quality.count==0
+	Quality.create([
+		{name: 'good'},
+		{name: 'fair'},
+		{name: 'poor'}
+		])
+end
+
 if Level.count==0
 	Level.create([
 		{number: 0, name: 'Kindergarten'},
@@ -133,7 +141,7 @@ if Domain.count==0
 		])
 end
 
-
+if Standard.count==0
 	Standard.create([
 		{level_id: 1, domain_id: 1, symbol: 'CCSS.Math.Content.K.OA.A.1', short: 'K.OA.1',
 			url: 'http://www.corestandards.org/Math/Content/K/OA/A/1',
@@ -1068,4 +1076,5 @@ end
 			description: 'Describe qualitatively the functional relationship between two quantities by analyzing a graph . Sketch a graph that exhibits the qualitative features of a function that has been described verbally.', 
 			ICan: 'I can create and analyze a graph for a functional relationship.' }
 	])
+end
 

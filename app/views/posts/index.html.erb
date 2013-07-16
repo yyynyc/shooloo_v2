@@ -89,7 +89,7 @@
 				  			<%= truncate post.question, :length => 280, 
 				  				:omission => "..." %> 
 				  			<% if signed_in? %>			  		
-					  			<% if current_user?(post.user) %> 		  				
+					  			<% if current_user?(post.user) || current_user.admin? %>
 			        				<%= link_to "Edit your post ", edit_post_path(post), title: "Edit Post" %>
 				          		<% else %> 
 				            		<% if post.ratings.find_by_rater_id(current_user.id) %>

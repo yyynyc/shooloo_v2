@@ -21,7 +21,10 @@
 <% end %>
 
 <% if signed_in? && current_user.admin? %>
-	<br/>(<%= post.user.first_name %> <%= post.user.last_name %>)
+	<br/><span class="timestamp">Real name:</span> <%= post.user.first_name %> <%= post.user.last_name %>,
+	<% unless post.quality.nil? %>
+		<span class="timestamp">Quality:</span> <%= post.quality.name %> 
+	<% end %>
 <% end %>
 <span class="timestamp"> for</span> 
 grade <%= post.grade %> 

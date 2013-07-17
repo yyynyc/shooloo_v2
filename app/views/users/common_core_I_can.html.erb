@@ -24,32 +24,39 @@
 						<li>
 							<% if standard.posts.where(user_id: @user.id).any? %>
 								<span class="yes">
+									<%= standard.ICan %>
+								</span> Post
+								<% standard.posts.where(user_id: @user.id).each do |post| %>
+									<%= link_to "##{post.id}", new_post_comment_path(post) %> /
+								<% end %>
 							<% else %>
 								<span class="no">
+									<%= standard.ICan %>
+								</span>
 							<% end %>
-							<%= standard.ICan %>
-							<% standard.posts.where(user_id: @user.id).each do |post| %>
-								<%= link_to "Post ##{post.id}", new_post_comment_path(post) %>
-							<% end %></span>
 						</li>
 					<% end %>
 				</ul>
 			<% end %>
 		</ul>
 	<% end %>
-	<h4 class="feed_item"> I-Can Statements Not at <%= @user.screen_name %>'s Current Grade  </h4>
-	<ul class="users feed_item">
-		<% @standards.each do |standard| %>
-			<li>			
-				<span class="yes">			
-					<strong><%= standard.level.name %>:</strong> <%= standard.ICan %> 
+	<% if @standards.any? %>
+		<h4 class="feed_item"> I-Can Statements Not at <%= @user.screen_name %>'s Current Grade  </h4>
+		<ul class="users feed_item">
+			<% @standards.each do |standard| %>
+				<li>			
+					<span class="yes">			
+						<strong><%= standard.level.name %>:</strong> <%= standard.ICan %>
+					</span> 
+					Post 
 					<% standard.posts.where(user_id: @user.id).each do |post| %>
-						<%= link_to "Post ##{post.id}", new_post_comment_path(post) %>
+						<%= link_to "##{post.id}", new_post_comment_path(post) %> /
 					<% end %>
-				</span>
-			</li>
-		<% end %>	
-	</ul>
+					
+				</li>
+			<% end %>	
+		</ul>
+	<% end %>
   </div>
 </div>
 

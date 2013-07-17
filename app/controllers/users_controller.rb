@@ -237,12 +237,25 @@ class UsersController < ApplicationController
   def common_core_I_can
     @user = User.find(params[:id])
     @post  = current_user.posts.build
-    @domains = Domain.where(level_id: @user.grade+1)
-    @standards = Standard.joins(:posts).where("posts.user_id = ? AND posts.level_id != ?", @user.id, (@user.grade+1))
-    @below_standards = @standards.where(posts: {})
+    if !@user.grade.nil?
+      @domains = Domain.where(level_id: (@user.grade+1))    
+      @standards = Standard.joins(:posts).where("posts.user_id = ? AND posts.level_id != ?", @user.id, (@user.grade+1))
+    else
+      @standards = Standard.joins(:posts).where("posts.user_id = ? ", @user.id)
+    end
     render 'common_core_I_can'
     set_meta_tags title: "Common Core Math I-Can Journal by #{@user.screen_name}", 
         description: "#{@user.screen_name}'s I-Can journal based on the Common Core State Standards for Math",
+        noindex: true,
+        nofollow: true
+  end
+
+  def student_common_core
+    @user = User.find(params[:id])
+    @students = @user.authorized_users.order('grade ASC', 'last_name ASC')
+    render 'student_common_core'
+    set_meta_tags title: "My Students' Common Core Math I-Can Journals", 
+        description: "#{@user.screen_name}'s students' I-Can journals based on the Common Core State Standards for Math",
         noindex: true,
         nofollow: true
   end

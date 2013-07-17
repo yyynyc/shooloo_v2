@@ -1,0 +1,34 @@
+<h1>
+	My Students' Common Core Math I-Can Journals 
+</h1>
+
+<div align="center">
+	<table border="2" cellpadding="10">
+		<tr>
+			<th>
+				Grade
+			</th>
+			<th>
+				Name
+			</th>
+			<th>
+				Achieved Common Core Standards 
+			</th>
+		</tr>
+		<% @students.each do |student| %>
+			<tr>
+				<td class="center">
+					<%= student.grade %>
+				</td>
+				<td>
+					<a href="<%= common_core_I_can_user_path(student) %>"><%= student.last_name %>, <%= student.first_name %></a>
+				</td>
+				<td>
+					<% Standard.joins(:posts).where('posts.user_id' => student.id).uniq.order('standards.id ASC').each do |standard| %> 
+						<%= standard.short %> /
+					<% end %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+</div>

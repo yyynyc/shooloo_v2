@@ -70,10 +70,10 @@
 				<%= f.collection_select :level_name_cont, Level.order(:number), :name, :name, include_blank: true %>
 			</span>
 			<span class="search-label">
-				<%= f.label :category_cont, "Category" %>
+				<%= f.label :subject_name_cont, "Subject" %>
 			</span>
 			<span class="search-field">
-				<%= f.select :category_cont, options: ["", "animals/pets", "books", "fahsion", "food", "games", "money", "movies/TV shows", "music/dance", "current events", "party", "puzzles", "school", "shopping", "special occasions" "sports", "travel", "weather", "OTHER"] %>
+				<%= f.collection_select :subject_name_cont, Subject.order(:id), :name, :name, include_blank: true  %>
 			</span>
 			<% if signed_in? && ((current_user.role=="teacher" && current_user.authorizations.any?) || current_user.admin?) %>
 				<span class="search-label">

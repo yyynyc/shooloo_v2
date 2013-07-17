@@ -80,6 +80,28 @@ if Quality.count==0
 		])
 end
 
+if Subject.count==0
+	Subject.create([
+		{name: 'animals/pets'},
+		{name: 'books'},
+		{name: 'celebrities'},
+		{name: 'fashion'},
+		{name: 'food'},
+		{name: 'games'},
+		{name: 'money'},
+		{name: 'movies/TV shows'},
+		{name: 'music/dance'},
+		{name: 'party'},
+		{name: 'school'},
+		{name: 'shopping'},
+		{name: 'sports'},
+		{name: 'time'},
+		{name: 'travel'},
+		{name: 'weather'},
+		{name: 'Other'},
+		])
+end
+
 if Level.count==0
 	Level.create([
 		{number: 0, name: 'Kindergarten'},

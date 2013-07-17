@@ -7,10 +7,7 @@
     <%= f.text_area :question %>
 
     <%= f.label :answer, "Answer:" %>
-    <%= f.text_field :answer %>
-
-    <%= f.label :category, "Category:" %>
-    <%= f.select :category, options: ["", "animals/pets", "books", "fahsion", "food", "games", "money", "movies/TV shows", "music/dance", "current events", "party", "school", "shopping", "special occasions", "sports", "travel", "weather", "OTHER"] %>
+    <%= f.text_field :answer %>    
   </div> 
   <div class="field">
     <%= f.label :level_id, "This question is suitable for students in:" %>
@@ -25,6 +22,8 @@
     <%= f.grouped_collection_select :standard_id, Domain.order(:name), :standards, :name, :id, :ICan, include_blank: true %>
   </div>  
   <div class="field">
+    <%= f.label :subject_id, "This question is about the following subject:" %>
+    <%= f.collection_select :subject_id, Subject.order(:id), :id, :name, include_blank: true %>
     <%= f.label :photo, "Upload a photo from your computer:" %>    
     <%= f.file_field :photo %>
     <span class="center"> or </span>

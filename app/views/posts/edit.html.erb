@@ -8,12 +8,11 @@
 	  <%= render 'shared/error_messages', object: f.object %>
 		<%=f.inputs do %> 
 	        <%= f.input :question %>
-		    <%= f.input :answer %>
-		    <%= f.input :grade, as: :select, collection: ["","kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade"] %>
-		    <%= f.input :category, as: :select, collection: ["", "animals/pets", "books", "fahsion", "food", "games", "money", "movies/TV shows", "music/dance", "current events", "party", "school", "shopping", "special occasions", "sports", "travel", "weather", "OTHER"] %>	
+		    <%= f.input :answer %>		    
 		    <%= f.input :level_id, as: :select, include_blank: true, label: "Grade", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
 	    	<%= f.input :domain_id, as: :select, include_blank: true, label: "Skills", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
-	    	<%= f.input :standard_id, as: :select, include_blank: true, label: "I CAN", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %>    	
+	    	<%= f.input :standard_id, as: :select, include_blank: true, label: "I CAN", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %>  
+	    	<%= f.input :subject_id, as: :select, include_blank: true, label: "Subject", collection: Hash[Subject.all.map{|s| [s.name, s.id]}]  %>  	
 		    <%= f.input :photo, as: :file, label: "Photo upload" %> 	  
 		    <%= f.input :photo_remote_url, label: "Photo url", 
 		    	hint: (f.object.new_record? || f.object.photo.nil?)?
@@ -22,6 +21,8 @@
 			<% if current_user.admin? %>
 				<%= f.input :quality_id, as: :select, include_blank: true, label: "Quality", collection: Hash[Quality.all.map{|quality| [quality.name, quality.id]}]  %>
 			<% end %>
+			<%= f.input :grade, as: :select, label: "old grade", collection: ["","kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade"] %>
+		    <%= f.input :category, as: :select, label: "old category", collection: ["", "animals/pets", "books", "fahsion", "food", "games", "money", "movies/TV shows", "music/dance", "current events", "party", "school", "shopping", "special occasions", "sports", "travel", "weather", "OTHER"] %>	
 		<% end %>
 		<%= f.actions do %>
         	<%= f.action :submit, label: "Update My Post", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>

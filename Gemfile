@@ -19,6 +19,7 @@ gem 'cancan'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'sitemap_generator'
 gem 'meta-tags', :require => 'meta_tags'
+gem 'thin'
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'

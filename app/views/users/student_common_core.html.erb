@@ -24,7 +24,7 @@
 					<a href="<%= common_core_I_can_user_path(student) %>"><%= student.last_name %>, <%= student.first_name %></a>
 				</td>
 				<td>
-					<% Standard.joins(:posts).where('posts.user_id' => student.id).uniq.order('standards.id ASC').each do |standard| %> 
+					<% Standard.joins(:posts).where('posts.user_id' => student.id).uniq.order('standards.id DESC').each do |standard| %> 
 						<%= standard.short %> /
 					<% end %>
 				</td>

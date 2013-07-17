@@ -1,0 +1,57 @@
+<div class="row">
+  <aside class="span4">
+    <section>
+      <%= render 'shared/user_info', user: @user %>
+    </section>
+    <section>
+      <%= render 'shared/stats', user: @user %>
+    </section>
+    <section>
+      <%= render 'shared/post_form' %>
+    </section>
+  </aside>
+  <div class="span8">
+    <%= render 'users/follow_nudge' %> 
+    <h3 class="feed_item">
+		<%= @user.screen_name %>'s <br/>Common Core Math I-Can Journal  
+	</h3>
+	<% unless @user.grade.nil? %>
+		<ul class="users feed_item">
+			<% @domains.each do |domain| %>
+				<li><%= domain.name %></li>
+				<ul>
+					<% domain.standards.each do |standard| %>
+						<li>
+							<% if standard.posts.where(user_id: @user.id).any? %>
+								<span class="yes">
+							<% else %>
+								<span class="no">
+							<% end %>
+							<%= standard.ICan %>
+							<% standard.posts.where(user_id: @user.id).each do |post| %>
+								<%= link_to "Post ##{post.id}", new_post_comment_path(post) %>
+							<% end %></span>
+						</li>
+					<% end %>
+				</ul>
+			<% end %>
+		</ul>
+	<% end %>
+	<h4 class="feed_item"> I-Can Statements Not at <%= @user.screen_name %>'s Current Grade  </h4>
+	<ul class="users feed_item">
+		<% @standards.each do |standard| %>
+			<li>			
+				<span class="yes">			
+					<strong><%= standard.level.name %>:</strong> <%= standard.ICan %> 
+					<% standard.posts.where(user_id: @user.id).each do |post| %>
+						<%= link_to "Post ##{post.id}", new_post_comment_path(post) %>
+					<% end %>
+				</span>
+			</li>
+		<% end %>	
+	</ul>
+  </div>
+</div>
+
+
+

@@ -11,7 +11,7 @@ resources :users do
         :liked_posts, :liked_comments, 
         :inviter, :invited, 
         :show_activity, :my_abilities, :gift_receiving, :gift_giving, 
-        :change_password
+        :change_password, :i_can_journal
     post :update_password
   end
   collection { post :search, to: 'users#index' }

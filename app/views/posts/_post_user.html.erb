@@ -4,8 +4,10 @@
 <span class="timestamp">- </span><% if !post.user.grade.nil? %>grade <%= post.user.grade %> <% end %><%= post.user.role %><span class="timestamp"> -</span>
 <span class="timestamp">updated on </span>    
 <%= post.updated_at.strftime("%b %d, %Y") %>
-<span class="timestamp">in category </span> 
-<%= post.category %>
+<% unless post.subject.nil? %>
+	<span class="timestamp">in subject </span> 
+	<%= post.subject.name %>
+<% end %>
 <% unless post.level.nil? %>
 	<span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
 	<br/><span class="timestamp"><span itemprop="alignmentType">require</span>d by</span> 
@@ -28,6 +30,8 @@
 <% end %>
 <span class="timestamp"> for</span> 
 grade <%= post.grade %> 
+<span class="timestamp">in category </span> 
+<%= post.category %>
 
 
   

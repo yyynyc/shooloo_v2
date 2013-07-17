@@ -1,5 +1,5 @@
 class Authorization < ActiveRecord::Base
-  attr_accessible :authorizer_id, :approval
+  attr_accessible :authorizer_id, :approval, :authorized_id
 
   belongs_to :authorized, class_name: "User"
   belongs_to :authorizer, class_name: "User"

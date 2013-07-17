@@ -114,6 +114,7 @@ class UsersController < ApplicationController
     @rating=current_user.ratings.build(params[:rating])
     @alarm = current_user.alarms.build(params[:alarm])
     @like = current_user.likes.build(params[:like])
+    @subject = Subject.all
     @levels = Level.all
     @domains = Domain.all
     @standards = Standard.all
@@ -149,6 +150,7 @@ class UsersController < ApplicationController
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build
     @like = current_user.likes.build
+    @subject = Subject.all
     @levels = Level.all
     @domains = Domain.all
     @standards = Standard.all
@@ -187,6 +189,7 @@ class UsersController < ApplicationController
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build
     @like = current_user.likes.build
+    @subject = Subject.all
     @levels = Level.all
     @domains = Domain.all
     @standards = Standard.all
@@ -220,12 +223,26 @@ class UsersController < ApplicationController
     @alarm=current_user.alarms.build(params[:alarm])
     @post  = current_user.posts.build
     @like = current_user.likes.build
+    @subject = Subject.all
     @levels = Level.all
     @domains = Domain.all
     @standards = Standard.all
     render 'show_alarmed_posts'
     set_meta_tags title: "Invisible Math Problems Written by #{@user.screen_name}", 
         description: "List of math problems written by #{@user.screen_name} but have been alarmed",
+        noindex: true,
+        nofollow: true
+  end
+
+  def i_can_journal
+    @user = User.find(params[:id])
+    @post  = current_user.posts.build
+    @domains = Domain.where(level_id: @user.grade+1)
+    @standards = Standard.joins(:posts).where("posts.user_id = ? AND posts.level_id != ?", @user.id, (@user.grade+1))
+    @below_standards = @standards.where(posts: {})
+    render 'i_can_journal'
+    set_meta_tags title: "Common Core Math I-Can Journal by #{@user.screen_name}", 
+        description: "#{@user.screen_name}'s I-Can journal based on the Common Core State Standards for Math",
         noindex: true,
         nofollow: true
   end

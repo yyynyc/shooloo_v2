@@ -234,13 +234,13 @@ class UsersController < ApplicationController
         nofollow: true
   end
 
-  def i_can_journal
+  def common_core_I_can
     @user = User.find(params[:id])
     @post  = current_user.posts.build
     @domains = Domain.where(level_id: @user.grade+1)
     @standards = Standard.joins(:posts).where("posts.user_id = ? AND posts.level_id != ?", @user.id, (@user.grade+1))
     @below_standards = @standards.where(posts: {})
-    render 'i_can_journal'
+    render 'common_core_I_can'
     set_meta_tags title: "Common Core Math I-Can Journal by #{@user.screen_name}", 
         description: "#{@user.screen_name}'s I-Can journal based on the Common Core State Standards for Math",
         noindex: true,

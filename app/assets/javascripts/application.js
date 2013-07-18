@@ -11,11 +11,14 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require fancybox
+//= require fancybox 
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
 
+$(function ()  
+{ $(".navlist").affix-top();  
+});
 $(function ()  
 { $("#tips").popover({trigger: 'hover', placement: 'bottom'});  
 });  

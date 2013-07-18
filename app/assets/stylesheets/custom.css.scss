@@ -43,7 +43,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 2em;
-  letter-spacing: -2px;
+  letter-spacing: -1px;
   margin-bottom: 30px;
   text-align: center;
 }
@@ -55,6 +55,9 @@ h2 {
   text-align: center;
   font-weight: normal;
   color: $grayLight;
+  p {
+  line-height: 1.2em;
+  }
 }
 
 p {
@@ -477,6 +480,7 @@ aside {
     }
   }  
 }
+
 .overall-rating {
   width: 37.5%;
 }
@@ -854,3 +858,35 @@ aside {
 .bottom-margin {
   margin-bottom: 1em;
 }
+
+.standard-side {
+  width: 110px;
+  margin: 20px 0 0 0;
+  border-radius: 6px;
+  border: solid 1px $grayLight;
+  box-shadow: 0 1px 4px 1px;
+  li {
+    border-bottom: solid 1px $grayLight;  
+    padding: 0.25em 0;
+    &:first-child {
+      padding-top: 0.5em;
+    }
+    &:last-child {
+      padding-bottom: 0.5em;
+      border-bottom: 0px;
+    }
+  }
+}
+
+.table-ccss{
+  width: 95%; 
+  tr {
+    border: 1px solid #A4A4A4;   
+    td, th {
+    padding: 0.8em;
+    border-right: 1px solid #A4A4A4;
+    line-height: 1.1em;
+    }
+  }  
+}
+

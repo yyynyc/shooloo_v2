@@ -1,8 +1,6 @@
 ShoolooV2::Application.routes.draw do
 
 
-  get "contact/new"
-
 resources :users do
   member do
     get :following, :followers,  
@@ -20,6 +18,7 @@ end
 resources :sessions, only: [:new, :create, :destroy]
 resources :relationships, only: [:create, :destroy]
 resources :nudges, only: [:create, :destroy]
+resources :standards, path: '/standards/common_core/math/I_can' 
 
 resources :posts, path: '/common_core/math/practice/mp3/word_problems' do
   resources :likes, only: [:create, :destroy]
@@ -82,7 +81,16 @@ resources :messages
   match '/hidden', to: "users#hidden"
   match '/gift_receiving', to: "events#gift_receiving"
   match '/gift_giving', to: "events#gift_giving"
-  match '/contact', to: "messages#new"
+  match '/contact', to: "messages#new" 
+  get '/standards/common_core_math_I_can_grade_k', to: "standards#grade_k", as: :grade_k
+  get '/standards/common_core_math_I_can_grade_1', to: "standards#grade_1", as: :grade_1
+  get '/standards/common_core_math_I_can_grade_2', to: "standards#grade_2", as: :grade_2
+  get '/standards/common_core_math_I_can_grade_3', to: "standards#grade_3", as: :grade_3
+  get '/standards/common_core_math_I_can_grade_4', to: "standards#grade_4", as: :grade_4
+  get '/standards/common_core_math_I_can_grade_5', to: "standards#grade_5", as: :grade_5
+  get '/standards/common_core_math_I_can_grade_6', to: "standards#grade_6", as: :grade_6
+  get '/standards/common_core_math_I_can_grade_7', to: "standards#grade_7", as: :grade_7
+  get '/standards/common_core_math_I_can_grade_8', to: "standards#grade_8", as: :grade_8
   
  
 

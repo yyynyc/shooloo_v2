@@ -31,11 +31,16 @@ set :keep_releases, 3
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 
 namespace :deploy do
-  %w[start stop restart].each do |command|
+  %w[start stop].each do |command|
     desc "#{command} unicorn server"
     task command, roles: :app, except: {no_release: true} do
       run "/etc/init.d/unicorn_#{application} #{command}"
     end
+  end
+  desc "restart unicorn server"
+  task "restart", roles: :app, except: {no_release: true} do
+    run "/etc/init.d/unicorn_#{application} stop"
+    run "/etc/init.d/unicorn_#{application} start"
   end
 
   task :setup_config, roles: :app do

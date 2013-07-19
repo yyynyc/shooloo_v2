@@ -8,7 +8,7 @@
 	<% @domains.each do |d| %>
 		<tr>
 			<td colspan="4"><i><%= d.core %></i> </td>				
-			<% d.standards.each do |s| %>
+			<% d.standards.order('id ASC').each do |s| %>
 				<tr itemscope itemtype="http://schema.org/AlignmentObject">			
 					<td>
 						<span itemprop="educationalFramework" content="Common Core State Standard"></span>

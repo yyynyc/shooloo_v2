@@ -12,7 +12,7 @@
 		    <%= f.input :level_id, as: :select, include_blank: true, label: "Grade", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
 	    	<%= f.input :domain_id, as: :select, include_blank: true, label: "Skills", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
 	    	<%= f.input :standard_id, as: :select, include_blank: true, label: "I CAN", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %>  
-	    	<%= f.input :subject_id, as: :select, include_blank: true, label: "Subject", collection: Hash[Subject.all.map{|s| [s.name, s.id]}]  %>  	
+	    	<%= f.input :subject_id, as: :select, include_blank: true, label: "Subject", collection: Hash[Subject.order('name ASC').map{|s| [s.name, s.id]}] %> 
 		    <%= f.input :photo, as: :file, label: "Photo upload" %> 	  
 		    <%= f.input :photo_remote_url, label: "Photo url", 
 		    	hint: (f.object.new_record? || f.object.photo.nil?)?

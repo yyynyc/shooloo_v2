@@ -32,7 +32,7 @@
     <span class='search-label'> 
       <%= render partial: 'alarms/alarm', locals: {post: @post} %>   
     </span>
-    <% if current_user?(@post.user) %> 
+    <% if current_user?(@post.user) || current_user.admin? %> 
       <%= link_to raw('<i class="icon-trash"></i> Post'), @post, method: :delete,
         data: { confirm: "Delete post. Are you sure? You will lose all of your ratings and comments." },
         title: "Delete Post", class: "btn btn-small btn-default" %>

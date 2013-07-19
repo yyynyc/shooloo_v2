@@ -22,12 +22,13 @@
   </span>
 <% end %>
 
-<% if signed_in? && current_user.admin? %>
-	<br/><span class="timestamp">Real name:</span> <%= post.user.first_name %> <%= post.user.last_name %>,
-	<% unless post.quality.nil? %>
-		<span class="timestamp">Quality:</span> <%= post.quality.name %> 
-	<% end %>
+<% if signed_in? && (current_user.admin? || current_user.role=="teacher") && !post.quality.nil?%>
+	<br/><span class="timestamp">quality:</span> <%= post.quality.name %> 
 <% end %>
+<% if signed_in? && current_user.admin? %>
+	<span class="timestamp">Real name:</span> <%= post.user.first_name %> <%= post.user.last_name %>
+<% end %>
+
 
 
   

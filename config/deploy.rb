@@ -5,11 +5,13 @@ require "whenever/capistrano"
 task :live do
   server "198.74.59.151", :web, :app, :db, primary: true
   set :env, 'live'
+  set :nginx_config, 'nginx.conf'
 end
 
 task :stage do
   server "198.46.141.7", :web, :app, :db, primary: true
   set :env, 'stage'
+  set :nginx_config, 'nginx-stage.conf'
 end
 
 set :application, "shooloo_v2"
@@ -37,7 +39,7 @@ namespace :deploy do
   end
 
   task :setup_config, roles: :app do
-    sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}"
+    sudo "ln -nfs #{current_path}/config/#{nginx_config} /etc/nginx/sites-enabled/#{application}"
     sudo "ln -nfs #{current_path}/config/unicorn_init.sh /etc/init.d/unicorn_#{application}"
     run "mkdir -p #{shared_path}/config"
     put File.read("config/database.example.yml"), "#{shared_path}/config/database.yml"

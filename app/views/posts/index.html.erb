@@ -13,7 +13,8 @@
   <span temprop="provider" content="Shooloo Inc."></span>
   <span temprop="timeRequired" content="P5M"></span>
   <span temprop="typicalAgeRange" content="8-10, 10-12, 12-14"></span>
-  <div itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
+  <span itemprop="educationalAlignment" content="Common Core State Standard"></span>
+  <div itemscope itemtype="http://schema.org/AlignmentObject">
     <span itemprop="educationalFramework" content="Common Core State Standard"></span>
     <span itemprop="alignmentType" content="requires"></span>   
     <span itemprop="targetName" content="CCSS.Math.Practice.MP3, CCSS.Math.Practice.MP4"></span>
@@ -110,9 +111,9 @@
 							<%= render partial: 'posts/post_user', locals: {post: post} %>			      	
 					        <%= render partial: 'posts/post_stats', locals: {post: post} %>			        		      	
 				    	</section> 
-				  		<section>			  			
-				  			<%= truncate post.question, :length => 280, 
-				  				:omission => "..." %> 
+				  		<section class="feed_content">			  			
+				  			<strong><%= truncate post.question, :length => 280, 
+				  				:omission => "..." %></strong>
 				  			<% if signed_in? %>			  		
 					  			<% if current_user?(post.user) || current_user.admin? %>
 			        				<%= link_to "Edit your post ", edit_post_path(post), title: "Edit Post" %>

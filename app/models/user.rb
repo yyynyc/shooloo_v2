@@ -127,8 +127,8 @@ class User < ActiveRecord::Base
   validates :first_name, length: {maximum: 25}
   validates :last_name, length: {maximum: 25}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :parent_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX } 
-  validates :personal_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }#,
+  #validates :parent_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX } 
+  #validates :personal_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }#,
     #uniqueness: {case_sensitive: false} 
   #validates_presence_of :school_name, :if => :active_student?
   #validates_confirmation_of :email, on: :create

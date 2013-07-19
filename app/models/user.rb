@@ -93,20 +93,20 @@ class User < ActiveRecord::Base
     create_remember_token
   end
 
-  before_update do
-    unless self.personal_email.nil?
-      self.personal_email.downcase!
-    end
-    unless self.parent_email.nil?
-      self.parent_email.downcase!
-    end
-    unless self.first_name.nil?
-      self.first_name.capitalize!
-    end
-    unless self.last_name.nil?
-      self.last_name.capitalize!
-    end
-  end
+  #before_update do
+    #unless self.personal_email.nil?
+      #self.personal_email.downcase!
+    #end
+    #unless self.parent_email.nil?
+      #self.parent_email.downcase!
+    #end
+    #unless self.first_name.nil?
+    #  self.first_name.capitalize!
+    #end
+    #unless self.last_name.nil?
+    #  self.last_name.capitalize!
+    #end
+  #end
 
   after_create do 
     Event.create!(benefactor_id: self.id, 

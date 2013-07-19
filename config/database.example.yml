@@ -43,13 +43,13 @@ test:
   username: yyynyc
   password:
 
-#production:
-  #adapter: postgresql
-  #encoding: unicode
-  #database: shooloo_production
-  #pool: 5
-  #host: localhost
-  #username: shooloo
-  #password: shooloo2013
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: shooloo_stage
+  pool: 5
+  host: localhost
+  username: shooloo
+  password: shooloo2013
 
 

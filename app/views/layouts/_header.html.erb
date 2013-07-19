@@ -8,37 +8,23 @@
           <li><%= link_to "Contact", contact_path %></li> 
           <li><%= link_to "Common Core", standards_path %></li>           
           <% if signed_in? %>
-            <li id="fat-menu" class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Gifts <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <%= link_to "Receiving Gifts", gift_receiving_path %>
-                </li>
-                <li>
-                  <%= link_to "Giving Gifts", gift_giving_path %>
-                </li>
-                <% if current_user.admin? %>
-                  <li class="divider"></li>
-                  <li><%= link_to "Gift Choices", choices_path %></li>              
-                <% end %>             
-              </ul>
-            </li>
             <li>
                 <%= link_to "Alerts", my_alerts_path %>
             </li> 
             <li class="alert_bubble" id="alert_bubble">
               <%= alert_count %>
             </li>
-            <% if current_user.admin? || current_user.role == "teacher" %>              
+            <% if current_user.admin? || current_user.role == "teacher" %>
               <li id="fat-menu" class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   Students <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><%= link_to "My Students' Common Core Progress", student_common_core_user_path(current_user) %></li>
-                  <li><%= link_to "My Students' Alarms", alarmed_posts_path %></li> 
+                  <li><%= link_to "My Students' I-Can", student_common_core_user_path(current_user) %></li>
+                  <li><%= link_to "My Students' Alarms", alarmed_posts_path %></li>
+                  <% if can? :update, Authorization %>
+                    <li><%= link_to "Authorize My Students", authorizations_path %></li>
+                  <% end %>                   
                 </ul>
               </li>              
             <% end %>            
@@ -73,30 +59,20 @@
                 Friends <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <% if can? :update, Authorization %>
-                  <li>
-                    <%= link_to "Grant Authorizations", authorizations_path %>
-                  </li>
-                  <li>
-                    <%= link_to "Grant Referrals", referrals_path %>
-                  </li>        
-                <% elsif can? :update, Referral %>
-                  <li>
-                    <%= link_to " Grant Referrals", referrals_path %>
-                  </li>
+                <li><%= link_to "Gifts I Received", gift_receiving_path %></li>
+                <li><%= link_to "My Fans", gift_giving_path %></li>
+                <li><%= link_to "My Followers", followers_user_path(current_user) %></li>
+                <li class="divider"></li>                        
+                <% if can? :update, Referral %>
+                  <li><%= link_to " Refer Friends", referrals_path %></li>
                 <% end %>
                 <li class="divider"></li>
                 <li><%= link_to "All Shooloo Members", users_path %></li> 
                 <% if current_user.admin? %>
                   <li class="divider"></li>
                   <li><%= link_to "Hidden Users", hidden_path %></li>
-                  <li><%= link_to "All News", activities_path %></li>                  
-                  <li>
-                    <%= link_to "Request Authorizations", new_authorization_path %>
-                  </li>
-                  <li>    
-                    <%= link_to "Request Referrals", new_referral_path %>
-                  </li>                  
+                  <li><%= link_to "All News", activities_path %></li>
+                  <li><%= link_to "Gift Choices", choices_path %></li>             
                 <% end %>
               </ul>
             </li>
@@ -118,16 +94,16 @@
                 <% unless can? :crud, Post %>
                   <li class="divider"></li>
                   <% if can? :crud, Rating %>
-                    <%= link_to "Request Authorizations", new_authorization_path %>
+                    <li><%= link_to "Request Authorizations", new_authorization_path %></li>
                   <% else %>
-                    <%= link_to "Request Authorizations", new_authorization_path %>
-                    <%= link_to "Request Referrals", new_referral_path %>
+                    <li><%= link_to "Request Authorizations", new_authorization_path %></li>
+                    <li><%= link_to "Request Referrals", new_referral_path %></li>
                   <% end %>
                 <% end %>
                 <% if current_user.admin? %>
                   <li class="divider"></li>
-                  <%= link_to "Request Authorizations", new_authorization_path %>
-                  <%= link_to "Request Referrals", new_referral_path %>
+                  <li><%= link_to "Request Authorizations", new_authorization_path %></li>
+                  <li><%= link_to "Request Referrals", new_referral_path %></li>
                 <% end %>  
                 <li class="divider"></li>
                 <li>

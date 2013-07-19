@@ -21,7 +21,7 @@
       <%= @user.screen_name %>'s <%= link_to "Hidden", "#", "id" => "hidden", "rel" => "popover", "title" => "Why Are Posts Hidden", "data-content" => "These posts are hidden from the public view because they have one or more of the following: offensive image, offensive content, watermarked image, or plagerised content. You can republish the post with clean image and content using the form on the left." %> Posts (<%= @alarmed_posts.count %>)
     </h3>
   	<% if @alarmed_posts.any? %>
-      <h4>The following posts of yours have something inappropriate. Please clean up your posts first and then ask your teacher to unalarm your posts.</h4>     		      	
+      <h5 class="feed_item">The following posts of yours have something inappropriate. Please clean up your posts first and then ask your teacher to unalarm your posts.</h4>     		      	
   		<ol class="posts">
     		<%= render partial: 'shared/feed_item', collection: @alarmed_posts %>
   		</ol>

@@ -93,28 +93,32 @@ class User < ActiveRecord::Base
     create_remember_token
   end
 
-  #before_update do
-    #unless self.personal_email.nil?
-      #self.personal_email.downcase!
-    #end
-    #unless self.parent_email.nil?
-      #self.parent_email.downcase!
-    #end
-    #unless self.first_name.nil?
-    #  self.first_name.capitalize!
-    #end
-    #unless self.last_name.nil?
-    #  self.last_name.capitalize!
-    #end
-  #end
-
   after_create do 
     Event.create!(benefactor_id: self.id, 
       beneficiary_id: 1, 
       event: "sign up", value: ShoolooV2::SIGN_UP)
   end
 
-  #after_update :create_states
+  before_update do
+    unless self.personal_email.nil?
+      self.personal_email.downcase!
+    end
+    unless self.parent_email.nil?
+      self.parent_email.downcase!
+    end
+    unless self.first_name.nil?
+      self.first_name.capitalize!
+    end
+    unless self.last_name.nil?
+      self.last_name.capitalize!
+    end
+  end  
+
+  after_update :create_states
+
+  after_destroy do 
+    Activity.where(recipient_id: self.id).delete_all
+  end
 
   VALID_SCREEN_NAME_REGEX = /^[A-Za-z\d_]+$/
   validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX },
@@ -127,9 +131,9 @@ class User < ActiveRecord::Base
   validates :first_name, length: {maximum: 25}
   validates :last_name, length: {maximum: 25}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  #validates :parent_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX } 
-  #validates :personal_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }#,
-    #uniqueness: {case_sensitive: false} 
+  validates :parent_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX } 
+  validates :personal_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX },
+    uniqueness: {case_sensitive: false} 
   #validates_presence_of :school_name, :if => :active_student?
   #validates_confirmation_of :email, on: :create
   #validates_attachment_presence :avatar

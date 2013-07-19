@@ -17,9 +17,6 @@
 //= require_tree .
 
 $(function ()  
-{ $(".navlist").affix-top();  
-});
-$(function ()  
 { $("#tips").popover({trigger: 'hover', placement: 'bottom'});  
 });  
 $(function ()  

@@ -114,7 +114,7 @@ class User < ActiveRecord::Base
       event: "sign up", value: ShoolooV2::SIGN_UP)
   end
 
-  after_update :create_states
+  #after_update :create_states
 
   VALID_SCREEN_NAME_REGEX = /^[A-Za-z\d_]+$/
   validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX },

@@ -14,6 +14,7 @@
 //= require fancybox 
 //= require jquery_ujs
 //= require bootstrap
+//= require paypal-button.min
 //= require_tree .
 
 $(function ()  

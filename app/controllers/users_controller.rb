@@ -91,6 +91,11 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def subscription
+    @user = User.find(params[:id])
+    render 'subscription'
+  end
+
   def following    
     @user = User.find(params[:id])
     @users = @user.followed_users.paginate(page: params[:page])

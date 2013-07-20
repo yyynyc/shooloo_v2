@@ -3,7 +3,7 @@ ShoolooV2::Application.routes.draw do
 
 resources :users do
   member do
-    get :following, :followers,  
+    get :following, :followers, :subscription, 
         :posts, :rated_posts, :commented_posts, :alarmed_posts,
         :comments, :alarmed_comments, 
         :liked_posts, :liked_comments, 

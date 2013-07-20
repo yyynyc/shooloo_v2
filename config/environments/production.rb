@@ -67,4 +67,5 @@ ShoolooV2::Application.configure do
 
   # the domain wher emails will be sent
   config.action_mailer.default_url_options = { :host => "fun.shooloo.org" }
+
 end

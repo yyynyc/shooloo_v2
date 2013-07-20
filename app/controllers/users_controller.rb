@@ -60,7 +60,7 @@ class UsersController < ApplicationController
   	@user = User.new(params[:user])
   	if @user.save
   		sign_in @user
-      flash[:success] = "Welcome! You've just earned some points! You are one step closer toward getting a gift."
+      flash[:error] = "Welcome! You have not completed your profile. To gain full access to all functionalities, #{ActionController::Base.helpers.link_to "complete your information here", edit_user_path(current_user)}.". html_safe
       redirect_to posts_path
   	else
   		render 'new'

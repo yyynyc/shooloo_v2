@@ -20,6 +20,7 @@ gem "recaptcha", :require => "recaptcha/rails"
 gem 'sitemap_generator'
 gem 'meta-tags', :require => 'meta_tags'
 gem 'thin'
+gem 'best_in_place'
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'

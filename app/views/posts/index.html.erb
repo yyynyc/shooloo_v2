@@ -27,12 +27,12 @@
 	<%= search_form_for @search, url: search_posts_path, method: :get do |f| %>		
 		<% if !signed_in? %>
 			<div class="row center auth about">
-				Join Shooloo to search over 1,000 math word problems<br/> by Common Core State Standards and by "I can" statements!
+				<%= link_to "Join Shooloo", sign_up_path %> to search over 1,000 math word problems<br/> by Common Core State Standards and by "I can" statements!
 			</div>		
 		<% else %>	
 			<% if current_user.authorizations.blank? %>			
 				<div class="row center box about">
-					<strong>Get authorization<strong> to search problems by Common Core State Standards and by "I can" statements.
+					<%= link_to "Get authorization", new_authorization_path %> to search problems by Common Core State Standards and by "I can" statements.
 				</div>
 			<% else %>
 				<div class="row center bottom-margin">

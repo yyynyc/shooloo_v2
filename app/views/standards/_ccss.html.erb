@@ -18,9 +18,11 @@
 					</td>
 					<td itemprop="targetDescription">
 						<%= s.description %>
+						<%#= best_in_place_if (signed_in? && current_user.admin?), s, :descrption %>
 					</td>
 					<td>
 						<%= s.ICan %>
+						<%#= best_in_place_if (signed_in? && current_user.admin?), s, :ICan %>
 					</td>
 					<td>
 						<% s.posts.each do |p| %>

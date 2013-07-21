@@ -22,6 +22,7 @@ gem 'meta-tags', :require => 'meta_tags'
 gem 'thin'
 gem 'best_in_place'
 gem 'sendgrid'
+gem 'twilio-ruby'
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'

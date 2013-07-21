@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<TwilioResponse>
+<Application>
+ <Sid>AP6022f30526de4e2398c0a3fd2fa5f484</Sid>
+ <DateCreated>Sun, 21 Jul 2013 14:39:09 +0000</DateCreated>
+ <DateUpdated>Sun, 21 Jul 2013 14:39:09 +0000</DateUpdated>
+ <AccountSid>AC3befa29772ffe62aea9716623a5b2c69</AccountSid>
+ <FriendlyName>Shooloo Click-to-call</FriendlyName>
+ <ApiVersion>2010-04-01</ApiVersion>
+ <VoiceUrl/>
+ <VoiceMethod>POST</VoiceMethod>
+ <VoiceFallbackUrl/>
+ <VoiceFallbackMethod>POST</VoiceFallbackMethod>
+ <StatusCallback/>
+ <StatusCallbackMethod>POST</StatusCallbackMethod>
+ <VoiceCallerIdLookup>false</VoiceCallerIdLookup>
+ <SmsUrl/>
+ <SmsMethod>POST</SmsMethod>
+ <SmsFallbackUrl/>
+ <SmsFallbackMethod>POST</SmsFallbackMethod>
+ <SmsStatusCallback/>
+ <Uri>/2010-04-01/Accounts/AC3befa29772ffe62aea9716623a5b2c69/Applications/AP6022f30526de4e2398c0a3fd2fa5f484.xml</Uri>
+</Application>
+</TwilioResponse>

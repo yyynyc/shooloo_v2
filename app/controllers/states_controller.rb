@@ -5,8 +5,7 @@ class StatesController < ApplicationController
 		if @user.role?("student") && !@user.parent_email.nil?
         	UserMailer.parental_consent(@user).deliver
       	end
-      	flash[:success] = "Bravo! You've just earned some points! 
-        		You are one step closer toward getting a gift."
+      	flash[:success] = "Bravo! You can now #{ActionController::Base.helpers.link_to "get authorization", new_authorization_path} or #{ActionController::Base.helpers.link_to "get referral", new_referral_path}. You are one step closer toward #{ActionController::Base.helpers.link_to "getting a gift", gift_receiving_path} from Shooloo.".html_safe
         redirect_to my_abilities_path
 	end
 end

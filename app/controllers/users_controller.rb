@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def my_abilities
     if params[:error]
-      flash.now[:error] = "Sorry, but you don't have the ability to do this now. Get referrals or authorization first."
+      flash.now[:error] = "Sorry, you need to #{ActionController::Base.helpers.link_to "get authorization", new_authorization_path} or #{ActionController::Base.helpers.link_to "get referral", new_referral_path} first to gain access to this functionality.".html_safe
     end
     set_meta_tags title: 'My Powers', 
         description: "Shooloo member's access to various activities",
@@ -77,7 +77,11 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(params[:user])
-      flash[:success] = "Information updated successfully!"
+      if @user.authorizations.any?
+        flash[:success] = "Information updated successfully!"
+      else 
+        flash[:notice] = "Information updated successfully! #{ActionController::Base.helpers.link_to "Get authorization", new_authorization_path} to gain full access to all functionalities.".html_safe
+      end
       sign_in @user
       redirect_to my_abilities_path
     else
@@ -286,13 +290,13 @@ class UsersController < ApplicationController
       @user.password = params[:user][:password]
       if @user.save
         sign_in @user
-        flash[:notice] = "Password successfully updated"
+        flash[:notice] = "Password successfully updated!"
         redirect_to root_path
       else 
         render 'change_password'
       end  
     else
-      flash.now[:error] = "Old password is incorrect" 
+      flash.now[:error] = "Old password is incorrect." 
       render 'change_password'
     end
   end

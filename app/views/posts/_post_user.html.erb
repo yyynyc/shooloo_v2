@@ -2,8 +2,8 @@
   <%= link_to post.user.screen_name, posts_user_path(post.user) %>
 </span> 
 <span class="timestamp">- </span><% if !post.user.grade.nil? %>grade <%= post.user.grade %> <% end %><%= post.user.role %><span class="timestamp"> -</span>
-<span class="timestamp">updated on </span>    
-<%= post.updated_at.strftime("%b %d, %Y") %>
+<span class="timestamp">created on </span>    
+<%= post.created_at.strftime("%b %d, %Y") %>
 <% unless post.subject.nil? %>
 	<span class="timestamp">in subject </span> 
 	<%= post.subject.name %>
@@ -22,11 +22,12 @@
   </span>
 <% end %>
 
-<% if signed_in? && (current_user.admin? || current_user.role=="teacher") && !post.quality.nil?%>
-	<br/><span class="timestamp">quality:</span> <%= post.quality.name %> 
-<% end %>
 <% if signed_in? && current_user.admin? %>
+	<br/> 
 	<span class="timestamp">Real name:</span> <%= post.user.first_name %> <%= post.user.last_name %>
+	<% if !post.quality.nil? %>
+		<span class="timestamp">quality:</span> <%= post.quality.name %>
+	<% end %>
 <% end %>
 
 

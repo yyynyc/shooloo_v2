@@ -1,6 +1,6 @@
 class Rating < ActiveRecord::Base
-  attr_accessible :rated_post_id, :answer_correctness, :steps, :grade_suitability, 
-				  :operation_ids, :improvement_ids, :flag_ids, :overall_rating 
+  attr_accessible :rated_post_id, :answer_correctness, :steps,  
+	   :improvement_ids, :overall_rating, :ccss_suitability 
 
   belongs_to :rated_post, class_name: "Post"
   belongs_to :rater, class_name: "User"
@@ -13,7 +13,7 @@ class Rating < ActiveRecord::Base
   accepts_nested_attributes_for :flags 
 
   validates_presence_of :rated_post_id, :rater_id, :answer_correctness, 
-    :steps, :grade_suitability
+    :steps, :ccss_suitability
   validates_inclusion_of :overall_rating, in: [true, false]
 
   default_scope order: 'ratings.updated_at DESC'
@@ -48,12 +48,14 @@ class Rating < ActiveRecord::Base
         where rated_post_id=? and overall_rating='true'),
       overall_false_count = (select count (*) from ratings 
         where rated_post_id=? and overall_rating='false'),
-      grade_below_count = (select count (*) from ratings 
-        where rated_post_id=? and grade_suitability=1),
-      grade_right_count = (select count (*) from ratings 
-        where rated_post_id=? and grade_suitability=2),
-      grade_above_count = (select count (*) from ratings 
-        where rated_post_id=? and grade_suitability=3),
+      ccss_wrong_grade_count = (select count (*) from ratings 
+        where rated_post_id=? and ccss_suitability=1),
+      ccss_right_count = (select count (*) from ratings 
+        where rated_post_id=? and ccss_suitability=2),
+      ccss_wrong_skill_count = (select count (*) from ratings 
+        where rated_post_id=? and ccss_suitability=3),
+      ccss_wrong_ican_count = (select count (*) from ratings 
+        where rated_post_id=? and ccss_suitability=4),
       answer_correctness_1_count = (select count (*) from ratings 
         where rated_post_id=? and answer_correctness=1),
       answer_correctness_2_count = (select count (*) from ratings 
@@ -97,6 +99,7 @@ class Rating < ActiveRecord::Base
       self.rated_post.id,
       self.rated_post.id,
       self.rated_post.id, 
+      self.rated_post.id,
       self.rated_post.id,
       self.rated_post.id,
       self.rated_post.id,

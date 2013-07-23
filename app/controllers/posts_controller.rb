@@ -29,8 +29,7 @@ class PostsController < ApplicationController
   def create
   	@post = current_user.posts.build(params[:post])
     if @post.save
-      flash[:success] = "Fantastic! Thank you for your post. 
-        Now try to gather some fans for your posts."
+      flash[:notice] = "Fantastic, you've earned some points! You are one step closer toward #{ActionController::Base.helpers.link_to "getting a gift", gift_receiving_path} from Shooloo.".html_safe
       redirect_to root_path
     else
       @feed_items = []
@@ -68,7 +67,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-     flash[:success] = "Sorry, you've just lost some points."
+     flash[:error] = "Sorry, you've just #{ActionController::Base.helpers.link_to "lost some points", gift_receiving_path} from Shooloo.".html_safe
     redirect_to root_url
   end
 

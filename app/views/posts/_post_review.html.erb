@@ -21,13 +21,13 @@
   </span>
   <span class="modal-text">         
     <p><strong>Question: </strong><%= simple_format(@post.question) %></p>
-    <p><strong>Answer: </strong><%= @post.answer %></p>
+    <p><strong>Answer: </strong><%= @post.answer %><i><span class="no"> - Is this answer correct?</span></i></p>
     <% unless @post.level.nil? %>
-      <p><strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %></p>
+      <p><strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %><i><span class="no"> - Is this "I can" statement suitable for this question?</span></i></p>
     <% end %>
   </span>
 </div>
-<div class="row">
+<div class="row border">
   <% if @post.visible? %>
     <span class='search-label'> 
       <%= render partial: 'alarms/alarm', locals: {post: @post} %>   
@@ -53,11 +53,3 @@
     <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), new_post_comment_path(@post), class: "btn btn-small btn-success" %> 
   <% end %><br/>
 </div>  
-<div class="row">   
-  <div class="post_review_user_info">        
-    <section class="well-text">
-      Is above answer right?<br/>      
-      Is the above "I can" statement suitable for this problem?      
-    </section>          
-  </div>  
-</div> 

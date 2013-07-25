@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   
   def index
     @search = Post.visible.search(params[:q])
-    @posts = @search.result.visible.paginate(page: params[:page], per_page: 30, order: 'created_at DESC')
+    @posts = @search.result.visible.paginate(page: params[:page], per_page: 100, order: 'created_at DESC')
     @search.build_condition
     if signed_in?
       @like = current_user.likes.build(params[:like])
@@ -29,7 +29,7 @@ class PostsController < ApplicationController
   def create
   	@post = current_user.posts.build(params[:post])
     if @post.save
-      flash[:notice] = "Fantastic, you've earned some points! You are one step closer toward #{ActionController::Base.helpers.link_to "getting a gift", gift_receiving_path} from Shooloo.".html_safe
+      flash[:notice] = "Fantastic! #{ActionController::Base.helpers.link_to "Check your points", gift_receiving_path} from Shooloo and your progress in your #{ActionController::Base.helpers.link_to "I-Can Journal", common_core_I_can_user_path(current_user)}.".html_safe
       redirect_to root_path
     else
       @feed_items = []

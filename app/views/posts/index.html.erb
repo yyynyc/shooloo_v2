@@ -27,7 +27,7 @@
 	<%= search_form_for @search, url: search_posts_path, method: :get do |f| %>		
 		<% if !signed_in? %>
 			<div class="row center auth about">
-				<%= link_to "Join Shooloo", sign_up_path %> to search over 1,000 math word problems<br/> by Common Core State Standards and by "I can" statements!
+				<%= link_to "Join Shooloo", signup_path %> to search over 1,000 math word problems<br/> by Common Core State Standards and by "I can" statements!
 			</div>		
 		<% else %>	
 			<% if current_user.authorizations.blank? %>			

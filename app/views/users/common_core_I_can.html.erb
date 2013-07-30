@@ -24,14 +24,14 @@
 						<li>
 							<% if standard.posts.where(user_id: @user.id).any? %>
 								<span class="yes">
-									<%= standard.ICan %>
+									<%= standard.short %>: <%= standard.ICan %>
 								</span> Post
 								<% standard.posts.where(user_id: @user.id).each do |post| %>
 									<%= link_to "##{post.id}", new_post_comment_path(post) %> /
 								<% end %>
 							<% else %>
 								<span class="no">
-									<%= standard.ICan %>
+									<%= standard.short %>: <%= standard.ICan %>
 								</span>
 							<% end %>
 						</li>

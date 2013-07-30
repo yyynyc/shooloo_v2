@@ -73,7 +73,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user
+    @user = User.find(params[:id])
     set_meta_tags title: 'Update My Information', 
         description: "Shooloo member updates personal information",
         noindex: true,
@@ -325,8 +325,10 @@ class UsersController < ApplicationController
   private
     
     def correct_user
-      @user = User.find(params[:id]) 
-      redirect_to(root_path) unless current_user?(@user)
+      @user = User.find(params[:id])
+      unless current_user?(@user) || current_user.admin?
+        redirect_to(root_path) 
+      end
     end
 
     def admin_user

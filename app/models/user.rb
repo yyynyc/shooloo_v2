@@ -94,9 +94,10 @@ class User < ActiveRecord::Base
   end
 
   after_create do 
-    Event.create!(benefactor_id: self.id, 
-      beneficiary_id: 1, 
+    Event.create!(benefactor_id: self.id, beneficiary_id: 1, 
       event: "sign up", value: ShoolooV2::SIGN_UP)
+    Activity.create!(action: "create", trackable: self, 
+        user_id: self.id, recipient_id: 2)
   end
 
   before_update do
@@ -114,7 +115,11 @@ class User < ActiveRecord::Base
     end
   end  
 
-  after_update :create_states
+  after_update do
+    create_states
+    Activity.create!(action: "update", trackable: self, 
+        user_id: self.id, recipient_id: 2)
+  end
 
   after_destroy do 
     Activity.where(recipient_id: self.id).delete_all

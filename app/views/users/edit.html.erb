@@ -29,7 +29,7 @@
 				<%= f.input :school_url %>
 				<%= f.input :personal_email, label: "My email", placeholder: "Useful to recover your forgotten password" %>
 			<% else %>
-				<%= f.input :social_media_url, placeholder: "Useful to recover your forgotten password" %>
+				<%= f.input :social_media_url, label: "My web site or social media", placeholder: "Useful to verify your identity" %>
 				<%= f.input :personal_email, label: "My email", placeholder: "Useful to recover your forgotten password" %>
 			<% end %>
 			<%= f.input :avatar, as: :file, label: "Avatar upload" %> 

@@ -4,14 +4,22 @@
 
 <p class='center'><img src="/attachments/computer.gif" alt="Shooloo Math Can Do"></p> 
 
-<% if current_user.role == "teacher" %>
-	<div class="about">
-		<p>As a teacher, you will be automatically authorized once at least <%= link_to "15 students", authorizations_path %> have requested your authorization. You will also be able to publish your own posts and comments, <%= link_to "authorize", authorizations_path %> others, and gain access to many more activities.</p>
-		<p>First, in order for your students to find you and request your authorization, you yourself need to <%= link_to "become referred", new_referral_path %> by your friends who are Shooloo members or by the Shooloo administrator.</p>
+<% if current_user.role == "teacher" || current_user.role == "tutor" %>
+	<div class="about">		
+		<p>Make sure all information in <%= link_to "your profile", edit_user_path(current_user) %> is complete, then click the blue button below.</p>
+		<div class='row'>	  		
+			<div class="span6">
+				<p>Request referral from the Shooloo administrator:</p>				
+			</div> 
+			<div class="span4" >
+				<%= render partial: 'authorizations/authorization', 
+					locals: {user: User.find(2)} %>
+			</div>
+		</div>
 	</div>
 <% else %>	
 	<div class="about">
-		<p>To publish your own posts and comment on your friends' posts, get authorized by your current math teacher. <strong> First, make sure all information in <%= link_to "your profile", edit_user_path(current_user) %> is complete and correct</strong>; otherwise your teacher will not authorize you. Once you become authorized, you will gain the power to <%= link_to "grant referrals", referrals_path %> to others.</p>
+		<p>Search for your current math teacher below. Once authorized, you will be able to <%= link_to "refer your friends", referrals_path %>.</p>
 	</div>
 	<div class='box'>
 		<div class='about'>

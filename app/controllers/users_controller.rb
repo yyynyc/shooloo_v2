@@ -60,8 +60,13 @@ class UsersController < ApplicationController
   	@user = User.new(params[:user])
   	if @user.save
   		sign_in @user
-      flash[:error] = "Welcome! You have not completed your profile. To gain full access to all functionalities, #{ActionController::Base.helpers.link_to "complete your information here", edit_user_path(current_user)}.". html_safe
-      redirect_to posts_path
+      if @user.role == "student"
+        flash[:error] = "Almost there. Complete the form below."
+        redirect_to edit_user_path(@user)
+      else
+        flash[:error] = "Almost there: you need to #{ActionController::Base.helpers.link_to "complete your information here", edit_user_path(@user)}.". html_safe
+        redirect_to posts_path
+      end
   	else
   		render 'new'
   	end
@@ -76,14 +81,28 @@ class UsersController < ApplicationController
   end
 
   def update
+    if @user.role == "student"
+      @user.validate_student = true
+    elsif 
+      @user.role == "teacher"
+      @user.validate_teacher = true
+    else
+      @user.validate_other = true
+    end
     if @user.update_attributes(params[:user])
+      sign_in @user
       if @user.authorizations.any?
         flash[:success] = "Information updated successfully!"
+        redirect_to root_path
       else 
-        flash[:notice] = "Information updated successfully! #{ActionController::Base.helpers.link_to "Get authorization", new_authorization_path} to gain full access to all functionalities.".html_safe
+        flash[:error] = "One last thing: get authorization below."
+        if @user.role == "student"
+          redirect_to new_authorization_path
+        else
+          flash[:error] = "One last thing: to gain full access, #{ActionController::Base.helpers.link_to "get authorization here", new_authorization_path}.".html_safe
+          redirect_to posts_path
+        end        
       end
-      sign_in @user
-      redirect_to my_abilities_path
     else
       render 'edit'
     end

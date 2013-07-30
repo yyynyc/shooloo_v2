@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
     :avatar, :avatar_remote_url, :privacy, :rules,
     :school_name, :school_url, :social_media_url,
     :referrals_attributes, :authorizations_attributes
-  attr_accessor :updating_password
+  attr_accessor :updating_password, :validate_student, :validate_teacher, :validate_other
   attr_reader :avatar_remote_url
   has_attached_file :avatar, 
     :styles => {  :small => "60x60#",
@@ -127,13 +127,21 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, :if => :should_validate_password? 
   validates :privacy, presence: true
   validates :rules, presence: true
+  validates :role, presence: true
 
-  validates :first_name, length: {maximum: 25}
-  validates :last_name, length: {maximum: 25}
+  validates :first_name, length: {maximum: 25}, presence: true, on: :update
+  validates :last_name, length: {maximum: 25}, presence: true, on: :update
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :parent_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX } 
-  validates :personal_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX },
-    uniqueness: {case_sensitive: false} 
+  validates :parent_email, format: { with: VALID_EMAIL_REGEX }, presence: true, 
+    :if => :verify_student
+  validates :grade, presence: true, :if => :verify_student
+  validates :school_name, presence: true, length: {maximum: 100}, on: :update,
+    :unless => :verify_other
+  validates :personal_email, format: { with: VALID_EMAIL_REGEX },
+    uniqueness: {case_sensitive: false}, presence: true, on: :update,
+    :unless => :verify_student
+  validates :school_url, presence: true, :if => :verify_teacher
+  validates :social_media_url, presence: true, :if => :verify_other
   #validates_presence_of :school_name, :if => :active_student?
   #validates_confirmation_of :email, on: :create
   #validates_attachment_presence :avatar
@@ -142,6 +150,18 @@ class User < ActiveRecord::Base
 
   def should_validate_password? 
     updating_password || new_record?
+  end
+
+  def verify_student
+    validate_student
+  end
+
+  def verify_teacher
+    validate_teacher
+  end
+
+  def verify_other
+    validate_other
   end
 
   def self.visible

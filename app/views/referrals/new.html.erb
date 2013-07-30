@@ -3,10 +3,10 @@
 <h1>Request Referral</h1>
 <p class='center'><img src="/attachments/laptop.gif" alt="Shooloo Math Can Do"></p>
 <% if current_user.role == "teacher" %>
-	<div class="about">
-		<p>As a teacher, you have the power to <strong>authorize</strong>your students to publish their own posts and comments.</p>
+	<div class="about">		
+		<p>Get referral from other teachers whom you know and who are already Shooloo members. Once referred, you will also be able to <%= link_to "follow", posts_user_path(User.find(2)) %> other members and rate their posts. However, you won't be able to publish your own posts or comments until you've <%= link_to "gained authorization", new_authorization_path %>. </p>
 
-		<p>First, get referral from the Shooloo administrator or from other teachers whom you know and who are already Shooloo members. Make sure all of your personal information in <%=link_to "your profile", edit_user_path(current_user) %> is correct in order to expedite the referral process. Once you get referred, your name will appear in the <%= link_to "member list", users_path %> and your students will be able to find you. You will also be able to <%= link_to "follow", posts_user_path(User.find(2)) %> other members and rate their posts. However, you won't be able to publish your own posts or comments until you've gained the power to authorize your students. </p>
+		<p>Once authorized, you will have the power to <strong>authorize</strong>your students to publish their own posts and comments.</p>
 	</div>
 	<div class='box'>
 		<div class='about'>
@@ -74,12 +74,9 @@
 			</div>
 		</div>
 	</div>		
-	<div class="about">
-		<p> After you've obtained your referral, ask your students to sign up and request your authorization. Once at least <%= link_to "15 students have requested", authorizations_path %> your authorization, you yourself will become an authorized teacher and gain the power to <%= link_to "grant authorization", authorizations_path %> to others as well as many other powers far beyond what a student can get. </p>
-	</div>
 <% else %> 
 	<div class="about">
-		<p>To follow other Shooloo members and get follower of your own, get referrals from Shooloom members whom you personally know. <strong>First, make sure all information in <%= link_to "your profile", edit_user_path(current_user) %> is complete and correct</strong>; otherwise your friends won't be able to recognize you or give you referrals. Once you get referred, you will gain the power to <%= link_to "add ratings", 'posts_path' %> to other members' posts as well.</p>
+		<p class="box">To follow <%= link_to "Shooloo members", users_path %> and get follower of your own, get referrals from Shooloom members whom you personally know. Once referred, you will be able to <%= link_to "like", posts_path %> other members' posts as well.</p>
 
 		<p>Find my friend among Shooloo members:</P>
 	</div>

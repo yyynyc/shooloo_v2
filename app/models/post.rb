@@ -100,15 +100,15 @@ class Post < ActiveRecord::Base
         event: "delete post", value: ShoolooV2::POST_DELETE)
   end
 
-#  after_update do
-#    self.commenters.uniq.each do |commenter|
-#      Activity.create!(action: "update", trackable: self, 
-#        user_id: self.user_id, recipient_id: commenter.id)
-#    end
+  after_update do
+    self.commenters.uniq.each do |commenter|
+      Activity.create!(action: "update", trackable: self, 
+        user_id: self.user_id, recipient_id: commenter.id)
+    end
 
-#    self.raters.uniq.each do |rater|
-#      Activity.create!(action: "update", trackable: self, 
-#        user_id: self.user_id, recipient_id: rater.id)
-#    end
-#  end
+    self.raters.uniq.each do |rater|
+      Activity.create!(action: "update", trackable: self, 
+        user_id: self.user_id, recipient_id: rater.id)
+    end
+  end
 end

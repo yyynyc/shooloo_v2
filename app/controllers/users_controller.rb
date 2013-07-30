@@ -243,9 +243,9 @@ class UsersController < ApplicationController
     @post  = current_user.posts.build
     if !@user.grade.nil?
       @domains = Domain.where(level_id: (@user.grade+1))    
-      @standards = Standard.joins(:posts).where("posts.user_id = ? AND posts.level_id != ?", @user.id, (@user.grade+1))
+      @standards = Standard.joins(:posts).where("posts.user_id = ? AND posts.level_id != ?", @user.id, (@user.grade+1)).order('standards.short ASC')
     else
-      @standards = Standard.joins(:posts).where("posts.user_id = ? ", @user.id)
+      @standards = Standard.joins(:posts).where("posts.user_id = ? ", @user.id).order('standards.short ASC')
     end
     render 'common_core_I_can'
     set_meta_tags title: "Common Core Math I-Can Journal by #{@user.screen_name}", 

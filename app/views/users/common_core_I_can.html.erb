@@ -46,7 +46,7 @@
 			<% @standards.each do |standard| %>
 				<li>			
 					<span class="yes">			
-						<strong><%= standard.level.name %>:</strong> <%= standard.ICan %>
+						<strong><%= standard.short %>:</strong> <%= standard.ICan %>
 					</span> 
 					Post 
 					<% standard.posts.where(user_id: @user.id).each do |post| %>

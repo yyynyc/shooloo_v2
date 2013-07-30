@@ -74,8 +74,14 @@
 				<%= f.label :subject_name_cont, "Subject" %>
 			</span>
 			<span class="search-field">
-				<%= f.collection_select :subject_name_cont, Subject.order(:id), :name, :name, include_blank: true  %>
+				<%= f.collection_select :subject_name_cont, Subject.order(:name), :name, :name, include_blank: true  %>
 			</span>
+			<span class="search-label">
+				<%= f.label :question_cont, "Question Keywords" %>
+			</span>
+			<span class="search-field">
+				<%= f.text_field :question_cont %>
+			</span>	
 			<% if signed_in? && ((current_user.role=="teacher" && current_user.authorizations.any?) || current_user.admin?) %>
 				<span class="search-label">
 					<%= f.label :quality_name_cont, "Question Quality" %>
@@ -85,7 +91,7 @@
 				</span>
 			<% end %>		
 			<span class="search-label">
-				<%= f.submit "Search", class: "btn btn-small btn-default" %>
+				<%= f.submit "Search", class: "btn btn-small btn-primary" %>
 			</span>
 		</div>	
 	<% end %>

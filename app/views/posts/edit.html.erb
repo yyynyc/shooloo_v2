@@ -20,9 +20,7 @@
 				f.template.image_tag(f.object.photo.url(:thumb)) %>
 			<% if current_user.admin? %>
 				<%= f.input :quality_id, as: :select, include_blank: true, label: "Quality", collection: Hash[Quality.all.map{|quality| [quality.name, quality.id]}]  %>
-			<% end %>
-			<%= f.input :grade, as: :select, label: "old grade", collection: ["","kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12 grade"] %>
-		    <%= f.input :category, as: :select, label: "old category", collection: ["", "animals/pets", "books", "fahsion", "food", "games", "money", "movies/TV shows", "music/dance", "current events", "party", "school", "shopping", "special occasions", "sports", "travel", "weather", "OTHER"] %>	
+			<% end %>			
 		<% end %>
 		<%= f.actions do %>
         	<%= f.action :submit, label: "Update My Post", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>

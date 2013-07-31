@@ -61,9 +61,9 @@
               <ul class="dropdown-menu">
                 <li><%= link_to "Gifts I Received", gift_receiving_path %></li>
                 <li><%= link_to "My Fans", gift_giving_path %></li>
-                <li><%= link_to "My Followers", followers_user_path(current_user) %></li>
-                <li class="divider"></li>                        
+                <li><%= link_to "My Followers", followers_user_path(current_user) %></li>                                    
                 <% if can? :update, Referral %>
+                  <li class="divider"></li>    
                   <li><%= link_to " Refer Friends", referrals_path %></li>
                 <% end %>
                 <li class="divider"></li>

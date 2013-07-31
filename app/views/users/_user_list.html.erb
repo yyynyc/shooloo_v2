@@ -65,6 +65,9 @@
 	  					<%= user.parent_email unless user.parent_email.nil? %>,
 	  				Personal email: 
 	  					<%= user.personal_email unless user.personal_email.nil? %>.
+	  				Created on: 
+	  					<%= user.created_at %>
+	  				<%= link_to "Full Profile", edit_user_path(user) %>
 	      		<% end %>
 	      	</span>	
       	</div>	

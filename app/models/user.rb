@@ -134,17 +134,17 @@ class User < ActiveRecord::Base
   validates :rules, presence: true
   validates :role, presence: true
 
-  validates :first_name, length: {maximum: 25}, presence: true, on: :update
+  validates :first_name, length: {maximum: 25}, presence: true, on: :update 
   validates :last_name, length: {maximum: 25}, presence: true, on: :update
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :parent_email, format: { with: VALID_EMAIL_REGEX }, presence: true, 
-    :if => :verify_student
-  validates :grade, presence: true, :if => :verify_student
+    :if => :verify_student, :unless => :should_validate_password? 
+  validates :grade, presence: true, :if => :verify_student, :unless => :should_validate_password? 
   validates :school_name, presence: true, length: {maximum: 100}, on: :update,
-    :unless => :verify_other
+    :unless => :verify_other 
   validates :personal_email, format: { with: VALID_EMAIL_REGEX },
     uniqueness: {case_sensitive: false}, presence: true, on: :update,
-    :unless => :verify_student
+    :unless => :verify_student 
   validates :school_url, presence: true, :if => :verify_teacher
   validates :social_media_url, presence: true, :if => :verify_other
   #validates_presence_of :school_name, :if => :active_student?

@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   def hidden
     @search_hidden = User.hidden.search(params[:q])
     @users_hidden = @search_hidden.result.paginate(page: params[:page], 
-      per_page: 30, order: 'screen_name ASC')
+      per_page: 30, order: 'created_at DESC')
     @search_hidden.build_condition
     render 'hidden'
     set_meta_tags title: 'Hidden Users', 

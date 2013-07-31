@@ -6,7 +6,7 @@
 	<div class="row">
 		<div class="span6 border-right">
 			<%= f.input :screen_name, placeholder: "Must be DIFFERENT from your real name"%>	
-			<% if @user.authorizations.where(approval: "accepted").blank? && @user.referrals.where(approval: "accepted").blank? %>      
+			<% if (@user.authorizations.where(approval: "accepted").blank? && @user.referrals.where(approval: "accepted").blank?) || current_user.admin? %>      
 				<%= f.input :first_name %>
 				<%= f.input :last_name %>
 				<%= f.input :role, label: "I am a", as: :select, collection: ["student", "teacher", "parent", "tutor", "other"]  %>

@@ -31,4 +31,11 @@ class UserMailer < ActionMailer::Base
         subject: "#{user.first_name}: Your Activity Alerts From Shooloo"
     end
   end
+
+  def sign_up_confirm(user)
+    sendgrid_category "sign up confirmation"
+    @user = user
+    mail to: user.personal_email, 
+        subject: "Your New Shooloo Account"
+  end
 end

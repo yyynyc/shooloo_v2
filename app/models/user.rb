@@ -98,6 +98,9 @@ class User < ActiveRecord::Base
       event: "sign up", value: ShoolooV2::SIGN_UP)
     Activity.create!(action: "create", trackable: self, 
         user_id: self.id, recipient_id: 2)
+    unless self.personal_email.blank?
+      UserMailer.sign_up_confirm(self).deliver
+    end
   end
 
   before_update do

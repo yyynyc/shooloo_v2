@@ -4,12 +4,8 @@ class TwiliosController < ApplicationController
 	@caller_id = "+17183032619"
 
 	def index
-		User.where(role: "tutor").each do |u|
-			@client_name = u.screen_name
-			if @client_name.blank?
-				@client_name = "Nobody"
-			end
-		end		
+		@user = current_user
+		@client_name = @user.screen_name		
 	    @account_sid = 'AC3befa29772ffe62aea9716623a5b2c69'
 	    @auth_token = '5c2608f71b917c577fd4e0a5b8e20f62'
 	    @client = Twilio::REST::Client.new(@account_sid, @auth_token)

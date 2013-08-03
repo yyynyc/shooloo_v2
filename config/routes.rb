@@ -62,6 +62,7 @@ resources :user_steps
 resources :gifts
 resources :choices
 resources :messages
+resources :twilios
 
     root to: "static_pages#home"
  

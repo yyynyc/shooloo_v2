@@ -1,7 +1,7 @@
 <% if activity.trackable %>	
 	<span class='alert-heading'> 
 		<strong>INVITED his/her followers</strong> to<br/>
-		comment on <strong>you post </strong>
+		comment on <strong>your post </strong>
 		#<%= link_to activity.trackable.invited_post.id, new_post_comment_path(activity.trackable.invited_post) %>  
 		on <%= activity.created_at.strftime("%b %d, %Y") %>.			
 	</span>

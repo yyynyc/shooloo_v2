@@ -4,11 +4,6 @@ class UserMailer < ActionMailer::Base
 
   default from: "Shooloo@fun.shooloo.org"
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.user_mailer.password_reset.subject
-  #
   def password_reset(user)
     sendgrid_category "password reset"
     @user = user
@@ -37,5 +32,33 @@ class UserMailer < ActionMailer::Base
     @user = user
     mail to: user.personal_email, 
         subject: "Your New Shooloo Account"
+  end
+
+  def auth_request(user)
+    sendgrid_category "authoriztaion request to admin"
+    @user = user
+    mail to: user.personal_email, 
+        subject: "Shooloo Authorization Request"
+  end
+
+  def auth_notify_yes(user)
+    sendgrid_category "authorization approved"
+    @user = user
+    mail to: user.personal_email, 
+        subject: "#{user.first_name}: Approved Authorization from Shoooloo"
+  end
+
+  def auth_notify_no (user)
+    sendgrid_category "authorization declined"
+    @user = user
+    mail to: user.personal_email, 
+        subject: "#{user.first_name}: Authorization Declined from Shoooloo"
+  end
+
+  def auth_delete(user)
+    sendgrid_category "authorization removed"
+    @user = user
+    mail to: user.personal_email, 
+        subject: "#{user.first_name}: Authorization Removed from Shoooloo"
   end
 end

@@ -61,4 +61,25 @@ class UserMailer < ActionMailer::Base
     mail to: user.personal_email, 
         subject: "#{user.first_name}: Authorization Removed from Shoooloo"
   end
+
+  def ref_request(user)
+    sendgrid_category "referral request to admin"
+    @user = user
+    mail to: user.personal_email, 
+        subject: "Shooloo Referral Request"
+  end
+
+  def ref_notify_yes(user)
+    sendgrid_category "referral approved"
+    @user = user
+    mail to: user.personal_email, 
+        subject: "#{user.first_name}: Approved Referral from Shoooloo"
+  end
+
+  def ref_notify_no (user)
+    sendgrid_category "referral declined"
+    @user = user
+    mail to: user.personal_email, 
+        subject: "#{user.first_name}: Referral Declined from Shoooloo"
+  end
 end

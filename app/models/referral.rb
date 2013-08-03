@@ -14,15 +14,20 @@ class Referral < ActiveRecord::Base
   after_create do
     Activity.create!(action: "create", trackable: self, 
     	user_id: self.referred_id, recipient_id: self.referrer_id)
+    if self.referrer.admin?
+      UserMailer.ref_request(self.referrer).deliver
+    end
   end
 
   after_update do
     if self.approval == "accepted"
       Activity.create!(action: "accept", trackable: self, 
       user_id: self.referrer_id, recipient_id: self.referred_id)
+      UserMailer.ref_notify_yes(self.referred).deliver
     elsif self.approval == "declined"
       Activity.create!(action: "decline", trackable: self, 
       user_id: self.referrer_id, recipient_id: self.referred_id)
+      UserMailer.ref_notify_no(self.referred).deliver
     end
 
     if self.referred.referrals.where('approval' => "accepted").any?

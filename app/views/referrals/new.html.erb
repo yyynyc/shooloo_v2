@@ -2,7 +2,7 @@
 
 <h1>Request Referral</h1>
 <p class='center'><img src="/attachments/laptop.gif" alt="Shooloo Math Can Do"></p>
-<% if current_user.role == "teacher" %>
+<% unless current_user.role == "student" %>
 	<div class="about">		
 		<p>Get referral from other teachers whom you know and who are already Shooloo members. Once referred, you will also be able to <%= link_to "follow", posts_user_path(User.find(2)) %> other members and rate their posts. However, you won't be able to publish your own posts or comments until you've <%= link_to "gained authorization", new_authorization_path %>. </p>
 
@@ -69,7 +69,7 @@
 				</div>
 			</div> 
 			<div class="span3" >
-				<%= render partial: 'authorizations/authorization', 
+				<%= render partial: 'referrals/referral', 
 					locals: {user: User.find(2)} %>
 			</div>
 		</div>

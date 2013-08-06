@@ -144,10 +144,10 @@ class User < ActiveRecord::Base
     :if => :verify_student, :unless => :should_validate_password? 
   validates :grade, presence: true, :if => :verify_student, :unless => :should_validate_password? 
   validates :school_name, presence: true, length: {maximum: 100}, on: :update,
-    :unless => :verify_other 
+    :if => :verify_student, :if => :verify_teacher 
   validates :personal_email, format: { with: VALID_EMAIL_REGEX },
     uniqueness: {case_sensitive: false}, presence: true, on: :update,
-    :unless => :verify_student 
+    :if => :verify_teacher, :if => :verify_other
   validates :school_url, presence: true, :if => :verify_teacher
   validates :social_media_url, presence: true, :if => :verify_other
   #validates_presence_of :school_name, :if => :active_student?

@@ -1,5 +1,5 @@
 class Referral < ActiveRecord::Base
-  attr_accessible :referrer_id, :approval, :ref_checks_attributes, :ref_checks
+  attr_accessible :referrer_id, :approval, :ref_checks_attributes, :ref_checks, :referred_id
 
   belongs_to :referred, class_name: "User"
   belongs_to :referrer, class_name: "User"

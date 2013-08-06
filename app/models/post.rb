@@ -1,4 +1,7 @@
 class Post < ActiveRecord::Base
+  require 'obscenity/active_model'
+  validates :question, :answer, obscenity: {message: 'contains offensive word'}
+
   attr_accessible :answer, :grade, :question, 
     :photo, :photo_remote_url, :image_host, :category, 
     :level_id, :domain_id, :standard_id, :quality_id, :subject_id

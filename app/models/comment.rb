@@ -1,4 +1,6 @@
 class Comment < ActiveRecord::Base
+  require 'obscenity/active_model'
+  validates :content, obscenity: {message: 'contains offensive word'}
   attr_accessible :content, :photo
   belongs_to :commented_post, class_name: "Post"
   belongs_to :commenter, class_name: "User"

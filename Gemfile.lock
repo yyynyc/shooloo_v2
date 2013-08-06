@@ -171,6 +171,7 @@ GEM
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     nokogiri (1.5.6)
+    obscenity (1.0.2)
     pg (0.12.2)
     polyamorous (0.6.2)
       activerecord (>= 3.0)
@@ -313,6 +314,7 @@ DEPENDENCIES
   launchy
   letter_opener
   meta-tags
+  obscenity
   paperclip!
   pg
   pry-nav

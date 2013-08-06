@@ -23,6 +23,7 @@ gem 'thin'
 gem 'best_in_place'
 gem 'sendgrid'
 gem 'twilio-ruby'
+gem 'obscenity'
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'

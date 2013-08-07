@@ -46,7 +46,7 @@ class CommentsController < ApplicationController
         @comment=current_user.comments.build(params[:comment])
         @comment.commented_post=@post            
         if @comment.save
-            if current_user == @post.user_id || !@comment.new_comment?
+            if current_user == @post.user || !@comment.new_comment?
                 flash[:success] = "Thank you for your comment."
             else
                 flash[:notice] = "Hooray! you've earned some points! You are one step closer toward #{ActionController::Base.helpers.link_to "getting a gift", gift_receiving_path} from your friend.".html_safe 

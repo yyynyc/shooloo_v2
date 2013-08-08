@@ -14,8 +14,7 @@ class SessionsController < ApplicationController
               'Date(created_at)=?', Date.today).any? || user.id == 1
       		  Event.create!(benefactor_id: user.id, beneficiary_id: 1, 
         		  event: "sign in", value: ShoolooV2::SIGN_IN)
-            flash[:success] = "Welcome back! You've just earned some points! 
-            You are one step closer towarding getting a gift."
+            flash[:message] = "Welcome back! You've just earned some points towards getting a gift. To get more points, #{ActionController::Base.helpers.link_to "publish a post", root_path} or #{ActionController::Base.helpers.link_to "comment on other people's post", posts_path}.". html_safe
           end
     	else
       		flash.now[:error] = "Invalid screen name/password combination"

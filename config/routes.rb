@@ -18,9 +18,9 @@ end
 resources :sessions, only: [:new, :create, :destroy]
 resources :relationships, only: [:create, :destroy]
 resources :nudges, only: [:create, :destroy]
-resources :standards, path: '/standards/common_core/math/I_can' 
+resources :standards, path: '/common-core-math-I-can' 
 
-resources :posts, path: '/common_core/math/practice/mp3/word_problems' do
+resources :posts, path: '/common-core-math-word-problems' do
   resources :likes, only: [:create, :destroy]
   resources :invites, only: :create
   resources :ratings 
@@ -76,22 +76,22 @@ resources :twilios
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete 
-  match '/alarmed_posts', to: "alarms#alarmed_posts"
-  match '/my_alerts', to: "users#show_activity"
-  match '/my_abilities', to: "users#my_abilities"
+  match '/alarmed-posts', to: "alarms#alarmed_posts", as: :alarmed_posts
+  match '/my-alerts', to: "users#show_activity", as: :my_alerts
+  match '/my-powers', to: "users#my_abilities", as: :my_abilities
   match '/hidden', to: "users#hidden"
-  match '/gift_receiving', to: "events#gift_receiving"
-  match '/gift_giving', to: "events#gift_giving"
+  match '/my-gifts', to: "events#gift_receiving", as: :gift_receiving
+  match '/my-fans', to: "events#gift_giving", as: :gift_giving
   match '/contact', to: "messages#new" 
-  get '/standards/common_core_math_I_can_grade_k', to: "standards#grade_k", as: :grade_k
-  get '/standards/common_core_math_I_can_grade_1', to: "standards#grade_1", as: :grade_1
-  get '/standards/common_core_math_I_can_grade_2', to: "standards#grade_2", as: :grade_2
-  get '/standards/common_core_math_I_can_grade_3', to: "standards#grade_3", as: :grade_3
-  get '/standards/common_core_math_I_can_grade_4', to: "standards#grade_4", as: :grade_4
-  get '/standards/common_core_math_I_can_grade_5', to: "standards#grade_5", as: :grade_5
-  get '/standards/common_core_math_I_can_grade_6', to: "standards#grade_6", as: :grade_6
-  get '/standards/common_core_math_I_can_grade_7', to: "standards#grade_7", as: :grade_7
-  get '/standards/common_core_math_I_can_grade_8', to: "standards#grade_8", as: :grade_8
+  get '/standards/common-core-math-I-can-grade-k', to: "standards#grade_k", as: :grade_k
+  get '/standards/common-core-math-I-can-grade-1', to: "standards#grade_1", as: :grade_1
+  get '/standards/common-core-math-I-can-grade-2', to: "standards#grade_2", as: :grade_2
+  get '/standards/common-core-math-I-can-grade-3', to: "standards#grade_3", as: :grade_3
+  get '/standards/common-core-math-I-can-grade-4', to: "standards#grade_4", as: :grade_4
+  get '/standards/common-core-math-I-can-grade-5', to: "standards#grade_5", as: :grade_5
+  get '/standards/common-core-math-I-can-grade-6', to: "standards#grade_6", as: :grade_6
+  get '/standards/common-core-math-I-can-grade-7', to: "standards#grade_7", as: :grade_7
+  get '/standards/common-core-math-I-can-grade-8', to: "standards#grade_8", as: :grade_8
   
  
 

@@ -59,7 +59,7 @@
                 Friends <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to "Gifts I Received", gift_receiving_path %></li>
+                <li><%= link_to "My Gifts", gift_receiving_path %></li>
                 <li><%= link_to "My Fans", gift_giving_path %></li>
                 <li><%= link_to "My Followers", followers_user_path(current_user) %></li>                                    
                 <% if can? :update, Referral %>

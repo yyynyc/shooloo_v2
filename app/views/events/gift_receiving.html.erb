@@ -13,7 +13,7 @@
     </section>
     <% if @received_gifts.any? %>      
       <div class="giver">
-        Received <strong><%= @received_gifts.count %> gifts</strong> from the following<br/>
+        Received <strong><%= current_user.gift_received_count %> gifts</strong> from the following<br/>
         <strong><%= @givers.count %> members</strong>:
       </div>         
       <div class="user_avatars">

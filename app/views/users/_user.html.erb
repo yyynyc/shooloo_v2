@@ -15,27 +15,27 @@
 		  <% end %><br/>
 		  <a href="<%= following_user_path(user) %>">
 		    <strong id="following" class="stat">
-		      <%= user.followed_users.count %>
+		      <%= user.following_count %>
 		    </strong></a>
 		    following,
 		  <a href="<%= followers_user_path(user) %>">
 		    <strong id="followers" class="stat">
-		      <%= user.followers.count %>
+		      <%= user.follower_count %>
 		    </strong></a>
 		    followers <br/>
 			published
 				<a href="<%= posts_user_path(user) %>" >
-				<%= pluralize(user.posts.count, "post") %></a>,
-			rated
+				<%= pluralize(user.post_count, "post") %></a>,
+			added
 				<a href="<%= rated_posts_user_path(user) %>" >
-				<%= pluralize(user.rated_posts.count, "post") %></a>,
-			commented
+				<%= pluralize(user.rating_count, "rating") %></a>,
+			made
 				<a href="<%= commented_posts_user_path(user) %>" >
-				<%= pluralize(user.commented_posts.count, "post") %></a>,<br/>
+				<%= pluralize(user.comment_count, "comment") %></a>,<br/>
 			received 
-				<%= pluralize(user.reverse_gifts.where(sent: true).count, "gift") %>, 
+				<%= pluralize(user.gift_received_count, "gift") %>, 
 			sent 
-				<%= pluralize(user.gifts.where(sent: true).count, "gift")%>.	
+				<%= pluralize(user.gift_sent_count, "gift")%>.	
 		</div >		
 	</div>
   <% if current_user.admin? && !current_user?(user) %></br>

@@ -37,7 +37,10 @@ class RatingsController < ApplicationController
 
     def create
         @rating = current_user.ratings.build(params[:rating])
-        if @rating.save
+        if @rating.save    
+            current_user.rating_count +=1
+            current_user.save
+            sign_in current_user
             @rating.rated_post = @post
             @alarm =current_user.alarms.build(params[:alarm])
             @like = current_user.likes.build(params[:like])
@@ -98,6 +101,9 @@ class RatingsController < ApplicationController
 
     def destroy
         @rating.destroy
+        current_user.rating_count -=1
+        current_user.save
+        sign_in current_user
         redirect_to gift_receiving_path
     end
 

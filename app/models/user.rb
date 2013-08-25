@@ -4,7 +4,9 @@ class User < ActiveRecord::Base
     :password, :password_confirmation,
     :avatar, :avatar_remote_url, :privacy, :rules,
     :school_name, :school_url, :social_media_url,
-    :referrals_attributes, :authorizations_attributes
+    :referrals_attributes, :authorizations_attributes, 
+    :post_count, :rating_count, :comment_count, :follower_count, :following_count,
+    :gift_received_count, :gift_sent_count
   attr_accessor :updating_password, :validate_student, :validate_teacher, :validate_other
   attr_reader :avatar_remote_url
   has_attached_file :avatar, 

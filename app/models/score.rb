@@ -9,20 +9,23 @@ class Score < ActiveRecord::Base
 	  		receiver_id: self.benefactor_id, 
 	  		giver_id: self.beneficiary_id).blank?
 	  	if self.beneficiary_id == 1 
-	  		Gift.create!(week: self.week, year: self.year,
+	  		g=Gift.create!(week: self.week, year: self.year,
 				receiver_id: self.benefactor_id, 
 	  			giver_id: 1, 
 	  			choice_id: 1, sent: true)
+	  		g.save!
 	  	elsif self.beneficiary_id == 2 
-	  		Gift.create!(week: self.week, year: self.year,
+	  		g=Gift.create!(week: self.week, year: self.year,
 				receiver_id: self.benefactor_id, 
 	  			giver_id: 2, 
 	  			choice_id: 3, sent: true)
+	  		g.save!
 	  	elsif self.beneficiary.role == "teacher"
-	  		Gift.create!(week: self.week, year: self.year,
+	  		g=Gift.create!(week: self.week, year: self.year,
 				receiver_id: self.benefactor_id, 
 	  			giver_id: self.beneficiary_id, 
 	  			choice_id: 2, sent: true)
+	  		g.save!
 	  	else 
 	  		Gift.create!(week: self.week, year: self.year,
 				receiver_id: self.benefactor_id, 

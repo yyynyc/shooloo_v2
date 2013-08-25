@@ -32,12 +32,12 @@ class Comment < ActiveRecord::Base
 
   #default_scope order: 'comments.created_at DESC'
 
-  after_save do 
-    Post.update_all([
-      "comments_count = (select count (*) from comments 
-        where commented_post_id=?)", self.commented_post.id],
-     	['id=?',self.commented_post.id])
-  end
+  #after_save do 
+  #  Post.update_all([
+  #    "comments_count = (select count (*) from comments 
+  #      where commented_post_id=?)", self.commented_post.id],
+  #   	['id=?',self.commented_post.id])
+  #end
 
   before_save do
     if Comment.where(commenter_id: self.commenter_id, 
@@ -71,10 +71,6 @@ class Comment < ActiveRecord::Base
   end
 
   after_destroy do 
-    Post.update_all([
-      "comments_count = (select count (*) from comments 
-        where commented_post_id=?)", self.commented_post.id],
-      ['id=?',self.commented_post.id])
     Event.create!(benefactor_id: self.commenter_id, 
       beneficiary_id: self.commented_post.user_id, 
       event: "delete comment", value: ShoolooV2::COMMENT_DELETE)

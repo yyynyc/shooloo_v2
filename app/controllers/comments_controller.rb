@@ -46,6 +46,9 @@ class CommentsController < ApplicationController
         @comment=current_user.comments.build(params[:comment])
         @comment.commented_post=@post            
         if @comment.save
+            current_user.comment_count +=1
+            current_user.save
+            sign_in current_user
             if current_user == @post.user || !@comment.new_comment?
                 flash[:success] = "Thank you for your comment."
             else
@@ -87,6 +90,9 @@ class CommentsController < ApplicationController
     def destroy
         @comment = current_user.comments.find(params[:id])
         @comment.destroy
+        current_user.comment_count -=1
+        current_user.save
+        sign_in current_user
         redirect_to gift_receiving_path
     end
 

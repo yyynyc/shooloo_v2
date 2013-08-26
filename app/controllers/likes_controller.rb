@@ -11,15 +11,27 @@ class LikesController < ApplicationController
   def create
     if params.has_key?(:post_id)
       @post = Post.find(params[:post_id])
+      if @post.likes_count.nil?
+        @post.likes_count = 0
+        @post.save(validate: false)
+      end
       @like = current_user.likes.create!(params[:like])
+      @post.likes_count += 1
+      @post.save(validate: false)
       respond_to do |format|
         format.html {redirect_to root_url }
         format.js
       end
       @like.liked_post = @post
     elsif params.has_key?(:comment_id)
-      @comment = Comment.find(params[:comment_id])   
+      @comment = Comment.find(params[:comment_id])
+      if @comment.likes_count.nil?
+        @comment.likes_count = 0
+        @comment.save(validate: false)
+      end   
       @like = current_user.likes.create!(params[:like])
+      @comment.likes_count += 1
+      @comment.save(validate: false)
       respond_to do |format|
         format.html {redirect_to root_url }
         format.js do
@@ -36,6 +48,13 @@ class LikesController < ApplicationController
     @post = Like.find(params[:id]).liked_post 
     @comment = Like.find(params[:id]).liked_comment 
     @like.destroy
+    if @post
+      @post.likes_count -= 1
+      @post.save(validate: false)
+    else
+      @comment.likes_count -= 1
+      @comment.save(validate: false)
+    end
     respond_to do |format|
       format.html {redirect_to root_url}
       format.js do

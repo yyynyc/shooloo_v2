@@ -36,8 +36,8 @@
 	            		<span class='search-label'>	
 	            			<i class="icon-heart icon-medium"></i>
 	            			<span class="alert-heading" id="comment_likes_count-<%=comment.id%>">
-	            				<% if comment.likes.count >0 %>
-		            				<%= link_to comment.likes.count, "#", "class" => "like_comment", "rel" => "tooltip", 
+	            				<% if comment.likes_count.to_i >0 %>
+		            				<%= link_to comment.likes_count, "#", "class" => "like_comment", "rel" => "tooltip", 
 		            					"title" => "#{comment_liker_list(comment)} liked your comment." %>
 		            			<% else %>
 		            				<%= comment.likes.count %>		

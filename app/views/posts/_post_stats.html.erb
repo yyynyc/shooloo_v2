@@ -1,7 +1,7 @@
 <i class="icon-heart "></i>
 <span id="post_likes_count-<%=post.id%>" %>
-	<% if post.likes.count >0 %>
-		<%= link_to post.likes.count, "#", "class" => "like", "rel" => "tooltip", 
+	<% if post.likes_count.to_i >0 %>
+		<%= link_to post.likes_count, "#", "class" => "like", "rel" => "tooltip", 
 			"title" => "#{liker_list(post)} liked your post." %> 		
 	<% end %>
 </span> |

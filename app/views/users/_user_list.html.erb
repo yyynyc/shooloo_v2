@@ -7,7 +7,7 @@
     				title: "Shooloo member #{user.screen_name}"), 
     				posts_user_path(user) %>	    			
     		</div>
-    		<div class="span7">
+    		<div class="span8">
 	    		<span class="alert-heading">
 	    			<%= link_to user.screen_name, posts_user_path(user) %>
 		    		-- <%= user.role %>
@@ -29,20 +29,6 @@
 				<%= pluralize(user.rating_count, "rating") %></a>, 
 	      		and made <a href="<%= commented_posts_user_path(user) %>" >
 				<%= pluralize(user.comment_count, "comment") %></a>.
-			</div>
-			<div class="span1">
-				<% if current_user.admin? %>
-					<%#= user.reputation(7.days) %>
-					<%#= user.reputation(30.days) %>
-					<div class="row">
-						<strong>POINTS</strong><br/>
-					</div>
-					<div>
-						<span class="text_center"><%= user.reputation(90.days) %></span>
-					</div>
-				<% else %>
-					&nbsp;
-				<% end %>
 			</div>
 			<div class='span3' >
 				<span class='search-field'>

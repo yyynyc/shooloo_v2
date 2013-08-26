@@ -1,6 +1,8 @@
 <% provide(:title, 'All Members') %>
 <h1>All Shooloo Members</h1>
 
+<p class='center'><a href="#", id = "user", rel = "popover", title = "Who to Follow?", data-content = "Follow those who have received lots of gifts and made lots of comments, and they will likely follow you back and become your fans on Shooloo." %><img src="/attachments/secret_2.gif" alt="Shooloo Math Secret" align="center"></a></p>
+
 <%= search_form_for @search, url: search_users_path, 
 		method: :post do |f| %>
 	<%= render partial: 'users/user_search', locals: {f: f} %>

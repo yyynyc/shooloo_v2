@@ -55,6 +55,8 @@ The following are the activities you've missed on Shooloo. For more details, vis
       Congrats! You have become <%= activity.user.screen_name %>'s fan of the week. 
       <% elsif activity.action == "sent" %>
       Hooray! <%= activity.user.screen_name %> has sent you a gift!
+      <% elsif activity.action == "reminder" %>
+      <%= activity.user.screen_name %> is still waiting for a gift from you. Send her/him a gift now!
       <% end %>        
     <% end %>   
   <% end %>

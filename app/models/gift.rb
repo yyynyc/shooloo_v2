@@ -22,5 +22,10 @@ class Gift < ActiveRecord::Base
     end
   end
 
-  
+  def self.reminder
+    Gift.where(sent: nil).each do |g|
+      Activity.create!(action: "reminder", trackable: g, 
+        user_id: g.receiver_id, recipient_id: g.giver_id)
+    end
+  end  
 end

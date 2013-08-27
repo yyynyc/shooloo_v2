@@ -1,0 +1,16 @@
+<% if activity.trackable %>
+	<span class='btn-formtastic'>
+		<img src="/attachments/bravo.gif" alt="Shooloo Math Can Do" width='80'>
+	</span>
+	<span class='alert-heading'>
+		is <strong><%= link_to "Your Fan", gift_giving_path %></strong> and waits for your gift. 
+	</span>
+	<br/>
+	<%= link_to "Send", gift_giving_path %> a gift to 
+	<%= link_to "#{activity.user.screen_name}", posts_user_path(activity.user) %> now.
+<% else %>
+	<span class='alert-heading'>
+		became your fan but has since changed.
+	</span>
+	<i class='icon-trash'></i>
+<% end %>

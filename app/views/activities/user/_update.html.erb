@@ -1,0 +1,7 @@
+<% if activity.trackable %>	
+	<strong>COMPLETED</strong>
+	<%= link_to "profile", edit_user_path(activity.user) %>
+	on <%= activity.created_at.strftime("%b %d, %Y") %>.	
+<% else %>
+	updated but since changed.
+<% end %>

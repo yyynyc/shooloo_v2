@@ -122,8 +122,6 @@ class User < ActiveRecord::Base
 
   after_update do
     create_states
-    Activity.create!(action: "update", trackable: self, 
-        user_id: self.id, recipient_id: 2)
   end
 
   after_destroy do 

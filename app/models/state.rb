@@ -5,6 +5,8 @@ class State < ActiveRecord::Base
   after_create do
   	Event.create!(benefactor_id: self.user_id, beneficiary_id: 1, 
       event: "complete user profile", value: ShoolooV2::PROFILE_COMPLETE)
+  	Activity.create!(action: "create", trackable: self, 
+        user_id: self.user_id, recipient_id: 2)
   	if self.user.role == "student"
   		UserMailer.parental_consent(self.user).deliver
   	end

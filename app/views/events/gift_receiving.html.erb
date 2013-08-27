@@ -40,10 +40,7 @@
         <% end %>
       </ul> 
     <% end %>
-    <h3> Gifts to Receive This Week</h3>
-    <div class="box">
-      <i><strong>Hint:</strong> comment, rate and like your friends posts, and you will earn points towards getting a gift from them.</i>
-    </div>
+    <h3> Gifts to Receive This Week<a href="#", class="follow", rel="popover", title="How to Get Gifts?", data-content="Whenever you take actions to show you care about other members, you will accumulate points toward getting gifts from them. Those actions include: <ul class='popover-list'><li>comment on their posts</li><li>rate their posts</li><li>like their posts or comments</li><li>invite your followers to comment on their posts</li><li>follow them</li><li>nudge them </li></ul>"><img src="/attachments/secret_2.gif" alt="Shooloo Math Secret"></i></a></h3>
     <% if @scores.any? %>       
       <ul class="users">
         <% @scores.each do |s| %>

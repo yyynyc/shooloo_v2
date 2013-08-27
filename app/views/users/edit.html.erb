@@ -1,10 +1,10 @@
 <% provide(:title, "Edit user") %> 
 <h1>Update Your Information</h1>
-<%= semantic_form_for@user, :url => user_path, :html => { :multipart => true, :class => "form-horizontal-user" } do |f| %>
+<%= semantic_form_for@user, :validate => true, :url => user_path, :html => { :multipart => true, :class => "form-horizontal-user" } do |f| %>
 	<%= render 'shared/error_messages', object: f.object %>
 	<%=f.inputs do %>
 	<div class="row">
-		<div class="span6 border-right">
+		<div class="span5.5">
 			<%= f.input :screen_name, placeholder: "Must be DIFFERENT from your real name"%>	
 			<% if (@user.authorizations.where(approval: "accepted").blank? && @user.referrals.where(approval: "accepted").blank?) || current_user.admin? %>      
 				<%= f.input :first_name %>
@@ -20,23 +20,92 @@
 				<%= f.input :rules, label: "I agree with the ".html_safe + link_to("Rules of Conduct", rules_path) + ".".html_safe, as: :boolean, input_html: {checked: 'checked'}, required: true %>	
 			</span>						
 		</div>
-		<div class="span5">
-			<% if @user.role == "student" %> 
-				<%= f.input :parent_email, label: "My parent's email", placeholder: "Useful to recover your forgotten password" %>
-				<%= f.input :personal_email, label: "My own email (if any)", placeholder: "Useful to recover your forgotten password" %>	
+		<div class="span5.5 border-left">
+			<% if @user.role == "student" %>
+				<span class="search-label"> 
+					<%= f.input :parent_email, label: "My parent's email", placeholder: "Useful to recover your forgotten password" %>
+				</span>
+				<span class="question">
+					<a href="#", class="question", rel="popover", title="Parent Email", data-content="We need your parent's email to obtain permission for you to use Shooloo." %> 
+						<i class="icon-question-sign icon-medium" ></i>
+					</a>
+				</span>
+				<br/>
+				<span class="search-label">
+					<%= f.input :personal_email, label: "My own email (if any)", placeholder: "Useful to recover your forgotten password" %>
+				</span>
+				<span class="question">
+					<a href="#", class="question", rel="popover", title="Personal Email", data-content="If you don't have an email, you can put your parent's email here. Personal email is used to recover your forgotten password." %> 
+						<i class="icon-question-sign icon-medium" ></i>
+					</a>
+				</span>
 			<% elsif @user.role == "teacher" %>
-				<%= f.input :school_name %>
-				<%= f.input :school_url %>
-				<%= f.input :personal_email, label: "My email", placeholder: "Useful to recover your forgotten password" %>
+				<span class="search-label">
+					<%= f.input :school_name %>
+				</span>
+				<span class="question">
+					<a href="#", class="question", rel="popover", title="School Name", data-content="In addition to the name of your school, please also specify the city and state where your school is located." %> 
+						<i class="icon-question-sign icon-medium" ></i>
+					</a>
+				</span>
+				<br/>	
+				<span class="search-label">
+					<%= f.input :school_url %>
+				</span>
+				<span class="question">
+					<a href="#", class="question", rel="popover", title="School Url", data-content="Please put in the specific web page indicating that you are a teacher in that particular school. For the safety of our under-aged members, we need to verify your identity." %> 
+						<i class="icon-question-sign icon-medium" ></i>
+					</a>
+				</span>
+				<br/>	
+				<span class="search-label">
+					<%= f.input :personal_email, label: "My email", placeholder: "Useful to recover your forgotten password" %>
+				</span>
+				<span class="question">
+					<a href="#", class="question", rel="popover", title="Why Require Email", data-content="Email will be used to reset your password if you forget it, confirm your registration status, and notify your activity alerts." %> 
+						<i class="icon-question-sign icon-medium" ></i>
+					</a>
+				</span>		
 			<% else %>
-				<%= f.input :social_media_url, label: "My web site or social media", placeholder: "Useful to verify your identity" %>
-				<%= f.input :personal_email, label: "My email", placeholder: "Useful to recover your forgotten password" %>
+				<span class="search-label">
+					<%= f.input :social_media_url, label: "My web site or social media", placeholder: "Useful to verify your identity" %>
+				</span>
+				<span class="question">
+					<a href="#", class="question", rel="popover", title="Why Require Social Media", data-content="To protect the safety of our under-aged members, we need your Facebook, LinkedIn or your personal web site url to verify your identity." %> 
+						<i class="icon-question-sign icon-medium" ></i>
+					</a>
+				</span>
+				<br/>
+				<span class="search-label">
+					<%= f.input :personal_email, label: "My email", placeholder: "Useful to recover your forgotten password" %>
+				</span>
+				<span class="question">
+					<a href="#", class="question", rel="popover", title="Why Require Email", data-content="Email will be used to reset your password if you forget it, confirm your registration status, and notify your activity alerts." %> 
+						<i class="icon-question-sign icon-medium" ></i>
+					</a>
+				</span>
 			<% end %>
-			<%= f.input :avatar, as: :file, label: "Avatar upload" %> 
-			<%= f.input :avatar_remote_url, label: "or avatar url",
-				hint: (f.object.new_record? || f.object.avatar.nil?)?
-				f.template.content_tag(:span, "No avatar yet") : 
-				f.template.image_tag(f.object.avatar.url(:small)) %>	
+			<br/>
+			<span class="search-label">
+				<%= f.input :avatar, as: :file, label: "Avatar upload" %>
+			</span>
+			<span class="question">
+				<a href="#", class="question", rel="popover", title="What to Upload", data-content="Your avatar should NOT be your real picture. Choose an image that express your personality or hobby. If you don't have such an image, you can search an image on the Internet, copy and paste its url into the field below." %> 
+					<i class="icon-question-sign icon-medium" ></i>
+				</a>
+			</span>	
+			<br/>
+			<span class="search-label"> 
+				<%= f.input :avatar_remote_url, label: "or avatar url",
+					hint: (f.object.new_record? || f.object.avatar.nil?)?
+					f.template.content_tag(:span, "No avatar yet") : 
+					f.template.image_tag(f.object.avatar.url(:small)) %>
+			</span>
+			<span class="question">
+				<a href="#", class="question", rel="popover", title="What Image to Use", data-content="Your avatar should NOT contain any watermark or voilate any copyright. It should NOT be offensive, violent, or sexual." %> 
+					<i class="icon-question-sign icon-medium" ></i>
+				</a>
+			</span>		
 		</div>
 	</div>		
 	<% end %>	

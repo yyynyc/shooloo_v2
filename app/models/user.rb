@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
   end
 
   VALID_SCREEN_NAME_REGEX = /^[A-Za-z\d_]+$/
-  validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX },
+  validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX, message: "can't contain any space or punctuation" },
     uniqueness: {case_sensitive: false}, length: { minimum: 6, maximum: 20}
   validates :password, presence: true, length: {minimum: 6}, :if => :should_validate_password?
   validates_confirmation_of :password, :if => :should_validate_password? 

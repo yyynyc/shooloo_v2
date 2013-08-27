@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 2em;
   letter-spacing: -1px;
-  margin-bottom: 30px;
+  margin-bottom: 0.5em;
   text-align: center;
 }
 
@@ -814,8 +814,9 @@ aside {
   background-color: transparent;
 }
 
-.border-right{
-  border-right: 1px solid $grayLight;
+.border-left{
+  border-left: 1px solid $grayLight;
+  padding-left: 1em;
 }
 
 .gifts {
@@ -901,4 +902,23 @@ iframe {
   margin-top: 1em;
 }
 
+ .question {
+  display: inline-block;
+  vertical-align: top;
+ }
 
+.user-signup-input {
+  height: 320px;
+}
+
+.user-signup-button {
+  width: 440px; 
+  text-align: right;
+}
+
+.popover-list {
+  li{
+    line-height: 1.5em;
+    margin-bottom: .7em;
+  }
+}

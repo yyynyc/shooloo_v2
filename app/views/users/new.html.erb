@@ -1,24 +1,56 @@
 <% provide(:title, 'Sign Up') %>
 <h1>Sign Up</h1>
 <div class="row">
-  <div class="span6.5 offset3">	    
+  <div class="span6 offset3">	    
 	<%#= render 'userinfo'%>
-	<%= semantic_form_for@user, :url => users_path, :html => { :multipart => true, :class => "form-horizontal-user" } do |f| %>
+	<%= semantic_form_for @user, :validate => true, :url => users_path, :html => { :multipart => true, :class => "form-horizontal-user" } do |f| %>
 		<%= render 'shared/error_messages', object: f.object %>
-		<%=f.inputs do %>
-			<%= f.input :screen_name, placeholder: "Must be DIFFERENT from your real name"%>
-			<%= f.input :password, placeholder: "Must be at least 6 characters long with no space or punctuation" %>
-			<%= f.input :password_confirmation, placeholder: "Must be the same as password"  %> 
-			<%= f.input :role, label: "I am a", as: :select, collection: ["student", "teacher", "parent", "tutor", "other"]  %>
-			<%= f.input :personal_email, label: "Email", placeholder: "Your own or your parent's email" %>
-			<div class='privacy'>	
-			<%= f.input :privacy, as: :boolean, label: "I agree with the ".html_safe + link_to("Terms of Service", terms_path) +" and the ".html_safe + link_to("Privacy Statement", privacy_path) + ".".html_safe, input_html: {checked: 'checked'}, required: true %>
-			<%= f.input :rules, label: "I agree with the ".html_safe + link_to("Rules of Conduct", rules_path) + ".".html_safe, as: :boolean, input_html: {checked: 'checked'}, required: true %>	
-			</div>	
-		<% end %>
+		<div class="user-signup-input">
+			<%=f.inputs do %>
+				<span class="search-label">
+					<%= f.input :screen_name, placeholder: "Must be DIFFERENT from your real name", :validate => true %>
+				</span>
+				<span class="question">
+					<a href="#", class="question", rel="popover", title="Screen Name", data-content="Should not contain any part of your real name. Should be at least 6 characters long. Should Not contain any space or punctuation." %> 
+						<i class="icon-question-sign icon-medium" ></i>
+					</a>
+				</span>
+				<span class="search-label">
+					<%= f.input :password, placeholder: "Must be at least 6 characters long" %>
+				</span>
+				<span class="question">
+					<a href="#", class="question", rel="popover", title="Password", data-content="Must be at least 6 characters long. Should not contain any space or punctuation." %> 
+						<i class="icon-question-sign icon-medium" ></i>
+					</a>
+				</span>
+				<span class="search-label">
+					<%= f.input :password_confirmation, placeholder: "Must be the same as password"  %> 
+				</span>
+				<span class="question">
+					<a href="#", class="question", rel="popover", title="Password Confirmation", data-content="Must match password." %> 
+						<i class="icon-question-sign icon-medium" ></i>
+					</a>
+				</span>	
+				<%= f.input :role, label: "I am a", as: :select, collection: ["student", "teacher", "parent", "tutor", "other"]  %>
+				<span class="search-label">
+					<%= f.input :personal_email, label: "Email", placeholder: "Your own or your parent's email" %>
+				</span>
+				<span class="question">
+					<a href="#", class="question", rel="popover", title="Email", data-content="If you are a student and don't have an email, please put in your parent's email. Email will be used to reset your password if you forget it, confirm your registration status, and notify your activity alerts." %> 
+						<i class="icon-question-sign icon-medium" ></i>
+					</a>
+				</span>		
+				<div class='privacy'>	
+					<%= f.input :privacy, as: :boolean, label: "I agree with the ".html_safe + link_to("Terms of Service", terms_path) +" and the ".html_safe + link_to("Privacy Statement", privacy_path) + ".".html_safe, input_html: {checked: 'checked'}, required: true %>
+					<%= f.input :rules, label: "I agree with the ".html_safe + link_to("Rules of Conduct", rules_path) + ".".html_safe, as: :boolean, input_html: {checked: 'checked'}, required: true %>	
+				</div>	
+			<% end %>
+		</div>		
 		<%= f.actions do %>
-			<%= f.action :submit, label: "Create My Account", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary", :disabled_with => 'Wait...' } %>
-		<% end %>
+			<div class="user-signup-button">
+				<%= f.action :submit, label: "Create My Account", as: :button, button_html: { class: "btn btn-large btn-primary", :disabled_with => 'Wait...' } %>
+			</div>
+		<% end %>		
 	<% end %>	      
   </div>
 </div>

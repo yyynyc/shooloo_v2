@@ -1,7 +1,7 @@
 <% provide(:title, 'All Members') %>
 <h1>All Shooloo Members</h1>
 
-<p class='center'><a href="#", id = "user", rel = "popover", title = "Who to Follow?", data-content = "Follow those who have received lots of gifts and made lots of comments, and they will likely follow you back and become your fans on Shooloo." %><img src="/attachments/secret_2.gif" alt="Shooloo Math Secret" align="center"></a></p>
+<p class='center'><a href="#", class = "follow", rel = "popover", title = "How to Gain Friends?", data-content = "<ul class='popover-list'><li>The most active members are those who have received lots of gifts, made lots of comments, and published lots of posts.</li><li>Follow active members, and they will likely follow you back and pay attention to you.</li><li>Comment on active members' posts first, and they will likely comment on yours.</li><li>Nudge those members who have not published anything recently, and they will get an alert to spring them into action.</li><li>The more active you are, the higher your profile will rank, and the more friends you will gain.</li></ul>" ><img src="/attachments/secret_2.gif" alt="Shooloo Math Secret" align="center"></a></p>
 
 <%= search_form_for @search, url: search_users_path, 
 		method: :post do |f| %>

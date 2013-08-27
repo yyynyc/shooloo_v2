@@ -14,30 +14,30 @@
 //= require fancybox 
 //= require jquery_ujs
 //= require bootstrap
+//= require rails.validations
+//= require rails.validations.formtastic
 //= require_tree .
+
 $(function ()  
-{ $("#user").popover({trigger: 'hover', placement: 'right'});  
+{ $(".like").tooltip({trigger: 'click', placement: 'bottom'});  
 }); 
 $(function ()  
-{ $("#tips").popover({trigger: 'hover', placement: 'bottom'});  
-});  
-$(function ()  
-{ $("#follow").popover({trigger: 'hover', placement: 'bottom'});  
-}); 
-$(function ()  
-{ $("#hidden").popover({trigger: 'hover', placement: 'bottom'});  
-}); 
-$(function ()  
-{ $(".like").tooltip({trigger: 'hover', placement: 'bottom'});  
-}); 
-$(function ()  
-{ $(".like_comment").tooltip({trigger: 'hover', placement: 'bottom'});  
+{ $(".like_comment").tooltip({trigger: 'click', placement: 'bottom'});  
 });
 $(function ()  
-{ $(".rate").tooltip({trigger: 'hover', placement: 'bottom'});  
+{ $(".rate").tooltip({trigger: 'click', placement: 'bottom'});  
 });
 $(function ()  
-{ $(".comment").tooltip({trigger: 'hover', placement: 'bottom'});  
+{ $(".comment").tooltip({trigger: 'click', placement: 'bottom'});  
+});
+$(function ()  
+{ $(".question").popover({trigger: 'click', placement: 'left', html: true});  
+});
+$(function ()  
+{ $(".post").popover({trigger: 'click', placement: 'right', html: true});  
+});
+$(function ()  
+{ $(".follow").popover({trigger: 'click', placement: 'bottom', html: true});  
 });
 jQuery(function() {
   $("a.fancybox").fancybox();

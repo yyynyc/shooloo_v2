@@ -1,33 +1,88 @@
-<h4>Create my own <%= link_to "math problem", "#", "id" => "tips", "rel" => "popover", "title" => "Features of A Great Question", "data-content" => "The more steps it takes to solve your problem, the higher rating you will get. Your answer should include both numbers and units. Do not include any copyrighted materials." %>.</h4>
+<h4>Create my own math problem</h4>
 
-<%= form_for @post, :url => posts_path, :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')", 'data-action' => 'create'} do |f| %>
+<%= form_for @post, :validate => true, :url => posts_path, :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')", 'data-action' => 'create'} do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-  	<%= f.label :question, "Question:" %>
+    <span class="search-label">
+  	 <%= f.label :question, "Question:" %>
+    </span>
+    <span class="question">
+      <a href="#", class="post", rel="popover", title="How to Write a Great Question", data-content="<ul class='popover-list'><li>Write a math story, not a one-sentense question about numbers.</li><li>The more steps it requires to solve your problem, the smarter you appear.</li><li>Write complete sentenses with proper capitalization, spelling, and punctuation.</li><li>It's better to create your problem in Microsoft Word first, correct any spelling or grammatical errors, and then copy and paste your problem here.</li></ul>" %> 
+        <i class="icon-question-sign icon-medium" ></i>
+      </a>
+    </span>  
     <%= f.text_area :question %>
-
-    <%= f.label :answer, "Answer:" %>
+    <span class="search-label">
+      <%= f.label :answer, "Answer:" %>
+    </span>
+    <span class="question">
+      <a href="#", class="post", rel="popover", title="How to Give a Smart Answer", data-content="Provide both a number and a unit in your answer. For example, say 2 miles, and don't just say 2." %> 
+        <i class="icon-question-sign icon-medium" ></i>
+      </a>
+    </span>   
     <%= f.text_field :answer %>    
   </div> 
   <div class="field">
-    <%= f.label :level_id, "This question is suitable for students in:" %>
+    <span class="search-label">
+      <%= f.label :level_id, "This question is suitable for students in:" %>
+    </span>
+    <span class="question">
+      <a href="#", class="post", rel="popover", title="Suitable Grade", data-content="You will appear very smart if your question is at your current grade level, not below it." %> 
+        <i class="icon-question-sign icon-medium" ></i>
+      </a>
+    </span>    
     <%= f.collection_select :level_id, Level.order(:number), :id, :name, include_blank: true %>
   </div>
   <div class="field">
-    <%= f.label :domain_id, "This question requires skills in:" %>
+    <span class="search-label">
+      <%= f.label :domain_id, "This question requires skills in:" %>
+    </span>
+    <span class="question">
+      <a href="#", class="post", rel="popover", title="Required Skills", data-content="Choose the skill area that you just learned in class to solve this problem. If you are not sure about which skill to choose, ask your teacher." %> 
+        <i class="icon-question-sign icon-medium" ></i>
+      </a>
+    </span>
     <%= f.grouped_collection_select :domain_id, Level.order(:name), :domains, :name, :id, :name, prompt: "" %>
   </div>
   <div class="field">
-    <%= f.label :standard_id, "To solve this problem, I CAN:" %>
+    <span class="search-label">
+      <%= f.label :standard_id, "To solve this problem, I CAN:" %>
+    </span>
+    <span class="question">
+      <a href="#", class="post", rel="popover", title="I Can Statement", data-content="Choose the I-can statement your teacher has taught you. If you choose the wrong statement, other readers won't be able to find your post." %> 
+        <i class="icon-question-sign icon-medium" ></i>
+      </a>
+    </span>
     <%= f.grouped_collection_select :standard_id, Domain.order(:name), :standards, :name, :id, :ICan, include_blank: true %>
   </div>  
   <div class="field">
-    <%= f.label :subject_id, "This question is about the following subject:" %>
+    <span class="search-label">
+      <%= f.label :subject_id, "This question is about the following subject:" %>
+    </span>
+    <span class="question">
+      <a href="#", class="post", rel="popover", title="How to Choose a Subject", data-content="Subject are used by other readers to search for problems that would interest them. For example, a reader who loves playing video games would likely search problems in the subject of Games." %> 
+        <i class="icon-question-sign icon-medium" ></i>
+      </a>
+    </span>
     <%= f.collection_select :subject_id, Subject.order('name ASC'), :id, :name, include_blank: true %>
-    <%= f.label :photo, "Upload a photo from your computer:" %>    
+    <span class="search-label">
+      <%= f.label :photo, "Upload a photo from your computer:" %> 
+    </span>
+    <span class="question">
+      <a href="#", class="post", rel="popover", title="What to Upload", data-content="If you have a picture that helps to tell your math story, you can upload it here. If you don't have a picture, you can search a picture on the Internet and paste its url in the next field." %> 
+        <i class="icon-question-sign icon-medium" ></i>
+      </a>
+    </span>   
     <%= f.file_field :photo %>
     <span class="center"> or </span>
-    <%= f.label :photo_remote_url, "Paste in the url of a photo from the web:" %>
+    <span class="search-label">
+      <%= f.label :photo_remote_url, "Paste in the url of a photo from the web:" %>
+    </span>
+    <span class="question">
+      <a href="#", class="post", rel="popover", title="What Image to Use", data-content="Make sure that the picture you use has no watermark and does not violate any copyright. You can always leave it blank and change your picture later." %> 
+        <i class="icon-question-sign icon-medium" ></i>
+      </a>
+    </span>   
     <%= f.text_field :photo_remote_url %>
   </div> 
 

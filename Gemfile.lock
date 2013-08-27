@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/bcardarella/client_side_validations.git
+  revision: 03dfff597e025e164f44621846cf25d85e596ddc
+  branch: 3-2-stable
+  specs:
+    client_side_validations (3.2.6)
+
+GIT
   remote: git://github.com/ernie/ransack.git
   revision: c8e6a5bf2ae87e3d1c805afa8bd781a08d0d570f
   specs:
@@ -77,6 +84,9 @@ GEM
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
     chronic (0.9.1)
+    client_side_validations-formtastic (2.2.1)
+      client_side_validations (~> 3.2.0)
+      formtastic (~> 2.2.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
@@ -299,6 +309,8 @@ DEPENDENCIES
   cancan
   capistrano
   capybara (= 1.1.2)
+  client_side_validations!
+  client_side_validations-formtastic
   coffee-rails (= 3.2.2)
   cucumber-rails (= 1.2.1)
   database_cleaner (= 0.7.0)

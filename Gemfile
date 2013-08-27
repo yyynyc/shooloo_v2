@@ -24,6 +24,8 @@ gem 'best_in_place'
 gem 'sendgrid'
 gem 'twilio-ruby'
 gem 'obscenity'
+gem 'client_side_validations', :github => 'bcardarella/client_side_validations', :branch => '3-2-stable'
+gem 'client_side_validations-formtastic'
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'

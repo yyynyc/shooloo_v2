@@ -16,9 +16,9 @@
 		      		<% end %> --
 		      	</span><br/>
 	      		is <a href="<%= following_user_path(user) %>">
-	      		following <%= user.following_count %></a> members,
+	      		following <%= pluralize(user.following_count, "member") %></a>,
 	      		has <a href="<%= followers_user_path(user) %>">
-	      		<%= user.follower_count %> followers</a>, 
+	      		<%= pluralize(user.follower_count, "follower") %></a>, 
 	      		received 
 	      		<%= pluralize(user.gift_received_count, "gift") %>, 
 			  	sent 

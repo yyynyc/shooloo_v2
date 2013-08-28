@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130825183932) do
+ActiveRecord::Schema.define(:version => 20130828193928) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -344,11 +344,11 @@ ActiveRecord::Schema.define(:version => 20130825183932) do
     t.datetime "password_reset_sent_at"
     t.boolean  "privacy"
     t.boolean  "rules"
-    t.integer  "post_count"
-    t.integer  "rating_count"
-    t.integer  "comment_count"
-    t.integer  "follower_count"
-    t.integer  "following_count"
+    t.integer  "post_count",             :default => 0
+    t.integer  "rating_count",           :default => 0
+    t.integer  "comment_count",          :default => 0
+    t.integer  "follower_count",         :default => 0
+    t.integer  "following_count",        :default => 0
     t.string   "role",                   :default => "student"
     t.boolean  "visible",                :default => false
     t.string   "personal_email"
@@ -356,8 +356,8 @@ ActiveRecord::Schema.define(:version => 20130825183932) do
     t.string   "school_url"
     t.string   "social_media_url"
     t.string   "email_sent_to"
-    t.integer  "gift_received_count"
-    t.integer  "gift_sent_count"
+    t.integer  "gift_received_count",    :default => 0
+    t.integer  "gift_sent_count",        :default => 0
   end
 
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"

@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   def index
     @search = User.visible.search(params[:q])
     @users = @search.result.paginate(page: params[:page], 
-      per_page: 30, order: 'gift_received_count DESC, comment_count DESC, rating_count DESC, post_count DESC, following_count DESC, created_at ASC')
+      per_page: 30, order: 'comment_count DESC, rating_count DESC, post_count DESC, following_count DESC, gift_received_count DESC, created_at ASC')
     @search.build_condition
     set_meta_tags title: 'Members', 
         description: "index of Shooloo members",

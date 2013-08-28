@@ -23,7 +23,7 @@ class Gift < ActiveRecord::Base
   end
 
   def self.reminder
-    Gift.where(sent: nil).each do |g|
+    Gift.where(sent: nil).where("created_at <=?", Time.now-7.days).each do |g|
       Activity.create!(action: "reminder", trackable: g, 
         user_id: g.receiver_id, recipient_id: g.giver_id)
     end

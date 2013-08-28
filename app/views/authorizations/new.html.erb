@@ -4,7 +4,7 @@
 
 <p class='center'><img src="/attachments/computer.gif" alt="Shooloo Math Can Do"></p> 
 
-<% if current_user.role == "teacher" || current_user.role == "tutor" %>
+<% unless current_user.role == "student" %>
 	<div class="about">		
 		<p>Make sure all information in <%= link_to "your profile", edit_user_path(current_user) %> is complete, then click the blue button below.</p>
 		<div class='row'>	  		

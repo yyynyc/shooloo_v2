@@ -8,17 +8,19 @@ class Authorization < ActiveRecord::Base
 
   after_create do
     Activity.create!(action: "create", trackable: self, 
-    	user_id: self.authorized_id, recipient_id: self.authorizer_id)
-    if self.authorizer.admin?
-      UserMailer.auth_request(self.authorizer).deliver
-    end
+    	user_id: self.authorized_id, recipient_id: self.authorizer_id)    
+    UserMailer.auth_request(self.authorizer).deliver
   end
 
   after_update do
     if self.approval == "accepted"
       Activity.create!(action: "accept", trackable: self, 
         user_id: self.authorizer_id, recipient_id: self.authorized_id)
-      UserMailer.auth_notify_yes(self.authorized).deliver
+      if self.authorized.role == "teacher"
+        UserMailer.auth_notify_yes(self.authorized).deliver
+      else
+        UserMailer.auth_notify_yes_student(self.authorized).deliver
+      end
     elsif self.approval == "declined"
       Activity.create!(action: "decline", trackable: self, 
         user_id: self.authorizer_id, recipient_id: self.authorized_id)

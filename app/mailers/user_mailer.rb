@@ -35,7 +35,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def auth_request(user)
-    sendgrid_category "authoriztaion request to admin"
+    sendgrid_category "authoriztaion request"
     @user = user
     mail to: user.personal_email, 
         subject: "Shooloo Authorization Request"
@@ -46,6 +46,15 @@ class UserMailer < ActionMailer::Base
     @user = user
     mail to: user.personal_email, 
         subject: "#{user.first_name}: Approved Authorization from Shoooloo"
+  end
+
+  def auth_notify_yes_student(user)
+    sendgrid_category "authorization approved"
+    @user = user
+    unless user.personal_email.nil?
+      mail to: user.personal_email, 
+          subject: "#{user.first_name}: Approved Authorization from Shoooloo"
+    end
   end
 
   def auth_notify_no (user)

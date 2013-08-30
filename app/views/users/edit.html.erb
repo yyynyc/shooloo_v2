@@ -9,11 +9,16 @@
 			<% if (@user.authorizations.where(approval: "accepted").blank? && @user.referrals.where(approval: "accepted").blank?) || current_user.admin? %>      
 				<%= f.input :first_name %>
 				<%= f.input :last_name %>
-				<%= f.input :role, label: "I am a", as: :select, collection: ["student", "teacher", "parent", "tutor", "other"]  %>
-				<%= f.input :grade, as: :select, collection: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], include_blank: true %>
+				<%= f.input :role, label: "I am a", as: :select, collection: ["student", "teacher", "parent", "tutor", "other"]  %>				
 			<% end %>
-			<% if @user.role == "student" %> 
+			<% if @user.role == "student" %>
+				<%= f.input :grade, as: :select, collection: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], include_blank: true %> 
 				<%= f.input :school_name %>
+			<% elsif @user.role == "teacher" %>
+				<%= f.input :grade, as: :select, collection: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], include_blank: true %>
+			<% else %>
+				<%= f.input :school_name, label: "Affiliation name" %>
+				<%= f.input :school_url, label: "Affiliation url" %>
 			<% end %>
 			<span class='privacy' id='signup-home'>
 				<%= f.input :privacy, as: :boolean, label: "I agree with the ".html_safe + link_to("Terms of Service", terms_path) +" and the ".html_safe + link_to("Privacy Statement", privacy_path) + ".".html_safe, input_html: {checked: 'checked'}, required: true %>

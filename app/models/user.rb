@@ -144,10 +144,10 @@ class User < ActiveRecord::Base
     :if => :verify_student, :unless => :should_validate_password? 
   validates :grade, presence: true, :if => :verify_student, :unless => :should_validate_password? 
   validates :school_name, presence: true, length: {maximum: 100}, on: :update,
-    :if => :verify_student, :if => :verify_teacher 
+    :if => :verify_student_or_teacher
   validates :personal_email, format: { with: VALID_EMAIL_REGEX },
     uniqueness: {case_sensitive: false}, presence: true, on: :update,
-    :if => :verify_teacher, :if => :verify_other
+    :unless => :verify_student
   validates :school_url, presence: true, :if => :verify_teacher
   validates :social_media_url, presence: true, :if => :verify_other
   #validates_presence_of :school_name, :if => :active_student?
@@ -155,6 +155,10 @@ class User < ActiveRecord::Base
   #validates_attachment_presence :avatar
   #validates_attachment_size :avatar, :less_than => 5.megabytes
   #validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
+
+  def verify_student_or_teacher
+    validate_student || validate_teacher
+  end
 
   def should_validate_password? 
     updating_password || new_record?

@@ -8,7 +8,7 @@
 	<%= render @comments.visible %>
 </ol>
 
-<h2> Post A New Comment </h2>
+<h2> Post A New Comment <a href="#", class="follow", rel="popover", title="How to Make a Winning Comment?", data-content="<ul class='popover-list'><li>Write complete sentenses</li><li>Use correct spelling and grammar</li><li>Explain how you've got your answer</li><li>Use friendly language</li><li>Avoid foul or offensive words</li><li>Do NOT use anyone's real name; use screen name only</li><li>Do NOT tell or ask anyone's personal information</li></ul>"><img src="/attachments/secret_2.gif" alt="Shooloo Math Secret"></i></a></h2>
 <%= form_for([@post, @comment], :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')"}) do |f| %>
   	<%= render 'shared/error_messages', object: f.object %>
     <%= f.text_area :content, rows: 5 %>

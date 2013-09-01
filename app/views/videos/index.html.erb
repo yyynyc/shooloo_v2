@@ -1,0 +1,59 @@
+<% provide(:title, 'Video Tutorials') %>
+<h1>Video Tutorials</h1>
+<%= search_form_for @search, url: search_videos_path, method: :get do |f| %>
+	<div class="row center bottom-margin">
+		<span class="search-label">
+			<%= f.label :category_name_cont, "Category" %>
+		</span>
+		<span class="search-field">
+			<%= f.collection_select :category_name_cont, Category.order(:name), :name, :name, include_blank: true %>
+		</span>	
+		<span class="search-label">
+			<%= f.label :practice_name_cont, "CCSS Practice" %>
+		</span>
+		<span class="search-field">
+			<%= f.collection_select :practice_name_cont, Practice.order(:id), :name, :name, include_blank: true %>
+		</span>	
+		<span class="search-label">
+			<%= f.label :standard_short_cont, "CCSS Standard" %>
+		</span>
+		<span class="search-field">
+			<%= f.text_field :standard_short_cont %>
+		</span>	
+		<span class="search-label">
+			<%= f.label :tags_cont, "Keywords" %>
+		</span>
+		<span class="search-field">
+			<%= f.text_field :tags_cont %>
+		</span>
+		<span class="search-label">
+			<%= f.submit "Search", class: "btn btn-small btn-primary" %>
+		</span>								
+	</div>
+<% end %>
+
+<% @videos.each do |video| %>
+	<ul class="users">
+		<li>			
+			<div class="span2">
+				<%= link_to image_tag(video.thumbnail.url(:small), 
+				alt: "Shooloo Tutorial: #{video.title}", 
+				title: "Shooloo Tutorial: #{video.title}"), 
+				video_path(video) %>
+				<% if current_user.admin? %>
+					<br/>			
+						<%= link_to "EDIT", edit_video_path(video) %>
+						<%= link_to "DELETE", video, method: :delete, data: {confirm: "Are you sure?" } %>
+						<%= link_to "NEW", new_video_path %>
+				<% end %>
+    		</div>
+    		<div class="span9">
+				<span class="post_review_answer"><%= link_to video.title, video_path(video) %></span><br/>
+				<strong>Time length: </strong><%= video.length %> minutes<br/> 
+				<strong>Category: </strong><%= video.category.name %> <br/>
+				<strong>Description: </strong><%= video.description %><br/>
+			</div>			
+			
+		</li>
+	</ul>
+<% end %>

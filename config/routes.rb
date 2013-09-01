@@ -1,6 +1,5 @@
 ShoolooV2::Application.routes.draw do
 
-
 resources :users do
   member do
     get :following, :followers,  
@@ -63,6 +62,10 @@ resources :gifts
 resources :choices
 resources :messages
 resources :twilios
+resources :videos do
+  collection { get :search, to: 'videos#index' }
+end
+
 
     root to: "static_pages#home"
  

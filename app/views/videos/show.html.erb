@@ -1,0 +1,40 @@
+<% title "Video Tutorial: #{@video.title}" %> 
+<% description "#{@video.description}" %>
+<% keywords "#{@video.tags}" %>
+<div class="row">
+	<div class="span7">
+		<h1><%= @video.title %></h1>
+		<iframe width="500" height="375" src="<%= @video.player_loc %>" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>		
+		<span class="search-label btn-formtastic">
+			<strong>Time length: </strong><%= @video.length %> minutes
+		</span>
+		<p><strong>Search Tags:</strong> <%= @video.tags %></p>
+		<h3>Description</h3>		
+		<p><%= @video.description %></p>
+		<% unless @video.content.nil? %>
+			<h4>Content</h4>
+			<p><%= @video.content %></p>
+		<% end %>
+	</div>
+	<div class="span5">
+		<h3> Related Videos </h3>
+		<% if @similar_videos.count > 0 %>
+			<% @similar_videos.each do |video| %>
+				<ul class="users">
+	  				<li>
+	  					<span class="span2">
+	  						<%= link_to image_tag(video.thumbnail.url(:small), 
+			    				alt: "Shooloo Tutorial: #{video.title}", 
+			    				title: "Shooloo Tutorial: #{video.title}"), 
+			    				video_path(video) %>
+			    		</span>
+			    		<span class="span2">
+		    				<p class="post_review_answer"><%= link_to video.title, video_path(video) %></p>
+		    				<p>Time length: <%= video.length %> minutes</p>
+		    			</span>
+	  				</li>
+	  			</ul>
+	  		<% end %>
+	  	<% end %>
+	</div>
+</div>

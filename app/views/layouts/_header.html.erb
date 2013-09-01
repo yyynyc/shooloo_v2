@@ -5,6 +5,7 @@
       <nav>
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "Tutorial", videos_path %></li>
           <li><%= link_to "Contact", contact_path %></li> 
           <li><%= link_to "Common Core", standards_path %></li>           
           <% if signed_in? %>
@@ -17,7 +18,7 @@
             <% if current_user.admin? || current_user.role == "teacher" %>
               <li id="fat-menu" class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Students <b class="caret"></b>
+                  Teacher <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
                   <li><%= link_to "My Students' I-Can", student_common_core_user_path(current_user) %></li>

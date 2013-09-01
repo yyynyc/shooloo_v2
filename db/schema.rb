@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130828193928) do
+ActiveRecord::Schema.define(:version => 20130901185657) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -49,6 +49,12 @@ ActiveRecord::Schema.define(:version => 20130828193928) do
 
   add_index "authorizations", ["authorized_id"], :name => "index_authorizations_on_authorized_id"
   add_index "authorizations", ["authorizer_id"], :name => "index_authorizations_on_authorizer_id"
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "choices", :force => true do |t|
     t.integer  "user_id"
@@ -229,6 +235,15 @@ ActiveRecord::Schema.define(:version => 20130828193928) do
 
   add_index "posts", ["user_id", "created_at"], :name => "index_posts_on_user_id_and_created_at"
 
+  create_table "practices", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "url"
+    t.string   "symbol"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "qualities", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -262,9 +277,13 @@ ActiveRecord::Schema.define(:version => 20130828193928) do
   create_table "referrals", :force => true do |t|
     t.integer  "referred_id"
     t.integer  "referrer_id"
-    t.string   "approval",    :default => "pending", :null => false
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.string   "approval",                :default => "pending"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+    t.boolean  "name_true"
+    t.boolean  "role_true"
+    t.boolean  "screen_name_appropriate"
+    t.boolean  "avatar_appropriate"
   end
 
   add_index "referrals", ["referred_id"], :name => "index_referrals_on_referred_id"
@@ -349,6 +368,8 @@ ActiveRecord::Schema.define(:version => 20130828193928) do
     t.integer  "comment_count",          :default => 0
     t.integer  "follower_count",         :default => 0
     t.integer  "following_count",        :default => 0
+    t.integer  "auth_req_count",         :default => 0
+    t.string   "auth_status"
     t.string   "role",                   :default => "student"
     t.boolean  "visible",                :default => false
     t.string   "personal_email"
@@ -362,5 +383,24 @@ ActiveRecord::Schema.define(:version => 20130828193928) do
 
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
   add_index "users", ["screen_name"], :name => "index_users_on_screen_name", :unique => true
+
+  create_table "videos", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.text     "content"
+    t.string   "player_loc"
+    t.string   "duration"
+    t.string   "length"
+    t.string   "tags"
+    t.integer  "category_id"
+    t.integer  "practice_id"
+    t.integer  "standard_id"
+    t.string   "thumbnail_file_name"
+    t.string   "thumbnail_content_type"
+    t.integer  "thumbnail_file_size"
+    t.datetime "thumbnail_updated_at"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
 
 end

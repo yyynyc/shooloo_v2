@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="span10 offset1">    
+    <%= semantic_form_for @video, :url => url, :html => { :multipart => true, onsubmit: "$('button', this).attr('disabled','disabled')", class: "form-horizontal-post-update", 'data-action' => 'update' }  do |f| %>
+	  <%= render 'shared/error_messages', object: f.object %>
+		<%=f.inputs do %> 
+	        <%= f.input :title %>
+		    <%= f.input :description %>	
+		    <%= f.input :content %>
+		    <%= f.input :tags %>
+		    <%= f.input :length %>
+		    <%= f.input :duration %>
+		    <%= f.input :player_loc, label: "iFrame Location" %>			       
+	    	<%= f.input :category_id, as: :select, include_blank: true, label: "Category", collection: Hash[Category.order('name ASC').map{|s| [s.name, s.id]}] %> 
+	    	<%= f.input :practice_id, as: :select, include_blank: true, label: "CCSS Practice", collection: Hash[Practice.order('id ASC').map{|s| [s.name, s.id]}] %> 
+	    	<%= f.input :standard_id, as: :select, include_blank: true, label: "CCSS Standard", collection: Hash[Standard.order('short ASC').map{|s| [s.short, s.id]}] %> 
+		    <%= f.input :thumbnail, as: :file, label: "Thumbnail upload" %>
+		    <%= f.input :thumbnail_remote_url, label: "Thumbnail url",   
+		    	hint: (f.object.new_record? || f.object.thumbnail.nil?)?
+				f.template.content_tag(:span, "No thumbnail yet") : 
+				f.template.image_tag(f.object.thumbnail.url(:thumb)) %>		
+		<% end %>
+		<%= f.actions do %>
+        	<%= f.action :submit, label: "Create Video", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>
+      	<% end %> 
+	<% end %>
+  </div>
+</div>

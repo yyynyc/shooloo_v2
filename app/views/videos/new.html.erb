@@ -1,0 +1,5 @@
+<% provide(:title, "Create Tutorial Video") %> 
+<% url = videos_path %>
+
+<h1>Create Video</h1>
+<%= render partial: 'video_form', locals: {url: url}  %>

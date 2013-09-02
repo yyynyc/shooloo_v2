@@ -42,6 +42,9 @@ class VideosController < ApplicationController
 
 	def show
 		@video = Video.find(params[:id])
+		if request.path != video_path(@video)
+		    redirect_to @video, status: :moved_permanently
+		end
 		@similar_videos = Video.where(category_id: @video.category.id).reject {|v| v.id==@video.id}
 	end
 

@@ -11,10 +11,11 @@
 			<% d.standards.order('id ASC').each do |s| %>
 				<tr itemscope itemtype="http://schema.org/AlignmentObject">			
 					<td>
-						<span itemprop="educationalFramework" content="Common Core State Standard"></span>
-						<span itemprop="targetName" content="<%= s.symbol %>"></span>
-						<span itemprop="targetUrl" content="<%= s.url %>"></span>
-						<strong><%= s.short %></strong>
+						<meta itemprop="educationalFramework" content="Common Core State Standard">
+						<meta itemprop="targetName" content="<%= s.symbol %>">
+						<a itemprop="targetUrl" href="<%= s.url %>">
+							<strong><%= s.short %></strong>
+						</a>
 					</td>
 					<td itemprop="targetDescription">
 						<%= s.description %>

@@ -96,6 +96,7 @@ end
   get '/standards/common-core-math-I-can-grade-6', to: "standards#grade_6", as: :grade_6
   get '/standards/common-core-math-I-can-grade-7', to: "standards#grade_7", as: :grade_7
   get '/standards/common-core-math-I-can-grade-8', to: "standards#grade_8", as: :grade_8
+  get '/standards/common-core-math-practices', to: "standards#practice", as: :practice
 
   unless Rails.application.config.consider_all_requests_local
     match '*not_found', to: 'errors#error_404'

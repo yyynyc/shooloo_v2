@@ -5,6 +5,12 @@ class StandardsController < ApplicationController
 		set_meta_tags title: 'Common Core Math Standards & I-Can Statements'
 	end
 
+	def practice
+		@practices = Practice.all
+		set_meta_tags title: 'Common Core Math Standards for Mathematical Practice'
+		render 'practice'
+	end
+
 	def grade_k	
 		@domains = Domain.where(level_id: 1)
 		set_meta_tags title: 'Kindergarten Common Core Math Standards & I-Can Statements'

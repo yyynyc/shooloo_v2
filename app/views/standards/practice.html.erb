@@ -1,0 +1,57 @@
+<div itemscope itemtype="http://schema.org/CreativeWork">
+	<span itemprop="description" content="Shooloo's video tutorials on how to teach the Common Core State Standards for mathematical practices."></span>
+	<span itemprop="keywords" content="Shooloo, Common Core, math, word problem, I can, practice"></span>
+	<h2> 
+		<p><span itemprop="name">Shooloo</span> <span itemprop="about">Video Tutorials</span> </p> 
+		<p><span itemprop="educationalAlignment">Common Core State Standards</span> for <span itemprop="about">Mathematical Practices</span></p>  
+	</h2>
+	<meta itemprop="audience" content="student, teacher, tutor, specialist, parent">
+	<meta itemprop="educationalUse" content="cooperative learning, discovery learning, interactive, journaling, peer coaching, peer response, problem solving, questioning, reciprocal teaching, reinforcement, review, writing">
+	<meta itemprop="inLanguage" content="EN_US">
+	<meta itemprop="interactivityType" content="mixed">
+	<meta itemprop="isFamilyFriendly" content="yes">
+	<meta itemprop="learningResourceType" content="assessment, discussion, on-line, worksheet">
+	<meta temprop="provider" content="Shooloo Inc.">
+	<meta temprop="timeRequired" content="P4M">
+	<meta temprop="typicalAgeRange" content="8-10, 10-12, 12-14">
+	<ul class="nav nav-tabs">
+		<li><%= link_to "Overview", standards_path %></li>
+		<li class="active"><%= link_to "Practices", practice_path %></li>
+		<li><%= link_to "Grade K", grade_k_path %></li>
+		<li><%= link_to "Grade 1", grade_1_path  %></li>
+		<li><%= link_to "Grade 2", grade_2_path  %></li>
+		<li><%= link_to "Grade 3", grade_3_path  %></li>
+		<li><%= link_to "Grade 4", grade_4_path  %></li>
+		<li><%= link_to "Grade 5", grade_5_path  %></li>
+		<li><%= link_to "Grade 6", grade_6_path  %></li>
+		<li><%= link_to "Grade 7", grade_7_path  %></li>
+		<li><%= link_to "Grade 8", grade_8_path  %></li>
+	</ul>
+	<h3> Mathematical Practices </h3>
+	<table class="table-ccss" >
+		<tr>
+			<th>Mathematical Practice Description</th>
+			<th>Videos</th>
+		</tr>
+		<% @practices.each do |p| %>
+			<tr itemscope itemtype="http://schema.org/AlignmentObject">
+				<td colspan="4">
+					<a itemprop="targetUrl" href="<%= p.url %>" >
+						<strong itemprop="targetName"><%= p.symbol %></strong> 
+					</a>:
+					<%= p.name %>
+				</td>	
+				<tr>			
+					<td itemprop="targetDescription">
+						<p><%= p.description %></p>
+					</td>
+					<td>
+						<% p.videos.each do |v| %>
+							#<%= link_to v.id, video_path(v) %> /
+						<% end %>
+					</td>
+				</tr>		
+			</tr>	
+		<% end %>
+	</table>
+</div>

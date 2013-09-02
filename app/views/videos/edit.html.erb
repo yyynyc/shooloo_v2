@@ -1,5 +1,8 @@
-<% provide(:title, "Edit Tutorial Video") %> 
+<% title "Edit Tutorial Video %> 
+<% noindex %>
+<% nofollow %>
 <% url = video_path %>
+<% save = "Update Video" %>
 
 <h1>Edit Video</h1>
-<%= render partial: 'video_form', locals: {url: url}  %>
+<%= render partial: 'video_form', locals: {url: url, save: save, video: @video}  %>

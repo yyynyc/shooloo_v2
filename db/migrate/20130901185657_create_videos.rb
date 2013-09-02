@@ -12,6 +12,7 @@ class CreateVideos < ActiveRecord::Migration
       t.integer :practice_id
       t.integer :standard_id
       t.attachment :thumbnail
+      t.boolean :teacher_pd, default: false
 
       t.timestamps
     end

@@ -1,5 +1,12 @@
 <% provide(:title, 'Sign Up') %>
-<h1>Sign Up</h1>
+<h1>
+	Sign Up
+	<span class="question">
+		<a href="#", class="follow", rel="popover", title="Having Trouble?", data-content="Watch this <a href='<%= video_path(1) %>'>video tutorial</a> on how to create a student account on Shooloo."> 
+			<i class="icon-question-sign icon-medium" ></i>
+		</a>
+	</span>
+</h1>
 <div class="row">
   <div class="span6 offset3">	    
 	<%#= render 'userinfo'%>
@@ -51,6 +58,7 @@
 				<%= f.action :submit, label: "Create My Account", as: :button, button_html: { class: "btn btn-large btn-primary", :disabled_with => 'Wait...' } %>
 			</div>
 		<% end %>		
-	<% end %>	      
+	<% end %>
+	<p class="center"> Having trouble? Watch this <%= link_to "video tutorial", video_path(1) %><br/> on "how to create a student account on Shooloo". </p>	      
   </div>
 </div>

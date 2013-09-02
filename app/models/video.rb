@@ -1,5 +1,5 @@
 class Video < ActiveRecord::Base
-  attr_accessible :title, :description, :player_loc, :duration, :tags, 
+  attr_accessible :title, :description, :player_loc, :duration, :tags, :teacher_pd, :content,
   	:category_id, :practice_id, :standard_id, :thumbnail, :length, :thumbnail_remote_url 
   attr_reader :thumbnail_remote_url
 

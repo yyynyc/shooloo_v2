@@ -1,5 +1,12 @@
 <% provide(:title, "Edit user") %> 
-<h1>Update Your Information</h1>
+<h1>
+	Update Your Information
+	<span class="question">
+		<a href="#", class="follow", rel="popover", title="Having Trouble?", data-content="Watch this <a href='<%= video_path(1) %>'>video tutorial</a> on how to create a student account on Shooloo."> 
+			<i class="icon-question-sign icon-medium" ></i>
+		</a>
+	</span>
+</h1>
 <%= semantic_form_for@user, :validate => true, :url => user_path, :html => { :multipart => true, :class => "form-horizontal-user" } do |f| %>
 	<%= render 'shared/error_messages', object: f.object %>
 	<%=f.inputs do %>
@@ -118,3 +125,7 @@
 		<%= f.action :submit, label: "Update My Information", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary", :disabled_with => 'Wait...' } %>		
 	<% end %>
 <% end %>
+<p class="center"> Having trouble? Watch this <%= link_to "video tutorial", video_path(1) %> on "how to create a student account on Shooloo". </p>
+<% unless @user.role == "student" %>
+	<p class="center"> Teachers: Check out this <%= link_to "video tutorial", video_path(2) %> on "how to quickly sign up all of your students on Shooloo". </p>
+<% end %>	

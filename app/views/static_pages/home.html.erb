@@ -13,7 +13,7 @@
     </aside>
     <div class="span8">
       <h3 class="feed_item">
-        Posts Published by Members that I Follow<a href="#", class="follow", rel="popover", title="What does Follow mean?", data-content="Go to <a href='/users'>All Shooloo Members</a> page, click the Follow button beside those profiles you like. Those members' posts will automatically show up on your home page. Your own posts will show up here as well."><i class="icon-question-sign icon-medium" ></i></a>
+        Posts Published by Members that I Follow<a href="#", class="follow", rel="popover", title="What does Follow mean?", data-content="Go to <a href='<%= users_path %>'>All Shooloo Members</a> page, click the Follow button beside those profiles you like. Those members' posts will automatically show up on your home page. Your own posts will show up here as well."><i class="icon-question-sign icon-medium" ></i></a>
       </h3>
       <% if @feed_items.any? %>
         <%= render 'shared/feed' %>

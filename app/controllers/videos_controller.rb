@@ -20,7 +20,7 @@ class VideosController < ApplicationController
 
 	def update
 		@video = Video.find(params[:id])
-		if @video.save
+		if @video.update_attributes(params[:video])
 			flash[:success] = "Video updated successfully!"
 			redirect_to video_path(@video)
 		else
@@ -42,6 +42,12 @@ class VideosController < ApplicationController
 
 	def show
 		@video = Video.find(params[:id])
-		@similar_videos = Video.where(category_id: @video.category.id, id: !@video.id)
+		@similar_videos = Video.where(category_id: @video.category.id).reject {|v| v.id==@video.id}
+	end
+
+	def pd
+		@search = Video.where(teacher_pd: true).search(params[:q])
+    	@videos = @search.result.order('created_at ASC')
+    	@search.build_condition
 	end
 end

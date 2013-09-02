@@ -1,12 +1,13 @@
 <div class="row">
   <div class="span10 offset1">    
-    <%= semantic_form_for @video, :url => url, :html => { :multipart => true, onsubmit: "$('button', this).attr('disabled','disabled')", class: "form-horizontal-post-update", 'data-action' => 'update' }  do |f| %>
+    <%= semantic_form_for video, :url => url, :html => { :multipart => true, onsubmit: "$('button', this).attr('disabled','disabled')", class: "form-horizontal-post-update"}  do |f| %>
 	  <%= render 'shared/error_messages', object: f.object %>
 		<%=f.inputs do %> 
 	        <%= f.input :title %>
 		    <%= f.input :description %>	
 		    <%= f.input :content %>
 		    <%= f.input :tags %>
+		    <%= f.input :teacher_pd, as: :radio %>
 		    <%= f.input :length %>
 		    <%= f.input :duration %>
 		    <%= f.input :player_loc, label: "iFrame Location" %>			       
@@ -17,10 +18,10 @@
 		    <%= f.input :thumbnail_remote_url, label: "Thumbnail url",   
 		    	hint: (f.object.new_record? || f.object.thumbnail.nil?)?
 				f.template.content_tag(:span, "No thumbnail yet") : 
-				f.template.image_tag(f.object.thumbnail.url(:thumb)) %>		
+				f.template.image_tag(f.object.thumbnail.url(:small)) %>		
 		<% end %>
 		<%= f.actions do %>
-        	<%= f.action :submit, label: "Create Video", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>
+        	<%= f.action :submit, label: save, as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>
       	<% end %> 
 	<% end %>
   </div>

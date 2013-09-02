@@ -2,36 +2,62 @@
 <% description "#{@video.description}" %>
 <% keywords "#{@video.tags}" %>
 <div class="row">
-	<div class="span7">
-		<h1><%= @video.title %></h1>
-		<iframe width="500" height="375" src="<%= @video.player_loc %>" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>		
-		<span class="search-label btn-formtastic">
-			<strong>Time length: </strong><%= @video.length %> minutes
-		</span>
-		<p><strong>Search Tags:</strong> <%= @video.tags %></p>
-		<h3>Description</h3>		
-		<p><%= @video.description %></p>
+	<div class="span8" itemscope itemtype="http://schema.org/VideoObject">
+		<h1 itemprop="caption"><%= @video.title %></h1>
+		<meta itemprop="embedUrl" content="<%= @video.player_loc %>">
+		<meta itemprop="encodingFormat" content="mpeg4">
+		<meta itemprop="thumbnailUrl" content="<%= @video.thumbnail.url %>">
+		<meta itemprop="productionCompany" content="Shooloo Inc.">
+		<meta itemprop="duration" content="<%= @video.duration %>">
+		<meta itemprop="videoFrameSize" content="500x375">
+		<meta itemprop="videoQuality" content="high">
+		<p class="center"><iframe width="500" height="375" src="<%= @video.player_loc %>" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe></p>
+		<% if !@video.practice_id.nil? %>
+			<%= render partial: 'video_practice', locals: {video: @video} %>
+		<% end %>
+		<% if !@video.standard_id.nil? %>
+			<%= render partial: 'video_standard', locals: {video: @video} %>
+		<% end %>	
+		<p>
+			<strong>Keywords:</strong> 
+			<span itemprop="keywords"><%= @video.tags %></span>
+		</p>		
+		<p>
+			<strong>Description:</strong> 
+			<span itemprop="description"><%= @video.description %></span>
+		</p>
 		<% unless @video.content.nil? %>
-			<h4>Content</h4>
+			<h4>Details</h4>
 			<p><%= @video.content %></p>
 		<% end %>
+		<% if signed_in? && current_user.admin? %>
+			<br/>			
+				<%= link_to "EDIT", edit_video_path(@video) %>
+				<%= link_to "DELETE", @video, method: :delete, data: {confirm: "Are you sure?" } %>
+				<%= link_to "NEW", new_video_path %>
+		<% end %>
 	</div>
-	<div class="span5">
+	<div class="span3 video-border-left">
 		<h3> Related Videos </h3>
 		<% if @similar_videos.count > 0 %>
 			<% @similar_videos.each do |video| %>
 				<ul class="users">
-	  				<li>
-	  					<span class="span2">
+	  				<li itemscope itemtype="http://schema.org/VideoObject">
+	  					<p class="text_center" itemprop="thumbnail">
 	  						<%= link_to image_tag(video.thumbnail.url(:small), 
 			    				alt: "Shooloo Tutorial: #{video.title}", 
 			    				title: "Shooloo Tutorial: #{video.title}"), 
 			    				video_path(video) %>
-			    		</span>
-			    		<span class="span2">
-		    				<p class="post_review_answer"><%= link_to video.title, video_path(video) %></p>
-		    				<p>Time length: <%= video.length %> minutes</p>
-		    			</span>
+			    		</p>			    		
+	    				<p itemprop="caption"><strong><%= link_to video.title, video_path(video) %></strong></p>
+	    				<p><strong>Length: </strong><%= video.length %></p>
+		    			<meta itemprop="duration" content="<%= video.duration %>">
+		    			<% if !video.practice_id.nil? %>
+							<%= render partial: 'video_practice', locals: {video: video} %>
+						<% end %>
+						<% if !video.standard_id.nil? %>
+							<%= render partial: 'video_standard', locals: {video: video} %>
+						<% end %>	
 	  				</li>
 	  			</ul>
 	  		<% end %>

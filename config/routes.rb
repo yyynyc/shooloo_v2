@@ -86,6 +86,7 @@ end
   match '/my-gifts', to: "events#gift_receiving", as: :gift_receiving
   match '/my-fans', to: "events#gift_giving", as: :gift_giving
   match '/contact', to: "messages#new" 
+  match '/pd', to: "videos#pd" 
   get '/standards/common-core-math-I-can-grade-k', to: "standards#grade_k", as: :grade_k
   get '/standards/common-core-math-I-can-grade-1', to: "standards#grade_1", as: :grade_1
   get '/standards/common-core-math-I-can-grade-2', to: "standards#grade_2", as: :grade_2

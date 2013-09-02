@@ -28,11 +28,33 @@ SitemapGenerator::Sitemap.create do
   add terms_path, :priority => 0.4, :changefreq => 'yearly'
   add privacy_path, :priority => 0.4, :changefreq => 'yearly'
   add signin_path, :priority => 0.3, :changefreq => 'never'
+  add videos_path, :priority => 0.7, :changefreq => 'never'  
+
   
   Post.find_each do |post|
     add new_post_comment_path(post), :lastmod => post.updated_at,
     :priority => 0.8, :changefreq => 'daily'
   end
+
+  Video.find_each do |video|
+    add video_path(video), :lastmod => video.updated_at,
+    :priority => 0.8, :changefreq => 'daily',
+    :video => {
+      :thumbnail_loc => "#{video.thumbnail.url}" ,
+      :title => "#{video.title}",
+      :description => "#{video.description}",
+      :player_loc => "#{video.player_loc}",
+      :tags => %w["#{video.tags}.split(',')"],
+      :category => "#{video.category.name}",
+      :duraton => "#{video.duration}",
+      :allow_embed => 'yes',
+      :autoplay => 'yes',
+      :family_friendly => 'yes',
+      :gallery_loc => videos_path,
+      :gallery_title => 'Shooloo Video Tutorials'
+    }
+  end
 end
 
+ 
 

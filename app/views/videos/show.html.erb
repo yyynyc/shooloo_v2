@@ -7,7 +7,7 @@
 		<h1 itemprop="caption"><%= @video.title %></h1>
 		<meta itemprop="embedUrl" content="<%= @video.player_loc %>">
 		<meta itemprop="encodingFormat" content="mpeg4">
-		<meta itemprop="thumbnailUrl" content=#{"https://fun.shooloo.org"+"<%= @video.thumbnail.url %>"}>
+		<meta itemprop="thumbnailUrl" content="https://fun.shooloo.org"+"<%= @video.thumbnail.url %>">
 		<meta itemprop="productionCompany" content="Shooloo Inc.">
 		<meta itemprop="duration" content="<%= @video.duration %>">
 		<meta itemprop="videoFrameSize" content="500x375">
@@ -44,7 +44,7 @@
 			<% @similar_videos.each do |video| %>
 				<ul class="users">
 	  				<li itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
-	  					<meta itemprop="thumbnailUrl" content=#{"https://fun.shooloo.org" + "<%= video.thumbnail.url %>"}>
+	  					<meta itemprop="thumbnailUrl" content="https://fun.shooloo.org"+"<%= video.thumbnail.url %>">
 	  					<p class="text_center">
 	  						<%= link_to image_tag(video.thumbnail.url(:small), 
 			    				alt: "Shooloo Tutorial: #{video.title}", 

@@ -1,6 +1,6 @@
 <% title "Video Tutorial: #{@video.title}" %> 
 <% description "#{@video.description}" %>
-<% keywords "#{@video.tags}" %>
+<% keywords %w["#{@video.tags}".split(",")] %>
 <div class="row">
 	<div class="span8" itemscope itemtype="http://schema.org/VideoObject">
 		<h1 itemprop="caption"><%= @video.title %></h1>

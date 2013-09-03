@@ -106,11 +106,11 @@ if Category.count==0
 	Category.create([
 		{name: 'Sign Up'},
 		{name: 'Overview'},
-		{name: 'Post'},
-		{name: 'Comment'},
+		{name: 'Posts'},
+		{name: 'Comments'},
 		{name: 'Friends'},
 		{name: 'Account'},
-		{name: 'Teacher-Only'},
+		{name: 'Ratings'},
 		])
 end
 

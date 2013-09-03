@@ -95,16 +95,8 @@ class UsersController < ApplicationController
         flash[:success] = "Information updated successfully!"
         redirect_to root_path
       else 
-        if @user.role == "student"
-          flash[:error] = "One last thing: get authorization below."
-          redirect_to new_authorization_path
-        elsif @user.role == "parent"
-          flash[:error] = "One last thing: #{ActionController::Base.helpers.link_to "get referral here", new_referral_path}.".html_safe
-          redirect_to posts_path
-        else
-          flash[:error] = "One last thing: to gain full access, #{ActionController::Base.helpers.link_to "get authorization here", new_authorization_path}.".html_safe
-          redirect_to posts_path
-        end        
+        flash[:error] = "One last thing: get authorization below."
+        redirect_to new_authorization_path        
       end
     else
       render 'edit'

@@ -16,6 +16,7 @@ class AuthorizationsController < ApplicationController
   def create
     @user = User.find(params[:authorization][:authorizer_id])
     current_user.auth_request!(@user)
+    flash[:notice] = "Thank you! An email will be sent to you regarding your request status. Meanwhile, check out #{ActionController::Base.helpers.link_to "other members", users_path} and #{ActionController::Base.helpers.link_to "posts", posts_path}.".html_safe 
     respond_with @user
   end
 

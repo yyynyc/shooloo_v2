@@ -8,8 +8,8 @@
 	<div class="about">		
 		<p>Make sure all information in <%= link_to "your profile", edit_user_path(current_user) %> is complete, then click the blue button below.</p>
 		<div class='row'>	  		
-			<div class="span6">
-				<p>Request referral from the Shooloo administrator:</p>				
+			<div class="span7">
+				<p>Request authorization from the Shooloo administrator:</p>			
 			</div> 
 			<div class="span4" >
 				<%= render partial: 'authorizations/authorization', 
@@ -60,11 +60,11 @@
 							<ul class="posts">
 					  			<li>
 					  				<div class='row'>	  		
-					    				<div class="span3 offset1">
+					    				<div class="span3">
 						    				<%= user.first_name %>
 						  					<%= user.last_name %>
 										</div>
-										<div class="span4" >
+										<div class="span6" >
 											<%= render partial: 'authorizations/authorization', locals: {user: user} %>
 										</div>
 									</div>

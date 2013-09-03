@@ -34,7 +34,7 @@
 	<ul class="users">
 		<li itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
 			<div class="span2">
-				<meta itemprop="thumbnailUrl" content="https://fun.shooloo.org"+"<%= video.thumbnail.url %>"}>
+				<meta itemprop="thumbnailUrl" content="https://fun.shooloo.org<%= video.thumbnail.url %>"}>
 				<span itemprop="thumbnail">
 					<%= link_to image_tag(video.thumbnail.url(:small), 
 						alt: "Shooloo Tutorial: #{video.title}", 

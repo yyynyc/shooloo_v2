@@ -1,8 +1,9 @@
 <% title "Video Tutorial: #{@video.title}" %> 
 <% description "#{@video.description}" %>
 <% keywords %w["#{@video.tags}".split(",")] %>
-<div class="row">
-	<div class="span8" itemscope itemtype="http://schema.org/VideoObject">
+<div class="row" itemscope itemtype="http://schema.org/CreativeWork">
+	<%= render 'shared/meta' %>
+	<div class="span8" itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
 		<h1 itemprop="caption"><%= @video.title %></h1>
 		<meta itemprop="embedUrl" content="<%= @video.player_loc %>">
 		<meta itemprop="encodingFormat" content="mpeg4">
@@ -26,7 +27,7 @@
 			<strong>Description:</strong> 
 			<span itemprop="description"><%= @video.description %></span>
 		</p>
-		<% unless @video.content.nil? %>
+		<% unless @video.content.blank? %>
 			<h4>Details</h4>
 			<p><%= @video.content %></p>
 		<% end %>
@@ -42,7 +43,7 @@
 		<% if @similar_videos.count > 0 %>
 			<% @similar_videos.each do |video| %>
 				<ul class="users">
-	  				<li itemscope itemtype="http://schema.org/VideoObject">
+	  				<li itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
 	  					<p class="text_center" itemprop="thumbnail">
 	  						<%= link_to image_tag(video.thumbnail.url(:small), 
 			    				alt: "Shooloo Tutorial: #{video.title}", 

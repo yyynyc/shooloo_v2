@@ -52,7 +52,7 @@
 				<p class="post_review_answer" itemprop="caption"><%= link_to video.title, video_path(video) %></p>
 				<meta itemprop="productionCompany" content="Shooloo Inc.">
 				<meta itemprop="duration" content="<%= video.duration %>">
-				<meta itemprop="keywords" content=%w["<%= video.tags %>".split(",")]>
+				<meta itemprop="keywords" content="<%= video.tags %>">
 				<p><strong>Time length: </strong><%= video.length %> minutes</p> 
 				<p><strong>Category: </strong><%= video.category.name %>,
 				<strong>Keywords: </strong><%= video.tags %></span></p>

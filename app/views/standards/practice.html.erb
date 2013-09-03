@@ -1,19 +1,11 @@
 <div itemscope itemtype="http://schema.org/CreativeWork">
 	<meta itemprop="description" content="Shooloo's video tutorials on how to teach the Common Core State Standards for mathematical practices.">
-	<meta itemprop="keywords" content=["Shooloo", "Common Core", "math", "word problem", "I can", "practice"]>
+	<%= render 'shared/meta' %>
+
 	<h2> 
-		<p><span itemprop="name">Shooloo</span> <span itemprop="about">Video Tutorials</span> </p> 
+		<p>Shooloo <span itemprop="about">Video Tutorials</span> </p> 
 		<p><span itemprop="educationalAlignment">Common Core State Standards</span> for <span itemprop="about">Mathematical Practices</span></p>  
-	</h2>
-	<meta itemprop="audience" content="student, teacher, tutor, specialist, parent">
-	<meta itemprop="educationalUse" content="cooperative learning, discovery learning, interactive, journaling, peer coaching, peer response, problem solving, questioning, reciprocal teaching, reinforcement, review, writing">
-	<meta itemprop="inLanguage" content="EN_US">
-	<meta itemprop="interactivityType" content="mixed">
-	<meta itemprop="isFamilyFriendly" content="yes">
-	<meta itemprop="learningResourceType" content="assessment, discussion, on-line, worksheet">
-	<meta temprop="provider" content="Shooloo Inc.">
-	<meta temprop="timeRequired" content="P4M">
-	<meta temprop="typicalAgeRange" content="8-10, 10-12, 12-14">
+	</h2>	
 	<ul class="nav nav-tabs">
 		<li><%= link_to "Overview", standards_path %></li>
 		<li class="active"><%= link_to "Practices", practice_path %></li>

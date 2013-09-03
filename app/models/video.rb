@@ -14,7 +14,7 @@ class Video < ActiveRecord::Base
   belongs_to :category
   belongs_to :practice
   belongs_to :standard
-  validates_presence_of :title, :description, :player_loc, :duration, :tags, :teacher_pd, 
+  validates_presence_of :title, :description, :player_loc, :duration, :tags, 
     :category_id, :length
 
   def thumbnail_remote_url=(url_value) 

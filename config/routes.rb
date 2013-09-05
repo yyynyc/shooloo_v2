@@ -78,7 +78,8 @@ end
   match '/privacy', to: 'static_pages#privacy'
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :delete 
+  # match '/signout', to: 'sessions#destroy', via: :delete
+  match '/signout', to: 'sessions#destroy'
   match '/alarmed-posts', to: "alarms#alarmed_posts", as: :alarmed_posts
   match '/my-alerts', to: "users#show_activity", as: :my_alerts
   match '/my-powers', to: "users#my_abilities", as: :my_abilities

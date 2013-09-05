@@ -41,7 +41,7 @@
 						title: "Shooloo Tutorial: #{video.title}"), 
 						video_path(video) %>
 				</span>
-				<% if current_user.admin? %>
+				<% if signed_in? && current_user.admin? %>
 					<br/>			
 						<%= link_to "EDIT", edit_video_path(video) %>
 						<%= link_to "DELETE", video, method: :delete, data: {confirm: "Are you sure?" } %>

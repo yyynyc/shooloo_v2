@@ -7,10 +7,10 @@ class GiftsController < ApplicationController
 		@user = @gift.receiver
 	    current_user.gifts.find_by_receiver_id(@user.id).update_attributes!(params[:gift]) 
 	    current_user.gift_sent_count += 1
-	    current_user.save
+	    current_user.save(validate: false)
 	    sign_in current_user
 	    @user.gift_received_count += 1
-	    @user.save 
+	    @user.save(validate: false) 
 	    respond_to do |format|
 	        format.html {redirect_to gift_giving_path}
 	        format.js
@@ -21,9 +21,9 @@ class GiftsController < ApplicationController
     	@gift = Gift.find(params[:id])
 		@sender = @gift.sender
 		current_user.gift_received_count -= 1
-	    current_user.save
+	    current_user.save(validate: false)
 	    sign_in current_user
 	    @sender.gift_sent_count -= 1
-	    @sender.save 
+	    @sender.save(validate: false) 
     end
 end

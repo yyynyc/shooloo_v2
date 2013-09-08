@@ -69,15 +69,4 @@ class Comment < ActiveRecord::Base
       end
     end 
   end
-
-  after_destroy do 
-    Event.create!(benefactor_id: self.commenter_id, 
-      beneficiary_id: self.commented_post.user_id, 
-      event: "delete comment", value: ShoolooV2::COMMENT_DELETE)
-    if self.commented_post.user.admin? || self.commented_post.user.role == "teacher"
-      Event.create!(benefactor_id: self.commenter_id, 
-        beneficiary_id: self.commented_post.user_id, 
-        event: "delete comment bounus", value: ShoolooV2::COMMENT_BONUS_DELETE)
-    end
-  end
 end

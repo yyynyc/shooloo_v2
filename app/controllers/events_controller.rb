@@ -22,7 +22,7 @@ class EventsController < ApplicationController
 		@gifts_current_week = @user.gifts.where(week: Time.now.strftime('%W'), 
     		year: Time.now.strftime('%Y'))
     	@sent_gifts = @user.gifts.where(sent: true).order('updated_at DESC')
-		@receivers = @sent_gifts.collect(&:receiver).uniq		 		
+		@receivers = @sent_gifts.collect(&:receiver).uniq
 		render 'gift_giving'
 	end
 end

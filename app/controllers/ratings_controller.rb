@@ -39,13 +39,13 @@ class RatingsController < ApplicationController
         @rating = current_user.ratings.build(params[:rating])
         if @rating.save    
             current_user.rating_count +=1
-            current_user.save
+            current_user.save(validate: false)
             sign_in current_user
             @rating.rated_post = @post
             @alarm =current_user.alarms.build(params[:alarm])
             @like = current_user.likes.build(params[:like])
             flash[:notice] = "Woohoo! you've earned some points! You are one step closer toward #{ActionController::Base.helpers.link_to "getting a gift", gift_receiving_path} from your friend.".html_safe 
-            redirect_to gift_receiving_path    
+            redirect_to root_path    
         else
             @post = @rating.rated_post
             raise "you need a post" if @post.nil?
@@ -104,7 +104,7 @@ class RatingsController < ApplicationController
         current_user.rating_count -=1
         current_user.save
         sign_in current_user
-        redirect_to gift_receiving_path
+        redirect_to root_path
     end
 
     def correct_user

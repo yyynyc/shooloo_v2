@@ -2,7 +2,7 @@ class Post < ActiveRecord::Base
   require 'obscenity/active_model'
   validates :question, :answer, obscenity: {message: 'contains offensive word'}
 
-  attr_accessible :answer, :grade, :question, 
+  attr_accessible :answer, :grade, :question, :comments_count, :ratings_count, :likes_count,
     :photo, :photo_remote_url, :image_host, :category, 
     :level_id, :domain_id, :standard_id, :quality_id, :subject_id
   attr_reader :photo_remote_url
@@ -103,15 +103,15 @@ class Post < ActiveRecord::Base
         event: "delete post", value: ShoolooV2::POST_DELETE)
   end
 
-  after_update do
-    self.commenters.uniq.each do |commenter|
-      Activity.create!(action: "update", trackable: self, 
-        user_id: self.user_id, recipient_id: commenter.id)
-    end
+  # after_update do
+  #   self.commenters.uniq.each do |commenter|
+  #     Activity.create!(action: "update", trackable: self, 
+  #       user_id: self.user_id, recipient_id: commenter.id)
+  #   end
 
-    self.raters.uniq.each do |rater|
-      Activity.create!(action: "update", trackable: self, 
-        user_id: self.user_id, recipient_id: rater.id)
-    end
-  end
+  #   self.raters.uniq.each do |rater|
+  #     Activity.create!(action: "update", trackable: self, 
+  #       user_id: self.user_id, recipient_id: rater.id)
+  #   end
+  # end
 end

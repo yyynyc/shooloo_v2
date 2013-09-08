@@ -27,9 +27,9 @@
 	<span>
 		<p>Received </p>		
 		<% if user==current_user %>
-			<p><%= link_to pluralize(user.gift_received_count, "gift"), gift_receiving_path %></p>
+			<p><%= link_to pluralize(user.reverse_gifts.where(sent: true).count, "gift"), gift_receiving_path %></p>
 		<% else %>	
-			<p><%= pluralize(user.gift_sent_count, "gift")%></p>
+			<p><%= pluralize(user.reverse_gifts.where(sent: true).count, "gift")%></p>
 		<% end %>	
 	</span>
 	<span>

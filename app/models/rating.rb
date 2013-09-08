@@ -19,6 +19,8 @@ class Rating < ActiveRecord::Base
   default_scope order: 'ratings.updated_at DESC'
 
   after_create do
+    update_rating_counts
+    add_rating_counts
     Activity.create!(action: "create", trackable: self, 
       user_id: self.rater_id, recipient_id: self.rated_post.user_id)
     Event.create!(benefactor_id: self.rater_id, 
@@ -31,8 +33,13 @@ class Rating < ActiveRecord::Base
       end
     end
   end
+
+  after_update do 
+    update_rating_counts
+  end
   
   after_destroy do
+    update_rating_counts
     Event.create!(benefactor_id: self.rater_id, 
       beneficiary_id: self.rated_post.user_id, 
       event: "delete rating", value: ShoolooV2::RATING_DELETE)

@@ -47,8 +47,15 @@ class CommentsController < ApplicationController
         @comment.commented_post=@post            
         if @comment.save
             current_user.comment_count +=1
-            current_user.save
+            current_user.save(validate: false)
             sign_in current_user
+            @comment.commented_post = @post    
+            if @post.comments_count.nil?
+                @post.comments_count=0
+                @post.save!(validate: false)
+            end
+            @post.comments_count +=1
+            @post.save!(validate: false)     
             if current_user == @post.user || !@comment.new_comment?
                 flash[:success] = "Thank you for your comment."
             else
@@ -89,11 +96,24 @@ class CommentsController < ApplicationController
 
     def destroy
         @comment = current_user.comments.find(params[:id])
+        @post = @comment.commented_post
+        raise "can't find post" if @post.nil?
+        Event.create!(benefactor_id: @comment.commenter_id, 
+          beneficiary_id: @post.user.id, 
+          event: "delete comment", value: ShoolooV2::COMMENT_DELETE)
+        if @post.user.admin? || @post.user.role == "teacher"
+          Event.create!(benefactor_id: @comment.commenter_id, 
+            beneficiary_id: @post.user.id, 
+            event: "delete comment bounus", value: ShoolooV2::COMMENT_BONUS_DELETE)
+        end 
         @comment.destroy
         current_user.comment_count -=1
-        current_user.save
-        sign_in current_user
-        redirect_to gift_receiving_path
+        current_user.save(validate: false)
+        sign_in current_user         
+        @post.comments_count -=1
+        @post.save!(validate: false) 
+        flash[:notice] = "Sorry... You've just #{ActionController::Base.helpers.link_to "lost some points", gift_receiving_path} from your friend.".html_safe 
+        redirect_to new_post_comment_path(@post)
     end
 
     def correct_user

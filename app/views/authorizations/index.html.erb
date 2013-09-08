@@ -4,7 +4,7 @@
 
 <% if @auth_seekers.any? %>
 	<div class="about">
-		<p>The following students have requested your authorization. Once more than 15 students appear in the following list, a "Grant Authorization" button will appear right beside each student name, and you will be able to authorize them to publish posts and comments.</p>
+		<p>The following students have requested your authorization.</p>
 	</div>
 	<% @auth_seekers.each do |user| %>
 		<ul class="posts">
@@ -27,6 +27,6 @@
 	<% end %> 
 <% else %>
 	<div class="about">
-		<p> No students have requested your authorization yet. You won't be able to publish any posts/comments or grant authorizations to anyone unless at least 15 of your students have requested your authorization.</p>
+		<p> No students have requested your authorization yet. Watch this <%= link_to "video tutorial", video_path(2) %> to find out how to get your students to create their own accounts.</p>
 	</div>
 <% end %>

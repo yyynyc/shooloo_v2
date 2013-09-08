@@ -935,3 +935,17 @@ iframe {
   border-left: 1px solid $grayLighter;
   padding-left: 3.5em;
 }
+
+.accept {
+  color: green;
+}
+
+.decline {
+  color: red;
+}
+
+.chisel {
+  font-weight: bold;
+  font-size: 1.2em;
+  text-shadow: -1.5px 1px 0.5px #000;
+}

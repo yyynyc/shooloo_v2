@@ -102,16 +102,4 @@ class Post < ActiveRecord::Base
     Event.create!(benefactor_id: self.user_id, beneficiary_id: 1, 
         event: "delete post", value: ShoolooV2::POST_DELETE)
   end
-
-  # after_update do
-  #   self.commenters.uniq.each do |commenter|
-  #     Activity.create!(action: "update", trackable: self, 
-  #       user_id: self.user_id, recipient_id: commenter.id)
-  #   end
-
-  #   self.raters.uniq.each do |rater|
-  #     Activity.create!(action: "update", trackable: self, 
-  #       user_id: self.user_id, recipient_id: rater.id)
-  #   end
-  # end
 end

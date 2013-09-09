@@ -36,12 +36,7 @@
           <p>Keep up with the good work!</p>
           </div>
         <% else %>
-          <h1> Let's get moving!</h1>
-          <p class='center'><img src="/attachments/moving.gif" alt="Shooloo Math Can Do" align="center"></p>
-          <div class='about'>
-          <p>You have not published any posts yet. Use the form on the left and <strong>publish</strong> your own posts.</p>
-          <p>Impress your friends now!</p>
-          </div>
+          <%= render 'post_welcome' %>
         <% end %>        
       </div> 
    	<% end %>

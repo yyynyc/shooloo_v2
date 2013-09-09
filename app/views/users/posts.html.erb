@@ -18,13 +18,8 @@
     </h3>           
   	<% if @user.posts.count == 0 %>
     <div class="box">
-      <% if current_user?(@user) %> 
-  		  <h1> Let's get moving!</h1>
-        <p class='center'><img src="/attachments/moving.gif" alt="Shooloo Math Can Do" align="center"></p>
-        <div class='about'>
-        <p>Use the form on the left and <strong>publish</strong> your own posts.</p>
-        <p>Impress your friends now!</p>
-        </div>
+      <% if current_user?(@user) %>
+        <%= render 'post_welcome' %>
       <% else %>
         <h1> How Boring<br/> this page seems!</h1>
         <p class='center'><img src="/attachments/bored.gif" alt="Shooloo Math Can Do" align="center"></p>

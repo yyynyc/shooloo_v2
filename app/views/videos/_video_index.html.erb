@@ -52,22 +52,48 @@
 				<p class="post_review_answer" itemprop="caption"><%= link_to video.title, video_path(video) %></p>
 				<meta itemprop="productionCompany" content="Shooloo Inc.">
 				<meta itemprop="duration" content="<%= video.duration %>">
-				<meta itemprop="keywords" content="<%= video.tags %>">
-				<p><strong>Time length: </strong><%= video.length %> minutes</p> 
-				<p><strong>Category: </strong><%= video.category.name %>,
-				<strong>Keywords: </strong><%= video.tags %></span></p>
-				<% if !video.practice_id.nil? %>
-					<%= render partial: 'video_practice', locals: {video: video} %>
-				<% end %>
-				<% if !video.standard_id.nil? %>
-					<%= render partial: 'video_standard', locals: {video: video} %>
-				<% end %>	
-				<p>
-					<strong>Description: </strong>
-					<span itemprop="description"><%= video.description %></span>
-				</p>
+				<!-- <meta itemprop="keywords" content="<%= video.tags %>"> -->
+				<table>
+					<tr>
+						<td class="video_column">
+							Time length:
+						</td>
+						<td>
+							<%= video.length %> minutes
+						</td>
+					</tr>
+					<tr>
+						<td class="video_column">
+							Category:
+						</td>
+						<td>
+							<%= video.category.name %>
+						</td>
+					</tr>
+					<tr>
+						<td class="video_column">
+							Keywords: 
+						</td>
+						<td itemprop="keywords">
+							<%= video.tags %>
+						</td>
+					</tr>
+					<% if !video.practice_id.nil? %>
+						<%= render partial: 'video_practice', locals: {video: video} %>
+					<% end %>
+					<% if !video.standard_id.nil? %>
+						<%= render partial: 'video_standard', locals: {video: video} %>
+					<% end %>	
+					<tr>
+						<td class="video_column top">
+							Description:
+						</td>
+						<td itemprop="description">
+							<%= video.description %>
+						</td>
+					</tr>
+				</table>
 			</div>			
-			
 		</li>
 	</ul>
 <% end %>

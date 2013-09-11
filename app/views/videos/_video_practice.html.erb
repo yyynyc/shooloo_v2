@@ -1,8 +1,13 @@
-<div itemscope itemtype="http://schema.org/AlignmentObject">
+<tr itemscope itemtype="http://schema.org/AlignmentObject">
     <meta itemprop="educationalFramework" content="Common Core State Standard">
     <meta itemprop="alignmentType" content="requires">   
     <meta itemprop="targetUrl" content="<%= video.practice.url %>">
     <meta itemprop="targetDescription" content="<%= video.practice.description %>">
     <meta itemprop="targetName" content="<%= video.practice.symbol %>">
-    <p><strong>CCSS Practice:</strong> <%= video.practice.name %></p>
-</div>	
+    <td class="video_column">
+    	CCSS Practice:
+    </td>
+    <td>
+    	<%= video.practice.name %>
+    </td>
+</tr>	

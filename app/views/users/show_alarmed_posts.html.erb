@@ -27,18 +27,20 @@
   		</ol>
   		<%= will_paginate @alarmed_posts %>
     <% else %>          
-      <div class="box">        
-        <% if current_user.posts.visible.any? %>
+      <% if current_user.posts.visible.any? %>
+        <div class="box">  
           <h1> Good work!</h1>
-          <p class='center'><img src="/attachments/thumb_up.gif" alt="Shooloo Math Can Do" align="center"></p>
+          <p class='center'>
+            <img src="/attachments/thumb_up.gif" alt="Shooloo Math Can Do" align="center">
+          </p>
           <div class='about'>
-          <p>All of your published posts are clean.</p>
-          <p>Keep up with the good work!</p>
+            <p>All of your published posts are clean.</p>
+            <p>Keep up with the good work!</p>
           </div>
-        <% else %>
-          <%= render 'post_welcome' %>
-        <% end %>        
-      </div> 
+        </div>
+      <% else %>
+        <%= render 'post_welcome' %>
+      <% end %>         
    	<% end %>
 	</div>
 </div>

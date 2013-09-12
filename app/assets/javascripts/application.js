@@ -19,16 +19,16 @@
 //= require_tree .
 
 $(function ()  
-{ $(".like").tooltip({trigger: 'click', placement: 'bottom'});  
+{ $(".like").tooltip({trigger: 'hover', placement: 'bottom'});  
 }); 
 $(function ()  
-{ $(".like_comment").tooltip({trigger: 'click', placement: 'bottom'});  
+{ $(".like_comment").tooltip({trigger: 'hover', placement: 'bottom'});  
 });
 $(function ()  
-{ $(".rate").tooltip({trigger: 'click', placement: 'bottom'});  
+{ $(".rate").tooltip({trigger: 'hover', placement: 'bottom'});  
 });
 $(function ()  
-{ $(".comment").tooltip({trigger: 'click', placement: 'bottom'});  
+{ $(".comment").tooltip({trigger: 'hover', placement: 'bottom'});  
 });
 $(function ()  
 { $(".question").popover({trigger: 'click', placement: 'left', html: true});  

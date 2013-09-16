@@ -106,8 +106,8 @@
 				          		<% elsif current_user.role == "parent" %> 
 				              		<%= link_to "Read more", new_post_rating_path(post)  %>
 				          		<% else %>				
-				          			<%= link_to "Read more", new_post_comment_path(post) %>.
-				          		<% end %>
+				          			<%= link_to "Read more", new_post_comment_path(post) %>
+				          		<% end %> |
 				          		<% if current_user.admin? || current_user.role == "teacher" %>
 						            <%= link_to "Teacher View", post_teacher_view_path(post) %> 
 						        <% end %> 		

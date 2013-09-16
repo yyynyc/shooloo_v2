@@ -13,6 +13,7 @@ class Ability
             can :update, [Authorization, Referral]
             can [:create, :destroy], [Referral, Authorization]
             can :manage, Alarm
+            can :teacher_view, Post
             can :crud, [Post, Comment, Invite, Rating]
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :read, :all

@@ -52,9 +52,8 @@
           <span class='search-label'> 
             <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), new_post_comment_path(feed_item), class: "btn btn-small btn-success" %> 
           </span>  
-          <% if current_user.admin? %>
-            <%#= link_to "Teacher Edits ", edit_post_path(feed_item), title: "Edit Post", class: "btn btn-small btn-danger" %>
-            <%#= render partial: 'shared/teacher_grade', locals: { local_object: feed_item } %>
+          <% if current_user.admin? || current_user.role == "teacher" %>
+            <%= link_to "Teacher", post_teacher_view_path(feed_item), class: "btn btn-small btn-danger" %> 
           <% end %>                
         </span>
       </div>

@@ -76,6 +76,19 @@ class PostsController < ApplicationController
     redirect_to root_url
   end
 
+  def teacher_view
+    @post  = Post.find(params[:post_id])
+    @comments = @post.comments.paginate(page: params[:page],
+        order: 'created_at DESC')
+    @alarm = Alarm.new
+    @rating = Rating.new
+    @like = Like.new
+    @liked_post = @like.liked_post
+    @liked_comment = @like.liked_comment
+    @comment=current_user.comments.build(params[:comment])
+    @comment.commented_post=@post  
+  end
+
   def correct_user
       @post = current_user.posts.find_by_id(params[:id])
       redirect_to root_url if @post.nil?

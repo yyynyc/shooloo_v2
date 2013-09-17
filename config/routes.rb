@@ -11,7 +11,7 @@ resources :users do
         :change_password, :common_core_I_can, :student_common_core
     post :update_password
   end
-  collection { post :search, to: 'users#index' }
+  collection { get :search, to: 'users#index' }
 end
 
 resources :sessions, only: [:new, :create, :destroy]

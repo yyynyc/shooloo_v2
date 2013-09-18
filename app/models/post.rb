@@ -30,7 +30,7 @@ class Post < ActiveRecord::Base
   has_many :raters, through: :ratings, source: :rater
 
   has_many :comments, foreign_key: "commented_post_id", dependent: :destroy, 
-          order: "comments.updated_at DESC"
+          order: "comments.created_at DESC"
   has_many :commenters, through: :comments, source: :commenter
 
   has_many :likes, foreign_key: "liked_post_id", dependent: :destroy

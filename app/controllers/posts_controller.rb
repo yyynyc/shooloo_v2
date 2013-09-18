@@ -23,7 +23,7 @@ class PostsController < ApplicationController
     render :action => 'index'
     set_meta_tags title: 'Common Core Math Word Problems', 
             description: 'Index of all Common Core math word problems published on Shooloo',
-            keywords: 'Shooloo, common core, CCSS, math, word problem, critique, rate, real life, cooperative learning'
+            keywords: 'Shooloo, Common Core, CCSS, math, word problem, critique, rate, real life, cooperative learning'
   end
 
   def create

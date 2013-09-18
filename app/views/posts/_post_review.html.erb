@@ -48,10 +48,16 @@
     </div>  
   </div>
   <div class="span7 normal-font">         
-    <p><strong>Question: </strong><%= simple_format(@post.question) %></p>
-    <p><strong>Answer: </strong><%= @post.answer %><i><span class="no"> - Is this answer correct?</span></i></p>
+    <p>
+      <strong>Question: </strong><%= simple_format(@post.question) %>
+    </p>
+    <p>
+      <strong>Answer: </strong><%= @post.answer %><i><span class="no"> - Is this answer correct?</span></i>
+    </p>
     <% unless @post.level.nil? %>
-      <p><strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %><i><span class="no"> - Is this "I can" statement suitable for this question?</span></i></p>
+      <p>
+        <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %><i><span class="no"> - Is this "I can" statement suitable for this question?</span></i>
+      </p>
     <% end %>
-  </span>
+  </div>
 </div>

@@ -55,9 +55,9 @@
     	</a>
     </div>
     <div id="collapseOne" class="accordion-body collapse">    	
-		<div class="accordion-toggle">    				
-			<p><%= @post.answer %><i><span class="no"> - Is this answer correct?</span></i></p>
-		</div>		   		
+  		<div class="accordion-toggle">    				
+  			<p><%= @post.answer %><i><span class="no"> - Is this answer correct?</span></i></p>
+  		</div>		   		
     </div>
     <% unless @post.level.nil? %>
 	    <div class="accorion-heading">
@@ -66,9 +66,9 @@
 	      	</a>
 	    </div>
 	    <div id="collapseTwo" class="accordion-body collapse">	    	
-			<div class="accordion-toggle">  
-      			<p>In <%= @post.domain.name %>, <%= @post.standard.ICan %><i><span class="no"> - Is this "I can" statement suitable for this question?</span></i></p>
-      		</div>	   
+			  <div class="accordion-toggle">  
+    			<p>In <%= @post.domain.name %>, <%= @post.standard.ICan %><i><span class="no"> - Is this "I can" statement suitable for this question?</span></i></p>
+    		</div>	   
 	    </div>
     <% end %>
   </div>
@@ -85,13 +85,13 @@
 			<ol class="posts">
 			  <% unless @comments.hidden.blank? %>
 			  	<div class="accorion-heading">
-					<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseAlarmed">
-						<p>Alarmed Comments</p>
-					</a>
-				</div>
-				<div id="collapseAlarmed" class="accordion-body collapse">
+  					<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseAlarmed">
+  						<h4>Alarmed Comments</h4>
+  					</a>
+  				</div>
+				  <div id="collapseAlarmed" class="accordion-body collapse">
 			    	<div class="well well-small">
-						<div class="accordion-toggle">    		
+						  <div class="accordion-toggle">    		
 			    			<%= render @comments.hidden %>
 			    		</div>
 			    	</div>

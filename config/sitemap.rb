@@ -40,7 +40,7 @@ SitemapGenerator::Sitemap.create do
     add video_path(video), :lastmod => video.updated_at,
     :priority => 0.8, :changefreq => 'daily',
     :video => {
-      :thumbnail_loc => "#{video.thumbnail.url}" ,
+      :thumbnail_loc => "https://fun.shooloo.org#{video.thumbnail.url}" ,
       :title => "#{video.title}",
       :description => "#{video.description}",
       :player_loc => "#{video.player_loc}",

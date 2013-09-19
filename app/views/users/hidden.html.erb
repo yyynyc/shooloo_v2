@@ -8,8 +8,8 @@
 <% if signed_in? && current_user.admin? %>
 	<p>
 	  Download:
-	  <%= link_to "CSV", users_path(format: "csv") %> |
-	  <%= link_to "Excel", users_path(format: "xls") %>
+	  <%= link_to "CSV", search_hidden_users_path(format: "csv") %> |
+	  <%= link_to "Excel", search_hidden_users_path(format: "xls") %>
 	</p>
 <% end %>
 
@@ -18,7 +18,7 @@
 	<%= render partial: 'users/user_search', locals: {f: f} %>
 <% end %>
 
-<% @users_hidden.each do |user| %>
+<% @users_hidden_paginate.each do |user| %>
 	<%= render partial: 'users/user_list', locals: {user: user} %>
 <% end %>
-<%= will_paginate @users_hidden %>
+<%= will_paginate @users_hidden_paginate %>

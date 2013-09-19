@@ -14,7 +14,7 @@
 	<%= render partial: 'users/user_search', locals: {f: f} %>
 <% end %>
 
-<% @users.each do |user| %>
+<% @users_paginate.each do |user| %>
 	<%= render partial: 'users/user_list', locals: {user: user} %>
 <% end %>
-<%= will_paginate @users %>
+<%= will_paginate @users_paginate %>

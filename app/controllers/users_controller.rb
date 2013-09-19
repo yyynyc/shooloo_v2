@@ -26,11 +26,12 @@ class UsersController < ApplicationController
 
   def index
     @search = User.visible.search(params[:q])
-    @users = @search.result.paginate(page: params[:page], 
+    @users = @search.result(order: 'created_at DESC')
+    @users_paginate = @search.result.paginate(page: params[:page], 
       per_page: 30, order: 'comment_count DESC, rating_count DESC, post_count DESC, following_count DESC, gift_received_count DESC, created_at ASC')
     @search.build_condition
     respond_to do |format|
-      format.html
+      format.html { @users_paginate }
       format.csv { send_data @users.to_csv }
       format.xls
     end
@@ -42,13 +43,14 @@ class UsersController < ApplicationController
 
   def hidden
     @search_hidden = User.hidden.search(params[:q])
-    @users_hidden = @search_hidden.result.paginate(page: params[:page], 
-      per_page: 30, order: 'created_at DESC')
+    @users_hidden_paginate = @search_hidden.result.paginate(page: params[:page], 
+          per_page: 30, order: 'created_at DESC')
+    @users_hidden = User.hidden.all(order: 'created_at DESC')
     @search_hidden.build_condition
     respond_to do |format|
-      format.html
+      format.html { @users_hidden_paginate }
       format.csv { send_data @users_hidden.to_csv }
-      format.xls 
+      format.xls
     end
     # render 'hidden'
     set_meta_tags title: 'Hidden Users', 

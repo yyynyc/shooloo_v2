@@ -6,7 +6,7 @@ resources :users do
         :posts, :rated_posts, :commented_posts, :alarmed_posts,
         :comments, :alarmed_comments, 
         :liked_posts, :liked_comments, 
-        :inviter, :invited, 
+        :inviter, :invited,
         :show_activity, :my_abilities, :gift_receiving, :gift_giving, 
         :change_password, :common_core_I_can, :student_common_core
     post :update_password

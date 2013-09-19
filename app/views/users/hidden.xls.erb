@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="hidden_users">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">ID</Data></Cell>
+        <Cell><Data ss:Type="String">Personal_Email</Data></Cell>        
+        <Cell><Data ss:Type="String">Screen_Name</Data></Cell>
+        <Cell><Data ss:Type="String">Role</Data></Cell>
+        <Cell><Data ss:Type="String">Created_At</Data></Cell>
+      </Row>
+    <% @users.each do |user| %>
+      <Row>
+        <Cell><Data ss:Type="Number"><%= user.id %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.personal_email %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.screen_name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.role %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.created_at %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

@@ -1,7 +1,7 @@
 ENV['SSL_CERT_FILE'] = File.join(File.dirname(__FILE__), 'cacert.pem')
 
 require File.expand_path('../boot', __FILE__)
-
+require 'csv'
 # Pick the frameworks you want:
 require "active_record/railtie"
 require "action_controller/railtie"

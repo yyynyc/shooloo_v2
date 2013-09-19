@@ -5,8 +5,16 @@
 
 <h1>Hidden Users</h1>
 
-<%= search_form_for @search_hidden, url: search_users_path, 
-		method: :post do |f| %>
+<% if signed_in? && current_user.admin? %>
+	<p>
+	  Download:
+	  <%= link_to "CSV", users_path(format: "csv") %> |
+	  <%= link_to "Excel", users_path(format: "xls") %>
+	</p>
+<% end %>
+
+<%= search_form_for @search_hidden, url: search_hidden_users_path, 
+		method: :get do |f| %>
 	<%= render partial: 'users/user_search', locals: {f: f} %>
 <% end %>
 

@@ -357,6 +357,15 @@ class User < ActiveRecord::Base
     User.all.each { |u| UserMailer.activity_alert(u).deliver }
   end
 
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << column_names
+      all.each do |user|
+        csv << user.attributes.values_at(*column_names)
+      end
+    end
+  end
+
 private
 
   def create_remember_token

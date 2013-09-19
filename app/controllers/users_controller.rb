@@ -29,6 +29,11 @@ class UsersController < ApplicationController
     @users = @search.result.paginate(page: params[:page], 
       per_page: 30, order: 'comment_count DESC, rating_count DESC, post_count DESC, following_count DESC, gift_received_count DESC, created_at ASC')
     @search.build_condition
+    respond_to do |format|
+      format.html
+      format.csv { send_data @users.to_csv }
+      format.xls
+    end
     set_meta_tags title: 'Members', 
         description: "index of Shooloo members",
         noindex: true,
@@ -40,7 +45,12 @@ class UsersController < ApplicationController
     @users_hidden = @search_hidden.result.paginate(page: params[:page], 
       per_page: 30, order: 'created_at DESC')
     @search_hidden.build_condition
-    render 'hidden'
+    respond_to do |format|
+      format.html
+      format.csv { send_data @users_hidden.to_csv }
+      format.xls 
+    end
+    # render 'hidden'
     set_meta_tags title: 'Hidden Users', 
         description: "List of Shooloo users that have not been approved of memberships",
         noindex: true,

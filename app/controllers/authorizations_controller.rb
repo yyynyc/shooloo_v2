@@ -27,7 +27,7 @@ class AuthorizationsController < ApplicationController
   end
 
   def index
-    @auth_seekers = current_user.authorized_users.all 
+    @auth_seekers = current_user.authorized_users.order('grade ASC, last_name ASC') 
     set_meta_tags title: 'Grant Authorization', 
         description: 'Shooloo teacher grants authorization to publish posts and comments', 
         noindex: true,

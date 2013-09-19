@@ -12,7 +12,8 @@ resources :users do
     post :update_password
   end
   collection do 
-    get :search, to: 'users#index' 
+    get :search, to: 'users#index'
+    get :search_hidden, to: 'users#hidden' 
   end
 end
 

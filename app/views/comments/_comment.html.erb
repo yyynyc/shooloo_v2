@@ -14,8 +14,7 @@
 			</span>
 			<span>								
 				<%= link_to comment.commenter.screen_name, posts_user_path(comment.commenter) %> 
-				<span class="timestamp"> in grade </span>
-				<%= comment.commenter.grade %>
+				<span class="timestamp">- </span><% if !comment.commenter.grade.nil? %>grade <%= comment.commenter.grade %> <% end %><%= comment.commenter.role %><span class="timestamp"> -</span>
 				<span class="timestamp"> commented on </span>
 				<%= comment.created_at.strftime("%b %d, %Y") %>.
 				<% if current_user?(comment.commenter) %> 

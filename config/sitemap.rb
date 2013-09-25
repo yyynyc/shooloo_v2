@@ -50,7 +50,7 @@ SitemapGenerator::Sitemap.create do
       :allow_embed => 'yes',
       :autoplay => 'yes',
       :family_friendly => 'yes',
-      :gallery_loc => videos_path,
+      :gallery_loc => "https://fun.shooloo.org#{videos_path}",
       :gallery_title => 'Shooloo Video Tutorials'
     }
   end

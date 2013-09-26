@@ -12,31 +12,35 @@
 		<meta itemprop="duration" content="<%= @video.duration %>">
 		<meta itemprop="videoFrameSize" content="500x375">
 		<meta itemprop="videoQuality" content="high">
-		<p class="center"><iframe width="500" height="375" src="<%= @video.player_loc %>" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe></p>
-		<table class="normal-font">
-			<% if !@video.practice_id.nil? %>
-				<%= render partial: 'video_practice', locals: {video: @video} %>
-			<% end %>
-			<% if !@video.standard_id.nil? %>
-				<%= render partial: 'video_standard', locals: {video: @video} %>
-			<% end %>	
-			<tr>
-				<td class="video_column">
-					Keywords:
-				</td>
-				<td itemprop="keywords">
-					<%= @video.tags %>
-				</td>
-			</tr>
-			<tr>
-				<td class="video_column top">
-					Description:
-				</td>
-				<td itemprop="description">
-					<%= @video.description %>
-				</td>
-			</tr>
-		</table>
+		<p>
+			<%= render partial: 'video_player', locals: {video: @video} %>
+		</p>
+		<p>
+			<table class="normal-font">
+				<% if !@video.practice_id.nil? %>
+					<%= render partial: 'video_practice', locals: {video: @video} %>
+				<% end %>
+				<% if !@video.standard_id.nil? %>
+					<%= render partial: 'video_standard', locals: {video: @video} %>
+				<% end %>	
+				<tr>
+					<td class="video_column">
+						Keywords:
+					</td>
+					<td itemprop="keywords">
+						<%= @video.tags %>
+					</td>
+				</tr>
+				<tr>
+					<td class="video_column top">
+						Description:
+					</td>
+					<td itemprop="description">
+						<%= @video.description %>
+					</td>
+				</tr>
+			</table>
+		</p>
 		<% unless @video.content.blank? %>
 			<h4>Details</h4>
 			<p><%= @video.content %></p>
@@ -50,8 +54,8 @@
 	</div>
 	<div class="span3 video-border-left">
 		<h3> Related Videos </h3>
-		<% if @similar_videos.count > 0 %>
-			<% @similar_videos.each do |video| %>
+		<% if @videos.count > 0 %>
+			<% @videos.each do |video| %>
 				<ul class="users">
 	  				<li itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
 	  					<meta itemprop="thumbnailUrl" content="https://fun.shooloo.org<%= video.thumbnail.url %>">

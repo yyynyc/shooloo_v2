@@ -75,27 +75,13 @@ $(document).ready(function(){
       $("#jquery_jplayer_1").jPlayer({
         ready: function () {
           $(this).jPlayer("setMedia", {
-            mp4: "https://fun.shooloo.org/video/shooloo_home.mp4",
+            m4v: "https://fun.shooloo.org/video/shooloo_home.mp4",
             ogv: "https://fun.shooloo.org/video/shooloo_home.ogv",
             webmv: "https://fun.shooloo.org/video/shooloo_home.webm",
             poster: "https://fun.shooloo.org/video/shooloo_home_skin_480px.png"
           });
         },
-        swfPath: "/js",
-        supplied: "mp4, ogv, webmv",
-      });
-    });
-$(document).ready(function(){
-      $("#jquery_jplayer_2").jPlayer({
-        ready: function () {
-          $(this).jPlayer("setMedia", {
-            mp4: "https://fun.shooloo.org/video/shooloo_home.mp4",
-            ogv: "https://fun.shooloo.org/video/shooloo_home.ogv",
-            webmv: "https://fun.shooloo.org/video/shooloo_home.webm",
-            poster: "https://fun.shooloo.org/video/shooloo_home_skin_480px.png"
-          });
-        },
-        swfPath: "/js",
-        supplied: "mp4, ogv, webmv",
+        swfPath: "/x-shockwave-flash",
+        supplied: "m4v, ogv, webmv",
       });
     });

@@ -45,6 +45,7 @@ class VideosController < ApplicationController
 		if request.path != video_path(@video)
 		    redirect_to @video, status: :moved_permanently
 		end
+		@videos = Video.all.reject {|v| v.id==@video.id}
 		@similar_videos = Video.where(category_id: @video.category.id).reject {|v| v.id==@video.id}
 	end
 

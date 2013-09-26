@@ -75,11 +75,11 @@ $(document).ready(function(){
       $("#jquery_jplayer_1").jPlayer({
         ready: function () {
           $(this).jPlayer("setMedia", {
-            m4v: "https://fun.shooloo.org/video/shooloo_home.mp4",
-            ogv: "https://fun.shooloo.org/video/shooloo_home.ogv",
-            webmv: "https://fun.shooloo.org/video/shooloo_home.webm",
-            flv: "https://fun.shooloo.org/video/shooloo_home.flv",
-            poster: "https://fun.shooloo.org/video/shooloo_home_520px.png"
+            m4v: "https://fun.shooloo.org/attachments/jplayer/shooloo_home.mp4",
+            ogv: "https://fun.shooloo.org/attachments/jplayer/shooloo_home.ogv",
+            webmv: "https://fun.shooloo.org/attachments/jplayer/shooloo_home.webm",
+            flv: "https://fun.shooloo.org/attachments/jplayer/shooloo_home.flv",
+            poster: "https://fun.shooloo.org/attachments/jplayer/shooloo_home_520px.png"
           });
         },
         swfPath: "/x-shockwave-flash",
@@ -90,10 +90,10 @@ $(document).ready(function(){
       $("#video-1").jPlayer({
         ready: function () {
           $(this).jPlayer("setMedia", {
-            m4v: "https://fun.shooloo.org/video/shooloo_signup.mp4",
-            ogv: "https://fun.shooloo.org/video/shooloo_signup.ogv",
-            webmv: "https://fun.shooloo.org/video/shooloo_signup.webm",
-            poster: "https://fun.shooloo.org/video/shooloo_signup_520px.png"
+            m4v: "https://fun.shooloo.org/attachments/jplayer/shooloo_signup.mp4",
+            ogv: "https://fun.shooloo.org/attachments/jplayer/shooloo_signup.ogv",
+            webmv: "https://fun.shooloo.org/attachments/jplayer/shooloo_signup.webm",
+            poster: "https://fun.shooloo.org/attachments/jplayer/shooloo_signup_520px.png"
           });
         },
         swfPath: "/x-shockwave-flash",
@@ -104,10 +104,10 @@ $(document).ready(function(){
       $("#video-2").jPlayer({
         ready: function () {
           $(this).jPlayer("setMedia", {
-            m4v: "https://fun.shooloo.org/video/shooloo_signup_teacher.mp4",
-            ogv: "https://fun.shooloo.org/video/shooloo_signup_teacher.ogv",
-            webmv: "https://fun.shooloo.org/video/shooloo_signup_teacher.webm",
-            poster: "https://fun.shooloo.org/video/shooloo_signup_teacher_520px.png"
+            m4v: "https://fun.shooloo.org/attachments/jplayer/shooloo_signup_teacher.mp4",
+            ogv: "https://fun.shooloo.org/attachments/jplayer/shooloo_signup_teacher.ogv",
+            webmv: "https://fun.shooloo.org/attachments/jplayer/shooloo_signup_teacher.webm",
+            poster: "https://fun.shooloo.org/attachments/jplayer/shooloo_signup_teacher_520px.png"
           });
         },
         swfPath: "/x-shockwave-flash",
@@ -118,10 +118,10 @@ $(document).ready(function(){
       $("#video-3").jPlayer({
         ready: function () {
           $(this).jPlayer("setMedia", {
-            m4v: "https://fun.shooloo.org/video/shooloo_overview.mp4",
-            ogv: "https://fun.shooloo.org/video/shooloo_overview.ogv",
-            webmv: "https://fun.shooloo.org/video/shooloo_overview.webm",
-            poster: "https://fun.shooloo.org/video/shooloo_overview_520px.png"
+            m4v: "https://fun.shooloo.org/attachments/jplayer/shooloo_overview.mp4",
+            ogv: "https://fun.shooloo.org/attachments/jplayer/shooloo_overview.ogv",
+            webmv: "https://fun.shooloo.org/attachments/jplayer/shooloo_overview.webm",
+            poster: "https://fun.shooloo.org/attachments/jplayer/shooloo_overview_520px.png"
           });
         },
         swfPath: "/x-shockwave-flash",
@@ -132,10 +132,10 @@ $(document).ready(function(){
       $("#video-4").jPlayer({
         ready: function () {
           $(this).jPlayer("setMedia", {
-            m4v: "https://fun.shooloo.org/video/shooloo_post.mp4",
-            ogv: "https://fun.shooloo.org/video/shooloo_post.ogv",
-            webmv: "https://fun.shooloo.org/video/shooloo_post.webm",
-            poster: "https://fun.shooloo.org/video/shooloo_post_520px.png"
+            m4v: "https://fun.shooloo.org/attachments/jplayer/shooloo_post.mp4",
+            ogv: "https://fun.shooloo.org/attachments/jplayer/shooloo_post.ogv",
+            webmv: "https://fun.shooloo.org/attachments/jplayer/shooloo_post.webm",
+            poster: "https://fun.shooloo.org/attachments/jplayer/shooloo_post_520px.png"
           });
         },
         swfPath: "/x-shockwave-flash",
@@ -146,10 +146,10 @@ $(document).ready(function(){
       $("#video-5").jPlayer({
         ready: function () {
           $(this).jPlayer("setMedia", {
-            m4v: "https://fun.shooloo.org/video/shooloo_comment.mp4",
-            ogv: "https://fun.shooloo.org/video/shooloo_comment.ogv",
-            webmv: "https://fun.shooloo.org/video/shooloo_comment.webm",
-            poster: "https://fun.shooloo.org/video/shooloo_comment_520px.png"
+            m4v: "https://fun.shooloo.org/attachments/jplayer/shooloo_comment.mp4",
+            ogv: "https://fun.shooloo.org/attachments/jplayer/shooloo_comment.ogv",
+            webmv: "https://fun.shooloo.org/attachments/jplayer/shooloo_comment.webm",
+            poster: "https://fun.shooloo.org/attachments/jplayer/shooloo_comment_520px.png"
           });
         },
         swfPath: "/x-shockwave-flash",

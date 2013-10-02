@@ -1,7 +1,16 @@
 <% provide(:title, "Teacher View") %> 
 <div class="row">   
-  <div class="post_review_user_info">     
-    <%= render partial: 'posts/post_user', locals: {post: @post} %>
+  <div class="post_review_user_info">
+    <div class="accorion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseUser">
+          <p><strong>Author Information:</strong></p>
+        </a>
+    </div>
+    <div id="collapseUser" class="accordion-body collapse">        
+      <div class="accordion-toggle">  
+        <%= render partial: 'posts/post_user', locals: {post: @post} %>
+      </div>     
+    </div>     
     <% if !@post.visible? %>   
       <% if current_user.admin? || current_user.role == "teacher" %>
         <div class="btn-formtastic">

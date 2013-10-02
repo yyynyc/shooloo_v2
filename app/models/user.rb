@@ -146,8 +146,7 @@ class User < ActiveRecord::Base
   validates :school_name, presence: true, length: {maximum: 100}, on: :update,
     :if => :verify_student_or_teacher
   validates :personal_email, format: { with: VALID_EMAIL_REGEX },
-    uniqueness: {case_sensitive: false}, presence: true, on: :update,
-    :unless => :verify_student
+    presence: true, on: :update
   validates :school_url, presence: true, :if => :verify_teacher
   validates :social_media_url, presence: true, :if => :verify_other
   #validates_presence_of :school_name, :if => :active_student?

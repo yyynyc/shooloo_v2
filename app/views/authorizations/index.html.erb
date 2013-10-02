@@ -4,21 +4,31 @@
 
 <% if @auth_seekers.any? %>
 	<div class="about">
-		<p>The following students have requested your authorization.</p>
+		<p>The following students (sorted by grade first then by last name) have requested your authorization.</p>
 	</div>
 	<% @auth_seekers.each do |user| %>
 		<ul class="posts">
   			<li>
-  				<div class='row'>	  		
-    				<div class="span1 offset1">
+  				<div class='row'>
+  					<div class="span1 center">
+    					Grade</br>
+    					<strong><%= user.grade %></strong>
+    				</div>	  		
+    				<div class="span1">
     					<%= link_to image_tag(user.avatar.url (:small), :alt => "Shooloo member #{user.screen_name}", :title => "Shooloo member #{user.screen_name}"), posts_user_path(user) %>
     				</div>
     				<div class='span3'>
-    					<strong>Real name: </strong><%= user.first_name %> <%= user.last_name %></br>
-    					<strong>Grade:</strong> <%= user.grade %></br>
-    					<strong>Screen name:</strong> <%= user.screen_name %>
+    					<strong>Real name: </strong><%= user.last_name %>, <%= user.first_name %> </br>
+    					<strong>Screen name:</strong> <%= user.screen_name %><br/>
+    					published <%= link_to pluralize(user.post_count, "post"), posts_user_path(user) %>,<br/> 
+			      		made <%= link_to pluralize(user.comment_count, "comment"), commented_posts_user_path(user) %>.
 					</div>
-					<div class='span5' >
+					<div class='span2 center'>
+						<%= render partial: 'authorizations/reset_password_form', locals: {user: user} %>
+						<%#= link_to "delete off roaster", user.authorizations.find_by_authorizer_id(current_user.id), method: :teacher_delete_authorization, data: {confirm: "Are you sure?"}, class: "btn btn-small"%>
+
+					</div>
+					<div class='span3 center' >
 						<%= render partial: 'authorizations/auth_grant', locals: {user: user} %>
 					</div>
 				</div>

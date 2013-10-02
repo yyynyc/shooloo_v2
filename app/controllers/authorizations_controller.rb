@@ -47,4 +47,17 @@ class AuthorizationsController < ApplicationController
     current_user.auth_decline!(@user)
     respond_with @user    
   end
+
+  def reset_student_password
+    @user = User.find(params[:id])
+    @user.update_attributes(params[:user])
+    current_user.reset_password!(@user)
+    respond_with @user
+  end
+
+  def teacher_delete_authorization
+    current_user.auth_withdraw!
+    flash[:success] = "User has been deleted off your student roster."
+    redirect_to authorizations_path
+  end
 end

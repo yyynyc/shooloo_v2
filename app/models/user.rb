@@ -145,8 +145,8 @@ class User < ActiveRecord::Base
   validates :grade, presence: true, :if => :verify_student, :unless => :should_validate_password? 
   validates :school_name, presence: true, length: {maximum: 100}, on: :update,
     :if => :verify_student_or_teacher
-  validates :personal_email, format: { with: VALID_EMAIL_REGEX },
-    presence: true, on: :update
+  validates :personal_email, format: { with: VALID_EMAIL_REGEX }, 
+    uniqueness: {case_sensitive: false}, presence: true, on: :update, :if => :verify_teacher_or_other
   validates :school_url, presence: true, :if => :verify_teacher
   validates :social_media_url, presence: true, :if => :verify_other
   #validates_presence_of :school_name, :if => :active_student?
@@ -157,6 +157,10 @@ class User < ActiveRecord::Base
 
   def verify_student_or_teacher
     validate_student || validate_teacher
+  end
+
+  def verify_teacher_or_other
+    validate_teacher || validate_other
   end
 
   def should_validate_password? 
@@ -255,6 +259,10 @@ class User < ActiveRecord::Base
 
   def auth_decline!(other_user)
     reverse_authorizations.find_by_authorized_id(other_user.id).update_attributes!(approval: "declined")
+  end
+
+  def reset_password!(other_user)
+    User.find_by_id(other_user.id).update_attributes!(password: "shooloo", password_confirmation: "shooloo")
   end
 
   def referred_by?(other_user)

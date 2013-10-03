@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130902224242) do
+ActiveRecord::Schema.define(:version => 20131003200147) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20130902224242) do
   end
 
   add_index "authorizations", ["authorized_id"], :name => "index_authorizations_on_authorized_id"
+  add_index "authorizations", ["authorizer_id", "authorized_id"], :name => "index_authorizations_on_authorizer_id_and_authorized_id", :unique => true
   add_index "authorizations", ["authorizer_id"], :name => "index_authorizations_on_authorizer_id"
 
   create_table "categories", :force => true do |t|

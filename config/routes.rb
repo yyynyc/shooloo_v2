@@ -54,9 +54,10 @@ resources :password_resets
 resources :authorizations do 
   member do
     put :decline, :reset_student_password
-    post :teacher_delete_authorization
+    delete :teacher_delete_auth
   end
   collection { post :search, to: 'authorizations#new' }
+  collection { get :search_student, to: 'authorizations#index' }
 end
 resources :referrals do 
   collection { post :search, to: 'referrals#new' }

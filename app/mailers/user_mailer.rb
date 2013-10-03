@@ -7,7 +7,9 @@ class UserMailer < ActionMailer::Base
   def password_reset(user)
     sendgrid_category "password reset"
     @user = user
-    mail to: user.personal_email, subject: "Shooloo Password Reset"
+    unless @user.personal_email.blank? 
+      mail to: user.personal_email, subject: "Shooloo Password Reset"
+    end
   end
 
   def parental_consent(user)
@@ -30,22 +32,27 @@ class UserMailer < ActionMailer::Base
   def sign_up_confirm(user)
     sendgrid_category "sign up confirmation"
     @user = user
-    mail to: user.personal_email, 
+    unless @user.personal_email.blank? 
+      mail to: user.personal_email, 
         subject: "Your New Shooloo Account"
+    end
   end
 
-  def auth_request(user)
+  def auth_request(authorizer, authorized)
     sendgrid_category "authoriztaion request"
-    @user = user
-    mail to: user.personal_email, 
+    @user = authorizer
+    @authorized = authorized
+      mail to: authorizer.personal_email, 
         subject: "Shooloo Authorization Request"
   end
 
   def auth_notify_yes(user)
     sendgrid_category "authorization approved"
     @user = user
-    mail to: user.personal_email, 
+    unless @user.personal_email.blank? 
+      mail to: user.personal_email, 
         subject: "#{user.first_name}: Approved Authorization from Shoooloo"
+    end
   end
 
   def auth_notify_yes_student(user)
@@ -60,15 +67,19 @@ class UserMailer < ActionMailer::Base
   def auth_notify_no (user)
     sendgrid_category "authorization declined"
     @user = user
-    mail to: user.personal_email, 
+    unless @user.personal_email.blank? 
+      mail to: user.personal_email, 
         subject: "#{user.first_name}: Authorization Declined from Shoooloo"
+    end
   end
 
   def auth_delete(user)
     sendgrid_category "authorization removed"
     @user = user
-    mail to: user.personal_email, 
+    unless @user.personal_email.blank? 
+      mail to: user.personal_email, 
         subject: "#{user.first_name}: Authorization Removed from Shoooloo"
+    end
   end
 
   def ref_request(user)
@@ -81,14 +92,18 @@ class UserMailer < ActionMailer::Base
   def ref_notify_yes(user)
     sendgrid_category "referral approved"
     @user = user
-    mail to: user.personal_email, 
+    unless @user.personal_email.blank? 
+      mail to: user.personal_email, 
         subject: "#{user.first_name}: Approved Referral from Shoooloo"
+    end
   end
 
   def ref_notify_no (user)
     sendgrid_category "referral declined"
     @user = user
-    mail to: user.personal_email, 
+    unless @user.personal_email.blank? 
+      mail to: user.personal_email, 
         subject: "#{user.first_name}: Referral Declined from Shoooloo"
+    end
   end
 end

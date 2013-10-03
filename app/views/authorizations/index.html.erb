@@ -2,6 +2,33 @@
 
 <h1>Grant Authorization</h1>
 
+<%= search_form_for @search_student, url: search_student_authorizations_path, 
+		method: :get do |f| %>
+	<p class="text_center">
+		<span class="search-label">
+			<%= f.label :first_name_cont, "First Name" %>
+		</span>
+		<span class="search-field">
+			<%= f.text_field :first_name_cont %>
+		</span>
+		<span class="search-label">
+			<%= f.label :last_name_cont, "Last Name" %>
+		</span>
+		<span class="search-field">
+			<%= f.text_field :last_name_cont %>
+		</span>
+		<span class="search-label">
+			<%= f.label :grade_eq, "Grade" %>
+		</span>
+		<span class="search-field">
+			<%= f.text_field :grade_eq %>
+		</span>	
+		<span class="search-label">
+			<%= f.submit "Search", class: "btn btn-small btn-default" %>
+		</span>
+	</p>
+<% end %>
+
 <% if @auth_seekers.any? %>
 	<div class="about">
 		<p>The following students (sorted by grade first then by last name) have requested your authorization.</p>
@@ -10,25 +37,29 @@
 		<ul class="posts">
   			<li>
   				<div class='row'>
-  					<div class="span1 center">
+  					<div class="span1 center auth-font">
     					Grade</br>
     					<strong><%= user.grade %></strong>
     				</div>	  		
     				<div class="span1">
-    					<%= link_to image_tag(user.avatar.url (:small), :alt => "Shooloo member #{user.screen_name}", :title => "Shooloo member #{user.screen_name}"), posts_user_path(user) %>
+    					<%= link_to image_tag(user.avatar.url (:small), :alt => "Shooloo member #{user.screen_name}", :title => "Shooloo member #{user.screen_name}"), common_core_I_can_user_path(user) %>
     				</div>
-    				<div class='span3'>
-    					<strong>Real name: </strong><%= user.last_name %>, <%= user.first_name %> </br>
+    				<div class='span3 auth-font'>
+    					<strong>Real name: </strong><%= link_to user.last_name, common_core_I_can_user_path(user) %>, <%= user.first_name %> </br>
     					<strong>Screen name:</strong> <%= user.screen_name %><br/>
     					published <%= link_to pluralize(user.post_count, "post"), posts_user_path(user) %>,<br/> 
 			      		made <%= link_to pluralize(user.comment_count, "comment"), commented_posts_user_path(user) %>.
 					</div>
-					<div class='span2 center'>
+					<div class='span1 center' >
+						<%= render partial: 'users/follow_form', locals:{user: user} %>
+						<%= render partial: 'users/nudge_form', locals:{user: user} %>
+					</div>
+					<div class='span3 center'>
 						<%= render partial: 'authorizations/reset_password_form', locals: {user: user} %>
-						<%#= link_to "delete off roaster", user.authorizations.find_by_authorizer_id(current_user.id), method: :teacher_delete_authorization, data: {confirm: "Are you sure?"}, class: "btn btn-small"%>
+						<%= button_to "delete off roaster", teacher_delete_auth_authorization_path(user.authorizations.find_by_authorizer_id(current_user.id)), method: :delete, confirm: "Delete #{user.first_name} #{user.last_name} off your roster. Continue?", class: "btn btn-medium"%>
 
 					</div>
-					<div class='span3 center' >
+					<div class='span3 center auth-font' >
 						<%= render partial: 'authorizations/auth_grant', locals: {user: user} %>
 					</div>
 				</div>

@@ -31,7 +31,7 @@
               <span class='alert-heading'>
                   On <%= activity.created_at.strftime("%b %d, %Y") %>, an <strong>ALARM</strong> was raised on
               </span> 
-            <% elsif activity.action == "legitimize" %>
+            <% elsif activity.action == "legitimize" %>  
             <% else %>
               <div class="avatar">
                 <%= link_to image_tag(activity.user.avatar.url(:small), 
@@ -40,7 +40,12 @@
                   posts_user_path(activity.user)  %>  
               </div>   
               <span class='alert-heading'>
-                <%= link_to activity.user.screen_name, posts_user_path(activity.user) %> 
+                <% if activity.trackable_type == "Authorization" %>
+                  <%= link_to activity.user.first_name, posts_user_path(activity.user) %>
+                  <%= link_to activity.user.last_name, posts_user_path(activity.user) %>
+                <% else %>    
+                  <%= link_to activity.user.screen_name, posts_user_path(activity.user) %> 
+                <% end %>
                 (<i>a <%= activity.user.role %><% if !activity.user.grade.nil? %>
                   in grade <%= activity.user.grade %><% end %></i>)
               </span>

@@ -27,7 +27,9 @@ class AuthorizationsController < ApplicationController
   end
 
   def index
-    @auth_seekers = current_user.authorized_users.order('grade ASC, last_name ASC') 
+    @search_student = current_user.authorized_users.search(params[:q])
+    @auth_seekers = @search_student.result(order: 'grade ASC, last_name ASC') 
+    @search_student.build_condition
     set_meta_tags title: 'Grant Authorization', 
         description: 'Shooloo teacher grants authorization to publish posts and comments', 
         noindex: true,
@@ -55,9 +57,10 @@ class AuthorizationsController < ApplicationController
     respond_with @user
   end
 
-  def teacher_delete_authorization
-    current_user.auth_withdraw!
-    flash[:success] = "User has been deleted off your student roster."
+  def teacher_delete_auth
+    @authorization = Authorization.find(params[:id])
+    @authorization.destroy
+    flash[:success] = "#{@authorization.authorized.first_name} #{@authorization.authorized.first_name} has been deleted off your student roster."
     redirect_to authorizations_path
   end
 end

@@ -9,7 +9,7 @@ class Authorization < ActiveRecord::Base
   after_create do
     Activity.create!(action: "create", trackable: self, 
     	user_id: self.authorized_id, recipient_id: self.authorizer_id)    
-    UserMailer.auth_request(self.authorizer).deliver
+    UserMailer.auth_request(self.authorizer, self.authorized).deliver
   end
 
   after_update do

@@ -253,6 +253,10 @@ class User < ActiveRecord::Base
     authorizations.find_by_authorizer_id(other_user.id).destroy
   end
 
+  def auth_delete!(other_user)
+    authorizations.find_by_authorized_id(other_user.id).destroy
+  end
+
   def auth_grant!(other_user)
     reverse_authorizations.find_by_authorized_id(other_user.id).update_attributes!(approval: "accepted")
   end

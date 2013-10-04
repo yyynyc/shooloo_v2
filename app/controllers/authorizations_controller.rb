@@ -24,6 +24,7 @@ class AuthorizationsController < ApplicationController
     @user = Authorization.find(params[:id]).authorizer
     current_user.auth_withdraw!(@user)
     respond_with @user
+    signed_in current_user 
   end
 
   def index
@@ -40,7 +41,10 @@ class AuthorizationsController < ApplicationController
     @authorization = Authorization.find(params[:id])
     @user = @authorization.authorized
     current_user.auth_grant!(@user)
-    respond_with @user    
+    respond_with @user     
+  end
+
+  def show
   end
 
   def decline

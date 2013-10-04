@@ -8,7 +8,8 @@ resources :users do
         :liked_posts, :liked_comments, 
         :inviter, :invited,
         :show_activity, :my_abilities, :gift_receiving, :gift_giving, 
-        :change_password, :common_core_I_can, :student_common_core
+        :change_password, :common_core_I_can, 
+        :student_common_core, :student_homework
     post :update_password
   end
   collection do 

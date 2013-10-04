@@ -23,11 +23,12 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li><%= link_to "Professional Development Videos", pd_path %></li>
+                  <% if can? :update, Authorization %>
+                    <li><%= link_to "My Student Roster", authorizations_path %></li>
+                  <% end %>
+                  <li><%= link_to "My Students' Activity Tracker", student_homework_user_path(current_user) %></li> 
                   <li><%= link_to "My Students' I-Can", student_common_core_user_path(current_user) %></li>
                   <li><%= link_to "My Students' Alarms", alarmed_posts_path %></li>
-                  <% if can? :update, Authorization %>
-                    <li><%= link_to "Authorize My Students", authorizations_path %></li>
-                  <% end %>                   
                 </ul>
               </li>              
             <% end %>            

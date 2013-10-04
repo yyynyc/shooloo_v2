@@ -3,7 +3,7 @@ require 'will_paginate/array'
 class UsersController < ApplicationController
   before_filter :signed_in_user
   skip_before_filter :signed_in_user, only: [:new, :create]
-  before_filter :correct_user, only: [:edit, :update]
+  before_filter :correct_user, only: [:edit, :update, :student_homework, :student_common_core]
   before_filter :admin_user, only: [:destroy]
 
   def my_abilities
@@ -286,6 +286,21 @@ class UsersController < ApplicationController
     render 'student_common_core'
     set_meta_tags title: "My Students' Common Core Math I-Can Journals", 
         description: "#{@user.screen_name}'s students' I-Can journals based on the Common Core State Standards for Math",
+        noindex: true,
+        nofollow: true
+  end
+
+  def student_homework
+    @user = User.find(params[:id])
+    @students = @user.authorized_users.order('grade DESC', 'last_name ASC')
+    # @homeworks = Homework.where(user_id.in?(@user.authorized_users))
+    # respond_to do |format|
+    #   format.html
+    #   format.csv { send_data @homeworks.to_csv }
+    #   format.xls
+    # end
+    set_meta_tags title: "My Students' Homework Progress", 
+        description: "#{@user.screen_name}'s students' Homework Tracker",
         noindex: true,
         nofollow: true
   end

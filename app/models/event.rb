@@ -20,10 +20,30 @@ class Event < ActiveRecord::Base
   			self.week, self.benefactor_id, self.beneficiary_id)
   		s.weekly_tally += self.value
   		s.save!
-	else
-		Score.create!(week: self.week, year: self.year,
-			benefactor_id: self.benefactor_id, 
-  			beneficiary_id: self.beneficiary_id, weekly_tally: self.value)
-	end
+  	else
+  		Score.create!(week: self.week, year: self.year,
+  			benefactor_id: self.benefactor_id, 
+    			beneficiary_id: self.beneficiary_id, weekly_tally: self.value)
+  	end
+
+    if self.event == "new post"
+      if Homework.where(week: self.week, year: self.year, user_id: self.benefactor_id).any?
+        homework = Homework.find_by_week_and_user_id(self.week, self.benefactor_id)
+        homework.post_count += 1
+        homework.save!
+      else
+        Homework.create!(week: self.week, year: self.year, user_id: self.benefactor_id, 
+          post_count: 1, comment_count: 0)
+      end
+    elsif self.event == "new comment"
+      if Homework.where(week: self.week, year: self.year, user_id: self.benefactor_id).any?
+        homework = Homework.find_by_week_and_user_id(self.week, self.benefactor_id)
+        homework.comment_count += 1
+        homework.save!
+      else
+        Homework.create!(week: self.week, year: self.year, user_id: self.benefactor_id, 
+          post_count: 0, comment_count: 1)
+      end
+    end
   end
 end

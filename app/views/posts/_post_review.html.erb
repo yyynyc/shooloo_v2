@@ -24,14 +24,10 @@
           <%= render partial: 'alarms/alarm', locals: {post: @post} %>   
         </span>
         <% if current_user?(@post.user) || current_user.admin? %> 
-          <%= link_to raw('<i class="icon-trash"></i> Post'), @post, method: :delete,
-            data: { confirm: "Delete post. Are you sure? You will lose all of your ratings and comments." },
-            title: "Delete Post", class: "btn btn-small btn-default" %>
           <%= render partial: 'shared/rating_show_avg', locals: { local_object: @post } %>
           <%= link_to raw('<i class="icon-pencil icon-white"></i> Post'), edit_post_path(@post), title: "Edit Post", class: "btn btn-small btn-success" %>          
         <% else %>   
           <% if @post.ratings.find_by_rater_id(current_user.id) %>
-            <%= link_to raw('<i class="icon-trash"></i> Rating'), @post.ratings.find_by_rater_id(current_user.id), method: :delete, title: "Delete Rating", class: "btn btn-small btn-default", data: { confirm: "Delete rating. Are you sure?" } %> 
             <%= link_to raw('<i class="icon-pencil"></i> Rating'), edit_post_rating_path(@post, @post.rating_by(current_user)), title: "Edit Rating", class: "btn btn-small btn-default" %>
             <%= render partial: 'shared/rating_show_avg', locals: { local_object: @post } %>
           <% else %>
@@ -47,7 +43,7 @@
       <% end %><br/>
     </div>  
   </div>
-  <div class="span7 normal-font">         
+  <div class="span7 alert-heading">         
     <p>
       <strong>Question: </strong><%= simple_format(@post.question) %>
     </p>

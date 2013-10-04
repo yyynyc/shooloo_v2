@@ -1,0 +1,90 @@
+<% title "#{@user.screen_name}'s Students' Homework Tracker" %>
+<% noindex %>
+<% nofollow %>
+
+<h1>
+	My Students' Homework Progress
+	<span class="question">
+      <a href="#", class="follow", rel="popover", title="What is Counted in the number of Comments?", data-content="<ul class='popover-list'><li>Only comments on other people's posts are counted.</li><li>If a student makes multiple comments on the same post, only one comment is counted.</li><li>This is to prevent students from trying to game the system by commenting on their own posts only or by dicing up one comment into multiple ones on the same post. </li></ul>" %> 
+        <i class="icon-question-sign icon-medium" ></i>
+      </a>
+    </span>  	
+</h1>
+<!-- <p>
+	  Download:
+	  <%= link_to "CSV", student_homework_user_path(@user, format: "csv") %> |
+	  <%= link_to "Excel", student_homework_user_path(@user, format: "xls") %>
+</p> -->
+
+<% if @user.authorized_users.any? %>
+	<div align="center">
+		<table border="2" cellpadding="10">
+			<tr>
+				<th rowspan= "2"> Grade </th>
+				<th rowspan= "2"> Name </th>
+				<th colspan="2"> Current Week </th>
+				<th colspan="2"> Last Week </th>
+				<th colspan="2"> Prior Week </th>
+			</tr>
+			<tr>
+				<th> # of Posts </th>
+				<th> # of Comments </th>
+				<th> # of Posts </th>
+				<th> # of Comments </th>
+				<th> # of Posts </th>
+				<th> # of Comments </th>
+			</tr>
+			<% @students.each do |student| %>
+				<tr>
+					<td class="center">
+						<%= student.grade %>
+					</td>
+					<td>
+						<a href="<%= common_core_I_can_user_path(student) %>"><%= student.last_name %>, <%= student.first_name %></a>
+					</td>
+					<% if !student.homework_current_week.nil? %>
+						<td class="center">
+							<%= link_to student.homework_current_week.post_count, posts_user_path(student) %> 
+						</td>
+						<td class="center">
+							<%= link_to student.homework_current_week.comment_count, commented_posts_user_path(student) %> 
+						</td>
+					<% else %>
+						<td class="center no"> 0 </td>
+						<td class="center no"> 0 </td>
+					<% end %>
+					<% if !student.homework_last_week.nil? %>
+						<td class="center">
+							<%= link_to student.homework_last_week.post_count, posts_user_path(student) %> 
+						</td>
+						<td class="center">
+							<%= link_to student.homework_last_week.comment_count, commented_posts_user_path(student) %> 
+						</td>
+					<% else %>
+						<td class="center no"> 0 </td>
+						<td class="center no"> 0 </td>
+					<% end %>
+					<% if !student.homework_prior_week.nil? %>
+						<td class="center">
+							<%= link_to student.homework_prior_week.post_count, posts_user_path(student) %> 
+						</td>
+						<td class="center">
+							<%= link_to student.homework_prior_week.comment_count, commented_posts_user_path(student) %> 
+						</td>
+					<% else %>
+						<td class="center no"> 0 </td>
+						<td class="center no"> 0 </td>
+					<% end %>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+<% else %>
+	<p class="center" ><iframe width="500" height="375" src="http://www.schooltube.com/embed/4fe14999e96b4f15ba35" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe></P> 
+	<div class="row">	
+	<div class="span8 offset2">
+		<p class="about">You have not authorized any students to be a Shooloo member.</p>
+		<p class="about">Watch the video above to learn how to quickly sign up all of your students without any effort.</p>
+	</div>
+	</div>	
+<% end %>	

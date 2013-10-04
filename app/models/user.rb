@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   has_many :states, dependent: :destroy
   has_many :posts, dependent: :destroy, order: "updated_at DESC"
   has_many :activities, dependent: :destroy
+  has_many :homeworks, dependent: :destroy
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
@@ -368,6 +369,18 @@ class User < ActiveRecord::Base
 
   def self.daily_alert
     User.all.each { |u| UserMailer.activity_alert(u).deliver }
+  end
+
+  def homework_current_week
+    homeworks.find_by_week_and_year(Time.now.strftime('%W'), Time.now.strftime('%Y'))
+  end
+
+  def homework_prior_week
+    homeworks.find_by_week_and_year(Time.now.strftime('%W').to_i - 1, Time.now.strftime('%Y'))
+  end
+
+  def homework_last_week
+    homeworks.find_by_week_and_year(Time.now.strftime('%W').to_i - 2, Time.now.strftime('%Y'))
   end
 
   def self.to_csv(options = {})

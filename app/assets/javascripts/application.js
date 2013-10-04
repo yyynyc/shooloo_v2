@@ -14,6 +14,7 @@
 //= require fancybox 
 //= require jquery_ujs
 //= require bootstrap
+//= require best_in_place
 //= require rails.validations
 //= require rails.validations.formtastic
 //= require jquery.jplayer.min
@@ -156,3 +157,6 @@ $(document).ready(function(){
         supplied: "m4v, ogv, webmv",
       });
     });
+jQuery(function() {
+  $('.best_in_place').best_in_place();
+});

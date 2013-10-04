@@ -50,9 +50,14 @@
             				<%= render partial: 'alarms/unalarm_comment', locals: {post: comment.commented_post, comment:comment} %>
             			</span>
             		<% end %>
-            	<% end %>	           			
+            	<% end %><br/>	           			
 				<span class="alert-heading">
-					<%= wrap(simple_format(comment.content)) %>
+					<% if current_user == comment.commenter || current_user.admin? %>
+						<a href="#", class="follow", rel="popover", title="How to Edit Your Comment?", data-content="<ul class='popover-list'><li>Click on this comment and you will be able to change it.</li><li>Click away and your changes will be saved automatically.</li></ul>"><i class="icon-pencil icon-medium" ></i></a>
+						<%= best_in_place comment, :content %>
+					<% else %>
+						<%= wrap(simple_format(comment.content)) %>
+					<% end %>					
 				</span>				
 			</span>			
 		</div>

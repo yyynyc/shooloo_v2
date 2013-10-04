@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
     before_filter :signed_in_user
-    before_filter :correct_user, only: :destroy
+    before_filter :correct_user, only: [:destroy, :edit, :update]
     load_and_authorize_resource #except: :new
+    respond_to :html, :json
     
 	def index
         render 'new'
@@ -89,7 +90,7 @@ class CommentsController < ApplicationController
         @comment = current_user.comments.find_by_id(params[:id])
         if @comment.update_attributes(params[:comment])
           flash[:success] = "You have updated your comment successfully!"
-          redirect_to root_url
+          respond_with @comment
         else
           render 'edit'
         end
@@ -118,7 +119,10 @@ class CommentsController < ApplicationController
     end
 
     def correct_user
-        @comment = current_user.comments.find_by_id(params[:id])
-        redirect_to root_url if @comment.nil?
+        @comment = Comment.find(params[:id])
+        unless current_user == @comment.commenter || current_user.admin 
+            Flash[:error] = "Sorry, you can't edit that comment."
+            redirect_to root_url 
+        end
     end
 end

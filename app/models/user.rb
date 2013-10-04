@@ -375,11 +375,11 @@ class User < ActiveRecord::Base
     homeworks.find_by_week_and_year(Time.now.strftime('%W'), Time.now.strftime('%Y'))
   end
 
-  def homework_prior_week
+  def homework_last_week
     homeworks.find_by_week_and_year(Time.now.strftime('%W').to_i - 1, Time.now.strftime('%Y'))
   end
 
-  def homework_last_week
+  def homework_prior_week
     homeworks.find_by_week_and_year(Time.now.strftime('%W').to_i - 2, Time.now.strftime('%Y'))
   end
 

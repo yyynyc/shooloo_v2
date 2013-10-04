@@ -21,16 +21,16 @@
 		<table border="2" cellpadding="10">
 			<tr>
 				<th rowspan= "2"> Grade </th>
-				<th rowspan= "2"> Name </th>
-				<th colspan="2"> Current Week </th>
-				<th colspan="2"> Last Week </th>
+				<th rowspan= "2" class="border-right"> Name </th>
+				<th colspan="2" class="border-right"> Current Week </th>
+				<th colspan="2" class="border-right"> Last Week </th>
 				<th colspan="2"> Prior Week </th>
 			</tr>
 			<tr>
 				<th> # of Posts </th>
-				<th> # of Comments </th>
+				<th class="border-right"> # of Comments </th>
 				<th> # of Posts </th>
-				<th> # of Comments </th>
+				<th class="border-right"> # of Comments </th>
 				<th> # of Posts </th>
 				<th> # of Comments </th>
 			</tr>
@@ -39,30 +39,30 @@
 					<td class="center">
 						<%= student.grade %>
 					</td>
-					<td>
+					<td class="border-right">
 						<a href="<%= common_core_I_can_user_path(student) %>"><%= student.last_name %>, <%= student.first_name %></a>
 					</td>
 					<% if !student.homework_current_week.nil? %>
 						<td class="center">
 							<%= link_to student.homework_current_week.post_count, posts_user_path(student) %> 
 						</td>
-						<td class="center">
+						<td class="center border-right">
 							<%= link_to student.homework_current_week.comment_count, commented_posts_user_path(student) %> 
 						</td>
 					<% else %>
 						<td class="center no"> 0 </td>
-						<td class="center no"> 0 </td>
+						<td class="center no border-right"> 0 </td>
 					<% end %>
 					<% if !student.homework_last_week.nil? %>
 						<td class="center">
 							<%= link_to student.homework_last_week.post_count, posts_user_path(student) %> 
 						</td>
-						<td class="center">
+						<td class="center border-right">
 							<%= link_to student.homework_last_week.comment_count, commented_posts_user_path(student) %> 
 						</td>
 					<% else %>
 						<td class="center no"> 0 </td>
-						<td class="center no"> 0 </td>
+						<td class="center no border-right"> 0 </td>
 					<% end %>
 					<% if !student.homework_prior_week.nil? %>
 						<td class="center">

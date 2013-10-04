@@ -28,8 +28,8 @@ class AuthorizationsController < ApplicationController
   end
 
   def index
-    @search_student = current_user.authorized_users.search(params[:q])
-    @auth_seekers = @search_student.result(order: 'grade ASC, last_name ASC') 
+    @search_student = current_user.authorized_users.order('grade ASC', 'last_name ASC').search(params[:q])
+    @auth_seekers = @search_student.result 
     @search_student.build_condition
     set_meta_tags title: 'Grant Authorization', 
         description: 'Shooloo teacher grants authorization to publish posts and comments', 

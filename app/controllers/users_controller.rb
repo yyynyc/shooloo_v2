@@ -139,7 +139,7 @@ class UsersController < ApplicationController
 
   def posts
     @user = User.find(params[:id])
-    @posts = @user.posts.visible.paginate(page: params[:page], per_page: 10, order: "updated_at DESC")
+    @posts = @user.posts.visible.paginate(page: params[:page], per_page: 10, order: "created_at DESC")
     @post = @user.posts.build(params[:post])
     @rating=current_user.ratings.build(params[:rating])
     @alarm = current_user.alarms.build(params[:alarm])
@@ -175,7 +175,7 @@ class UsersController < ApplicationController
   def rated_posts
     @user = User.find(params[:id])
     @rated_posts = @user.rated_posts.visible.paginate(page: params[:page], 
-      per_page: 10, order: "updated_at DESC")
+      per_page: 10, order: "created_at DESC")
     @rating=current_user.ratings.build(params[:rating])
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build

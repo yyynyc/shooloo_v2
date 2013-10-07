@@ -9,7 +9,7 @@
 	</p>
 <% end %>
 
-<%= search_form_for @search, url: search_authorizations_path, 
+<%= search_form_for @search, url: search_users_path, 
 		method: :get do |f| %>
 	<%= render partial: 'users/user_search', locals: {f: f} %>
 <% end %>

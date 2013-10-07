@@ -50,7 +50,7 @@ end
 resources :alarms
 resources :likes, only: [:create, :destroy]
 resources :invites, only: :create
-resources :activities
+resources :activities 
 resources :password_resets
 resources :authorizations do 
   member do

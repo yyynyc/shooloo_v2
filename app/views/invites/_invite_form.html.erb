@@ -1,8 +1,12 @@
 <div id="invite_form_<%= post.id %>">
 	<% if can? :create, Invite %>	
 	  <% if current_user.invites.find_by_invited_post_id(post.id).nil? %>
-	   	<%= render partial: 'invites/invite',  
+	  	<% if current_user.role=="student" && current_user.invites.count < current_user.commented_posts.count %>
+	   		<%= render partial: 'invites/invite',  
 	   			locals: {invite: invite, post: post} %>
+	   	<% else %>
+	   		<%= render partial: 'posts/invite_no' %>
+	   	<% end %>
 	  <% else %>	    
 	    <%= render partial: 'invites/uninvite' %>
 	  <% end %>

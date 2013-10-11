@@ -20,7 +20,7 @@
       <%= @user.screen_name %>'s Math Lesson Plans (<%= @user.lessons.count %>)
     </h3>           
   	<% if @user.lessons.count == 0 %>
-        <%= render 'post_welcome' %>
+        <%#= render 'post_welcome' %>
     <% else %>    	
   		<ol class="posts">      		
         <%= render partial: 'lessons/lesson', collection: @lessons  %>

@@ -1,0 +1,74 @@
+<h1> Update Your Lesson Plan #<%= @lesson.id %> </h1>
+<%= form_for @lesson, :url => lesson_path, :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')", 'data-action' => 'create'} do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <span class="search-label">
+      <%= f.label :level_id, "Grade:" %>
+    </span> 
+    <%= f.collection_select :level_id, Level.order(:number), :id, :name, include_blank: true %>
+  </div>
+  <div class="field">
+    <span class="search-label">
+      <%= f.label :domain_id, "Common Core Domain" %>
+    </span>
+    <%= f.grouped_collection_select :domain_id, Level.order(:name), :domains, :name, :id, :name, prompt: "" %>
+  </div>
+  <div class="field">
+    <span class="search-label">
+      <%= f.label :standard_id, "Common Core Standard" %>
+    </span>
+    <%= f.grouped_collection_select :standard_id, Domain.order(:name), :standards, :name, :id, :short, include_blank: true %>
+  </div> 
+  <div class="field">
+    <span class="search-label">
+      <%= f.label :practice_id, "CCSS Practice" %>
+    </span>
+    <%= f.collection_select :practice_id, Practice.all, :id, :name, include_blank: true %>
+  </div>
+  <div class="field">
+    <span class="search-label">
+     <%= f.label :post_a_id, "Id of the first post to analyze" %>
+    </span>
+    <span class="question">
+      <a href="#", class="post", rel="popover", title="How to Write A Description", data-content="<ul class='popover-list'><li>Watch this <a href='<%= video_path(4) %>'>video tutorial</a> to get started.</li><li>Write a short description or summary of this lesson.</li><li>List points that you would like to emphasize in class.</li><li>Include anything that will help you remember why you've created this lesson.</li></ul>" %> 
+        <i class="icon-question-sign icon-medium" ></i>
+      </a>
+    </span>  
+    <%= f.text_field :post_a_id %>  
+  </div> 
+    <div class="field">
+    <span class="search-label">
+     <%= f.label :post_b_id, "Id of the second post to analyze" %>
+    </span>
+    <span class="question">
+      <a href="#", class="post", rel="popover", title="How to Write A Description", data-content="<ul class='popover-list'><li>Watch this <a href='<%= video_path(4) %>'>video tutorial</a> to get started.</li><li>Write a short description or summary of this lesson.</li><li>List points that you would like to emphasize in class.</li><li>Include anything that will help you remember why you've created this lesson.</li></ul>" %> 
+        <i class="icon-question-sign icon-medium" ></i>
+      </a>
+    </span>  
+    <%= f.text_field :post_b_id %>  
+  </div> 
+  <div class="field">
+    <span class="search-label">
+     <%= f.label :description, "Description" %>
+    </span>
+    <span class="question">
+      <a href="#", class="post", rel="popover", title="How to Write A Description", data-content="<ul class='popover-list'><li>Watch this <a href='<%= video_path(4) %>'>video tutorial</a> to get started.</li><li>Write a short description or summary of this lesson.</li><li>List points that you would like to emphasize in class.</li><li>Include anything that will help you remember why you've created this lesson.</li></ul>" %> 
+        <i class="icon-question-sign icon-medium" ></i>
+      </a>
+    </span>  
+    <%= f.text_area :description %>  
+  </div>  
+  <div class="field">
+    <span class="search-label">
+      <%= f.label :file, "Upload your lesson plan:" %> 
+    </span>
+    <span class="question">
+      <a href="#", class="post", rel="popover", title="What to Upload", data-content="<ul class='popover-list'><li>Upload the lesson plan you've created in Word, Excel, or pdf.</li><li>It will keep all of your files organized.</li></ul>" %>
+        <i class="icon-question-sign icon-medium" ></i>
+      </a>
+    </span>   
+    <%= f.file_field :file %>
+  </div> 
+
+  <%= f.submit "Save", class: "btn btn-large btn-primary"%>
+<% end %>

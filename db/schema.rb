@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131004142442) do
+ActiveRecord::Schema.define(:version => 20131010181427) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -78,11 +78,12 @@ ActiveRecord::Schema.define(:version => 20131004142442) do
     t.datetime "photo_updated_at"
     t.integer  "commenter_id"
     t.integer  "commented_post_id"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
-    t.boolean  "visible",            :default => true
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.boolean  "visible",             :default => true
     t.integer  "likes_count"
     t.boolean  "new_comment"
+    t.integer  "commented_lesson_id"
   end
 
   add_index "comments", ["commenter_id", "created_at"], :name => "index_comments_on_commenter_id_and_created_at"
@@ -162,6 +163,25 @@ ActiveRecord::Schema.define(:version => 20131004142442) do
     t.datetime "updated_at",      :null => false
   end
 
+  create_table "lessons", :force => true do |t|
+    t.integer  "post_a_id"
+    t.integer  "post_b_id"
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "level_id"
+    t.integer  "domain_id"
+    t.integer  "standard_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.integer  "practice_id"
+    t.integer  "likes_count"
+    t.integer  "comments_count"
+  end
+
   create_table "levels", :force => true do |t|
     t.integer  "number"
     t.string   "name"
@@ -175,6 +195,7 @@ ActiveRecord::Schema.define(:version => 20131004142442) do
     t.integer  "liker_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.integer  "liked_lesson_id"
   end
 
   add_index "likes", ["liked_comment_id"], :name => "index_likes_on_liked_comment_id"

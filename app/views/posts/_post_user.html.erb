@@ -21,10 +21,10 @@
     <span itemprop="targetDescription", content="<%= post.standard.description %>"></span>
   </span>
 <% end %>
-
-<% if signed_in? && current_user.admin? %>
-	<br/> 
-	<span class="timestamp">Real name:</span> <%= post.user.first_name %> <%= post.user.last_name %>
+<% if signed_in? && (current_user.admin? || current_user.in?(post.user.authorizers))%>
+	<br/>
+	Post id #<strong><%= link_to post.id, new_post_comment_path(post)%></strong>
+	| <span class="timestamp">Real name:</span> <%= post.user.first_name %> <%= post.user.last_name %>
 	<% if !post.quality.nil? %>
 		<span class="timestamp">quality:</span> <%= post.quality.name %>
 	<% end %>

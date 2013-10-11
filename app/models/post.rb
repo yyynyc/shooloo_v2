@@ -43,12 +43,17 @@ class Post < ActiveRecord::Base
   has_many :invites, foreign_key: "invited_post_id", dependent: :destroy
   has_many :inviters, through: :invites
   has_many :invitees, through: :invites
+
+  has_many :lessons, foreign_key: "post_a_id", dependent: :destroy
+  has_many :post_bs, through: :lessons
+  has_many :reverse_lessons, foreign_key: "post_b_id", dependent: :destroy
+  has_many :post_as, through: :lessons
   
   validates_presence_of :user_id, :question, :level_id, :domain_id, :standard_id, :subject_id
   validates :answer, presence: true, length: {maximum: 100}
   #validates_attachment_presence :photo
-  #validates_attachment_size :photo, :less_than => 5.megabytes
-  #validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
+  validates_attachment_size :photo, :less_than => 5.megabytes
+  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
 
   def after_initialize
     @visible = true if @visible.nil?

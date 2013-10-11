@@ -3,4 +3,5 @@ class Domain < ActiveRecord::Base
   belongs_to :level
   has_many :standards
   has_many :posts, through: :standards
+  has_many :lessons, through: :standards
 end

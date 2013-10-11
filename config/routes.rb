@@ -9,7 +9,7 @@ resources :users do
         :inviter, :invited,
         :show_activity, :my_abilities, :gift_receiving, :gift_giving, 
         :change_password, :common_core_I_can, 
-        :student_common_core, :student_homework
+        :student_common_core, :student_homework, :lessons
     post :update_password
   end
   collection do 
@@ -18,6 +18,12 @@ resources :users do
   end
 end
 
+resources :lessons, path: '/common-core-math-lesson-plans' do
+  resources :likes, only: [:create, :destroy]
+  get :comment
+  post :comments
+  collection { get :search, to: 'lessons#index' }
+end
 resources :sessions, only: [:new, :create, :destroy]
 resources :relationships, only: [:create, :destroy]
 resources :nudges, only: [:create, :destroy]

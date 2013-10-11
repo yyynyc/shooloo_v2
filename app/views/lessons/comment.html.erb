@@ -1,0 +1,61 @@
+<% title "Comments on Comment Core Lesson Plan ##{@lesson.id}" %>
+<% description "Teachers' Comments on Comment Core Lesson Plan ##{@lesson.id}"%> 
+<% noindex%>
+<% nofollow%>
+<%= render partial: 'lessons/lesson_plan', locals: {lesson: @lesson} %>
+<% if !@comments.blank? %>
+	<h2> Comments </h2>	
+	<ol class="posts">	  
+	    <% @comments.each do |comment| %>
+		    <li>
+				<div class="span1">
+					<%= image_tag comment.commenter.avatar.url (:small) %> 
+				</div>
+				<div class="teacher-comment">
+					<%= link_to comment.commenter.screen_name, lessons_user_path(comment.commenter) %> 
+					<span class="timestamp">- </span><% if !comment.commenter.grade.nil? %>grade <%= comment.commenter.grade %> <% end %><%= comment.commenter.role %><span class="timestamp"> -</span>
+					<span class="timestamp"> commented on </span>
+					<%= comment.created_at.strftime("%b %d, %Y") %>.
+            		<span class='search-label'>	
+            			<% if !current_user?(comment.commenter) %> 
+	            			<%= render partial: 'likes/like_form_comment', locals: {like: @like, comment: comment} %>
+	            		<% end %>
+            		</span>
+            		<span class='search-label'>	
+            			<i class="icon-heart icon-medium"></i>
+            			<span class="alert-heading" id="comment_likes_count-<%=comment.id%>">
+            				<% if comment.likes_count.to_i >0 %>
+	            				<%= link_to comment.likes_count, "#", "class" => "like_comment", "rel" => "tooltip", 
+	            					"title" => "#{comment_liker_list(comment)} liked your comment." %>
+	            			<% else %>
+	            				<%= comment.likes.count %>		
+	            			<% end %>
+	            		</span>
+            		</span><br/>	           			
+					<span class="alert-heading">
+						<% if current_user == comment.commenter || current_user.admin? %>
+							<p class="feed_content">
+								<%= best_in_place comment, :content %>
+								<a href="#", class="edit", rel="popover", title="How to Edit Your Comment?", data-content="<ul class='popover-list'><li>Click on any word in this comment and you will be able to edit it.</li><li>Click away and your changes will be saved automatically.</li></ul>"><i class="icon-pencil icon-medium" ></i></a>
+							</p>
+						<% else %>
+							<%= wrap(simple_format(comment.content)) %>
+						<% end %>					
+					</span>		
+				</div>
+		    </li>
+	    <% end %> 
+	</ol>
+<% end %>
+
+<h2> Post A New Comment</h2>
+<%= form_for([@lesson, @comment], :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')"}) do |f| %>
+  	<%= render 'shared/error_messages', object: f.object %>
+  	<%= f.hidden_field :commented_lesson_id, value: @lesson.id %>
+    <%= f.text_area :content, rows: 5 %>
+    <div class="right_align">
+  		<%= f.submit "Submit Comment", class: "btn btn-large btn-primary" %>
+  	</div>
+<% end %>
+
+

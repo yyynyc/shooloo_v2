@@ -1,0 +1,102 @@
+<% title "Compare the Two Problems in Lesson #{@lesson.id}" %>
+<% noindex %>
+<% nofollow %>
+<h1> Compare the Following Two Problems</h1>
+<div class="row">
+	<div class="span6">
+		<div class="accorion-heading">
+	    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+	    		<p><strong>Question #1:</strong></p>
+	    	</a>
+	    </div>
+	    <div id="collapseOne" class="accordion-body collapse">    	
+	  		<div class="accordion-toggle teacher-view">    				
+	  			<p><%= @lesson.post_a.question %></p>
+	  		</div>		   		
+	    </div>
+		<div class="accorion-heading">
+	    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+	    		<p><strong>Answer: </strong></p>
+	    	</a>
+	    </div>
+	    <div id="collapseTwo" class="accordion-body collapse">    	
+	  		<div class="accordion-toggle teacher-view">    				
+	  			<p><%= @lesson.post_a.answer %></p>
+	  		</div>		   		
+	    </div>
+	    <div class="accorion-heading">
+	    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+	    		<p><strong>I-Can: </strong></p>
+	    	</a>
+	    </div>
+	    <div id="collapseThree" class="accordion-body collapse">    	
+	  		<div class="accordion-toggle teacher-view">    				
+	  			<p>In <%= @lesson.post_a.domain.name %>, <%= @lesson.post_a.standard.ICan %></p>
+	  		</div>		   		
+	    </div>
+	    <% if @lesson.post_a.comments.any? %>
+		    <div class="accorion-heading">
+		    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSeven">
+		    		<p><strong>Comments: </strong></p>
+		    	</a>
+		    </div>
+		    <div id="collapseSeven" class="accordion-body collapse">    	
+		  		<div class="accordion-toggle">    				
+		  			<ol class="users">
+		  				<% @lesson.post_a.comments.each do |comment| %>
+		  					<%= render partial: 'lessons/comment', locals: {comment: comment} %>
+		  				<% end %>
+		  			</ol>
+		  		</div>		   		
+		    </div>
+		<% end %>
+	</div>
+	<div class="span6">
+		<div class="accorion-heading">
+	    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+	    		<p><strong>Question #2:</strong></p>
+	    	</a>
+	    </div>
+	    <div id="collapseFour" class="accordion-body collapse">    	
+	  		<div class="accordion-toggle teacher-view">    				
+	  			<p><%= wrap(simple_format(@lesson.post_b.question)) %></p>
+	  		</div>		   		
+	    </div>
+		<div class="accorion-heading">
+	    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
+	    		<p><strong>Answer: </strong></p>
+	    	</a>
+	    </div>
+	    <div id="collapseFive" class="accordion-body collapse">    	
+	  		<div class="accordion-toggle teacher-view">    				
+	  			<p><%= @lesson.post_b.answer %></p>
+	  		</div>		   		
+	    </div>
+	    <div class="accorion-heading">
+	    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSix">
+	    		<p><strong>I-Can: </strong></p>
+	    	</a>
+	    </div>
+	    <div id="collapseSix" class="accordion-body collapse">    	
+	  		<div class="accordion-toggle teacher-view">    				
+	  			<p>In <%= @lesson.post_b.domain.name %>, <%= @lesson.post_b.standard.ICan %></p>
+	  		</div>		   		
+	    </div>
+	    <% if @lesson.post_b.comments.any? %>
+		    <div class="accorion-heading">
+		    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseEight">
+		    		<p><strong>Comments: </strong></p>
+		    	</a>
+		    </div>
+		    <div id="collapseEight" class="accordion-body collapse">    	
+		  		<div class="accordion-toggle">    				
+		  			<ol class="users">
+		  				<% @lesson.post_b.comments.each do |comment| %>
+		  					<%= render partial: 'lessons/comment', locals: {comment: comment} %>
+		  				<% end %>
+		  			</ol>
+		  		</div>		   		
+		    </div>
+		<% end %>
+	</div>
+</div>

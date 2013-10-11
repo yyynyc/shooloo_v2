@@ -1,26 +1,7 @@
-<% provide(:title, "Teacher View") %> 
-<div class="row">   
-  <div class="post_review_user_info">
-    <div class="accorion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseUser">
-          <p><strong>Author Information:</strong></p>
-        </a>
-    </div>
-    <div id="collapseUser" class="accordion-body collapse">        
-      <div class="accordion-toggle">  
-        <%= render partial: 'posts/post_user', locals: {post: @post} %>
-      </div>     
-    </div>     
-    <% if !@post.visible? %>   
-      <% if current_user.admin? || current_user.role == "teacher" %>
-        <div class="btn-formtastic">
-          <%= render partial: 'alarms/unalarm', locals: {post: @post} %>
-        </div>
-      <% end %>
-    <% end %>     
-    <%= render partial: 'posts/post_stats', locals: {post: @post} %>
-  </div>
-</div>
+<% title "Teacher View of Post ##{@post.id}" %> 
+<% noindex %>
+<% nofollow %>
+
 <div class="row border">     
   <div class="span5">
     <%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %><br/>
@@ -52,16 +33,16 @@
     </div>
   </div>
   
-  <div class="span7 alert-heading">         
-    <p><strong>Question: </strong><%= simple_format(@post.question) %></p>
+  <div class="span7">         
+    <div class="teacher-view"><%= simple_format(@post.question) %></div>
     <div class="accorion-heading">
     	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
     		<p><strong>Answer: </strong></p>
     	</a>
     </div>
     <div id="collapseOne" class="accordion-body collapse">    	
-  		<div class="accordion-toggle">    				
-  			<p><%= @post.answer %><i><span class="no"> - Is this answer correct?</span></i></p>
+  		<div class="accordion-toggle teacher-view">    				
+  			<p><%= @post.answer %><p>
   		</div>		   		
     </div>
     <% unless @post.level.nil? %>
@@ -71,8 +52,8 @@
 	      	</a>
 	    </div>
 	    <div id="collapseTwo" class="accordion-body collapse">	    	
-			  <div class="accordion-toggle">  
-    			<p>In <%= @post.domain.name %>, <%= @post.standard.ICan %><i><span class="no"> - Is this "I can" statement suitable for this question?</span></i></p>
+			  <div class="accordion-toggle teacher-view">  
+    			<p>In <%= @post.domain.name %>, <%= @post.standard.ICan %></p>
     		</div>	   
 	    </div>
     <% end %>
@@ -87,23 +68,11 @@
 	</div>
 	<div id="collapseComments" class="accordion-body collapse">    
 		<div class="accordion-toggle"> 
-			<ol class="posts">
-			  <% unless @comments.hidden.blank? %>
-			  	<div class="accorion-heading">
-  					<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseAlarmed">
-  						<h4>Alarmed Comments</h4>
-  					</a>
-  				</div>
-				  <div id="collapseAlarmed" class="accordion-body collapse">
-			    	<div class="well well-small">
-						  <div class="accordion-toggle">    		
-			    			<%= render @comments.hidden %>
-			    		</div>
-			    	</div>
-			    </div>
-			  <% end %>   		
-				<%= render @comments.visible %>
-			</ol>
+			<ul class="users">
+        <% @comments.each do |comment| %>
+          <%= render partial: 'lessons/comment', locals: {comment: comment} %>
+        <% end %>				
+			</ul>
 		</div>		
 	</div>
 <% end %>

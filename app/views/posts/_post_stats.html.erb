@@ -16,8 +16,7 @@
 
 <i class="icon-comment"></i>
 <% if post.comments_count.to_i >0 %>
-	<%= link_to post.comments_count, "#", "class" => "comment", "rel" => "tooltip", 
-		"title" => "#{commenter_list(post)} commented on your post." %>
+	<%= link_to post.comments_count, "#", "class" => "comment", "rel" => "tooltip", "title" => "#{commenter_list(post)} commented on your post." %>
 <% end %>
 
 

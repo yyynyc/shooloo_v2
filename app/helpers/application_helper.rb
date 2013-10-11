@@ -17,12 +17,20 @@ module ApplicationHelper
 		comment.likers.map(&:screen_name).join(', ')
 	end
 
+	def lesson_liker_list(lesson)
+		lesson.likers.map(&:screen_name).join(', ')
+	end
+
 	def rater_list(post)
 		post.raters.map(&:screen_name).join(', ')
 	end
 
 	def commenter_list(post)
 		post.commenters.uniq.map(&:screen_name).join(', ')
+	end
+
+	def lesson_commenter_list(lesson)
+		lesson.commenters.uniq.map(&:screen_name).join(', ')
 	end
 
 	def alert_count

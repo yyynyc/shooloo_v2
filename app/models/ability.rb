@@ -10,6 +10,7 @@ class Ability
             can :manage, :all
         elsif user.role == "teacher" && 
             user.authorizations.where(approval: "accepted").any? 
+            can [:crud, :comment, :comments], Lesson
             can :update, [Authorization, Referral]
             can [:create, :destroy], [Referral, Authorization]
             can :manage, Alarm
@@ -17,7 +18,7 @@ class Ability
             can :crud, [Post, Comment, Invite, Rating]
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :read, :all
-            can :crud, Activity         
+            can :crud         
         elsif user.authorizations.where(approval: "accepted").any?
             can :update, Referral
             can [:create, :destroy], [Referral, Authorization]

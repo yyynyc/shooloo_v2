@@ -1,0 +1,5 @@
+$("#like_form_lesson_<%= @lesson.id %>").html("<%= escape_javascript(
+	render(partial:'likes/unlike_lesson', 
+		locals: {like: @like, lesson: @lesson})) %>")
+
+$("#lesson_likes_count-<%=@lesson.id%>").html('<%= @lesson.likes_count %>')

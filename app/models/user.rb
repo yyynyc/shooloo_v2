@@ -20,7 +20,8 @@ class User < ActiveRecord::Base
 
   has_many :choices
   has_many :states, dependent: :destroy
-  has_many :posts, dependent: :destroy, order: "updated_at DESC"
+  has_many :lessons, dependent: :destroy
+  has_many :posts, dependent: :destroy, order: "created_at DESC"
   has_many :activities, dependent: :destroy
   has_many :homeworks, dependent: :destroy
 

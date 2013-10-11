@@ -1,19 +1,30 @@
 <% if activity.trackable %>
-	<% unless activity.trackable.liked_post_id.nil? %>
+	<% if !activity.trackable.liked_post_id.nil? %>
 		<strong>LIKED</strong> on <%= activity.created_at.strftime("%b %d, %Y") %>
 		a post  
 		#<%= link_to activity.trackable.liked_post.id, new_post_comment_path(activity.trackable.liked_post) %> 
 		written by 
 		<%= link_to activity.trackable.liked_post.user.screen_name, posts_user_path(activity.trackable.liked_post.user) %>
 		in <i><%= activity.trackable.liked_post.user.grade %></i>.
-	<% else %>
-		<strong>LIKED</strong> on <%= activity.created_at.strftime("%b %d, %Y") %>
-		a comment to post  
-		#<%= link_to activity.trackable.liked_comment.commented_post.id, new_post_comment_path(activity.trackable.liked_comment.commented_post) %> 
+	<% elsif !activity.trackable.liked_comment_id.nil?  %>
+		<strong>LIKED</strong> on <%= activity.created_at.strftime("%b %d, %Y") %> a comment to 
+		<% if !activity.trackable.liked_comment.commented_post_id.nil? %>
+			post  
+			#<%= link_to activity.trackable.liked_comment.commented_post.id, new_post_comment_path(activity.trackable.liked_comment.commented_post) %> 
+		<% elsif !activity.trackable.liked_comment.commented_lesson_id.nil? %>
+		lesson plan 
+			#<%= link_to activity.trackable.liked_comment.commented_lesson.id, lesson_comment_path(activity.trackable.liked_comment.commented_lesson) %> 
+		<% end %>	
 		commented by 
 		<%= link_to activity.trackable.liked_comment.commenter.screen_name, posts_user_path(activity.trackable.liked_comment.commenter) %>
 		(a <%= activity.trackable.liked_comment.commenter.role %>)
-		in grade <%= activity.trackable.liked_comment.commenter.grade %>).	
+		in grade <%= activity.trackable.liked_comment.commenter.grade %>).
+	<% elsif !activity.trackable.liked_lesson_id.nil?  %>
+		<strong>LIKED</strong> on <%= activity.created_at.strftime("%b %d, %Y") %>
+		a lesson  
+		#<%= link_to activity.trackable.liked_lesson.id, lesson_comment_path(activity.trackable.liked_lesson) %> 
+		written by 
+		<%= link_to activity.trackable.liked_lesson.user.screen_name, lessons_user_path(activity.trackable.liked_lesson.user) %>.
 	<% end %> 
 <% else %>
 	liked a post or comment but has since changed.

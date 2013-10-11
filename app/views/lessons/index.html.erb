@@ -1,0 +1,81 @@
+<% title "Common Core Math Lesson Plans" %>
+<% description "List of Common Core math lesson plans based on student-generated content" %>
+
+<h1> Common Core Math Lesson Plans </h1>
+<%= search_form_for @search, url: search_lessons_path, method: :get do |f| %>		
+	<div class="row center bottom-margin">
+		<span class="search-label">
+			<%= f.label :level_name_cont, "Grade" %>
+		</span>
+		<span class="search-field">
+			<%= f.collection_select :level_name_cont, Level.order(:number), :name, :name, include_blank: true %>
+		</span>	
+		<span class="search-label">
+			<%= f.label :standard_short_cont, "CCSS Standard" %>
+		</span>
+		<span class="search-field">
+			<%= f.text_field :standard_short_cont %>
+		</span>	
+		<span class="search-label">
+			<%= f.label :practice_name_cont, "CCSS Practice Keyword" %>
+		</span>
+		<span class="search-field">
+			<%= f.text_field :practice_name_cont %>
+		</span>				
+	</div>
+	<div class="row center bottom-margin">
+		<span class="search-label">
+			<%= f.label :description_cont, "Lesson Description Keywords" %>
+		</span>
+		<span class="search-field">
+			<%= f.text_field :description_cont %>
+		</span>	
+		<span class="search-label">
+			<%= f.submit "Search", class: "btn btn-small btn-primary" %>
+		</span>
+	</div>
+<% end %>
+
+<ol class="users">
+	<% @lessons.each do |lesson| %>
+		<li>
+			<div class="row">
+				<div class="span9">
+					<p>
+						<%= render partial: 'lessons/lesson_user', locals: {lesson: lesson} %>
+					    <span class="well well-small"> 
+					    	<%= render partial: 'lessons/lesson_stats', locals: {lesson: lesson} %>
+					    </span>
+					</p>
+					<p class="alert-heading">
+						<strong><%= lesson.standard.short %></strong>  &
+						<%= lesson.practice.name %> 
+					</p>
+					<p>
+						<%= truncate lesson.description, :length => 50, :omission => "..." %> 
+						<% if !lesson.file_file_name.nil? %>
+							<%= link_to "Read more for downloadable lesson plan...", lesson_comment_path(lesson) %>
+						<% else %>
+							<%= link_to "Read more...", lesson_comment_path(lesson) %>
+						<% end %>
+					<p>	
+				</div>
+				<div class="span2 btn-formtastic">
+					<div class="row center">
+						<% if current_user?(lesson.user) %>
+				        	<p class="lesson-index">
+				        		<%= link_to "Edit Lesson", edit_lesson_path(lesson), title: "Edit Lesson Plan", class: "btn btn-small btn-success" %>
+				        	</p>            
+				    	<% else %>
+				          	<%= render partial: 'likes/like_form_lesson', locals: {lesson: lesson, like: @like} %>
+				        <% end %>
+				  	</div>
+			     	<div class="row center">
+			        <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), lesson_comment_path(lesson), class: "btn btn-small btn-success" %>
+		 			</div>
+				</div>
+			</div>		
+		</li>
+	<% end %>
+</ol>
+<%= will_paginate @lessons %>

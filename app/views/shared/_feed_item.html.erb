@@ -45,12 +45,8 @@
               <%= render partial: 'likes/like_form', locals: {post: feed_item, like: @like} %>
             </span>  
           <% end %>
-          <span class='search-label'>
-            <% if (current_user.invites.count<current_user.commented_posts.count) || current_user.admin? || current_user.role == "teacher"  %>  
-              <%= render partial: 'invites/invite_form', locals: {post: feed_item, invite: @invite} %>
-            <% else %>
-              <%= render partial: 'posts/invite_no' %>
-            <% end %>
+          <span class='search-label'> 
+            <%= render partial: 'invites/invite_form', locals: {post: feed_item, invite: @invite} %>            
           </span>
           <span class='search-label'> 
             <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), new_post_comment_path(feed_item), class: "btn btn-small btn-success" %> 

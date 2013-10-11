@@ -41,6 +41,9 @@ $(function ()
 $(function ()  
 { $(".follow").popover({trigger: 'click', placement: 'bottom', html: true});  
 });
+$(function ()  
+{ $(".edit").popover({trigger: 'hover', placement: 'bottom', html: true});  
+});
 jQuery(function() {
   $("a.fancybox").fancybox();
 });

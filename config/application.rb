@@ -89,6 +89,8 @@ module ShoolooV2
     UNLIKE_POST = -1
     LIKE_COMMENT = 1
     UNLIKE_COMMENT = -1
+    LIKE_LESSON = 1
+    UNLIKE_LESSON = -1
     NUDGE = 2
     FOLLOW = 4
     UNFOLLOW = -4

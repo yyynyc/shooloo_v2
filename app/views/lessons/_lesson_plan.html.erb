@@ -1,0 +1,64 @@
+<div class="row well well-small">
+  <%= render partial: 'lessons/lesson_user', locals: {lesson: lesson} %>
+  <span class="btn-formtastic">
+    <%= render partial: 'lessons/lesson_stats', locals: {lesson: lesson} %>
+  </span>
+</div>       
+<section class="feed_content">
+  <div class="row">
+    <section class="feed_item alert-heading">
+      <p itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
+        <strong><%= lesson.standard.short %></strong>
+          - <%= lesson.domain.core %> (<%= lesson.level.name %>)
+        <meta itemprop="educationalFramework" Content="Common Core State Standard">
+        <meta itemprop="targetName" content="<%= lesson.standard.symbol %>">
+        <meta itemprop="targetUrl" content="<%= lesson.standard.url %>">
+        <meta itemprop="targetDescription", content="<%= lesson.standard.description %>">
+      </p>
+      <p itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
+        <strong>Practice:</strong>
+          <%= lesson.practice.name %>
+        <meta itemprop="educationalFramework" Content="Common Core State Standard">
+        <meta itemprop="targetName" content="<%= lesson.practice.symbol %>">
+        <meta itemprop="targetUrl" content="<%= lesson.practice.url %>">
+        <meta itemprop="targetDescription", content="<%= lesson.practice.description %>">
+      </p>
+      <p>
+        <% if !lesson.post_a_id.nil? && !lesson.post_b_id.nil? %>     
+          Compare post #<%= link_to lesson.post_a_id, post_teacher_view_path(lesson.post_a_id) %> versus post #<%= link_to lesson.post_b_id, post_teacher_view_path(lesson.post_b_id) %>
+        <% elsif !lesson.post_a_id.nil? %>
+          Analyze post #<%= link_to lesson.post_a_id, post_teacher_view_path(lesson.post_a_id) %>
+        <% elsif !lesson.post_b_id.nil? %>
+          Analyze post #<%= link_to lesson.post_b_id, post_teacher_view_path(lesson.post_b_id) %>
+        <% end %>              
+      </p>    
+      <p class="wrap_long_string">      
+        <%= simple_format(lesson.description) %>
+      </p>
+      <p>
+        <% if !lesson.file_file_name.nil? %>      
+          <i>Full lesson plan: <a href="http://localhost:3000/attachments/lessons/<%=lesson.id %>/<%=lesson.file_file_name %>"> <%= lesson.file_file_name %> </a></i> 
+        <% end %>
+      </p>                    
+    </section>
+  </div>
+  <div>
+    <span class="btn-formtastic">    
+      <% if current_user?(lesson.user) %>
+        <%= link_to "Edit Lesson", edit_lesson_path(lesson), title: "Edit Lesson Plan", class: "btn btn-small btn-success" %>            
+      <% else %> 
+        <span class='search-label'> 
+          <%= render partial: 'likes/like_form_lesson', locals: {lesson: lesson, like: @like} %>
+        </span>  
+      <% end %>
+      <span class='search-label'> 
+        <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), lesson_comment_path(lesson), class: "btn btn-small btn-success" %>
+      </span> 
+      <% if !lesson.post_a_id.nil? && !lesson.post_b_id.nil? %>
+        <span class='search-label'> 
+          <%= link_to "Comparison View", lesson_path(lesson), class: "btn btn-small btn-success" %>
+        </span>
+      <% end %> 
+    </span>
+  </div>
+</section>

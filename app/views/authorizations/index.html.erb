@@ -56,7 +56,7 @@
 					</div>
 					<div class='span3 center'>
 						<%= render partial: 'authorizations/reset_password_form', locals: {user: user} %>
-						<%= button_to "delete off roaster", teacher_delete_auth_authorization_path(user.authorizations.find_by_authorizer_id(current_user.id)), method: :delete, confirm: "Delete #{user.first_name} #{user.last_name} off your roster. Continue?", class: "btn btn-medium"%>
+						<%= button_to "delete off roster", teacher_delete_auth_authorization_path(user.authorizations.find_by_authorizer_id(current_user.id)), method: :delete, confirm: "Delete #{user.first_name} #{user.last_name} off your roster. Continue?", class: "btn btn-medium"%>
 
 					</div>
 					<div class='span3 center auth-font' >

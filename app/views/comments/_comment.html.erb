@@ -3,25 +3,17 @@
 		<div class="span1">
 			<%= image_tag comment.commenter.avatar.url (:small) %> 
 		</div>
-		<div style="margin: -.1em 0em 1em 7em;">
-			<span style="float:right;"> 
-				<% unless comment.photo_file_name.nil? %>   
-				<%= link_to            \
-					image_tag(comment.photo.url(:small)), 
-					comment.photo.url(:large),
-					:class=>'fancybox' %> 
-				<% end %>
-			</span>
-			<span>								
+		<div class="teacher-comment">
+			<span>
+				<% if current_user.in?(comment.commenter.authorizers) || current_user.admin? %>
+					Comment #<%= comment.id %>: 
+					(<%= comment.commenter.first_name %>
+					<%= comment.commenter.last_name %>)
+				<% end %>								
 				<%= link_to comment.commenter.screen_name, posts_user_path(comment.commenter) %> 
 				<span class="timestamp">- </span><% if !comment.commenter.grade.nil? %>grade <%= comment.commenter.grade %> <% end %><%= comment.commenter.role %><span class="timestamp"> -</span>
 				<span class="timestamp"> commented on </span>
-				<%= comment.created_at.strftime("%b %d, %Y") %>.
-				<% if current_user?(comment.commenter) %> 
-<!-- 	            	<%= link_to "", comment, method: :delete,
-	              data: { confirm: "You will LOSE some points if you delete this comment. Continue?" },
-	              title: "Delete comment", class: "icon-trash" %> -->
-	            <% end %>	          
+				<%= comment.created_at.strftime("%b %d, %Y") %>.	          
             	<% if comment.visible? %>
             		<span class='search-label'>
             			<%= render partial: 'alarms/alarm_comment', locals: {post: comment.commented_post, comment:comment} %>
@@ -31,19 +23,17 @@
 	            			<%= render partial: 'likes/like_form_comment', locals: {like: @like, comment: comment} %>
 	            		<% end %>
             		</span>
-            		
-	            		<span class='search-label'>	
-	            			<i class="icon-heart icon-medium"></i>
-	            			<span class="alert-heading" id="comment_likes_count-<%=comment.id%>">
-	            				<% if comment.likes_count.to_i >0 %>
-		            				<%= link_to comment.likes_count, "#", "class" => "like_comment", "rel" => "tooltip", 
-		            					"title" => "#{comment_liker_list(comment)} liked your comment." %>
-		            			<% else %>
-		            				<%= comment.likes.count %>		
-		            			<% end %>
-		            			</span>
-	            		</span>
-	            
+            		<span class='search-label'>	
+            			<i class="icon-heart icon-medium"></i>
+            			<span class="alert-heading" id="comment_likes_count-<%=comment.id%>">
+            				<% if comment.likes_count.to_i >0 %>
+	            				<%= link_to comment.likes_count, "#", "class" => "like_comment", "rel" => "tooltip", 
+	            					"title" => "#{comment_liker_list(comment)} liked your comment." %>
+	            			<% else %>
+	            				<%= comment.likes.count %>		
+	            			<% end %>
+	            			</span>
+            		</span>
             	<% else %>
             		<% if current_user.admin? %>
             			<span class='search-label'>	

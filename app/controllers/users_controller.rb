@@ -142,6 +142,7 @@ class UsersController < ApplicationController
     @posts = @user.posts.visible.paginate(page: params[:page], per_page: 10, order: "created_at DESC")
     @post = @user.posts.build(params[:post])
     @rating=current_user.ratings.build(params[:rating])
+    @comment=current_user.comments.build(params[:comment])
     @alarm = current_user.alarms.build(params[:alarm])
     @like = current_user.likes.build(params[:like])
     @subject = Subject.all
@@ -180,6 +181,7 @@ class UsersController < ApplicationController
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build
     @like = current_user.likes.build
+    @comment=current_user.comments.build(params[:comment])
     @subject = Subject.all
     @levels = Level.all
     @domains = Domain.all
@@ -210,11 +212,11 @@ class UsersController < ApplicationController
 
   def commented_posts
     @user = User.find(params[:id])
-    @commented_posts = @user.comments.order('created_at DESC').collect(
-      &:commented_post).keep_if{ |x| x.visible == true }.uniq.paginate(
-      page: params[:page], per_page: 10)
-    #@commented_posts = @user.commented_posts.visible.paginate(page: params[:page], 
-    #  per_page: 10, order: "updated_at DESC")
+    # @commented_posts = @user.comments.order('created_at DESC').collect(
+    #   &:commented_post).keep_if{ |x| x.visible == true }.uniq.paginate(
+    #   page: params[:page], per_page: 10)
+    @commented_posts = @user.commented_posts.visible.paginate(page: params[:page], 
+     per_page: 10, order: "updated_at DESC")
     @comment=current_user.comments.build(params[:comment])
     @post  = current_user.posts.build
     @alarm = current_user.alarms.build
@@ -303,6 +305,14 @@ class UsersController < ApplicationController
         description: "#{@user.screen_name}'s students' Homework Tracker",
         noindex: true,
         nofollow: true
+  end
+
+  def lessons
+    @user = User.find(params[:id])
+    @lessons = @user.lessons.paginate(page: params[:page], per_page: 20, order: "created_at DESC")
+    @lesson = @user.lessons.build(params[:lesson])
+    @like = current_user.likes.build(params[:like])
+    @comment = current_user.comments.build(params[:comment])
   end
 
   def show_activity

@@ -1,0 +1,33 @@
+<% title "#{@user.screen_name}'s Lesson Plans" %>
+<% noindex %>
+<% nofollow %>
+
+<div class="row">
+  <aside class="span4">
+    <section>
+      <%= render 'shared/user_info', user: @user %>
+    </section>
+    <section>
+      <%= render 'shared/stats', user: @user %>
+    </section>
+    <section>
+      <%= render 'lessons/lesson_form' %>
+    </section>
+	</aside>
+	<div class="span8">
+    <%= render 'users/follow_nudge' %> 
+    <h3 class="feed_item">
+      <%= @user.screen_name %>'s Math Lesson Plans (<%= @user.lessons.count %>)
+    </h3>           
+  	<% if @user.lessons.count == 0 %>
+        <%= render 'post_welcome' %>
+    <% else %>    	
+  		<ol class="posts">      		
+        <%= render partial: 'lessons/lesson', collection: @lessons  %>
+  		</ol>
+      <% unless @lessons == [] %>
+  		  <%= will_paginate @lessons %> 
+      <% end %>      
+   	<% end %>
+  </div>
+</div>

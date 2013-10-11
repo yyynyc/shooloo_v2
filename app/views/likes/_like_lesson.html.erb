@@ -1,0 +1,13 @@
+<%= form_for(like, :url => lesson_likes_path(lesson.id), 
+	remote: true) do |f| %>
+	<%= f.hidden_field :liked_lesson_id, value: lesson.id %>
+	<button type="submit", class="btn btn-small btn-success", onclick="like_lesson_confirm()">
+		<i class='icon-heart icon-white'></i> LIKE 
+	</button>
+<% end %>
+
+<script>
+	function like_lesson_confirm (){
+		confirm('You will EARN some points if you click. Continue?');
+	}
+</script>

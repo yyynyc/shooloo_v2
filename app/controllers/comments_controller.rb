@@ -73,7 +73,7 @@ class CommentsController < ApplicationController
             @comments = @post.comments.visible.paginate(page: params[:page],  
                 order: 'created_at DESC')      
             render 'new'     
-        end            
+        end                            
     end
 
     def show
@@ -87,7 +87,11 @@ class CommentsController < ApplicationController
     end
 
     def update
-        @comment = current_user.comments.find_by_id(params[:id])
+        if current_user.admin?
+            @comment = Comment.find_by_id(params[:id])
+        else
+            @comment = current_user.comments.find_by_id(params[:id])
+        end
         if @comment.update_attributes(params[:comment])
           flash[:success] = "You have updated your comment successfully!"
           respond_with @comment
@@ -120,7 +124,7 @@ class CommentsController < ApplicationController
 
     def correct_user
         @comment = Comment.find(params[:id])
-        unless current_user == @comment.commenter || current_user.admin 
+        unless current_user == @comment.commenter || current_user.admin? 
             Flash[:error] = "Sorry, you can't edit that comment."
             redirect_to root_url 
         end

@@ -78,8 +78,7 @@ class PostsController < ApplicationController
 
   def teacher_view
     @post  = Post.find(params[:post_id])
-    @comments = @post.comments.paginate(page: params[:page],
-        order: 'created_at DESC')
+    @comments = @post.comments.visible.order('created_at DESC')
     @alarm = Alarm.new
     @rating = Rating.new
     @like = Like.new

@@ -1,0 +1,5 @@
+<%= form_for(Like.find_by_liked_lesson_id(lesson.id), 
+	html: { method: :delete }, remote: true) do |f| %>
+	<%= f.hidden_field :liked_lesson_id %>
+ 	<%= f.submit "Unlike", class: "btn btn-small", confirm: "You will LOSE some points if you click. Continue?" %>
+<% end %>

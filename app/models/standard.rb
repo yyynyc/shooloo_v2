@@ -4,4 +4,5 @@ class Standard < ActiveRecord::Base
   has_many :videos
   belongs_to :domain
   belongs_to :level
+  has_many :lessons
 end

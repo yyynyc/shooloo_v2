@@ -1,0 +1,13 @@
+<i class="icon-heart "></i>
+<span id="lesson_likes_count-<%=lesson.id%>" %>
+	<% if lesson.likes_count.to_i >0 %>
+		<%= link_to lesson.likes_count, "#", "class" => "like", "rel" => "tooltip", 
+			"title" => "#{lesson_liker_list(lesson)} liked your lesson." %> 		
+	<% end %>
+</span> |
+
+<i class="icon-comment"></i>
+<% if lesson.comments_count.to_i >0 %>
+	<%= link_to lesson.comments_count, "#", "class" => "comment", "rel" => "tooltip", 
+		"title" => "#{lesson_commenter_list(lesson)} commented on your lesson." %>
+<% end %>

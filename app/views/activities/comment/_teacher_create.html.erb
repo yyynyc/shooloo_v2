@@ -1,0 +1,11 @@
+<% if activity.trackable %>
+	added a <strong>COMMENT</strong> on <%= activity.created_at.strftime("%b %d, %Y") %>
+	to Lesson Plan 
+	#<%= link_to activity.trackable.commented_lesson.id, lesson_comment_path(activity.trackable.commented_lesson) %> 
+	written by 
+	<%= link_to activity.trackable.commented_lesson.user.screen_name, edit_user_path(activity.trackable.commented_lesson.user) %>
+	(a <%= activity.trackable.commented_lesson.user.role %>
+	in grade <%= activity.trackable.commented_lesson.user.grade %>). 
+<% else %>
+	added a comment which has since been removed.
+<% end %>

@@ -1,0 +1,9 @@
+<div id="like_form_lesson_<%= lesson.id %>">
+  <% if current_user.likes.find_by_liked_lesson_id(lesson.id).nil? %>
+   	<%= render partial: 'likes/like_lesson', locals: 
+   		{like: like, lesson: lesson} %>
+  <% else %>
+    <%= render partial: 'likes/unlike_lesson', locals: 
+    	{like: like, lesson: lesson} %>
+  <% end %>
+</div>

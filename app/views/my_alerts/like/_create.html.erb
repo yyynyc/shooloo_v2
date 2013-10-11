@@ -13,8 +13,14 @@
 	<% elsif !activity.trackable.liked_comment_id.nil?  %>
 		<span class='alert-heading'>
 			<strong><%= link_to "LIKED your comment", new_post_comment_path(activity.trackable.liked_comment.commented_post) %></strong>
-			on post 
-			(#<%= link_to activity.trackable.liked_comment.commented_post.id, new_post_comment_path(activity.trackable.liked_comment.commented_post) %>)  
+			on 
+			<% if !activity.trackable.liked_comment.commented_post_id.nil? %>
+				post 
+				(#<%= link_to activity.trackable.liked_comment.commented_post.id, new_post_comment_path(activity.trackable.liked_comment.commented_post) %>)
+			<% elsif !activity.trackable.liked_comment.commented_lesson_id.nil? %>
+				lesson plan 
+				(#<%= link_to activity.trackable.liked_comment.commented_lesson.id, lesson_comment_path(activity.trackable.liked_comment.commented_lesson) %>) 
+			<% end %>  
 			on <%= activity.created_at.strftime("%b %d, %Y") %>.
 		</span>
 		<i class='icon-heart icon-medium'></i>	<br/>
@@ -22,6 +28,17 @@
 		<%= link_to "#{activity.user.screen_name}", posts_user_path(activity.user) %> that you appreciate the attention. <br/>
 		Like
 		<%= link_to "#{activity.user.screen_name}'s comments", commented_posts_user_path(activity.user) %> in return.
+	<% elsif !activity.trackable.liked_lesson_id.nil? %>
+		<span class='alert-heading'>
+			<strong><%= link_to "LIKED your lesson", lesson_comment_path(activity.trackable.liked_lesson) %></strong>
+			(#<%= link_to activity.trackable.liked_lesson.id, lesson_comment_path(activity.trackable.liked_lesson) %>)  
+			on <%= activity.created_at.strftime("%b %d, %Y") %>.			
+		</span>
+		<i class='icon-heart icon-medium'></i>	<br/>
+		Tell
+		<%= link_to "#{activity.user.screen_name}", lessons_user_path(activity.user) %> that you appreciate the attention. <br/>
+		Like
+		<%= link_to "#{activity.user.screen_name}'s lessons", lessons_user_path(activity.user) %> in return.
 	<% end %>
 <% else %>
 	<span class='alert-heading'>

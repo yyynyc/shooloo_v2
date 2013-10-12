@@ -43,8 +43,7 @@
             	<% end %><br/>	           			
 				<span class="alert-heading">
 					<% if current_user == comment.commenter || current_user.admin? %>
-						<a href="#", class="follow", rel="popover", title="How to Edit Your Comment?", data-content="<ul class='popover-list'><li>Click on this comment and you will be able to change it.</li><li>Click away and your changes will be saved automatically.</li></ul>"><i class="icon-pencil icon-medium" ></i></a>
-						<%= best_in_place comment, :content %>
+						<%= best_in_place comment, :content %><a href="#", class="edit", rel="popover", title="How to Edit Your Comment?", data-content="<ul class='popover-list'><li>Click on any word in this comment and you will be able to change it.</li><li>Click away and your changes will be saved automatically.</li></ul>"><i class="icon-pencil icon-medium" ></i></a>
 					<% else %>
 						<%= wrap(simple_format(comment.content)) %>
 					<% end %>					

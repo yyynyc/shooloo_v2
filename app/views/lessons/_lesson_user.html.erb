@@ -1,5 +1,8 @@
 <span class="user">
   <%= link_to lesson.user.screen_name, posts_user_path(lesson.user) %>
+  <% if signed_in? && current_user.admin? %>
+	(<%= lesson.user.first_name %> <%= lesson.user.last_name %>)
+<% end %>
 </span> 
 <span class="timestamp">- </span><% if !lesson.user.grade.nil? %>grade <%= lesson.user.grade %> <% end %><%= lesson.user.role %><span class="timestamp"> -</span>
 <span class="timestamp">created</span>
@@ -7,9 +10,6 @@ Lesson Plan #<%= lesson.id %>
 <span class="timestamp">on </span>    
 <%= lesson.created_at.strftime("%b %d, %Y") %>
 
-<% if signed_in? && current_user.admin? %>
-	<br/> 
-	<span class="timestamp">Real name:</span> <%= lesson.user.first_name %> <%= lesson.user.last_name %>
-<% end %>
+
 
 

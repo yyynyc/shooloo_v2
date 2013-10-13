@@ -44,7 +44,18 @@
 		  		<div class="accordion-toggle">    				
 		  			<ol class="users">
 		  				<% @lesson.post_a.comments.each do |comment| %>
-		  					<%= render partial: 'lessons/comment', locals: {comment: comment} %>
+		  					<li>
+								<div class="accorion-heading">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseA<%=comment.id%>">
+										<p><strong>#<%= comment.id %>:</strong></p>
+									</a>
+								</div>
+								<div id="collapseA<%=comment.id%>" class="accordion-body collapse">
+										<div class="accordion-toggle teacher-view">    				
+											<p><%= comment.content %></p>
+										</div>		   		
+								</div>
+							</li>
 		  				<% end %>
 		  			</ol>
 		  		</div>		   		
@@ -92,7 +103,18 @@
 		  		<div class="accordion-toggle">    				
 		  			<ol class="users">
 		  				<% @lesson.post_b.comments.each do |comment| %>
-		  					<%= render partial: 'lessons/comment', locals: {comment: comment} %>
+		  					<li>
+								<div class="accorion-heading">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseB<%=comment.id%>">
+										<p><strong>#<%= comment.id %>:</strong></p>
+									</a>
+								</div>
+								<div id="collapseB<%=comment.id%>" class="accordion-body collapse">
+										<div class="accordion-toggle teacher-view"> 
+											<p><%= comment.content %></p>
+										</div>		   		
+								</div>
+							</li>
 		  				<% end %>
 		  			</ol>
 		  		</div>		   		

@@ -37,7 +37,7 @@
       </p>
       <p>
         <% if !lesson.file_file_name.nil? %>      
-          <i>Full lesson plan: <a href="http://localhost:3000/attachments/lessons/<%=lesson.id %>/<%=lesson.file_file_name %>"> <%= lesson.file_file_name %> </a></i> 
+          <i>Full lesson plan: <a href="/attachments/lessons/<%=lesson.id %>/<%=lesson.file_file_name %>"> <%= lesson.file_file_name %> </a></i> 
         <% end %>
       </p>                    
     </section>

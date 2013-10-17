@@ -15,9 +15,11 @@
 				<span class="timestamp"> commented on </span>
 				<%= comment.created_at.strftime("%b %d, %Y") %>.	          
             	<% if comment.visible? %>
-            		<span class='search-label'>
-            			<%= render partial: 'alarms/alarm_comment', locals: {post: comment.commented_post, comment:comment} %>
-            		</span>
+            		<% unless comment.commenter.role=="teacher" || comment.commenter.admin? %>
+	            		<span class='search-label'>
+	            			<%= render partial: 'alarms/alarm_comment', locals: {post: comment.commented_post, comment:comment} %>
+	            		</span>
+	            	<% end %>	
             		<span class='search-label'>	
             			<% unless current_user?(comment.commenter) %> 
 	            			<%= render partial: 'likes/like_form_comment', locals: {like: @like, comment: comment} %>

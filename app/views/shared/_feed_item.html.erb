@@ -25,36 +25,9 @@
         </section>
       </div>
       <div>
-        <span class="btn-formtastic">
-          <span class='search-label'> 
-           <%= render partial: 'alarms/alarm', locals: {post: feed_item} %>
-          </span>       
-          <% if current_user?(feed_item.user) %>
-            <% unless feed_item.ratings_count.nil? %>
-              <%= render partial: 'shared/rating_show_avg', locals: { local_object: feed_item } %>
-            <% end %>
-            <%= link_to raw('<i class="icon-pencil icon-white"></i> Post'), edit_post_path(feed_item), title: "Edit Post", class: "btn btn-small btn-success" %>            
-          <% else %> 
-            <% if feed_item.ratings.find_by_rater_id(current_user.id) %>
-              <%= link_to raw('<i class="icon-pencil"></i> Rating'), edit_post_rating_path(feed_item, feed_item.rating_by(current_user)), title: "Edit Rating", class: "btn btn-small btn-default" %>
-              <%= render partial: 'shared/rating_show_avg', locals: { local_object: feed_item } %>
-            <% else %>              
-                <%= link_to raw('<i class="icon-star"></i> Rate'), new_post_rating_path(feed_item), class: "btn btn-small btn-default" %>     
-            <% end %>
-            <span class='search-label'> 
-              <%= render partial: 'likes/like_form', locals: {post: feed_item, like: @like} %>
-            </span>  
-          <% end %>
-          <span class='search-label'> 
-            <%= render partial: 'invites/invite_form', locals: {post: feed_item, invite: @invite} %>            
-          </span>
-          <span class='search-label'> 
-            <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), new_post_comment_path(feed_item), class: "btn btn-small btn-success" %> 
-          </span>  
-          <% if current_user.admin? || current_user.role == "teacher" %>
-            <%= link_to "Teacher", post_teacher_view_path(feed_item), class: "btn btn-small btn-danger" %> 
-          <% end %>                
-        </span>
+        <div class="btn-formtastic">
+          <%=render partial: 'posts/post_buttons', locals: {post: feed_item, like: @like, invite: @invite} %>
+        </div>
       </div>
     </section>
   </li>

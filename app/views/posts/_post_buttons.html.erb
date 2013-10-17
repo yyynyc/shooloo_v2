@@ -1,0 +1,30 @@
+<% unless post.user.role =="teacher" || post.user.admin? || post.has_teacher_comment? %>
+  <span class='search-label'> 
+   <%= render partial: 'alarms/alarm', locals: {post: post} %>
+  </span>   
+<% end %>      
+<% if current_user?(post.user) %>
+  <% unless post.ratings_count.nil? %>
+    <%= render partial: 'shared/rating_show_avg', locals: { local_object: post} %>
+  <% end %>
+  <%= link_to raw('<i class="icon-pencil icon-white"></i> Post'), edit_post_path(post), title: "Edit Post", class: "btn btn-small btn-success" %>            
+<% else %> 
+  <% if post.ratings.find_by_rater_id(current_user.id) %>
+    <%= link_to raw('<i class="icon-pencil"></i> Rating'), edit_post_rating_path(post, post.rating_by(current_user)), title: "Edit Rating", class: "btn btn-small btn-default" %>
+    <%= render partial: 'shared/rating_show_avg', locals: { local_object: post } %>
+  <% else %>              
+      <%= link_to raw('<i class="icon-star"></i> Rate'), new_post_rating_path(post), class: "btn btn-small btn-default" %>     
+  <% end %>
+  <span class='search-label'> 
+    <%= render partial: 'likes/like_form', locals: {post: post, like: like} %>
+  </span>  
+<% end %>
+<span class='search-label'> 
+  <%= render partial: 'invites/invite_form', locals: {post: post, invite: invite} %>            
+</span>
+<span class='search-label'> 
+  <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), new_post_comment_path(post), class: "btn btn-small btn-success" %> 
+</span>  
+<% if current_user.admin? || current_user.role == "teacher" %>
+  <%= link_to "Teacher", post_teacher_view_path(post), class: "btn btn-small btn-danger" %> 
+<% end %>                

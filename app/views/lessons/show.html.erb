@@ -11,7 +11,7 @@
 	    </div>
 	    <div id="collapseOne" class="accordion-body collapse">    	
 	  		<div class="accordion-toggle teacher-view">    				
-	  			<p><%= @lesson.post_a.question %></p>
+	  			<p><%= wrap(simple_format(@lesson.post_a.question)) %></p>
 	  		</div>		   		
 	    </div>
 		<div class="accorion-heading">

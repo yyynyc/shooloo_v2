@@ -61,7 +61,7 @@
 				        <% end %>              
 				    </p>    
 					<p>
-						<%= truncate lesson.description, :length => 50, :omission => "..." %> 
+						<%= truncate lesson.description, :length => 165, :omission => "..." %> 
 						<% if !lesson.file_file_name.nil? %>
 							<%= link_to "Read more for downloadable lesson plan...", lesson_comment_path(lesson) %>
 						<% else %>

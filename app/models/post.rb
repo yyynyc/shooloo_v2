@@ -94,6 +94,15 @@ class Post < ActiveRecord::Base
     user.ratings.find_by_rated_post_id(self.id)
   end
 
+  def has_teacher_comment?
+    comments.each do |comment|
+      if comment.commenter.role == "teacher"
+        return true
+      end
+    end
+    return false
+  end
+
   after_create do
     Event.create!(benefactor_id: self.user_id, beneficiary_id: 1, 
         event: "new post", value: ShoolooV2::POST_NEW)

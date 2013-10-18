@@ -15,7 +15,7 @@
 				<span class="timestamp"> commented on </span>
 				<%= comment.created_at.strftime("%b %d, %Y") %>.	          
             	<% if comment.visible? %>
-            		<% unless comment.commenter.role=="teacher" || comment.commenter.admin? %>
+            		<% unless comment.commenter.role=="teacher" || comment.commenter.admin? || current_user == comment.commenter %>
 	            		<span class='search-label'>
 	            			<%= render partial: 'alarms/alarm_comment', locals: {post: comment.commented_post, comment:comment} %>
 	            		</span>
@@ -37,14 +37,14 @@
 	            			</span>
             		</span>
             	<% else %>
-            		<% if current_user.admin? || current_user.in?(comment.commenter.authorizers) %>
+            		<% if current_user.admin? || current_user.role=="teacher" %>
             			<span class='search-label'>	
             				<%= render partial: 'alarms/unalarm_comment', locals: {post: comment.commented_post, comment:comment} %>
             			</span>
             		<% end %>
             	<% end %><br/>	           			
 				<span class="alert-heading">
-					<% if current_user == comment.commenter || current_user.admin? %>
+					<% if current_user == comment.commenter || current_user.admin? || current_user.in?(comment.commenter.authorizers)%>
 						<%= best_in_place comment, :content %><a href="#", class="edit", rel="popover", title="How to Edit Your Comment?", data-content="<ul class='popover-list'><li>Click on any word in this comment and you will be able to change it.</li><li>Click away and your changes will be saved automatically.</li></ul>"><i class="icon-pencil icon-medium" ></i></a>
 					<% else %>
 						<%= wrap(simple_format(comment.content)) %>

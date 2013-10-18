@@ -38,6 +38,32 @@ class UserMailer < ActionMailer::Base
     end
   end
 
+  def alarm_post(authorizer, alarmed_post, author)
+    sendgrid_category "alarm notification to teacher"
+    @user = authorizer
+    @alarmed_post = alarmed_post
+    @author = author
+    mail to: authorizer.personal_email, 
+        subject: "Shooloo Alarm on Your Student's Post"
+  end
+
+  def alarm_comment(authorizer, alarmed_comment, author)
+    sendgrid_category "alarm notification to teacher"
+    @user = authorizer
+    @alarmed_comment = alarmed_comment
+    @author = author
+    mail to: authorizer.personal_email, 
+        subject: "Shooloo Alarm on Your Student's Comment"
+  end
+
+  def alarmer(authorizer, alarmer)
+    sendgrid_category "alarm notification to teacher"
+    @user = authorizer
+    @alarmer = alarmer
+    mail to: authorizer.personal_email, 
+        subject: "Your student has raised an alarm on Shooloo"
+  end
+
   def auth_request(authorizer, authorized)
     sendgrid_category "authoriztaion request"
     @user = authorizer

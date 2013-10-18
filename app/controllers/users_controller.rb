@@ -72,13 +72,13 @@ class UsersController < ApplicationController
   	@user = User.new(params[:user])
   	if @user.save
   		sign_in @user
-      if @user.role == "student"
+      # if @user.role == "student"
         flash[:error] = "Almost there. Complete the form below."
         redirect_to edit_user_path(@user)
-      else
-        flash[:error] = "Almost there: you need to #{ActionController::Base.helpers.link_to "complete your information here", edit_user_path(@user)}.". html_safe
-        redirect_to posts_path
-      end
+      # else
+      #   flash[:error] = "Almost there: you need to #{ActionController::Base.helpers.link_to "complete your information here", edit_user_path(@user)}.". html_safe
+      #   redirect_to posts_path
+      # end
   	else
   		render 'new'
   	end

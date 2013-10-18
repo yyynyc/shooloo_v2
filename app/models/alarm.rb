@@ -33,6 +33,8 @@ class Alarm < ActiveRecord::Base
       self.alarmed_post.user.authorizers.each do |authorizer|
         Activity.create!(action: "create", trackable: self, 
         user_id: self.alarmer_id, recipient_id: authorizer.id)
+        UserMailer.alarm_comment(authorizer, self.alarmed_post, 
+          self.alarmed_post.user).deliver
       end
     elsif self.alarmed_comment
       Event.create!(benefactor_id: self.alarmed_comment.commenter_id, beneficiary_id: 1, 
@@ -42,11 +44,14 @@ class Alarm < ActiveRecord::Base
       self.alarmed_comment.commenter.authorizers.each do |authorizer|
         Activity.create!(action: "create", trackable: self, 
         user_id: self.alarmer_id, recipient_id: authorizer.id)
+        UserMailer.alarm_comment(authorizer, self.alarmed_comment, 
+          self.alarmed_comment.commenter).deliver
       end
     end 
     self.alarmer.authorizers.each do |authorizer|
         Activity.create!(action: "create", trackable: self, 
         user_id: self.alarmer_id, recipient_id: authorizer.id)
+        UserMailer.alarmer(authorizer, self.alarmer).deliver
     end
     User.where(admin: true).each do |admin|
       Activity.create!(action: "create", trackable: self, 

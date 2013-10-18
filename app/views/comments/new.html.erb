@@ -6,7 +6,7 @@
 	<ol class="posts">
 		<% unless @comments.hidden.blank? %>
 			<% @comments.hidden.each do |comment| %>
-				<% if current_user == comment.commenter || current_user.admin? || current_user.in?(comment.commenter.authorizers) %>
+				<% if current_user == comment.commenter || current_user.admin? || current_user.role == "teacher" %>
 					<%= render partial: 'comments/comment', locals: {comment: comment} %>
             	<% end %> 
             <% end %>	  

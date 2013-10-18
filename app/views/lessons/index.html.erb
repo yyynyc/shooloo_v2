@@ -51,17 +51,17 @@
 						<strong><%= lesson.standard.short %></strong>  &
 						<%= lesson.practice.name %> 
 					</p>
-					<p>
+					<p><i>
 				        <% if !lesson.post_a_id.nil? && !lesson.post_b_id.nil? %>
 				          Compare post #<%= link_to lesson.post_a_id, post_teacher_view_path(lesson.post_a_id) %> with post #<%= link_to lesson.post_b_id, post_teacher_view_path(lesson.post_b_id) %>
 				        <% elsif !lesson.post_a_id.nil? %>
 				          Analyze post #<%= link_to lesson.post_a_id, post_teacher_view_path(lesson.post_a_id) %>
 				        <% elsif !lesson.post_b_id.nil? %>
 				          Analyze post #<%= link_to lesson.post_b_id, post_teacher_view_path(lesson.post_b_id) %>
-				        <% end %>              
+				        <% end %></i>              
 				    </p>    
 					<p>
-						<%= truncate lesson.description, :length => 165, :omission => "..." %> 
+						<%= truncate lesson.description, :length => 140, :omission => "..." %> 
 						<% if !lesson.file_file_name.nil? %>
 							<%= link_to "Read more for downloadable lesson plan...", lesson_comment_path(lesson) %>
 						<% else %>

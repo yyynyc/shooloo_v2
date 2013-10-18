@@ -9,7 +9,8 @@ class SessionsController < ApplicationController
 		user = User.find_by_screen_name(params[:session][:screen_name])
     	if user && user.authenticate(params[:session][:password])
       		sign_in user      		
-      		redirect_back_or root_path
+      		redirect_back_or my_alerts_path
+        #   redirect_back_or root_path
           unless Event.where(benefactor_id: user.id, event: "sign in").where(
               'Date(created_at)=?', Date.today).any? || user.id == 1
       		  Event.create!(benefactor_id: user.id, beneficiary_id: 1, 

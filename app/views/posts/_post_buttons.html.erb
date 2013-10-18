@@ -1,9 +1,9 @@
-<% unless post.user.role =="teacher" || post.user.admin? || post.has_teacher_comment? %>
+<% unless post.user.role =="teacher" || post.user.admin? || post.has_teacher_comment? || current_user == post.user %>
   <span class='search-label'> 
    <%= render partial: 'alarms/alarm', locals: {post: post} %>
   </span>   
 <% end %>      
-<% if current_user?(post.user) %>
+<% if current_user?(post.user) || current_user.admin? %>
   <% unless post.ratings_count.nil? %>
     <%= render partial: 'shared/rating_show_avg', locals: { local_object: post} %>
   <% end %>

@@ -70,6 +70,10 @@ class PostsController < ApplicationController
     end
   end
 
+  def grading
+    @post = Post.find(params[:id])
+  end
+
   def destroy
     @post.destroy
     current_user.post_count -= 1

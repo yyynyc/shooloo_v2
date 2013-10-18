@@ -37,7 +37,7 @@
 	            			</span>
             		</span>
             	<% else %>
-            		<% if current_user.admin? %>
+            		<% if current_user.admin? || current_user.in?(comment.commenter.authorizers) %>
             			<span class='search-label'>	
             				<%= render partial: 'alarms/unalarm_comment', locals: {post: comment.commented_post, comment:comment} %>
             			</span>

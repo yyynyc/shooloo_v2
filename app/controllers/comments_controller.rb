@@ -63,14 +63,14 @@ class CommentsController < ApplicationController
             else
                 flash[:notice] = "Hooray! you've earned some points! You are one step closer toward #{ActionController::Base.helpers.link_to "getting a gift", gift_receiving_path} from your friend.".html_safe 
             end
-            @comments = @post.comments.visible.paginate(page: params[:page], 
+            @comments = @post.comments.paginate(page: params[:page], 
                 order: 'created_at DESC')      
             redirect_to new_post_comment_path(@post)
         else 
             raise "you need a post" if @post.nil?
             @post  = @comment.commented_post
             @alarm = @post.alarms.build
-            @comments = @post.comments.visible.paginate(page: params[:page],  
+            @comments = @post.comments.paginate(page: params[:page],  
                 order: 'created_at DESC')      
             render 'new'     
         end                            
@@ -80,10 +80,19 @@ class CommentsController < ApplicationController
     end
 
     def edit
-        @post  = current_user.feed.find_by_id(params[:post_id])
-        raise "you need a post" if @post.nil?
-        @comment = @post.comments.find_by_id(params[:id])
-        raise "you need a comment" if @comment.nil?
+        # if current_user.admin?
+        #     @post = Post.find_by_id(params[:post_id])
+        # else
+        #     @post  = current_user.feed.find_by_id(params[:post_id])
+        # end
+        # raise "you need a post" if @post.nil?
+        # @comment = @post.comments.find_by_id(params[:id])
+        # raise "you need a comment" if @comment.nil?
+        if current_user.admin?
+            @comment = Comment.find_by_id(params[:id])
+        else
+            @comment = current_user.comments.find_by_id(params[:id])
+        end
     end
 
     def update
@@ -96,7 +105,7 @@ class CommentsController < ApplicationController
           flash[:success] = "You have updated your comment successfully!"
           respond_with @comment
         else
-          render 'edit'
+          render 'new'
         end
     end
 

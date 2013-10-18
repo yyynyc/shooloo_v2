@@ -4,9 +4,13 @@
 <% if !@comments.blank? %>
 	<h2> Comments </h2>	
 	<ol class="posts">
-	  <% if current_user.admin? || current_user.role == "teacher" %>
-	    <%= render @comments.hidden %>
-	  <% end %>   		
+		<% unless @comments.hidden.blank? %>
+			<% @comments.hidden.each do |comment| %>
+				<% if current_user == comment.commenter || current_user.admin? || current_user.in?(comment.commenter.authorizers) %>
+					<%= render partial: 'comments/comment', locals: {comment: comment} %>
+            	<% end %> 
+            <% end %>	  
+	  	<% end %>   		
 		<%= render @comments.visible %>
 	</ol>
 <% end %>

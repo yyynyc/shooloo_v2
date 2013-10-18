@@ -320,9 +320,13 @@ ActiveRecord::Schema.define(:version => 20131010181427) do
   create_table "referrals", :force => true do |t|
     t.integer  "referred_id"
     t.integer  "referrer_id"
-    t.string   "approval",    :default => "pending", :null => false
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.string   "approval",                :default => "pending"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+    t.boolean  "name_true"
+    t.boolean  "role_true"
+    t.boolean  "screen_name_appropriate"
+    t.boolean  "avatar_appropriate"
   end
 
   add_index "referrals", ["referred_id"], :name => "index_referrals_on_referred_id"
@@ -407,6 +411,8 @@ ActiveRecord::Schema.define(:version => 20131010181427) do
     t.integer  "comment_count",          :default => 0
     t.integer  "follower_count",         :default => 0
     t.integer  "following_count",        :default => 0
+    t.integer  "auth_req_count",         :default => 0
+    t.string   "auth_status"
     t.string   "role",                   :default => "student"
     t.boolean  "visible",                :default => false
     t.string   "personal_email"

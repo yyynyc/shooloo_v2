@@ -28,6 +28,9 @@ class PostsController < ApplicationController
 
   def create
   	@post = current_user.posts.build(params[:post])
+    if current_user.post_count.nil?
+      current_user.post_count = 0
+    end
     if @post.save
       current_user.post_count += 1
       current_user.save

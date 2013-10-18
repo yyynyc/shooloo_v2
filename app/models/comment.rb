@@ -12,7 +12,7 @@ class Comment < ActiveRecord::Base
     url: "/attachments/comments/:id/:style/:basename.:extension",
     path: ":rails_root/public/attachments/comments/:id/:style/:basename.:extension"
 
-  validates_presence_of :commenter_id, :content, :visible
+  validates_presence_of :commenter_id, :content
 
   has_many :alarms, foreign_key: "alarmed_comment_id", dependent: :destroy
   has_many :likes, foreign_key: "liked_comment_id", dependent: :destroy

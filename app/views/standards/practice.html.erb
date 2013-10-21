@@ -23,7 +23,8 @@
 	<table class="table-ccss" >
 		<tr>
 			<th>Mathematical Practice Description</th>
-			<th>Videos</th>
+			<th>Lesson Plans</th>
+			<th>Video Tutorials</th>
 		</tr>
 		<% @practices.each do |p| %>
 			<tr itemscope itemtype="http://schema.org/AlignmentObject">
@@ -36,6 +37,11 @@
 				<tr>			
 					<td itemprop="targetDescription">
 						<p><%= p.description %></p>
+					</td>
+					<td>
+						<% p.lessons.each do |lesson| %>
+							#<%= link_to lesson.id, lesson_comment_path(lesson) %> /
+						<% end %>
 					</td>
 					<td>
 						<% p.videos.each do |v| %>

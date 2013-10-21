@@ -5,8 +5,10 @@
 		</div>
 		<div class="teacher-comment">
 			<span>
-				<% if current_user.in?(comment.commenter.authorizers) || current_user.admin? %>
+				<% if current_user.role == "teacher" || current_user.admin? %>
 					Comment #<%= comment.id %>: 
+				<% end %>
+				<% if current_user.in?(comment.commenter.authorizers) || current_user.admin? %>
 					(<%= comment.commenter.first_name %>
 					<%= comment.commenter.last_name %>)
 				<% end %>								

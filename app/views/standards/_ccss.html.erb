@@ -3,7 +3,9 @@
 		<th>Standard</th>
 		<th>Common Core State Standard Description</th>
 		<th>I-Can Statement</th>
-		<th>Problems</th>
+		<th>Word Problems</th>
+		<th>Lesson Plans</th>
+		<th>Video Tutorials</th>
 	</tr>
 	<% @domains.each do |d| %>
 		<tr>
@@ -19,15 +21,23 @@
 					</td>
 					<td itemprop="targetDescription">
 						<%= s.description %>
-						<%#= best_in_place_if (signed_in? && current_user.admin?), s, :descrption %>
 					</td>
 					<td>
 						<%= s.ICan %>
-						<%#= best_in_place_if (signed_in? && current_user.admin?), s, :ICan %>
 					</td>
 					<td>
 						<% s.posts.each do |p| %>
 							#<%= link_to p.id, new_post_comment_path(p) %> /
+						<% end %>
+					</td>
+					<td>
+						<% s.lessons.each do |lesson| %>
+							#<%= link_to lesson.id, lesson_comment_path(lesson) %> /
+						<% end %>
+					</td>
+					<td>
+						<% s.videos.each do |video| %>
+							#<%= link_to video.id, video_path(video) %> /
 						<% end %>
 					</td>
 				</tr>

@@ -21,11 +21,13 @@
     <span itemprop="targetDescription", content="<%= post.standard.description %>"></span>
   </span>
 <% end %>
-<% if signed_in? && (current_user.admin? || current_user.in?(post.user.authorizers))%>
+<% if signed_in? && (current_user.role == "teacher" || current_user.admin?) %> 
 	<br/>
 	Post id #<strong><%= link_to post.id, new_post_comment_path(post)%></strong>
-	| <span class="timestamp">Real name:</span> <%= post.user.first_name %> <%= post.user.last_name %>
-	<% if !post.quality.nil? %>
+	<% if current_user.admin? || current_user.in?(post.user.authorizers) %>
+		| <span class="timestamp">Real name:</span> <%= post.user.first_name %> <%= post.user.last_name %>
+	<% end %>
+	<% if !post.quality.nil? && current_user.admin? %>
 		<span class="timestamp">quality:</span> <%= post.quality.name %>
 	<% end %>
 <% end %>

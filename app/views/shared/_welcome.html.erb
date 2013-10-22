@@ -1,7 +1,10 @@
-<div class="about"> 
-  <p class="center" ><iframe width="500" height="375" src="http://www.schooltube.com/embed/07ef5f8b5db34e1f9ab6" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe></P>
-  <h3 class="center">
-    Welcome! 
-  </h3>
-  <p class="center">Watch the video above to get started.</p>
-</div>
+<div class="about"> <div class="row">
+  <div> 
+      <% provide @video=Video.find(3) %>
+      <%= render partial: 'videos/video_player', locals: {video: @video} %>
+  </div>
+</div> 
+<h3 class="center">
+Welcome! 
+</h3>
+<p class="center">Watch the video above to get started.</p>

@@ -9,16 +9,17 @@
 		    <%= f.input :tags %>
 		    <%= f.input :teacher_pd, as: :radio %>
 		    <%= f.input :length %>
-		    <%= f.input :duration %>
-		    <%= f.input :player_loc, label: "iFrame Location" %>			       
+		    <%= f.input :duration %>			       
 	    	<%= f.input :category_id, as: :select, include_blank: true, label: "Category", collection: Hash[Category.order('name ASC').map{|s| [s.name, s.id]}] %> 
 	    	<%= f.input :practice_id, as: :select, include_blank: true, label: "CCSS Practice", collection: Hash[Practice.order('id ASC').map{|s| [s.name, s.id]}] %> 
 	    	<%= f.input :standard_id, as: :select, include_blank: true, label: "CCSS Standard", collection: Hash[Standard.order('short ASC').map{|s| [s.short, s.id]}] %> 
-		    <%= f.input :thumbnail, as: :file, label: "Thumbnail upload" %>
-		    <%= f.input :thumbnail_remote_url, label: "Thumbnail url",   
-		    	hint: (f.object.new_record? || f.object.thumbnail.nil?)?
-				f.template.content_tag(:span, "No thumbnail yet") : 
-				f.template.image_tag(f.object.thumbnail.url(:small)) %>		
+		    <%= f.input :thumbnail, as: :file, label: "Thumbnail upload",
+                    hint: (f.object.new_record? || f.object.thumbnail.nil?)?
+                        f.template.content_tag(:span, "No thumbnail yet") : 
+                        f.template.image_tag(f.object.thumbnail.url(:small)) %> 
+		    <%= f.input :video_mp4, as: :file, label: "mp4 upload" %>
+		    <%= f.input :video_ogv, as: :file, label: "ogv upload" %>	
+		    <%= f.input :video_webm, as: :file, label: "webm upload" %>	
 		<% end %>
 		<%= f.actions do %>
         	<%= f.action :submit, label: save, as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>

@@ -28,9 +28,12 @@
       <%= will_paginate @users %>
     <% elsif @user == current_user %>
       <div class="normal-font">
-        <p class="center" >
-          <iframe width="500" height="375" src="http://www.schooltube.com/embed/07ef5f8b5db34e1f9ab6" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>
-        </P> 
+        <div class="row">
+          <div> 
+              <% provide @video=Video.find(3) %>
+              <%= render partial: 'videos/video_player', locals: {video: @video} %>
+          </div>
+        </div> 
         <p class="center">It feels so lonely not having any followers. </p>
         <p class='center'><img src="/attachments/cry.gif" alt="Shooloo Math Can Do"></p>
         <p class="center"> Watch the video above and learn how to get followers.</p> 

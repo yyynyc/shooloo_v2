@@ -1,11 +1,21 @@
 <div class="normal-font">
   <% if user.posts.blank? %>
-  	<p class="center" ><iframe width="500" height="375" src="http://www.schooltube.com/embed/e53df079c0524d9db120" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe></P> 
+  	<div class="row">
+      <div> 
+          <% provide @video=Video.find(4) %>
+          <%= render partial: 'videos/video_player', locals: {video: @video} %>
+      </div>
+    </div>  
     <p class="center">It feels so lonely not having any fan this week. </p>
     <p class='center'><img src="/attachments/cry.gif" alt="Shooloo Math Can Do"></p>
     <p class="center"> Watch the video above and learn how to gather fans.</p> 
   <% else %>
-  	<p class="center" ><iframe width="500" height="375" src="http://www.schooltube.com/embed/6df1766165964e4db2bb" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe></P>
+  	<div class="row">
+      <div class="span6 offset1"> 
+          <% provide @video=Video.find(3) %>
+          <%= render partial: 'videos/video_player', locals: {video: @video} %>
+      </div>
+    </div>  
     <p class='center'>It feels so lonely not having any fans this week.</p>
     <p class='center'><img src="/attachments/pout.gif" alt="Shooloo Math Can Do"></p>
     <p class='center'>Watch the video above and learn how to gather fans.</p>

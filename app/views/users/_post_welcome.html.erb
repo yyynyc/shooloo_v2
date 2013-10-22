@@ -1,4 +1,9 @@
-<p class="center" ><iframe width="500" height="375" src="http://www.schooltube.com/embed/e53df079c0524d9db120" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe></P> 
+<div class="row">
+  <div> 
+      <% provide @video=Video.find(3) %>
+      <%= render partial: 'videos/video_player', locals: {video: @video} %>
+  </div>
+</div>  
 <h1> Let's get moving!</h1>
 <p class='center'><img src="/attachments/moving.gif" alt="Shooloo Math Can Do" align="center"></p>
 <div class='about'>

@@ -26,7 +26,12 @@
   		<%= will_paginate @commented_posts %>
     <% else %> 
       <% if current_user?(@user) %>
-        <p class="center" ><iframe width="500" height="375" src="http://www.schooltube.com/embed/6df1766165964e4db2bb" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe></P>  
+        <div class="row">
+          <div> 
+              <% provide @video=Video.find(5) %>
+              <%= render partial: 'videos/video_player', locals: {video: @video} %>
+          </div>
+        </div>  
         <h1> Let's get moving!</h1>
         <p class='center'><img src="/attachments/moving.gif" alt="Shooloo Math Can Do" align="center"></p>
         <div class='about'>

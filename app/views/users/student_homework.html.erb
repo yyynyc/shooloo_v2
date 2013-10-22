@@ -80,11 +80,16 @@
 		</table>
 	</div>
 <% else %>
-	<p class="center" ><iframe width="500" height="375" src="http://www.schooltube.com/embed/4fe14999e96b4f15ba35" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe></P> 
+	<div class="row">
+        <div class="span6 offset1"> 
+            <% provide @video=Video.find(2) %>
+            <%= render partial: 'videos/video_player', locals: {video: @video} %>
+        </div>
+    </div> 
 	<div class="row">	
-	<div class="span8 offset2">
-		<p class="about">You have not authorized any students to be a Shooloo member.</p>
-		<p class="about">Watch the video above to learn how to quickly sign up all of your students without any effort.</p>
-	</div>
+		<div class="span8 offset2">
+			<p class="about">You have not authorized any students to be a Shooloo member.</p>
+			<p class="about">Watch the video above to learn how to quickly sign up all of your students without any effort.</p>
+		</div>
 	</div>	
 <% end %>	

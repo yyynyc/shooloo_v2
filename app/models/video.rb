@@ -3,13 +3,26 @@ class Video < ActiveRecord::Base
   friendly_id :title, use: [:slugged, :history]
 
   attr_accessible :title, :description, :player_loc, :duration, :tags, :teacher_pd, :content,
-  	:category_id, :practice_id, :standard_id, :thumbnail, :length, :thumbnail_remote_url 
-  attr_reader :thumbnail_remote_url
+  	:category_id, :practice_id, :standard_id, :thumbnail, :length, 
+    :video_mp4, :video_ogv, :video_webm
 
   has_attached_file :thumbnail, 
-    :styles => {:small => "180x180>"},            
+    :styles => {:small => "180x180>",
+                :large => "520x520>"},            
     url: "/attachments/videos/:id/:style/:basename.:extension",
     path: ":rails_root/public/attachments/videos/:id/:style/:basename.:extension"
+
+  has_attached_file :video_mp4,             
+    url: "/attachments/videos/:id/mp4/:basename.:extension",
+    path: ":rails_root/public/attachments/videos/:id/mp4/:basename.:extension"
+
+  has_attached_file :video_ogv,             
+    url: "/attachments/videos/:id/ogv/:basename.:extension",
+    path: ":rails_root/public/attachments/videos/:id/ogv/:basename.:extension"
+
+  has_attached_file :video_webm,             
+    url: "/attachments/videos/:id/webm/:basename.:extension",
+    path: ":rails_root/public/attachments/videos/:id/webm/:basename.:extension"
 
   belongs_to :category
   belongs_to :practice

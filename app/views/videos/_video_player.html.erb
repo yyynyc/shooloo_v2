@@ -40,3 +40,20 @@
     </div>
   </div>
 </div>
+
+<script>
+$(document).ready(function(){
+      $("#video-<%= video.id %>").jPlayer({
+        ready: function () {
+          $(this).jPlayer("setMedia", {
+            m4v: "<%= video.video_mp4 %>",
+            ogv: "<%= video.video_ogv %>",
+            webmv: "<%= video.video_webm %>",
+            poster: "/attachments/videos/<%=@video.id%>/large/<%=video.thumbnail_file_name%>"
+          });
+        },
+        swfPath: "/x-shockwave-flash",
+        supplied: "m4v, ogv, webmv",
+      });
+    });
+</script>

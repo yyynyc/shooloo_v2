@@ -75,19 +75,3 @@ setTimeout(function(){
     })
 }(window.jQuery)
 
-$(document).ready(function(){
-      $("#jquery_jplayer_1").jPlayer({
-        ready: function () {
-          $(this).jPlayer("setMedia", {
-            m4v: "https://fun.shooloo.org/attachments/jplayer/shooloo_home.mp4",
-            ogv: "https://fun.shooloo.org/attachments/jplayer/shooloo_home.ogv",
-            webmv: "https://fun.shooloo.org/attachments/jplayer/shooloo_home.webm",
-            flv: "https://fun.shooloo.org/attachments/jplayer/shooloo_home.flv",
-            poster: "https://fun.shooloo.org/attachments/jplayer/shooloo_home_520px.png"
-          });
-        },
-        swfPath: "/x-shockwave-flash",
-        supplied: "m4v, ogv, webmv, flv",
-      });
-    });
-

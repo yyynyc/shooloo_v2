@@ -21,10 +21,13 @@ ShoolooV2::Application.configure do
   config.assets.digest = true
 
   # send email to admin wherenever there is a system error
-  config.middleware.use ExceptionNotifier,
-  sender_address: 'errors@shooloo.org',
-  exception_recipients: 'ryang@prosperityprana.com',
-  ignore_exceptions: ExceptionNotifier.default_ignore_exceptions 
+  config.middleware.use ExceptionNotification::Rack,
+  :email => {
+    :email_prefix => "[Shooloo Error]",
+    :sender_address => %{"error" <error@shooloo.org>},
+    :exception_recipients => %w{ryang@prosperityprana.com, yyynyc@gmail.com}
+  },
+  ignore_exceptions: ExceptionNotifier.ignored_exceptions 
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH

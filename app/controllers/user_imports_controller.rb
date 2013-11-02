@@ -7,7 +7,7 @@ class UserImportsController < ApplicationController
 
   def create
     @user_import = UserImport.new(params[:user_import])
-    if @user_import.save
+    if @user_import.save(current_user.id)
       redirect_to authorizations_path, notice: "Imported students successfully."
     else
       render :new

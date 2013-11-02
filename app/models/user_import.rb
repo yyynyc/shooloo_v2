@@ -13,7 +13,9 @@ class UserImport
     false
   end
 
-  def save
+  def save(current_user_id)
+    imported_users(current_user_id)
+
     if imported_users.map(&:valid?).all?
       imported_users.each(&:save!)
       return true
@@ -26,11 +28,11 @@ class UserImport
     return false
   end
 
-  def imported_users
-    @imported_users ||= load_imported_users
+  def imported_users(current_user_id)
+    @imported_users ||= load_imported_users(current_user_id)
   end
 
-  def load_imported_users 
+  def load_imported_users(current_user_id)
     spreadsheet = open_spreadsheet
     header = spreadsheet.row(1)
     imported_users = []
@@ -40,7 +42,7 @@ class UserImport
       user.attributes = row.to_hash.slice(*User.accessible_attributes)
       user.save!
       imported_users << user
-      Authorization.create!(authorized_id: user.id, authorizer_id: 1, approval: "accepted")
+      Authorization.create!(authorized_id: user.id, authorizer_id: current_user_id, approval: "accepted")
     end
     # Need to return an array of users not 2..2
     imported_users

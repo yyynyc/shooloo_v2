@@ -7,9 +7,11 @@ class Authorization < ActiveRecord::Base
   validates_presence_of :authorized_id, :authorizer_id, :approval
 
   after_create do
-    Activity.create!(action: "create", trackable: self, 
-    	user_id: self.authorized_id, recipient_id: self.authorizer_id)    
-    UserMailer.auth_request(self.authorizer, self.authorized).deliver
+    if self.approval == "pending"
+      Activity.create!(action: "create", trackable: self, 
+      	user_id: self.authorized_id, recipient_id: self.authorizer_id)    
+      UserMailer.auth_request(self.authorizer, self.authorized).deliver
+    end
   end
 
   after_update do
@@ -18,13 +20,15 @@ class Authorization < ActiveRecord::Base
         user_id: self.authorizer_id, recipient_id: self.authorized_id)
       if self.authorized.role == "teacher"
         UserMailer.auth_notify_yes(self.authorized).deliver
-      else
+      elsif !self.authorized.personal_email.nil?
         UserMailer.auth_notify_yes_student(self.authorized).deliver
       end
     elsif self.approval == "declined"
       Activity.create!(action: "decline", trackable: self, 
         user_id: self.authorizer_id, recipient_id: self.authorized_id)
-      UserMailer.auth_notify_no(self.authorized).deliver
+      if !self.authorized.personal_email.nil?
+        UserMailer.auth_notify_no(self.authorized).deliver
+      end
     end 
 
     if self.authorized.authorizations.where('approval' => "accepted").any?
@@ -32,8 +36,12 @@ class Authorization < ActiveRecord::Base
     end     
   end
 
-  before_destroy do
-    self.authorized.update_attributes!(visible: false)
-    UserMailer.auth_delete(self.authorized).deliver
+  after_destroy do
+    if self.authorized.authorizations.where('approval' => "accepted").blank?
+      self.authorized.update_attributes!(visible: false)
+      if !self.authorized.personal_email.nil?
+        UserMailer.auth_delete(self.authorized).deliver
+      end
+    end
   end
 end

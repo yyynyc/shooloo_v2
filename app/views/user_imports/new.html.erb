@@ -1,0 +1,31 @@
+<% provide(:title, 'Import Student Roster') %>
+<% noindex %>
+<% nofollow %>
+
+<p>You can import your entire student roster in a spreadsheet into Shooloo and set up all of your students' accounts instantly. Click on the green button belown and download the spreadsheet template. </p>
+
+<p class="center"><a href="/attachments/user_template.xls" class="btn btn-large btn-success">Download Template</a></p>
+
+<p>Save the template using a different file name, leave the first row as the header, and input data as the following:</P>
+
+<p>If some of your students are already authorized Shooloo users, do not include them in your spreadsheet. Otherwise you will create duplicate accounts and mess up your student activity tracker.</p> 
+
+<p>Include in a spreadsheet only those students who are brand new to your class and who have never created accounts on Shooloo . Then upload the spreadsheet into Shooloo.</p> 
+
+<%= form_for @user_import do |f| %>
+	<% if @user_import.errors.any? %>
+		<div>
+			<h2><%= pluralize(@user_import.errors.count, "error") %> prohibited this import from completing: </h2>
+			<ul>
+				<% @user_import.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+	<%#= render 'shared/error_messages', object: f.object %>
+	<div>
+		<%= f.file_field :file %>
+	</div>
+	<%= f.submit "import", class: "btn btn-large btn-primary" %>
+<% end %>

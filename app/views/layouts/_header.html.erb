@@ -25,6 +25,7 @@
                   <li><%= link_to "Professional Development Videos", pd_path %></li>
                   <li class="divider"></li>
                   <% if can? :update, Authorization %>
+                    <li><%= link_to "Import My Students", new_user_import_path %></li>
                     <li><%= link_to "My Student Roster", authorizations_path %></li>
                   <% end %>
                   <li><%= link_to "My Students' Activity Tracker", student_homework_user_path(current_user) %></li> 

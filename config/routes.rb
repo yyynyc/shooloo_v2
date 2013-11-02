@@ -18,6 +18,8 @@ resources :users do
   end
 end
 
+resources :user_imports
+
 resources :lessons, path: '/common-core-math-lesson-plans' do
   resources :likes, only: [:create, :destroy]
   get :comment

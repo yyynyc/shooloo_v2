@@ -1,4 +1,7 @@
 class UserImportsController < ApplicationController
+	
+	load_and_authorize_resource except: :new
+
 	def new
 	    @user_import = UserImport.new
 	end

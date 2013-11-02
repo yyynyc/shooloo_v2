@@ -1,0 +1,135 @@
+<% provide(:title, 'Import Class Roster') %>
+<% noindex %>
+<% nofollow %>
+
+<h1> Import Class Roster </h1>
+
+<div class="auth-font">
+	<p>Import your roster in a spreadsheet and create accounts for your entire class instantly!</p>
+
+	<p>First, click on the green button to download our spreadsheet template for roster.</p>
+
+	<p class="center"><a href="/attachments/user_template.xls" class="btn btn-large btn-success">Download Template</a></p>
+
+	<p>The template looks like the following.</p> 
+
+	<p><img src="/attachments/import_template.png" alt="Shooloo Roster Import Template"></p>
+
+	<p><span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseWords"><strong>Read detailed instructions</strong></a> on how to fill out the template. Save the template using a different file name and upload the file below.</p>
+
+    <div id="collapseWords" class="accordion-body collapse margin-bottom">    	
+  		<div class="accordion-toggle"> 
+			<table class="table-import">
+				<tr>
+					<th>
+						first_name
+					</th>
+					<td>
+						Your student's first name.
+					</td>			
+				</tr>
+				<tr>
+					<th>
+						last_name
+					</th>
+					<td>
+						Your student's first name.
+					</td>			
+				</tr>
+				<tr>
+					<th>
+						grade
+					</th>
+					<td>
+						<ul class="popover-list">
+							<li>Your student's grade <strong>in number</strong> only.</li> <li>For example, if you are students are in kindergarten, put in the number "0". Do NOT put in "k" or "grade k" or "kintergarten".</li> <li>Our system won't be able to recognize any letters.</li>
+						</ul>
+					</td>			
+				</tr>
+				<tr>
+					<th>
+						school_name
+					</th>
+					<td>
+						Your student's school name. Please also include the city and state of the school.
+					</td>			
+				</tr>
+				<tr>
+					<th>
+						role
+					</th>
+					<td>
+						<ul class="popover-list">
+							<li>Put in "student".</li><li>If you are a professor and your students are pursuing an education degree to become future teachers, please put in "teacher"; otherwise your students won't be able to create lesson plans.</li>
+						</ul>
+					</td>			
+				</tr>
+				<tr>
+					<th>
+						screen_name
+					</th>
+					<td>
+						<ul class="popover-list">
+							<li>Pick a screen name that your students can easily remember.</li> <li>It must not contain any part of their real names.</li> <li>It should be at least 6 characters long with no space or punctuation.</li> <li>We recommond something like this: abc3g01, where "abc" is your school name initials, "3g" is the grade if your students are in the 3rd grade, and "01" is the student number in your class.</li> <li>Screen name is case sensitive. So your students need to input their screen names exactly as you have created to log in.</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						password
+					</th>
+					<td>
+						<ul class="popover-list">
+							<li>Pick a password that your students can easily remember.</li> <li>It should be at least 6 characters long with no space or punctuation.</li> <li>All of your students can have the same password. Once they log in, they can change it to a different one.</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						password_confirmation
+					</th>
+					<td>
+						Must be the same as password.
+					</td>
+				</tr>
+				<tr>
+					<th>
+						privacy
+					</th>
+					<td>
+						Put in the word "true". This means that you agree with our <%= link_to "privacy statement", privacy_path %> on behalf of your students.
+					</td>
+				</tr>
+				<tr>
+					<th>
+						rules
+					</th>
+					<td>
+						Put in the word "true". This means that you agree with our <%= link_to "rules of conduct", rules_path %> on behalf of your students. Make sure to <%= link_to "review the Shooloo Rules of Conduct", rules_path %> with your students before they start creating posts or making comments.
+					</td>
+				</tr>
+			</table>
+		</div>		   		
+    </div>
+	
+		<%= form_for @user_import do |f| %>
+			<% if @user_import.errors.any? %>
+				<div class="import-errors">
+					<h4><%= pluralize(@user_import.errors.count, "error") %> prohibited this import from completing: </h4>
+					<ul>
+						<% @user_import.errors.full_messages.each do |msg| %>
+							<li><%= msg %></li>
+						<% end %>
+					</ul>
+				</div>
+			<% end %>
+			<div class="center">
+				<%= f.file_field :file %> <%= f.submit "import", class: "btn btn-large btn-primary" %>
+			</div>
+		<% end %>
+	  
+	<div class="box">
+		<p class="center"><strong>IMPORTANT!</strong></p>
+		<p>If some of your students are already authorized Shooloo users, do NOT include them in your spreadsheet; otherwise you will create duplicate accounts and mess up your student activity tracker.</p>
+	</div>
+</div>

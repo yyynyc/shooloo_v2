@@ -9,7 +9,8 @@ class Ability
         if user.admin?
             can :manage, :all
         elsif user.role == "teacher" && 
-            user.authorizations.where(approval: "accepted").any? 
+            user.authorizations.where(approval: "accepted").any?
+            can :crud, UserImport 
             can [:crud, :comment, :comments], Lesson
             can :update, [Authorization, Referral]
             can [:create, :destroy], [Referral, Authorization]

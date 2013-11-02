@@ -1008,3 +1008,39 @@ iframe {
   overflow-y: scroll;
   max-height: 450px;
 }
+
+.table-import {
+  tr {
+    border: 1px solid #A4A4A4;
+    th {
+    border-right: 1px solid #A4A4A4;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    vertical-align: top;
+    text-align: left;
+    }
+    td {
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    }
+  }
+}
+
+.margin-bottom {
+  margin-bottom: 2em;
+}
+
+.import-errors {
+  background-color: #FFFF00;
+  border: 1px solid #E8E8E8;
+  border-radius: 1em;
+  box-shadow: 10px 10px 5px #888888;
+  margin: 0 auto;
+  margin-bottom: 2em;
+  width: 60%; 
+  padding: 0.5em 0.5em 0.5em 2em;
+  ul {    
+    margin: 0 0 0 1em;
+    li{
+    margin: 0 0 0.5em 0;
+    }
+  }
+}

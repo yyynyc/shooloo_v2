@@ -91,7 +91,6 @@ end
   match '/privacy', to: 'static_pages#privacy'
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
-  # match '/signout', to: 'sessions#destroy', via: :delete
   match '/signout', to: 'sessions#destroy'
   match '/alarmed-posts', to: "alarms#alarmed_posts", as: :alarmed_posts
   match '/my-alerts', to: "users#show_activity", as: :my_alerts
@@ -112,9 +111,11 @@ end
   get '/standards/common-core-math-I-can-grade-8', to: "standards#grade_8", as: :grade_8
   get '/standards/common-core-math-practices', to: "standards#practice", as: :practice
 
-  unless Rails.application.config.consider_all_requests_local
-    match '*not_found', to: 'errors#error_404'
-  end
+  match '(errors)/:status', to: 'errors#show', constraints: {status: /\d{3}/} 
+
+  # unless Rails.application.config.consider_all_requests_local
+  #   match '*not_found', to: 'errors#error_404'
+  # end
   
  
 

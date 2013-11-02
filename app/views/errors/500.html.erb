@@ -1,0 +1,10 @@
+<% provide(:title, "Page Error") %> 
+<h2> Sorry: Something Is Wrong.</h2>
+<div class="auth-font">
+	<% if @exception %>
+		<p><strong>ERROR:</strong> <%= @exception.message %></p>
+	<% else %>
+		<p>We are sorry: something is wrong and we are trying to fix the problem ASAP.</p>
+	<% end %>
+	<p>Please <%= link_to "contact admin", contact_path %> and report this problem. Make sure you copy the error message above and paste it into the message body you send. Thank you!</p>
+</div>

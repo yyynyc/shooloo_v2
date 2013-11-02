@@ -43,4 +43,11 @@ ShoolooV2::Application.configure do
 
   # let paperclip know where to look for ImageMagick file.
   Paperclip.options[:command_path] = "/etc/paths.d/"
+
+  # send email to admin wherenever there is a system error
+  config.middleware.use ExceptionNotifier,
+  sender_address: 'errors@shooloo.org',
+  exception_recipients: 'ryang@prosperityprana.com',
+  ignore_exceptions: ExceptionNotifier.default_ignore_exceptions 
+  
 end

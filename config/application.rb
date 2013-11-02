@@ -67,6 +67,9 @@ module ShoolooV2
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    #configure exception or error messages
+    config.exceptions_app = self.routes
   end
     SIGN_UP = 10
     PROFILE_COMPLETE = 40

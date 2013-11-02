@@ -1,0 +1,11 @@
+<% provide(:title, "Page Not Found") %> 
+<h1> Sorry: Page Not Found.</h1>
+<div class="auth-font">
+	<% if @exception %>
+		<p><%= @exception.message %></p>
+	<% else %>
+		<p>We are sorry: the content you requested has been moved.</p>
+	<% end %>
+	<p>Check the menu bar above for its new location or go back to the <%= link_to "Shooloo home page", root_path %>.</p>
+	<p>If the above error persists, please <%= link_to "contact admin", contact_path %>. Make sure you copy the error message above and paste it into the message body you send. Thank you!</p>
+</div>

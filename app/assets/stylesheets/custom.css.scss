@@ -1008,3 +1008,22 @@ iframe {
   overflow-y: scroll;
   max-height: 450px;
 }
+
+.table-import {
+  tr {
+    border: 1px solid #A4A4A4;
+    th {
+    border-right: 1px solid #A4A4A4;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    vertical-align: top;
+    text-align: left;
+    }
+    td {
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    }
+  }
+}
+
+.margin-bottom {
+  margin-bottom: 2em;
+}

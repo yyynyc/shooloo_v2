@@ -27,11 +27,8 @@ gem 'obscenity'
 gem 'client_side_validations', :github => 'bcardarella/client_side_validations', :branch => '3-2-stable'
 gem 'client_side_validations-formtastic'
 gem 'friendly_id', :github => 'norman/friendly_id', :branch => '4.0-stable'
-<<<<<<< HEAD
 gem 'exception_notification'
-=======
 gem 'roo'
->>>>>>> teacher
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'

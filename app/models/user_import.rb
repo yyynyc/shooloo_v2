@@ -14,38 +14,37 @@ class UserImport
   end
 
   def save(current_user_id)
-    imported_users(current_user_id)
-
-    if imported_users.map(&:valid?).all?
-      imported_users.each(&:save!)
-      return true
-    end
-    imported_users.each_with_index do |user, index|
-      user.errors.full_messages.each do |message|
-        errors.add :base, "Row #{index+2}: #{message}"
+    @imported_users = load_imported_users(current_user_id)
+    begin 
+      @imported_users.each do |user|
+        user.save
+        Authorization.create!(authorized_id: user.id, authorizer_id: current_user_id, approval: "accepted")
       end
+      return true
+    rescue
+     @imported_users.each_with_index do |user, index|
+       user.errors.full_messages.each do |message|
+        errors.add :base, "Row #{index+2}: #{message}"
+        end
+      end
+     return false
     end
-    return false
-  end
-
-  def imported_users(current_user_id)
-    @imported_users ||= load_imported_users(current_user_id)
   end
 
   def load_imported_users(current_user_id)
     spreadsheet = open_spreadsheet
     header = spreadsheet.row(1)
-    imported_users = []
-    (2..spreadsheet.last_row).each do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
-      user = User.new
-      user.attributes = row.to_hash.slice(*User.accessible_attributes)
-      user.save!
-      imported_users << user
-      Authorization.create!(authorized_id: user.id, authorizer_id: current_user_id, approval: "accepted")
-    end
-    # Need to return an array of users not 2..2
-    imported_users
+      imported_users = []
+      (2..spreadsheet.last_row).each do |i|
+        row = Hash[[header, spreadsheet.row(i)].transpose]
+        user = User.new
+        user.attributes = row.to_hash.slice(*User.accessible_attributes)
+        #user.save!
+        imported_users << user
+        #Authorization.create!(authorized_id: user.id, authorizer_id: current_user_id, approval: "accepted")
+      end
+      # Need to return an array of users not 2..2
+      imported_users
   end
 
   def open_spreadsheet

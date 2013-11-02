@@ -1027,3 +1027,20 @@ iframe {
 .margin-bottom {
   margin-bottom: 2em;
 }
+
+.import-errors {
+  background-color: #FFFF00;
+  border: 1px solid #E8E8E8;
+  border-radius: 1em;
+  box-shadow: 10px 10px 5px #888888;
+  margin: 0 auto;
+  margin-bottom: 2em;
+  width: 60%; 
+  padding: 0.5em 0.5em 0.5em 2em;
+  ul {    
+    margin: 0 0 0 1em;
+    li{
+    margin: 0 0 0.5em 0;
+    }
+  }
+}

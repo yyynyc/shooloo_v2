@@ -2,7 +2,7 @@
 <h1> Sorry: Page Not Found.</h1>
 <div class="auth-font">
 	<% if @exception %>
-		<p><%= @exception.message %></p>
+		<p><p><strong>ERROR:</strong> <%= @exception.message %></p>
 	<% else %>
 		<p>We are sorry: the content you requested has been moved.</p>
 	<% end %>

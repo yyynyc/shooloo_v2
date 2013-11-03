@@ -37,7 +37,10 @@ class RatingsController < ApplicationController
 
     def create
         @rating = current_user.ratings.build(params[:rating])
-        if @rating.save    
+        if @rating.save 
+            if current_user.rating_count.nil?
+                current_user.rating_count = 0
+            end  
             current_user.rating_count +=1
             current_user.save(validate: false)
             sign_in current_user

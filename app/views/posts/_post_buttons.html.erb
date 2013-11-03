@@ -11,13 +11,12 @@
 <% else %> 
   <% if post.ratings.find_by_rater_id(current_user.id) %>
     <%= link_to raw('<i class="icon-pencil"></i> Rating'), edit_post_rating_path(post, post.rating_by(current_user)), title: "Edit Rating", class: "btn btn-small btn-default" %>
-    <%= render partial: 'shared/rating_show_avg', locals: { local_object: post } %>
-  <% else %>              
-      <%= link_to raw('<i class="icon-star"></i> Rate'), new_post_rating_path(post), class: "btn btn-small btn-default" %>     
+    <%= render partial: 'shared/rating_show_avg', locals: { local_object: post } %>    
   <% end %> 
 <% end %>
 <% unless current_user?(post.user) %>
-  <span class='search-label'> 
+  <span class='search-label'>
+    <%#= link_to raw('<i class="icon-star"></i> Rate'), new_post_rating_path(post), class: "btn btn-small btn-success" %>  
     <%= render partial: 'likes/like_form', locals: {post: post, like: like} %>
   </span> 
 <% end %>

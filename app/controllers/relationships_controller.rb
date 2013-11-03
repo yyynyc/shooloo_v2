@@ -7,6 +7,9 @@ class RelationshipsController < ApplicationController
   def create
     @user = User.find(params[:relationship][:followed_id])
     current_user.follow!(@user)
+    if current_user.following_count.nil?
+      current_user.following_count = 0
+    end
     current_user.following_count += 1
     current_user.save
     sign_in current_user

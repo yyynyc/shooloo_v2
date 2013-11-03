@@ -20,7 +20,6 @@ class Rating < ActiveRecord::Base
 
   after_create do
     update_rating_counts
-    add_rating_counts
     Activity.create!(action: "create", trackable: self, 
       user_id: self.rater_id, recipient_id: self.rated_post.user_id)
     Event.create!(benefactor_id: self.rater_id, 

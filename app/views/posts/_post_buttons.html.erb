@@ -4,7 +4,7 @@
   </span>   
 <% end %>      
 <% if current_user?(post.user) || current_user.admin? %>
-  <% unless post.ratings_count.nil? %>
+  <% unless post.ratings_count == 0 %>
     <%= render partial: 'shared/rating_show_avg', locals: { local_object: post} %>
   <% end %>
   <%= link_to raw('<i class="icon-pencil icon-white"></i> Edit'), edit_post_path(post), title: "Edit Post", class: "btn btn-small btn-success" %>            

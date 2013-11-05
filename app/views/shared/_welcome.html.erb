@@ -2,7 +2,7 @@
 	<% if current_user.role == "student" %> 
   		<% provide @video=Video.find(3) %>
   	<% else %>
-  		<% provide @video=Video.find(7) %>
+  		<% provide @video=Video.find(8) %>
   	<% end %>
   	<%= render partial: 'videos/video_player', locals: {video: @video} %>
 </div>

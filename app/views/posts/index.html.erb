@@ -8,13 +8,13 @@
 		<% if !signed_in? %>
 			<div class="row center auth normal-font">
 				<p><%= link_to "Join Shooloo", signup_path %> to access over 1,000 student-authored math word problems!</p>
-				<p>Find out how to <%= link_to "supercharge your math class with student-generated content", video_path(5) %>.</p> 
+				<p>Find out how to <%= link_to "supercharge your math class with student-generated content", video_path(6) %>.</p> 
 			</div>		
 		<% else %>	
 			<% if current_user.authorizations.blank? %>			
 				<div class="row center box normal-font">
 					<% if current_user.role == "teacher" %>
-						<p>Find out how to <%= link_to "supercharge your math class with student-generated content", video_path(5) %>.</p> 
+						<p>Find out how to <%= link_to "supercharge your math class with student-generated content", video_path(6) %>.</p> 
 					<% end %>
 					<p><%= link_to "Get authorization", new_authorization_path %> to search problems by Common Core State Standards and by "I can" statements.</p>
 				</div>

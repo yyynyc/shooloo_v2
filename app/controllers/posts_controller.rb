@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   
   def index
     @search = Post.visible.search(params[:q])
-    @posts = @search.result.visible.paginate(page: params[:page], per_page: 20, order: 'likes_count DESC')
+    @posts = @search.result.visible.paginate(page: params[:page], per_page: 20, order: 'comments_count DESC, likes_count DESC, created_at DESC')
     @search.build_condition
     if signed_in?
       @like = current_user.likes.build(params[:like])
@@ -26,8 +26,15 @@ class PostsController < ApplicationController
             keywords: 'Shooloo, Common Core, CCSS, math, word problem, critique, rate, real life, cooperative learning'
   end
 
+  def new
+    @post = Post.new
+  end
+
   def create
   	@post = current_user.posts.build(params[:post])
+    @post.likes_count = 0
+    @post.comments_count = 0
+    @post.ratings_count = 0
     if current_user.post_count.nil?
       current_user.post_count = 0
     end
@@ -36,10 +43,10 @@ class PostsController < ApplicationController
       current_user.save
       sign_in current_user
       flash[:notice] = "Fantastic! #{ActionController::Base.helpers.link_to "Check your points", gift_receiving_path} from Shooloo and your progress in your #{ActionController::Base.helpers.link_to "I-Can Journal", common_core_I_can_user_path(current_user)}.".html_safe
-      redirect_to root_path
+      redirect_to new_post_comment_path(@post)
     else
       @feed_items = []
-      render 'static_pages/home'
+      render 'new'
     end
   end
 

@@ -13,6 +13,8 @@
 //= require jquery
 //= require fancybox 
 //= require jquery_ujs
+//= require ckeditor/init
+//= require ckeditor/ckeditor
 //= require bootstrap
 //= require best_in_place
 //= require rails.validations

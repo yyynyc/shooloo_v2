@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131022190554) do
+ActiveRecord::Schema.define(:version => 20131104193821) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -228,7 +228,7 @@ ActiveRecord::Schema.define(:version => 20131022190554) do
 
   create_table "posts", :force => true do |t|
     t.text     "question"
-    t.string   "answer"
+    t.text     "answer"
     t.string   "grade"
     t.integer  "user_id"
     t.datetime "created_at",                                   :null => false
@@ -249,8 +249,8 @@ ActiveRecord::Schema.define(:version => 20131022190554) do
     t.integer  "answer_correctness_4_count"
     t.integer  "operation_whole_count"
     t.boolean  "visible",                    :default => true
-    t.integer  "ratings_count"
-    t.integer  "overall_true_count"
+    t.integer  "ratings_count",              :default => 0
+    t.integer  "overall_true_count",         :default => 0
     t.integer  "overall_false_count"
     t.integer  "ccss_right_count"
     t.integer  "steps_1_count"
@@ -264,8 +264,8 @@ ActiveRecord::Schema.define(:version => 20131022190554) do
     t.integer  "structure_count"
     t.integer  "clarity_count"
     t.integer  "originality_count"
-    t.integer  "comments_count"
-    t.integer  "likes_count"
+    t.integer  "comments_count",             :default => 0
+    t.integer  "likes_count",                :default => 0
     t.integer  "level_id"
     t.integer  "domain_id"
     t.integer  "standard_id"

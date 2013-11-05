@@ -29,6 +29,7 @@ gem 'client_side_validations-formtastic'
 gem 'friendly_id', :github => 'norman/friendly_id', :branch => '4.0-stable'
 gem 'exception_notification'
 gem 'roo'
+gem 'ckeditor'
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'

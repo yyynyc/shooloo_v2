@@ -33,3 +33,4 @@ jQuery ->
       $('#post_standard_id').parent().hide()
   doitagain()
   $('#post_domain_id').change doitagain
+

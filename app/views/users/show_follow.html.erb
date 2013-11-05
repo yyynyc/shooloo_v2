@@ -20,7 +20,8 @@
     </section>
   </aside>
   <div class="span8">
-    <h3><%= @title %></h3>
+    <h3 class="center"><%= @title %></h3>
+    <%= render partial: 'posts/button' %>
     <% if @users.any? %>
       <ul class="users">
         <%= render @users %>

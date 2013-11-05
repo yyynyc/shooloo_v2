@@ -16,9 +16,10 @@
 	  </aside>
 	<div class="span8">
     <%= render 'users/follow_nudge' %> 
-    <h3 class="feed_item">
+    <h3 class="feed_item center">
       <%= @user.screen_name %>'s Rated Posts (<%= @user.rated_posts.count %>)
     </h3>
+    <%= render partial: 'posts/button' %>
   	<% if @user.rated_posts.any? %>      		      	
   		<ol class="posts">
     		<%= render partial: 'shared/feed_item', collection: @rated_posts, order: 'ratings.updated_at DESC' %>

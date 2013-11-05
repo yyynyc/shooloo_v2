@@ -24,10 +24,10 @@
   </div>
   <div class="span7 alert-heading">         
     <p>
-      <strong>Question: </strong><%= simple_format(@post.question) %>
+      <strong>Question: </strong><%= @post.question.html_safe %>
     </p>
     <p>
-      <strong>Answer: </strong><%= @post.answer %><i><span class="no"> - Is this answer correct?</span></i>
+      <strong>Answer: </strong><%= @post.answer.html_safe %><i><span class="no"> - Is this answer correct?</span></i>
     </p>
     <% unless @post.level.nil? %>
       <p>

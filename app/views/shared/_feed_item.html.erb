@@ -20,7 +20,7 @@
             <% end %>                      
           </span>  
           <span class="wrap_long_string">      
-            <%= simple_format(feed_item.question) %>
+            <%= feed_item.question.html_safe %>
           </span>                    
         </section>
       </div>

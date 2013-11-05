@@ -1,0 +1,7 @@
+<% provide(:title, "Create Post") %> 
+<% url = posts_path %>
+<% save = "Create!" %>
+
+<h1>Create My Own Math Story</h1>
+   
+<%= render partial: 'posts/post', locals: {url: url, save: save, post: @post} %>

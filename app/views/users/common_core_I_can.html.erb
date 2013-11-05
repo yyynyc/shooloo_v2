@@ -15,9 +15,10 @@
   </aside>
   <div class="span8">
     <%= render 'users/follow_nudge' %> 
-    <h3 class="feed_item">
+    <h3 class="feed_item center">
 		Common Core Math I-Can Journal  
 	</h3>
+	<%= render partial: 'posts/button' %>
 	<% unless @user.grade.nil? %>
 		<ul class="users feed_item">
 			<% @domains.each do |domain| %>

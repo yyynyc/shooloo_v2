@@ -1,0 +1,26 @@
+<%= semantic_form_for post, :validate => true, :url => url, :html => { :multipart => true, onsubmit: "$('button', this).attr('disabled','disabled')", class: "form-horizontal-post-update", 'data-action' => 'update' }  do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+	<%=f.inputs do %> 
+        <div class="create">
+        	<%= f.input :question, as: :ckeditor %>
+        </div>
+        <div class="create">
+	    	<%= f.input :answer, as: :ckeditor %> 
+	    </div>   
+	    <%= f.input :level_id, as: :select, include_blank: true, label: "Grade", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
+    	<%= f.input :domain_id, as: :select, include_blank: true, label: "Skills", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
+    	<%= f.input :standard_id, as: :select, include_blank: true, label: "I CAN", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %> 
+    	<%= f.input :subject_id, as: :select, include_blank: true, label: "Subject", collection: Hash[Subject.order('name ASC').map{|s| [s.name, s.id]}] %>
+	    <%= f.input :photo, as: :file, label: "Photo upload" %> 	  
+	    <%= f.input :photo_remote_url, label: "Photo url", 
+	    	hint: (f.object.new_record? || f.object.photo.nil?)?
+			f.template.content_tag(:span, "No photo yet") : 
+			f.template.image_tag(f.object.photo.url(:thumb)) %>
+		<% if current_user.admin? %>
+			<%= f.input :quality_id, as: :select, include_blank: true, label: "Quality", collection: Hash[Quality.all.map{|quality| [quality.name, quality.id]}]  %>
+		<% end %>			
+	<% end %>
+	<%= f.actions do %>
+    	<%= f.action :submit, label: save, as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>
+  	<% end %> 
+<% end %>

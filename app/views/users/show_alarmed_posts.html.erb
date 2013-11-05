@@ -17,9 +17,10 @@
 	  </aside>
 	<div class="span8">
     <%= render 'users/follow_nudge' %>   
-    <h3 class="feed_item">
+    <h3 class="feed_item center">
       <%= @user.screen_name %>'s <%= link_to "Hidden", "#", "class" => "follow", "rel" => "popover", "title" => "Why Are Posts Hidden", "data-content" => "These posts are hidden from the public view because they have one or more of the following: <ul><li>offensive image</li><li>offensive content</li><li>watermarked image</li><li>plagerised content</li></ul> You can republish the post with clean image and content using the form on the left." %> Posts (<%= @alarmed_posts.count %>)
     </h3>
+    <%= render partial: 'posts/button' %>
   	<% if @alarmed_posts.any? %>
       <h5 class="feed_item">The following posts of yours have something inappropriate. Please clean up your posts first and then ask your teacher to unalarm your posts.</h4>     		      	
   		<ol class="posts">

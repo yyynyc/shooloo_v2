@@ -317,7 +317,7 @@ class UsersController < ApplicationController
 
   def show_activity
     @my_activities = Activity.where(recipient_id: current_user.id).paginate(page: params[:page], 
-      per_page: 30, order: 'created_at DESC')
+      per_page: 15, order: 'created_at DESC')
     set_meta_tags title: "My News Alerts", 
         description: "Shooloo member's activity feed",
         noindex: true,

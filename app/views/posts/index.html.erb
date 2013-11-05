@@ -43,7 +43,13 @@
 				</div>
 			<% end %>
 		<% end %>
-		<div class="row center">	
+		<div class="row center">
+			<span class="search-label">
+				<%= f.label :id_eq, "Post #" %>
+			</span>
+			<span class="search-field">
+				<%= f.text_field :id_eq %>
+			</span>	
 			<span class="search-label">
 				<%= f.label :level_name_cont, "Grade" %>
 			</span>
@@ -57,14 +63,14 @@
 				<%= f.collection_select :subject_name_cont, Subject.order(:name), :name, :name, include_blank: true  %>
 			</span>
 			<span class="search-label">
-				<%= f.label :question_cont, "Question Keywords" %>
+				<%= f.label :question_cont, "Keywords" %>
 			</span>
 			<span class="search-field">
 				<%= f.text_field :question_cont %>
 			</span>	
 			<% if signed_in? && ((current_user.role=="teacher" && current_user.authorizations.any?) || current_user.admin?) %>
 				<span class="search-label">
-					<%= f.label :quality_name_cont, "Question Quality" %>
+					<%= f.label :quality_name_cont, "Quality" %>
 				</span>
 				<span class="search-field">
 					<%= f.collection_select :quality_name_cont, Quality.order(:id), :name, :name, include_blank: true %>

@@ -25,6 +25,18 @@
 	</div>
 	<div class="row center bottom-margin">
 		<span class="search-label">
+			<%= f.label :id_eq, "Lesson Plan #" %>
+		</span>
+		<span class="search-field">
+			<%= f.text_field :id_eq %>
+		</span>
+		<span class="search-label">
+			<%= f.label :user_screen_name_cont, "Author Screen Name" %>
+		</span>
+		<span class="search-field">
+			<%= f.text_field :user_screen_name_cont %>
+		</span>		
+		<span class="search-label">
 			<%= f.label :description_cont, "Lesson Description Keywords" %>
 		</span>
 		<span class="search-field">

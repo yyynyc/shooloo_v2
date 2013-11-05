@@ -98,7 +98,7 @@
 					        <%= render partial: 'posts/post_stats', locals: {post: post} %>			        		      	
 				    	</section> 
 				  		<section class="feed_content">			  			
-				  			<%= truncate_html post.question, :length => 100, 
+				  			<%= truncate post.question, :length => 100, 
 				  				:omission => "..." %>
 				  			<% if signed_in? %>			  		
 					  			<% if current_user?(post.user) || current_user.admin? %>

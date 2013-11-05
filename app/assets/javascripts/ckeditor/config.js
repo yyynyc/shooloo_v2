@@ -1,46 +1,47 @@
 CKEDITOR.editorConfig = function( config ) {
     config.toolbar = [
         [ 'SpellChecker', 'Scayt', 'Table','SpecialChar' ],
-        [ 'Bold', 'Italic', '-', 'Underline','Strike', '-', 'Subscript','Superscript','-','RemoveFormat' ], 
+        [ 'Bold', 'Italic', '-', 'Underline','Strike', 'TextColor', '-', 'Subscript','Superscript','-','RemoveFormat' ], 
         [ 'Cut', 'Copy', 'PasteFromWord', '-', 'Undo', 'Redo' ],
        	[ 'Find','Replace','-','SelectAll' ],
        	[ 'NumberedList','BulletedList','-','Outdent','Indent',
-			'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ]
+			'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ],
+        [ 'Smiley']
     ];
 
-    config.toolbar = "CKcomment"
-    config.toolbar_CKcomment = [
-    	[ 'SpellChecker', 'Scayt', 'SpecialChar' ],
-        [ 'Bold', 'Italic', '-', 'Underline','Strike', 'TextColor', '-', 'Subscript','Superscript','-','RemoveFormat' ], 
-        [ 'Cut', 'Copy', 'PasteFromWord', '-', 'Undo', 'Redo' ],
-       	[ 'NumberedList','BulletedList','-','Outdent','Indent',
-			'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ],
-		[ 'Smiley']
-    ]
+ //    config.toolbar = "CKcomment"
+ //    config.toolbar_CKcomment = [
+ //    	[ 'SpellChecker', 'Scayt', 'SpecialChar' ],
+ //        [ 'Bold', 'Italic', '-', 'Underline','Strike', 'TextColor', '-', 'Subscript','Superscript','-','RemoveFormat' ], 
+ //        [ 'Cut', 'Copy', 'PasteFromWord', '-', 'Undo', 'Redo' ],
+ //       	[ 'NumberedList','BulletedList','-','Outdent','Indent',
+	// 		'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ],
+	// 	[ 'Smiley']
+ //    ]
 
-    config.toolbar = "admin"
-    config.toolbar_admin = [
-    	[ 'SpellChecker', 'Scayt', 'Table','SpecialChar' ],
-        [ 'Bold', 'Italic', '-', 'Underline','Strike', '-', 'Subscript','Superscript','-','RemoveFormat' ], 
-        [ 'Cut', 'Copy', 'PasteFromWord', '-', 'Undo', 'Redo' ],
-       	[ 'Find','Replace','-','SelectAll' ],
-       	[ 'NumberedList','BulletedList','-','Outdent','Indent',
-			'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ],
-		[ 'Link', 'Unlink' ], 
-		[ 'Source']
-	]
+ //    config.toolbar = "admin"
+ //    config.toolbar_admin = [
+ //    	[ 'SpellChecker', 'Scayt', 'Table','SpecialChar' ],
+ //        [ 'Bold', 'Italic', '-', 'Underline','Strike', '-', 'Subscript','Superscript','-','RemoveFormat' ], 
+ //        [ 'Cut', 'Copy', 'PasteFromWord', '-', 'Undo', 'Redo' ],
+ //       	[ 'Find','Replace','-','SelectAll' ],
+ //       	[ 'NumberedList','BulletedList','-','Outdent','Indent',
+	// 		'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ],
+	// 	[ 'Link', 'Unlink' ], 
+	// 	[ 'Source']
+	// ]
 
-	config.toolbar = "comment_admin"
-    config.toolbar_comment_admin = [
-    	[ 'SpellChecker', 'Scayt', 'SpecialChar' ],
-        [ 'Bold', 'Italic', '-', 'Underline','Strike', 'TextColor', '-', 'Subscript','Superscript','-','RemoveFormat' ], 
-        [ 'Cut', 'Copy', 'PasteFromWord', '-', 'Undo', 'Redo' ],
-       	[ 'NumberedList','BulletedList','-','Outdent','Indent',
-			'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ],
-		[ 'Smiley'],
-		[ 'Link', 'Unlink' ], 
-		[ 'Source']
-    ]
+	// config.toolbar = "comment_admin"
+ //    config.toolbar_comment_admin = [
+ //    	[ 'SpellChecker', 'Scayt', 'SpecialChar' ],
+ //        [ 'Bold', 'Italic', '-', 'Underline','Strike', 'TextColor', '-', 'Subscript','Superscript','-','RemoveFormat' ], 
+ //        [ 'Cut', 'Copy', 'PasteFromWord', '-', 'Undo', 'Redo' ],
+ //       	[ 'NumberedList','BulletedList','-','Outdent','Indent',
+	// 		'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ],
+	// 	[ 'Smiley'],
+	// 	[ 'Link', 'Unlink' ], 
+	// 	[ 'Source']
+ //    ]
 };
 
 CKEDITOR.config.smiley_images= [

@@ -2,16 +2,15 @@
   <span class='search-label'> 
    <%= render partial: 'alarms/alarm', locals: {post: post} %>
   </span>   
-<% end %>      
+<% end %> 
+<% unless post.ratings_count == 0 %>
+  <%= render partial: 'shared/rating_show_avg', locals: { local_object: post} %>
+<% end %>     
 <% if current_user?(post.user) || current_user.admin? %>
-  <% unless post.ratings_count == 0 %>
-    <%= render partial: 'shared/rating_show_avg', locals: { local_object: post} %>
-  <% end %>
   <%= link_to raw('<i class="icon-pencil icon-white"></i> Edit'), edit_post_path(post), title: "Edit Post", class: "btn btn-small btn-success" %>            
 <% else %> 
   <% if post.ratings.find_by_rater_id(current_user.id) %>
-    <%= link_to raw('<i class="icon-pencil"></i> Rating'), edit_post_rating_path(post, post.rating_by(current_user)), title: "Edit Rating", class: "btn btn-small btn-default" %>
-    <%= render partial: 'shared/rating_show_avg', locals: { local_object: post } %>    
+    <%= link_to raw('<i class="icon-pencil"></i> Rating'), edit_post_rating_path(post, post.rating_by(current_user)), title: "Edit Rating", class: "btn btn-small btn-default" %> 
   <% end %> 
 <% end %>
 <% unless current_user?(post.user) %>

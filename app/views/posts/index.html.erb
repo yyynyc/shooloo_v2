@@ -6,13 +6,17 @@
 	
 	<%= search_form_for @search, url: search_posts_path, method: :get do |f| %>		
 		<% if !signed_in? %>
-			<div class="row center auth about">
-				<%= link_to "Join Shooloo", signup_path %> to search over 1,000 math word problems<br/> by Common Core State Standards and by "I can" statements!
+			<div class="row center auth normal-font">
+				<p><%= link_to "Join Shooloo", signup_path %> to access over 1,000 student-authored math word problems!</p>
+				<p>Find out how to <%= link_to "supercharge your math class with student-generated content", video_path(5) %>.</p> 
 			</div>		
 		<% else %>	
 			<% if current_user.authorizations.blank? %>			
-				<div class="row center box about">
-					<%= link_to "Get authorization", new_authorization_path %> to search problems by Common Core State Standards and by "I can" statements.
+				<div class="row center box normal-font">
+					<% if current_user.role == "teacher" %>
+						<p>Find out how to <%= link_to "supercharge your math class with student-generated content", video_path(5) %>.</p> 
+					<% end %>
+					<p><%= link_to "Get authorization", new_authorization_path %> to search problems by Common Core State Standards and by "I can" statements.</p>
 				</div>
 			<% else %>
 				<div class="row center bottom-margin">

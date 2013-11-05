@@ -5,7 +5,7 @@
 			(#<%= link_to activity.trackable.liked_post.id, new_post_comment_path(activity.trackable.liked_post) %>)  
 			on <%= activity.created_at.strftime("%b %d, %Y") %>.			
 		</span>
-		<i class='icon-heart icon-medium'></i>	<br/>
+		<br/>
 		Tell
 		<%= link_to "#{activity.user.screen_name}", posts_user_path(activity.user) %> that you appreciate the attention. <br/>
 		Like
@@ -23,7 +23,7 @@
 			<% end %>  
 			on <%= activity.created_at.strftime("%b %d, %Y") %>.
 		</span>
-		<i class='icon-heart icon-medium'></i>	<br/>
+		<br/>
 		Tell
 		<%= link_to "#{activity.user.screen_name}", posts_user_path(activity.user) %> that you appreciate the attention. <br/>
 		Like
@@ -34,7 +34,7 @@
 			(#<%= link_to activity.trackable.liked_lesson.id, lesson_comment_path(activity.trackable.liked_lesson) %>)  
 			on <%= activity.created_at.strftime("%b %d, %Y") %>.			
 		</span>
-		<i class='icon-heart icon-medium'></i>	<br/>
+		<br/>
 		Tell
 		<%= link_to "#{activity.user.screen_name}", lessons_user_path(activity.user) %> that you appreciate the attention. <br/>
 		Like
@@ -44,5 +44,4 @@
 	<span class='alert-heading'>
 		liked your post or comment but has since changed.
 	</span>	
-	<i class='icon-trash'></i>
 <% end %>

@@ -5,7 +5,7 @@
 		(#<%= link_to activity.trackable.id, new_post_comment_path(activity.trackable) %>) 
 		on <%= activity.created_at.strftime("%b %d, %Y") %>
 	</span> 
-	<i class='icon-music icon-large'></i><br/>	
+	<br/>	
 	under your nudge. Comment or rate 
 	<%= link_to "#{activity.user.screen_name}'s post", new_post_comment_path(activity.trackable) %>.
 	<br/>	
@@ -14,5 +14,4 @@
 	<span class='alert-heading'>
 		deleted a post. 
 	</span>
-	<i class='icon-trash'></i>
 <% end %>

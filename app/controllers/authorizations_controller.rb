@@ -64,7 +64,7 @@ class AuthorizationsController < ApplicationController
   def teacher_delete_auth
     @authorization = Authorization.find(params[:id])
     @authorization.destroy
-    flash[:success] = "#{@authorization.authorized.first_name} #{@authorization.authorized.first_name} has been deleted off your student roster."
+    flash[:success] = "#{@authorization.authorized.first_name} #{@authorization.authorized.last_name} has been deleted off your student roster."
     redirect_to authorizations_path
   end
 end

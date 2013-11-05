@@ -3,7 +3,7 @@
 		<strong><%= link_to "declined your referral request", new_referral_path %></strong> 
 		on <%= activity.created_at.strftime("%b %d, %Y") %>. 
 	</span>
-	<i class='icon-certificate icon-medium'></i><br/>
+	<br/>
 	Make sure your first and last names are spelled correctly in  
 	<%= link_to "your profile", edit_user_path(current_user) %>.
 	Also make sure that your screen name and avatar image are appropriate for public view. Then <%= link_to "resend your request", new_referral_path %> for referral.
@@ -11,5 +11,4 @@
 	<span class='alert-heading'>
 		has declined your referral request but has changed mind.
 	</span>
-	<i class='icon-trash'></i>
 <% end %> 

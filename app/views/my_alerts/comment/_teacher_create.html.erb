@@ -3,7 +3,7 @@
 		added a <strong><%= link_to "COMMENT", lesson_comment_path(activity.trackable.commented_lesson) %></strong>  
 		on <%= activity.created_at.strftime("%b %d, %Y") %> to Lesson Plan 
 		(#<%= link_to activity.trackable.commented_lesson.id, lesson_comment_path(activity.trackable.commented_lesson) %>)	</span> 
-	<i class='icon-comment icon-medium'></i><br/>
+	<br/>
 	that you have published or commented.
 	Respond to comments and revise <%= link_to "your lesson", lesson_comment_path(activity.trackable.commented_lesson) %>. <br/>
 	Add comments to
@@ -12,5 +12,4 @@
 	<span class='alert-heading'>
 		added then deleted a comment.
 	</span>
-	<i class='icon-trash'></i>
 <% end %>

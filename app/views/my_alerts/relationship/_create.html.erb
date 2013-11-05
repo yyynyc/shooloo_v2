@@ -3,7 +3,7 @@
 		has started <strong><%= link_to "FOLLOWING", posts_user_path(activity.user) %></strong> you since 
 		<%= activity.created_at.strftime("%b %d, %Y") %>.
 	</span>
-	<i class='icon-user icon-medium'></i> <br/>
+	<br/>
 	<strong><%= link_to "Publish", root_url %></strong> a word problem now to impress <%= activity.user.screen_name %>. <br/>
 	Express your thanks and 
 	<%= link_to "follow #{activity.user.screen_name}", posts_user_path(activity.user) %> back.
@@ -11,5 +11,4 @@
 	<span class='alert-heading'>
 		started following you but since unfollowed you.
 	</span>
-	<i class='icon-trash'></i>
 <% end %>

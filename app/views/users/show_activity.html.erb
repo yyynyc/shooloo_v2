@@ -1,78 +1,88 @@
 <% provide(:title, "Activity Alerts") %>
-<h1 > My News Alerts </h1>
-<%= render partial: 'posts/button' %>
-<% if @my_activities.blank? %> 
-  <div class='about'> 
-    <p> Welcome back! I am sorry, but you don't have any news alert yet. Watch the video below now. </p> 
-    <% if cannot? :crud, Rating %>
-      <div class="row">
-        <div class="span6 offset1"> 
-            <% provide @video=Video.find(1) %>
-            <%= render partial: 'videos/video_player', locals: {video: @video} %>
+
+<div class="row">
+  <aside class="span4">
+    <section>
+        <%= render 'shared/user_info', user: current_user %>
+    </section>
+    <section>
+      <%= render 'shared/stats', user: current_user %>
+    </section>
+    <%= link_to "Create My Own Math Story Now!", new_post_path, class: "btn btn-large btn-info" %>
+  </aside>
+  <div class="span8">
+    <h1> My News Alerts </h1>
+    <%#= render partial: 'posts/button' %>
+    <% if @my_activities.blank? %> 
+      <p class='about'> Welcome back! I am sorry, but you don't have any news alert yet. Watch the video below to get started. </p>
+      <% unless current_user.role == "student" %> 
+        <div class="create">
+          <% provide @video=Video.find(7) %>
+          <%= render partial: 'videos/video_player', locals: {video: @video} %>
         </div>
-      </div> 
-      <p>Right now no one can find you. To make your profile appear in the member list, <%= link_to "obtain referrals", new_referral_path %> from your friends who are already members or from the Shooloo site admin. Better yet, to gain more abilities, <%= link_to "get authorization", new_authorization_path %> from your current teacher. Then you will be pleasantly surprised by news alerts that you've gained new followers, got praises from your friends, and many more fun activities. </p>
-    <% elsif cannot? :crud, Post %>
-      <div class="row">
-        <div class="span6 offset1"> 
-            <% provide @video=Video.find(1) %>
-            <%= render partial: 'videos/video_player', locals: {video: @video} %>
+      <% else %>
+        <div class="create">
+          <% provide @video=Video.find(3) %>
+          <%= render partial: 'videos/video_player', locals: {video: @video} %>
         </div>
-      </div> 
-      <p>Because you have not published any pots or commented on someone else's post, it is hard to get yourself noticed by other Shooloo members. To gain the ability of publishing posts and comments, <%= link_to "get authorization", new_authorization_path %> from your current teacher. Then you will be pleasantly surprised by news alerts that you've got praises from your friends and many more fun activities. </p>
-    <% else %>
-      <div class="row">
-        <div class="span6 offset1"> 
-            <% provide @video=Video.find(4) %>
-            <%= render partial: 'videos/video_player', locals: {video: @video} %>
-        </div>
-      </div> 
-      Go to <%= link_to "Home", root_path %> and publish a post using the form on the left-hand side. Then <%= link_to "follow", users_path %> those members who are active<a href="#", id="follow", rel = "popover", title = "Who Should You Follow?", data-content = "Click on the Community section of the menu bar, check out member profiles, click the Follow button on their profile pagees, and their posts as well as your own will automatically show up on your home page."><i class='icon-question-sign'></i></a> and <%= link_to "comment", posts_path %> on their posts. They will start paying attention to you and adding comments/ratings to your posts. Then you will be able to enjoy fun news alerts all day long!  
-    <% end %>  
-    <p class='center'><img src="/attachments/smile.gif" alt="Shooloo Math Can Do"></p>
-  </div>
-<% else %>        
-  <% @my_activities.each do |activity| %>
-    <% unless current_user?(activity.user) %> 
-      <ul class="users">
-        <li>  
-          <div class='btn-formtastic'>
-            <%= render partial: 'users/read_form', locals: {activity: activity} %>
-          </div>    
-          <% if activity.user.nil? %> 
-             <%= render text: "A user who has commented or rated your posts or who has followed you has been deleted from this web site." %> 
-          <% else %>          
-            <% if activity.trackable_type == "Alarm" %>
-              <span class='alert-heading'>
-                  On <%= activity.created_at.strftime("%b %d, %Y") %>, an <strong>ALARM</strong> was raised on
-              </span> 
-            <% elsif activity.action == "legitimize" %>  
-            <% else %>
-              <div class="avatar">
-                <%= link_to image_tag(activity.user.avatar.url(:small), 
-                  alt: "Shooloo member #{activity.user.screen_name}",
-                  title: "Shooloo member #{activity.user.screen_name}"),
-                  posts_user_path(activity.user)  %>  
-              </div>   
-              <span class='alert-heading'>
-                <% if activity.trackable_type == "Authorization" %>
-                  <%= link_to activity.user.first_name, posts_user_path(activity.user) %>
-                  <%= link_to activity.user.last_name, posts_user_path(activity.user) %>
-                <% else %>    
-                  <%= link_to activity.user.screen_name, posts_user_path(activity.user) %> 
+        <% if cannot? :crud, Post %>
+          <p class="about">Right now no one can find you. To make your profile appear in the member list and gain access to all Shooloo functionalities, <%= link_to "get authorization", new_authorization_path %> from your current teacher. Then you will be pleasantly surprised by news alerts that you've gained new followers, got praises from your friends, and many more fun activities. </p>
+        <% else %>
+          <p class="about"><%= link_to "Publish your own math story", new_post_path %> today! Then <%= link_to "follow", users_path %> those members who are active<a href="#", id="follow", rel = "popover", title = "Who Should You Follow?", data-content = "Click on the Community section of the menu bar, check out member profiles, click the Follow button on their profile pagees, and their posts as well as your own will automatically show up on your home page."><i class='icon-question-sign'></i></a> and <%= link_to "comment", posts_path %> on their posts. They will start paying attention to you and adding comments/ratings to your posts. Then you will be able to enjoy fun news alerts all day long!</p>  
+        <% end %>  
+        <p class='center'><img src="/attachments/smile.gif" alt="Shooloo Math Can Do"></p>
+      <% end %>
+    <% else %>        
+      <% @my_activities.each do |activity| %>
+        <% unless current_user?(activity.user) %> 
+          <ul class="users">
+            <li>  
+              <% if activity.user.nil? %> 
+                 <%= render text: "A user who has commented or rated your posts or who has followed you has been deleted from this web site." %> 
+              <% else %>
+              <div class="span6">        
+                <% if activity.trackable_type == "Alarm" %>
+                  <span class='alert-heading'>
+                      On <%= activity.created_at.strftime("%b %d, %Y") %>, an <strong>ALARM</strong> was raised on
+                  </span> 
+                <% elsif activity.action == "legitimize" %>  
+                <% else %>
+                  <span class="avatar">
+                    <%= link_to image_tag(activity.user.avatar.url(:small), 
+                      alt: "Shooloo member #{activity.user.screen_name}",
+                      title: "Shooloo member #{activity.user.screen_name}"),
+                      posts_user_path(activity.user)  %>  
+                  </span> 
+                  <span>  
+                    <span class='alert-heading'>
+                      <% if activity.trackable_type == "Authorization" %>
+                        <%= link_to activity.user.first_name, posts_user_path(activity.user) %>
+                        <%= link_to activity.user.last_name, posts_user_path(activity.user) %>
+                      <% else %>    
+                        <%= link_to activity.user.screen_name, posts_user_path(activity.user) %> 
+                      <% end %>
+                      (<i>a <%= activity.user.role %><% if !activity.user.grade.nil? %>
+                        in grade <%= activity.user.grade %><% end %></i>)
+                    </span>
+                  </span>
                 <% end %>
-                (<i>a <%= activity.user.role %><% if !activity.user.grade.nil? %>
-                  in grade <%= activity.user.grade %><% end %></i>)
-              </span>
-            <% end %>
-            <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>  
-          <% end %>
-        </li>        
-      </ul>        
-    <% end %>
-  <% end %>   
-<% end %> 
-<%= will_paginate @my_activities %>
+                  <span>  
+                    <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>
+                  </span>  
+                <% end %>
+              </div>
+              <div class="span1">
+                <%= render partial: 'users/read_form', locals: {activity: activity} %>
+                <%= link_to "Delete", activity, method: :delete, class: "btn btn-medium" %>
+              </div> 
+            </li>        
+          </ul>        
+        <% end %>
+      <% end %>   
+    <% end %> 
+    <%= will_paginate @my_activities %>
+  </div>
+</div>
 
      
   	

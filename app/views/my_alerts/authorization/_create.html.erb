@@ -3,12 +3,11 @@
 		<strong><%= link_to "requested your AUTHORIZATION", authorizations_path %></strong> 
 		on <%= activity.created_at.strftime("%b %d, %Y") %>. 
 	</span>
-	<i class='icon-certificate icon-medium'></i><br/>
+	<br/>
 	Until you grant authorization, 
 	<%= link_to activity.user.screen_name, posts_user_path(activity.user) %> won't be able to comment on your posts or publish new posts.
 <% else %>
 	<span class='alert-heading'>
 		has requested your authorization but has since withdrawn it.
 	</span>
-	<i class='icon-trash'></i>
 <% end %> 

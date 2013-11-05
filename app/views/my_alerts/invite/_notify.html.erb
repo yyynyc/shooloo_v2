@@ -5,7 +5,7 @@
 		#<%= link_to activity.trackable.invited_post.id, new_post_comment_path(activity.trackable.invited_post) %>  
 		on <%= activity.created_at.strftime("%b %d, %Y") %>.			
 	</span>
-	<i class='icon-gift icon-medium'></i>	<br/>
+	<br/>
 	Show
 		<%= link_to "#{activity.user.screen_name}", posts_user_path(activity.user) %> your appreciation and invite your followers to comment on 
 		<%= link_to "#{activity.user.screen_name}'s posts", posts_user_path(activity.user) %> in return.
@@ -13,5 +13,4 @@
 	<span class='alert-heading'>
 		sent you an invitation but has since withdrawn it.
 	</span>	
-	<i class='icon-trash'></i>
 <% end %>

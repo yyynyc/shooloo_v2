@@ -1,9 +1,12 @@
-<div class="about"> <div class="row">
-  <div> 
-      <% provide @video=Video.find(3) %>
-      <%= render partial: 'videos/video_player', locals: {video: @video} %>
-  </div>
-</div> 
+<div class="create">
+	<% if current_user.role == "student" %> 
+  		<% provide @video=Video.find(3) %>
+  	<% else %>
+  		<% provide @video=Video.find(7) %>
+  	<% end %>
+  	<%= render partial: 'videos/video_player', locals: {video: @video} %>
+</div>
+
 <h3 class="center">
 Welcome! 
 </h3>

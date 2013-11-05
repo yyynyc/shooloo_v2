@@ -1,5 +1,10 @@
 <div class="row">   
-  <div class="post_review_user_info">     
+  <div class="post_review_user_info">
+    <% unless current_user.role == "student" %> 
+      <div class="span4 btn-formtastic alert-heading teacher-banner">
+        Find out <%= link_to "why poorly-written word problems are valuable in teaching problem solving", video_path(5) %>.
+      </div>
+    <% end %>   
     <%= render partial: 'posts/post_user', locals: {post: @post} %>
     <% if !@post.visible? %>   
       <% if current_user.admin? || current_user.role == "teacher" %>

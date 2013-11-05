@@ -98,18 +98,19 @@
 					        <%= render partial: 'posts/post_stats', locals: {post: post} %>			        		      	
 				    	</section> 
 				  		<section class="feed_content">			  			
-				  			<%= truncate post.question, :length => 100, 
+				  			<%= truncate_html post.question, :length => 100, 
 				  				:omission => "..." %>
 				  			<% if signed_in? %>			  		
 					  			<% if current_user?(post.user) || current_user.admin? %>
-			        				<%= link_to "Edit post ", edit_post_path(post), title: "Edit Post" %>        			
+			        				<%= link_to "Edit post ", edit_post_path(post), title: "Edit Post" %> |
+			        				<%= link_to "Read more", new_post_comment_path(post) %> 
 				          		<% elsif current_user.role == "parent" %> 
 				              		<%= link_to "Read more", new_post_rating_path(post)  %>
 				          		<% else %>				
 				          			<%= link_to "Read more", new_post_comment_path(post) %>
 				          		<% end %> 
 				          		<% if current_user.admin? || current_user.role == "teacher" %>
-						           | <%= link_to "Teacher View", post_teacher_view_path(post) %> 
+						           | <%= link_to "Class View", post_teacher_view_path(post) %> 
 						        <% end %> 		
 				          	<% end %>	          	  
 				  		</section>

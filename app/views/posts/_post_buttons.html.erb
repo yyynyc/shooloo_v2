@@ -26,5 +26,5 @@
   <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), new_post_comment_path(post), class: "btn btn-small btn-success" %> 
 </span>  
 <% if current_user.admin? || current_user.role == "teacher" %>
-  <%= link_to "Teacher", post_teacher_view_path(post), class: "btn btn-small btn-danger" %> 
+  <%= link_to "Class", post_teacher_view_path(post), class: "btn btn-small btn-danger" %> 
 <% end %>                

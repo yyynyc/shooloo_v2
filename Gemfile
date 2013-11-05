@@ -31,6 +31,7 @@ gem 'exception_notification'
 gem 'roo'
 gem 'ckeditor'
 gem 'validate_url'
+gem 'truncate_html'
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'

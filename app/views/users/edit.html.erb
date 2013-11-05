@@ -28,7 +28,7 @@
 				<%= f.input :grade, as: :select, collection: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], include_blank: true %>
 			<% else %>
 				<%= f.input :school_name, label: "Affiliation name" %>
-				<%= f.input :school_url, label: "Affiliation url" %>
+				<%= f.input :school_web, label: "Affiliation web address" %>
 			<% end %>
 			<span class='privacy' id='signup-home'>
 				<%= f.input :privacy, as: :boolean, label: "I agree with the ".html_safe + link_to("Terms of Service", terms_path) +" and the ".html_safe + link_to("Privacy Statement", privacy_path) + ".".html_safe, input_html: {checked: 'checked'}, required: true %>
@@ -65,7 +65,7 @@
 				</span>
 				<br/>	
 				<span class="search-label">
-					<%= f.input :school_url %>
+					<%= f.input :school_url, label: "School web address" %>
 				</span>
 				<span class="question">
 					<a href="#", class="question", rel="popover", title="School Url", data-content="Please put in the specific web page indicating that you are a teacher in that particular school. For the safety of our under-aged members, we need to verify your identity." %> 

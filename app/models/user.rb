@@ -154,9 +154,10 @@ class User < ActiveRecord::Base
     uniqueness: {case_sensitive: false}, presence: true, :if => :verify_teacher_or_other
   validates :personal_email, format: { with: VALID_EMAIL_REGEX }, 
     allow_blank: true, :if => :verify_student
-  validates :school_url, presence: true, :if => :verify_teacher
+  validates :school_url, presence: true, url: true, :if => :verify_teacher
   validates :social_media_url, presence: true, :if => :verify_other
   validates :grade, numericality: true, allow_blank: true
+  validates :avatar_remote_url, url: true, allow_blank: true
   #validates_presence_of :school_name, :if => :active_student?
   #validates_confirmation_of :email, on: :create
   #validates_attachment_presence :avatar

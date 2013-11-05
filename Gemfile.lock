@@ -312,6 +312,8 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    validate_url (0.2.0)
+      activemodel (>= 3.0.0)
     websocket (1.0.7)
     whenever (0.8.4)
       activesupport (>= 2.3.4)
@@ -372,5 +374,6 @@ DEPENDENCIES
   twilio-ruby
   uglifier (= 1.2.3)
   unicorn
+  validate_url
   whenever
   will_paginate (= 3.0.3)

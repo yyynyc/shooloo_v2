@@ -81,7 +81,7 @@ class CommentsController < ApplicationController
         end
         if @comment.update_attributes(params[:comment])
           flash[:success] = "You have updated your comment successfully!"
-          respond_with @comment
+          redirect_to new_post_comment_path(@comment.commented_post)
         else
           render 'edit'
         end

@@ -15,7 +15,12 @@
 				<%= link_to comment.commenter.screen_name, posts_user_path(comment.commenter) %> 
 				<span class="timestamp">- </span><% if !comment.commenter.grade.nil? %>grade <%= comment.commenter.grade %> <% end %><%= comment.commenter.role %><span class="timestamp"> -</span>
 				<span class="timestamp"> commented on </span>
-				<%= comment.created_at.strftime("%b %d, %Y") %>.	          
+				<%= comment.created_at.strftime("%b %d, %Y") %>.
+				<% if current_user == comment.commenter || current_user.admin? %>
+        			<span class='search-label'>
+						<%= link_to raw('<i class="icon-pencil icon-white"></i> Edit'), edit_comment_path(comment), title: "Edit Comment", class: "btn btn-small btn-success" %>
+	            	</span>
+	            <% end %>	          
             	<% if comment.visible? %>
             		<% unless comment.commenter.role=="teacher" || comment.commenter.admin? || current_user == comment.commenter %>
 	            		<span class='search-label'>
@@ -43,14 +48,11 @@
             			<span class='search-label'>	
             				<%= render partial: 'alarms/unalarm_comment', locals: {post: comment.commented_post, comment:comment} %>
             			</span>
-            		<% end %>
-            	<% end %><br/>	           			
+            		<% end %>            		
+            	<% end %>
+            	<br/>	           			
 				<span class="alert-heading">
-					<% if current_user == comment.commenter || current_user.admin? %>
-						<%= best_in_place comment, :content %><a href="#", class="edit", rel="popover", title="How to Edit Your Comment?", data-content="<ul class='popover-list'><li>Click on any word in this comment and you will be able to change it.</li><li>Click away and your changes will be saved automatically.</li></ul>"><i class="icon-pencil icon-medium" ></i>Edit</a>
-					<% else %>
-						<%= wrap(simple_format(comment.content)) %>
-					<% end %>					
+					<%= comment.content.html_safe %>
 				</span>				
 			</span>			
 		</div>

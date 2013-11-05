@@ -2,7 +2,11 @@
     <%= render 'shared/error_messages', object: f.object %>
 	<%=f.inputs do %> 
         <div class="create">
-        	<%= f.input :question, as: :ckeditor %>
+        	<% if current_user.admin? %>
+        		<%= f.input :question, as: :ckeditor, input_html: {ckeditor: {toolbar: "admin" }} %>
+        	<% else %>
+        		<%= f.input :question, as: :ckeditor %>
+        	<% end %>
         </div>
         <div class="create">
 	    	<%= f.input :answer, as: :ckeditor %> 

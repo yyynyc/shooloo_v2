@@ -5,17 +5,13 @@
 <p class='center'><img src="/attachments/computer.gif" alt="Shooloo Math Can Do"></p> 
 
 <% unless current_user.role == "student" %>
-	<div class="about">		
-		<p>Make sure all information in <%= link_to "your profile", edit_user_path(current_user) %> is complete, then click the blue button below.</p>
-		<div class='row'>	  		
-			<div class="span7">
-				<p>Request authorization from the Shooloo administrator:</p>			
-			</div> 
-			<div class="span4" >
-				<%= render partial: 'authorizations/authorization', 
-					locals: {user: User.find(2)} %>
-			</div>
-		</div>
+	<div class="alert-heading">		
+		<p>Make sure all information in <%= link_to "your profile", edit_user_path(current_user) %> is complete first.</p>
+		
+		<p>If you have an authorization code, enter it below; otherwise, leave it blank. Press the blue button.</p>			
+		
+		<%= render partial: 'authorizations/authorization', locals: {user: User.find(2)} %>
+			
 	</div>
 <% else %>	
 	<div class="about">

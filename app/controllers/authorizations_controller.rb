@@ -3,8 +3,7 @@ class AuthorizationsController < ApplicationController
   respond_to :html, :js
 
   def new
-    @teachers = User.where( 
-      'users.role' => 'teacher')
+    @teachers = User.where('users.role' => 'teacher')
   	@authorizer = @teachers.search(params[:q])
     @authorizers = @authorizer.result
     set_meta_tags title: 'Request Authorization', 
@@ -15,16 +14,21 @@ class AuthorizationsController < ApplicationController
 
   def create
     @user = User.find(params[:authorization][:authorizer_id])
-    current_user.auth_request!(@user)
-    flash[:notice] = "Thank you! An email will be sent to you regarding your request status. Meanwhile, check out #{ActionController::Base.helpers.link_to "other members", users_path} and #{ActionController::Base.helpers.link_to "posts", posts_path}.".html_safe 
-    respond_with @user
+    @authorization = current_user.authorizations.build(params[:authorization])
+    if @authorization.save
+      flash[:success] = "Thank you! An email will be sent to you regarding your request status. Meanwhile, check out #{ActionController::Base.helpers.link_to "other members", users_path} and #{ActionController::Base.helpers.link_to "posts", posts_path}.".html_safe 
+      redirect_to root_path
+    else
+      flash.now[:error] = "Sorry, authorization code is incorrect. Leave it blank, and press the blue button again."
+      render 'new'
+    end
   end
 
   def destroy
     @user = Authorization.find(params[:id]).authorizer
     current_user.auth_withdraw!(@user)
     respond_with @user
-    signed_in current_user 
+    sign_in current_user 
   end
 
   def index

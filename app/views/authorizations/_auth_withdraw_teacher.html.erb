@@ -1,0 +1,12 @@
+<% authorization=current_user.authorizations.find_by_authorizer_id(2) %>
+
+<p>Request sent on <%= authorization.created_at.strftime("%b %d, %Y") %>.</p>
+<p>You will get an email within two days telling you if your request has been approved.</p> 
+<p>If you use gmail, check under the promotion tab for your notification email.
+</p>
+<p>
+	<%= form_for(authorization, html: { method: :delete },
+	             remote: true) do |f| %>
+	  <%= f.submit "Withdraw Request", class: "btn btn-medium" %>
+	<% end %>
+</p>

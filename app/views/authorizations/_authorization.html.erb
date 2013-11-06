@@ -2,10 +2,20 @@
 <i>Sorry, but you can't request authorization from yourself.</i>
 <% elsif can? :create, Authorization %>
   <div id="authorization_form_<%= user.id %>">
-	  <% if current_user.authorized_by?(user) %>
-	    <%= render partial: 'authorizations/auth_withdraw', locals: {user: user} %>
+	  <% if current_user.role == "student" %>
+	  	<% if current_user.authorized_by?(user) %>
+		    <%= render partial: 'authorizations/auth_withdraw', locals: {user: user} %>
+		<% else %>
+		    <%= render partial: 'authorizations/auth_request', locals: {user: user} %>
+		<% end %>
 	  <% else %>
-	    <%= render partial: 'authorizations/auth_request', locals: {user: user} %>
+	  	<div class="center create">
+	  		<% if current_user.authorized_by?(user) %>
+			    <%= render partial: 'authorizations/auth_withdraw_teacher', locals: {user: user} %>
+			<% else %>
+		  		<%= render partial: 'authorizations/auth_req_teacher', locals: {user: user} %>
+		  	<% end %>
+	  	</div>
 	  <% end %>
   </div>
 <% else%>

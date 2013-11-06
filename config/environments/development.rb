@@ -50,6 +50,6 @@ ShoolooV2::Application.configure do
     :email_prefix => "[Shooloo Error]",
     :sender_address => %{"error" <error@shooloo.org>},
     :exception_recipients => %w{ryang@prosperityprana.com, yyynyc@gmail.com}
-  },
-  ignore_exceptions: ExceptionNotifier.ignored_exceptions 
+  }#,
+  #ignore_exceptions: ExceptionNotifier.ignored_exceptions 
 end

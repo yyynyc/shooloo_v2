@@ -11,7 +11,7 @@
 	    </div>
 	    <div id="collapseOne" class="accordion-body collapse">    	
 	  		<div class="accordion-toggle teacher-view">    				
-	  			<p><%= wrap(simple_format(@lesson.post_a.question)) %></p>
+	  			<p><%= @lesson.post_a.question.html_safe %></p>
 	  		</div>		   		
 	    </div>
 		<div class="accorion-heading">
@@ -21,7 +21,7 @@
 	    </div>
 	    <div id="collapseTwo" class="accordion-body collapse">    	
 	  		<div class="accordion-toggle teacher-view">    				
-	  			<p><%= @lesson.post_a.answer %></p>
+	  			<p><%= @lesson.post_a.answer.html_safe %></p>
 	  		</div>		   		
 	    </div>
 	    <div class="accorion-heading">
@@ -45,14 +45,14 @@
 		  			<ol class="users">
 		  				<% @lesson.post_a.comments.each do |comment| %>
 		  					<li>
-								<div class="accorion-heading">
+								<div class="accorion-heading search-label">
 									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseA<%=comment.id%>">
-										<p><strong>#<%= comment.id %>:</strong></p>
+										<strong>#<%= comment.id %>:</strong>
 									</a>
 								</div>
-								<div id="collapseA<%=comment.id%>" class="accordion-body collapse">
-										<div class="accordion-toggle teacher-view">    				
-											<p><%= comment.content %></p>
+								<div id="collapseA<%=comment.id%>" class="accordion-body collapse search-label">
+										<div class="accordion-toggle teacher-view">  
+											<%= comment.content.html_safe %>
 										</div>		   		
 								</div>
 							</li>
@@ -70,7 +70,7 @@
 	    </div>
 	    <div id="collapseFour" class="accordion-body collapse">    	
 	  		<div class="accordion-toggle teacher-view">    				
-	  			<p><%= wrap(simple_format(@lesson.post_b.question)) %></p>
+	  			<p><%= @lesson.post_b.question.html_safe %></p>
 	  		</div>		   		
 	    </div>
 		<div class="accorion-heading">
@@ -80,7 +80,7 @@
 	    </div>
 	    <div id="collapseFive" class="accordion-body collapse">    	
 	  		<div class="accordion-toggle teacher-view">    				
-	  			<p><%= @lesson.post_b.answer %></p>
+	  			<p><%= @lesson.post_b.answer.html_safe %></p>
 	  		</div>		   		
 	    </div>
 	    <div class="accorion-heading">
@@ -104,14 +104,14 @@
 		  			<ol class="users">
 		  				<% @lesson.post_b.comments.each do |comment| %>
 		  					<li>
-								<div class="accorion-heading">
+								<div class="accorion-heading search-label">
 									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseB<%=comment.id%>">
-										<p><strong>#<%= comment.id %>:</strong></p>
+										<strong>#<%= comment.id %>: </strong>
 									</a>
 								</div>
-								<div id="collapseB<%=comment.id%>" class="accordion-body collapse">
+								<div id="collapseB<%=comment.id%>" class="accordion-body collapse search-label">
 										<div class="accordion-toggle teacher-view"> 
-											<p><%= comment.content %></p>
+											<%= comment.content.html_safe %>
 										</div>		   		
 								</div>
 							</li>

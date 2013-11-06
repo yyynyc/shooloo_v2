@@ -45,8 +45,8 @@
     					<%= link_to image_tag(user.avatar.url (:small), :alt => "Shooloo member #{user.screen_name}", :title => "Shooloo member #{user.screen_name}"), common_core_I_can_user_path(user) %>
     				</div>
     				<div class='span3 auth-font'>
-    					<span class="alert-heading"><strong><%= link_to user.last_name, common_core_I_can_user_path(user) %>, <%= user.first_name %></strong></span> </br>
-    					<%= user.screen_name %><br/>
+    					<span><%= link_to user.last_name, common_core_I_can_user_path(user) %>, <%= user.first_name %></span> </br>
+    					Screen Name: <strong><%= user.screen_name %></strong><br/>
     					published <%= link_to pluralize(user.post_count, "post"), posts_user_path(user) %>,<br/> 
 			      		made <%= link_to pluralize(user.comment_count, "comment"), commented_posts_user_path(user) %>.
 					</div>

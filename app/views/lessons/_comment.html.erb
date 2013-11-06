@@ -1,12 +1,12 @@
 <li>
-	<div class="accorion-heading">
+	<div class="accorion-heading search-label">
 		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<%=comment.id%>">
-			<p><strong>#<%= comment.id %>:</strong></p>
+			<strong>#<%= comment.id %>: </strong>
 		</a>
 	</div>
-	<div id="collapse<%=comment.id%>" class="accordion-body collapse">
+	<div id="collapse<%=comment.id%>" class="accordion-body collapse search-label">
 			<div class="accordion-toggle teacher-view">    				
-				<p><%= comment.content %></p>
+				<%= comment.content.html_safe %>
 			</div>		   		
 	</div>
 </li>

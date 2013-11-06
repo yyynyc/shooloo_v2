@@ -6,6 +6,7 @@ class AuthorizationsController < ApplicationController
     @teachers = User.where('users.role' => 'teacher')
   	@authorizer = @teachers.search(params[:q])
     @authorizers = @authorizer.result
+    @authorization = Authorization.new
     set_meta_tags title: 'Request Authorization', 
         description: 'Shooloo member requests authorization to publish posts and comments', 
         noindex: true,

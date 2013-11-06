@@ -3,7 +3,7 @@
 <% nofollow %>
 
 <div class="row border">     
-  <div class="span5">
+  <div class="image">
     <%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %><br/>
     <% unless @post.image_host.nil? %>
       <span class="image-host-large">Image courtesy of <%= @post.image_host %>.
@@ -14,7 +14,7 @@
     </div>
   </div>
   
-  <div class="span7">         
+  <div>         
     <div class="teacher-view"><%= @post.question.html_safe %></div>
     <div class="accorion-heading">
     	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">

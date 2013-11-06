@@ -1,8 +1,6 @@
 Dear <%=@user.first_name %>(<%= @user.screen_name %>),
 
-You can now receive gifts from and send gifts to your friends on Shooloo. Check out https://fun.shooloo.org/my-gifts.
-
-The following are the activities you've missed on Shooloo. For more details, visit https://fun.shooloo.org/my-alerts.
+The following are the activities you've missed on Shooloo. For more details, visit https://fun.shooloo.org/my-alerts. To log in, go to https://fun.shooloo.org/signin, type in your screen name "<%= @user.screen_name %>" and your password. Screen name and password are case sensitive, so please type them in exactly as aforementioned. If you've forgotten your password, use https://fun.shooloo.org/password_resets/new or ask your teacher to reset your password.
 
 <% Activity.where(read: nil, recipient_id: @user.id).order('created_at DESC').each do |activity| %> 
   <% if activity.user.nil? %> 
@@ -62,7 +60,7 @@ The following are the activities you've missed on Shooloo. For more details, vis
   <% end %>
 <% end %>
 
-Visit https://fun.shooloo.org/my-alerts now and enjoy the fun!
+Visit https://fun.shooloo.org/my-alerts now and enjoy the fun! 
 
 The Shooloo Team
 

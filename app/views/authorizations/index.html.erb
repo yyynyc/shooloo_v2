@@ -57,7 +57,6 @@
 					<div class='span3 center'>
 						<%= render partial: 'authorizations/reset_password_form', locals: {user: user} %>
 						<%= button_to "delete off roster", teacher_delete_auth_authorization_path(user.authorizations.find_by_authorizer_id(current_user.id)), method: :delete, confirm: "Delete #{user.first_name} #{user.last_name} off your roster. Continue?", class: "btn btn-medium"%>
-
 					</div>
 					<div class='span3 center auth-font' >
 						<%= render partial: 'authorizations/auth_grant', locals: {user: user} %>
@@ -68,12 +67,6 @@
 	<% end %> 
 <% else %>
 	<div class="about">
-		<p> No students have requested your authorization yet. Watch the following <%= link_to "video tutorial", video_path(2) %> to find out how to get your students to create their own accounts.</p>
+		<p> No student found. To create accounts for your entire class instantly, <%= link_to "import your class roster", new_user_import_path %> now.</p>
 	</div>
-	<div class="row">
-		<div class="span6 offset1">	
-				<% provide @video=Video.find(2) %>
-				<%= render partial: 'videos/video_player', locals: {video: @video} %>
-		</div>
-	</div>	
 <% end %>

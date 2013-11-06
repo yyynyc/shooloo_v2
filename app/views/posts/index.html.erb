@@ -2,7 +2,7 @@
   <meta itemprop="description" content="Join Shooloo to access over 1,000 student-authored math word problems aligned with the Common Core State Standard and completed with I-can statements.">
   <%= render 'shared/meta' %>
 
-	<h1> Common Core Word Problems<a href="#", class="follow", rel="popover", title="How to Comment on Posts", data-content="<ul class='popover-list'><li>Watch this <a href='<%= video_path(5) %>'>video tutorial</a></li><li>Click the green LIKE button if you want the author to know that you've read the post.</li><li>Click the link <i>read more</i> to make a comemnt.</li><li>The more posts you comment, the more attention you will get from others.</li></ul>"><img src="/attachments/secret_2.gif" alt="Shooloo Math Secret"></i></a> </h1>
+	<h1> Common Core Word Problems</h1>
 	
 	<%= search_form_for @search, url: search_posts_path, method: :get do |f| %>		
 		<% if !signed_in? %>
@@ -19,6 +19,11 @@
 					<p><%= link_to "Get authorization", new_authorization_path %> to search problems by Common Core State Standards and by "I can" statements.</p>
 				</div>
 			<% else %>
+				<% if current_user.role == "teacher" || current_user.admin? %>
+					<div class="row center auth normal-font">
+						<p>Find out how to <%= link_to "teach students problem-solving in 3 steps", video_path(8) %>.</p>
+					</div> 
+				<% end %>
 				<div class="row center bottom-margin">
 					<span class="search-label">
 						<%= f.label :standard_ICan_cont, "I Can" %>

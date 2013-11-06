@@ -9,8 +9,18 @@ class PasswordResetsController < ApplicationController
 
   	def create
 	  user = User.find_by_screen_name(params[:screen_name])
-	  user.send_password_reset if user
-	  redirect_to root_url, :notice => "Password reset instruction has been sent to your personal email address on file."
+	  if !user.nil?
+	  	if !user.personal_email.nil?
+	  		user.send_password_reset if user
+	  		redirect_to root_url, :notice => "Password reset instruction has been sent to your personal email address on file."
+	  	else
+	  		flash[:error] = "You don't have a personal email address on file. Ask your teacher to reset your password."
+	  		render 'new'
+	  	end
+	  else
+	  	flash[:error] = "Invalid screen name. Please contact admin to reset your password."
+	  	redirect_to contact_path
+	  end
 	end
 
 	def edit

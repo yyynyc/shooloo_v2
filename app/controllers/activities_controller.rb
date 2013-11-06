@@ -30,7 +30,6 @@ class ActivitiesController < ApplicationController
 
   	def destroy
   		Activity.find(params[:id]).destroy
-    	flash[:success] = "User deleted."
     	redirect_to my_alerts_path
   	end
 end

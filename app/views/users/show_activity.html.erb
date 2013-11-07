@@ -36,36 +36,36 @@
       <% @my_activities.each do |activity| %>
         <% unless current_user?(activity.user) %> 
           <ul class="users">
-            <li>  
-              <% if activity.user.nil? %> 
-                 <%= render text: "A user who has commented or rated your posts or who has followed you has been deleted from this web site." %> 
-              <% else %>
-              <div class="span6">        
-                <% if activity.trackable_type == "Alarm" %>
-                  <span class='alert-heading'>
-                      On <%= activity.created_at.strftime("%b %d, %Y") %>, an <strong>ALARM</strong> was raised on
-                  </span> 
-                <% elsif activity.action == "legitimize" %>  
+            <li><div class="row">
+              <div class="span6">  
+                <% if activity.user.nil? %>                 
+                  <%= render text: "A user who has commented or rated your posts or who has followed you has been deleted from this web site." %> 
                 <% else %>
-                  <span class="avatar">
-                    <%= link_to image_tag(activity.user.avatar.url(:small), 
-                      alt: "Shooloo member #{activity.user.screen_name}",
-                      title: "Shooloo member #{activity.user.screen_name}"),
-                      posts_user_path(activity.user)  %>  
-                  </span> 
-                  <span>  
+                  <% if activity.trackable_type == "Alarm" %>
                     <span class='alert-heading'>
-                      <% if activity.trackable_type == "Authorization" %>
-                        <%= link_to activity.user.first_name, posts_user_path(activity.user) %>
-                        <%= link_to activity.user.last_name, posts_user_path(activity.user) %>
-                      <% else %>    
-                        <%= link_to activity.user.screen_name, posts_user_path(activity.user) %> 
-                      <% end %>
-                      (<i>a <%= activity.user.role %><% if !activity.user.grade.nil? %>
-                        in grade <%= activity.user.grade %><% end %></i>)
+                        On <%= activity.created_at.strftime("%b %d, %Y") %>, an <strong>ALARM</strong> was raised on
+                    </span> 
+                  <% elsif activity.action == "legitimize" %>  
+                  <% else %>
+                    <span class="avatar">
+                      <%= link_to image_tag(activity.user.avatar.url(:small), 
+                        alt: "Shooloo member #{activity.user.screen_name}",
+                        title: "Shooloo member #{activity.user.screen_name}"),
+                        posts_user_path(activity.user)  %>  
+                    </span> 
+                    <span>  
+                      <span class='alert-heading'>
+                        <% if activity.trackable_type == "Authorization" %>
+                          <%= link_to activity.user.first_name, posts_user_path(activity.user) %>
+                          <%= link_to activity.user.last_name, posts_user_path(activity.user) %>
+                        <% else %>    
+                          <%= link_to activity.user.screen_name, posts_user_path(activity.user) %> 
+                        <% end %>
+                        (<i>a <%= activity.user.role %><% if !activity.user.grade.nil? %>
+                          in grade <%= activity.user.grade %><% end %></i>)
+                      </span>
                     </span>
-                  </span>
-                <% end %>
+                  <% end %>
                   <span>  
                     <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>
                   </span>  
@@ -74,7 +74,7 @@
               <div class="span1">
                 <%= render partial: 'users/read_form', locals: {activity: activity} %>
                 <%= link_to "Delete", activity, method: :delete, class: "btn btn-medium" %>
-              </div> 
+              </div></div>
             </li>        
           </ul>        
         <% end %>

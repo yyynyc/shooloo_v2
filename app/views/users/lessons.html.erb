@@ -10,17 +10,19 @@
     <section>
       <%= render 'shared/stats', user: @user %>
     </section>
-    <section>
-      <%= render 'lessons/lesson_form' %>
-    </section>
+    <%= link_to "Create My Own Lesson Plan Now!", new_lesson_path, class: "btn btn-large btn-info" %>
 	</aside>
 	<div class="span8">
     <%= render 'users/follow_nudge' %> 
-    <h3 class="feed_item">
+    <h3 class="feed_item bottom-margin">
       <%= @user.screen_name %>'s Math Lesson Plans (<%= @user.lessons.count %>)
     </h3>           
   	<% if @user.lessons.count == 0 %>
-        <%#= render 'post_welcome' %>
+      <div class="create">
+        <% provide @video=Video.find(8) %>
+        <%= render partial: 'videos/video_player', locals: {video: @video} %>
+      </div>
+      <p class="center">Watch the video above to get started.</p>
     <% else %>    	
   		<ol class="posts">      		
         <%= render partial: 'lessons/lesson', collection: @lessons  %>

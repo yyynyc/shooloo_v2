@@ -6,10 +6,22 @@
 </div>       
 <section class="feed_content">
   <div class="row">
-    <section class="lesson-margin wrap_long_string">
+    <section class="feed-margin">
+      <span class="image">
+        <% if !lesson.post_a_id.nil? %>
+          <%= link_to image_tag(lesson.post_a.photo.url (:small)),
+          new_post_comment_path(lesson.post_a)  %>
+        <% elsif !lesson.post_b_id.nil? %>
+          <%= link_to image_tag(lesson.post_b.photo.url (:small)),
+          new_post_comment_path(lesson.post_b)  %>
+        <% else %>
+          <img src="/attachments/Shooloo_logo_small.png">
+        <% end %>                      
+      </span>  
+    <span class="wrap_long_string">
       <p itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
         <strong><%= lesson.standard.short %></strong>
-          - <%= lesson.domain.core %> (<%= lesson.level.name %>)
+          - <%= lesson.standard.description %>
         <meta itemprop="educationalFramework" Content="Common Core State Standard">
         <meta itemprop="targetName" content="<%= lesson.standard.symbol %>">
         <meta itemprop="targetUrl" content="<%= lesson.standard.url %>">
@@ -25,7 +37,7 @@
       </p>
       <p>
         <% if !lesson.post_a_id.nil? && !lesson.post_b_id.nil? %>     
-          Compare post #<%= link_to lesson.post_a_id, post_teacher_view_path(lesson.post_a_id) %> with post #<%= link_to lesson.post_b_id, post_teacher_view_path(lesson.post_b_id) %>
+          <%= link_to "Compare", lesson_path(lesson) %> post #<%= link_to lesson.post_a_id, post_teacher_view_path(lesson.post_a_id) %> with post #<%= link_to lesson.post_b_id, post_teacher_view_path(lesson.post_b_id) %>
         <% elsif !lesson.post_a_id.nil? %>
           Analyze post #<%= link_to lesson.post_a_id, post_teacher_view_path(lesson.post_a_id) %>
         <% elsif !lesson.post_b_id.nil? %>
@@ -33,17 +45,17 @@
         <% end %>              
       </p>    
       <p class="wrap_long_string">      
-        <%= simple_format(lesson.description) %>
+        <%= lesson.description.html_safe %>
       </p>
       <p>
         <% if !lesson.file_file_name.nil? %>      
-          <i>Full lesson plan: <a href="/attachments/lessons/<%=lesson.id %>/<%=lesson.file_file_name %>"> <%= lesson.file_file_name %> </a></i> 
+          <i>Full lesson plan: <a href="/attachments/lessons/<%=lesson.id %>/<%=lesson.file_file_name %>" target='_blank'> <%= lesson.file_file_name %> </a></i> 
         <% end %>
       </p>                    
-    </section>
+    </span>
   </div>
   <div>
-    <span class="btn-formtastic">    
+    <span class="btn-formtastic bottom-margin">    
       <% if current_user?(lesson.user) %>
         <%= link_to "Edit Lesson", edit_lesson_path(lesson), title: "Edit Lesson Plan", class: "btn btn-small btn-success" %>            
       <% else %> 

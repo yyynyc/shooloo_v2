@@ -990,6 +990,7 @@ iframe {
 
 .teacher-view {
   font-size: 2em;
+  line-height: 1.2em;
 }
 
 .teacher-comment {
@@ -1002,13 +1003,13 @@ iframe {
 
 .split-left {
   overflow-y: scroll;
-  max-height: 450px;
+  max-height: 500px;
   border-right: solid 1px #A4A4A4;
   margin-right: -1px;
 }
 .split-right {
   overflow-y: scroll;
-  max-height: 450px;
+  max-height: 500px;
 }
 
 .table-import {

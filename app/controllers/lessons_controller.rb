@@ -2,6 +2,11 @@ class LessonsController < ApplicationController
   before_filter :signed_in_user
   before_filter :correct_user, only: :destroy
   load_and_authorize_resource
+  respond_to :html, :json
+
+  def new
+    @lesson = Lesson.new
+  end
 
   def create
     @user = current_user
@@ -70,5 +75,8 @@ class LessonsController < ApplicationController
         @comments = @lesson.comments.order('created_at DESC')      
         render 'comment'
     end 
+  end
+
+  def edit_comment
   end
 end

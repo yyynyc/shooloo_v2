@@ -1,14 +1,17 @@
 CKEDITOR.editorConfig = function( config ) {
+    config.autoParagraph = false; 
     config.toolbar = [
-        [ 'SpellChecker', 'Scayt', 'Table','SpecialChar' ],
-        [ 'Bold', 'Italic', '-', 'Underline','Strike', 'TextColor', '-', 'Subscript','Superscript','-','RemoveFormat' ], 
+        [ 'SpellChecker', 'Scayt', 'Table', 'tabletools','SpecialChar' ],
+        [ 'Bold', 'Italic', '-', 'Underline','Strike', '-', 'Subscript','Superscript','-','RemoveFormat' ], 
         [ 'Cut', 'Copy', 'PasteFromWord', '-', 'Undo', 'Redo' ],
        	[ 'Find','Replace','-','SelectAll' ],
        	[ 'NumberedList','BulletedList','-','Outdent','Indent',
 			'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ],
         [ 'Smiley']
     ];
-
+    config.extraPlugins = 'tabletools';
+    // config.extraPlugins += (config.extraPlugins.length == 0 ? '' : ',') + 'ckeditor_wiris';
+    // config.allowedContent = true;
  //    config.toolbar = "CKcomment"
  //    config.toolbar_CKcomment = [
  //    	[ 'SpellChecker', 'Scayt', 'SpecialChar' ],
@@ -58,6 +61,6 @@ CKEDITOR.config.smiley_descriptions = [
     'frown', 'cheeky', 
     'blush', 'surprise', 'indecision', 
     'angel', 'cool', 
-    'crying', 'enlightened', 'yes', 'heart', 'broken heart'
+    'cry', 'idea', 'yes', 'heart', 'broken heart'
 ];
 

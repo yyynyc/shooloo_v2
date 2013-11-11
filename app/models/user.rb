@@ -129,7 +129,9 @@ class User < ActiveRecord::Base
   after_destroy do 
     Activity.where(recipient_id: self.id).delete_all
     Score.where(benefactor_id: self.id).delete_all
+    Score.where(beneficiary_id: self.id).delete_all
     Event.where(benefactor_id: self.id).delete_all
+    Event.where(beneficiary_id: self.id).delete_all
     Homework.where(user_id: self.id).delete_all
   end
 

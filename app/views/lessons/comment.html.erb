@@ -17,7 +17,9 @@
 					<span class="timestamp"> commented on </span>
 					<%= comment.created_at.strftime("%b %d, %Y") %>.
             		<span class='search-label'>	
-            			<% if !current_user?(comment.commenter) %> 
+            			<% if current_user?(comment.commenter) %> 
+							<%= link_to raw('<i class="icon-pencil icon-white"></i> Edit'), edit_comment_path(comment), title: "Edit Comment", class: "btn btn-small btn-success" %>
+            			<% else %>
 	            			<%= render partial: 'likes/like_form_comment', locals: {like: @like, comment: comment} %>
 	            		<% end %>
             		</span>
@@ -31,17 +33,10 @@
 	            				<%= comment.likes.count %>		
 	            			<% end %>
 	            		</span>
-            		</span><br/>	           			
-					<span class="alert-heading">
-						<% if current_user == comment.commenter || current_user.admin? %>
-							<p class="feed_content">
-								<%= best_in_place comment, :content %>
-								<a href="#", class="edit", rel="popover", title="How to Edit Your Comment?", data-content="<ul class='popover-list'><li>Click on any word in this comment and you will be able to edit it.</li><li>Click away and your changes will be saved automatically.</li></ul>"><i class="icon-pencil icon-medium" ></i></a>
-							</p>
-						<% else %>
-							<%= wrap(simple_format(comment.content)) %>
-						<% end %>					
-					</span>		
+            		</span>           			
+					<p class="alert-heading">
+						<%= comment.content.html_safe %>
+					</p>		
 				</div>
 		    </li>
 	    <% end %> 
@@ -52,7 +47,7 @@
 <%= form_for([@lesson, @comment], :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')"}) do |f| %>
   	<%= render 'shared/error_messages', object: f.object %>
   	<%= f.hidden_field :commented_lesson_id, value: @lesson.id %>
-    <%= f.text_area :content, rows: 5 %>
+    <%= f.cktext_area :content, rows: 5 %>
     <div class="right_align">
   		<%= f.submit "Submit Comment", class: "btn btn-large btn-primary" %>
   	</div>

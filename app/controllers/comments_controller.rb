@@ -81,7 +81,11 @@ class CommentsController < ApplicationController
         end
         if @comment.update_attributes(params[:comment])
           flash[:success] = "You have updated your comment successfully!"
-          redirect_to new_post_comment_path(@comment.commented_post)
+          if !@comment.commented_post.nil?
+            redirect_to new_post_comment_path(@comment.commented_post)
+          elsif !@comment.commented_lesson.nil?
+            redirect_to lesson_comment_path(@comment.commented_lesson)
+          end
         else
           render 'edit'
         end

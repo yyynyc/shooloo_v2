@@ -2,9 +2,9 @@ class Video < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: [:slugged, :history]
 
-  attr_accessible :title, :description, :player_loc, :duration, :tags, :teacher_pd, :content,
+  attr_accessible :title, :description, :player_loc, :duration, :tags, :student, :content,
   	:category_id, :practice_id, :standard_id, :thumbnail, :length, 
-    :video_mp4, :video_ogv, :video_webm
+    :video_mp4, :video_ogv, :video_webm, :position, :visible
 
   has_attached_file :thumbnail, 
     :styles => {:small => "180x180>",
@@ -27,8 +27,6 @@ class Video < ActiveRecord::Base
   belongs_to :category
   belongs_to :practice
   belongs_to :standard
-  validates_presence_of :title, :description, :duration, :tags, 
-    :category_id, :length
 
   def thumbnail_remote_url=(url_value) 
     return if url_value.blank?

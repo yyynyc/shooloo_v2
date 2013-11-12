@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131106194606) do
+ActiveRecord::Schema.define(:version => 20131112144420) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -321,13 +321,9 @@ ActiveRecord::Schema.define(:version => 20131106194606) do
   create_table "referrals", :force => true do |t|
     t.integer  "referred_id"
     t.integer  "referrer_id"
-    t.string   "approval",                :default => "pending"
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
-    t.boolean  "name_true"
-    t.boolean  "role_true"
-    t.boolean  "screen_name_appropriate"
-    t.boolean  "avatar_appropriate"
+    t.string   "approval",    :default => "pending", :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   add_index "referrals", ["referred_id"], :name => "index_referrals_on_referred_id"
@@ -412,8 +408,6 @@ ActiveRecord::Schema.define(:version => 20131106194606) do
     t.integer  "comment_count",          :default => 0
     t.integer  "follower_count",         :default => 0
     t.integer  "following_count",        :default => 0
-    t.integer  "auth_req_count",         :default => 0
-    t.string   "auth_status"
     t.string   "role",                   :default => "student"
     t.boolean  "visible",                :default => false
     t.string   "personal_email"
@@ -443,7 +437,7 @@ ActiveRecord::Schema.define(:version => 20131106194606) do
     t.string   "thumbnail_content_type"
     t.integer  "thumbnail_file_size"
     t.datetime "thumbnail_updated_at"
-    t.boolean  "teacher_pd",              :default => false
+    t.boolean  "student",                 :default => false
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
     t.string   "slug"
@@ -459,6 +453,8 @@ ActiveRecord::Schema.define(:version => 20131106194606) do
     t.string   "video_webm_content_type"
     t.integer  "video_webm_file_size"
     t.datetime "video_webm_updated_at"
+    t.boolean  "visible",                 :default => true
+    t.integer  "position",                :default => 0
   end
 
   add_index "videos", ["slug"], :name => "index_videos_on_slug"

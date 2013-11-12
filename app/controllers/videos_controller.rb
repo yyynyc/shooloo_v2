@@ -1,4 +1,5 @@
 class VideosController < ApplicationController
+	load_and_authorize_resource
 
 	def new
 		@video = Video.new
@@ -35,8 +36,14 @@ class VideosController < ApplicationController
 	end
 
 	def index
-		@search = Video.search(params[:q])
-    	@videos = @search.result.order('created_at ASC')
+		if !signed_in?
+			@search = Video.where(visible: true).search(params[:q])
+		elsif current_user.role == "student"
+			@search = Video.where(student: true).search(params[:q])
+		else
+			@search = Video.search(params[:q])
+		end
+    	@videos = @search.result.order('position ASC')
     	@search.build_condition
 	end
 
@@ -45,13 +52,19 @@ class VideosController < ApplicationController
 		if request.path != video_path(@video)
 		    redirect_to @video, status: :moved_permanently
 		end
-		@videos = Video.all.reject {|v| v.id==@video.id}
+		if !signed_in?
+			@videos = Video.where(visible: true).order('position ASC').reject {|v| v.id==@video.id}
+		elsif current_user.role == "student"
+			@videos = Video.where(student: true).order('position ASC').reject {|v| v.id==@video.id}
+		else
+			@videos = Video.order('position ASC').reject {|v| v.id==@video.id}
+		end		
 		@similar_videos = Video.where(category_id: @video.category.id).reject {|v| v.id==@video.id}
 	end
 
 	def pd
-		@search = Video.where(teacher_pd: true).search(params[:q])
-    	@videos = @search.result.order('created_at ASC')
+		@search = Video.search(params[:q])
+    	@videos = @search.result.order('position ASC')
     	@search.build_condition
 	end
 end

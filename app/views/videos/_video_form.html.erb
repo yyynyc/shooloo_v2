@@ -1,13 +1,15 @@
 <div class="row">
-  <div class="span10 offset1">    
+  <div>    
     <%= semantic_form_for video, :url => url, :html => { :multipart => true, onsubmit: "$('button', this).attr('disabled','disabled')", class: "form-horizontal-post-update"}  do |f| %>
 	  <%= render 'shared/error_messages', object: f.object %>
 		<%=f.inputs do %> 
 	        <%= f.input :title %>
+	        <%= f.input :position %>
+	       	<%= f.input :visible, as: :radio %>
+		    <%= f.input :student, as: :radio, label: "Student Only?" %>
 		    <%= f.input :description %>	
 		    <%= f.input :content %>
 		    <%= f.input :tags %>
-		    <%= f.input :teacher_pd, as: :radio %>
 		    <%= f.input :length %>
 		    <%= f.input :duration %>			       
 	    	<%= f.input :category_id, as: :select, include_blank: true, label: "Category", collection: Hash[Category.order('name ASC').map{|s| [s.name, s.id]}] %> 

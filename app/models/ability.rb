@@ -42,6 +42,7 @@ class Ability
         else
             can :read, :all
             can :crud, Activity
+            can [:index, :show], Video
         end        
     end
 end

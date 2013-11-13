@@ -26,11 +26,12 @@
                   <li class="divider"></li>
                   <li><%= link_to "Import My Students", new_user_import_path %></li>
                   <li><%= link_to "My Student Roster", authorizations_path %></li>
+                  <li><%= link_to "My Students' Alarms", alarmed_posts_path %></li>
                   <li class="divider"></li>
                   <li><%= link_to "My Students' Activity Tracker", student_homework_user_path(current_user) %></li> 
                   <li><%= link_to "My Students' CCSS Progress", student_common_core_user_path(current_user) %></li>
-                  <li><%= link_to "My Students' Alarms", alarmed_posts_path %></li>
                   <li class="divider"></li>
+                  <li><%= link_to "Create a New Lesson Plan", new_lesson_path %></li>
                   <li><%= link_to "My Common Core Lesson Plans", lessons_user_path(current_user) %></li>
                   <li><%= link_to "All Common Core Lesson Plans", lessons_path %></li>
                 </ul>

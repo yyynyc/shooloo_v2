@@ -5,7 +5,14 @@
 <h1> Import Class Roster </h1>
 
 <div class="auth-font">
-	<p>Import your roster in a spreadsheet and create accounts for your entire class instantly!</p>
+	<p>Watch a 1-minute <span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseVideo"><strong>video tutorial</strong></a> on how to import your roster and create accounts for your entire class instantly!</p>
+
+    <div id="collapseVideo" class="accordion-body collapse">    	
+  		<div class="accordion-toggle center-div">
+  			<% @video = Video.find(2) %>
+			<%= render partial: 'videos/video_player', locals: {video: @video} %> 
+		</div>
+	</div>
 
 	<p>First, click on the green button to download our spreadsheet template for roster.</p>
 

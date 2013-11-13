@@ -8,11 +8,11 @@
     <section>
       <%= render 'shared/stats', user: current_user %>
     </section>
-    <%= link_to "Create My Own Math Story Now!", new_post_path, class: "btn btn-large btn-info" %>
+    <%= render partial: 'posts/button_simple' %>
   </aside>
   <div class="span8">
     <h1> My News Alerts </h1>
-    <%#= render partial: 'posts/button' %>
+    <%= render partial: 'posts/button' %>
     <% if @my_activities.blank? %> 
       <p class='about'> Welcome back! I am sorry, but you don't have any news alert yet. Watch the video below to get started. </p>
       <% unless current_user.role == "student" %> 

@@ -10,9 +10,7 @@
       <section>
         <%= render 'shared/stats', user: @user %>
       </section>
-      <section>
-        <%= render 'shared/post_form' %>
-      </section>    
+      <%= render partial: 'posts/button_simple' %>    
 	  </aside>
 	<div class="span8">
     <%= render 'users/follow_nudge' %>  

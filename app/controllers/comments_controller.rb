@@ -5,6 +5,15 @@ class CommentsController < ApplicationController
     respond_to :html, :json
     
 	def index
+        @comment = Comment.new
+        @post  = Post.find(params[:post_id]) 
+        @comments = @post.comments.paginate(page: params[:page], per_page: 20, 
+            order: 'created_at DESC')
+        @alarm = Alarm.new
+        @rating = Rating.new
+        @like = Like.new
+        @liked_post = @like.liked_post
+        @liked_comment = @like.liked_comment
         render 'new'
     end
 

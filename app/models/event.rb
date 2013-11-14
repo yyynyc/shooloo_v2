@@ -47,6 +47,9 @@ class Event < ActiveRecord::Base
     elsif self.event == "sign in"
       if Homework.where(week: self.week, year: self.year, user_id: self.benefactor_id).any?
         homework = Homework.find_by_week_and_user_id(self.week, self.benefactor_id)
+        if homework.login_count.nil?
+          homework.login_count = 0
+        end
         homework.login_count += 1
         homework.save!
       else

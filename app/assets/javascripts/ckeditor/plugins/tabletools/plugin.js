@@ -990,7 +990,7 @@
 		getSelectedCells: getSelectedCells
 
 	};
-	CKEDITOR.plugins.add( 'tabletools', CKEDITOR.plugins.tabletools );
+	
 })();
 
 /**

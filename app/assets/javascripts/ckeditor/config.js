@@ -1,7 +1,7 @@
 CKEDITOR.editorConfig = function( config ) {
     config.autoParagraph = false; 
     config.toolbar = [
-        [ 'SpellChecker', 'Scayt', 'Table', 'tabletools','SpecialChar' ],
+        [ 'SpellChecker', 'Scayt', 'Table', 'SpecialChar' ],
         [ 'Bold', 'Italic', '-', 'Underline','Strike', '-', 'Subscript','Superscript','-','RemoveFormat' ], 
         [ 'Cut', 'Copy', 'PasteFromWord', '-', 'Undo', 'Redo' ],
        	[ 'Find','Replace','-','SelectAll' ],

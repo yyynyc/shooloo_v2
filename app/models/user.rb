@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
   has_many :beneficiaries, through: :scores
   has_many :reverse_scores, foreign_key: "beneficiary_id",
             class_name:  "Score", dependent: :destroy
-  has_many :benefators, through: :reverse_scores
+  has_many :benefactors, through: :reverse_scores
 
   has_many :gifts, foreign_key: "giver_id", dependent: :destroy
   has_many :receivers, through: :gifts
@@ -403,7 +403,9 @@ class User < ActiveRecord::Base
 private
 
   def create_remember_token
-    self.remember_token = SecureRandom.urlsafe_base64
+    if self.remember_token.blank?
+      self.remember_token = SecureRandom.urlsafe_base64
+    end
   end
 
   def generate_token(column)

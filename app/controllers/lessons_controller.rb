@@ -1,5 +1,6 @@
 class LessonsController < ApplicationController
   before_filter :signed_in_user
+  skip_before_filter :signed_in_user, only: :index
   before_filter :correct_user, only: :destroy
   load_and_authorize_resource
   respond_to :html, :json
@@ -43,7 +44,9 @@ class LessonsController < ApplicationController
     @search = Lesson.search(params[:q])
     @lessons = @search.result.paginate(page: params[:page], per_page: 40,order: 'created_at DESC')
     @search.build_condition
-    @like = Like.new
+    if signed_in?
+      @like = Like.new
+    end
   end
 
   def comment

@@ -1,5 +1,6 @@
 <% title "Common Core Math Lesson Plans" %>
-<% description "List of Common Core math lesson plans based on student-generated content" %>
+<meta itemprop="description" content="Join Shooloo to access thousands of math word problems created by students and aligned with the Common Core State Standards.">
+  <%= render 'shared/meta' %>
 
 <h1> Common Core Math Lesson Plans </h1>
 <div class="center">
@@ -75,8 +76,20 @@
 					    </span>
 					</p>
 					<p class="alert-heading">
-						<strong><%= lesson.standard.short %></strong>  &
-						<%= lesson.practice.name %> 
+						<span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
+							<meta itemprop="alignmentType" content="require">
+							<meta itemprop="targetName" content="<%= lesson.standard.symbol %>">
+		    				<meta itemprop="targetUrl" content="<%= lesson.standard.url %>">
+		    				<meta itemprop="targetDescription", content="<%= lesson.standard.description %>">
+							<strong><%= lesson.standard.short %></strong>
+						</span>  &
+						<span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
+							<meta itemprop="alignmentType" content="require">
+							<meta itemprop="targetName" content="<%= lesson.practice.symbol %>">
+		    				<meta itemprop="targetUrl" content="<%= lesson.practice.url %>">
+		    				<meta itemprop="targetDescription", content="<%= lesson.practice.description %>">
+							<%= lesson.practice.name %> 
+						</span>
 					</p>
 					<p><i>
 				        <% if !lesson.post_a_id.nil? && !lesson.post_b_id.nil? %>
@@ -96,20 +109,22 @@
 						<% end %>
 					<p>	
 				</div>
-				<div class="span2 btn-formtastic">
-					<div class="row center">
-						<% if current_user?(lesson.user) %>
-				        	<p class="lesson-index">
-				        		<%= link_to "Edit Lesson", edit_lesson_path(lesson), title: "Edit Lesson Plan", class: "btn btn-small btn-success" %>
-				        	</p>            
-				    	<% else %>
-				          	<%= render partial: 'likes/like_form_lesson', locals: {lesson: lesson, like: @like} %>
-				        <% end %>
-				  	</div>
-			     	<div class="row center">
-			        <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), lesson_comment_path(lesson), class: "btn btn-small btn-success" %>
-		 			</div>
-				</div>
+				<% if signed_in? %>
+					<div class="span2 btn-formtastic">
+						<div class="row center">
+							<% if current_user?(lesson.user) %>
+					        	<p class="lesson-index">
+					        		<%= link_to "Edit Lesson", edit_lesson_path(lesson), title: "Edit Lesson Plan", class: "btn btn-small btn-success" %>
+					        	</p>            
+					    	<% else %>
+					          	<%= render partial: 'likes/like_form_lesson', locals: {lesson: lesson, like: @like} %>
+					        <% end %>
+					  	</div>
+				     	<div class="row center">
+				        <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), lesson_comment_path(lesson), class: "btn btn-small btn-success" %>
+			 			</div>
+					</div>
+				<% end %>
 			</div>		
 		</li>
 	<% end %>

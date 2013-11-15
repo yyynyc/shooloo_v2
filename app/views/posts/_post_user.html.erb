@@ -10,16 +10,16 @@
 <% end %>
 <% unless post.level.nil? %>
 	<span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
-	<br/><span class="timestamp"><span itemprop="alignmentType">require</span>d by</span> 
-	<%= post.level.name %>
-	<span class="timestamp" itemprop="educationalFramework">Common Core</span>
-	<%= post.domain.core %>
-	<span class="timestamp"> -</span> 
-	<%= post.standard.short %>
-	<span itemprop="targetName" content="<%= post.standard.symbol %>"></span>
-    <span itemprop="targetUrl" content="<%= post.standard.url %>"></span>
-    <span itemprop="targetDescription", content="<%= post.standard.description %>"></span>
-  </span>
+		<br/><span class="timestamp"><span itemprop="alignmentType">require</span>d by</span> 
+		<%= post.level.name %>
+		<span class="timestamp" itemprop="educationalFramework">Common Core</span>
+		<%= post.domain.core %>
+		<span class="timestamp"> -</span> 
+		<%= post.standard.short %>
+		<span itemprop="targetName" content="<%= post.standard.symbol %>"></span>
+	    <span itemprop="targetUrl" content="<%= post.standard.url %>"></span>
+	    <span itemprop="targetDescription", content="<%= post.standard.description %>"></span>
+	</span>
 <% end %>
 <% if signed_in? && (current_user.role == "teacher" || current_user.admin?) %> 
 	<br/>Post id #<strong><%= link_to post.id, new_post_comment_path(post)%></strong>

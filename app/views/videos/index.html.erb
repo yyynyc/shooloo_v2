@@ -3,6 +3,12 @@
   <%= render 'shared/meta' %>
 	
 	<% title 'Video Tutorials' %>
+	
+	<% unless signed_in? %>
+		<div class="top-message">
+			<p><%= link_to "Log in", signin_path %> to access our full library of premium video contents!</p>
+		</div>	
+	<% end %>
 	<h1>Video Tutorials</h1>
 	<%= render 'video_index' %>
 </div>

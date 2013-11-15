@@ -225,11 +225,30 @@ class User < ActiveRecord::Base
     UserMailer.password_reset(self).deliver
   end
 
-  def avatar_remote_url=(url_value) 
+  def avatar_remote_url=(url_value)
     return if url_value.blank?
-    self.avatar = URI.parse(url_value)
-    @avatar_remote_url = url_value
-    url = URI(url_value)   
+    if url_value.start_with?('data:')
+      adapter = Paperclip.io_adapters.for(url_value)
+      if url_value =~ /\Adata:([;]+);/
+        content_type = $1
+        mime_type = MIME::Types[content_type].first
+        if mime_type
+          extension = mime_type.extensions.first
+          adapter.original_filename = "base64.#{extension}"
+        end
+      end
+
+      self.avatar = adapter
+    else
+      #require 'pry';binding.pry
+      self.avatar = URI.parse(url_value)
+      # Assuming url_value is http://example.com/photos/face.png
+      # photo_file_name == "face.png"
+      # photo_content_type == "image/png"
+      
+      url = URI(url_value)   
+    end
+    @avatar_remote_url=url_value
   end
 
   def read!(activity)

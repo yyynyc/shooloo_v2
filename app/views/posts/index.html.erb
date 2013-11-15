@@ -1,56 +1,54 @@
 <div itemscope itemtype="http://schema.org/CreativeWork">
   <meta itemprop="description" content="Join Shooloo to access over 1,000 student-authored math word problems aligned with the Common Core State Standard and completed with I-can statements.">
   <%= render 'shared/meta' %>
+  <div class="top-message">
+	<% if !signed_in? %>
+		<p><%= link_to "Join Shooloo", signup_path %> to access thousands of student-authored math word problems!</p>
+		<p>Find out how to <%= link_to "supercharge your math class with student-generated content", video_path(6) %>.</p> 
+	<% else %>	
+		<% if current_user.authorizations.blank? %>		
+			<% if current_user.role == "teacher" %>
+				<p>Find out how to <%= link_to "supercharge your math class with student-generated content", video_path(6) %>.</p> 
+			<% end %>
+			<p>Complete <%= link_to "your profile", edit_user_path(current_user) %> and then <%= link_to "Get authorization", new_authorization_path %> to read details of the math stories!</p>
+		<% else %>
+			<% if current_user.role == "teacher" || current_user.admin? %>
+				<p>Find out how to <%= link_to "teach problem-solving in 3 steps", video_path(8) %>.</p>
+			<% end %>
+		<% end %>
+	<% end %>
+  </div>
 
 	<h1> Common Core Word Problems</h1>
 	
-	<%= search_form_for @search, url: search_posts_path, method: :get do |f| %>		
-		<% if !signed_in? %>
-			<div class="row center auth normal-font">
-				<p><%= link_to "Join Shooloo", signup_path %> to access over 1,000 student-authored math word problems!</p>
-				<p>Find out how to <%= link_to "supercharge your math class with student-generated content", video_path(6) %>.</p> 
-			</div>		
-		<% else %>	
-			<% if current_user.authorizations.blank? %>			
-				<div class="row center box normal-font">
-					<% if current_user.role == "teacher" %>
-						<p>Find out how to <%= link_to "supercharge your math class with student-generated content", video_path(6) %>.</p> 
-					<% end %>
-					<p><%= link_to "Get authorization", new_authorization_path %> to search problems by Common Core State Standards and by "I can" statements.</p>
-				</div>
-			<% else %>
-				<% if current_user.role == "teacher" || current_user.admin? %>
-					<div class="row center auth normal-font">
-						<p>Find out how to <%= link_to "teach problem-solving in 3 steps", video_path(8) %>.</p>
-					</div> 
-				<% end %>
-				<div class="row center bottom-margin">
-					<span class="search-label">
-						<%= f.label :standard_ICan_cont, "I Can" %>
-					</span>
-					<span class="search-field">
-						<%= f.text_field :standard_ICan_cont %>
-					</span>	
-					<span class="search-label">
-						<%= f.label :domain_core_cont, "CCSS Domain" %>
-					</span>
-					<span class="search-field">
-						<%= f.text_field :domain_core_cont %>
-					</span>	
-					<span class="search-label">
-						<%= f.label :standard_short_cont, "CCSS Standard" %>
-					</span>
-					<span class="search-field">
-						<%= f.text_field :standard_short_cont %>
-					</span>	
-					<span class="search-label">
-						<%= f.label :standard_description_cont, "CCSS Description" %>
-					</span>
-					<span class="search-field">
-						<%= f.text_field :standard_description_cont %>
-					</span>								
-				</div>
-			<% end %>
+	<%= search_form_for @search, url: search_posts_path, method: :get do |f| %>	
+		<% if signed_in? && current_user.authorizations.any? %>
+			<div class="row center bottom-margin">
+				<span class="search-label">
+					<%= f.label :standard_ICan_cont, "I Can" %>
+				</span>
+				<span class="search-field">
+					<%= f.text_field :standard_ICan_cont %>
+				</span>	
+				<span class="search-label">
+					<%= f.label :domain_core_cont, "CCSS Domain" %>
+				</span>
+				<span class="search-field">
+					<%= f.text_field :domain_core_cont %>
+				</span>	
+				<span class="search-label">
+					<%= f.label :standard_short_cont, "CCSS Standard" %>
+				</span>
+				<span class="search-field">
+					<%= f.text_field :standard_short_cont %>
+				</span>	
+				<span class="search-label">
+					<%= f.label :standard_description_cont, "CCSS Description" %>
+				</span>
+				<span class="search-field">
+					<%= f.text_field :standard_description_cont %>
+				</span>								
+			</div>			
 		<% end %>
 		<div class="row center">
 			<span class="search-label">

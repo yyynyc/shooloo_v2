@@ -95,16 +95,16 @@ class Post < ActiveRecord::Base
       self.photo = adapter
       self.image_host = nil
     else
-    #require 'pry';binding.pry
-    self.photo = URI.parse(url_value)
-    # Assuming url_value is http://example.com/photos/face.png
-    # photo_file_name == "face.png"
-    # photo_content_type == "image/png"
-    
-    url = URI(url_value)
-    self.image_host = url.host    
-  end
-  @photo_remote_url=url_value
+      #require 'pry';binding.pry
+      self.photo = URI.parse(url_value)
+      # Assuming url_value is http://example.com/photos/face.png
+      # photo_file_name == "face.png"
+      # photo_content_type == "image/png"
+      
+      url = URI(url_value)
+      self.image_host = url.host    
+    end
+    @photo_remote_url=url_value
   end
 
   def rating_by(user)

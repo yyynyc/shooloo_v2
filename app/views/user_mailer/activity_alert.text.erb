@@ -1,6 +1,8 @@
 Dear <%=@user.first_name %>(<%= @user.screen_name %>),
 
-The following are the activities you've missed on Shooloo. For more details, visit https://fun.shooloo.org/my-alerts. To log in, go to https://fun.shooloo.org/signin, type in your screen name "<%= @user.screen_name %>" and your password. Screen name and password are case sensitive, so please type them in exactly as aforementioned. If you've forgotten your password, use https://fun.shooloo.org/password_resets/new or ask your teacher to reset your password.
+The following are the activities you've missed on Shooloo. For more details, visit https://fun.shooloo.org/my-alerts. 
+
+To log in, go to https://fun.shooloo.org/signin, type in your screen name "<%= @user.screen_name %>" and your password. Screen name and password are case sensitive, so please type them in exactly as aforementioned. If you've forgotten your password, use https://fun.shooloo.org/password_resets/new or ask your teacher to reset your password. Shooloo works the best in Google Chrome or Apple Safari. Our site does not work in Internet Explorer.
 
 <% Activity.where(read: nil, recipient_id: @user.id).order('created_at DESC').each do |activity| %> 
   <% if activity.user.nil? %> 

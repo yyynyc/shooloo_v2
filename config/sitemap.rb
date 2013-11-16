@@ -10,6 +10,7 @@ SitemapGenerator.verbose = false
 SitemapGenerator::Sitemap.create do
   add about_path, :priority => 0.9, :changefreq => 'monthly'
   add posts_path, :priority => 0.8, :changefreq => 'daily'
+  add lessons_path, :priority => 0.8, :changefreq => 'daily'
   add standards_path, :priority => 0.8, :changefreq => 'monthly'
   add grade_k_path, :priority => 0.8, :changefreq => 'daily'
   add grade_1_path, :priority => 0.8, :changefreq => 'daily'

@@ -17,7 +17,8 @@ class UserImport
     @imported_users = load_imported_users(current_user_id)
     begin 
       @imported_users.each do |user|
-        user.save
+        user.visible = true
+        user.save!
         Authorization.create!(authorized_id: user.id, authorizer_id: current_user_id, approval: "accepted")
       end
       return true

@@ -159,7 +159,6 @@ class User < ActiveRecord::Base
   validates :school_url, presence: true, url: true, :if => :verify_teacher
   validates :social_media_url, presence: true, :if => :verify_other
   validates :grade, numericality: true, allow_blank: true
-  validates :avatar_remote_url, url: true, allow_blank: true
   #validates_presence_of :school_name, :if => :active_student?
   #validates_confirmation_of :email, on: :create
   #validates_attachment_presence :avatar

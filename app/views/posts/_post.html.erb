@@ -38,6 +38,9 @@
 	    	hint: (f.object.new_record? || f.object.photo.nil?)?
 			f.template.content_tag(:span, "No photo yet") : 
 			f.template.image_tag(f.object.photo.url(:thumb)) %>
+		<p class="center yes alert-heading"> 
+			Trouble with pictures? Watch this 1-minute video on <%= link_to "how to add a picture", video_path(9) %>. 
+		</p>
 		<% if current_user.admin? %>
 			<%= f.input :quality_id, as: :select, include_blank: true, label: "Quality", collection: Hash[Quality.all.map{|quality| [quality.name, quality.id]}]  %>
 		<% end %>			

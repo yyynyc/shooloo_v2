@@ -1001,6 +1001,13 @@ iframe {
   padding-bottom: 1em;
 }
 
+.collapse-title {
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1.5em;
+  text-align: center;
+}
+
 .split-left {
   overflow-y: scroll;
   max-height: 500px;
@@ -1082,4 +1089,9 @@ iframe {
   font-weight: bold;
   color: black;
   box-shadow: 8px 8px 5px #888888;
+}
+
+.collapse-video {
+  width: 90%;
+  align: center;
 }

@@ -1,3 +1,21 @@
+<p class="center yes alert-heading"> 
+	Watch <%= link_to "videos", videos_path %> on how to <%= link_to "create a word problem", video_path(4) %>,<br/> use <%= link_to "spell checks", video_path(4) %>, and add <%= link_to "pictures", video_path(9) %>, <span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#videoTable">tables</a>, tape diagrams, area models, and smiley counters.
+</p>
+<div id="videoTable" class="accordion-body collapse">    	
+	<div class="accordion-toggle">
+		<table class="offset1">
+			<tr>
+				<td class="collapse-title">
+					How to <br/>Add a Table
+				</td>
+				<td>
+					<%= render partial: 'videos/video_player', locals: {video: Video.find(2)} %> 
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
 <%= semantic_form_for post, :validate => true, :url => url, :html => { :multipart => true, onsubmit: "$('button', this).attr('disabled','disabled')", class: "form-horizontal-post-update", 'data-action' => 'update' }  do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
 	<%=f.inputs do %> 

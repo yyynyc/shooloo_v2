@@ -14,16 +14,19 @@
   <% end %> 
 <% end %>
 <% unless current_user?(post.user) %>
-  <span class='search-label'>
-    <%#= link_to raw('<i class="icon-star"></i> Rate'), new_post_rating_path(post), class: "btn btn-small btn-success" %>  
+  <span class='search-label'> 
     <%= render partial: 'likes/like_form', locals: {post: post, like: like} %>
   </span> 
 <% end %>
 <span class='search-label'> 
   <%= render partial: 'invites/invite_form', locals: {post: post, invite: invite} %>
 </span>
-<span class='search-label'> 
-  <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), new_post_comment_path(post), class: "btn btn-small btn-success" %> 
+<span class='search-label'>
+  <% if current_user.in?(post.commenters) || current_user.role=="teacher" || current_user.admin? %>
+    <%= link_to raw('<i class="icon-comment icon-white"></i> Details'), post_comments_path(post), class: "btn btn-small btn-success" %>
+  <% else %>
+    <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), new_post_comment_path(post), class: "btn btn-small btn-success" %>
+  <% end %> 
 </span>  
 <% if current_user.admin? || current_user.role == "teacher" %>
   <%= link_to "Class", post_teacher_view_path(post), class: "btn btn-small btn-danger" %> 

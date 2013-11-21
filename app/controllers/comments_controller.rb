@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
     before_filter :signed_in_user
     before_filter :correct_user, only: [:destroy, :edit, :update]
+    before_filter :commenter_user, only: :index
     load_and_authorize_resource #except: :new
     respond_to :html, :json
     
@@ -14,7 +15,6 @@ class CommentsController < ApplicationController
         @like = Like.new
         @liked_post = @like.liked_post
         @liked_comment = @like.liked_comment
-        render 'new'
     end
 
     def new
@@ -52,7 +52,7 @@ class CommentsController < ApplicationController
             end
             @comments = @post.comments.paginate(page: params[:page], 
                 order: 'created_at DESC')      
-            redirect_to new_post_comment_path(@post)
+            redirect_to post_comments_path(@post)
         else 
             raise "you need a post" if @post.nil?
             @post  = @comment.commented_post
@@ -67,14 +67,6 @@ class CommentsController < ApplicationController
     end
 
     def edit
-        # if current_user.admin?
-        #     @post = Post.find_by_id(params[:post_id])
-        # else
-        #     @post  = current_user.feed.find_by_id(params[:post_id])
-        # end
-        # raise "you need a post" if @post.nil?
-        # @comment = @post.comments.find_by_id(params[:id])
-        # raise "you need a comment" if @comment.nil?
         if current_user.admin?
             @comment = Comment.find_by_id(params[:id])
         else
@@ -127,6 +119,15 @@ class CommentsController < ApplicationController
         unless current_user == @comment.commenter || current_user.admin? 
             Flash[:error] = "Sorry, you can't edit that comment."
             redirect_to root_url 
+        end
+    end
+
+    def commenter_user
+        @post  = Post.find(params[:post_id]) 
+        if current_user.in?(@post.commenters) || current_user.role=="teacher" || current_user.admin?
+            return true
+        else
+            redirect_to new_post_comment_path(@post)
         end
     end
 end

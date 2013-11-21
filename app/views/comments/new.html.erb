@@ -1,23 +1,32 @@
 <% provide(:title, "Comment Post") %> 
-<%= render partial: 'posts/post_review' %> 
-
-<% if !@comments.blank? %>
-	<h2> Comments </h2>	
-	<ol class="posts">
-		<% unless @comments.hidden.blank? %>
-			<% @comments.hidden.each do |comment| %>
-				<% if current_user == comment.commenter || current_user.admin? || current_user.role == "teacher" %>
-					<%= render partial: 'comments/comment', locals: {comment: comment} %>
-            	<% end %> 
-            <% end %>	  
-	  	<% end %>   		
-		<%= render @comments.visible %>
-	</ol>
-<% end %>
+<div class="row border lesson-margin">     
+  <div class="image">
+    <%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %><br/>
+    <% unless @post.image_host.nil? %>
+      <span class="image-host-large">Image courtesy of <%= @post.image_host %>.
+      </span><br/> 
+    <% end %>
+    <div class="row bottom-margin">
+     <br/><%= render partial: 'posts/post_buttons', locals: {post: @post, like: @like, invite: @invite } %><br/>
+    </div>  
+  </div>
+  <div class="alert-heading">         
+    <p>
+      <strong>Question: </strong><%= @post.question.html_safe %>
+    </p>
+    <p class="no">
+     To see the answer, submit a comment and show your solution first.
+    <% unless @post.level.nil? %>
+      <p>
+        <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %>
+      </p>
+    <% end %>
+  </div>
+</div>
 
 <h2> Post A New Comment</h2>
 <p class="center yes alert-heading"> 
-	Please kindly tell the author if his/her queestion,  answer, and I-can statement are clear and correct. <br/>
+	Please kindly show your solution first and then the answer will be revealed to you. <br/>
 	Watch  <span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseVideo">video on how to make a winning comment</a>. Thank you!
 </p>
 <div id="collapseVideo" class="accordion-body collapse">    	

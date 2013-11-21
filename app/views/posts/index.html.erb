@@ -116,11 +116,11 @@
 				  			<% if signed_in? %>			  		
 					  			<% if current_user?(post.user) || current_user.admin? %>
 			        				<%= link_to "Edit post ", edit_post_path(post), title: "Edit Post" %> |
-			        				<%= link_to "Read more", new_post_comment_path(post) %> 
-				          		<% elsif current_user.role == "parent" %> 
-				              		<%= link_to "Read more", new_post_rating_path(post)  %>
+			        				<%= link_to "Read more", post_comments_path(post) %> 
+				          		<% elsif current_user.role == "student" %> 
+				              		<%= link_to "Read more", new_post_comment_path(post)  %>
 				          		<% else %>				
-				          			<%= link_to "Read more", new_post_comment_path(post) %>
+				          			<%= link_to "Read more", post_comments_path(post) %>
 				          		<% end %> 
 				          		<% if current_user.admin? || current_user.role == "teacher" %>
 						           | <%= link_to "Class View", post_teacher_view_path(post) %> 

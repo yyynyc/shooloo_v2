@@ -5,4 +5,4 @@
 <% save = "Update Video" %>
 
 <h1>Edit Video</h1>
-<%= render partial: 'video_form', locals: {url: url, save: save, video: @video}  %>
+<%= render partial: 'video_form', locals: {url: url, save: save, action: 'update', video: @video}  %>

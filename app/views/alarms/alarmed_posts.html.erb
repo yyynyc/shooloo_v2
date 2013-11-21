@@ -18,13 +18,13 @@
                 raised alarm on 
                     <% unless alarm.alarmed_post_id.nil? %>
                         post 
-                        #<%= link_to alarm.alarmed_post_id, new_post_comment_path(alarm.alarmed_post) %>
+                        #<%= link_to alarm.alarmed_post_id, post_comments_path(alarm.alarmed_post) %>
                         written by
                         <%= alarm.alarmed_post.user.first_name %>
                         <%= alarm.alarmed_post.user.last_name %>
                     <% else %>
                         comment 
-                        #<%= link_to alarm.alarmed_comment_id, new_post_comment_path(alarm.alarmed_comment.commented_post) %>
+                        #<%= link_to alarm.alarmed_comment_id, post_comments_path(alarm.alarmed_comment.commented_post) %>
                         written by
                         <%= link_to alarm.alarmed_comment.commenter.first_name %>
                         <%= alarm.alarmed_comment.commenter.last_name %>

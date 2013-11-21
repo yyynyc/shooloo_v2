@@ -22,7 +22,7 @@
   <%= render partial: 'invites/invite_form', locals: {post: post, invite: invite} %>
 </span>
 <span class='search-label'>
-  <% if current_user.in?(post.commenters) || current_user.role=="teacher" || current_user.admin? %>
+  <% if current_user?(post.user) || current_user.in?(post.commenters) || current_user.role=="teacher" || current_user.admin? %>
     <%= link_to raw('<i class="icon-comment icon-white"></i> Details'), post_comments_path(post), class: "btn btn-small btn-success" %>
   <% else %>
     <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), new_post_comment_path(post), class: "btn btn-small btn-success" %>

@@ -124,7 +124,7 @@ class CommentsController < ApplicationController
 
     def commenter_user
         @post  = Post.find(params[:post_id]) 
-        if current_user.in?(@post.commenters) || current_user.role=="teacher" || current_user.admin?
+        if current_user?(@post.user) || current_user.in?(@post.commenters) || current_user.role=="teacher" || current_user.admin?
             return true
         else
             redirect_to new_post_comment_path(@post)

@@ -83,7 +83,7 @@ class CommentsController < ApplicationController
         if @comment.update_attributes(params[:comment])
           flash[:success] = "You have updated your comment successfully!"
           if !@comment.commented_post.nil?
-            redirect_to new_post_comment_path(@comment.commented_post)
+            redirect_to post_comments_path(@comment.commented_post)
           elsif !@comment.commented_lesson.nil?
             redirect_to lesson_comment_path(@comment.commented_lesson)
           end
@@ -111,7 +111,7 @@ class CommentsController < ApplicationController
         @post.comments_count -=1
         @post.save!(validate: false) 
         flash[:notice] = "Sorry... You've just #{ActionController::Base.helpers.link_to "lost some points", gift_receiving_path} from your friend.".html_safe 
-        redirect_to new_post_comment_path(@post)
+        redirect_to post_comments_path(@post)
     end
 
     def correct_user

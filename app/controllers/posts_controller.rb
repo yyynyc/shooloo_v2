@@ -47,7 +47,7 @@ class PostsController < ApplicationController
       current_user.save
       sign_in current_user
       flash[:notice] = "Fantastic! #{ActionController::Base.helpers.link_to "Check your points", gift_receiving_path} from Shooloo and your progress in your #{ActionController::Base.helpers.link_to "I-Can Journal", common_core_I_can_user_path(current_user)}.".html_safe
-      redirect_to new_post_comment_path(@post)
+      redirect_to post_comments_path(@post)
     else
       @feed_items = []
       render 'new'

@@ -67,6 +67,10 @@
 	<% end %> 
 <% else %>
 	<div class="about">
-		<p> No student found. To create accounts for your entire class instantly, <%= link_to "import your class roster", new_user_import_path %> now.</p>
+		<p> No student found. To create accounts for your entire class instantly, watch the 1-minute video below and <%= link_to "import your class roster", new_user_import_path %> now.</p>
 	</div>
+	<div class="center-div">
+			<% @video = Video.find(2) %>
+		<%= render partial: 'videos/video_player', locals: {video: @video} %> 
+	</div>	
 <% end %>

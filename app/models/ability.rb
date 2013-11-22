@@ -19,7 +19,8 @@ class Ability
             can :crud, [Post, Comment, Invite, Rating]
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :read, :all
-            can :crud         
+            can :crud 
+            can :pd, Video        
         elsif user.authorizations.where(approval: "accepted").any?
             can :update, Referral
             can [:create, :destroy], [Referral, Authorization]

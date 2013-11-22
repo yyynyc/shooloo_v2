@@ -17,7 +17,7 @@
       <p class='about'> Welcome back! I am sorry, but you don't have any news alert yet. Watch the video below to get started. </p>
       <% unless current_user.role == "student" %> 
         <div class="create">
-          <% provide @video=Video.find(7) %>
+          <% provide @video=Video.find(8) %>
           <%= render partial: 'videos/video_player', locals: {video: @video} %>
         </div>
       <% else %>
@@ -25,8 +25,8 @@
           <% provide @video=Video.find(3) %>
           <%= render partial: 'videos/video_player', locals: {video: @video} %>
         </div>
-        <% if cannot? :crud, Post %>
-          <p class="about">Right now no one can find you. To make your profile appear in the member list and gain access to all Shooloo functionalities, <%= link_to "get authorization", new_authorization_path %> from your current teacher. Then you will be pleasantly surprised by news alerts that you've gained new followers, got praises from your friends, and many more fun activities. </p>
+        <% if cannot? :crud, Post %>      
+          <p class="about">Right now no one can find you. To make your profile appear in the member list and gain access to all Shooloo functionalities, <%= link_to "get authorization", new_authorization_path %> from your current teacher. Then you will be pleasantly surprised by news alerts that you've gained new followers, got praises from your friends, and many more fun activities. </p>     
         <% else %>
           <p class="about"><%= link_to "Publish your own math story", new_post_path %> today! Then <%= link_to "follow", users_path %> those members who are active<a href="#", id="follow", rel = "popover", title = "Who Should You Follow?", data-content = "Click on the Community section of the menu bar, check out member profiles, click the Follow button on their profile pagees, and their posts as well as your own will automatically show up on your home page."><i class='icon-question-sign'></i></a> and <%= link_to "comment", posts_path %> on their posts. They will start paying attention to you and adding comments/ratings to your posts. Then you will be able to enjoy fun news alerts all day long!</p>  
         <% end %>  

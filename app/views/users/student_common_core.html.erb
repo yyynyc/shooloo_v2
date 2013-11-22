@@ -38,16 +38,12 @@
 		</table>
 	</div>
 <% else %>
-    <div class="row">
-	    <div class="span6 offset1"> 
-	        <% provide @video=Video.find(2) %>
-	        <%= render partial: 'videos/video_player', locals: {video: @video} %>
-	    </div>
-	</div>  
-	<div class="row">	
-	<div class="span8 offset2">
+    <div class="center-div">
+			<% @video = Video.find(2) %>
+		<%= render partial: 'videos/video_player', locals: {video: @video} %> 
+	</div>	
+	<div class="center normal-font create">		
 		<p class="about">You have not authorized any students to be a Shooloo member.</p>
-		<p class="about">Watch the video above to learn how to quickly sign up all of your students without any effort.</p>
-	</div>
+		<p class="about">Watch the video above to learn how to quickly sign up all of your students without any effort.</p>		
 	</div>	
 <% end %>	

@@ -62,22 +62,7 @@
 							<%= video.length %> minutes
 						</td>
 					</tr>
-					<tr>
-						<td class="video_column">
-							Category:
-						</td>
-						<td>
-							<%= video.category.name %>
-						</td>
-					</tr>
-					<tr>
-						<td class="video_column">
-							Keywords: 
-						</td>
-						<td itemprop="keywords">
-							<%= video.tags %>
-						</td>
-					</tr>
+					<meta itemprop="keywords", content="<%= video.tags %>">
 					<% if !video.practice_id.nil? %>
 						<%= render partial: 'video_practice', locals: {video: video} %>
 					<% end %>

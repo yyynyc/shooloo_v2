@@ -1,4 +1,4 @@
-<%= form_for(comment, :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')"}) do |f| %>
+<%= form_for(comment, :html => { :multipart => true }) do |f| %>
   	<%= render 'shared/error_messages', object: f.object %>
   	<%# if current_user.admin? %>
   		<%#= f.cktext_area :content, rows: 5, ckeditor: {toolbar: "comment_admin"} %>
@@ -6,6 +6,6 @@
     	<%= f.cktext_area :content, rows: 5 %>
     <%# end %>
     <div class="right_align create">
-  		<%= f.submit save, class: "btn btn-large btn-primary" %>
+  		<%= f.submit save, class: "btn btn-large btn-primary", disable_with: "Proccessing..." %>
   	</div>
 <% end %>

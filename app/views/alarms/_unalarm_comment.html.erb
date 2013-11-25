@@ -1,5 +1,5 @@
 <%= form_for (Alarm.find_by_alarmed_comment_id(comment)), 
 	html: { method: :delete } do |f| %>
   <div><%= f.hidden_field :alarmed_comment_id %></div>
-  <%= f.submit "Unalarm", class: "btn btn-small btn-success", confirm: "Are you sure? Once unalarmed, this post will become visible to the public." %>
+  <%= f.submit "Unalarm", class: "btn btn-small btn-success", confirm: "Are you sure? Once unalarmed, this post will become visible to the public.", disable_with: "Proccessing..." %>
 <% end %>

@@ -1,4 +1,4 @@
 <%= form_for(authorization, remote: true, data:{type: :js}) do |f| %>
   <%= f.hidden_field :approval, value: "accepted" %>
-  <%= f.submit "Grant", class: "btn btn-medium btn-success" %>
+  <%= f.submit "Grant", class: "btn btn-medium btn-success", disable_with: "Proccessing..." %>
 <% end %>

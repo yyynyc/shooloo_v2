@@ -1,5 +1,5 @@
 <%= form_for(activity, remote: true) do |f| %>
   <%= f.hidden_field :read, value: nil %>
-  <%= f.submit "Unread", class: "btn btn-medium btn-default" %>
+  <%= f.submit "Unread", class: "btn btn-medium btn-default", disable_with: "Proccessing..." %>
 <% end %>
 

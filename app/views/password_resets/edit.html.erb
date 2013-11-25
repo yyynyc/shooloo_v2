@@ -21,7 +21,7 @@
         <%= f.input :privacy, as: :boolean, label: "I agree with the ".html_safe + link_to("Terms of Service", terms_path) +" and the ".html_safe + link_to("Privacy Statement", privacy_path) + ".".html_safe, input_html: {checked: 'checked'}, required: true %>
         <%= f.input :rules, label: "I agree with the ".html_safe + link_to("Rules of Conduct", rules_path) + ".".html_safe, as: :boolean, input_html: {checked: 'checked'}, required: true %> 
       </div>  
-      <div><%= f.submit "Update Password", class: "btn btn-small btn-primary btn-formtastic" %>
+      <div><%= f.submit "Update Password", class: "btn btn-small btn-primary btn-formtastic", disable_with: "Proccessing..." %>
       </div>
     <% end %>
   </div>

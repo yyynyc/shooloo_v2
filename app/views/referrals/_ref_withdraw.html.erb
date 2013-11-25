@@ -6,6 +6,6 @@
 <span style="display: inline-block">
 	<%= form_for(referral, html: { method: :delete },
 	             remote: true) do |f| %>
-	  <%= f.submit "Withdraw Request", class: "btn btn-medium" %>
+	  <%= f.submit "Withdraw Request", class: "btn btn-medium", disable_with: "Proccessing..." %>
 	<% end %>
 </span>

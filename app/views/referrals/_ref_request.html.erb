@@ -1,5 +1,5 @@
 <%= form_for(current_user.referrals.build(referrer_id: user.id), 
 			remote: true) do |f| %>
   <div><%= f.hidden_field :referrer_id %></div>
-  <%= f.submit "Request Referral", class: "btn btn-medium btn-success" %>
+  <%= f.submit "Request Referral", class: "btn btn-medium btn-success", disable_with: "Proccessing..." %>
 <% end %>

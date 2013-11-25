@@ -1,9 +1,9 @@
 <%= form_for(current_user.invites.build(invited_post_id: post.id), remote: true) do |f| %>
 	<%= f.hidden_field :invited_post_id, value: post.id %>
 	<% if current_user.role=="teacher" %>
-		<button type="submit", class="btn btn-small btn-success", onclick= "teacher_confirm()" >
+		<button type="submit", class="btn btn-small btn-success", onclick= "teacher_confirm()", data-disable-with="Proccessing..." >
 	<% else %>
-		<button type="submit", class="btn btn-small btn-success", onclick= "invite_confirm()" >
+		<button type="submit", class="btn btn-small btn-success", onclick= "invite_confirm()", data-disable-with="Proccessing..." >
 	<% end %> 	
 		<i class='icon-envelope icon-white'></i> Invite
 	</button>

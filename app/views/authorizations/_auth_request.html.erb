@@ -1,5 +1,5 @@
 <%= form_for(current_user.authorizations.build(authorizer_id: user.id), 
 			remote: true) do |f| %>
   <div><%= f.hidden_field :authorizer_id %></div>
-  <%= f.submit "Request Authorization", data: { disable_with: "Wait......." }, class: "btn btn-medium btn-primary" %>
+  <%= f.submit "Request Authorization", class: "btn btn-medium btn-primary", disable_with: "Proccessing..." %>
 <% end %>

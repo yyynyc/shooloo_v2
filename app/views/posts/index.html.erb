@@ -1,10 +1,12 @@
+<%= render 'shared/teacher_video' %>
+
 <div itemscope itemtype="http://schema.org/CreativeWork">
   <meta itemprop="description" content="Join Shooloo to access thousands of math word problems created by students and aligned with the Common Core State Standards.">
   <%= render 'shared/meta' %>
   <div class="top-message">
 	<% if !signed_in? %>
 		<p><%= link_to "Join Shooloo", signup_path %> to access thousands of student-authored math word problems!</p>
-		<p>Find out how to <%= link_to "supercharge your math class with student-generated content", video_path(6) %>.</p> 
+		<p>Find out how to <%= link_to "make a game out of word problems", video_path(11) %>. Watch this 4-minute <%= link_to "video", video_path(11) %> now.</p> 
 	<% else %>	
 		<% if current_user.authorizations.blank? %>		
 			<% if current_user.role == "teacher" %>
@@ -13,7 +15,9 @@
 			<p>Complete <%= link_to "your profile", edit_user_path(current_user) %> and then <%= link_to "Get authorization", new_authorization_path %> to read details of the math stories!</p>
 		<% else %>
 			<% if current_user.role == "teacher" || current_user.admin? %>
-				<p>Find out how to <%= link_to "teach problem-solving in 3 steps", video_path(8) %>.</p>
+				<p>Watch video tutorials on how to<br/> <%= link_to "make a game out of word problems", video_path(11) %>, <%= link_to "teach problem-solving in 3 steps", video_path(8) %>, and <%= link_to "teach attention to precision", video_path(6) %>.</p>
+			<% else %>
+				<p>Watch video on how to <%= link_to "create an enchanting word problem", video_path(4) %>.</p>
 			<% end %>
 		<% end %>
 	<% end %>

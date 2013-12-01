@@ -30,4 +30,7 @@
 </span>  
 <% if current_user.admin? || current_user.role == "teacher" %>
   <%= link_to "Class", post_teacher_view_path(post), class: "btn btn-small btn-danger" %> 
-<% end %>                
+<% end %>
+<% if !post.in?(current_user.assigned_posts) %>
+  <%= link_to "Assign", new_post_assignment_path(post), class: "btn btn-small btn-danger" %>  
+<% end %>              

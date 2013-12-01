@@ -1,0 +1,23 @@
+<% title "Assignment Details" %>
+<% description "Assignment details" %>
+<% noindex %>
+<% nofollow %>
+
+<h1> Assignment Tacking </h1>
+<div align="center">
+	<table border="2" cellpadding="10">
+		<tr>
+			<th> Student </th>
+			<th> Response </th>
+		</tr>
+		<% @responses.each do |r| %>
+			<tr>
+				<td class="center">
+					<%= r.assignee.first_name %> <%= r.assignee.first_name %>
+				</td>
+				<td>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+</div>

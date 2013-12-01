@@ -4,4 +4,5 @@ class Level < ActiveRecord::Base
   has_many :standards, through: :domains
   has_many :posts, through: [:domains, :standards]
   has_many :lessons, through: [:domains, :standards]
+  has_many :assignments, through: [:domains, :standards]
 end

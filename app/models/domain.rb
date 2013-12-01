@@ -4,4 +4,5 @@ class Domain < ActiveRecord::Base
   has_many :standards
   has_many :posts, through: :standards
   has_many :lessons, through: :standards
+  has_many :assignments, through: :standards
 end

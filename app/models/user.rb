@@ -93,6 +93,10 @@ class User < ActiveRecord::Base
             class_name:  "Gift", dependent: :destroy
   has_many :givers, through: :reverse_gifts
 
+  has_many :assignments, foreign_key: "assigner_id", dependent: :destroy
+  has_many :assigned_posts, through: :assignments
+  has_many :responses, foreign_key: "assignee_id", dependent: :destroy
+
   before_save do
     create_remember_token
   end

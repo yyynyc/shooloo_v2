@@ -48,6 +48,9 @@ class Post < ActiveRecord::Base
   has_many :post_bs, through: :lessons
   has_many :reverse_lessons, foreign_key: "post_b_id", dependent: :destroy
   has_many :post_as, through: :lessons
+
+  has_many :assignments, foreign_key: "assigned_post_id", dependent: :destroy
+  has_many :assigners, through: :assignments, dependent: :destroy
   
   validates_presence_of :user_id, :question, :level_id, :domain_id, :standard_id, :subject_id
   validates :answer, presence: true

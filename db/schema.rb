@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131114171138) do
+ActiveRecord::Schema.define(:version => 20131129194139) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(:version => 20131114171138) do
   add_index "alarms", ["alarmed_comment_id"], :name => "index_alarms_on_alarmed_comment_id"
   add_index "alarms", ["alarmed_post_id"], :name => "index_alarms_on_alarmed_post_id"
   add_index "alarms", ["alarmer_id"], :name => "index_alarms_on_alarmer_id"
+
+  create_table "assignments", :force => true do |t|
+    t.integer  "assigner_id"
+    t.integer  "level_id"
+    t.integer  "domain_id"
+    t.integer  "standard_id"
+    t.integer  "assigned_post_id"
+    t.text     "instruction"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "authorizations", :force => true do |t|
     t.integer  "authorized_id"
@@ -340,6 +351,16 @@ ActiveRecord::Schema.define(:version => 20131114171138) do
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
+
+  create_table "responses", :force => true do |t|
+    t.integer  "assignee_id"
+    t.integer  "grade_id"
+    t.integer  "assignment_id"
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "scores", :force => true do |t|
     t.integer  "year"

@@ -55,7 +55,7 @@ class PostsController < ApplicationController
   end
 
   def edit
-    if current_user.admin?
+    if current_user.admin? || current_user.role == "teacher"
       @post = Post.find(params[:id])
     else
       @post = current_user.posts.find_by_id(params[:id])
@@ -67,7 +67,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    if current_user.admin?
+    if current_user.admin? || current_user.role == "teacher"
       @post = Post.find(params[:id])
     else
       @post = current_user.posts.find_by_id(params[:id])
@@ -75,7 +75,7 @@ class PostsController < ApplicationController
     if     
       @post.update_attributes(params[:post])
       flash[:success] = "You have upddated your post successfully!"
-      redirect_to new_post_comment_path(@post)
+      redirect_to post_comments_path(@post)
     else
       render 'edit'
     end

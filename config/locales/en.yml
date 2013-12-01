@@ -6,3 +6,8 @@ en:
     attributes:
       user:
         password_digest: "Password"
+
+  activerecord:
+    attributes:
+      assignment:
+        assignee_ids: "Assigned students"

@@ -13,17 +13,16 @@ class AssignmentsController < ApplicationController
         domain_id: @post.domain_id, standard_id: @post.standard_id,
         assigner_id: current_user.id, assigned_post_id: @post.id)
     else
-      @assignment = Assignment.new
-      
+      @assignment = Assignment.new      
     end
-    @assignees = current_user.authorized_users.order('grade ASC, last_name ASC')
+    @assignees = current_user.authorized_users.all(order: 'grade ASC, last_name ASC')
   end
 
   def create
     @assignment=current_user.assignments.build(params[:assignment])
     if @assignment.save
     	flash[:success] = "Successfully created assignment!"
-    	redirect_to user_assignments_path(current_user)
+    	redirect_to assignments_user_path(current_user)
     else
       @post = @assignment.assigned_post
     	render 'new'

@@ -3,8 +3,21 @@ class Response < ActiveRecord::Base
   	:trackable_id, :trackable_type
 
   belongs_to :assignee, class_name: "User"
-  belongs_to :assignments
+  belongs_to :assignment
   belongs_to :grade
   belongs_to :trackable, polymorphic: true
-  
+
+  # validates_uniqueness_of [:assignment_id, :assignee_id]
+
+  after_create do
+  	if !self.assignee_id.nil?
+  		Activity.create!(action: "assign", trackable: self, 
+    		user_id: self.assignment.assigner_id, 
+    		recipient_id: self.assignee_id)
+  	end
+  end
+
+  after_update do
+
+  end  
 end

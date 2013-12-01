@@ -89,6 +89,7 @@ resources :gifts
 resources :choices
 resources :messages
 resources :twilios
+resources :responses, only: :destroy
 
   root to: "static_pages#home"
  

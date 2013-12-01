@@ -9,5 +9,7 @@ class CreateResponses < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :responses, [:assignment_id, :assignee_id], unique: true
   end
 end

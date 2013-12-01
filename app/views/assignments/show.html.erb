@@ -3,17 +3,53 @@
 <% noindex %>
 <% nofollow %>
 
-<h1> Assignment Tacking </h1>
+<h1> Assignment Details </h1>
+
+<div class="well well-small margin-bottom normal-font" align="center">
+	<table cellpadding="10">
+		<tr>
+			<th>Standard:</th> 
+			<td><%= @assignment.standard.short %> -- 
+				<%= @assignment.standard.description %></td>
+		</tr>
+		<tr> 
+			<th>Instruction: </th>
+			<td><%= @assignment.instruction.html_safe %></td>
+		</tr>
+		<tr>
+			<th>Assigned: </th>
+			<td>
+				<% if !@assignment.assigned_post_id.nil? %>
+					Critique post #<%= link_to @assignment.assigned_post_id, post_comments_path(@assignment.assigned_post_id) %>
+				<% else %>
+					Create a new post
+				<% end %>
+				on <%= @assignment.created_at.strftime("%m/%d/%Y") %>
+			</td>
+		</tr>
+	</table>
+</div>
+
 <div align="center">
 	<table border="2" cellpadding="10">
 		<tr>
+			<th></th>
 			<th> Student </th>
 			<th> Response </th>
+			<th> Grading </th>
+			<th> Private Comments to Student </th>
 		</tr>
 		<% @responses.each do |r| %>
 			<tr>
-				<td class="center">
-					<%= r.assignee.first_name %> <%= r.assignee.first_name %>
+				<td>
+					<%= link_to "delete", r, method: :delete, data: {confirm: "Delete this student off this homework assignment?" } %>
+				</td>
+				<td>
+					<%= r.assignee.last_name %>, <%= r.assignee.first_name %> 
+				</td>
+				<td>
+				</td>
+				<td>
 				</td>
 				<td>
 				</td>

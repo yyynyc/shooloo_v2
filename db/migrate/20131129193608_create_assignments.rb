@@ -7,6 +7,7 @@ class CreateAssignments < ActiveRecord::Migration
       t.integer :standard_id
       t.integer :assigned_post_id
       t.text  :instruction
+      t.integer :assignee_level
 
       t.timestamps
     end

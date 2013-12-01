@@ -33,3 +33,11 @@ jQuery ->
       $('#assignment_standard_id').parent().hide()
   doitagain()
   $('#assignment_domain_id').change doitagain
+
+  $ ->
+  # enable chosen js
+  $('.chosen-select').chosen
+    allow_single_deselect: true
+    no_results_text: 'No results matched'
+    width: '770px'
+    height: '10px'

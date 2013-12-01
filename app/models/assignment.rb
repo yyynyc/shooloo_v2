@@ -1,6 +1,6 @@
 class Assignment < ActiveRecord::Base
   attr_accessible :assigned_post_id, :assigner_id, :instruction,
-  	:domain_id, :level_id, :standard_id, 
+  	:domain_id, :level_id, :standard_id, :assignee_level,
     :assignee_ids, :responses_ids
 
   has_many :responses, dependent: :destroy
@@ -14,15 +14,18 @@ class Assignment < ActiveRecord::Base
   belongs_to :standard
 
   validates_presence_of :assigner_id, :level_id, :domain_id, :standard_id
-  validates_associated :responses
-  validates_presence_of :assignee_ids
+  validates :assignee_ids, :presence => {:unless => "assignee_level", :message => "can't be blank"}
 
   after_create do 
-    # self.assigner.authorized_users.where(grade: self.level_id-1).each do |student|
-    #   Response.create!(assignment_id: self.id, :assignee_id => student.id)
-    # end
-    self.assigned_post.update_attributes!(level_id: self.level_id, 
+    if !self.assignee_level.nil?
+      self.assigner.authorized_users.where(grade: self.assignee_level).each do |student|
+        Response.create!(assignment_id: self.id, :assignee_id => student.id)
+      end
+    end
+    if !self.assigned_post.nil? && self.standard_id != self.assigned_post.standard_id
+      self.assigned_post.update_attributes!(level_id: self.level_id, 
       domain_id: self.domain_id, standard_id: self.standard_id)
+    end
   end  
 
 end

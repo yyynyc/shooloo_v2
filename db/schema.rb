@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20131129194139) do
     t.integer  "standard_id"
     t.integer  "assigned_post_id"
     t.text     "instruction"
+    t.integer  "assignee_level"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
@@ -361,6 +362,8 @@ ActiveRecord::Schema.define(:version => 20131129194139) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
+
+  add_index "responses", ["assignment_id", "assignee_id"], :name => "index_responses_on_assignment_id_and_assignee_id", :unique => true
 
   create_table "scores", :force => true do |t|
     t.integer  "year"

@@ -412,16 +412,19 @@ aside {
   .control-label {
     font-size: 1.2em;  
     float: left;
-    /*original: width: 140px;*/
-    width: 130px;
+    width: 150px;
     padding-top: 2px;
-    text-align: right; 
+    text-align: right;
   }
   .controls {
-    margin-left: 150px;
-    width: 780px;  
+    margin-left: 170px;
+    width: 770px;  
     textarea {
       height: 200px;
+    }
+    .in-line {
+      margin-left: 220px;
+      width: 600px;
     }
     .choice {
     width: 235px;

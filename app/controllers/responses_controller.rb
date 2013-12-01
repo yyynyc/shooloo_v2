@@ -3,7 +3,11 @@ class ResponsesController < ApplicationController
   load_and_authorize_resource
 
   def index
-  	@assignment = Assignment.find(params[:id])
-  	@responses = @assignment.responses.order('responses.assignee.last_name ASC')
+  end
+
+  def destroy
+  	Response.find(params[:id]).destroy
+    flash[:success] = "Assignment withdrawn from selected student."
+    redirect_to assignments_user_path(current_user)
   end
 end

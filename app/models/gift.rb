@@ -6,6 +6,8 @@ class Gift < ActiveRecord::Base
   belongs_to :receiver, class_name: "User"
   belongs_to :choice
 
+  validates_presence_of :choice_id, on: :update
+
   after_create do
   	Activity.create!(action: "create", trackable: self, 
 		  user_id: self.receiver_id, recipient_id: self.giver_id)

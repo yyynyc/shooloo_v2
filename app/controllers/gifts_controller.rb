@@ -6,9 +6,15 @@ class GiftsController < ApplicationController
 		@gift = Gift.find(params[:id])
 		@user = @gift.receiver
 	    current_user.gifts.find_by_receiver_id(@user.id).update_attributes!(params[:gift]) 
+	    if current_user.gift_sent_count.nil?
+	    	current_user.gift_sent_count = 0
+	    end
 	    current_user.gift_sent_count += 1
 	    current_user.save(validate: false)
 	    sign_in current_user
+	    if @user.gift_received_count.nil?
+	    	@user.gift_received_count = 0
+	    end
 	    @user.gift_received_count += 1
 	    @user.save(validate: false) 
 	    respond_to do |format|

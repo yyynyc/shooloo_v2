@@ -75,7 +75,7 @@ class PostsController < ApplicationController
     if     
       @post.update_attributes(params[:post])
       flash[:success] = "You have upddated your post successfully!"
-      redirect_to new_post_comment_path(@post)
+      redirect_to post_comments_path(@post)
     else
       render 'edit'
     end

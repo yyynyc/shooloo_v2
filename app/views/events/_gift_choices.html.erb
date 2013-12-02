@@ -33,11 +33,11 @@
                 Send <%= gift.receiver.screen_name %> a gift now!
                 <%= semantic_form_for(gift,
                     remote: true, data:{type: :js},  
-                    :html => { :multipart => true, 
-                    onsubmit: "$('button', this).attr('disabled','disabled')", 
+                    :html => { :multipart => true,
+                    onsubmit: "$('button', this).attr('disabled','disabled')",  
                     class: "form-horizontal-gift" }) do |f| %>
                   <%= render 'shared/error_messages', object: f.object %> 
-                  <%= f.input :sent, as: :hidden, value: true, class: "hidden" %>   
+                  <%= f.input :sent, as: :hidden, value: true, class: "hidden" %> 
                   <span class="password-request-label">
                     <% if current_user.admin? %>
                       <%= f.input :choice_id, as: :select, label: "Gift Choice", 
@@ -49,7 +49,7 @@
                   </span>   
                   <span class="password-request-label">               
                     <%= f.submit "Send", class: "button btn btn-small btn-primary" %>
-                  </span>               
+                  </span>                 
                 <% end %>
               </p> 
             <% end %>

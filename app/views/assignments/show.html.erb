@@ -20,7 +20,7 @@
 			<th>Assigned: </th>
 			<td>
 				<% if !@assignment.assigned_post_id.nil? %>
-					Critique post #<%= link_to @assignment.assigned_post_id, post_comments_path(@assignment.assigned_post_id) %>
+					Solve problem #<%= link_to @assignment.assigned_post_id, post_comments_path(@assignment.assigned_post_id) %>
 				<% else %>
 					Create a new post
 				<% end %>
@@ -35,7 +35,7 @@
 		<tr>
 			<th></th>
 			<th> Student </th>
-			<th> Response </th>
+			<th> Completion </th>
 			<th> Grading </th>
 			<th> Private Comments to Student </th>
 		</tr>
@@ -48,6 +48,17 @@
 					<%= r.assignee.last_name %>, <%= r.assignee.first_name %> 
 				</td>
 				<td>
+					<% if r.posts.any? %>
+						Post 
+						<% r.posts.each do |post| %>
+							#<%= link_to post.id, post_comments_path(post) %> |
+						<% end %>
+					<% elsif r.comments.any? %>
+						Comment 
+						<% r.comments.each do |comment| %>
+							#<%= link_to comment.id, post_comments_path(comment.commented_post) %> |
+						<% end %>
+					<% end %>
 				</td>
 				<td>
 				</td>

@@ -1,28 +1,21 @@
 <% provide(:title, "Comment Post") %> 
-<div class="row border lesson-margin">     
+<% if @response.nil? %>
+  <div class="row border lesson-margin">     
+    <%= render 'posts/post_student' %>
+  </div>
+<% else %>
+  <%= render 'shared/homework_instruction' %>
   <div class="image">
     <%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %><br/>
     <% unless @post.image_host.nil? %>
       <span class="image-host-large">Image courtesy of <%= @post.image_host %>.
       </span><br/> 
-    <% end %>
-    <div class="row bottom-margin">
-     <br/><%= render partial: 'posts/post_buttons', locals: {post: @post, like: @like, invite: @invite } %><br/>
-    </div>  
+    <% end %>  
   </div>
   <div class="alert-heading">         
-    <p>
-      <strong>Question: </strong><%= @post.question.html_safe %>
-    </p>
-    <p class="no">
-     To see the answer, submit a comment and show your solution first.
-    <% unless @post.level.nil? %>
-      <p>
-        <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %>
-      </p>
-    <% end %>
+    <p><%= @post.question.html_safe %></p>
   </div>
-</div>
+<% end %>  
 
 <h2> Post A New Comment</h2>
 <p class="center yes alert-heading"> 
@@ -36,6 +29,17 @@
 	</div>
 </div>
 
-<%= render partial: 'comments/comment_form', locals: {comment: [@post, @comment], save: "Submit Comment"} %>
+<% if @response.nil? %>
+  <%= render partial: 'comments/comment_form', locals: {comment: [@post, @comment], save: "Submit Comment"} %>
+<% else %>
+  <%= form_for([@post, @comment], :html => { :multipart => true }) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <%= f.hidden_field :response_id, value: @response.id %>
+      <%= f.cktext_area :content, rows: 5 %>
+      <div class="right_align create">
+        <%= f.submit "Submit", class: "btn btn-large btn-primary", disable_with: "Proccessing..." %>
+      </div>
+  <% end %>
+<% end %>
 
 

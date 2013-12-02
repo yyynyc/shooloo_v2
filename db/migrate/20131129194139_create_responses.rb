@@ -4,8 +4,7 @@ class CreateResponses < ActiveRecord::Migration
       t.integer :assignee_id
       t.integer :grade_id
       t.integer :assignment_id
-      t.belongs_to :trackable
-      t.string :trackable_type
+      t.boolean :completed, default: false
 
       t.timestamps
     end

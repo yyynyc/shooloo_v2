@@ -1,12 +1,12 @@
 <% if activity.trackable %>
-	<strong>ASSGINED</strong> on <%= activity.created_at.strftime("%b %d, %Y") %>
+	<strong>ASSGINED</strong> on <%= activity.created_at.strftime("%b %d, %Y") %> to
 	<%= link_to activity.recipient.screen_name, posts_user_path(activity.recipient) %>
 	(a <%= activity.recipient.role %>
 	in grade <%= activity.recipient.grade %>) to 
 	<% if activity.trackable.assignment.assigned_post_id.nil? %>
-		create a <%= link_to "new post", assignment_path(activity.trackable.assignment) %>.
+		 <%= link_to "create a new post", assignment_path(activity.trackable.assignment) %>.
 	<% else %>
-		critique post #<%= link_to activity.trackable.assignment.assigned_post_id, post_comments_path(activity.trackable.assignment.assigned_post_id) %>
+		<%= link_to "critique post #{activity.trackable.assignment.assigned_post_id}", post_comments_path(activity.trackable.assignment.assigned_post_id) %>
 	<% end %>
 <% else %>
 	added an assignment which has since been removed.

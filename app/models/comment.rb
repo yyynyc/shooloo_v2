@@ -1,10 +1,13 @@
 class Comment < ActiveRecord::Base
   require 'obscenity/active_model'
   validates :content, obscenity: {message: 'contains offensive word'}
-  attr_accessible :content, :photo, :commented_lesson_id
+  
+  attr_accessible :content, :photo, :commented_lesson_id, :response_id
+  
   belongs_to :commented_post, class_name: "Post"
   belongs_to :commented_lesson, class_name: "Lesson"
   belongs_to :commenter, class_name: "User"
+  belongs_to :response
 
   has_attached_file :photo, 
     :styles => {:large => "800x800>",
@@ -67,6 +70,11 @@ class Comment < ActiveRecord::Base
           Activity.create!(action: "create", trackable: self, 
             user_id: self.commenter_id, recipient_id: c.id)
         end
+      end
+      if !self.response.nil?
+        self.response.update_attributes!(completed: true)
+        Activity.create!(action: "complete", trackable: self.response, 
+          user_id: self.commenter_id, recipient_id: self.response.assignment.assigner_id)
       end
     elsif !self.commented_lesson.nil?
       unless self.commenter_id == self.commented_lesson.user_id

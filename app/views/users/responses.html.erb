@@ -1,0 +1,60 @@
+<% title "My Homework" %>
+<% description "A list of my math homework aligned with the Common Core State Standard" %>
+<% noindex %>
+<% nofollow %>
+
+<h1> My Homework </h1>
+<% if @responses.any? %>
+	<div align="center">
+		<table border="2" cellpadding="10">
+			<tr>
+				<th> Start Date </th>
+				<th> Homework </th>
+				<th> Instruction </th>
+				<th> I-can Statement </th>
+				<th> Completion </th>
+			</tr>
+			<% @responses.each do |a| %>
+				<tr>
+					<td>
+						<%= a.created_at.strftime("%m/%d/%Y") %>
+					</td>
+					<td>
+						<% if !a.assignment.assigned_post_id.nil? %>
+							<%= link_to "Solve/critique a problem", new_response_comment_path(a) %>
+						<% else %>
+							<%= link_to "Create a new word problem", new_response_post_path(a) %>
+						<% end %>
+					</td>
+					<td>
+						<%= a.assignment.instruction.html_safe %>
+					</td>
+					<td>
+						<%= a.assignment.standard.ICan %>
+					</td>
+					<td class="center">
+						<% if a.posts.any? %>
+							Post
+							<% a.posts.each do |post| %>
+								#<%= link_to post.id, post_comments_path(post) %> |
+							<% end %>
+						<% elsif a.comments.any? %>
+							Comment
+							<% a.comments.each do |comment| %>
+								#<%= link_to comment.id, post_comments_path(comment.commented_post) %> |
+							<% end %>
+						<% else %>
+							<p class="no" %>
+								Do it now!
+							</p>	
+						<% end %>		
+					</td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+<% else %>
+	<p>
+		You don't have any homework assignments from your teacher.
+	</p>
+<% end %>

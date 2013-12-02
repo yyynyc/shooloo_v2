@@ -4,7 +4,7 @@ class Post < ActiveRecord::Base
 
   attr_accessible :answer, :grade, :question, :comments_count, :ratings_count, :likes_count,
     :photo, :photo_remote_url, :image_host, :category, 
-    :level_id, :domain_id, :standard_id, :quality_id, :subject_id
+    :level_id, :domain_id, :standard_id, :quality_id, :subject_id, :response_id
   attr_reader :photo_remote_url
   belongs_to :user
   belongs_to :standard
@@ -12,6 +12,7 @@ class Post < ActiveRecord::Base
   belongs_to :level
   belongs_to :quality
   belongs_to :subject
+  belongs_to :response
 
   has_attached_file :photo, 
     :styles => { 
@@ -129,6 +130,11 @@ class Post < ActiveRecord::Base
     self.user.nudgers.uniq.each do |nudger|
       Activity.create!(action: "create", trackable: self, 
         user_id: self.user_id, recipient_id: nudger.id)
+    end
+    if !self.response.nil?
+      self.response.update_attributes!(completed: true)
+      Activity.create!(action: "complete", trackable: self.response, 
+        user_id: self.user_id, recipient_id: self.response.assignment.assigner_id)
     end
   end
 

@@ -18,15 +18,22 @@ class CommentsController < ApplicationController
     end
 
     def new
-        @comment = Comment.new
-        @post  = Post.find(params[:post_id]) 
-        @comments = @post.comments.paginate(page: params[:page], per_page: 20, 
-            order: 'created_at DESC')
-        @alarm = Alarm.new
-        @rating = Rating.new
-        @like = Like.new
-        @liked_post = @like.liked_post
-        @liked_comment = @like.liked_comment
+        if params.has_key?(:response_id)
+            @response = Response.find(params[:response_id])
+            @comment = @response.comments.build(params[:comment])
+            @assignment = @response.assignment
+            @post = @assignment.assigned_post  
+        else
+            @comment = Comment.new
+            @post  = Post.find(params[:post_id]) 
+            @comments = @post.comments.paginate(page: params[:page], per_page: 20, 
+                order: 'created_at DESC')
+            @alarm = Alarm.new
+            @rating = Rating.new
+            @like = Like.new
+            @liked_post = @like.liked_post
+            @liked_comment = @like.liked_comment
+        end
     end
 
     def create

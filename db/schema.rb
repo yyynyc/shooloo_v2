@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131129194139) do
+ActiveRecord::Schema.define(:version => 20131202204558) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20131129194139) do
     t.integer  "likes_count"
     t.boolean  "new_comment"
     t.integer  "commented_lesson_id"
+    t.integer  "response_id"
   end
 
   add_index "comments", ["commenter_id", "created_at"], :name => "index_comments_on_commenter_id_and_created_at"
@@ -288,6 +289,7 @@ ActiveRecord::Schema.define(:version => 20131129194139) do
     t.integer  "ccss_wrong_ican_count"
     t.integer  "quality_id"
     t.integer  "subject_id"
+    t.integer  "response_id"
   end
 
   add_index "posts", ["user_id", "created_at"], :name => "index_posts_on_user_id_and_created_at"
@@ -357,10 +359,9 @@ ActiveRecord::Schema.define(:version => 20131129194139) do
     t.integer  "assignee_id"
     t.integer  "grade_id"
     t.integer  "assignment_id"
-    t.integer  "trackable_id"
-    t.string   "trackable_type"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.boolean  "completed",     :default => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   add_index "responses", ["assignment_id", "assignee_id"], :name => "index_responses_on_assignment_id_and_assignee_id", :unique => true

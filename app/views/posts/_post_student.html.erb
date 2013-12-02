@@ -1,0 +1,22 @@
+<div class="image">
+  <%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %><br/>
+  <% unless @post.image_host.nil? %>
+    <span class="image-host-large">Image courtesy of <%= @post.image_host %>.
+    </span><br/> 
+  <% end %>
+  <div class="row bottom-margin">
+   <br/><%= render partial: 'posts/post_buttons', locals: {post: @post, like: @like, invite: @invite } %><br/>
+  </div>  
+</div>
+<div class="alert-heading">         
+  <p>
+    <strong>Question: </strong><%= @post.question.html_safe %>
+  </p>
+  <p class="no">
+   To see the answer and everyone else's comments, submit your own solution first.
+  <% unless @post.level.nil? %>
+    <p>
+      <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %>
+    </p>
+  <% end %>
+</div>

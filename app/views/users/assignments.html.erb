@@ -26,13 +26,13 @@
 					</td>
 					<td>
 						<% if !a.assigned_post_id.nil? %>
-							Critique post #<%= a.assigned_post_id %>
+							Solve problem #<%= link_to a.assigned_post_id, post_comments_path(a.assigned_post_id) %>
 						<% else %>
 							Create a new post
 						<% end %>
 					</td>
 					<td>
-						<%= a.instruction %>
+						<%= a.instruction.html_safe %>
 					</td>
 					<td>
 						<%= a.created_at.strftime("%m/%d/%Y") %>
@@ -41,7 +41,7 @@
 						<%= link_to a.responses.count, assignment_path(a) %>
 					</td>
 					<td class="center">
-						<%= a.responses.where("responses.trackable_id IS NOT NULL").count %>
+						<%= link_to a.responses.where("responses.completed IS TRUE").count, assignment_path(a) %>
 					</td>
 					<td class="center">
 						<%= a.responses.where("responses.grade_id IS NOT NULL").count %>

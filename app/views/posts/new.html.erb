@@ -5,7 +5,12 @@
 <% url = posts_path %>
 <% save = "Create!" %>
 
-<h1>Create My Own Math Story</h1>
-   
-<%#= render partial: 'shared/post_form', locals: {url: url, save: save, post: @post} %>
-<%= render partial: 'posts/post', locals: {url: url, save: save, post: @post} %>
+
+
+<% if @response.nil? %>
+	<h1>Create My Own Math Story</h1>
+	<%= render partial: 'posts/post', locals: {url: url, save: save, post: @post} %>
+<% else %>
+	<h1>Complete My Homework</h1>
+	<%= render 'posts/homework_post' %>
+<% end %>	

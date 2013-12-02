@@ -9,7 +9,8 @@ resources :users do
         :inviter, :invited,
         :show_activity, :my_abilities, :gift_receiving, :gift_giving, 
         :change_password, :common_core_I_can, 
-        :student_common_core, :student_homework, :lessons, :assignments
+        :student_common_core, :student_homework, :lessons, 
+        :assignments, :responses
     post :update_password
   end
   collection do 
@@ -73,6 +74,11 @@ resources :assignments do
   resources :responses
 end
 
+resources :responses do
+  resources :posts
+  resources :comments
+end
+
 resources :user_imports
 resources :sessions, only: [:new, :create, :destroy]
 resources :relationships, only: [:create, :destroy]
@@ -89,7 +95,6 @@ resources :gifts
 resources :choices
 resources :messages
 resources :twilios
-resources :responses, only: :destroy
 
   root to: "static_pages#home"
  

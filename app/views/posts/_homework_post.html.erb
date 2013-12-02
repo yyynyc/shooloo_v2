@@ -1,0 +1,22 @@
+<%= render 'shared/homework_instruction' %>
+
+<%= semantic_form_for [@response, @post], :html => {class: "form-horizontal-post-update", 'data-action' => 'update'} do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+    <div class="create">
+    	<%= f.input :question, as: :ckeditor %>
+    </div>
+    <div class="create">
+    	<%= f.input :answer, as: :ckeditor %> 
+    </div>  
+    <%= f.input :response_id, value: @response.id, as: :hidden, class: "hidden" %> 
+    <%= f.input :level_id, value: @assignment.level_id, as: :hidden, class: "hidden" %>
+    <%= f.input :domain_id, value: @assignment.domain_id, as: :hidden, class: "hidden" %>
+    <%= f.input :standard_id, value: @assignment.standard_id, as: :hidden, class: "hidden" %>
+	<%= f.input :subject_id, as: :select, include_blank: true, label: "Subject", collection: Hash[Subject.order('name ASC').map{|s| [s.name, s.id]}] %>
+    <%= f.input :photo, as: :file, label: "Photo upload" %> 	  
+    <%= f.input :photo_remote_url, label: "Photo web address" %>
+	<p class="center yes alert-heading"> 
+		Trouble with pictures? Watch this 1-minute video on <%= link_to "how to add a picture", video_path(9) %>. 
+	</p>	
+    <%= f.action :submit, label: "Submit", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary", disable_with: "Proccessing..." } %>
+<% end %>

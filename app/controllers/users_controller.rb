@@ -357,6 +357,11 @@ class UsersController < ApplicationController
     @assignments = @user.assignments.order("created_at DESC")
   end
 
+  def responses
+    @user = User.find(params[:id])
+    @responses = @user.responses.order("created_at DESC")
+  end
+
   private
     
     def correct_user

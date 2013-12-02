@@ -48,6 +48,7 @@
                 <li>
                   <%= link_to "Create a New Post", new_post_path %>
                 </li>
+                <li><%= link_to "My Homework", responses_user_path(current_user) %></li>
                 <li>
                   <%= link_to "My I-Can Journal", common_core_I_can_user_path(current_user) %>
                 </li>

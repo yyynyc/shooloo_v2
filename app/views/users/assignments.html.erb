@@ -44,7 +44,7 @@
 						<%= link_to a.responses.where("responses.completed IS TRUE").count, assignment_path(a) %>
 					</td>
 					<td class="center">
-						<%= a.responses.where("responses.grade_id IS NOT NULL").count %>
+						<%#= a.responses.where("responses.grade_id IS NOT NULL").count %>
 					</td>
 				</tr>
 			<% end %>

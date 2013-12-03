@@ -20,7 +20,8 @@ class Comment < ActiveRecord::Base
   has_many :alarms, foreign_key: "alarmed_comment_id", dependent: :destroy
   has_many :likes, foreign_key: "liked_comment_id", dependent: :destroy
   has_many :likers, through: :likes, source: :liker
-  has_many :gradings, dependent: :destroy
+  has_many :gradings, foreign_key: "graded_comment_id", dependent: :destroy
+  has_many :graders, through: :gradings, dependent: :destroy
 
   def after_initialize
     @visible = true if @visible.nil?
@@ -91,6 +92,12 @@ class Comment < ActiveRecord::Base
             user_id: self.commenter_id, recipient_id: c.id)
         end
       end          
+    end
+  end
+
+  after_destroy do
+    if !self.response.nil?
+      self.response.update_attributes!(completed: false)
     end
   end
 end

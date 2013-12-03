@@ -48,7 +48,6 @@ class CommentsController < ApplicationController
             @comment.commented_post = @post    
             if @post.comments_count.nil?
                 @post.comments_count=0
-                @post.save!(validate: false)
             end
             @post.comments_count +=1
             @post.save!(validate: false)     

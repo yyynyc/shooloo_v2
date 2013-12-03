@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131202232932) do
+ActiveRecord::Schema.define(:version => 20131203190919) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -153,11 +153,9 @@ ActiveRecord::Schema.define(:version => 20131202232932) do
   end
 
   create_table "gradings", :force => true do |t|
-    t.integer  "post_id"
-    t.integer  "comment_id"
+    t.integer  "graded_post_id"
+    t.integer  "graded_comment_id"
     t.integer  "grader_id"
-    t.integer  "mark",        :default => 0
-    t.integer  "bonus",       :default => 0
     t.integer  "level_id"
     t.integer  "domain_id"
     t.integer  "standard_id"
@@ -166,8 +164,9 @@ ActiveRecord::Schema.define(:version => 20131202232932) do
     t.boolean  "computation"
     t.boolean  "grammar"
     t.boolean  "courtesy"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.text     "note"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "homeworks", :force => true do |t|
@@ -234,6 +233,15 @@ ActiveRecord::Schema.define(:version => 20131202232932) do
   add_index "likes", ["liked_comment_id"], :name => "index_likes_on_liked_comment_id"
   add_index "likes", ["liked_post_id"], :name => "index_likes_on_liked_post_id"
   add_index "likes", ["liker_id"], :name => "index_likes_on_liker_id"
+
+  create_table "marks", :force => true do |t|
+    t.integer  "mark",       :default => 0
+    t.string   "bonus"
+    t.string   "penalty"
+    t.integer  "grading_id"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
 
   create_table "messages", :force => true do |t|
     t.string   "name"

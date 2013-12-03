@@ -6,7 +6,8 @@
 		<% else %>
 			<%= link_to "solve and critique post #{activity.trackable.assignment.assigned_post_id}", new_response_comment_path(activity.trackable) %>
 		<% end %>
+		on <%= activity.created_at.strftime("%b %d, %Y") %>.
 	<% else %>
-		added an assignment which has since been removed.
+		added an assignment on <%= activity.created_at.strftime("%b %d, %Y") %> which has since been withdrawn it.
 	<% end %>
 </span>

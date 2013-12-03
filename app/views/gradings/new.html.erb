@@ -1,48 +1,12 @@
-<% title "Grade Post" %>
-<% description "Grade a math word problem aligned with the Common Core State Standard" %>
+<% title "Grade Student Assignment" %>
+<% description "Grade a math assignment aligned with the Common Core State Standard" %>
 <% noindex %>
 <% nofollow %>
 
-<h1> Grade This Post </h1>
-<div class="alert-heading bottom-margin">
-	<table class="table-lesson">
-		<tr>
-			<th>Question:</th>
-			<td>
-				<%= @post.question.html_safe %>
-			</td>
-		</tr>
-		<tr>
-			<th>Answer:</th>
-			<td>
-				<%= @post.answer.html_safe %>
-			</td>
-		</tr>
-	</table>    
-</div>
-<p class="alert-heading yes center">
-	Please ensure the following CCSS standard is applicable to this word problem. <br/> It impacts the accuracy of your grading and tracking of stduent progress.
-</p>
-<%= semantic_form_for [@grading], :html => {class: "form-horizontal-post-update", 'data-action' => 'update'} do |f| %>
-    	<%= render 'shared/error_messages', object: f.object %>
-        <%= f.inputs do %>
-            <% unless @post.nil? %>
-                <%= f.input :post_id, as: :hidden, value: @post.id, class: "hidden" %> 
-            <% end %>
-            <%= f.input :grader_id, as: :hidden, value: current_user.id, class: "hidden" %> 
-        	<%= f.input :level_id, as: :select, include_blank: true, label: "CCSS grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
-        	<%= f.input :domain_id, as: :select, include_blank: true, label: "CCSS Domain", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
-        	<%= f.input :standard_id, as: :select, include_blank: true, label: "CCSS Standard", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :description, f.object.standard_id) %>
-        	<p class="alert-heading yes center">
-				Once the following criteria are selected, the grade will be computed automatically on a scale of 1--4.
-			</p>
-        	<%= f.input :concept, as: :select, include_blank: true, label: "Concept", collection: [["This student clearly UNDERSTANDS the underlying mathematical concepts.", true], ["This student is CONFUSED about the underlying mathematical concept.", false]] %>
-        	<%= f.input :precision, as: :select, include_blank: true, label: "Precision", collection: [["This student has ATTENDED TO PRECISION of all details, such as units of measure.", true], ["This student has FAILED to attend to precision of details or has MISSED steps.", false]] %>
-        	<%= f.input :computation, as: :select, include_blank: true, label: "Computation", collection: [["This student has CORRECTLY computed the results", true], ["This student has INCORRECTLY computed the results.", false]] %> 
-        	<%= f.input :grammar, as: :select, include_blank: true, label: "Grammar", collection: [["This student has made NO spelling and grammatical errors.", true], ["This post has made SOME spelling and grammatical errors.", false]] %>   
-        	<%= f.input :courtesy, as: :select, include_blank: true, label: "Manners", collection: [["This student's work is friendly and helpful to others.", true], ["This student's needs to be more constructive.", false]] %>             
-        <% end %>
-        <%= f.actions do %>
-	       <%= f.action :submit, label: "Save", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary", disable_with: "Proccessing..." } %>
-        <% end %>
-    <% end %>
+<% if @comment.nil? %>
+    <h1> Grade This Post </h1>
+    <%= render partial: 'gradings/grade_post', locals: {post: @post, grading: @grading, url: gradings_path, save: "Submit"} %>
+<% else %>
+    <h1> Grade This Comment </h1>
+    <%= render partial: 'gradings/grade_comment', locals: {comment: @comment, post: @post, grading: @grading, url: gradings_path, save: "Submit"} %>
+<% end %>

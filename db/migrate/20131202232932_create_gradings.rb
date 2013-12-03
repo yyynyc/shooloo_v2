@@ -1,11 +1,9 @@
 class CreateGradings < ActiveRecord::Migration
   def change
     create_table :gradings do |t|
-      t.integer :post_id
-      t.integer :comment_id
+      t.integer :graded_post_id
+      t.integer :graded_comment_id
       t.integer :grader_id
-      t.integer :mark, default: 0
-      t.integer :bonus, default: 0
       t.integer :level_id
       t.integer :domain_id
       t.integer :standard_id
@@ -14,6 +12,7 @@ class CreateGradings < ActiveRecord::Migration
       t.boolean :computation
       t.boolean :grammar
       t.boolean :courtesy
+      t.text  :note
 
       t.timestamps
     end

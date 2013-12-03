@@ -14,7 +14,6 @@ class LikesController < ApplicationController
       @post = Post.find(params[:post_id])
       if @post.likes_count.nil?
         @post.likes_count = 0
-        @post.save(validate: false)
       end
       @like = current_user.likes.create!(params[:like])
       @post.likes_count += 1
@@ -28,7 +27,6 @@ class LikesController < ApplicationController
       @comment = Comment.find(params[:comment_id])
       if @comment.likes_count.nil?
         @comment.likes_count = 0
-        @comment.save(validate: false)
       end   
       @like = current_user.likes.create!(params[:like])
       @comment.likes_count += 1
@@ -45,7 +43,6 @@ class LikesController < ApplicationController
       @lesson = Lesson.find(params[:lesson_id])
       if @lesson.likes_count.nil?
         @lesson.likes_count = 0
-        @lesson.save(validate: false)
       end   
       @like = current_user.likes.create!(params[:like])
       @lesson.likes_count += 1

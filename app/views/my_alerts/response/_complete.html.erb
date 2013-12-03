@@ -1,12 +1,13 @@
 <span class="no alert-heading">
 	<% if activity.trackable %>
-		<strong>COMPLETED HOMEWORK</strong> to
+		<strong>COMPLETED HOMEWORK</strong> 
+		on <%= activity.created_at.strftime("%b %d, %Y") %> to
 		<% if activity.trackable.assignment.assigned_post_id.nil? %>
 			<%= link_to "create a new post", post_comments_path(activity.trackable.posts.last) %>.
 		<% else %>
 			<%= link_to "solve and critique post #{activity.trackable.assignment.assigned_post_id}", post_comments_path(activity.trackable.assignment.assigned_post_id) %>
 		<% end %>
 	<% else %>
-		added an assignment which has since been removed.
+		submitted a homework on <%= activity.created_at.strftime("%b %d, %Y") %>that has been graded as below your required grade level. The student has been alerted to resubmit a new homework. 
 	<% end %>
 </span>

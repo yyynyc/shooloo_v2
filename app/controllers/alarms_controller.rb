@@ -24,9 +24,8 @@ class AlarmsController < ApplicationController
 
   	def create
         @post  = Post.find(params[:post_id])
-        @comment = Comment.find_by_id(params[:comment_id])
+        @comment = Comment.find(params[:comment_id])
         @alarm=current_user.alarms.build(params[:alarm])
-        
         if @comment
             @alarm.alarmed_comment=@comment
         else

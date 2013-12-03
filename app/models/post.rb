@@ -53,7 +53,8 @@ class Post < ActiveRecord::Base
   has_many :assignments, foreign_key: "assigned_post_id", dependent: :destroy
   has_many :assigners, through: :assignments, dependent: :destroy
 
-  has_many :gradings, dependent: :destroy
+  has_many :gradings, foreign_key: "graded_post_id", dependent: :destroy
+  has_many :graders, through: :gradings, dependent: :destroy
   
   validates_presence_of :user_id, :question, :level_id, :domain_id, :standard_id, :subject_id
   validates :answer, presence: true
@@ -143,5 +144,8 @@ class Post < ActiveRecord::Base
   after_destroy do
     Event.create!(benefactor_id: self.user_id, beneficiary_id: 1, 
         event: "delete post", value: ShoolooV2::POST_DELETE)
+    if !self.response.nil?
+      self.response.update_attributes!(completed: false)
+    end
   end
 end

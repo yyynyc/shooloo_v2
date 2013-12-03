@@ -55,7 +55,7 @@
                     </span> 
                     <span>  
                       <span class='alert-heading'>
-                        <% if activity.trackable_type == "Authorization" %>
+                        <% if activity.trackable_type == "Authorization" || activity.trackable_type == "Response" %>
                           <%= link_to activity.user.first_name, posts_user_path(activity.user) %>
                           <%= link_to activity.user.last_name, posts_user_path(activity.user) %>
                         <% else %>    

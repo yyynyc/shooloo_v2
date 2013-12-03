@@ -18,9 +18,11 @@ class Gift < ActiveRecord::Base
   end
 
   after_update do
-    if self.sent? 
-  	  Activity.create!(action: "sent", trackable: self, 
-		    user_id: self.giver_id, recipient_id: self.receiver_id)
+    unless self.giver.admin? || self.giver.role == "teacher"
+      if self.sent? 
+    	  Activity.create!(action: "sent", trackable: self, 
+  		    user_id: self.giver_id, recipient_id: self.receiver_id)
+      end
     end
   end
 

@@ -14,7 +14,7 @@
         </p>
 
         <p class="alert-heading yes center">
-        	Please ensure the following I-can statememt is sbuitable for the above question. <br/> It impacts the accuracy of your assignment and grading.
+        	Please ensure the following CCSS standard is applicable this word problem. <br/> It impacts the accuracy of your assignment and grading.
         </p>
     <% end %>    
     <%= semantic_form_for [@assignment], :html => {class: "form-horizontal-post-update", 'data-action' => 'update'} do |f| %>
@@ -23,9 +23,9 @@
             <% unless @post.nil? %>
                 <%= f.input :assigned_post_id, as: :hidden, value: @post.id, class: "hidden" %> 
             <% end %>
-        	<%= f.input :level_id, as: :select, include_blank: true, label: "Suitable grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
-        	<%= f.input :domain_id, as: :select, include_blank: true, label: "Skills involved", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
-        	<%= f.input :standard_id, as: :select, include_blank: true, label: "I-can Statement", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %>
+        	<%= f.input :level_id, as: :select, include_blank: true, label: "CCSS grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
+        	<%= f.input :domain_id, as: :select, include_blank: true, label: "CCSS domain", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
+        	<%= f.input :standard_id, as: :select, include_blank: true, label: "CCSS Standard", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :description, f.object.standard_id) %>
             <p class="alert-heading yes center">
                 List your instructions for this assignment.<br/> 
                 <% if @post.nil? %>

@@ -1,10 +1,16 @@
 <div class="row">   
   <div class="post_review_user_info">
-    <div class="span4 btn-formtastic alert-heading teacher-banner">
-      <% unless current_user.role == "student" %> 
-        Find out <%= link_to "how poorly-written word problems can add great value to your teaching of problem solving", video_path(6) %>.
+    <div class="btn-formtastic alert-heading">
+      <% if current_user.role == "student" %> 
+        <div class="span4 teacher-banner">
+          <%= link_to "Create your own math story", new_post_path %> today and impress your friends!
+        </div>
+      <% elsif current_user.in?(@post.user.authorizers) && @post.gradings.blank? %>
+        <%= link_to "Grade this post!", new_post_grading_path(@post), class: "btn btn-large btn-danger" %>
       <% else %>
-        <%= link_to "Create your own math story", new_post_path %> today and impress your friends!
+        <div class="span4 teacher-banner">
+          Find out <%= link_to "how poorly-written word problems can add great value to your teaching of problem solving", video_path(6) %>.
+        </div>
       <% end %> 
     </div>  
     <%= render partial: 'posts/post_user', locals: {post: @post} %>

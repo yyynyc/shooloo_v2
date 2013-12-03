@@ -12,6 +12,7 @@ class Ability
             user.authorizations.where(approval: "accepted").any?
             can :crud, Assignment
             can :crud, Response
+            can :crud, Grading
             can :crud, UserImport 
             can [:crud, :comment, :comments], Lesson
             can :update, [Authorization, Referral]

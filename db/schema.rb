@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131202204558) do
+ActiveRecord::Schema.define(:version => 20131202232932) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -150,6 +150,24 @@ ActiveRecord::Schema.define(:version => 20131202204558) do
     t.datetime "updated_at",  :null => false
     t.integer  "sent_week"
     t.integer  "sent_year"
+  end
+
+  create_table "gradings", :force => true do |t|
+    t.integer  "post_id"
+    t.integer  "comment_id"
+    t.integer  "grader_id"
+    t.integer  "mark",        :default => 0
+    t.integer  "bonus",       :default => 0
+    t.integer  "level_id"
+    t.integer  "domain_id"
+    t.integer  "standard_id"
+    t.boolean  "concept"
+    t.boolean  "precision"
+    t.boolean  "computation"
+    t.boolean  "grammar"
+    t.boolean  "courtesy"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "homeworks", :force => true do |t|
@@ -357,11 +375,11 @@ ActiveRecord::Schema.define(:version => 20131202204558) do
 
   create_table "responses", :force => true do |t|
     t.integer  "assignee_id"
-    t.integer  "grade_id"
+    t.integer  "grading_average", :default => 0
     t.integer  "assignment_id"
-    t.boolean  "completed",     :default => false
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.boolean  "completed",       :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   add_index "responses", ["assignment_id", "assignee_id"], :name => "index_responses_on_assignment_id_and_assignee_id", :unique => true

@@ -20,6 +20,7 @@ class Comment < ActiveRecord::Base
   has_many :alarms, foreign_key: "alarmed_comment_id", dependent: :destroy
   has_many :likes, foreign_key: "liked_comment_id", dependent: :destroy
   has_many :likers, through: :likes, source: :liker
+  has_many :gradings, dependent: :destroy
 
   def after_initialize
     @visible = true if @visible.nil?

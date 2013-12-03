@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   has_many :choices
+  has_many :gradings, dependent: :destroy
   has_many :states, dependent: :destroy
   has_many :lessons, dependent: :destroy
   has_many :posts, dependent: :destroy, order: "created_at DESC"

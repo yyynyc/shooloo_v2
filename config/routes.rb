@@ -27,6 +27,7 @@ resources :lessons, path: '/common-core-math-lesson-plans' do
 end
 
 resources :posts, path: '/common-core-math-word-problems' do
+  resources :gradings
   resources :likes, only: [:create, :destroy]
   resources :invites, only: :create
   resources :assignments
@@ -49,6 +50,7 @@ resources :ratings do
 end
 
 resources :comments do
+  resources :gradings
   resources :alarms
   resources :likes, only: [:create, :destroy]
 end
@@ -95,6 +97,7 @@ resources :gifts
 resources :choices
 resources :messages
 resources :twilios
+resources :gradings
 
   root to: "static_pages#home"
  

@@ -1,0 +1,13 @@
+<% title "Grading Results" %>
+<% description "Grading results of a math assignment aligned with the Common Core State Standard" %>
+<% noindex %>
+<% nofollow %>
+
+<% if @comment.nil? %>
+    <h1> Grading Results of Your Post </h1>
+    <%= render partial: 'gradings/show_post' %>
+<% else %>
+    <h1> Grading Results of Your Comment </h1>
+    <%= render partial: 'gradings/show_comment' %>
+<% end %>
+

@@ -1,0 +1,14 @@
+<span class="no alert-heading">
+	<% if activity.trackable %>
+		<strong><%= link_to "GRADED", responses_user_path(current_user) %></strong> on <%= activity.created_at.strftime("%b %d, %Y") %> your
+		<% if activity.trackable.graded_comment_id.nil? %>
+			<%= link_to "post ##{activity.trackable.graded_post_id}", post_comments_path(activity.trackable.graded_post_id) %>
+			as being <%= link_to "below the required grade level", grade_path(activity.trackable) %>. Please <%=link_to "submit a new post", new_response_post_path(activity.trackable.graded_post.response) %> that is at the required grade level, otherwise you will get ZERO credit for this homework.
+		<% else %>
+			<%= link_to "comment ##{activity.trackable.graded_comment_id}", post_comments_path(activity.trackable.graded_comment.commented_post_id) %>
+			as <%= link_to "below the required grade level", grade_path(activity.trackable) %>. Please <%=link_to "submit a new comment", new_response_comment_path(activity.trackable.graded_comment.response) %> that is at the required grade level, otherwise you will get ZERO credit for this homework.
+		<% end %>		
+	<% else %>
+		graded your assignment on <%= activity.created_at.strftime("%b %d, %Y") %> but has since removed it.
+	<% end %>
+</span>

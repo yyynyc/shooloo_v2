@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131203190919) do
+ActiveRecord::Schema.define(:version => 20131204164025) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(:version => 20131203190919) do
     t.integer  "assignee_level"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.date     "start_date"
+    t.date     "end_date"
   end
 
   create_table "authorizations", :force => true do |t|
@@ -168,6 +170,12 @@ ActiveRecord::Schema.define(:version => 20131203190919) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  add_index "gradings", ["graded_comment_id"], :name => "index_gradings_on_graded_comment_id"
+  add_index "gradings", ["graded_post_id"], :name => "index_gradings_on_graded_post_id"
+  add_index "gradings", ["grader_id", "graded_comment_id"], :name => "index_gradings_on_grader_id_and_graded_comment_id", :unique => true
+  add_index "gradings", ["grader_id", "graded_post_id"], :name => "index_gradings_on_grader_id_and_graded_post_id", :unique => true
+  add_index "gradings", ["grader_id"], :name => "index_gradings_on_grader_id"
 
   create_table "homeworks", :force => true do |t|
     t.integer  "week"

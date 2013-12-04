@@ -8,7 +8,7 @@
 				<% else %>
 					Create a new post
 				<% end %>
-				on <%= @response.assignment.created_at.strftime("%m/%d/%Y") %>
+				starting on <%= @response.assignment.start_date %> <strong>ending on <%= @response.assignment.end_date %></strong>
 			</td>
 		</tr>
 		<tr> 

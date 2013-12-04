@@ -1,0 +1,14 @@
+<% if activity.trackable %>
+	<strong>GRADED</strong> on <%= activity.created_at.strftime("%b %d, %Y") %> 
+	<% if activity.trackable.graded_comment_id.nil? %>
+		 <%= link_to "Post #{activity.trackable.graded_post_id}", post_comments_path(activity.trackable.graded_post_id) %>.
+	<% else %>
+		<%= link_to "Comment #{activity.trackable.graded_comment_id}", post_comments_path(activity.trackable.graded_comment_id) %>
+	<% end %> 
+	written by
+	<%= link_to activity.recipient.screen_name, posts_user_path(activity.recipient) %>
+	(a <%= activity.recipient.role %>
+	in grade <%= activity.recipient.grade %>).
+<% else %>
+	added grading which has since been removed.
+<% end %>

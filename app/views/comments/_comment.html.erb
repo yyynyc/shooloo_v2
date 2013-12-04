@@ -9,13 +9,11 @@
 					Comment #<%= comment.id %>: 
 				<% end %>
 				<% if current_user.in?(comment.commenter.authorizers) || current_user.admin? %>
-					<%= comment.commenter.first_name %>
-					<%= comment.commenter.last_name %>
-				<% else %>								
-					<%= link_to comment.commenter.screen_name, posts_user_path(comment.commenter) %>
-					<span class="timestamp">- </span><% if !comment.commenter.grade.nil? %>grade <%= comment.commenter.grade %> <% end %><%= comment.commenter.role %><span class="timestamp"> -</span> 
-				<% end %>
-				
+					(<%= comment.commenter.first_name %>
+					<%= comment.commenter.last_name %>)
+				<% end %>								
+				<%= link_to comment.commenter.screen_name, posts_user_path(comment.commenter) %>
+				<span class="timestamp">- </span><% if !comment.commenter.grade.nil? %>grade <%= comment.commenter.grade %> <% end %><%= comment.commenter.role %><span class="timestamp"> -</span> 				
 				<span class="timestamp"> commented on </span>
 				<%= comment.created_at.strftime("%b %d, %Y") %>.
 				<% if current_user == comment.commenter || current_user.admin? %>
@@ -37,14 +35,16 @@
             		<% if !comment.response.nil? %>
             			<% if current_user.in?(comment.commenter.authorizers) %>
             				<% if current_user.in?(comment.graders) %>
-            					<%= link_to "Grade: #{comment.gradings.find_by_grader_id(current_user.id).mark.full_mark}", root_path, class: "btn btn-large btn-info" %>
+            					<%= link_to "Grade: #{comment.gradings.find_by_grader_id(current_user.id).mark.full_mark}", grading_path(comment.gradings.find_by_grader_id(current_user.id)), class: "btn btn-large btn-info" %>
             				<% else %>
 		            			<span class='search-label'>	            			 
-			            			<%= link_to "Grade", new_comment_grading_path(comment), class: "btn btn-small btn-info" %>
+			            			<%= link_to "Grade", new_comment_grading_path(comment), class: "btn btn-large btn-info" %>
 			            		</span>
 			            	<% end %>
 			            <% elsif current_user?(comment.commenter) && comment.gradings.any? %>
-			            	Grading Result: <%=  %>
+			            	<% comment.gradings.each do |g| %>
+			            		<%= link_to "Grade: #{g.mark.full_mark}", grading_path(g), class: "btn btn-large btn-info" %>
+			            	<% end%>			            	
 			            <% end %>
             		<% end %>
             		<span class='search-label'>	

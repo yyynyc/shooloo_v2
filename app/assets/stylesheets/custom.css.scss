@@ -422,10 +422,6 @@ aside {
     textarea {
       height: 200px;
     }
-    .in-line {
-      margin-left: 220px;
-      width: 600px;
-    }
     .choice {
     width: 235px;
     font-size: 1.2em;
@@ -1105,4 +1101,8 @@ iframe {
 .collapse-video {
   width: 90%;
   align: center;
+}
+
+.end-date {
+  margin-left: -1em;
 }

@@ -99,5 +99,6 @@ class Comment < ActiveRecord::Base
     if !self.response.nil?
       self.response.update_attributes!(completed: false)
     end
+    Grading.where(graded_comment_id: self.id).delete_all
   end
 end

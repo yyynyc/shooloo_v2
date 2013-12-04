@@ -2,9 +2,15 @@
   <div class="post_review_user_info">
     <div class="btn-formtastic alert-heading">
       <% if current_user.role == "student" %> 
-        <div class="span4 teacher-banner">
-          <%= link_to "Create your own math story", new_post_path %> today and impress your friends!
-        </div>
+        <% if current_user?(@post.user) && @post.gradings.any? %>
+          <% @post.gradings.each do |g| %>
+            <%= link_to "Grade: #{g.mark.full_mark}", grading_path(g), class: "btn btn-large btn-info" %>
+          <% end %>
+        <% else %>
+          <div class="span4 teacher-banner">
+            <%= link_to "Create your own math story", new_post_path %> today and impress your friends!
+          </div>
+        <% end %>  
       <% else %>
         <% if current_user.in?(@post.user.authorizers) %>
           <% if current_user.in?(@post.graders) %>
@@ -13,9 +19,15 @@
             <%= link_to "Grade this post!", new_post_grading_path(@post), class: "btn btn-large btn-danger" %>
           <% end %>
         <% else %>
-          <div class="span4 teacher-banner">
-            Watch <%= link_to "videos", videos_path %> on how to <%= link_to "make a game out of word problems", video_path(10) %> and <%= link_to "teach problem solving in 3 steps", video_path(7) %>.
-          </div>
+          <% if current_user?(@post.user) && @post.gradings.any? %>
+            <% @post.gradings.each do |g| %>
+              <%= link_to "Grade: #{g.mark.full_mark}", grading_path(g), class: "btn btn-large btn-info" %>
+            <% end %>
+          <% else %>
+            <div class="span4 teacher-banner">
+              Watch <%= link_to "videos", videos_path %> on how to <%= link_to "make a game out of word problems", video_path(10) %> and <%= link_to "teach problem solving in 3 steps", video_path(7) %>.
+            </div>
+          <% end %>
         <% end %>  
       <% end %> 
     </div>  

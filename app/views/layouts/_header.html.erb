@@ -4,8 +4,7 @@
       <%= link_to "SHOOLOO", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to "Home", root_path %></li>
-          
+          <li><%= link_to "Home", root_path %></li>          
           <li><%= link_to "Contact", contact_path %></li> 
           <li><%= link_to "CCSS", standards_path %></li> 
           <li><%= link_to "Videos", videos_path %></li>          
@@ -39,6 +38,9 @@
                   <li><%= link_to "All Common Core Lesson Plans", lessons_path %></li>
                 </ul>
               </li>              
+            <% end %>
+            <% if current_user.responses.any? %>
+              <li><%= link_to "Homework", responses_user_path(current_user) %></li>
             <% end %>            
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -48,7 +50,6 @@
                 <li>
                   <%= link_to "Create a New Post", new_post_path %>
                 </li>
-                <li><%= link_to "My Homework", responses_user_path(current_user) %></li>
                 <li>
                   <%= link_to "My I-Can Journal", common_core_I_can_user_path(current_user) %>
                 </li>

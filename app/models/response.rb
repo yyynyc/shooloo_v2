@@ -10,8 +10,6 @@ class Response < ActiveRecord::Base
   has_many :comments
   has_many :posts
 
-  # validates_uniqueness_of [:assignment_id, :assignee_id]
-
   after_create do
   	if !self.assignee_id.nil?
   		Activity.create!(action: "assign", trackable: self, 

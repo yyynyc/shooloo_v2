@@ -1,7 +1,7 @@
 class Assignment < ActiveRecord::Base
   attr_accessible :assigned_post_id, :assigner_id, :instruction,
   	:domain_id, :level_id, :standard_id, :assignee_level,
-    :assignee_ids, :responses_ids
+    :assignee_ids, :responses_ids, :start_date, :end_date
 
   has_many :responses, dependent: :destroy
   has_many :assignees, through: :responses
@@ -13,7 +13,7 @@ class Assignment < ActiveRecord::Base
   belongs_to :domain
   belongs_to :standard
 
-  validates_presence_of :assigner_id, :level_id, :domain_id, :standard_id
+  validates_presence_of :assigner_id, :level_id, :domain_id, :standard_id, :start_date, :end_date
   validates :assignee_ids, :presence => {:unless => "assignee_level", :message => "can't be blank"}
 
   after_create do 

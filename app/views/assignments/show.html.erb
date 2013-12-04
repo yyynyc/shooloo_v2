@@ -20,11 +20,11 @@
 			<th>Assigned: </th>
 			<td>
 				<% if !@assignment.assigned_post_id.nil? %>
-					Solve problem #<%= link_to @assignment.assigned_post_id, post_comments_path(@assignment.assigned_post_id) %>
+					Solve problem #<%= link_to @assignment.assigned_post_id, post_comments_path(@assignment.assigned_post_id) %> 
 				<% else %>
 					Create a new post
 				<% end %>
-				on <%= @assignment.created_at.strftime("%m/%d/%Y") %>
+				starting on <%= @assignment.start_date %> and ending on <%= @assignment.end_date %>
 			</td>
 		</tr>
 	</table>
@@ -46,24 +46,46 @@
 				</td>
 				<td>
 					<%= r.assignee.last_name %>, <%= r.assignee.first_name %> 
-				</td>
-				<td>
-					<% if r.posts.any? %>
+				</td>				
+				<% if r.posts.any? %>
+					<td>
 						Post 
 						<% r.posts.each do |post| %>
-							#<%= link_to post.id, post_comments_path(post) %> |
+							#<%= link_to post.id, post_comments_path(post) %> 
 						<% end %>
-					<% elsif r.comments.any? %>
+					</td>
+					<td class="center">
+						<% r.posts.each do |post| %>
+							<%= link_to "#{post.gradings.find_by_grader_id(current_user.id).mark.full_mark}", edit_grading_path(post.gradings.find_by_grader_id(current_user.id))%> 
+						<% end %>
+					</td>
+					<td>
+						<% r.posts.each do |post| %>
+							<%= post.gradings.find_by_grader_id(current_user.id).note %> 
+						<% end %>
+					</td>
+				<% elsif r.comments.any? %>
+					<td>
 						Comment 
 						<% r.comments.each do |comment| %>
-							#<%= link_to comment.id, post_comments_path(comment.commented_post) %> |
+							#<%= link_to comment.id, post_comments_path(comment.commented_post) %> 
 						<% end %>
-					<% end %>
-				</td>
-				<td>
-				</td>
-				<td>
-				</td>
+					</td>
+					<td class="center">
+						<% r.comments.each do |comment| %>
+							<%= link_to "#{comment.gradings.find_by_grader_id(current_user.id).mark.full_mark}", edit_grading_path(comment.gradings.find_by_grader_id(current_user.id))%>
+						<% end %>
+					</td>
+					<td>
+						<% r.comments.each do |comment| %>
+							<%= comment.gradings.find_by_grader_id(current_user.id).note %>
+						<% end %>
+					</td>
+				<% else %>
+					<td></td>
+					<td></td>
+					<td></td>
+				<% end %>
 			</tr>
 		<% end %>
 	</table>

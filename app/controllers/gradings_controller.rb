@@ -59,10 +59,23 @@ class GradingsController < ApplicationController
       end
       redirect_to post_comments_path(@post)
     else
+      if !@grading.graded_post.nil?
+        @post = @grading.graded_post        
+      else 
+        @comment = @grading.graded_comment
+        @post = @comment.commented_post
+      end
       render 'edit'
     end
   end
 
   def show
+    @grading = Grading.find(params[:id])
+    if !@grading.graded_post_id.nil?
+      @post = @grading.graded_post
+    else
+      @comment = @grading.graded_comment
+      @post = @comment.commented_post
+    end
   end
 end

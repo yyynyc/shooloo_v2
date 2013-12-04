@@ -147,5 +147,6 @@ class Post < ActiveRecord::Base
     if !self.response.nil?
       self.response.update_attributes!(completed: false)
     end
+    Activity.where(trackable: self).delete_all
   end
 end

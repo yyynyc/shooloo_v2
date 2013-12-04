@@ -3,7 +3,7 @@ class AssignmentsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @assignments = Assignment.order("created_at DESC")
+    @assignments = Assignment.order('created_at DESC')
   end
 
   def new
@@ -26,6 +26,29 @@ class AssignmentsController < ApplicationController
     else
       @post = @assignment.assigned_post
     	render 'new'
+    end
+  end
+
+  def edit
+    @assignment = Assignment.find(params[:id])
+    @assignees = @assignment.assignees
+    if !@assignment.assigned_post_id.nil?
+      @post = @assignment.assigned_post
+    end
+  end
+
+  def update
+    if @assignment.update_attributes(params[:assignment])
+      flash[:success] = "You have upddated your assignment successfully!"
+      if !@assignment.assigned_post_id.nil?
+        @post = @assignment.assigned_post
+      end
+      redirect_to assignment_path(@assignment)
+    else
+      if !@assignment.assigned_post_id.nil?
+        @post = @assignment.assigned_post
+      end
+      render 'edit'
     end
   end
 

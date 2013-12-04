@@ -1,5 +1,5 @@
 class Grading < ActiveRecord::Base
-  attr_accessible :bonus, :graded_comment_id, :mark, :penalty, :note, 
+  attr_accessible :graded_comment_id, :note, 
   :graded_post_id, :grader_id, :level_id, :domain_id, :standard_id,
   :concept, :precision, :computation, :grammar, :courtesy
 
@@ -10,6 +10,10 @@ class Grading < ActiveRecord::Base
   belongs_to :domain
   belongs_to :standard
   has_one :mark, dependent: :destroy
+
+  validates_presence_of :grader_id, :level_id, :domain_id, :standard_id
+  validates_inclusion_of :concept, :precision, :computation, 
+    :grammar, :courtesy, in: [true, false], message: "can't be blank"
 
   after_create do
   	if self.concept == false
@@ -36,23 +40,31 @@ class Grading < ActiveRecord::Base
   		if self.graded_post.level_id > self.level_id
         if !self.graded_post.response.nil?
           self.graded_post.response.update_attributes!(completed: false)
+          Activity.create!(action: "zero", trackable: self, 
+            user_id: self.grader_id, recipient_id: self.graded_post.user_id)
+        else
+          Activity.create!(action: "create", trackable: self, 
+          user_id: self.grader_id, recipient_id: self.graded_post.user_id)
         end
   			self.graded_post.update_attributes!(level_id: self.level_id, response_id: nil)
-  			# Activity.create!(action: "zero", trackable: self, 
-    	# 	user_id: self.grader_id, recipient_id: self.post.user_id)
-      elsif self.graded_post.level_id < self.level_id
-        self.graded_post.update_attributes!(level_id: self.level_id, response_id: nil)
-  		elsif self.graded_post.domain_id != self.domain_id
-  			self.graded_post.update_attributes!(domain_id: self.domain_id)
-  		elsif self.graded_post.standard_id != self.standard_id
-  			self.graded_post.update_attributes!(standard_id: self.standard_id)
+      else
+        if self.graded_post.level_id < self.level_id
+          self.graded_post.update_attributes!(level_id: self.level_id)
+        end
+    		if self.graded_post.domain_id != self.domain_id
+    			self.graded_post.update_attributes!(domain_id: self.domain_id)
+        end
+    		if self.graded_post.standard_id != self.standard_id
+    			self.graded_post.update_attributes!(standard_id: self.standard_id)
+        end
+        Activity.create!(action: "create", trackable: self, 
+          user_id: self.grader_id, recipient_id: self.graded_post.user_id)
   		end
-  		# Activity.create!(action: "post", trackable: self, 
-    # 		user_id: self.grader_id, recipient_id: self.post.user_id)
+  		
   	elsif
   		!self.graded_comment_id.nil?
-  		# Activity.create!(action: "comment", trackable: self, 
-    # 		user_id: self.grader_id, recipient_id: self.comment.commenter_id)
+  		Activity.create!(action: "create", trackable: self, 
+    		user_id: self.grader_id, recipient_id: self.graded_comment.commenter_id)
   	end
   end
 
@@ -81,23 +93,30 @@ class Grading < ActiveRecord::Base
       if self.graded_post.level_id > self.level_id
         if !self.graded_post.response.nil?
           self.graded_post.response.update_attributes!(completed: false)
+          Activity.create!(action: "zero", trackable: self, 
+            user_id: self.grader_id, recipient_id: self.graded_post.user_id)
+        else
+          Activity.create!(action: "create", trackable: self, 
+            user_id: self.grader_id, recipient_id: self.graded_post.user_id)  
         end
         self.graded_post.update_attributes!(level_id: self.level_id, response_id: nil)
-        # Activity.create!(action: "zero", trackable: self, 
-      #   user_id: self.grader_id, recipient_id: self.post.user_id)
-      elsif self.graded_post.level_id < self.level_id
-        self.graded_post.update_attributes!(level_id: self.level_id, response_id: nil)
-      elsif self.graded_post.domain_id != self.domain_id
-        self.graded_post.update_attributes!(domain_id: self.domain_id)
-      elsif self.graded_post.standard_id != self.standard_id
-        self.graded_post.update_attributes!(standard_id: self.standard_id)
+      else
+        if self.graded_post.level_id < self.level_id
+          self.graded_post.update_attributes!(level_id: self.level_id)
+        end
+        if self.graded_post.domain_id != self.domain_id
+          self.graded_post.update_attributes!(domain_id: self.domain_id)
+        end
+        if self.graded_post.standard_id != self.standard_id
+          self.graded_post.update_attributes!(standard_id: self.standard_id)
+        end
+        Activity.create!(action: "create", trackable: self, 
+          user_id: self.grader_id, recipient_id: self.graded_post.user_id)
       end
-      # Activity.create!(action: "post", trackable: self, 
-    #     user_id: self.grader_id, recipient_id: self.post.user_id)
     elsif
       !self.graded_comment_id.nil?
-      # Activity.create!(action: "comment", trackable: self, 
-    #     user_id: self.grader_id, recipient_id: self.comment.commenter_id)
+      Activity.create!(action: "create", trackable: self, 
+        user_id: self.grader_id, recipient_id: self.graded_comment.commenter_id)
     end
   end
 

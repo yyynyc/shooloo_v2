@@ -9,15 +9,20 @@
 		<table border="2" cellpadding="10">
 			<tr>
 				<th> Start Date </th>
+				<th> End Date </th>
 				<th> Homework </th>
 				<th> Instruction </th>
 				<th> I-can Statement </th>
 				<th> Completion </th>
+				<th> Grade </th>
 			</tr>
 			<% @responses.each do |a| %>
 				<tr>
 					<td>
-						<%= a.created_at.strftime("%m/%d/%Y") %>
+						<%= a.assignment.start_date %>
+					</td>
+					<td>
+						<%= a.assignment.end_date %>
 					</td>
 					<td>
 						<% if !a.assignment.assigned_post_id.nil? %>
@@ -30,25 +35,44 @@
 						<%= a.assignment.instruction.html_safe %>
 					</td>
 					<td>
-						<%= a.assignment.standard.ICan %>
+						In <%= a.assignment.domain.name %>, <%= a.assignment.standard.ICan %>.
 					</td>
-					<td class="center">
-						<% if a.posts.any? %>
-							Post
-							<% a.posts.each do |post| %>
-								#<%= link_to post.id, post_comments_path(post) %> |
+					<% if a.posts.any? %>						
+						<% a.posts.each do |post| %>
+							<td class="center">
+								Post #<%= link_to post.id, post_comments_path(post) %>
+							</td>
+							<td class="center">
+								<% if post.gradings.any? %>
+									<% post.gradings.each do |g| %>
+										<%= link_to "#{g.mark.full_mark}", grading_path(g)%> 
+									<% end %>
+								<% end %>
+							</td> 
+						<% end %>
+					<% elsif a.comments.any? %>
+						<% a.comments.each do |comment| %>
+							<td class="center">
+								Comment #<%= link_to comment.id, post_comments_path(comment.commented_post) %>
+							</td>
+							<td class="center">
+								<% if comment.gradings.any? %>
+									<% comment.gradings.each do |g| %>
+										<%= link_to "#{g.mark.full_mark}", grading_path(g)%> 
+									<% end %>
+								<% end %>
+							</td> 
+						<% end %>
+					<% else %>
+						<td class="no">
+							<% if !a.assignment.assigned_post_id.nil? %>
+								<%= link_to "Do it now!", new_response_comment_path(a) %>
+							<% else %>
+								<%= link_to "Do it now!", new_response_post_path(a) %>
 							<% end %>
-						<% elsif a.comments.any? %>
-							Comment
-							<% a.comments.each do |comment| %>
-								#<%= link_to comment.id, post_comments_path(comment.commented_post) %> |
-							<% end %>
-						<% else %>
-							<p class="no" %>
-								Do it now!
-							</p>	
-						<% end %>		
-					</td>
+						</td>
+						<td></td>	
+					<% end %>		
 				</tr>
 			<% end %>
 		</table>

@@ -1,7 +1,7 @@
 <div class="alert-heading bottom-margin">
     <table class="table-lesson">
         <tr>
-            <th>Comment:</th>
+            <th><%= link_to "Comment", post_comments_path(comment.commented_post) %>:</th>
             <td>
                 <%= comment.content.html_safe %>
             </td>

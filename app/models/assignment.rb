@@ -7,6 +7,9 @@ class Assignment < ActiveRecord::Base
   has_many :assignees, through: :responses
   accepts_nested_attributes_for :responses
 
+  has_many :scorecards, through: :responses
+  has_many :colors, through: :scorecards
+
   belongs_to :assigner, class_name: "User"
   belongs_to :assigned_post, class_name: "Post"
   belongs_to :level

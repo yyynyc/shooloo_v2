@@ -55,6 +55,7 @@ class Post < ActiveRecord::Base
 
   has_one :grading, foreign_key: "graded_post_id", dependent: :destroy
   has_one :graders, through: :grading, dependent: :destroy
+  has_one :mark, through: :grading
   
   validates_presence_of :user_id, :question, :level_id, :domain_id, :standard_id, :subject_id
   validates :answer, presence: true

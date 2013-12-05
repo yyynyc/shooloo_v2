@@ -1,6 +1,6 @@
 <span class="yes alert-heading">
 	<% if activity.trackable %>
-		<strong><%= link_to "GRADED", responses_user_path(current_user) %></strong> on <%= activity.created_at.strftime("%b %d, %Y") %> your
+		<strong>GRADED</strong> on <%= activity.created_at.strftime("%b %d, %Y") %> your
 		<% if activity.trackable.graded_comment_id.nil? %>
 			<%= link_to "post ##{activity.trackable.graded_post_id}", post_comments_path(activity.trackable.graded_post_id) %> 
 		<% else %>

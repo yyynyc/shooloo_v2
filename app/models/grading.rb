@@ -39,7 +39,9 @@ class Grading < ActiveRecord::Base
   	if !self.graded_post_id.nil? 
   		if self.graded_post.level_id > self.level_id
         if !self.graded_post.response.nil?
-          self.graded_post.response.update_attributes!(completed: false)
+          if !self.graded_post.response.posts.any?
+            self.graded_post.response.update_attributes!(completed: false)
+          end
           Activity.create!(action: "zero", trackable: self, 
             user_id: self.grader_id, recipient_id: self.graded_post.user_id)
         end

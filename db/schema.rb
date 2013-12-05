@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131204181312) do
+ActiveRecord::Schema.define(:version => 20131205193030) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -83,6 +83,14 @@ ActiveRecord::Schema.define(:version => 20131204181312) do
     t.boolean  "visible",            :default => true
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
+  end
+
+  create_table "colors", :force => true do |t|
+    t.integer  "value"
+    t.string   "code"
+    t.string   "weakness"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "comments", :force => true do |t|
@@ -400,6 +408,15 @@ ActiveRecord::Schema.define(:version => 20131204181312) do
   end
 
   add_index "responses", ["assignment_id", "assignee_id"], :name => "index_responses_on_assignment_id_and_assignee_id", :unique => true
+
+  create_table "scorecards", :force => true do |t|
+    t.integer  "response_id"
+    t.integer  "color_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "scorecards", ["response_id"], :name => "index_scorecards_on_response_id"
 
   create_table "scores", :force => true do |t|
     t.integer  "year"

@@ -6,6 +6,16 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+if Color.count == 0
+	Color.create([
+		{value: 0, code: "#400000", weakness: "Incomplete"},
+		{value: 1, code: "red", weakness: "Concept"},
+		{value: 2, code: "orange", weakness: "Precision"},
+		{value: 3, code: "yellow", weakness: "Computation"},
+		{value: 4, code: "green", weakness: "None"},
+		])
+end
+
 if Operation.count == 0
 	Operation.create([
 		{name: 'whole number', position: 1},

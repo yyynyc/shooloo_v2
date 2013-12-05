@@ -7,10 +7,10 @@
 <h1> Assignment Details </h1>
 
 <div class="well well-small margin-bottom normal-font" align="center">
-	<table cellpadding="10">
+	<table class="table-grade">
 		<tr>
 			<th>Standard:</th> 
-			<td><%= @assignment.standard.short %> -- 
+			<td><%= link_to @assignment.standard.short, @assignment.standard.url, target: "_blank", confirm: "You are about to visit a site that is not part of Shooloo. Continue?"  %> -- 
 				<%= @assignment.standard.description %></td>
 		</tr>
 		<tr> 
@@ -31,14 +31,16 @@
 	</table>
 </div>
 
-<div align="center">
-	<table border="2" cellpadding="10">
+<div class="center margin-bottom">
+	<table class="table-ccss">
 		<tr>
 			<th></th>
-			<th> Student </th>
-			<th> Completion </th>
-			<th> Grading </th>
-			<th> Private Comments to Student </th>
+			<th> Student Name </th>
+			<th> Screen Name </th>
+			<th> Weakness </th>
+			<th> Submissions </th>
+			<th> Grades </th>
+			<th> Private Notes to Student </th>
 		</tr>
 		<% @responses.each do |r| %>
 			<tr>
@@ -47,7 +49,17 @@
 				</td>
 				<td>
 					<%= r.assignee.last_name %>, <%= r.assignee.first_name %> 
-				</td>				
+				</td>
+				<td>
+					<%= link_to r.assignee.screen_name, posts_user_path(r.assignee) %>
+				</td>
+				<td>
+					<% if !r.scorecard.nil? %>					
+						<div class="score-color" style="background-color: <%= r.color.code %>;">
+							<%= r.color.weakness %>
+						</div>
+					<% end %>
+				</td>		
 				<% if r.posts.any? %>
 					<% r.posts.each do |post| %>
 						<td>
@@ -57,7 +69,7 @@
 						</td>
 						<% if !post.grading.nil? %>
 							<td class="center">	
-								<%= link_to "#{post.grading.mark.full_mark}", edit_grading_path(post.grading) %> 
+								<%= link_to "#{post.mark.full_mark}", edit_grading_path(post.grading) %> 
 							</td>
 							<td>
 								<%= post.grading.note %> 
@@ -71,11 +83,11 @@
 					<% r.comments.each do |comment| %>
 						<td>
 							Comment 						
-							#<%= link_to comment.id, post_comments_path(comment.commented_post) %> 
+							#<%= link_to comment.id, new_comment_grading_path(comment) %> 
 						</td>
 						<% if !comment.grading.nil? %>
 							<td class="center">
-								<%= link_to "#{comment.grading.mark.full_mark}", edit_grading_path(comment.grading) %>
+								<%= link_to "#{comment.mark.full_mark}", edit_grading_path(comment.grading) %>
 							</td>
 							<td>							
 								<%= comment.grading.note %>
@@ -94,3 +106,9 @@
 		<% end %>
 	</table>
 </div>
+
+<div class="center">
+		<%= link_to "Edit assignment", edit_assignment_path(@assignment), class: "btn btn-large btn-success" %>
+		<%= link_to "All assignments", assignments_user_path(current_user), class: "btn btn-large btn-primary" %>
+
+	</div>

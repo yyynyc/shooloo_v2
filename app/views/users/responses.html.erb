@@ -43,10 +43,8 @@
 								Post #<%= link_to post.id, post_comments_path(post) %>
 							</td>
 							<td class="center">
-								<% if post.gradings.any? %>
-									<% post.gradings.each do |g| %>
-										<%= link_to "#{g.mark.full_mark}", grading_path(g)%> 
-									<% end %>
+								<% if !post.grading.nil? %>
+									<%= link_to "#{post.grading.mark.full_mark}", grading_path(post.grading)%> 
 								<% end %>
 							</td> 
 						<% end %>
@@ -56,10 +54,8 @@
 								Comment #<%= link_to comment.id, post_comments_path(comment.commented_post) %>
 							</td>
 							<td class="center">
-								<% if comment.gradings.any? %>
-									<% comment.gradings.each do |g| %>
-										<%= link_to "#{g.mark.full_mark}", grading_path(g)%> 
-									<% end %>
+								<% if !comment.grading.nil? %>
+									<%= link_to "#{comment.grading.mark.full_mark}", grading_path(comment.grading)%> 
 								<% end %>
 							</td> 
 						<% end %>

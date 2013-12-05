@@ -50,10 +50,10 @@
 						<%= link_to a.responses.count, assignment_path(a) %>
 					</td>
 					<td class="center">
-						<%= link_to a.responses.where("responses.completed IS TRUE").count, assignment_path(a) %>
+						<%= link_to a.responses.where(completed: true).count, assignment_path(a) %>
 					</td>
 					<td class="center">
-						<%#= a.responses.where("responses.grade_id IS NOT NULL").count %>
+						<%= link_to a.responses.where(graded: true).count, assignment_path(a) %>
 					</td>
 				</tr>
 			<% end %>

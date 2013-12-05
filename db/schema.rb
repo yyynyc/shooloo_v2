@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131204164025) do
+ActiveRecord::Schema.define(:version => 20131204181312) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -396,6 +396,7 @@ ActiveRecord::Schema.define(:version => 20131204164025) do
     t.boolean  "completed",       :default => false
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
+    t.boolean  "graded"
   end
 
   add_index "responses", ["assignment_id", "assignee_id"], :name => "index_responses_on_assignment_id_and_assignee_id", :unique => true

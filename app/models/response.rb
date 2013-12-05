@@ -1,14 +1,16 @@
 class Response < ActiveRecord::Base
   attr_accessible :assignment_id, :assignee_id, :grade_id,
-  	:completed
+  	:completed, :graded
 
   belongs_to :assignee, class_name: "User"
   belongs_to :assignment
   belongs_to :grade
   belongs_to :trackable, polymorphic: true
 
-  has_many :comments
-  has_many :posts
+  has_many :comments, dependent: :destroy
+  has_many :gradings, through: :comments
+  has_many :posts, dependent: :destroy
+  has_many :gradings, through: :posts
 
   after_create do
   	if !self.assignee_id.nil?

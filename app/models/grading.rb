@@ -42,29 +42,28 @@ class Grading < ActiveRecord::Base
           self.graded_post.response.update_attributes!(completed: false)
           Activity.create!(action: "zero", trackable: self, 
             user_id: self.grader_id, recipient_id: self.graded_post.user_id)
-        else
-          Activity.create!(action: "create", trackable: self, 
-          user_id: self.grader_id, recipient_id: self.graded_post.user_id)
         end
   			self.graded_post.update_attributes!(level_id: self.level_id, response_id: nil)
-      else
-        if self.graded_post.level_id < self.level_id
-          self.graded_post.update_attributes!(level_id: self.level_id)
-        end
-    		if self.graded_post.domain_id != self.domain_id
-    			self.graded_post.update_attributes!(domain_id: self.domain_id)
-        end
-    		if self.graded_post.standard_id != self.standard_id
-    			self.graded_post.update_attributes!(standard_id: self.standard_id)
-        end
-        Activity.create!(action: "create", trackable: self, 
-          user_id: self.grader_id, recipient_id: self.graded_post.user_id)
-  		end
-  		
-  	elsif
-  		!self.graded_comment_id.nil?
+      elsif self.graded_post.level_id < self.level_id
+        self.graded_post.update_attributes!(level_id: self.level_id)
+      end
+  		if self.graded_post.domain_id != self.domain_id
+  			self.graded_post.update_attributes!(domain_id: self.domain_id)
+      end
+  		if self.graded_post.standard_id != self.standard_id
+  			self.graded_post.update_attributes!(standard_id: self.standard_id)
+      end
+      Activity.create!(action: "create", trackable: self, 
+        user_id: self.grader_id, recipient_id: self.graded_post.user_id)
+      if !self.graded_post.response.nil?
+        self.graded_post.response.update_attributes!(graded: true)
+      end
+  	elsif !self.graded_comment_id.nil?
   		Activity.create!(action: "create", trackable: self, 
     		user_id: self.grader_id, recipient_id: self.graded_comment.commenter_id)
+      if !self.graded_comment.response.nil?
+        self.graded_comment.response.update_attributes!(graded: true)
+      end
   	end
   end
 
@@ -92,29 +91,23 @@ class Grading < ActiveRecord::Base
     if !self.graded_post_id.nil? 
       if self.graded_post.level_id > self.level_id
         if !self.graded_post.response.nil?
-          self.graded_post.response.update_attributes!(completed: false)
+          self.graded_post.response.update_attributes!(completed: false, graded: false)
           Activity.create!(action: "zero", trackable: self, 
             user_id: self.grader_id, recipient_id: self.graded_post.user_id)
-        else
-          Activity.create!(action: "create", trackable: self, 
-            user_id: self.grader_id, recipient_id: self.graded_post.user_id)  
         end
         self.graded_post.update_attributes!(level_id: self.level_id, response_id: nil)
-      else
-        if self.graded_post.level_id < self.level_id
+      elsif self.graded_post.level_id < self.level_id
           self.graded_post.update_attributes!(level_id: self.level_id)
-        end
-        if self.graded_post.domain_id != self.domain_id
-          self.graded_post.update_attributes!(domain_id: self.domain_id)
-        end
-        if self.graded_post.standard_id != self.standard_id
-          self.graded_post.update_attributes!(standard_id: self.standard_id)
-        end
+      end
+      if self.graded_post.domain_id != self.domain_id
+        self.graded_post.update_attributes!(domain_id: self.domain_id)
+      end
+      if self.graded_post.standard_id != self.standard_id
+        self.graded_post.update_attributes!(standard_id: self.standard_id)
+      end
         Activity.create!(action: "create", trackable: self, 
           user_id: self.grader_id, recipient_id: self.graded_post.user_id)
-      end
-    elsif
-      !self.graded_comment_id.nil?
+    elsif !self.graded_comment_id.nil?
       Activity.create!(action: "create", trackable: self, 
         user_id: self.grader_id, recipient_id: self.graded_comment.commenter_id)
     end
@@ -122,5 +115,14 @@ class Grading < ActiveRecord::Base
 
   after_destroy do
   	Mark.where(grading_id: self.id).delete_all
+    if !self.graded_comment_id.nil?
+      if !self.graded_post.response.nil?
+        self.graded_post.response.update_attributes!(graded: false)
+      end
+    else
+      if !self.graded_comment.response.nil?
+        self.graded_comment.response.update_attributes!(graded: false)
+      end
+    end
   end
 end

@@ -34,17 +34,15 @@
 	            	<% end %>
             		<% if !comment.response.nil? %>
             			<% if current_user.in?(comment.commenter.authorizers) %>
-            				<% if current_user.in?(comment.graders) %>
-            					<%= link_to "Grade: #{comment.gradings.find_by_grader_id(current_user.id).mark.full_mark}", grading_path(comment.gradings.find_by_grader_id(current_user.id)), class: "btn btn-large btn-info" %>
+            				<% if !comment.grading.nil?%>
+            					<%= link_to "Grade: #{comment.grading.mark.full_mark}", grading_path(comment.grading), class: "btn btn-large btn-info" %>
             				<% else %>
 		            			<span class='search-label'>	            			 
 			            			<%= link_to "Grade", new_comment_grading_path(comment), class: "btn btn-large btn-info" %>
 			            		</span>
 			            	<% end %>
-			            <% elsif current_user?(comment.commenter) && comment.gradings.any? %>
-			            	<% comment.gradings.each do |g| %>
-			            		<%= link_to "Grade: #{g.mark.full_mark}", grading_path(g), class: "btn btn-large btn-info" %>
-			            	<% end%>			            	
+			            <% elsif current_user?(comment.commenter) && !comment.grading.nil? %>
+			            	<%= link_to "Grade: #{comment.grading.mark.full_mark}", grading_path(g), class: "btn btn-large btn-info" %>
 			            <% end %>
             		<% end %>
             		<span class='search-label'>	

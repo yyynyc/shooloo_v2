@@ -53,8 +53,8 @@ class Post < ActiveRecord::Base
   has_many :assignments, foreign_key: "assigned_post_id", dependent: :destroy
   has_many :assigners, through: :assignments, dependent: :destroy
 
-  has_many :gradings, foreign_key: "graded_post_id", dependent: :destroy
-  has_many :graders, through: :gradings, dependent: :destroy
+  has_one :grading, foreign_key: "graded_post_id", dependent: :destroy
+  has_one :graders, through: :grading, dependent: :destroy
   
   validates_presence_of :user_id, :question, :level_id, :domain_id, :standard_id, :subject_id
   validates :answer, presence: true

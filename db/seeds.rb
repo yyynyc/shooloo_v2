@@ -8,11 +8,11 @@
 
 if Color.count == 0
 	Color.create([
-		{value: 0, code: "#400000", weakness: "Incomplete"},
-		{value: 1, code: "red", weakness: "Concept"},
-		{value: 2, code: "orange", weakness: "Precision"},
-		{value: 3, code: "yellow", weakness: "Computation"},
-		{value: 4, code: "green", weakness: "None"},
+		{value: 0, code: "#800000", weakness: "Incomplete"},
+		{value: 1, code: "#da4e49", weakness: "Concept"},
+		{value: 2, code: "#ff69b4", weakness: "Precision"},
+		{value: 3, code: "#808000", weakness: "Computation"},
+		{value: 4, code: "#5bb65b", weakness: "ALL Good"},
 		])
 end
 

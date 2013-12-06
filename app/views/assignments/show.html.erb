@@ -6,8 +6,8 @@
 
 <h1> Assignment Details </h1>
 
-<div class="well well-small margin-bottom normal-font" align="center">
-	<table class="table-grade">
+<div class="span7 well well-small">
+	<table class="table-grade normal-font">
 		<tr>
 			<th>Standard:</th> 
 			<td><%= link_to @assignment.standard.short, @assignment.standard.url, target: "_blank", confirm: "You are about to visit a site that is not part of Shooloo. Continue?"  %> -- 
@@ -25,16 +25,23 @@
 				<% else %>
 					Create a new post
 				<% end %>
-				starting on <%= @assignment.start_date %> and ending on <%= @assignment.end_date %>
+			</td>
+		</tr>
+		<tr>
+			<th>Dates: </th>
+			<td>
+				starting on <%= @assignment.start_date %><br/>
+				ending on <%= @assignment.end_date %>
 			</td>
 		</tr>
 	</table>
 </div>
 
-<%= pie_chart @grades.group("weakness").count.to_a, :library => {:colors => 
-	 @grades.group("weakness").count.keys.map{|k|Color.find_by_weakness(k).code} }%>
+<div class="span4 search-label">
+	<%= render partial: 'shared/chart_grading', locals: {grade: @grades} %>
+</div>
 
-<div class="center margin-bottom">
+<div class="create">
 	<table class="table-ccss">
 		<tr>
 			<th></th>

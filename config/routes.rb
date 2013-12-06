@@ -10,7 +10,7 @@ resources :users do
         :show_activity, :my_abilities, :gift_receiving, :gift_giving, 
         :change_password, :common_core_I_can, 
         :student_common_core, :student_homework, :lessons, 
-        :assignments, :responses
+        :assignments, :responses, :teacher_dashboard
     post :update_password
   end
   collection do 

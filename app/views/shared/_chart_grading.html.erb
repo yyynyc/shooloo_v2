@@ -1,0 +1,5 @@
+<%= pie_chart grade.group("weakness").count.to_a, library: {colors: 
+	grade.group("weakness").count.keys.map{|k|Color.find_by_weakness(k).code},
+	legend: {position: "right"}, title: 'Breakdown of Weak Skills', 
+	titleTextStyle: {fontSize: 16, bold: true, fontName: ["Helvetica", "Arial", "sans-serif"]}, 
+chartArea: {left: 10, top: 35, width: "100%"} }%>

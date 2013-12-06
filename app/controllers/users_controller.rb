@@ -362,6 +362,17 @@ class UsersController < ApplicationController
     @responses = @user.responses.order("created_at DESC")
   end
 
+  def teacher_dashboard
+    @user = User.find(params[:id])
+    @assigned_homeworks = Response.joins(:assignment).where(assignments: {assigner_id: 
+      @user.id})
+    @past_due_homeworks = @assigned_homeworks.where("assignments.end_date <?", 
+      Time.now).where(completed: false)
+    @past_due_students = @past_due_homeworks.map(&:assignee).compact.uniq.sort
+    @ungraded_homeworks = @assigned_homeworks.where(graded: nil, completed: true)
+    @past_homeworks = @user.assignments.where("end_date <?", Time.now).last(2)
+  end
+
   private
     
     def correct_user

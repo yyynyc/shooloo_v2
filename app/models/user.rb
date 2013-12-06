@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :parent_email, :personal_email, :screen_name, 
+  attr_accessible :parent_email, :personal_email, :screen_name, :full_name_us, :full_name_uk, 
     :first_name, :last_name, :grade, :role, :visible, 
     :password, :password_confirmation,
     :avatar, :avatar_remote_url, :privacy, :rules,
@@ -96,6 +96,7 @@ class User < ActiveRecord::Base
 
   has_many :assignments, foreign_key: "assigner_id", dependent: :destroy
   has_many :assigned_posts, through: :assignments
+  # has_many :responses, through: :assignments, foreign_key: "assigner_id"
   has_many :responses, foreign_key: "assignee_id", dependent: :destroy
 
   before_save do
@@ -169,6 +170,14 @@ class User < ActiveRecord::Base
   #validates_attachment_presence :avatar
   #validates_attachment_size :avatar, :less_than => 5.megabytes
   #validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
+
+  def full_name_us
+    "#{first_name} #{last_name}"
+  end
+
+  def full_name_uk
+    "#{last_name}, #{first_name}"
+  end
 
   def verify_student_or_teacher
     validate_student || validate_teacher

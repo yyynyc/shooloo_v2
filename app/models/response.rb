@@ -15,6 +15,8 @@ class Response < ActiveRecord::Base
   has_one :scorecard, dependent: :destroy
   has_one :color, through: :scorecard
 
+  validates_uniqueness_of :assignee_id, scope: :assignment_id
+
   def max_mark
     if self.gradings.any?
       self.marks.max.full_mark

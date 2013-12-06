@@ -354,7 +354,7 @@ class UsersController < ApplicationController
 
   def assignments
     @user = User.find(params[:id])
-    @assignments = @user.assignments.order('created_at DESC')
+    @assignments = @user.assignments.order('assignments.end_date ASC')
   end
 
   def responses

@@ -16,6 +16,7 @@ class AssignmentsController < ApplicationController
       @assignment = Assignment.new      
     end
     @assignees = current_user.authorized_users.all(order: 'grade ASC, last_name ASC')
+    @grades = @assignees.map(&:grade).compact.uniq.sort
   end
 
   def create
@@ -24,6 +25,8 @@ class AssignmentsController < ApplicationController
     	flash[:success] = "Successfully created assignment!"
     	redirect_to assignments_user_path(current_user)
     else
+      @assignees = current_user.authorized_users.all(order: 'grade ASC, last_name ASC')
+      @grades = @assignees.map(&:grade).compact.uniq.sort
       @post = @assignment.assigned_post
     	render 'new'
     end
@@ -32,6 +35,7 @@ class AssignmentsController < ApplicationController
   def edit
     @assignment = Assignment.find(params[:id])
     @assignees = @assignment.assignees
+    @grades = @assignees.map(&:grade).compact.uniq.sort
     if !@assignment.assigned_post_id.nil?
       @post = @assignment.assigned_post
     end
@@ -45,6 +49,8 @@ class AssignmentsController < ApplicationController
       end
       redirect_to assignment_path(@assignment)
     else
+      @assignees = current_user.authorized_users.all(order: 'grade ASC, last_name ASC')
+      @grades = @assignees.map(&:grade).compact.uniq.sort
       if !@assignment.assigned_post_id.nil?
         @post = @assignment.assigned_post
       end
@@ -54,6 +60,7 @@ class AssignmentsController < ApplicationController
 
   def show
     @assignment = Assignment.find(params[:id])
-    @responses = @assignment.responses
+    @responses = @assignment.responses.joins(:assignee).order('last_name ASC')
+    @grades = @assignment.colors
   end
 end

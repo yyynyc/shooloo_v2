@@ -1,0 +1,11 @@
+<% if object.errors.any?  || object.responses.any?{|r|!r.valid?} %>
+  <div id="error_explanation">
+    <ul>      
+      <% object.responses.each do |response| %>
+        <% response.errors.full_messages.each do |msg| %>
+          <li>* <%= msg %></li>
+        <% end %>  
+      <% end %>
+    </ul>
+  </div>
+<% end %>

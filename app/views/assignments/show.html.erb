@@ -31,6 +31,9 @@
 	</table>
 </div>
 
+<%= pie_chart @grades.group("weakness").count.to_a, :library => {:colors => 
+	 @grades.group("weakness").count.keys.map{|k|Color.find_by_weakness(k).code} }%>
+
 <div class="center margin-bottom">
 	<table class="table-ccss">
 		<tr>

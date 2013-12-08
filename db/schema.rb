@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131205193030) do
+ActiveRecord::Schema.define(:version => 20131208174428) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -397,6 +397,14 @@ ActiveRecord::Schema.define(:version => 20131205193030) do
   add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
+  create_table "reminders", :force => true do |t|
+    t.integer  "teacher_id"
+    t.integer  "reminded_response_id"
+    t.integer  "remindee_id"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
   create_table "responses", :force => true do |t|
     t.integer  "assignee_id"
     t.integer  "grading_average", :default => 0
@@ -405,6 +413,7 @@ ActiveRecord::Schema.define(:version => 20131205193030) do
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.boolean  "graded"
+    t.integer  "reminders_count", :default => 0
   end
 
   add_index "responses", ["assignment_id", "assignee_id"], :name => "index_responses_on_assignment_id_and_assignee_id", :unique => true

@@ -10,7 +10,8 @@ resources :users do
         :show_activity, :my_abilities, :gift_receiving, :gift_giving, 
         :change_password, :common_core_I_can, 
         :student_common_core, :student_homework, :lessons, 
-        :assignments, :responses, :teacher_dashboard
+        :assignments, :responses, :teacher_dashboard, :past_due_assignments,
+        :grading_results
     post :update_password
   end
   collection do 
@@ -98,6 +99,7 @@ resources :choices
 resources :messages
 resources :twilios
 resources :gradings
+resources :reminders
 
   root to: "static_pages#home"
  

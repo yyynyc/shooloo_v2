@@ -18,6 +18,16 @@ class Assignment < ActiveRecord::Base
 
   validates_presence_of :assigner_id, :level_id, :domain_id, :standard_id, :start_date, :end_date
   validates :assignee_ids, :presence => {:unless => "assignee_level", :message => "can't be blank"}
+  validate :date_validation
+
+  def date_validation
+    if self[:end_date] < self[:start_date]
+      errors[:end_date] << "can't be earlier than start date"
+      return false
+    else
+      return true
+    end
+  end
 
   after_create do 
     if !self.assignee_level.nil?

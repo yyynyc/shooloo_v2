@@ -7,4 +7,5 @@ class Standard < ActiveRecord::Base
   has_many :lessons
   has_many :assignments
   has_many :gradings
+  has_many :responses, through: :assignments
 end

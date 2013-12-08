@@ -60,7 +60,7 @@ class Grading < ActiveRecord::Base
       if !self.graded_post.response.nil?
         self.graded_post.response.update_attributes!(graded: true)
       end
-  	elsif !self.graded_comment_id.nil?
+  	else
   		Activity.create!(action: "create", trackable: self, 
     		user_id: self.grader_id, recipient_id: self.graded_comment.commenter_id)
       if !self.graded_comment.response.nil?
@@ -109,7 +109,7 @@ class Grading < ActiveRecord::Base
       end
         Activity.create!(action: "create", trackable: self, 
           user_id: self.grader_id, recipient_id: self.graded_post.user_id)
-    elsif !self.graded_comment_id.nil?
+    else
       Activity.create!(action: "create", trackable: self, 
         user_id: self.grader_id, recipient_id: self.graded_comment.commenter_id)
     end
@@ -117,7 +117,7 @@ class Grading < ActiveRecord::Base
 
   after_destroy do
   	Mark.where(grading_id: self.id).delete_all
-    if !self.graded_comment_id.nil?
+    if self.graded_comment_id.nil?
       if !self.graded_post.response.nil?
         self.graded_post.response.update_attributes!(graded: false)
       end

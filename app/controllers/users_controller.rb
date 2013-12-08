@@ -354,23 +354,46 @@ class UsersController < ApplicationController
 
   def assignments
     @user = User.find(params[:id])
-    @assignments = @user.assignments.order('assignments.end_date ASC')
+    @assignments = @user.assignments.paginate(page: params[:page], 
+      per_page: 10, order: 'end_date DESC, start_date ASC')
   end
 
   def responses
     @user = User.find(params[:id])
-    @responses = @user.responses.order("created_at DESC")
+    @responses = @user.reverse_responses.paginate(page: params[:page], 
+      per_page: 10, order: 'completed ASC, end_date DESC, start_date ASC')
   end
 
   def teacher_dashboard
     @user = User.find(params[:id])
+    @assigned_homeworks = @user.responses
+    @ungraded_homeworks = @assigned_homeworks.where(graded: nil, completed: true)
+    @assigned_homeworks_due = @assigned_homeworks.where("assignments.end_date <?", 
+      Time.now)
+    @past_due_homeworks = @assigned_homeworks_due.where(completed: false)
+    @past_due_students = @past_due_homeworks.map(&:assignee).compact.uniq.sort    
+    @past_homeworks = @user.assignments.where("end_date<?", Time.now).last(2)
+  end
+
+  def past_due_assignments
+    @user = User.find(params[:id])
+    @past_assignments = @user.assignments.where("end_date<?", Time.now).paginate(page: params[:page], 
+      per_page: 5, order: 'end_date DESC, start_date ASC')
+    @past_due_assignments = @past_assignments.includes(:responses).where("responses.completed" => false)
     @assigned_homeworks = Response.joins(:assignment).where(assignments: {assigner_id: 
       @user.id})
-    @past_due_homeworks = @assigned_homeworks.where("assignments.end_date <?", 
-      Time.now).where(completed: false)
-    @past_due_students = @past_due_homeworks.map(&:assignee).compact.uniq.sort
-    @ungraded_homeworks = @assigned_homeworks.where(graded: nil, completed: true)
-    @past_homeworks = @user.assignments.where("end_date <?", Time.now).last(2)
+    @assigned_homeworks_due = @assigned_homeworks.where("assignments.end_date <?", 
+      Time.now)
+    @past_due_homeworks = @assigned_homeworks_due.where(completed: false)
+    @past_due_students = @past_due_homeworks.map(&:assignee).compact.uniq.sort 
+    @reminder = Reminder.new 
+  end
+
+  def grading_results
+    @user = User.find(params[:id])
+    @past_assignments = @user.assignments.where("end_date<?", Time.now).paginate(page: params[:page], 
+      per_page: 5, order: 'end_date DESC, start_date ASC')
+    @students = @user.authorized_users.order('grade ASC')
   end
 
   private

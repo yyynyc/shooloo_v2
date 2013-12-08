@@ -45,10 +45,10 @@
 						<%= a.responses.count %>
 					</td>
 					<td class="center">
-						<%= a.responses.where("responses.trackable_id IS NOT NULL").count %>
+						<%= a.responses.where(completed: true).count %>
 					</td>
 					<td class="center">
-						<%= a.responses.where("responses.grade_id IS NOT NULL").count %>
+						<%= a.responses.where(graded: true).count %>
 					</td>
 				</tr>
 			<% end %>

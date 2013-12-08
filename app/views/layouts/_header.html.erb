@@ -6,8 +6,8 @@
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>          
           <li><%= link_to "Contact", contact_path %></li> 
-          <li><%= link_to "CCSS", standards_path %></li> 
-          <li><%= link_to "Videos", videos_path %></li>          
+          <li><%= link_to "CCSS", standards_path %></li>
+          <li><%= link_to "Videos", videos_path %></li>
           <% if signed_in? %>
             <li>
                 <%= link_to "Alerts", my_alerts_path %>
@@ -36,6 +36,10 @@
                       </li>
                       <li><%= link_to "Existing Common Core Assignments", assignments_user_path(current_user) %>
                       </li>
+                      <li><%= link_to "Past-Due Assignments", past_due_assignments_user_path(current_user) %>
+                      </li>
+                      <li><%= link_to "Grading Results of Due Assignments", grading_results_user_path(current_user) %>
+                      </li>
                     </ul>
                   </li>
                   <li class="dropdown-submenu">
@@ -57,7 +61,7 @@
                 </ul>
               </li>              
             <% end %>
-            <% if current_user.responses.any? %>
+            <% if current_user.reverse_responses.any? %>
               <li><%= link_to "Homework", responses_user_path(current_user) %></li>
             <% end %>            
             <li id="fat-menu" class="dropdown">
@@ -92,7 +96,7 @@
               <ul class="dropdown-menu">
                 <li><%= link_to "My Gifts", gift_receiving_path %></li>
                 <li><%= link_to "My Fans", gift_giving_path %></li>
-                <li><%= link_to "My Followers", followers_user_path(current_user) %></li>                                    
+                <li><%= link_to "My Followers", followers_user_path(current_user) %></li>
                 <% if can? :update, Referral %>
                   <li class="divider"></li>    
                   <li><%= link_to " Refer Friends", referrals_path %></li>

@@ -1,0 +1,47 @@
+<% title "Assignments Past Due" %>
+<% description "Assignments Past Due" %>
+<% noindex %>
+<% nofollow %>
+
+<h1> Past-Due Assignments </h1>
+
+<% if @past_due_assignments.any? %>
+	<table class="table-ccss normal-font margin-bottom">
+		<tr>
+			<th></th>
+			<% @past_due_assignments.each do |a| %>
+				<th class="center"> 
+					Assig. #<%= link_to a.id, assignment_path(a) %><br/>
+					<%= a.standard.short %><br/>
+					<%= a.end_date %><br/>
+				</th>
+			<% end %>
+			<%= will_paginate @past_due_assignments %>
+		</tr>
+		<% @past_due_students.each do |s| %>
+			<tr>
+				<td><%= s.full_name_uk %> </td>
+				<% @past_due_assignments.each do |a| %>
+					<td class="center">
+						<% if a.responses.where(completed: false).map(&:assignee).include?(s) %>
+							<% response=Response.find_by_assignee_id_and_assignment_id(s.id, a.id) %>
+							
+							<span class="search-label">
+								<%= render partial: 'reminders/reminder_form', locals: {reminder: @reminder, response: response} %>
+							</span>
+							<span class="search-label" style="vertical-align: top;">
+								<%= link_to "Remove", response_path(response), method: :delete, data: {confirm: "Remove this student off this homework assignment?" }, class: "btn btn-small btn-danger" %>
+							</span>
+						<% end %>
+					</td>
+				<% end %>
+			</tr>
+		<% end %>
+	</table>
+<% end %>
+
+<div class="center">
+	<%= link_to "New assignment", new_assignment_path, class: "btn btn-large btn-primary" %>
+	<%= link_to "All assignments", assignments_user_path(current_user), class: "btn btn-large btn-primary" %>
+	<%= link_to "All grades", grading_results_user_path(current_user), class: "btn btn-large btn-primary" %>
+</div>

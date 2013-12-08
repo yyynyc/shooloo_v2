@@ -99,5 +99,9 @@
 	</table>
 </div>
 <div class="center">
-	<%= link_to "Edit My Post and Make It Better Now!", edit_post_path(@post), class: "btn btn-large btn-primary" %>
+	<% if current_user?(@grading.grader) %>
+		<%= link_to "Re-grade this post", edit_grading_path(@grading), class: "btn btn-large btn-primary" %>
+	<% elsif current_user?(@post.user) %>
+		<%= link_to "Edit My Post and Make It Better Now!", edit_post_path(@post), class: "btn btn-large btn-primary" %>
+	<% end %>
 </div>

@@ -5,6 +5,6 @@ class ResponsesController < ApplicationController
   def destroy
   	Response.find(params[:id]).destroy
     flash[:success] = "Assignment withdrawn from selected student."
-    redirect_to assignments_user_path(current_user)
+    redirect_back_or past_due_assignments_user_path(current_user)
   end
 end

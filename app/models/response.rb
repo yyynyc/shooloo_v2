@@ -1,19 +1,18 @@
 class Response < ActiveRecord::Base
   attr_accessible :assignment_id, :assignee_id, :grade_id,
-  	:completed, :graded, :max_mark
+  	:completed, :graded, :max_mark, :reminders_count, :max_grading
 
   belongs_to :assignee, class_name: "User"
   belongs_to :assignment
   belongs_to :grade
-  belongs_to :trackable, polymorphic: true
-
+ 
   has_many :comments, dependent: :destroy
-  has_many :gradings, through: :comments
   has_many :posts, dependent: :destroy
   has_many :gradings, through: :posts
   has_many :marks, through: :gradings
   has_one :scorecard, dependent: :destroy
   has_one :color, through: :scorecard
+  has_many :reminders, foreign_key: "reminded_response_id", dependent: :destroy
 
   validates_uniqueness_of :assignee_id, scope: :assignment_id
 
@@ -22,6 +21,12 @@ class Response < ActiveRecord::Base
       self.marks.max.full_mark
     else
       return 0
+    end
+  end
+
+  def max_grading
+    if self.marks.any?
+      self.marks.max.grading
     end
   end
 

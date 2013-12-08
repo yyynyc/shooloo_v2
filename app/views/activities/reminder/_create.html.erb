@@ -1,0 +1,13 @@
+<% if activity.trackable %>
+	<strong>REMINDED</strong> on <%= activity.created_at.strftime("%b %d, %Y") %> to
+	<%= link_to activity.recipient.full_name_us, posts_user_path(activity.recipient) %>
+	(a <%= activity.recipient.role %>
+	in grade <%= activity.recipient.grade %>) to 
+	<% if activity.trackable.reminded_response.assigned_post_id.nil? %>
+		 <%= link_to "create a new post", assignment_path(activity.trackable.reminded_response.assignment) %>.
+	<% else %>
+		<%= link_to "critique post #{activity.trackable.assignment.assigned_post_id}", post_comments_path(activity.trackable.reminded_response.assignment.assigned_post_id) %>
+	<% end %>
+<% else %>
+	added an reminder which has since been removed.
+<% end %>

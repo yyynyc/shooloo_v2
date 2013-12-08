@@ -46,7 +46,6 @@
 		<tr>
 			<th></th>
 			<th> Student Name </th>
-			<th> Screen Name </th>
 			<th> Weakness </th>
 			<th> Submissions </th>
 			<th> Grades </th>
@@ -54,14 +53,11 @@
 		</tr>
 		<% @responses.each do |r| %>
 			<tr>
-				<td>
+				<td class="center">
 					<%= link_to "delete", r, method: :delete, data: {confirm: "Delete this student off this homework assignment?" } %>
 				</td>
 				<td>
-					<%= r.assignee.last_name %>, <%= r.assignee.first_name %> 
-				</td>
-				<td>
-					<%= link_to r.assignee.screen_name, posts_user_path(r.assignee) %>
+					<%= link_to r.assignee.full_name_uk, posts_user_path(r.assignee) %>
 				</td>
 				<td>
 					<% if !r.scorecard.nil? %>					
@@ -118,7 +114,9 @@
 </div>
 
 <div class="center">
-		<%= link_to "Edit assignment", edit_assignment_path(@assignment), class: "btn btn-large btn-success" %>
-		<%= link_to "All assignments", assignments_user_path(current_user), class: "btn btn-large btn-primary" %>
-
-	</div>
+	<%= link_to "Edit assignment", edit_assignment_path(@assignment), class: "btn btn-large btn-success" %>
+	<%= link_to "New assignment", new_assignment_path, class: "btn btn-large btn-primary" %>
+	<%= link_to "All assignments", assignments_user_path(current_user), class: "btn btn-large btn-primary" %>
+	<%= link_to "Past-due assignment", past_due_assignments_user_path(current_user), class: "btn btn-large btn-primary" %>
+	<%= link_to "All grades", grading_results_user_path(current_user), class: "btn btn-large btn-primary" %>
+</div>

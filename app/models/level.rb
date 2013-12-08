@@ -6,4 +6,5 @@ class Level < ActiveRecord::Base
   has_many :lessons, through: [:domains, :standards]
   has_many :assignments, through: [:domains, :standards]
   has_many :gradings, through: [:domains, :standards]
+  has_many :responses, through: :assignments
 end

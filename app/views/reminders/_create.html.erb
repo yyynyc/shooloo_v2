@@ -1,0 +1,5 @@
+<%= form_for(current_user.reminders.build(reminded_response_id: response.id, remindee_id: response.assignee_id), remote: true) do |f| %>
+	<%= f.hidden_field :reminded_response_id, value: response.id %>
+	<%= f.hidden_field :remindee_id, value: response.assignee_id %>
+	<%= f.submit "Remind", class: "btn btn-small btn-success", disable_with: "Processing...", confirm: "Remind #{response.assignee.full_name_us} to complete the assigned homework?" %>
+<% end %>

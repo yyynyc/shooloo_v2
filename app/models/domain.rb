@@ -6,4 +6,5 @@ class Domain < ActiveRecord::Base
   has_many :lessons, through: :standards
   has_many :assignments, through: :standards
   has_many :gradings, through: :standards
+  has_many :responses, through: :assignments
 end

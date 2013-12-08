@@ -17,19 +17,21 @@ class Mark < ActiveRecord::Base
   					color_id: response.marks.max.mark+1 )
   			else
   				Scorecard.create!(response_id: response.id,
-  				color_id: response.marks.max.mark+1)
+  				  color_id: response.marks.max.mark+1)
   			end
   		end
   	else
   		comment = self.grading.graded_comment
+      max_mark = Mark.joins(:grading).where(gradings: 
+        {graded_comment_id: comment.id}).max
   		if !comment.response.nil?
-  		response = comment.response
+        response = comment.response
   			if Scorecard.where(response_id: response.id).any?
   				Scorecard.find_by_response_id(response.id).update_attributes!(
-  					color_id: response.marks.max.mark+1 )
+  					color_id: max_mark.mark+1 )
   			else
   				Scorecard.create!(response_id: response.id,
-  				color_id: response.marks.max.mark+1)
+  				  color_id: max_mark.mark+1)
   			end
   		end
   	end

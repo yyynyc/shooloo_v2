@@ -5,8 +5,8 @@
 
 <h1> My Assignments </h1>
 <% if @assignments.any? %>
-	<div align="center">
-		<table border="2" cellpadding="10">
+	<div class="margin-bottom">
+		<table class="table-ccss">
 			<tr>
 				<th rowspan= "2"> </th>
 				<th rowspan= "2"> Standard </th>
@@ -57,6 +57,7 @@
 					</td>
 				</tr>
 			<% end %>
+			<%= will_paginate @assignments %>
 		</table>
 	</div>
 <% else %>
@@ -64,3 +65,8 @@
 		You have not assigned any homework to your students yet. <%= link_to "Create a new assignment", new_assignment_path %> now.
 	</p>
 <% end %>
+<div class="center">
+	<%= link_to "New assignment", new_assignment_path, class: "btn btn-large btn-success" %>
+	<%= link_to "Past-due assignment", past_due_assignments_user_path(current_user), class: "btn btn-large btn-primary" %>
+	<%= link_to "All grades", grading_results_user_path(current_user), class: "btn btn-large btn-primary" %>
+</div>

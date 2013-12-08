@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
  
   has_many :comments, foreign_key: "commenter_id", dependent: :destroy, 
           order: "comments.created_at DESC"
-  has_many :commented_posts, through: :comments, uniq: true, source: :commented_post#, order: 'comments.created_at desc'
+  has_many :commented_posts, through: :comments, uniq: true, source: :commented_post
 
   has_many :alarms, foreign_key: "alarmer_id"
   has_many :alarmed_posts, through: :alarms
@@ -96,8 +96,16 @@ class User < ActiveRecord::Base
 
   has_many :assignments, foreign_key: "assigner_id", dependent: :destroy
   has_many :assigned_posts, through: :assignments
-  # has_many :responses, through: :assignments, foreign_key: "assigner_id"
-  has_many :responses, foreign_key: "assignee_id", dependent: :destroy
+  has_many :responses, through: :assignments, foreign_key: "assigner_id"
+  has_many :reverse_responses, foreign_key: "assignee_id", dependent: :destroy, class_name:"Response"
+  has_many :assigners, through: :reverse_responses
+
+  has_many :reminders, foreign_key: "teacher_id", dependent: :destroy
+  has_many :remindees, through: :reminders
+  has_many :reminded_responses, through: :reminders
+  has_many :reverse_reminders, foreign_key: "remindee_id", dependent: :destroy
+  has_many :teachers, through: :reverse_reminders
+  has_many :reverse_reminded_responses, through: :reverse_reminders
 
   before_save do
     create_remember_token

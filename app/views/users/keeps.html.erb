@@ -19,7 +19,13 @@
     <%= render partial: 'posts/button' %>          
     <% if @keeps.count == 0 %>
       <% if current_user?(@user) %>
-        <p class="alert-heading">You have not saved any posts for future homework assignments. Check out our vast repository of <%= link_to "Common Core math word problems", posts_path %> now!</P>
+        <p class="alert-heading">You have not saved any math word problems
+          <% if current_user.role == "teacher" %>
+            for future homework assignments.
+          <% else %>
+            to solve in the future.
+          <% end %> 
+          Check out our vast repository of <%= link_to "Common Core math word problems", posts_path %> now!</P>
       <% else %>
         <div class="box">
           <p><%= @user.screen_name %> has not saved any posts yet.</p> 

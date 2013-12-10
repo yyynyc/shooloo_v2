@@ -36,4 +36,4 @@ window.ccss = (ccss)->
   $('#'+ccss+'_domain_id').change doitagain
 
 jQuery ->
-  window.hai('lesson')
+  window.ccss('lesson')

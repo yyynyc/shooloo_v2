@@ -20,7 +20,7 @@ class Ability
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :read, :all
             can :crud 
-            can :pd, Video        
+            can [:index, :show, :pd], Video       
         elsif user.authorizations.where(approval: "accepted").any?
             can :crud, Response
             can :update, Referral
@@ -30,6 +30,7 @@ class Ability
             can :create, Alarm
             can :read, :all
             can :crud, Activity
+            can [:index, :show], Video
         elsif user.referrals.where(approval: "accepted").any?
             can [:create, :destroy], [Referral, Authorization]
             can [:create, :destroy], [Like, Relationship, Nudge]
@@ -37,12 +38,14 @@ class Ability
             can :create, Alarm
             can :crud, Activity
             can :read, :all
-        elsif user.state.complete?
+            can [:index, :show], Video
+        elsif !user.state.nil? && user.state.complete?
             can [:create, :destroy], [Referral, Authorization]
             can [:new], [Comment, Assignment, Lesson]
             can [:new, :teacher_view], Post
             can :read, :all
             can :crud, [Activity, Keep]
+            can [:index, :show], Video
         else
             can :read, :all
             can :crud, Activity

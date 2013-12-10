@@ -6,10 +6,10 @@
 <h1> Past-Due Assignments Pending Submission</h1>
 
 <% if @past_due_assignments.any? %>
-	<i class="center btn-formtastic"> Sorted by students' grade levels first and then by last names. </i>
+	<i class="btn-formtastic"> Sorted by students' grade levels first and then by last names. </i>
 	<table class="table-past-due normal-font margin-bottom" id="t1">
 		<tr>
-			<th></th>
+			<th>Student Name</th>
 			<% @past_due_assignments.each do |a| %>
 				<th class="center"> 
 					Assig. #<%= link_to a.id, assignment_path(a) %><br/>

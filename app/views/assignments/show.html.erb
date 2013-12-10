@@ -43,10 +43,11 @@
 </div>
 
 <div class="margin-bottom">
+	<i class="btn-formtastic"> Sorted by students' grade levels first and then by last names. </i>
 	<table class="table-ccss" id='t1' width="100%">
 		<tr>
 			<th></th>
-			<th> Student Name </th>
+			<th colspan="2"> Student Grade & Name </th>
 			<th> Weakness </th>
 			<th> Submissions </th>
 			<th> Grades </th>
@@ -56,6 +57,9 @@
 			<tr>
 				<td class="center">
 					<%= link_to "delete", r, method: :delete, data: {confirm: "Delete this student off this homework assignment?" } %>
+				</td>
+				<td class="center">
+					<%= r.assignee.grade %>
 				</td>
 				<td>
 					<%= link_to r.assignee.full_name_uk, report_card_user_path(r.assignee) %>

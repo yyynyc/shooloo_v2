@@ -1,4 +1,4 @@
-window.hai = (ccss)->
+window.ccss = (ccss)->
   if $('#'+ccss+'_domain_id').parent('form').attr('action') == 'create'
     $('#'+ccss+'_domain_id').parents('.control-group').hide()
   domains = $('#'+ccss+'_domain_id').html()  

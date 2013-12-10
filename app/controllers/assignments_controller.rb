@@ -60,7 +60,7 @@ class AssignmentsController < ApplicationController
 
   def show
     @assignment = Assignment.find(params[:id])
-    @responses = @assignment.responses.joins(:assignee).order('last_name ASC')
+    @responses = @assignment.responses.joins(:assignee).order('grade ASC, last_name ASC')
     @grades = @assignment.colors
   end
 end

@@ -21,11 +21,13 @@ class Assignment < ActiveRecord::Base
   validate :date_validation
 
   def date_validation
-    if self[:end_date] < self[:start_date]
-      errors[:end_date] << "can't be earlier than start date"
-      return false
-    else
-      return true
+    if !self.end_date.nil? && !self.start_date.nil?
+      if self[:end_date] < self[:start_date]
+        errors[:end_date] << "can't be earlier than start date"
+        return false
+      else
+        return true
+      end
     end
   end
 

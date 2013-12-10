@@ -1,2 +1,2 @@
 jQuery ->
-  window.hai('post')
+  window.ccss('post')

@@ -5,44 +5,45 @@
 <% nofollow %>
 
 <h1> Assignment Details </h1>
+<div class="row">
+	<div class="span7 well well-small">
+		<table class="table-grade normal-font">
+			<tr>
+				<th>Standard:</th> 
+				<td><%= link_to @assignment.standard.short, @assignment.standard.url, target: "_blank", confirm: "You are about to visit a site that is not part of Shooloo. Continue?"  %> -- 
+					<%= @assignment.standard.description %></td>
+			</tr>
+			<tr> 
+				<th>Instruction: </th>
+				<td><%= @assignment.instruction.html_safe %></td>
+			</tr>
+			<tr>
+				<th>Assigned: </th>
+				<td>
+					<% if !@assignment.assigned_post_id.nil? %>
+						Solve problem #<%= link_to @assignment.assigned_post_id, post_comments_path(@assignment.assigned_post_id) %> 
+					<% else %>
+						Create a new post
+					<% end %>
+				</td>
+			</tr>
+			<tr>
+				<th>Dates: </th>
+				<td>
+					starting on <%= @assignment.start_date %><br/>
+					ending on <%= @assignment.end_date %>
+				</td>
+			</tr>
+		</table>
+	</div>
 
-<div class="span7 well well-small">
-	<table class="table-grade normal-font">
-		<tr>
-			<th>Standard:</th> 
-			<td><%= link_to @assignment.standard.short, @assignment.standard.url, target: "_blank", confirm: "You are about to visit a site that is not part of Shooloo. Continue?"  %> -- 
-				<%= @assignment.standard.description %></td>
-		</tr>
-		<tr> 
-			<th>Instruction: </th>
-			<td><%= @assignment.instruction.html_safe %></td>
-		</tr>
-		<tr>
-			<th>Assigned: </th>
-			<td>
-				<% if !@assignment.assigned_post_id.nil? %>
-					Solve problem #<%= link_to @assignment.assigned_post_id, post_comments_path(@assignment.assigned_post_id) %> 
-				<% else %>
-					Create a new post
-				<% end %>
-			</td>
-		</tr>
-		<tr>
-			<th>Dates: </th>
-			<td>
-				starting on <%= @assignment.start_date %><br/>
-				ending on <%= @assignment.end_date %>
-			</td>
-		</tr>
-	</table>
+	<div class="span4 search-label chart-height">
+		<%= render partial: 'shared/chart_grading', locals: {grade: @grades} %>
+	</div>
 </div>
 
-<div class="span4 search-label">
-	<%= render partial: 'shared/chart_grading', locals: {grade: @grades} %>
-</div>
-
-<div class="create">
-	<table class="table-ccss">
+<div class="margin-bottom">
+	<table class="table-ccss" id='t1' width="100%">
 		<tr>
 			<th></th>
 			<th> Student Name </th>
@@ -57,7 +58,7 @@
 					<%= link_to "delete", r, method: :delete, data: {confirm: "Delete this student off this homework assignment?" } %>
 				</td>
 				<td>
-					<%= link_to r.assignee.full_name_uk, posts_user_path(r.assignee) %>
+					<%= link_to r.assignee.full_name_uk, report_card_user_path(r.assignee) %>
 				</td>
 				<td>
 					<% if !r.scorecard.nil? %>					
@@ -65,51 +66,51 @@
 							<%= r.color.weakness %>
 						</div>
 					<% end %>
-				</td>		
-				<% if r.posts.any? %>
-					<% r.posts.each do |post| %>
-						<td>
-							Post 						
+				</td>
+				<td>		
+					<% if r.posts.any? %>
+						<% r.posts.each do |post| %>						
 							#<%= link_to post.id, post_comments_path(post) %> 
-				
-						</td>
-						<% if !post.grading.nil? %>
-							<td class="center">	
-								<%= link_to "#{post.mark.full_mark}", edit_grading_path(post.grading) %> 
-							</td>
-							<td>
-								<%= post.grading.note %> 
-							</td>
-						<% else %>
-							<td></td>
-							<td></td>
 						<% end %>
-					<% end %>	
-				<% elsif r.comments.any? %>
-					<% r.comments.each do |comment| %>
-						<td>
-							Comment 						
+					<% elsif r.comments.any? %>
+						<% r.comments.each do |comment| %>						
 							#<%= link_to comment.id, new_comment_grading_path(comment) %> 
-						</td>
-						<% if !comment.grading.nil? %>
-							<td class="center">
-								<%= link_to "#{comment.mark.full_mark}", edit_grading_path(comment.grading) %>
-							</td>
-							<td>							
-								<%= comment.grading.note %>
-							</td>
-						<% else %>	
-							<td></td>
-							<td></td>
 						<% end %>
 					<% end %>
-				<% else %>
-					<td></td>
-					<td></td>
-					<td></td>
-				<% end %>
+				</td>
+				<td>
+					<% if r.posts.any? %>
+						<% r.posts.each do |post| %>
+							<% if !post.grading.nil? %>
+								<%= link_to "#{post.mark.full_mark}", edit_grading_path(post.grading) %> |
+							<% end %>
+						<% end %>
+					<% elsif r.comments.any? %>
+						<% r.comments.each do |comment| %>
+							<% if !comment.grading.nil? %>
+								<%= link_to "#{comment.mark.full_mark}", edit_grading_path(comment.grading) %> |
+							<% end %>
+						<% end %>
+					<% end %>
+				</td>
+				<td>
+					<% if r.posts.any? %>
+						<% r.posts.each do |post| %>
+							<% if !post.grading.nil? %>
+								<%= post.grading.note.html_safe %> |
+							<% end %>
+						<% end %>
+					<% elsif r.comments.any? %>
+						<% r.comments.each do |comment| %>
+							<% if !comment.grading.nil? %>
+								<%= comment.grading.note.html_safe %> |
+							<% end %>
+						<% end %>
+					<% end %>
+				</td>
 			</tr>
 		<% end %>
+		<%= render partial: 'shared/scroll2' %>
 	</table>
 </div>
 

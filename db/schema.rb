@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131208174428) do
+ActiveRecord::Schema.define(:version => 20131209220448) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -101,13 +101,14 @@ ActiveRecord::Schema.define(:version => 20131208174428) do
     t.datetime "photo_updated_at"
     t.integer  "commenter_id"
     t.integer  "commented_post_id"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.boolean  "visible",             :default => true
     t.integer  "likes_count"
     t.boolean  "new_comment"
     t.integer  "commented_lesson_id"
     t.integer  "response_id"
+    t.boolean  "graded",              :default => false
   end
 
   add_index "comments", ["commenter_id", "created_at"], :name => "index_comments_on_commenter_id_and_created_at"
@@ -177,6 +178,7 @@ ActiveRecord::Schema.define(:version => 20131208174428) do
     t.text     "note"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "gradee_id"
   end
 
   add_index "gradings", ["graded_comment_id"], :name => "index_gradings_on_graded_comment_id"
@@ -288,8 +290,8 @@ ActiveRecord::Schema.define(:version => 20131208174428) do
     t.text     "answer"
     t.string   "grade"
     t.integer  "user_id"
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
@@ -332,6 +334,7 @@ ActiveRecord::Schema.define(:version => 20131208174428) do
     t.integer  "quality_id"
     t.integer  "subject_id"
     t.integer  "response_id"
+    t.boolean  "graded",                     :default => false
   end
 
   add_index "posts", ["user_id", "created_at"], :name => "index_posts_on_user_id_and_created_at"
@@ -423,6 +426,8 @@ ActiveRecord::Schema.define(:version => 20131208174428) do
     t.integer  "color_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "post_id"
+    t.integer  "comment_id"
   end
 
   add_index "scorecards", ["response_id"], :name => "index_scorecards_on_response_id"

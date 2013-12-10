@@ -14,10 +14,11 @@
         <% if !comment.nil? %>
             <%= f.input :graded_comment_id, as: :hidden, value: comment.id, class: "hidden" %> 
         <% end %>
-        <%= f.input :grader_id, as: :hidden, value: current_user.id, class: "hidden" %> 
-        <%= f.input :level_id, as: :hidden, value: post.level_id, class: "hidden" %> 
-        <%= f.input :domain_id, as: :hidden, value: post.domain_id, class: "hidden" %>   
-        <%= f.input :standard_id, as: :hidden, value: post.standard_id, class: "hidden" %> 
+        <%= f.input :grader_id, as: :hidden, value: current_user.id, class: "hidden" %>
+        <%= f.input :gradee_id, as: :hidden, value: comment.commenter.id, class: "hidden" %> 
+        <%= f.input :level_id, as: :hidden, value: comment.commented_post.level_id, class: "hidden" %> 
+        <%= f.input :domain_id, as: :hidden, value: comment.commented_post.domain_id, class: "hidden" %>
+        <%= f.input :standard_id, as: :hidden, value: comment.commented_post.standard_id, class: "hidden" %> 
         <p class="alert-heading yes center">
             Once the following criteria are selected, the grade will be <span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseGrading">computed automatically</a></span> on a scale of 1--4.
         </p>

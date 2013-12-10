@@ -3,7 +3,8 @@ require 'will_paginate/array'
 class UsersController < ApplicationController
   before_filter :signed_in_user
   skip_before_filter :signed_in_user, only: [:new, :create]
-  before_filter :correct_user, only: [:edit, :update, :student_homework, :student_common_core]
+  before_filter :correct_user, only: [:edit, :update, :student_homework, :student_common_core, 
+    :report_card, :responses, :assignments, :grading_results, :past_due_assignments, :teacher_dashboards]
   before_filter :admin_user, only: [:destroy]
 
   def my_abilities
@@ -361,7 +362,12 @@ class UsersController < ApplicationController
   def responses
     @user = User.find(params[:id])
     @responses = @user.reverse_responses.paginate(page: params[:page], 
-      per_page: 10, order: 'completed ASC, end_date DESC, start_date ASC')
+      per_page: 10, order: 'completed ASC')
+  end
+
+  def report_card
+    @user = User.find(params[:id])
+    @standards = @user.reverse_gradings.map(&:standard).compact.uniq.sort
   end
 
   def teacher_dashboard
@@ -371,7 +377,7 @@ class UsersController < ApplicationController
     @assigned_homeworks_due = @assigned_homeworks.where("assignments.end_date <?", 
       Time.now)
     @past_due_homeworks = @assigned_homeworks_due.where(completed: false)
-    @past_due_students = @past_due_homeworks.map(&:assignee).compact.uniq.sort    
+    @past_due_students = @past_due_homeworks.map(&:assignee).compact.uniq.sort_by{|s| [s.grade, s.last_name]}   
     @past_homeworks = @user.assignments.where("end_date<?", Time.now).last(2)
   end
 
@@ -385,7 +391,7 @@ class UsersController < ApplicationController
     @assigned_homeworks_due = @assigned_homeworks.where("assignments.end_date <?", 
       Time.now)
     @past_due_homeworks = @assigned_homeworks_due.where(completed: false)
-    @past_due_students = @past_due_homeworks.map(&:assignee).compact.uniq.sort 
+    @past_due_students = @past_due_homeworks.map(&:assignee).compact.uniq.sort_by{|s| [s.grade, s.last_name]}
     @reminder = Reminder.new 
   end
 
@@ -393,7 +399,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @past_assignments = @user.assignments.where("end_date<?", Time.now).paginate(page: params[:page], 
       per_page: 5, order: 'end_date DESC, start_date ASC')
-    @students = @user.authorized_users.order('grade ASC')
+    @students = @user.authorized_users.order('grade ASC, last_name ASC')
   end
 
   private

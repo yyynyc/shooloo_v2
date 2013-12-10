@@ -42,7 +42,7 @@
 			            		</span>
 			            	<% end %>
 			            <% elsif current_user?(comment.commenter) && !comment.grading.nil? %>
-			            	<%= link_to "Grade: #{comment.grading.mark.full_mark}", grading_path(g), class: "btn btn-large btn-info" %>
+			            	<%= link_to "Grade: #{comment.grading.mark.full_mark}", grading_path(comment.grading), class: "btn btn-large btn-info" %>
 			            <% end %>
             		<% end %>
             		<span class='search-label'>	

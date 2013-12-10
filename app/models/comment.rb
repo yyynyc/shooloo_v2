@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
   require 'obscenity/active_model'
   validates :content, obscenity: {message: 'contains offensive word'}
   
-  attr_accessible :content, :photo, :commented_lesson_id, :response_id
+  attr_accessible :content, :photo, :commented_lesson_id, :response_id, :graded
   
   belongs_to :commented_post, class_name: "Post"
   belongs_to :commented_lesson, class_name: "Lesson"
@@ -23,6 +23,8 @@ class Comment < ActiveRecord::Base
   has_one :grading, foreign_key: "graded_comment_id", dependent: :destroy
   has_one :grader, through: :grading, dependent: :destroy
   has_one :mark, through: :grading
+  has_one :scorecard
+  has_one :color, through: :scorecard
 
   def after_initialize
     @visible = true if @visible.nil?

@@ -3,10 +3,11 @@
 <% noindex %>
 <% nofollow %>
 
-<h1> Past-Due Assignments </h1>
+<h1> Past-Due Assignments Pending Submission</h1>
 
 <% if @past_due_assignments.any? %>
-	<table class="table-ccss normal-font margin-bottom">
+	<i class="center btn-formtastic"> Sorted by students' grade levels first and then by last names. </i>
+	<table class="table-past-due normal-font margin-bottom" id="t1">
 		<tr>
 			<th></th>
 			<% @past_due_assignments.each do |a| %>
@@ -16,11 +17,10 @@
 					<%= a.end_date %><br/>
 				</th>
 			<% end %>
-			<%= will_paginate @past_due_assignments %>
-		</tr>
+		</tr>		
 		<% @past_due_students.each do |s| %>
 			<tr>
-				<td><%= s.full_name_uk %> </td>
+				<td><%= link_to s.full_name_uk, report_card_user_path(s) %> </td>
 				<% @past_due_assignments.each do |a| %>
 					<td class="center">
 						<% if a.responses.where(completed: false).map(&:assignee).include?(s) %>
@@ -37,11 +37,7 @@
 				<% end %>
 			</tr>
 		<% end %>
+		<%= render partial: 'shared/scroll' %>
 	</table>
 <% end %>
 
-<div class="center">
-	<%= link_to "New assignment", new_assignment_path, class: "btn btn-large btn-primary" %>
-	<%= link_to "All assignments", assignments_user_path(current_user), class: "btn btn-large btn-primary" %>
-	<%= link_to "All grades", grading_results_user_path(current_user), class: "btn btn-large btn-primary" %>
-</div>

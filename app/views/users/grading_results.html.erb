@@ -6,7 +6,8 @@
 <h1> Grading Results of Due Assignments </h1>
 
 <% if @past_assignments.any? %>
-	<table class="table-ccss normal-font margin-bottom">
+	<i class="center btn-formtastic"> Sorted by students' grade levels first and then by last names. </i>
+	<table class="table-ccss normal-font margin-bottom" width="100%" id="t1">
 		<tr>
 			<th></th>
 			<% @past_assignments.each do |a| %>
@@ -14,18 +15,17 @@
 					<%= link_to a.standard.short, assignment_path(a) %><br/>
 				</th>
 			<% end %>
-			<%= will_paginate @past_assignments %>
 		</tr>
 		<% @students.each do |s| %>
 			<tr>
-				<td><%= s.full_name_uk %> </td>
+				<td><%= link_to s.full_name_uk, report_card_user_path(s) %> </td>
 				<% @past_assignments.each do |a| %>
 					<td class="center">
 						<% if a.responses.map(&:assignee).include?(s) %>
 							<% response=Response.find_by_assignee_id_and_assignment_id(s.id, a.id) %>
 							<% if !response.scorecard.nil? %>					
 								<div class="score-color" style="background-color: <%= response.color.code %>;">
-									<% if response.marks.any? %>
+									<% if response.max_mark != 0 %>
 										<%= link_to response.max_mark, grading_path(response.max_grading) %>
 									<% else %>
 										<%= response.max_mark %>
@@ -37,6 +37,7 @@
 				<% end %>
 			</tr>
 		<% end%>
+		<%= render partial: 'shared/scroll' %>
 	</table>
 <% end %>
 <div class="center">

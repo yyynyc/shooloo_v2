@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
   validates :question, :answer, obscenity: {message: 'contains offensive word'}
 
   attr_accessible :answer, :grade, :question, :comments_count, :ratings_count, :likes_count,
-    :photo, :photo_remote_url, :image_host, :category, 
+    :photo, :photo_remote_url, :image_host, :category, :graded,
     :level_id, :domain_id, :standard_id, :quality_id, :subject_id, :response_id
   attr_reader :photo_remote_url
   belongs_to :user
@@ -56,6 +56,8 @@ class Post < ActiveRecord::Base
   has_one :grading, foreign_key: "graded_post_id", dependent: :destroy
   has_one :graders, through: :grading, dependent: :destroy
   has_one :mark, through: :grading
+  has_one :scorecard
+  has_one :color, through: :scorecard
   
   validates_presence_of :user_id, :question, :level_id, :domain_id, :standard_id, :subject_id
   validates :answer, presence: true

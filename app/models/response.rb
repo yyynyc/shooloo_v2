@@ -19,7 +19,9 @@ class Response < ActiveRecord::Base
   def max_mark
     if self.gradings.any?
       self.marks.max.full_mark
-    else
+    elsif self.comments.any?
+      self.comments.joins(:grading, :mark).max.mark.full_mark
+    else      
       return 0
     end
   end
@@ -27,6 +29,8 @@ class Response < ActiveRecord::Base
   def max_grading
     if self.marks.any?
       self.marks.max.grading
+    elsif self.comments.any?
+      self.comments.joins(:grading, :mark).max.grading
     end
   end
 

@@ -3,8 +3,8 @@ class Post < ActiveRecord::Base
   validates :question, :answer, obscenity: {message: 'contains offensive word'}
 
   attr_accessible :answer, :grade, :question, :comments_count, :ratings_count, :likes_count,
-    :photo, :photo_remote_url, :image_host, :category, 
-    :level_id, :domain_id, :standard_id, :quality_id, :subject_id
+    :photo, :photo_remote_url, :image_host, :category, :graded,
+    :level_id, :domain_id, :standard_id, :quality_id, :subject_id, :response_id
   attr_reader :photo_remote_url
   belongs_to :user
   belongs_to :standard
@@ -12,6 +12,7 @@ class Post < ActiveRecord::Base
   belongs_to :level
   belongs_to :quality
   belongs_to :subject
+  belongs_to :response
 
   has_attached_file :photo, 
     :styles => { 
@@ -48,6 +49,18 @@ class Post < ActiveRecord::Base
   has_many :post_bs, through: :lessons
   has_many :reverse_lessons, foreign_key: "post_b_id", dependent: :destroy
   has_many :post_as, through: :lessons
+
+  has_many :assignments, foreign_key: "assigned_post_id", dependent: :destroy
+  has_many :assigners, through: :assignments, dependent: :destroy
+
+  has_one :grading, foreign_key: "graded_post_id", dependent: :destroy
+  has_one :graders, through: :grading, dependent: :destroy
+  has_one :mark, through: :grading
+  has_one :scorecard
+  has_one :color, through: :scorecard
+
+  has_many :keeps, foreign_key: "kept_post_id", dependent: :destroy
+  has_many :keepers, through: :keeps
   
   validates_presence_of :user_id, :question, :level_id, :domain_id, :standard_id, :subject_id
   validates :answer, presence: true
@@ -127,10 +140,19 @@ class Post < ActiveRecord::Base
       Activity.create!(action: "create", trackable: self, 
         user_id: self.user_id, recipient_id: nudger.id)
     end
+    if !self.response.nil?
+      self.response.update_attributes!(completed: true)
+      Activity.create!(action: "complete", trackable: self.response, 
+        user_id: self.user_id, recipient_id: self.response.assignment.assigner_id)
+    end
   end
 
   after_destroy do
     Event.create!(benefactor_id: self.user_id, beneficiary_id: 1, 
         event: "delete post", value: ShoolooV2::POST_DELETE)
+    if !self.response.nil?
+      self.response.update_attributes!(completed: false)
+    end
+    Activity.where(trackable: self).delete_all
   end
 end

@@ -12,8 +12,8 @@
 					(<%= comment.commenter.first_name %>
 					<%= comment.commenter.last_name %>)
 				<% end %>								
-				<%= link_to comment.commenter.screen_name, posts_user_path(comment.commenter) %> 
-				<span class="timestamp">- </span><% if !comment.commenter.grade.nil? %>grade <%= comment.commenter.grade %> <% end %><%= comment.commenter.role %><span class="timestamp"> -</span>
+				<%= link_to comment.commenter.screen_name, posts_user_path(comment.commenter) %>
+				<span class="timestamp">- </span><% if !comment.commenter.grade.nil? %>grade <%= comment.commenter.grade %> <% end %><%= comment.commenter.role %><span class="timestamp"> -</span> 				
 				<span class="timestamp"> commented on </span>
 				<%= comment.created_at.strftime("%b %d, %Y") %>.
 				<% if current_user == comment.commenter || current_user.admin? %>
@@ -27,11 +27,24 @@
 	            			<%= render partial: 'alarms/alarm_comment', locals: {post: comment.commented_post, comment:comment} %>
 	            		</span>
 	            	<% end %>	
-            		<span class='search-label'>	
-            			<% unless current_user?(comment.commenter) %> 
+            		<% unless current_user?(comment.commenter) %>
+            			<span class='search-label'>	            			 
 	            			<%= render partial: 'likes/like_form_comment', locals: {like: @like, comment: comment} %>
-	            		<% end %>
-            		</span>
+	            		</span>
+	            	<% end %>
+            		<% if !comment.response.nil? %>
+            			<% if current_user.in?(comment.commenter.authorizers) %>
+            				<% if !comment.grading.nil?%>
+            					<%= link_to "Grade: #{comment.grading.mark.full_mark}", grading_path(comment.grading), class: "btn btn-large btn-info" %>
+            				<% else %>
+		            			<span class='search-label'>	            			 
+			            			<%= link_to "Grade", new_comment_grading_path(comment), class: "btn btn-large btn-info" %>
+			            		</span>
+			            	<% end %>
+			            <% elsif current_user?(comment.commenter) && !comment.grading.nil? %>
+			            	<%= link_to "Grade: #{comment.grading.mark.full_mark}", grading_path(comment.grading), class: "btn btn-large btn-info" %>
+			            <% end %>
+            		<% end %>
             		<span class='search-label'>	
             			<i class="icon-heart icon-medium"></i>
             			<span class="alert-heading" id="comment_likes_count-<%=comment.id%>">

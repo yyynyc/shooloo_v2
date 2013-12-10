@@ -1,0 +1,80 @@
+<% title "My Homework" %>
+<% description "A list of my math homework aligned with the Common Core State Standard" %>
+<% noindex %>
+<% nofollow %>
+
+<h1> My Homework </h1>
+<% if @responses.any? %>
+	<div align="center">
+		<table class="table-ccss">
+			<tr>
+				<th> Start Date </th>
+				<th> End Date </th>
+				<th> Homework </th>
+				<th> Instruction </th>
+				<th> I-can Statement </th>
+				<th> Completion </th>
+				<th> Grade </th>
+			</tr>
+			<% @responses.each do |a| %>
+				<tr>
+					<td>
+						<%= a.assignment.start_date %>
+					</td>
+					<td>
+						<%= a.assignment.end_date %>
+					</td>
+					<td>
+						<% if !a.assignment.assigned_post_id.nil? %>
+							<%= link_to "Solve/critique a problem", new_response_comment_path(a) %>
+						<% else %>
+							<%= link_to "Create a new word problem", new_response_post_path(a) %>
+						<% end %>
+					</td>
+					<td>
+						<%= a.assignment.instruction.html_safe %>
+					</td>
+					<td>
+						In <%= a.assignment.domain.name %>, <%= a.assignment.standard.ICan %>.
+					</td>
+					<% if a.posts.any? %>						
+						<% a.posts.each do |post| %>
+							<td class="center">
+								Post #<%= link_to post.id, post_comments_path(post) %>
+							</td>
+							<td class="center">
+								<% if !post.grading.nil? %>
+									<%= link_to "#{post.grading.mark.full_mark}", grading_path(post.grading)%> 
+								<% end %>
+							</td> 
+						<% end %>
+					<% elsif a.comments.any? %>
+						<% a.comments.each do |comment| %>
+							<td class="center">
+								Comment #<%= link_to comment.id, post_comments_path(comment.commented_post) %>
+							</td>
+							<td class="center">
+								<% if !comment.grading.nil? %>
+									<%= link_to "#{comment.grading.mark.full_mark}", grading_path(comment.grading)%> 
+								<% end %>
+							</td> 
+						<% end %>
+					<% else %>
+						<td class="no">
+							<% if !a.assignment.assigned_post_id.nil? %>
+								<%= link_to "Do it now!", new_response_comment_path(a) %>
+							<% else %>
+								<%= link_to "Do it now!", new_response_post_path(a) %>
+							<% end %>
+						</td>
+						<td></td>	
+					<% end %>		
+				</tr>
+			<% end %>
+		</table>
+	</div>
+<% else %>
+	<p>
+		You don't have any homework assignments from your teacher.
+	</p>
+<% end %>

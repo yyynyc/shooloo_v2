@@ -1,0 +1,13 @@
+<% if activity.trackable %>
+	<strong>COMPLETED ASSIGNMENT</strong> on <%= activity.created_at.strftime("%b %d, %Y") %> from
+	<%= link_to activity.recipient.screen_name, posts_user_path(activity.recipient) %>
+	(a <%= activity.recipient.role %>
+	in grade <%= activity.recipient.grade %>) to 
+	<% if activity.trackable.assignment.assigned_post_id.nil? %>
+		create a <%= link_to "new post", assignment_path(activity.trackable.assignment) %>.
+	<% else %>
+		critique post #<%= link_to activity.trackable.assignment.assigned_post_id, post_comments_path(activity.trackable.assignment.assigned_post_id) %>
+	<% end %>
+<% else %>
+	completed an assignment which has since been removed.
+<% end %>

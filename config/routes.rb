@@ -9,7 +9,9 @@ resources :users do
         :inviter, :invited,
         :show_activity, :my_abilities, :gift_receiving, :gift_giving, 
         :change_password, :common_core_I_can, 
-        :student_common_core, :student_homework, :lessons
+        :student_common_core, :student_homework, :lessons, 
+        :assignments, :responses, :teacher_dashboard, :past_due_assignments,
+        :grading_results, :report_card, :keeps
     post :update_password
   end
   collection do 
@@ -18,22 +20,19 @@ resources :users do
   end
 end
 
-resources :user_imports
-
 resources :lessons, path: '/common-core-math-lesson-plans' do
   resources :likes, only: [:create, :destroy]
   get :comment
   post :comments
   collection { get :search, to: 'lessons#index' }
 end
-resources :sessions, only: [:new, :create, :destroy]
-resources :relationships, only: [:create, :destroy]
-resources :nudges, only: [:create, :destroy]
-resources :standards, path: '/common-core-math-I-can' 
 
 resources :posts, path: '/common-core-math-word-problems' do
+  resources :keeps
+  resources :gradings
   resources :likes, only: [:create, :destroy]
   resources :invites, only: :create
+  resources :assignments
   resources :ratings 
   resources :comments do
     resources :alarms, only: [:create, :destroy]
@@ -51,15 +50,13 @@ resources :ratings do
     get :operations, :improvements, :flags
   end
 end
+
 resources :comments do
+  resources :gradings
   resources :alarms
   resources :likes, only: [:create, :destroy]
 end
-resources :alarms
-resources :likes, only: [:create, :destroy]
-resources :invites, only: :create
-resources :activities 
-resources :password_resets
+
 resources :authorizations do 
   member do
     put :decline, :reset_student_password
@@ -68,21 +65,45 @@ resources :authorizations do
   collection { post :search, to: 'authorizations#new' }
   collection { get :search_student, to: 'authorizations#index' }
 end
+
 resources :referrals do 
   collection { post :search, to: 'referrals#new' }
 end
+
+resources :videos do
+  collection { get :search, to: 'videos#index' }
+end
+
+resources :assignments do 
+  resources :responses
+end
+
+resources :responses do
+  resources :posts
+  resources :comments
+end
+
+resources :user_imports
+resources :sessions, only: [:new, :create, :destroy]
+resources :relationships, only: [:create, :destroy]
+resources :nudges, only: [:create, :destroy]
+resources :standards, path: '/common-core-math-I-can' 
+resources :alarms
+resources :likes, only: [:create, :destroy]
+resources :invites, only: :create
+resources :activities 
+resources :password_resets
 resources :ref_checks
 resources :user_steps
 resources :gifts
 resources :choices
 resources :messages
 resources :twilios
-resources :videos do
-  collection { get :search, to: 'videos#index' }
-end
+resources :gradings
+resources :reminders
+resources :keeps
 
-
-    root to: "static_pages#home"
+  root to: "static_pages#home"
  
   match '/about', to: 'static_pages#about'
   match '/team', to: 'static_pages#team'

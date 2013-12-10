@@ -1,0 +1,7 @@
+<% title "Edit Assignment" %>
+<% description "Edit a math assignment aligned with the Common Core State Standard" %>
+<% noindex %>
+<% nofollow %>
+
+<h1> Edit My Assignment </h1>
+<%= render partial: 'assignments/assignment_form', locals: {post: @post, assignment: @assignment, assignees: @assignees, url: assignment_path, save: "Update"} %>

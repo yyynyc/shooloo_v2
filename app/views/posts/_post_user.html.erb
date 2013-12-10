@@ -15,7 +15,7 @@
 		<span class="timestamp" itemprop="educationalFramework">Common Core</span>
 		<%= post.domain.core %>
 		<span class="timestamp"> -</span> 
-		<%= post.standard.short %>
+		<%= link_to post.standard.short, post.standard.url, target: "_blank", confirm: "you are about to visit a site that is not part of Shooloo. Continue?" %>
 		<span itemprop="targetName" content="<%= post.standard.symbol %>"></span>
 	    <span itemprop="targetUrl" content="<%= post.standard.url %>"></span>
 	    <span itemprop="targetDescription", content="<%= post.standard.description %>"></span>

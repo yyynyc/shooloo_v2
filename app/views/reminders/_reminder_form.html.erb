@@ -1,0 +1,11 @@
+<div id="reminder_form_<%= response.id %>">
+	<% if can? :create, Reminder %>	
+		<% if current_user.reminders.find_by_reminded_response_id(response.id).nil? %>
+			<%= render partial: 'reminders/create', locals: {reminder: reminder, 
+			response: response} %> 
+		<% else %>
+			<%= render partial: 'reminders/reminder_counter',  
+				locals: {response: response} %>
+		<% end %>
+	<% end %>	  
+ </div>

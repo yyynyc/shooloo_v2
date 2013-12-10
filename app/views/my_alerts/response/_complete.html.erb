@@ -1,0 +1,16 @@
+<span class="no alert-heading">
+	<% if activity.trackable %>
+		on <%= activity.created_at.strftime("%b %d, %Y") %>		 
+		<% if activity.trackable.assignment.assigned_post_id.nil? %>
+			<% if activity.trackable.posts.any? %>
+				<strong><%= link_to "COMPLETED HOMEWORK", assignment_path(activity.trackable.assignment) %></strong> to <%= link_to "create a new post", post_comments_path(activity.trackable.posts.last) %>.
+			<% else %>
+				submitted a post that you have graded as being below the required grade level. An alert has been sent for re-submission of homework.
+			<% end %>
+		<% else %>
+			<strong><%= link_to "COMPLETED HOMEWORK", assignment_path(activity.trackable.assignment) %></strong> to <%= link_to "solve and critique post #{activity.trackable.assignment.assigned_post_id}", post_comments_path(activity.trackable.assignment.assigned_post_id) %>
+		<% end %>
+	<% else %>
+		submitted a homework on <%= activity.created_at.strftime("%b %d, %Y") %>that has been graded as below your required grade level. The student has been alerted to resubmit a new homework. 
+	<% end %>
+</span>

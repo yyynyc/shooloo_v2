@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :parent_email, :personal_email, :screen_name, 
+  attr_accessible :parent_email, :personal_email, :screen_name, :full_name_us, :full_name_uk, 
     :first_name, :last_name, :grade, :role, :visible, 
     :password, :password_confirmation,
     :avatar, :avatar_remote_url, :privacy, :rules,
@@ -19,7 +19,9 @@ class User < ActiveRecord::Base
   has_secure_password
 
   has_many :choices
-  has_many :states, dependent: :destroy
+  has_many :gradings, foreign_key: "grader_id", dependent: :destroy
+  has_many :reverse_gradings, foreign_key: "gradee_id", class_name: "Grading", dependent: :destroy
+  has_one :state, dependent: :destroy
   has_many :lessons, dependent: :destroy
   has_many :posts, dependent: :destroy, order: "created_at DESC"
   has_many :activities, dependent: :destroy
@@ -39,7 +41,7 @@ class User < ActiveRecord::Base
  
   has_many :comments, foreign_key: "commenter_id", dependent: :destroy, 
           order: "comments.created_at DESC"
-  has_many :commented_posts, through: :comments, uniq: true, source: :commented_post#, order: 'comments.created_at desc'
+  has_many :commented_posts, through: :comments, uniq: true, source: :commented_post
 
   has_many :alarms, foreign_key: "alarmer_id"
   has_many :alarmed_posts, through: :alarms
@@ -92,6 +94,22 @@ class User < ActiveRecord::Base
   has_many :reverse_gifts, foreign_key: "receiver_id",
             class_name:  "Gift", dependent: :destroy
   has_many :givers, through: :reverse_gifts
+
+  has_many :assignments, foreign_key: "assigner_id", dependent: :destroy
+  has_many :assigned_posts, through: :assignments
+  has_many :responses, through: :assignments, foreign_key: "assigner_id"
+  has_many :reverse_responses, foreign_key: "assignee_id", dependent: :destroy, class_name:"Response"
+  has_many :assigners, through: :reverse_responses
+
+  has_many :reminders, foreign_key: "teacher_id", dependent: :destroy
+  has_many :remindees, through: :reminders
+  has_many :reminded_responses, through: :reminders
+  has_many :reverse_reminders, foreign_key: "remindee_id", dependent: :destroy
+  has_many :teachers, through: :reverse_reminders
+  has_many :reverse_reminded_responses, through: :reverse_reminders
+
+  has_many :keeps, foreign_key: "keeper_id", dependent: :destroy
+  has_many :kept_posts, through: :keeps
 
   before_save do
     create_remember_token
@@ -164,6 +182,14 @@ class User < ActiveRecord::Base
   #validates_attachment_presence :avatar
   #validates_attachment_size :avatar, :less_than => 5.megabytes
   #validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
+
+  def full_name_us
+    "#{first_name} #{last_name}"
+  end
+
+  def full_name_uk
+    "#{last_name}, #{first_name}"
+  end
 
   def verify_student_or_teacher
     validate_student || validate_teacher

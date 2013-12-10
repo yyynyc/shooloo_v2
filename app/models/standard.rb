@@ -5,4 +5,7 @@ class Standard < ActiveRecord::Base
   belongs_to :domain
   belongs_to :level
   has_many :lessons
+  has_many :assignments
+  has_many :gradings
+  has_many :responses, through: :assignments
 end

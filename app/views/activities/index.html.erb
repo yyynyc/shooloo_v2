@@ -5,7 +5,7 @@
 		  	<div class='users'>
 		  		<li>
 				  	<% unless activity.user.nil? %>
-				  		<% if activity.trackable_type == "Authorization" %>
+				  		<% if activity.trackable_type == "Authorization" || activity.trackable_type == "Response" || activity.trackable_type == "Grading"  %>
 				  			<%= link_to activity.user.first_name, posts_user_path(activity.user) %>
 				  			<%= link_to activity.user.last_name, posts_user_path(activity.user) %>
 				  		<% else %>		

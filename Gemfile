@@ -32,6 +32,8 @@ gem 'roo'
 gem 'ckeditor'
 gem 'validate_url'
 gem 'truncate_html'
+gem 'chosen-rails'
+gem 'chartkick'
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'

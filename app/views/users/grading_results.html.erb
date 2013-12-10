@@ -1,0 +1,47 @@
+<% title "Assignments Past Due" %>
+<% description "Assignments Past Due" %>
+<% noindex %>
+<% nofollow %>
+
+<h1> Grading Results of Due Assignments </h1>
+
+<% if @past_assignments.any? %>
+	<i class="center btn-formtastic"> Sorted by students' grade levels first and then by last names. </i>
+	<table class="table-ccss normal-font margin-bottom" width="100%" id="t1">
+		<tr>
+			<th></th>
+			<% @past_assignments.each do |a| %>
+				<th class="center"> 
+					<%= link_to a.standard.short, assignment_path(a) %><br/>
+				</th>
+			<% end %>
+		</tr>
+		<% @students.each do |s| %>
+			<tr>
+				<td><%= link_to s.full_name_uk, report_card_user_path(s) %> </td>
+				<% @past_assignments.each do |a| %>
+					<td class="center">
+						<% if a.responses.map(&:assignee).include?(s) %>
+							<% response=Response.find_by_assignee_id_and_assignment_id(s.id, a.id) %>
+							<% if !response.scorecard.nil? %>					
+								<div class="score-color" style="background-color: <%= response.color.code %>;">
+									<% if response.max_mark != 0 %>
+										<%= link_to response.max_mark, grading_path(response.max_grading) %>
+									<% else %>
+										<%= response.max_mark %>
+									<% end %>
+								</div>
+							<% end %>
+						<% end %>
+					</td>
+				<% end %>
+			</tr>
+		<% end%>
+		<%= render partial: 'shared/scroll' %>
+	</table>
+<% end %>
+<div class="center">
+	<%= link_to "New assignment", new_assignment_path, class: "btn btn-large btn-primary" %>
+	<%= link_to "All assignments", assignments_user_path(current_user), class: "btn btn-large btn-primary" %>
+	<%= link_to "Past-due assignments", past_due_assignments_user_path(current_user), class: "btn btn-large btn-primary" %>
+</div>

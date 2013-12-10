@@ -1,0 +1,24 @@
+<div class="well well-small margin-bottom normal-font" align="center">
+	<table class="table-lesson">
+		<tr>
+			<th>Assigned: </th>
+			<td>
+				<% if !@response.assignment.assigned_post_id.nil? %>
+					Solve/critique a word problem 
+				<% else %>
+					Create a new post
+				<% end %>
+				starting on <%= @response.assignment.start_date %> <strong>ending on <%= @response.assignment.end_date %></strong>
+			</td>
+		</tr>
+		<tr> 
+			<th>Instruction: </th>
+			<td><%= @response.assignment.instruction.html_safe %></td>
+		</tr>
+		<tr>
+			<th>I-can:</th> 
+			<td>In <%= @response.assignment.domain.name %>, 
+				<%= @response.assignment.standard.ICan %></td>
+		</tr>
+	</table>
+</div>

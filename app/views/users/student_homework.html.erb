@@ -1,9 +1,9 @@
-<% title "#{@user.screen_name}'s Students' Homework Tracker" %>
+<% title "#{@user.screen_name}'s Students' Activity Tracker" %>
 <% noindex %>
 <% nofollow %>
 
 <h1>
-	My Students' Homework Progress
+	My Students' Activities
 	<span class="question">
       <a href="#", class="follow", rel="popover", title="What is Counted in the number of Comments?", data-content="<ul class='popover-list'><li>Only comments on other people's posts are counted.</li><li>If a student makes multiple comments on the same post, only one comment is counted.</li><li>This is to prevent students from trying to game the system by commenting on their own posts only or by dicing up one comment into multiple ones on the same post. </li></ul>" %> 
         <i class="icon-question-sign icon-medium" ></i>
@@ -17,81 +17,86 @@
 </p> -->
 
 <% if @user.authorized_users.any? %>
+	<%= render partial: 'shared/scroll2'%>
 	<div align="center">
-		<table border="2" cellpadding="10">
-			<tr>
-				<th rowspan= "2"> Grade </th>
-				<th rowspan= "2" class="border-right"> Name </th>
-				<th colspan="3" class="border-right"> Current Week </th>
-				<th colspan="3" class="border-right"> Last Week </th>
-				<th colspan="3"> Prior Week </th>
-			</tr>
-			<tr>
-				<th> # of Log-in </th>
-				<th> # of Posts </th>
-				<th class="border-right"> # of Comments </th>
-				<th> # of Log-in </th>
-				<th> # of Posts </th>
-				<th class="border-right"> # of Comments </th>
-				<th> # of Log-in </th>
-				<th> # of Posts </th>
-				<th> # of Comments </th>
-			</tr>
-			<% @students.each do |student| %>
+		<table border="2" cellpadding="10" id='t1'>
+			<thead>
 				<tr>
-					<td class="center">
-						<%= student.grade %>
-					</td>
-					<td class="border-right">
-						<a href="<%= common_core_I_can_user_path(student) %>"><%= student.last_name %>, <%= student.first_name %></a>
-					</td>
-					<% if !student.homework_current_week.nil? %>
-						<td class="center">
-							<%= student.homework_current_week.login_count  %>
-						</td> 
-						<td class="center">
-							<%= link_to student.homework_current_week.post_count, posts_user_path(student) %> 
-						</td>
-						<td class="center border-right">
-							<%= link_to student.homework_current_week.comment_count, commented_posts_user_path(student) %> 
-						</td>
-					<% else %>
-						<td class="center no"> 0 </td>
-						<td class="center no"> 0 </td>
-						<td class="center no border-right"> 0 </td>
-					<% end %>
-					<% if !student.homework_last_week.nil? %>
-						<td class="center">
-							<%= student.homework_last_week.login_count  %>
-						</td> 
-						<td class="center">
-							<%= link_to student.homework_last_week.post_count, posts_user_path(student) %> 
-						</td>
-						<td class="center border-right">
-							<%= link_to student.homework_last_week.comment_count, commented_posts_user_path(student) %> 
-						</td>
-					<% else %>
-						<td class="center no"> 0 </td>
-						<td class="center no"> 0 </td>
-						<td class="center no border-right"> 0 </td>
-					<% end %>
-					<% if !student.homework_prior_week.nil? %>
-						<td class="center">
-							<%= student.homework_prior_week.login_count  %>
-						</td> 
-						<td class="center">
-							<%= link_to student.homework_prior_week.post_count, posts_user_path(student) %> 
-						</td>
-						<td class="center">
-							<%= link_to student.homework_prior_week.comment_count, commented_posts_user_path(student) %> 
-						</td>
-					<% else %>
-						<td class="center no"> 0 </td>
-						<td class="center no"> 0 </td>
-						<td class="center no"> 0 </td>
-					<% end %>
+					<th rowspan= "2"> Grade </th>
+					<th rowspan= "2" class="border-right"> Name </th>
+					<th colspan="3" class="border-right"> Current Week </th>
+					<th colspan="3" class="border-right"> Last Week </th>
+					<th colspan="3"> Prior Week </th>
 				</tr>
-			<% end %>
+				<tr>
+					<th> # of Log-in </th>
+					<th> # of Posts </th>
+					<th class="border-right"> # of Comments </th>
+					<th> # of Log-in </th>
+					<th> # of Posts </th>
+					<th class="border-right"> # of Comments </th>
+					<th> # of Log-in </th>
+					<th> # of Posts </th>
+					<th> # of Comments </th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @students.each do |student| %>
+					<tr>
+						<td class="center">
+							<%= student.grade %>
+						</td>
+						<td class="border-right">
+							<a href="<%= common_core_I_can_user_path(student) %>"><%= student.last_name %>, <%= student.first_name %></a>
+						</td>
+						<% if !student.homework_current_week.nil? %>
+							<td class="center">
+								<%= student.homework_current_week.login_count  %>
+							</td> 
+							<td class="center">
+								<%= link_to student.homework_current_week.post_count, posts_user_path(student) %> 
+							</td>
+							<td class="center border-right">
+								<%= link_to student.homework_current_week.comment_count, commented_posts_user_path(student) %> 
+							</td>
+						<% else %>
+							<td class="center no"> 0 </td>
+							<td class="center no"> 0 </td>
+							<td class="center no border-right"> 0 </td>
+						<% end %>
+						<% if !student.homework_last_week.nil? %>
+							<td class="center">
+								<%= student.homework_last_week.login_count  %>
+							</td> 
+							<td class="center">
+								<%= link_to student.homework_last_week.post_count, posts_user_path(student) %> 
+							</td>
+							<td class="center border-right">
+								<%= link_to student.homework_last_week.comment_count, commented_posts_user_path(student) %> 
+							</td>
+						<% else %>
+							<td class="center no"> 0 </td>
+							<td class="center no"> 0 </td>
+							<td class="center no border-right"> 0 </td>
+						<% end %>
+						<% if !student.homework_prior_week.nil? %>
+							<td class="center">
+								<%= student.homework_prior_week.login_count  %>
+							</td> 
+							<td class="center">
+								<%= link_to student.homework_prior_week.post_count, posts_user_path(student) %> 
+							</td>
+							<td class="center">
+								<%= link_to student.homework_prior_week.comment_count, commented_posts_user_path(student) %> 
+							</td>
+						<% else %>
+							<td class="center no"> 0 </td>
+							<td class="center no"> 0 </td>
+							<td class="center no"> 0 </td>
+						<% end %>
+					</tr>
+				<% end %>
+			</tbody>
 		</table>
 	</div>
 <% else %>

@@ -20,6 +20,7 @@
 //= require rails.validations
 //= require rails.validations.formtastic
 //= require jquery.jplayer.min
+//= require chosen-jquery
 //= require_tree .
 
 $(function ()  

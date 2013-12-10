@@ -1,0 +1,43 @@
+<% title "Assignments Past Due" %>
+<% description "Assignments Past Due" %>
+<% noindex %>
+<% nofollow %>
+
+<h1> Past-Due Assignments Pending Submission</h1>
+
+<% if @past_due_assignments.any? %>
+	<i class="center btn-formtastic"> Sorted by students' grade levels first and then by last names. </i>
+	<table class="table-past-due normal-font margin-bottom" id="t1">
+		<tr>
+			<th></th>
+			<% @past_due_assignments.each do |a| %>
+				<th class="center"> 
+					Assig. #<%= link_to a.id, assignment_path(a) %><br/>
+					<%= a.standard.short %><br/>
+					<%= a.end_date %><br/>
+				</th>
+			<% end %>
+		</tr>		
+		<% @past_due_students.each do |s| %>
+			<tr>
+				<td><%= link_to s.full_name_uk, report_card_user_path(s) %> </td>
+				<% @past_due_assignments.each do |a| %>
+					<td class="center">
+						<% if a.responses.where(completed: false).map(&:assignee).include?(s) %>
+							<% response=Response.find_by_assignee_id_and_assignment_id(s.id, a.id) %>
+							
+							<span class="search-label">
+								<%= render partial: 'reminders/reminder_form', locals: {reminder: @reminder, response: response} %>
+							</span>
+							<span class="search-label" style="vertical-align: top;">
+								<%= link_to "Remove", response_path(response), method: :delete, data: {confirm: "Remove this student off this homework assignment?" }, class: "btn btn-small btn-danger" %>
+							</span>
+						<% end %>
+					</td>
+				<% end %>
+			</tr>
+		<% end %>
+		<%= render partial: 'shared/scroll' %>
+	</table>
+<% end %>
+

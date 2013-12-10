@@ -10,7 +10,7 @@ class Ability
             can :manage, :all
         elsif user.role == "teacher" && 
             user.authorizations.where(approval: "accepted").any?
-            can :crud, UserImport 
+            can :crud, [UserImport, Assignment, Response, Grading, Reminder]
             can [:crud, :comment, :comments], Lesson
             can :update, [Authorization, Referral]
             can [:create, :destroy], [Referral, Authorization]
@@ -22,6 +22,7 @@ class Ability
             can :crud 
             can :pd, Video        
         elsif user.authorizations.where(approval: "accepted").any?
+            can :crud, Response
             can :update, Referral
             can [:create, :destroy], [Referral, Authorization]
             can :crud, [Post, Comment, Invite, Rating]
@@ -36,10 +37,12 @@ class Ability
             can :create, Alarm
             can :crud, Activity
             can :read, :all
-        elsif user.states.where(complete: true).any?
+        elsif user.state.complete?
             can [:create, :destroy], [Referral, Authorization]
+            can [:new], [Comment, Assignment, Lesson]
+            can [:new, :teacher_view], Post
             can :read, :all
-            can :crud, Activity
+            can :crud, [Activity, Keep]
         else
             can :read, :all
             can :crud, Activity

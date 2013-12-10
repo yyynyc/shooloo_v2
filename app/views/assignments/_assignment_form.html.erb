@@ -1,0 +1,49 @@
+<% if !post.nil? %>        
+    <p>
+      <strong>Question: </strong><%= post.question.html_safe %>
+    </p>
+    <p>
+      <strong>Answer: </strong><%= post.answer.html_safe %>
+    </p>
+
+    <p class="alert-heading yes center">
+    	Please ensure the following CCSS standard is applicable this word problem. <br/> It impacts the accuracy of your assignment and grading.
+    </p>
+<% end %>    
+<%= semantic_form_for assignment, url: url, :html => {class: "form-horizontal-post-update", 'data-action' => 'update'} do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+    <%= render 'shared/error_assignment', object: f.object %>
+    <%= f.inputs do %>
+        <% unless post.nil? %>
+            <%= f.input :assigned_post_id, as: :hidden, value: post.id, class: "hidden" %> 
+        <% end %>
+        <div class="span6">
+            <%= f.input :start_date, as: :date_select, start_year: 2013, order: [:month, :day, :year], label: "Start date:" %> 
+        </div> 
+        <div class="span5 end-date">
+            <%= f.input :end_date, as: :date_select, start_year: 2013, order: [:month, :day, :year], label: "End date:" %>
+        </div>    
+    	<%= f.input :level_id, as: :select, include_blank: true, label: "CCSS grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
+    	<%= f.input :domain_id, as: :select, include_blank: true, label: "CCSS domain:", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
+    	<%= f.input :standard_id, as: :select, include_blank: true, label: "CCSS Standard:", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :description, f.object.standard_id) %>
+        <p class="alert-heading yes center">
+            List your instructions for this assignment.<br/> 
+            <% if post.nil? %>
+                For example: create a 3-step word problem about ratios; include a table in your solution.
+            <% else %>
+                For example: demonstrate your solution with a table; give at least 2 suggestions to make this post better.
+            <% end%>
+        </p> 
+        <div class="margin-bottom"> 
+            <%= f.input :instruction, as: :ckeditor %> 
+        </div>
+        <%= f.input :assignee_level, as: :select, collection: @grades, include_blank: true, label: "Assign to ALL my students in grade:" %>
+        <div class="normal-font center yes">
+            <p><strong>Alternatively, leave the above student grade selection blank</strong>, and choose individual students below instead.<br/><strong>Type part of your student's name into the box below</strong> and selection choices will show up automatically.</p>
+        </div> 
+        <%= f.input :assignees, as: :select, collection: assignees, label: "Assign individually:", include_blank: true, :member_label => Proc.new { |user| "#{user.last_name}, #{user.first_name} (Grade #{user.grade})" }, input_html: {class: "chosen-select"} %>
+    <% end %>
+    <%= f.actions do %>
+       <%= f.action :submit, label: save, as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary", disable_with: "Proccessing..." } %>
+    <% end %>
+<% end %>

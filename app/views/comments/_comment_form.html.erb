@@ -1,5 +1,8 @@
 <%= form_for(comment, :html => { :multipart => true }) do |f| %>
   	<%= render 'shared/error_messages', object: f.object %>
+  	<% if !@response.nil? %>
+  		<%= f.hidden_field :response_id, value: @response.id %>
+  	<% end %>
   	<%# if current_user.admin? %>
   		<%#= f.cktext_area :content, rows: 5, ckeditor: {toolbar: "comment_admin"} %>
   	<%# else %>

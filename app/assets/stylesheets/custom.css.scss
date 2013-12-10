@@ -409,21 +409,28 @@ aside {
 }
 
 .form-horizontal-post-update { 
-  .control-label {  
-  float: left;
-  /*original: width: 140px;*/
-  width: 120px;
-  padding-top: 2px;
-  text-align: right;
+  .control-label {
+    font-size: 1.2em;  
+    float: left;
+    width: 150px;
+    padding-top: 2px;
+    text-align: right;
   }
   .controls {
-  /*original: margin-left: 160px;*/
-  margin-left: 140px;
-  width: 830px;  
-  textarea {
-    height: 200px;
+    margin-left: 170px;
+    width: 770px;  
+    textarea {
+      height: 200px;
+    }
+    .choice {
+    width: 235px;
+    font-size: 1.2em;
+    height: 1.5em;
     }
   }
+  .hidden {
+    margin-left: -2000px;
+  } 
 }
 
 .form-horizontal-gift {
@@ -560,7 +567,7 @@ aside {
   padding: 0.5em 0em 1em 0em;
   border-top: 1px solid $grayMediumLight;
   border-bottom: 1px solid $grayMediumLight;
-  margin: 1em 0em 1em 0em;
+  margin: 0em 0em 1em 1.5em;
   line-height: 2em;
   p {
     float: right;
@@ -883,7 +890,20 @@ aside {
 }
 
 .table-ccss{
-  width: 100%; 
+  align: center;
+  margin-left: auto;
+  margin-right: auto;
+  tr {
+    border: 1px solid #A4A4A4;   
+    td, th {
+    padding: 0.8em;
+    border-right: 1px solid #A4A4A4;
+    line-height: 1.1em;
+    }
+  }  
+}
+
+.table-past-due{
   align: center;
   tr {
     border: 1px solid #A4A4A4;   
@@ -891,6 +911,7 @@ aside {
     padding: 0.8em;
     border-right: 1px solid #A4A4A4;
     line-height: 1.1em;
+    width: 10em;
     }
   }  
 }
@@ -1094,4 +1115,58 @@ iframe {
 .collapse-video {
   width: 90%;
   align: center;
+}
+
+.end-date {
+  margin-left: -1em;
+}
+
+.table-grade {
+  border: 1px;
+  tr {
+    th {
+    padding: 0.2em 0.5em 0.2em 0.5em;
+    vertical-align: top;
+    text-align: left;
+    }
+    td {
+    padding: 0.2em 0.5em 0.2em 0.5em;
+    }
+  }
+}
+
+.grading-result {
+  margin-top: -0.4em;
+  border: 1px solid #e6e6e6; 
+  box-shadow: 8px 8px 5px #888888;
+  border-radius: 0.2em;
+}
+
+.score-color {
+  text-align: center;
+  color: white;
+  padding: 0.1em 0.2em 0.3em 0.2em;
+  font-size: 1em;
+  line-height: normal;
+  border-radius: 5px;
+  border: 1px solid #e6e6e6;
+  a:link{
+  color: white;
+  text-decoration: none;
+  }
+  a:visited{
+  color: white;
+  text-decoration: none;
+  }
+}
+
+.chart-standard {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: -0.1em; 
+  margin-left: 2em;
+}
+
+.chart-height {
+  height: 230px;
 }

@@ -1,0 +1,83 @@
+<div class="alert-heading bottom-margin">
+	<table class="table-lesson">
+		<tr>
+			<th>Question:</th>
+			<td>
+				<%= post.question.html_safe %>
+			</td>
+		</tr>
+		<tr>
+			<th>Answer:</th>
+			<td>
+				<%= post.answer.html_safe %>
+			</td>
+		</tr>
+	</table>    
+</div>
+<p class="alert-heading yes center">
+	Please ensure the following CCSS standard is applicable to this word problem. <br/> It impacts the accuracy of your grading and tracking of stduent progress.
+</p>
+<%= semantic_form_for grading, url: url, :html => {class: "form-horizontal-post-update", 'data-action' => 'update'} do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+    <%= f.inputs do %>
+        <% unless post.nil? %>
+            <%= f.input :graded_post_id, as: :hidden, value: post.id, class: "hidden" %> 
+        <% end %>
+        <%= f.input :grader_id, as: :hidden, value: current_user.id, class: "hidden" %>
+        <%= f.input :gradee_id, as: :hidden, value: post.user.id, class: "hidden" %> 
+    	<%= f.input :level_id, as: :select, include_blank: true, label: "CCSS grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
+    	<%= f.input :domain_id, as: :select, include_blank: true, label: "CCSS Domain", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
+    	<%= f.input :standard_id, as: :select, include_blank: true, label: "CCSS Standard", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :description, f.object.standard_id) %>
+    	<p class="alert-heading yes center">
+			Once the following criteria are selected, the grade will be <span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseGrading">computed automatically</a></span> on a scale of 0--4.
+		</p>
+        <div id="collapseGrading" class="accordion-body collapse">        
+            <div class="accordion-toggle normal-font yes bottom-margin">
+               <p class="center">The grade is computed the same way as a typical 3-point problem on the state math exams.</p>
+               <div align="center">
+                <table border="2" cellpadding="10">
+                    <tr>
+                        <th> 0 (maroon): </th>
+                        <td> If the post is below your required grade level, then this homework is deemed invalid, and the student will be automatically notified to submit a new homework. The grade is 0 and the color code is white. </td>                            
+                    </tr>
+                    <tr>
+                        <th> 1<br/> (red): </th>
+                        <td> If the post is at the required grade level but indicates some misunderstanding of the mathematical concept, e.g., the question requires addition but the answer gives multiplication, then the grade is 1 and the color code is red. </td>
+                    </tr>
+                    <tr>
+                        <th> 2 (pink): </th>
+                        <td> If the post is correct about the mathematical concept but fails to precisely define crucial details, e.g., units of measure, then the grade is 2 and the color code is orange. </td>
+                    </tr>
+                    <tr>
+                        <th> 3 (olive): </th>
+                        <td> If the post is correct about the concept and precision but computes the wrong answer, then the grade is 3 and the color code is yellow. </td>
+                    </tr>
+                    <tr>
+                        <th> 4 (green): </th>
+                        <td>  If the post is correct about the concept, precision, and computation, then the grade is 4 and the color code is green. </td>
+                    </tr>
+                    <tr>
+                        <th> +<br/>bonus </th>
+                        <td> If the post has no spelling or grammatical errros, then a "+" is added to whatever the grade the post has. Bonus does not change the color code. </td>
+                    </tr>
+                    <tr>
+                        <th> -<br/>penalty </th>
+                        <td> If the post has a negative, unfriendly, or impolite tone, then a "-" is added to whatever the grade the post has. Penalty does not change the color code. </td>                            
+                    </tr>
+                </table>
+               </div>
+            </div>
+        </div>
+    	<%= f.input :concept, as: :select, include_blank: true, label: "Concept", collection: [["This student clearly UNDERSTANDS the underlying mathematical concepts.", true], ["This student is CONFUSED about the underlying mathematical concept.", false]] %>
+    	<%= f.input :precision, as: :select, include_blank: true, label: "Precision", collection: [["This student has ATTENDED TO PRECISION of all details, such as units of measure.", true], ["This student has FAILED to attend to precision of details or has MISSED steps.", false]] %>
+    	<%= f.input :computation, as: :select, include_blank: true, label: "Computation", collection: [["This student has CORRECTLY computed the results", true], ["This student has INCORRECTLY computed the results.", false]] %> 
+    	<%= f.input :grammar, as: :select, include_blank: true, label: "Grammar", collection: [["This student has made NO spelling and grammatical errors.", true], ["This post has made SOME spelling and grammatical errors.", false]] %>   
+    	<%= f.input :courtesy, as: :select, include_blank: true, label: "Manners", collection: [["This student's work is friendly and helpful to others.", true], ["This student's needs to be more constructive.", false]] %>
+        <div class="bottom-margin"> 
+            <%= f.input :note, as: :ckeditor, label: "Private note to the student. No one but the graded student can see this note" %>
+        </div>            
+    <% end %>
+    <%= f.actions do %>
+       <%= f.action :submit, label: save, as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary", disable_with: "Proccessing..." } %>
+    <% end %>
+<% end %>

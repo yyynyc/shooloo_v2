@@ -30,8 +30,14 @@ class PostsController < ApplicationController
             keywords: 'Shooloo, Common Core, CCSS, math, word problem, critique, rate, real life, cooperative learning'
   end
 
-  def new
-    @post = Post.new
+  def new  
+    if params.has_key?(:response_id)  
+      @response = Response.find(params[:response_id])
+      @post = @response.posts.build(params[:post])
+      @assignment = @response.assignment
+    else
+      @post = Post.new
+    end
   end
 
   def create
@@ -55,7 +61,7 @@ class PostsController < ApplicationController
   end
 
   def edit
-    if current_user.admin?
+    if current_user.admin? || current_user.role == "teacher"
       @post = Post.find(params[:id])
     else
       @post = current_user.posts.find_by_id(params[:id])
@@ -67,7 +73,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    if current_user.admin?
+    if current_user.admin? || current_user.role == "teacher"
       @post = Post.find(params[:id])
     else
       @post = current_user.posts.find_by_id(params[:id])
@@ -79,10 +85,6 @@ class PostsController < ApplicationController
     else
       render 'edit'
     end
-  end
-
-  def grading
-    @post = Post.find(params[:id])
   end
 
   def destroy

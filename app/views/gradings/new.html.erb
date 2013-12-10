@@ -1,0 +1,12 @@
+<% title "Grade Student Assignment" %>
+<% description "Grade a math assignment aligned with the Common Core State Standard" %>
+<% noindex %>
+<% nofollow %>
+
+<% if @comment.nil? %>
+    <h1> Grade This Post </h1>
+    <%= render partial: 'gradings/grade_post', locals: {post: @post, grading: @grading, url: gradings_path, save: "Submit"} %>
+<% else %>
+    <h1> Grade This Comment </h1>
+    <%= render partial: 'gradings/grade_comment', locals: {comment: @comment, grading: @grading, url: gradings_path, save: "Submit"} %>
+<% end %>

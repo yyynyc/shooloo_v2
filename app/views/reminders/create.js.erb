@@ -1,0 +1,2 @@
+$("#reminder_form_<%= @response.id %>").html("<%= escape_javascript(
+	render(partial:'reminders/reminder_counter', locals: {response: @response})) %>")

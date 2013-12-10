@@ -1,0 +1,107 @@
+<div class="bottom-margin">
+	<table class="table-lesson">
+		<tr>
+			<th><%= link_to "Question", post_comments_path(@post) %>:</th>
+			<td>
+				<%= @post.question.html_safe %>
+			</td>
+		</tr>
+		<tr>
+			<th><%= link_to "Answer", post_comments_path(@post) %>:</th>
+			<td>
+				<%= @post.answer.html_safe %>
+			</td>
+		</tr>
+		<tr>
+			<th>I-can:</th>
+			<td>
+				In <%= @grading.domain.name%>, <%= @grading.standard.ICan %>
+			</td>
+		</tr>
+	</table>    
+</div>
+<div class="well well-small margin-bottom">
+	<table class="table-lesson">
+		<tr>
+			<th>Overall grade:</th>
+			<td>
+				<%= @grading.mark.full_mark %>
+			</td>
+		</tr>
+		<tr>
+			<th>Concept:</th>
+			<td>
+				Your post shows
+				<% if @grading.concept == true %>
+					<span class="yes">clearly understanding of</span> 
+				<% else %>
+					<span class="no">some confusion about</span>
+				<% end %>
+				the above I-can statement.
+			</td>
+		</tr>
+		<tr>
+			<th>Precision:</th>
+			<td>
+				Your post's crucial details, e.g., units of measure, are 
+				<% if @grading.precision == true %>
+					<span class="yes">defined precisely</span> 
+				<% else %>
+					<span class="no">not define precisely</span>
+				<% end %>.
+			</td>
+		</tr>
+		<tr>
+			<th>Computation:</th>
+			<td>
+				Your post's answer is 
+				<% if @grading.computation == true %>
+					<span class="yes">correctly calculated</span> 
+				<% else %>
+					<span class="no">incorrectly calculated</span>
+				<% end %>.
+			</td>
+		</tr>
+		<tr>
+			<th>Grammer:</th>
+			<td>
+				Your post
+				<% if @grading.grammar == true %>
+					<span class="yes">has no </span> 
+				<% else %>
+					<span class="no">has some</span>
+				<% end %>
+				spelling and/or grammatical errors.
+			</td>
+		</tr>
+		<tr>
+			<th>Manners:</th>
+			<td>
+				Your post
+				<% if @grading.courtesy == true %>
+					<span class="yes">is friendly and helpful </span> 
+				<% else %>
+					<span class="no">needs to be more polite and helpful</span>
+				<% end %>
+				to others.
+			</td>
+		</tr>
+		<tr>
+			<th>Note:</th>
+			<td>
+				<% if @grading.note.nil? %>
+					None.
+				<% else %>
+					<span class="yes"><%= @grading.note.html_safe %></span>
+				<% end %>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="center">
+	<% if current_user?(@grading.grader) %>
+		<%= link_to "Re-grade this post", edit_grading_path(@grading), class: "btn btn-large btn-primary" %>
+	<% elsif current_user?(@post.user) %>
+		<%= link_to "Edit My Post and Make It Better Now!", edit_post_path(@post), class: "btn btn-large btn-primary" %>
+	<% end %>
+</div>

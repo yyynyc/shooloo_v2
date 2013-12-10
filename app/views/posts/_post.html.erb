@@ -16,7 +16,7 @@
 	</div>
 </div>
 
-<%= semantic_form_for post, :validate => true, :url => url, :html => { :multipart => true, onsubmit: "$('button', this).attr('disabled','disabled')", class: "form-horizontal-post-update", 'data-action' => 'update' }  do |f| %>
+<%= semantic_form_for post, :validate => true, :url => url, :html => { :multipart => true, class: "form-horizontal-post-update", 'data-action' => 'update' }  do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
 	<%=f.inputs do %> 
         <div class="create">
@@ -46,6 +46,6 @@
 		<% end %>			
 	<% end %>
 	<%= f.actions do %>
-    	<%= f.action :submit, label: save, as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary" } %>
+    	<%= f.action :submit, label: save, as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary", disable_with: "Proccessing..." } %>
   	<% end %> 
 <% end %>

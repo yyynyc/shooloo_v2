@@ -1,0 +1,59 @@
+<% title "#{@user.screen_name}'s Grades" %>
+<% noindex %>
+<% nofollow %>
+
+
+<div class="row">
+	<aside class="span4">
+	    <section>
+	      <%= render 'shared/user_info', user: @user %>
+	    </section>
+	    <section>
+	      <%= render 'shared/stats', user: @user %>
+	    </section>
+	    <%= render partial: 'posts/button_simple' %>
+	</aside>
+  	<div class="span8">
+		<h3 class="feed_item center"><%= @user.screen_name%>'s Grades</h3>
+		<% if @standards.any? %>
+			<table class="table-ccss margin-bottom" width="100%" id='t1'>
+				<thead>
+					<tr>
+						<th>Standard</th>
+						<th>Grades on Posts</th>
+						<th>Grades on Comments</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @standards.each do |standard| %>
+						<tr>
+							<td><%= standard.short %></td>
+							<td>
+								<% gradings = standard.gradings.where(gradee_id: @user.id) %>
+								<% gradings_post = gradings.keep_if{|g| !g.graded_post_id.nil?} %>
+								<% gradings_post.each do |g| %>
+									<div class="search-label score-color" style="background-color: <%= g.graded_post.color.code %>;">
+										<%= link_to g.mark.full_mark, grading_path(g) %> 
+									</div>
+								<% end %>
+							</td>
+							<td> 
+								<% gradings = standard.gradings.where(gradee_id: @user.id) %>
+								<% gradings_comment = gradings.keep_if{|g| !g.graded_comment_id.nil?} %>
+								<% gradings_comment.each do |g| %>
+									<div class="search-label score-color" style="background-color: <%= g.graded_comment.color.code %>;">
+										<%= link_to g.mark.full_mark, grading_path(g) %> 
+									</div>
+								<% end %>
+								
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+				<%= render partial: 'shared/scroll2' %>
+			</table>
+		<% else %>
+		<% end %>	
+	</div>
+</div>
+

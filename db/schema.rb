@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131114171138) do
+ActiveRecord::Schema.define(:version => 20131210170625) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -38,6 +38,20 @@ ActiveRecord::Schema.define(:version => 20131114171138) do
   add_index "alarms", ["alarmed_comment_id"], :name => "index_alarms_on_alarmed_comment_id"
   add_index "alarms", ["alarmed_post_id"], :name => "index_alarms_on_alarmed_post_id"
   add_index "alarms", ["alarmer_id"], :name => "index_alarms_on_alarmer_id"
+
+  create_table "assignments", :force => true do |t|
+    t.integer  "assigner_id"
+    t.integer  "level_id"
+    t.integer  "domain_id"
+    t.integer  "standard_id"
+    t.integer  "assigned_post_id"
+    t.text     "instruction"
+    t.integer  "assignee_level"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.date     "start_date"
+    t.date     "end_date"
+  end
 
   create_table "authorizations", :force => true do |t|
     t.integer  "authorized_id"
@@ -71,6 +85,14 @@ ActiveRecord::Schema.define(:version => 20131114171138) do
     t.datetime "updated_at",                           :null => false
   end
 
+  create_table "colors", :force => true do |t|
+    t.integer  "value"
+    t.string   "code"
+    t.string   "weakness"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "comments", :force => true do |t|
     t.text     "content"
     t.string   "photo_file_name"
@@ -79,12 +101,14 @@ ActiveRecord::Schema.define(:version => 20131114171138) do
     t.datetime "photo_updated_at"
     t.integer  "commenter_id"
     t.integer  "commented_post_id"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.boolean  "visible",             :default => true
     t.integer  "likes_count"
     t.boolean  "new_comment"
     t.integer  "commented_lesson_id"
+    t.integer  "response_id"
+    t.boolean  "graded",              :default => false
   end
 
   add_index "comments", ["commenter_id", "created_at"], :name => "index_comments_on_commenter_id_and_created_at"
@@ -139,6 +163,30 @@ ActiveRecord::Schema.define(:version => 20131114171138) do
     t.integer  "sent_year"
   end
 
+  create_table "gradings", :force => true do |t|
+    t.integer  "graded_post_id"
+    t.integer  "graded_comment_id"
+    t.integer  "grader_id"
+    t.integer  "level_id"
+    t.integer  "domain_id"
+    t.integer  "standard_id"
+    t.boolean  "concept"
+    t.boolean  "precision"
+    t.boolean  "computation"
+    t.boolean  "grammar"
+    t.boolean  "courtesy"
+    t.text     "note"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "gradee_id"
+  end
+
+  add_index "gradings", ["graded_comment_id"], :name => "index_gradings_on_graded_comment_id"
+  add_index "gradings", ["graded_post_id"], :name => "index_gradings_on_graded_post_id"
+  add_index "gradings", ["grader_id", "graded_comment_id"], :name => "index_gradings_on_grader_id_and_graded_comment_id", :unique => true
+  add_index "gradings", ["grader_id", "graded_post_id"], :name => "index_gradings_on_grader_id_and_graded_post_id", :unique => true
+  add_index "gradings", ["grader_id"], :name => "index_gradings_on_grader_id"
+
   create_table "homeworks", :force => true do |t|
     t.integer  "week"
     t.integer  "year"
@@ -164,6 +212,18 @@ ActiveRecord::Schema.define(:version => 20131114171138) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  create_table "keeps", :force => true do |t|
+    t.integer  "keeper_id"
+    t.integer  "kept_post_id"
+    t.text     "note"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "keeps", ["keeper_id", "kept_post_id"], :name => "index_keeps_on_keeper_id_and_kept_post_id", :unique => true
+  add_index "keeps", ["keeper_id"], :name => "index_keeps_on_keeper_id"
+  add_index "keeps", ["kept_post_id"], :name => "index_keeps_on_kept_post_id"
 
   create_table "lessons", :force => true do |t|
     t.integer  "post_a_id"
@@ -204,6 +264,15 @@ ActiveRecord::Schema.define(:version => 20131114171138) do
   add_index "likes", ["liked_post_id"], :name => "index_likes_on_liked_post_id"
   add_index "likes", ["liker_id"], :name => "index_likes_on_liker_id"
 
+  create_table "marks", :force => true do |t|
+    t.integer  "mark",       :default => 0
+    t.string   "bonus"
+    t.string   "penalty"
+    t.integer  "grading_id"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
   create_table "messages", :force => true do |t|
     t.string   "name"
     t.string   "email"
@@ -233,8 +302,8 @@ ActiveRecord::Schema.define(:version => 20131114171138) do
     t.text     "answer"
     t.string   "grade"
     t.integer  "user_id"
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
@@ -276,6 +345,8 @@ ActiveRecord::Schema.define(:version => 20131114171138) do
     t.integer  "ccss_wrong_ican_count"
     t.integer  "quality_id"
     t.integer  "subject_id"
+    t.integer  "response_id"
+    t.boolean  "graded",                     :default => false
   end
 
   add_index "posts", ["user_id", "created_at"], :name => "index_posts_on_user_id_and_created_at"
@@ -340,6 +411,38 @@ ActiveRecord::Schema.define(:version => 20131114171138) do
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
+
+  create_table "reminders", :force => true do |t|
+    t.integer  "teacher_id"
+    t.integer  "reminded_response_id"
+    t.integer  "remindee_id"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  create_table "responses", :force => true do |t|
+    t.integer  "assignee_id"
+    t.integer  "grading_average", :default => 0
+    t.integer  "assignment_id"
+    t.boolean  "completed",       :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "graded"
+    t.integer  "reminders_count", :default => 0
+  end
+
+  add_index "responses", ["assignment_id", "assignee_id"], :name => "index_responses_on_assignment_id_and_assignee_id", :unique => true
+
+  create_table "scorecards", :force => true do |t|
+    t.integer  "response_id"
+    t.integer  "color_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "post_id"
+    t.integer  "comment_id"
+  end
+
+  add_index "scorecards", ["response_id"], :name => "index_scorecards_on_response_id"
 
   create_table "scores", :force => true do |t|
     t.integer  "year"

@@ -82,13 +82,17 @@
 					<% if r.posts.any? %>
 						<% r.posts.each do |post| %>
 							<% if !post.grading.nil? %>
-								<%= link_to "#{post.mark.full_mark}", edit_grading_path(post.grading) %> |
+								<div class="score-color search-label" style="background-color: <%=post.color.code %>">
+									<%= link_to "#{post.mark.full_mark}", edit_grading_path(post.grading) %> 
+								</div>
 							<% end %>
 						<% end %>
 					<% elsif r.comments.any? %>
 						<% r.comments.each do |comment| %>
 							<% if !comment.grading.nil? %>
-								<%= link_to "#{comment.mark.full_mark}", edit_grading_path(comment.grading) %> |
+								<div class="score-color search-label" style="background-color: <%=comment.color.code %>">
+									<%= link_to "#{comment.mark.full_mark}", edit_grading_path(comment.grading) %> 
+								</div>
 							<% end %>
 						<% end %>
 					<% end %>

@@ -8,7 +8,7 @@
 <% end %>     
 <% if current_user?(post.user) || current_user.admin? %>
   <% if !post.grading.nil? %>
-    <%= link_to "grade: #{post.grading.mark.full_mark}", grading_path(post.grading), class: "btn btn-small btn-success" %> 
+    <%= link_to "grade: #{post.grading.mark.full_mark}", grading_path(post.grading), class: "btn btn-small btn-info" %> 
   <% end %>
   <%= link_to raw('<i class="icon-pencil icon-white"></i> Edit'), edit_post_path(post), title: "Edit Post", class: "btn btn-small btn-success" %>            
 <% else %> 
@@ -30,6 +30,13 @@
   <% else %>
     <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), new_post_comment_path(post), class: "btn btn-small btn-success" %>
   <% end %> 
+</span>
+<span class='search-label'>
+  <% if current_user.in?(post.keepers) %>
+      <%= link_to "Saved", keeps_user_path(current_user), class: "btn btn-small btn-default" %>
+  <% else %>
+    <%= link_to raw('<i class="icon-folder-open icon-white"></i> Save'), new_post_keep_path(post), class: "btn btn-small btn-success" %>
+  <% end %>
 </span>  
 <% if current_user.admin? || current_user.role == "teacher" %>
   <%= link_to "Class", post_teacher_view_path(post), class: "btn btn-small btn-danger" %> 

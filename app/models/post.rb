@@ -58,6 +58,9 @@ class Post < ActiveRecord::Base
   has_one :mark, through: :grading
   has_one :scorecard
   has_one :color, through: :scorecard
+
+  has_many :keeps, foreign_key: "kept_post_id", dependent: :destroy
+  has_many :keepers, through: :keeps
   
   validates_presence_of :user_id, :question, :level_id, :domain_id, :standard_id, :subject_id
   validates :answer, presence: true

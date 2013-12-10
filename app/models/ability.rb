@@ -37,10 +37,12 @@ class Ability
             can :create, Alarm
             can :crud, Activity
             can :read, :all
-        elsif user.states.where(complete: true).any?
+        elsif user.state.complete?
             can [:create, :destroy], [Referral, Authorization]
+            can [:new], [Comment, Assignment, Lesson]
+            can [:new, :teacher_view], Post
             can :read, :all
-            can :crud, Activity
+            can :crud, [Activity, Keep]
         else
             can :read, :all
             can :crud, Activity

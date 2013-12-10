@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   has_many :choices
   has_many :gradings, foreign_key: "grader_id", dependent: :destroy
   has_many :reverse_gradings, foreign_key: "gradee_id", class_name: "Grading", dependent: :destroy
-  has_many :states, dependent: :destroy
+  has_one :state, dependent: :destroy
   has_many :lessons, dependent: :destroy
   has_many :posts, dependent: :destroy, order: "created_at DESC"
   has_many :activities, dependent: :destroy
@@ -107,6 +107,9 @@ class User < ActiveRecord::Base
   has_many :reverse_reminders, foreign_key: "remindee_id", dependent: :destroy
   has_many :teachers, through: :reverse_reminders
   has_many :reverse_reminded_responses, through: :reverse_reminders
+
+  has_many :keeps, foreign_key: "keeper_id", dependent: :destroy
+  has_many :kept_posts, through: :keeps
 
   before_save do
     create_remember_token

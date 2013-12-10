@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   before_filter :signed_in_user
   skip_before_filter :signed_in_user, only: [:new, :create]
   before_filter :correct_user, only: [:edit, :update, :student_homework, :student_common_core, 
-    :report_card, :responses, :assignments, :grading_results, :past_due_assignments, :teacher_dashboards]
+    :report_card, :responses, :assignments, :grading_results, :past_due_assignments, 
+    :teacher_dashboards, :keeps]
   before_filter :admin_user, only: [:destroy]
 
   def my_abilities
@@ -400,6 +401,16 @@ class UsersController < ApplicationController
     @past_assignments = @user.assignments.where("end_date<?", Time.now).paginate(page: params[:page], 
       per_page: 5, order: 'end_date DESC, start_date ASC')
     @students = @user.authorized_users.order('grade ASC, last_name ASC')
+  end
+
+  def keeps
+    @user = User.find(params[:id])
+    @keeps = @user.keeps.order('created_at DESC')
+    @like = Like.new
+    @comment = Comment.new
+    @invite = Invite.new
+    @alarm = Alarm.new
+    @rating = Rating.new
   end
 
   private

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131209220448) do
+ActiveRecord::Schema.define(:version => 20131210170625) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -212,6 +212,18 @@ ActiveRecord::Schema.define(:version => 20131209220448) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  create_table "keeps", :force => true do |t|
+    t.integer  "keeper_id"
+    t.integer  "kept_post_id"
+    t.text     "note"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "keeps", ["keeper_id", "kept_post_id"], :name => "index_keeps_on_keeper_id_and_kept_post_id", :unique => true
+  add_index "keeps", ["keeper_id"], :name => "index_keeps_on_keeper_id"
+  add_index "keeps", ["kept_post_id"], :name => "index_keeps_on_kept_post_id"
 
   create_table "lessons", :force => true do |t|
     t.integer  "post_a_id"

@@ -1,0 +1,31 @@
+<% title "Save a Common Core Math Word Problem" %>
+<% description "Form to save a common core math word problem" %>
+<% noindex %>
+<% nofollow %>
+
+<h1>Save This Post</h1>
+<div>
+	<table class="normal-font table-grade">
+		<tr>
+			<th>Question:</th>
+			<td><%= @post.question.html_safe %></td>
+		</tr>
+		<tr>
+			<th>Answer:</th>
+			<td><%= @post.answer.html_safe %></td>
+		</tr>
+		<tr>
+			<th>Standard:</th>
+			<td><%= @post.standard.short %></td>
+		</tr>
+	</table>
+</div>
+<h2>Private Note to Myself</h2>
+<%= form_for @keep, url: keeps_path do |f| %>
+  	<%= render 'shared/error_messages', object: f.object %>
+  	<%= f.hidden_field :kept_post_id, value: @post.id %>
+    <%= f.cktext_area :note, rows: 5 %>
+    <div class="right_align create">
+  		<%= f.submit "Save", class: "btn btn-large btn-primary", disable_with: "Proccessing..." %>
+  	</div>
+<% end %>

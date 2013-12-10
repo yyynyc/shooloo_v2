@@ -28,16 +28,16 @@ class Authorization < ActiveRecord::Base
       elsif !self.authorized.personal_email.nil?
         UserMailer.auth_notify_yes_student(self.authorized).deliver
       end
+      self.authorized.visible = "true"
+      self.authorized.save(validate: false)
     elsif self.approval == "declined"
       Activity.create!(action: "decline", trackable: self, 
         user_id: self.authorizer_id, recipient_id: self.authorized_id)
       if !self.authorized.personal_email.nil?
         UserMailer.auth_notify_no(self.authorized).deliver
       end
-    end 
-
-    if self.authorized.authorizations.where('approval' => "accepted").any?
-      self.authorized.update_attributes!(visible: true)
+      self.authorized.visible = "false"
+      self.authorized.save(validate: false)
     end     
   end
 

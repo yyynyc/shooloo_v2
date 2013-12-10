@@ -11,7 +11,7 @@ resources :users do
         :change_password, :common_core_I_can, 
         :student_common_core, :student_homework, :lessons, 
         :assignments, :responses, :teacher_dashboard, :past_due_assignments,
-        :grading_results, :report_card
+        :grading_results, :report_card, :keeps
     post :update_password
   end
   collection do 
@@ -28,6 +28,7 @@ resources :lessons, path: '/common-core-math-lesson-plans' do
 end
 
 resources :posts, path: '/common-core-math-word-problems' do
+  resources :keeps
   resources :gradings
   resources :likes, only: [:create, :destroy]
   resources :invites, only: :create
@@ -100,6 +101,7 @@ resources :messages
 resources :twilios
 resources :gradings
 resources :reminders
+resources :keeps
 
   root to: "static_pages#home"
  

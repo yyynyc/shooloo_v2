@@ -1,0 +1,62 @@
+<% title "#{@user.screen_name} Saved Posts" %>
+<% description "A list of Common Core math word problems saved by #{@user.screen_name}" %>
+<% noindex %>
+<% nofollow %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <%= render 'shared/user_info', user: @user %>
+    </section>
+    <section>
+      <%= render 'shared/stats', user: @user %>
+    </section>
+    <%= render partial: 'posts/button_simple' %>
+	</aside>
+	<div class="span8">
+    <h3 class="center">
+      My Saved Posts (<%= @user.keeps.count %>)
+    </h3>
+    <%= render partial: 'posts/button' %>          
+    <% if @keeps.count == 0 %>
+      <% if current_user?(@user) %>
+        You have not saved any posts for future homework assignments. Check out our vast repository of Common Core math word problems now!
+      <% else %>
+        <div class="box">
+          <p><%= @user.screen_name %> has not saved any posts yet.</p> 
+        </div>
+      <% end %> 
+    <% else %>      
+      <ol class="posts"> 
+        <% @keeps.each do |keep| %>        
+          <li>
+            <section>
+              <div class="row feed-margin">
+                <% post = keep.kept_post %>
+                <span class="image">
+                  <%= link_to image_tag(post.photo.url (:small), 
+                    alt: "Shooloo Common Core Math Problem ##{post.id}", 
+                    title: "Shooloo Common Core Math Problem ##{post.id}"),
+                    new_post_comment_path(post)  %><br/> 
+                  <% unless post.image_host.nil? %>
+                    <span class="image_host">Image courtesy of <%= post.image_host %>.
+                    </span>
+                  <% end %>                      
+                </span>  
+                <span class="wrap_long_string"> 
+                  <strong>Standard:</strong><%= post.standard.short %><br/>    
+                  <strong>Note:</strong> <%= keep.note.html_safe %>
+                </span>
+              </div>
+              <div class="btn-formtastic">
+                <%=render partial: 'posts/post_buttons', locals: {post: post, like: @like, invite: @invite} %>
+              </div>
+            </section>
+          </li>
+        <% end %>
+      </ol>
+      <%#= will_paginate @kept_posts %>       
+    <% end %> 
+  </div>
+</div>
+
+

@@ -1,4 +1,8 @@
-<% provide(:title, "Comment Post") %> 
+<% title "Comment on Common Core Math Word Problem" %>
+<% description "Create a comment on a common core math word problem" %>
+<% noindex %>
+<% nofollow %>
+
 <% if @response.nil? %>
   <div class="row border lesson-margin">     
     <%= render 'posts/post_student' %>

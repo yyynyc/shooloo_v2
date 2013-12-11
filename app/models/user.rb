@@ -169,7 +169,7 @@ class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :parent_email, format: { with: VALID_EMAIL_REGEX }, presence: true, 
     :if => :verify_student, :unless => :should_validate_password? 
-  validates :grade, presence: true, :if => :verify_student, :unless => :should_validate_password? 
+  validates :grade, presence: true, :unless => :should_validate_password? 
   validates :school_name, presence: true, length: {maximum: 100}, 
     :if => :verify_student_or_teacher
   validates :personal_email, format: { with: VALID_EMAIL_REGEX }, 

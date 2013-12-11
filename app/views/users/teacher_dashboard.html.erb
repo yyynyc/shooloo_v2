@@ -82,7 +82,7 @@
 		<% end %>
 		<% if @no_login_students.any? %>
 			 <p class="alert-heading">
-				<strong>Students who have not logged for two weeks: <%= @no_login_students.count %></strong>.
+				<strong>Students who have not logged in last week: <%= @no_login_students.count %></strong>.
 				<span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseNoLogin">They may have forgotten their passwords.</a></span>
 			</p>			
 	        <div id="collapseNoLogin" class="accordion-body collapse">        

@@ -394,7 +394,7 @@ class UsersController < ApplicationController
       [s.grade, s.last_name]}
 
     @no_login_students = User.find(params[:id]).authorized_users.keep_if{|s| 
-      s.homework_last_week.nil? && s.homework_prior_week.nil? && s.homework_current_week}.sort_by{|s| [s.grade, s.last_name]}
+      s.homework_last_week.nil? && s.homework_prior_week.nil? && s.homework_current_week.nil?}.sort_by{|s| [s.grade, s.last_name]}
   end
 
   def past_due_assignments

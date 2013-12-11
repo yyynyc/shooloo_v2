@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
   has_many :reminders, foreign_key: "teacher_id", dependent: :destroy
   has_many :remindees, through: :reminders
   has_many :reminded_responses, through: :reminders
-  has_many :reverse_reminders, foreign_key: "remindee_id", dependent: :destroy
+  has_many :reverse_reminders, foreign_key: "remindee_id", dependent: :destroy, class_name: "Reminder"
   has_many :teachers, through: :reverse_reminders
   has_many :reverse_reminded_responses, through: :reverse_reminders
 
@@ -151,6 +151,8 @@ class User < ActiveRecord::Base
     Event.where(benefactor_id: self.id).delete_all
     Event.where(beneficiary_id: self.id).delete_all
     Homework.where(user_id: self.id).delete_all
+    Reminder.where(remindee_id: self.id).delete_all
+    Reminder.where(teacher_id: self.id).delete_all
   end
 
   VALID_SCREEN_NAME_REGEX = /^[A-Za-z\d_]+$/

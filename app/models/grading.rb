@@ -17,32 +17,9 @@ class Grading < ActiveRecord::Base
     :grammar, :courtesy, in: [true, false], message: "can't be blank"
 
   after_create do
-  	if self.concept == false
-  		mark = Mark.create(mark: 1, grading_id: self.id)
-  	elsif self.precision == false
-  		mark = Mark.create(mark: 2, grading_id: self.id)
-  	elsif self.computation == false
-  		mark = Mark.create(mark: 3, grading_id: self.id)
-  	else
-  		mark = Mark.create(mark: 4, grading_id: self.id)
-  	end
-
-  	if self.grammar == true
-  		mark.bonus = "+"
-  	end 
-
-  	if self.courtesy == false
-  		mark.penalty = "-"
-  	end 
-
-  	mark.save!
-
   	if !self.graded_post_id.nil? 
   		if self.graded_post.level_id > self.level_id
         if !self.graded_post.response.nil?
-          if !self.graded_post.response.posts.any?
-            self.graded_post.response.update_attributes!(completed: false)
-          end
           Activity.create!(action: "zero", trackable: self, 
             user_id: self.grader_id, recipient_id: self.graded_post.user_id)
         end
@@ -61,40 +38,49 @@ class Grading < ActiveRecord::Base
       if !self.graded_post.response.nil?
         self.graded_post.response.update_attributes!(graded: true)
       end
+      self.graded_post.update_attributes!(graded: true)
   	else
   		Activity.create!(action: "create", trackable: self, 
     		user_id: self.grader_id, recipient_id: self.graded_comment.commenter_id)
       if !self.graded_comment.response.nil?
         self.graded_comment.response.update_attributes!(graded: true)
       end
+      self.graded_comment.update_attributes!(graded: true)
   	end
-  end
-
-  after_update do
+        self.grader.responses.each do |r|
+      if r.posts.any? || r.comments.any?
+        r.completed = "true"
+        r.save
+      else 
+        r.completed = "false"
+        r.save
+      end
+    end
     if self.concept == false
-      mark = self.mark.update_attributes!(mark: 1)
+      mark = Mark.create(mark: 1, grading_id: self.id)
     elsif self.precision == false
-      mark = self.mark.update_attributes!(mark: 2)
+      mark = Mark.create(mark: 2, grading_id: self.id)
     elsif self.computation == false
-      mark = self.mark.update_attributes!(mark: 3)
+      mark = Mark.create(mark: 3, grading_id: self.id)
     else
-      mark = self.mark.update_attributes!(mark: 4)
+      mark = Mark.create(mark: 4, grading_id: self.id)
     end
 
     if self.grammar == true
-      self.mark.bonus = "+"
+      mark.bonus = "+"
     end 
 
     if self.courtesy == false
-      self.mark.penalty = "-"
+      mark.penalty = "-"
     end 
 
-    self.mark.save!
+    mark.save!
+  end
 
+  after_update do
     if !self.graded_post_id.nil? 
       if self.graded_post.level_id > self.level_id
         if !self.graded_post.response.nil?
-          self.graded_post.response.update_attributes!(completed: false, graded: false)
           Activity.create!(action: "zero", trackable: self, 
             user_id: self.grader_id, recipient_id: self.graded_post.user_id)
         end
@@ -114,6 +100,34 @@ class Grading < ActiveRecord::Base
       Activity.create!(action: "create", trackable: self, 
         user_id: self.grader_id, recipient_id: self.graded_comment.commenter_id)
     end
+    self.grader.responses.each do |r|
+      if r.posts.any? || r.comments.any?
+        r.completed = "true"
+        r.save!
+      else 
+        r.completed = "false"
+        r.save!
+      end
+    end
+    if self.concept == false
+      mark = self.mark.update_attributes!(mark: 1)
+    elsif self.precision == false
+      mark = self.mark.update_attributes!(mark: 2)
+    elsif self.computation == false
+      mark = self.mark.update_attributes!(mark: 3)
+    else
+      mark = self.mark.update_attributes!(mark: 4)
+    end
+
+    if self.grammar == true
+      self.mark.bonus = "+"
+    end 
+
+    if self.courtesy == false
+      self.mark.penalty = "-"
+    end 
+
+    self.mark.save!
   end
 
   after_destroy do

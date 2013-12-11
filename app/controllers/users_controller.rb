@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   skip_before_filter :signed_in_user, only: [:new, :create]
   before_filter :correct_user, only: [:edit, :update, :student_homework, :student_common_core, 
     :report_card, :responses, :assignments, :grading_results, :past_due_assignments, 
-    :teacher_dashboards, :keeps]
+    :teacher_dashboard, :keeps]
   before_filter :admin_user, only: [:destroy]
 
   def my_abilities
@@ -373,6 +373,7 @@ class UsersController < ApplicationController
 
   def teacher_dashboard
     @user = User.find(params[:id])
+    @students = @user.authorized_users
     @assigned_homeworks = @user.responses
     @ungraded_homeworks = @assigned_homeworks.where(graded: nil, completed: true)
     @assigned_homeworks_due = @assigned_homeworks.where("assignments.end_date <?", 
@@ -380,6 +381,20 @@ class UsersController < ApplicationController
     @past_due_homeworks = @assigned_homeworks_due.where(completed: false)
     @past_due_students = @past_due_homeworks.map(&:assignee).compact.uniq.sort_by{|s| [s.grade, s.last_name]}   
     @past_homeworks = @user.assignments.where("end_date<?", Time.now).last(2)
+    @no_post_students = @students.keep_if{|s| s.posts.blank?}.sort_by{|s| [s.grade, s.last_name]}
+
+    @dup_students = User.find(params[:id]).authorized_users
+    @posted_students = @dup_students.keep_if{|s| s.posts.any?}.sort_by{|s| [s.grade, s.last_name]}
+    @ungraded_students = @posted_students.keep_if{|s| s.posts.where(graded: true).blank?}
+
+    @dup_students_2 = User.find(params[:id]).authorized_users
+    @graded_students = @dup_students_2.keep_if{|s| s.posts.any?}.keep_if{|s| s.posts.where(graded: true).any?}
+    @below_grade_students = @graded_students.keep_if{|s| 
+      (s.posts.where(graded: true).map(&:level).uniq.sort.last.id-1) < s.grade}.sort_by{|s| 
+      [s.grade, s.last_name]}
+
+    @no_login_students = User.find(params[:id]).authorized_users.keep_if{|s| 
+      s.homework_prior_week.nil? && s.homework_last_week.nil?}.sort_by{|s| [s.grade, s.last_name]}
   end
 
   def past_due_assignments

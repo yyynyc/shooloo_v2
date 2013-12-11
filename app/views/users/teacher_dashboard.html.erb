@@ -10,7 +10,7 @@
 		<% if @past_due_homeworks.any? %>
 			<p class="alert-heading">
 				<strong><%= link_to "Homework", assignments_user_path(current_user) %> Past Due: <%= @past_due_homeworks.count %></strong> from  
-				<span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseDue">these students</a></span>. Send them <%= link_to "reminders or remove", past_due_assignments_user_path(current_user) %> them off the assignments.
+				<span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseDue">these <%= @past_due_students.count %> students</a></span>. Send them <%= link_to "reminders or remove", past_due_assignments_user_path(current_user) %> them off the assignments.
 			</p>			
 	        <div id="collapseDue" class="accordion-body collapse">        
 	            <div class="accordion-toggle alert-heading bottom-margin">
@@ -37,6 +37,58 @@
 								Comment #<%= link_to c.id, new_comment_grading_path(c) %>
 							<% end %>
 						<% end %>
+					<% end %>
+				</div>
+			</div> 
+		<% end %>
+		<% if @no_post_students.any? %>
+			<p class="alert-heading">
+				<strong>Students who have never published any posts: <%= @no_post_students.count %></strong>.
+				<span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseNoPost">Find out who they are</a></span> now.
+			</p>			
+	        <div id="collapseNoPost" class="accordion-body collapse">        
+	            <div class="accordion-toggle alert-heading bottom-margin">
+					<% @no_post_students.each do |s| %>
+						<%= s.full_name_us %> |
+					<% end %>
+				</div>
+			</div> 
+		<% end %>
+		<% if @ungraded_students.any? %>
+			<p class="alert-heading">
+				<strong>Students who have never been graded: <%= @ungraded_students.count %></strong>.
+				Grade <span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseUngraded">their posts</a></span> now.
+			</p>			
+	        <div id="collapseUngraded" class="accordion-body collapse">        
+	            <div class="accordion-toggle alert-heading bottom-margin">
+					<% @ungraded_students.each do |s| %>
+						<%= link_to s.full_name_us, posts_user_path(s) %> |
+					<% end %>
+				</div>
+			</div> 
+		<% end %>
+		<% if @below_grade_students.any? %>
+			<p class="alert-heading">
+				<strong>Students whose graded posts are all below grade: <%= @below_grade_students.count %></strong>.
+				<span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseBelow">Find out who they are</a></span> now.
+			</p>			
+	        <div id="collapseBelow" class="accordion-body collapse">        
+	            <div class="accordion-toggle alert-heading bottom-margin">
+					<% @below_grade_students.each do |s| %>
+						<%= link_to s.full_name_us, report_card_user_path(s) %> |
+					<% end %>
+				</div>
+			</div> 
+		<% end %>
+		<% if @no_login_students.any? %>
+			 <p class="alert-heading">
+				<strong>Students who have not logged for two weeks: <%= @no_login_students.count %></strong>.
+				<span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseNoLogin">They may have forgotten their passwords.</a></span>
+			</p>			
+	        <div id="collapseNoLogin" class="accordion-body collapse">        
+	            <div class="accordion-toggle alert-heading bottom-margin">
+					<% @no_login_students.each do |s| %>
+						<%= link_to s.full_name_us, report_card_user_path(s) %> |
 					<% end %>
 				</div>
 			</div> 

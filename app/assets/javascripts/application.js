@@ -75,6 +75,10 @@ setTimeout(function(){
         $(document).on('click','.dropdown-menu a',function(){
             document.location = $(this).attr('href');
         });
+        // Fix for submenu on mobile devices
+        $('.dropdown-submenu ul.dropdown-menu li a').on('touchstart', function(e) {
+            e.preventDefault(); window.location.href = $(this).attr('href');
+        })
     })
 }(window.jQuery)
 

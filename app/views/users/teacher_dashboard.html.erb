@@ -83,7 +83,7 @@
 		<% if @no_login_students.any? %>
 			 <p class="alert-heading">
 				<strong>Students who have not logged in for two week: <%= @no_login_students.count %></strong>.
-				<span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseNoLogin">They may have forgotten their passwords.</a></span>
+				<span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseNoLogin">They </a></span>may have forgotten their passwords. You can <%= link_to "reset their passwords", authorizations_path %>.
 			</p>			
 	        <div id="collapseNoLogin" class="accordion-body collapse">        
 	            <div class="accordion-toggle alert-heading bottom-margin">

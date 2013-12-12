@@ -383,18 +383,17 @@ class UsersController < ApplicationController
     @past_homeworks = @user.assignments.where("end_date<?", Time.now).last(2)
     @no_post_students = @students.keep_if{|s| s.posts.blank?}.sort_by{|s| [s.grade, s.last_name]}
 
-    @dup_students = User.find(params[:id]).authorized_users
-    @posted_students = @dup_students.keep_if{|s| s.posts.any?}.sort_by{|s| [s.grade, s.last_name]}
-    @ungraded_students = @posted_students.keep_if{|s| s.posts.where(graded: true).blank?}
-
-    @dup_students_2 = User.find(params[:id]).authorized_users
-    @graded_students = @dup_students_2.keep_if{|s| s.posts.any?}.keep_if{|s| s.posts.where(graded: true).any?}
-    @below_grade_students = @graded_students.keep_if{|s| 
+    @ungraded_students = User.find(params[:id]).authorized_users.keep_if{|s|
+      s.posts.any? && s.posts.where(graded: true).blank?}.sort_by{|s| [s.grade, s.last_name]}
+      
+    @below_grade_students = User.find(params[:id]).authorized_users.keep_if{|s| 
+      s.posts.any? && s.posts.where(graded: true).any? && 
       (s.posts.where(graded: true).map(&:level).uniq.sort.last.id-1) < s.grade}.sort_by{|s| 
       [s.grade, s.last_name]}
 
     @no_login_students = User.find(params[:id]).authorized_users.keep_if{|s| 
-      s.homework_last_week.nil? && s.homework_prior_week.nil? && s.homework_current_week.nil?}.sort_by{|s| [s.grade, s.last_name]}
+      s.homework_last_week.nil? && s.homework_prior_week.nil? && 
+      s.homework_current_week.nil?}.sort_by{|s| [s.grade, s.last_name]}
   end
 
   def past_due_assignments

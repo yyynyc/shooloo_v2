@@ -20,7 +20,11 @@ class Response < ActiveRecord::Base
     if self.gradings.any?
       self.marks.max.full_mark
     elsif self.comments.any?
-      self.comments.map(&:mark).sort_by(&:mark).last.full_mark
+      if self.comments.map(&:mark).any?
+        self.comments.map(&:mark).sort_by(&:mark).last.full_mark
+      else
+        return 0
+      end
     else      
       return 0
     end

@@ -185,6 +185,33 @@ class User < ActiveRecord::Base
   #validates_attachment_size :avatar, :less_than => 5.megabytes
   #validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
 
+  def past_homeworks
+    assignments.where("end_date<?", Time.now).last(2)
+  end
+
+  def past_due_homeworks
+  end
+
+  def no_post_students
+    authorized_users.keep_if{|s| s.posts.blank?}.sort_by{|s| [s.grade, s.last_name]}
+  end
+
+  def ungraded_students
+    authorized_users.keep_if{|s| s.posts.any? && s.posts.where(graded: true).blank?
+      }.sort_by{|s| [s.grade, s.last_name]}
+  end
+
+  def below_grade_students
+    authorized_users.keep_if{|s| s.posts.any? && s.posts.where(graded: true).any? && 
+      (s.posts.where(graded: true).map(&:level).uniq.sort.last.id-1) < s.grade}.sort_by{|s| 
+      [s.grade, s.last_name]}
+  end
+
+  def no_login_students
+    authorized_users.keep_if{|s| s.homework_last_week.nil? && s.homework_prior_week.nil? && 
+      s.homework_current_week.nil?}.sort_by{|s| [s.grade, s.last_name]}
+  end
+
   def full_name_us
     "#{first_name} #{last_name}"
   end

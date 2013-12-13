@@ -1,4 +1,5 @@
-<% if !post.nil? %>        
+<% if !post.nil? %> 
+    <h1>New Assignment to Solve & Critique A Word Problem</h1>     
     <p>
       <strong>Question: </strong><%= post.question.html_safe %>
     </p>
@@ -9,6 +10,10 @@
     <p class="alert-heading yes center">
     	Please ensure the following CCSS standard is applicable this word problem. <br/> It impacts the accuracy of your assignment and grading.
     </p>
+<% else %>
+    <div class="negative-top">
+        <h1>New Assignment to Create A Math Word Problem</h1> 
+    </div>  
 <% end %>    
 <%= semantic_form_for assignment, url: url, :html => {class: "form-horizontal-post-update", 'data-action' => 'update'} do |f| %>
 	<%= render 'shared/error_messages', object: f.object %>
@@ -25,7 +30,7 @@
         </div>    
     	<%= f.input :level_id, as: :select, include_blank: true, label: "CCSS grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
     	<%= f.input :domain_id, as: :select, include_blank: true, label: "CCSS domain:", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
-    	<%= f.input :standard_id, as: :select, include_blank: true, label: "CCSS Standard:", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :description, f.object.standard_id) %>
+    	<%= f.input :standard_id, as: :select, include_blank: true, label: "CCSS Standard:", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %>
         <p class="alert-heading yes center">
             List your instructions for this assignment.<br/> 
             <% if post.nil? %>

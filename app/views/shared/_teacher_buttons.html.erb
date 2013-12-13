@@ -1,0 +1,21 @@
+<div class="center">
+	<p>
+		<%= link_to "Dashboard", teacher_dashboard_user_path(current_user), class: "btn btn-medium btn-success" %>
+		<%= link_to "New assignment", new_assignment_path, class: "btn btn-medium btn-success" %>
+		<%= link_to "New students", new_user_import_path, class: "btn btn-medium btn-success" %>
+		<%= link_to "New lesson", new_lesson_path, class: "btn btn-medium btn-success" %>
+	</P>
+	<p>
+		<%= link_to "All assignments", assignments_user_path(current_user), class: "btn btn-medium btn-info" %>
+		<%= link_to "All grades", grading_results_user_path(current_user), class: "btn btn-medium btn-info" %>
+		<%= link_to "All lessons", lessons_path(current_user), class: "btn btn-medium btn-info" %>
+		<%= link_to "All students", authorizations_path, class: "btn btn-medium btn-info" %>
+		<%= link_to "All activities", student_homework_user_path(current_user), class: "btn btn-medium btn-info" %>
+		<%= link_to "All alarms", alarmed_posts_user_path(current_user), class: "btn btn-medium btn-info" %>
+	</p>
+	<p>
+		<%= link_to "Past-due assignments", past_due_assignments_user_path(current_user), class: "btn btn-medium btn-info" %>
+		<%= link_to "My lesson plans", lessons_user_path(current_user), class: "btn btn-medium btn-info" %>
+		<%= link_to "Saved posts for future assignments", keeps_user_path(current_user), class: "btn btn-medium btn-info" %>
+	</p>
+</div>

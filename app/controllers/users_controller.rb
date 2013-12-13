@@ -376,24 +376,15 @@ class UsersController < ApplicationController
     @students = @user.authorized_users
     @assigned_homeworks = @user.responses
     @ungraded_homeworks = @assigned_homeworks.where(graded: nil, completed: true)
-    @assigned_homeworks_due = @assigned_homeworks.where("assignments.end_date <?", 
-      Time.now)
+    @assigned_homeworks_due = @assigned_homeworks.where("assignments.end_date <?", Time.now)
     @past_due_homeworks = @assigned_homeworks_due.where(completed: false)
     @past_due_students = @past_due_homeworks.map(&:assignee).compact.uniq.sort_by{|s| [s.grade, s.last_name]}   
-    @past_homeworks = @user.assignments.where("end_date<?", Time.now).last(2)
-    @no_post_students = @students.keep_if{|s| s.posts.blank?}.sort_by{|s| [s.grade, s.last_name]}
-
-    @ungraded_students = User.find(params[:id]).authorized_users.keep_if{|s|
-      s.posts.any? && s.posts.where(graded: true).blank?}.sort_by{|s| [s.grade, s.last_name]}
-      
-    @below_grade_students = User.find(params[:id]).authorized_users.keep_if{|s| 
-      s.posts.any? && s.posts.where(graded: true).any? && 
-      (s.posts.where(graded: true).map(&:level).uniq.sort.last.id-1) < s.grade}.sort_by{|s| 
-      [s.grade, s.last_name]}
-
-    @no_login_students = User.find(params[:id]).authorized_users.keep_if{|s| 
-      s.homework_last_week.nil? && s.homework_prior_week.nil? && 
-      s.homework_current_week.nil?}.sort_by{|s| [s.grade, s.last_name]}
+    
+    @past_homeworks = User.find(params[:id]).past_homeworks
+    @no_post_students = User.find(params[:id]).no_post_students
+    @ungraded_students = User.find(params[:id]).ungraded_students
+    @below_grade_students = User.find(params[:id]).below_grade_students
+    @no_login_students = User.find(params[:id]).no_login_students
   end
 
   def past_due_assignments
@@ -412,9 +403,8 @@ class UsersController < ApplicationController
 
   def grading_results
     @user = User.find(params[:id])
-    @past_assignments = @user.assignments.where("end_date<?", Time.now).paginate(page: params[:page], 
-      per_page: 5, order: 'end_date DESC, start_date ASC')
-    @students = @user.authorized_users.order('grade ASC, last_name ASC')
+    @past_assignments = @user.assignments.order('end_date DESC, start_date ASC')
+    @students = @user.authorized_users.order('grade ASC, last_name ASC').keep_if{|u| u.reverse_responses.any?}
   end
 
   def keeps

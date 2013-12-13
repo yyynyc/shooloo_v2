@@ -2,6 +2,4 @@
 <% description "Create a new math assignment aligned with the Common Core State Standard" %>
 <% noindex %>
 <% nofollow %>
-
-<h1> Create A New Assignment </h1>
 <%= render partial: 'assignments/assignment_form', locals: {post: @post, assignment: @assignment, assignees: @assignees, url: assignments_path, save: "Assign"} %>

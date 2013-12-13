@@ -10,16 +10,10 @@
       </a>
     </span>  	
 </h1>
-<!-- <p>
-	  Download:
-	  <%= link_to "CSV", student_homework_user_path(@user, format: "csv") %> |
-	  <%= link_to "Excel", student_homework_user_path(@user, format: "xls") %>
-</p> -->
-
 <% if @user.authorized_users.any? %>
 	<%= render partial: 'shared/scroll2'%>
 	<div align="center">
-		<table border="2" cellpadding="10" id='t1'>
+		<table border="2" cellpadding="10" id='t1' class="margin-bottom">
 			<thead>
 				<tr>
 					<th rowspan= "2"> Grade </th>
@@ -109,3 +103,4 @@
 		<p class="about">Watch the video above to learn how to quickly sign up all of your students without any effort.</p>		
 	</div>	
 <% end %>	
+<%= render partial: 'shared/teacher_buttons' %>

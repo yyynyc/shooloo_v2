@@ -118,25 +118,25 @@
 			</table>
 		</div>		   		
     </div>
-	
-		<%= form_for @user_import do |f| %>
-			<% if @user_import.errors.any? %>
-				<div class="import-errors">
-					<h4><%= pluralize(@user_import.errors.count, "error") %> prohibited this import from completing: </h4>
-					<ul>
-						<% @user_import.errors.full_messages.each do |msg| %>
-							<li><%= msg %></li>
-						<% end %>
-					</ul>
-				</div>
-			<% end %>
-			<div class="center">
-				<%= f.file_field :file %> <%= f.submit "import", class: "btn btn-large btn-primary", disable_with: "Proccesing..." %>
+	<%= form_for @user_import do |f| %>
+		<% if @user_import.errors.any? %>
+			<div class="import-errors">
+				<h4><%= pluralize(@user_import.errors.count, "error") %> prohibited this import from completing: </h4>
+				<ul>
+					<% @user_import.errors.full_messages.each do |msg| %>
+						<li><%= msg %></li>
+					<% end %>
+				</ul>
 			</div>
 		<% end %>
-	  
+		<div class="center">
+			<%= f.file_field :file %> <%= f.submit "import", class: "btn btn-large btn-primary", disable_with: "Proccesing..." %>
+		</div>
+	<% end %>
 	<div class="box">
 		<p class="center"><strong>IMPORTANT!</strong></p>
 		<p>If some of your students are already authorized Shooloo users, do NOT include them in your spreadsheet; otherwise you will create duplicate accounts and mess up your student activity tracker.</p>
+		<p><strong>If you have any problems, <%= link_to "contact us", contact_path %> and we will be glad to import your student roster for you.</strong></p>
 	</div>
 </div>
+<%= render partial: 'shared/teacher_buttons' %>

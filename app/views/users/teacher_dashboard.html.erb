@@ -5,7 +5,7 @@
 
 <h1> Teacher Dashboard </h1>
 
-<% if @past_due_homeworks.any? || @ungraded_homeworks.any? %>
+<% if @past_due_homeworks.any? || @ungraded_homeworks.any? || @no_post_students.any? || @ungraded_students.any? || @below_grade_students.any? || @no_login_students.any? %>
 	<div class="well well-small bottom-margi">
 		<% if @past_due_homeworks.any? %>
 			<p class="alert-heading">
@@ -49,7 +49,7 @@
 	        <div id="collapseNoPost" class="accordion-body collapse">        
 	            <div class="accordion-toggle alert-heading bottom-margin">
 					<% @no_post_students.each do |s| %>
-						<%= s.full_name_us %> |
+						<%= s.full_name_us %> (G<%= s.grade %>) |
 					<% end %>
 				</div>
 			</div> 
@@ -88,7 +88,7 @@
 	        <div id="collapseNoLogin" class="accordion-body collapse">        
 	            <div class="accordion-toggle alert-heading bottom-margin">
 					<% @no_login_students.each do |s| %>
-						<%= link_to s.full_name_us, report_card_user_path(s) %> |
+						<%= link_to s.full_name_us, posts_user_path(s) %> |
 					<% end %>
 				</div>
 			</div> 
@@ -110,11 +110,6 @@
 	</div>
 <% end %>
 
-<div class="center">
-	<%= link_to "New assignment", new_assignment_path, class: "btn btn-large btn-primary" %>
-	<%= link_to "All assignments", assignments_user_path(current_user), class: "btn btn-large btn-primary" %>
-	<%= link_to "Past-due assignments", past_due_assignments_user_path(current_user), class: "btn btn-large btn-primary" %>
-	<%= link_to "All grades", grading_results_user_path(current_user), class: "btn btn-large btn-primary" %>
-</div>
+<%= render partial: 'shared/teacher_buttons' %>
 
 

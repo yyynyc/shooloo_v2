@@ -8,7 +8,7 @@
 
 <% if @user.authorized_users.any? %>
 	<div align="center">
-		<table border="2" cellpadding="10">
+		<table class="table-ccss margin-bottom">
 			<tr>
 				<th>
 					Grade
@@ -47,3 +47,4 @@
 		<p class="about">Watch the video above to learn how to quickly sign up all of your students without any effort.</p>		
 	</div>	
 <% end %>	
+<%= render partial: 'shared/teacher_buttons' %>

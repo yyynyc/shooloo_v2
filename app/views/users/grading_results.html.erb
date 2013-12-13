@@ -40,8 +40,4 @@
 		<%= render partial: 'shared/scroll' %>
 	</table>
 <% end %>
-<div class="center">
-	<%= link_to "New assignment", new_assignment_path, class: "btn btn-large btn-primary" %>
-	<%= link_to "All assignments", assignments_user_path(current_user), class: "btn btn-large btn-primary" %>
-	<%= link_to "Past-due assignments", past_due_assignments_user_path(current_user), class: "btn btn-large btn-primary" %>
-</div>
+<%= render partial: 'shared/teacher_buttons' %>

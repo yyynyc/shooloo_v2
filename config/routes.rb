@@ -133,6 +133,9 @@ resources :keeps
   get '/standards/common-core-math-I-can-grade-7', to: "standards#grade_7", as: :grade_7
   get '/standards/common-core-math-I-can-grade-8', to: "standards#grade_8", as: :grade_8
   get '/standards/common-core-math-practices', to: "standards#practice", as: :practice
+  get '/teacher/common-core-math-dashboard', to: "static_pages#sample_dashboard", as: :sample_dashboard
+  get '/teacher/common-core-math-assignment', to: "static_pages#sample_assignment", as: :sample_assignment
+
 
   match '(errors)/:status', to: 'errors#show', constraints: {status: /\d{3}/} 
 

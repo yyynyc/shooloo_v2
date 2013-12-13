@@ -1,0 +1,19 @@
+<% title "Common Core Math Assignment Sample" %>
+<div itemscope itemtype="http://schema.org/CreativeWork">
+	<meta itemprop="description" content="Teacher's view of a sample Common Core Math Assignment in Shooloo">
+	<%= render 'shared/meta' %>
+
+	<h1>Common Core Math Assignment Sample</h1>
+	<div class="normal-font center margin-bottom">
+		<p>
+			If you have assigned your students homework, you will see insightful analytics like the following.
+		</p>
+		<%= render partial: 'static_pages/teacher_greeting' %>
+		<p>Please note: all student names in the following demonstration are fictious.</p>
+		<%= link_to image_tag("/attachments/assignment_crop.jpg", alt: "Shooloo Common Core Math Assignment",
+	          title: "Shooloo Common Core Math Assignment"), sample_assignment_path %> 
+	</div>
+	<% if signed_in? %>
+		<%= render partial: 'shared/teacher_buttons' %>
+	<% end %>
+</div>

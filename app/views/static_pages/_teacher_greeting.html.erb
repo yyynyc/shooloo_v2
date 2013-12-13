@@ -1,0 +1,14 @@
+<% if signed_in? %>
+	<p><strong>
+		<% if current_user.state.nil? %>
+			<%= link_to "Complete your account information", edit_user_path(current_user) %>
+		<% elsif current_user.authorized_users.blank? %>
+			<%= link_to "Create accounts for all of your students instantly", edit_user_path(current_user) %>
+		<% elsif current_user.assignments.blank? %>
+			<%= link_to "Create a new assignment", new_assignment_path %>
+		<% end %>
+		now.
+	</strong></p>
+<% else %> 
+	<p><strong><%= link_to "Sign up", signup_path %> now. It's FREE!</strong><p>
+<% end %>

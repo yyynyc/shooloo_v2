@@ -61,8 +61,10 @@
 		</table>
 	</div>
 <% else %>
-	<p>
-		You have not assigned any homework to your students yet. <%= link_to "Create a new assignment", new_assignment_path %> now.
-	</p>
+	<div class="normal-font center margin-bottom">
+		<p>If you have assigned your students homework, you will see a summary like the following. </p>
+		<%= render partial: 'static_pages/teacher_greeting' %>		
+		<%= link_to image_tag("/attachments/assignments.jpg", alt: "Shooloo Common Core Math Assignments", title: "Shooloo Common Core Math Assignments"), sample_assignment_path %> 
+	</div>
 <% end %>
 <%= render partial: 'shared/teacher_buttons' %>

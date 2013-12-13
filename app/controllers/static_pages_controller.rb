@@ -69,4 +69,10 @@ class StaticPagesController < ApplicationController
         description: 'Shooloo terms of use', 
         keywords: %w[Shooloo terms use]
   end
+
+  def sample_dashboard
+  end
+
+  def sample_assignment
+  end
 end

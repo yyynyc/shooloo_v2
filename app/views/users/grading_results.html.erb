@@ -39,5 +39,13 @@
 		<% end%>
 		<%= render partial: 'shared/scroll' %>
 	</table>
+<% else %>
+	<div class="normal-font center margin-bottom">
+		<p>If you have assigned your students homework, you will gain actionable insights like the following. </p>
+		<%= render partial: 'static_pages/teacher_greeting' %>
+		<p>Please note: all student names in the following demonstration are fictious.</p>
+		<%= link_to image_tag("/attachments/grades.jpg", alt: "Shooloo Common Core Math Grading Results",
+              title: "Shooloo Common Core Math Grading Results"), sample_assignment_path %> 
+    </div>
 <% end %>
 <%= render partial: 'shared/teacher_buttons' %>

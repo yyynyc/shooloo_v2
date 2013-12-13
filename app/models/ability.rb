@@ -37,7 +37,7 @@ class Ability
             can [:index, :show], Video
         elsif !user.state.nil? && user.state.complete?
             can [:create, :destroy], [Referral, Authorization]
-            can [:new], [Comment, Assignment, Lesson]
+            can [:new], [Comment, Assignment, Lesson, Response, Keep]
             can [:new, :teacher_view], Post
             can :read, :all
             can :crud, [Activity, Keep]

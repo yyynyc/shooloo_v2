@@ -50,7 +50,10 @@
                 </span>  
                 <span class="wrap_long_string"> 
                   <strong>Standard:</strong><%= post.standard.short %><br/>    
-                  <strong>Note:</strong> <%= keep.note.html_safe %>
+                  <strong>Note:</strong> <%= keep.note.html_safe %><br/>
+                  <%= link_to "Edit note", edit_keep_path(keep) %> |
+                  <%= link_to "Remove save", keep, method: :delete, data: 
+                    {confirm: "Remove this post from your saved folder?" }%>
                 </span>
               </div>
               <div class="btn-formtastic">

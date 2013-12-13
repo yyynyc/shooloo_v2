@@ -24,9 +24,7 @@
 			  	sent 
 			  	<%= pluralize(user.gifts.where(sent: true).count, "gift")%>,<br/>
 	      		published <a href="<%= posts_user_path(user) %>" >
-				<%= pluralize(user.post_count, "post") %></a>, 
-	      		added <a href="<%= rated_posts_user_path(user) %>" >
-				<%= pluralize(user.rating_count, "rating") %></a>, 
+				<%= pluralize(user.post_count, "post") %></a> 
 	      		and made <a href="<%= commented_posts_user_path(user) %>" >
 				<%= pluralize(user.comment_count, "comment") %></a>.
 			</div>

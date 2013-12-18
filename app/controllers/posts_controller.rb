@@ -6,10 +6,17 @@ class PostsController < ApplicationController
   
   def index
     @search = Post.visible.search(params[:q])
-    if signed_in? && current_user.admin?
-      @posts = @search.result.visible.paginate(page: params[:page], per_page: 20, order: 'created_at DESC')
+    if signed_in? 
+      if current_user.admin? || current_user.authorized_users.any?
+        @posts = @search.result.visible.paginate(page: params[:page], 
+          per_page: 20, order: 'created_at DESC')
+      else
+        @posts = @search.result.visible.paginate(page: params[:page], 
+        per_page: 20, order: 'comments_count DESC, likes_count DESC, created_at DESC')
+      end
     else
-       @posts = @search.result.visible.paginate(page: params[:page], per_page: 20, order: 'comments_count DESC, likes_count DESC, created_at DESC')
+       @posts = @search.result.visible.paginate(page: params[:page], 
+        per_page: 20, order: 'comments_count DESC, likes_count DESC, created_at DESC')
     end
     @search.build_condition
     if signed_in?
@@ -33,8 +40,12 @@ class PostsController < ApplicationController
   def new  
     if params.has_key?(:response_id)  
       @response = Response.find(params[:response_id])
-      @post = @response.posts.build(params[:post])
-      @assignment = @response.assignment
+      if current_user == @response.assignee || current_user.admin?
+        @post = @response.posts.build(params[:post])
+        @assignment = @response.assignment
+      else 
+        redirect_to root_path
+      end
     else
       @post = Post.new
     end

@@ -37,38 +37,38 @@
 					<td>
 						In <%= a.assignment.domain.name %>, <%= a.assignment.standard.ICan %>.
 					</td>
-					<% if a.posts.any? %>						
-						<% a.posts.each do |post| %>
-							<td class="center">
+					<td class="center">
+						<% if a.posts.any? %>						
+							<% a.posts.each do |post| %>
 								Post #<%= link_to post.id, post_comments_path(post) %>
-							</td>
-							<td class="center">
-								<% if !post.grading.nil? %>
-									<%= link_to "#{post.grading.mark.full_mark}", grading_path(post.grading)%> 
-								<% end %>
-							</td> 
-						<% end %>
-					<% elsif a.comments.any? %>
-						<% a.comments.each do |comment| %>
-							<td class="center">
-								Comment #<%= link_to comment.id, post_comments_path(comment.commented_post) %>
-							</td>
-							<td class="center">
-								<% if !comment.grading.nil? %>
-									<%= link_to "#{comment.grading.mark.full_mark}", grading_path(comment.grading)%> 
-								<% end %>
-							</td> 
-						<% end %>
-					<% else %>
-						<td class="no">
-							<% if !a.assignment.assigned_post_id.nil? %>
-								<%= link_to "Do it now!", new_response_comment_path(a) %>
-							<% else %>
-								<%= link_to "Do it now!", new_response_post_path(a) %>
 							<% end %>
-						</td>
-						<td></td>	
-					<% end %>		
+						<% elsif a.comments.any? %>
+							<% a.comments.each do |comment| %>
+								Comment #<%= link_to comment.id, post_comments_path(comment.commented_post) %>
+							<% end %>
+						<% else %>
+							<% if !a.assignment.assigned_post_id.nil? %>
+								<%= link_to "Do it now!", new_response_comment_path(a), class: "no" %>
+							<% else %>
+								<%= link_to "Do it now!", new_response_post_path(a), class: "no" %>
+							<% end %>
+						<% end %>
+					</td>
+					<td class="center">
+						<% if a.posts.any? %>
+							<% a.posts.each do |post| %>
+								<% if !post.grading.nil? %>
+									<%= link_to "#{post.grading.mark.full_mark}", grading_path(post.grading)%> |
+								<% end %>
+							<% end %>
+						<% elsif a.comments.any? %>
+							<% a.comments.each do |comment| %>
+								<% if !comment.grading.nil? %>
+									<%= link_to "#{comment.grading.mark.full_mark}", grading_path(comment.grading)%> |
+								<% end %>	
+							<% end %>
+						<% end %>
+					</td> 	
 				</tr>
 			<% end %>
 		</table>

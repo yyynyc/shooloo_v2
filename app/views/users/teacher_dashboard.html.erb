@@ -56,7 +56,7 @@
 		        <div id="collapseNoPost" class="accordion-body collapse">        
 		            <div class="accordion-toggle alert-heading bottom-margin">
 						<% @no_post_students.each do |s| %>
-							<%= s.full_name_us %> (G<%= s.grade %>) |
+							<%= link_to s.full_name_us, posts_user_path(s) %> (G<%= s.grade %>) |
 						<% end %>
 					</div>
 				</div> 

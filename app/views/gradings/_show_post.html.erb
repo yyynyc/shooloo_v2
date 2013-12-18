@@ -1,24 +1,5 @@
-<div class="bottom-margin">
-	<table class="table-lesson">
-		<tr>
-			<th><%= link_to "Question", post_comments_path(@post) %>:</th>
-			<td>
-				<%= @post.question.html_safe %>
-			</td>
-		</tr>
-		<tr>
-			<th><%= link_to "Answer", post_comments_path(@post) %>:</th>
-			<td>
-				<%= @post.answer.html_safe %>
-			</td>
-		</tr>
-		<tr>
-			<th>I-can:</th>
-			<td>
-				In <%= @grading.domain.name%>, <%= @grading.standard.ICan %>
-			</td>
-		</tr>
-	</table>    
+<div class="bottom-margin normal-font">
+	<p><strong>I-can:</strong> In <%= @grading.domain.name%>, <%= @grading.standard.ICan %></p>  
 </div>
 <div class="well well-small margin-bottom">
 	<table class="table-lesson">
@@ -98,6 +79,7 @@
 		</tr>
 	</table>
 </div>
+<%= render partial: 'posts/post_simple', locals: {post: @post} %>
 <div class="center">
 	<% if current_user?(@grading.grader) %>
 		<%= link_to "Re-grade this post", edit_grading_path(@grading), class: "btn btn-large btn-primary" %>

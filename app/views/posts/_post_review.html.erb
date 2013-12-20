@@ -20,6 +20,10 @@
                 <div class="center">
                   <%= link_to "Related Assignment", assignment_path(@post.response.assignment) %>
                 </div>
+              <% else %>
+                <div class="center">
+                  <%= link_to "ALL Assignments", assignments_user_path(current_user) %>
+                </div>                  
               <% end %>
             </div>
           <% else %>

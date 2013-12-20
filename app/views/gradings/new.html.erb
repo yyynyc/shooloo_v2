@@ -5,8 +5,26 @@
 
 <% if @comment.nil? %>
     <h1> Grade This Post </h1>
+    <div class="center alert-heading"> 
+        Watch this 4-minute <span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseVideo">video on how to grade homework</a></span>.
+      <div id="collapseVideo" class="accordion-body collapse">      
+            <div class="accordion-toggle center-div">
+                <% @video = Video.find(14) %>
+            <%= render partial: 'videos/video_player', locals: {video: @video} %> 
+        </div>
+      </div>
+    </div> 
     <%= render partial: 'gradings/grade_post', locals: {post: @post, grading: @grading, url: gradings_path, save: "Submit"} %>
 <% else %>
     <h1> Grade This Comment </h1>
+    <div class="center alert-heading"> 
+        Watch this 4-minute <span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseVideo">video on how to grade homework</a></span>.
+      <div id="collapseVideo" class="accordion-body collapse">      
+            <div class="accordion-toggle center-div">
+                <% @video = Video.find(14) %>
+            <%= render partial: 'videos/video_player', locals: {video: @video} %> 
+        </div>
+      </div>
+    </div> 
     <%= render partial: 'gradings/grade_comment', locals: {comment: @comment, grading: @grading, url: gradings_path, save: "Submit"} %>
 <% end %>

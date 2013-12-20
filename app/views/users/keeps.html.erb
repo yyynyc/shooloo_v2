@@ -21,11 +21,17 @@
       <% if current_user?(@user) %>
         <p class="alert-heading">You have not saved any math word problems
           <% if current_user.role == "teacher" %>
-            for future homework assignments.
+            for future homework assignments.Watch this 4-minute <span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseVideo">video on how to assignment homework</a></span>.
           <% else %>
             to solve in the future.
           <% end %> 
           Check out our vast repository of <%= link_to "Common Core math word problems", posts_path %> now!</P>
+          <div id="collapseVideo" class="accordion-body collapse">      
+            <div class="accordion-toggle">
+              <% @video = Video.find(13) %>
+              <%= render partial: 'videos/video_player', locals: {video: @video} %> 
+            </div>
+          </div>
       <% else %>
         <div class="box">
           <p><%= @user.screen_name %> has not saved any posts yet.</p> 

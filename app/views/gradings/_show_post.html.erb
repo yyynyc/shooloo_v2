@@ -24,11 +24,11 @@
 		<tr>
 			<th>Precision:</th>
 			<td>
-				Your post's crucial details, e.g., units of measure, are 
+				Your post 
 				<% if @grading.precision == true %>
-					<span class="yes">defined precisely</span> 
+					<span class="yes">defined crucial details</span>, e.g., units of measure, precisely and you <span class="yes">did not miss</span> any steps. 
 				<% else %>
-					<span class="no">not define precisely</span>
+					<span class="no">did not define crucial details</span>, e.g., units of measure, precisely and/or you <span class="no">missed</span> some steps. 
 				<% end %>.
 			</td>
 		</tr>
@@ -73,7 +73,7 @@
 				<% if @grading.note.nil? %>
 					None.
 				<% else %>
-					<span class="yes"><%= @grading.note.html_safe %></span>
+					<span class="chisel"><%= @grading.note.html_safe %></span>
 				<% end %>
 			</td>
 		</tr>

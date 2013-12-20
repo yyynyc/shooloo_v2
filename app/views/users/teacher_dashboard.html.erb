@@ -4,6 +4,16 @@
 <% nofollow %>
 
 <h1> Teacher Dashboard </h1>
+<div class="center alert-heading"> 
+  	Watch this 1-minute <span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseVideo">video on how to gain actionable insights</a></span>.
+  </p>
+  <div id="collapseVideo" class="accordion-body collapse">    	
+  		<div class="accordion-toggle center-div">
+  			<% @video = Video.find(12) %>
+  		<%= render partial: 'videos/video_player', locals: {video: @video} %> 
+  	</div>
+  </div>
+</div>
 
 <% if @user.authorized_users.blank? || @user.assignments.blank? %>
 	<div class="normal-font center margin-bottom">

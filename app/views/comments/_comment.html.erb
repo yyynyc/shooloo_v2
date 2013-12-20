@@ -38,7 +38,7 @@
             					<%= link_to "Grade: #{comment.grading.mark.full_mark}", grading_path(comment.grading), class: "btn btn-large btn-info" %>
             				<% else %>
 		            			<span class='search-label'>	            			 
-			            			<%= link_to "Grade", new_comment_grading_path(comment), class: "btn btn-large btn-info" %>
+			            			<%= link_to "Grade", new_comment_grading_path(comment), class: "btn btn-large btn-danger" %>
 			            		</span>
 			            	<% end %>
 			            <% elsif current_user?(comment.commenter) && !comment.grading.nil? %>

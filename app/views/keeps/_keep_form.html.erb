@@ -1,18 +1,5 @@
 <div>
-	<table class="normal-font table-grade">
-		<tr>
-			<th>Question:</th>
-			<td><%= post.question.html_safe %></td>
-		</tr>
-		<tr>
-			<th>Answer:</th>
-			<td><%= post.answer.html_safe %></td>
-		</tr>
-		<tr>
-			<th>Standard:</th>
-			<td><%= post.standard.short %></td>
-		</tr>
-	</table>
+	<%= render partial: 'posts/post_simple', locals: {post: @post} %>
 </div>
 <h2>Private Note to Myself</h2>
 <%= form_for keep, url: url do |f| %>

@@ -3,7 +3,7 @@
 <% noindex %>
 <% nofollow %>
 
-<h1> Past-Due Assignments Pending Submission</h1>
+<h1> Overdue Assignments</h1>
 
 <% if @past_due_assignments.any? %>
 	<i class="btn-formtastic"> Sorted by students' grade levels first and then by last names. </i>
@@ -40,6 +40,16 @@
 		<%= render partial: 'shared/scroll' %>
 	</table>
 <% else %>
+	<div class="center alert-heading"> 
+        Watch this 4-minute <span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseVideo">video on how to assignment homework</a></span>.
+      </p>
+      <div id="collapseVideo" class="accordion-body collapse">      
+            <div class="accordion-toggle center-div">
+                <% @video = Video.find(13) %>
+            <%= render partial: 'videos/video_player', locals: {video: @video} %> 
+        </div>
+      </div>
+    </div>     
 	<div class="normal-font center margin-bottom">
 		<p>If you have assigned your students homework, you will gain actionable insights like the following. </p>
 		<%= render partial: 'static_pages/teacher_greeting' %>

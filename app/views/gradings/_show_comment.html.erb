@@ -39,11 +39,10 @@
 			<td>
 				Your comment shows that you have 
 				<% if @grading.precision == true %>
-					<span class="yes">paid attention</span> 
+					<span class="yes">paid attention</span> to all the crucial details and that you <span class="yes">haven't missed any steps</span>. 
 				<% else %>
-					<span class="no">not paid attention</span>
+					<span class="no">not paid attention</span> to all the crucial details and/or that you <span class="no"> have missed some steps</span>.
 				<% end %>
-				to all the crucial details, such as units of measure.
 			</td>
 		</tr>
 		<tr>

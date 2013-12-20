@@ -1,4 +1,5 @@
 <% title "Premium Video Tutorial: #{@video.title}" %> 
 <% description "#{@video.description}" %>
 <% keywords %w["#{@video.tags}".split(",")] %>
+
 <%= render partial: 'videos/video_show' %>

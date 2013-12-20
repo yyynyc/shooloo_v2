@@ -1,4 +1,14 @@
 <% title "Video Tutorial: #{@video.title}" %> 
 <% description "#{@video.description}" %>
 <% keywords %w["#{@video.tags}".split(",")] %>
-<%= render partial: 'videos/video_show' %>
+
+<% if @video.visible? %>
+	<%= render partial: 'videos/video_show' %>
+<% else %>
+	<% if signed_in? %>
+		<%= render partial: 'videos/video_show' %>
+	<% else %>
+		<h1> Premium Video<br/> <%= @video.title %><h1>
+		<h2> Sorry, you must <%= link_to "log in", signin_path %> first to access this video.</h2>
+	<% end %>
+<% end %>

@@ -72,6 +72,7 @@ end
 
 resources :videos do
   collection { get :search, to: 'videos#index' }
+  get :premium, to: 'videos#premium'
 end
 
 resources :assignments do 

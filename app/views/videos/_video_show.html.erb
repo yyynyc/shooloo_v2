@@ -1,0 +1,93 @@
+<div class="row" itemscope itemtype="http://schema.org/CreativeWork">
+	<%= render 'shared/meta' %>
+	<div class="span8" itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+		<h1 itemprop="caption"><%= @video.title %></h1>
+		<meta itemprop="embedUrl" content="<%= @video.player_loc %>">
+		<meta itemprop="encodingFormat" content="mpeg4">
+		<meta itemprop="thumbnailUrl" content="https://fun.shooloo.org<%= @video.thumbnail.url %>">
+		<meta itemprop="productionCompany" content="Shooloo Inc.">
+		<meta itemprop="duration" content="<%= @video.duration %>">
+		<meta itemprop="videoFrameSize" content="500x375">
+		<meta itemprop="videoQuality" content="high">
+		<p>
+			<%= render partial: 'video_player', locals: {video: @video} %>
+		</p>
+		<p>
+			<table class="normal-font">
+				<% if !@video.practice_id.nil? %>
+					<%= render partial: 'video_practice', locals: {video: @video} %>
+				<% end %>
+				<% if !@video.standard_id.nil? %>
+					<%= render partial: 'video_standard', locals: {video: @video} %>
+				<% end %>	
+				<tr>
+					<td class="video_column">
+						Keywords:
+					</td>
+					<td itemprop="keywords">
+						<%= @video.tags %>
+					</td>
+				</tr>
+				<tr>
+					<td class="video_column top">
+						Description:
+					</td>
+					<td itemprop="description">
+						<%= @video.description %>
+					</td>
+				</tr>
+			</table>
+		</p>
+		<% unless @video.content.blank? %>
+			<h4>Details</h4>
+			<p><%= @video.content %></p>
+		<% end %>
+		<% if signed_in? && current_user.admin? %>
+			<br/>			
+				<%= link_to "EDIT", edit_video_path(@video) %>
+				<%= link_to "DELETE", @video, method: :delete, data: {confirm: "Are you sure?" } %>
+				<%= link_to "NEW", new_video_path %>
+		<% end %>
+	</div>
+	<div class="span3 video-border-left">
+		<h3> Related Videos </h3>
+		<% if @videos.count > 0 %>
+			<% @videos.each do |video| %>
+				<ul class="users">
+	  				<li itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+	  					<meta itemprop="thumbnailUrl" content="https://fun.shooloo.org<%= video.thumbnail.url %>">
+	  					<p class="text_center">
+	  						<% if video.visible? %>
+		  						<%= link_to image_tag(video.thumbnail.url(:small), 
+				    				alt: "Shooloo Tutorial: #{video.title}", 
+				    				title: "Shooloo Tutorial: #{video.title}"), 
+				    				video_path(video) %>
+				    		<% else %>
+				    			<%= link_to image_tag(video.thumbnail.url(:small), 
+				    				alt: "Shooloo Tutorial: #{video.title}", 
+				    				title: "Shooloo Tutorial: #{video.title}"), 
+				    				video_premium_path(video) %>
+				    		<% end %>
+			    		</p>			    		
+	    				<p itemprop="caption"><strong>
+	    					<% if video.visible? %>
+	    						<%= link_to video.title, video_path(video) %>
+	    					<% else %>
+	    						<%= link_to video.title, video_premium_path(video) %>
+	    					<% end %>	
+	    				</strong></p>
+	    				<p><strong>Length: </strong><%= video.length %></p>
+		    			<meta itemprop="duration" content="<%= video.duration %>">
+		    			<% if !video.practice_id.nil? %>
+							<%= render partial: 'video_practice', locals: {video: video} %>
+						<% end %>
+						<% if !video.standard_id.nil? %>
+							<%= render partial: 'video_standard', locals: {video: video} %>
+						<% end %>	
+	  				</li>
+	  			</ul>
+	  		<% end %>
+	  	<% end %>
+	</div>
+</div>
+

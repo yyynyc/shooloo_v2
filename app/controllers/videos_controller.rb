@@ -1,4 +1,5 @@
 class VideosController < ApplicationController
+	before_filter :signed_in_user, only: [:new, :edit, :destroy, :premium]
 	load_and_authorize_resource
 
 	def new
@@ -37,7 +38,7 @@ class VideosController < ApplicationController
 
 	def index
 		if !signed_in?
-			@search = Video.where(visible: true).search(params[:q])
+			@search = Video.search(params[:q])
 		elsif current_user.role == "student"
 			@search = Video.where(student: true).search(params[:q])
 		else
@@ -53,13 +54,25 @@ class VideosController < ApplicationController
 		    redirect_to @video, status: :moved_permanently
 		end
 		if !signed_in?
-			@videos = Video.where(visible: true).order('position ASC').reject {|v| v.id==@video.id}
+			@videos = Video.order('position ASC').reject {|v| v.id==@video.id}
 		elsif current_user.role == "student"
 			@videos = Video.where(student: true).order('position ASC').reject {|v| v.id==@video.id}
 		else
 			@videos = Video.order('position ASC').reject {|v| v.id==@video.id}
 		end		
 		@similar_videos = Video.where(category_id: @video.category.id).reject {|v| v.id==@video.id}
+	end
+
+	def premium
+		@video = Video.find(params[:video_id])
+		if request.path != video_path(@video)
+		    redirect_to @video, status: :moved_permanently
+		end
+		if signed_in? && current_user.role == "student"
+			@videos = Video.where(student: true).order('position ASC').reject {|v| v.id==@video.id}
+		else
+			@videos = Video.order('position ASC').reject {|v| v.id==@video.id}
+		end		
 	end
 
 	def pd

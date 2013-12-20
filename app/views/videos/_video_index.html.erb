@@ -36,10 +36,17 @@
 			<div class="span2">
 				<meta itemprop="thumbnailUrl" content="https://fun.shooloo.org<%= video.thumbnail.url %>"}>
 				<span itemprop="thumbnail">
-					<%= link_to image_tag(video.thumbnail.url(:small), 
-						alt: "Shooloo Tutorial: #{video.title}", 
-						title: "Shooloo Tutorial: #{video.title}"), 
-						video_path(video) %>
+					<% if video.visible? %>
+						<%= link_to image_tag(video.thumbnail.url(:small), 
+							alt: "Shooloo Tutorial: #{video.title}", 
+							title: "Shooloo Tutorial: #{video.title}"), 
+							video_path(video) %>
+					<% else %>
+						<%= link_to image_tag(video.thumbnail.url(:small), 
+							alt: "Shooloo Tutorial: #{video.title}", 
+							title: "Shooloo Tutorial: #{video.title}"), 
+							video_premium_path(video) %>
+					<% end %>
 				</span>
 				<% if signed_in? && current_user.admin? %>
 					<br/>			
@@ -49,10 +56,15 @@
 				<% end %>
     		</div>
     		<div class="span9">
-				<p class="post_review_answer" itemprop="caption"><%= link_to video.title, video_path(video) %></p>
+				<p class="post_review_answer" itemprop="caption">
+					<% if video.visible? %>
+						<%= link_to video.title, video_path(video) %>
+					<% else %>
+						<%= link_to video.title, video_premium_path(video) %> (PREMIUM)
+					<% end %>
+				</p>
 				<meta itemprop="productionCompany" content="Shooloo Inc.">
 				<meta itemprop="duration" content="<%= video.duration %>">
-				<!-- <meta itemprop="keywords" content="<%= video.tags %>"> -->
 				<table>
 					<tr>
 						<td class="video_column">

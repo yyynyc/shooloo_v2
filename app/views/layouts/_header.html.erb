@@ -7,13 +7,8 @@
           <li><%= link_to "Home", root_path %></li>          
           <li><%= link_to "Contact", contact_path %></li> 
           <li><%= link_to "CCSS", standards_path %></li>
-          <% if !signed_in? %>
-            <li><%= link_to "Videos", videos_path %></li>
-          <% end %>
+          <li><%= link_to "Videos", videos_path %></li>
           <% if signed_in? %>
-            <% unless current_user.role == "teacher" %>
-              <li><%= link_to "Videos", videos_path %></li>
-            <% end %>
             <li>
                 <%= link_to "Alerts", my_alerts_path %>
             </li> 

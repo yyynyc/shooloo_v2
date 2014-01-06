@@ -23,8 +23,11 @@ class AlarmsController < ApplicationController
     end
 
   	def create
-        @post  = Post.find(params[:post_id])
-        @comment = Comment.find(params[:comment_id])
+        if params.has_key?(:post_id)
+            @post  = Post.find(params[:post_id])
+        elsif params.has_key?(:post_id)
+            @comment = Comment.find(params[:comment_id])
+        end
         @alarm=current_user.alarms.build(params[:alarm])
         if @comment
             @alarm.alarmed_comment=@comment

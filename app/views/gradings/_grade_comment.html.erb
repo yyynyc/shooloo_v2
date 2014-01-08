@@ -59,9 +59,9 @@
         <%= f.input :precision, as: :select, include_blank: true, label: "Precision", collection: [["This student has ATTENDED TO PRECISION of all details, such as units of measure, and NOT MISSED any step.", true], ["This student has FAILED to attend to precision of details or has MISSED steps.", false]] %>
         <%= f.input :computation, as: :select, include_blank: true, label: "Computation", collection: [["This student has CORRECTLY computed the results", true], ["This student has INCORRECTLY computed the results.", false]] %> 
         <%= f.input :grammar, as: :select, include_blank: true, label: "Grammar", collection: [["This student has made NO spelling and grammatical errors.", true], ["This post has made SOME spelling and grammatical errors.", false]] %>   
-        <%= f.input :courtesy, as: :select, include_blank: true, label: "Manners", collection: [["This student's work is friendly and helpful to others.", true], ["This student's needs to be more constructive.", false]] %>
+        <%= f.input :courtesy, as: :select, include_blank: true, label: "Manners", collection: [["This student's work is friendly and helpful to others.", true], ["This student's work needs to be more constructive.", false]] %>
         <div class="bottom-margin"> 
-            <%= f.input :note, as: :ckeditor, label: "Private note to the student. No one but the graded student can see this note" %>
+            <%= f.input :note, as: :ckeditor, label: "Private note to the student. No one but the graded student can see this note." %>
         </div>            
     <% end %>
     <%= f.actions do %>

@@ -16,15 +16,14 @@
           <% if !@post.grading.nil? %>
             <div class="grading-result">
               <%= render partial: 'posts/grading', locals: {grading: @post.grading} %>
-              <% if !@post.response.nil? %>
-                <div class="center">
-                  <%= link_to "Related Assignment", assignment_path(@post.response.assignment) %>
-                </div>
-              <% else %>
-                <div class="center">
-                  <%= link_to "ALL Assignments", assignments_user_path(current_user) %>
-                </div>                  
-              <% end %>
+              <div class="center">
+                <%= link_to "Dashboard", teacher_dashboard_user_path(current_user) %> |
+                <% if !@post.response.nil? %>
+                  <%= link_to "Assignment", assignment_path(@post.response.assignment) %>
+                <% else %>
+                  <%= link_to "Assignments", assignments_user_path(current_user) %>
+                <% end %>
+              </div>
             </div>
           <% else %>
             <%= link_to "Grade this post!", new_post_grading_path(@post), class: "btn btn-large btn-danger" %>

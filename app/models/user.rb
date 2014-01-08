@@ -186,10 +186,7 @@ class User < ActiveRecord::Base
   #validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
 
   def past_homeworks
-    assignments.where("end_date<?", Time.now).last(2)
-  end
-
-  def past_due_homeworks
+    assignments.where("end_date<?", Time.now).last(4)
   end
 
   def no_post_students

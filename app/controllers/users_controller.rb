@@ -375,7 +375,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @students = @user.authorized_users
     @assigned_homeworks = @user.responses
-    @ungraded_homeworks = @assigned_homeworks.where(graded: nil, completed: true)
+    @ungraded_posts = Post.where(graded: false).keep_if{|p| p.response.in?(@user.responses)}
+    @ungraded_comments = Comment.where(graded: false).keep_if{|c| c.response.in?(@user.responses)}
     @assigned_homeworks_due = @assigned_homeworks.where("assignments.end_date <?", Time.now)
     @past_due_homeworks = @assigned_homeworks_due.where(completed: false)
     @past_due_students = @past_due_homeworks.map(&:assignee).compact.uniq.sort_by{|s| [s.grade, s.last_name]}   

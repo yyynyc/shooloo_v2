@@ -1,13 +1,10 @@
-<% title "Comment on Common Core Math Word Problem" %>
-<% description "Create a comment on a common core math word problem" %>
-<% noindex %>
-<% nofollow %>
+<% title "Student-authored Math Word Problem aligned with the Common Core" %>
 
 <% if @response.nil? %>
   <div class="row border lesson-margin">     
     <%= render 'posts/post_student' %>
   </div>
-<% else %>
+<% elsif signed_in? %>
   <div class="row">
     <%= render 'shared/homework_instruction' %>
     <div class="image">
@@ -21,8 +18,6 @@
       <p><%= @post.question.html_safe %></p>
     </div>
   <div>  
-<% end %>
-<% if signed_in? %>
   <div class="row"> 
     <h2> Post A New Comment</h2>
     <p class="center yes alert-heading"> 

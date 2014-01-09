@@ -16,7 +16,7 @@ class PostsController < ApplicationController
       end
     else
        @posts = @search.result.visible.paginate(page: params[:page], 
-        per_page: 20, order: 'comments_count DESC, likes_count DESC, created_at DESC')
+        per_page: 20, order: 'created_at DESC')
     end
     @search.build_condition
     if signed_in?

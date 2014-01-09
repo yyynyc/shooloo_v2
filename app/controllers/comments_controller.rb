@@ -1,8 +1,9 @@
 class CommentsController < ApplicationController
     before_filter :signed_in_user
+    skip_before_filter :signed_in_user, only: :new
     before_filter :correct_user, only: [:destroy, :edit, :update]
     before_filter :commenter_user, only: :index
-    load_and_authorize_resource #except: :new
+    load_and_authorize_resource except: :new
     respond_to :html, :json
     
 	def index

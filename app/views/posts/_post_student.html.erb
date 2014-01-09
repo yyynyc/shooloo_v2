@@ -4,19 +4,24 @@
     <span class="image-host-large">Image courtesy of <%= @post.image_host %>.
     </span><br/> 
   <% end %>
-  <div class="row bottom-margin">
-   <br/><%= render partial: 'posts/post_buttons', locals: {post: @post, like: @like, invite: @invite } %><br/>
-  </div>  
+  <% if signed_in? %>
+    <div class="row bottom-margin">
+     <br/><%= render partial: 'posts/post_buttons', locals: {post: @post, like: @like, invite: @invite } %><br/>
+    </div>  
+  <% end %>
 </div>
 <div class="alert-heading">         
   <p>
     <strong>Question: </strong><%= @post.question.html_safe %>
   </p>
-  <p class="no">
-   To see the answer and everyone else's comments, submit your own solution first.
-  <% unless @post.level.nil? %>
-    <p>
-      <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %>
-    </p>
+  <% if signed_in? %>
+    <p class="no">To see the answer and everyone else's comments, submit your own solution first.</p>
+    <% if !@post.level.nil? %>
+      <p>
+        <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %>
+      </p>
+    <% end %>
+  <% else %>
+    <p class="no">This question is created by a student in grades 3--8. <%= link_to "Log in", signin_path %> or <%= link_to "sign up", signup_path %> to find out the answer and related comments.</p>
   <% end %>
 </div>

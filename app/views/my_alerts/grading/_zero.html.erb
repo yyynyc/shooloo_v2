@@ -2,7 +2,7 @@
 	<% if activity.trackable %>
 		on <%= activity.created_at.strftime("%b %d, %Y") %> graded your
 		<% if activity.trackable.graded_comment_id.nil? %>
-			homework submission as being <strong>below the required grade level.</strong> Please <strong><%=link_to "submit a new post", responses_user_path(current_user) %></strong> that is at the required grade level, otherwise you will get ZERO credit for this homework.
+			homework submission as being <strong>below the required grade level.</strong> Please <strong><%=link_to "submit a new post", responses_user_path(current_user) %></strong> that is at the required grade level, otherwise you will get ZERO credit for this homework.</strong>
 		<% else %>
 			<%= link_to "comment ##{activity.trackable.graded_comment_id}", post_comments_path(activity.trackable.graded_comment.commented_post_id) %>
 			as <strong>below the required grade level</strong>. Please <%=link_to "submit a new comment", responses_user_path(current_user) %> that is at the required grade level, otherwise you will get ZERO credit for this homework.

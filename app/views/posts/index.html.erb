@@ -115,8 +115,9 @@
 				  		<section class="feed_content">			  			
 				  			<%= truncate_html post.question.html_safe, :length => 100, 
 				  				:omission => "...", word_boundary: /\S/ %>
+				  			<% if !signed_in? %>
 				  				<%= link_to "Read more", new_post_comment_path(post)  %>
-				  			<% if signed_in? %>	
+				  			<% else %>	
 					  			<% if current_user?(post.user) || current_user.admin? %>
 			        				<%= link_to "Edit post ", edit_post_path(post), title: "Edit Post" %> |
 			        				<%= link_to "Read more", post_comments_path(post) %> 

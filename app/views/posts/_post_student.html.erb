@@ -30,7 +30,8 @@
       <% end %>
     <% else %>
       <p class="no">
-        This question is created by a student in grades 3--8. <%= link_to "Log in", signin_path %> or <%= link_to "sign up", signup_path %> to find out its answer, member comments, and related <span itemprop="educationalFramework">Common Core State Standard</span>.
+        This question is created by a student in grades 3--8. <%= link_to "Log in", signin_path %> or <%= link_to "sign up", signup_path %> to find out its answer, member comments, and related <span itemprop="educationalFramework">Common Core State Standard</span>.<br/>
+        Teachers, find out <%= link_to "how to teach Common Core math with student-authored word problems", video_path(8) %> in this <%= link_to "4-minute video", video_path (8) %>.
       </p>
     <% end %>
   </div>

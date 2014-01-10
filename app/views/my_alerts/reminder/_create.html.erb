@@ -1,12 +1,14 @@
 <span class="no alert-heading">
 	<% if activity.trackable %>
-		<strong><%= link_to "REMINDS", responses_user_path(current_user) %></strong> you to
+		<strong><%= link_to "REMINDS", responses_user_path(current_user) %></strong> you on <%= activity.created_at.strftime("%b %d, %Y") %> to
 		<% if activity.trackable.reminded_response.assignment.assigned_post_id.nil? %>
-			<%= link_to "create a new post", new_response_post_path(activity.trackable.reminded_response) %>
+			<%= link_to "create a new post", new_response_post_path(activity.trackable.reminded_response) %>. 
+			<strong><%= link_to "Use this form to submit your homework", new_response_post_path(activity.trackable.reminded_response) %> now!</strong> 
 		<% else %>
-			<%= link_to "solve and critique post #{activity.trackable.reminded_response.assignment.assigned_post_id}", new_response_comment_path(activity.trackable.reminded_response) %>
+			<%= link_to "solve and critique post #{activity.trackable.reminded_response.assignment.assigned_post_id}", new_response_comment_path(activity.trackable.reminded_response) %>.
+			<strong><%= link_to "Use this form to submit your homework", new_response_comment_path(activity.trackable.reminded_response) %> now!</strong>
 		<% end %>
-		on <%= activity.created_at.strftime("%b %d, %Y") %>.
+		.
 	<% else %>
 		added an reminder on <%= activity.created_at.strftime("%b %d, %Y") %> which has since been withdrawn it.
 	<% end %>

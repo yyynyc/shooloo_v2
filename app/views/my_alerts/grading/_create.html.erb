@@ -6,7 +6,8 @@
 		<% else %>
 			<%= link_to "comment ##{activity.trackable.graded_comment_id}", post_comments_path(activity.trackable.graded_comment.commented_post_id) %>
 		<% end %>
-		as <strong><%= link_to "#{activity.trackable.mark.full_mark}", grading_path(activity.trackable) %> </strong>.		
+		as <strong><%= link_to "#{activity.trackable.mark.full_mark}", grading_path(activity.trackable) %> </strong>. 
+		<%= link_to "Read your teacher's comment", grading_path(activity.trackable) %> now.		
 	<% else %>
 		graded your assignment on <%= activity.created_at.strftime("%b %d, %Y") %> but has since removed it.
 	<% end %>

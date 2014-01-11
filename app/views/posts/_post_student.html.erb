@@ -1,6 +1,19 @@
 <div itemscope itemtype="http://schema.org/CreativeWork">
   <meta itemprop="description" content="This question is created by a student in grades 3--8. Log in or sign up to find out its answer, member comments, and related Common Core State Standard.">
+  <meta itemprop="educationalFramework" content="Common Core State Standard">
   <%= render 'shared/meta' %>
+  <% if !signed_in? %>
+    <div class="top-message center alert-heading margin-bottom">
+      <% if @post.user.role == "student" %>
+        <p>This question is created by a student in grades 3--8 and may contain errors.</p>
+        <p><%= link_to "Log in", signin_path %> or <%= link_to "sign up", signup_path %> to find out how Shooloo members critique its mathematical reasoning.</p> 
+        <p>Teachers: find out <%= link_to "how to make a game out of imperfect student-authored word problems", video_path(11) %>.</p>
+      <% else %>
+        <p><%= link_to "Log in", signin_path %> or <%= link_to "sign up", signup_path %> to find out answers, comments, and many more!</p>
+        <p>Teachers: find out <%= link_to "how to teach Common Core math with student-authored word problems", video_path(8) %>.</p>        
+      <% end %>
+    </div>
+  <% end %>
   <div class="image" >
     <%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %><br/>
     <% unless @post.image_host.nil? %>
@@ -28,11 +41,6 @@
           <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %>
         </p>
       <% end %>
-    <% else %>
-      <p class="no">
-        This question is created by a student in grades 3--8. <%= link_to "Log in", signin_path %> or <%= link_to "sign up", signup_path %> to find out its answer, member comments, and related <span itemprop="educationalFramework">Common Core State Standard</span>.<br/>
-        Teachers, find out <%= link_to "how to teach Common Core math with student-authored word problems", video_path(8) %> in this <%= link_to "4-minute video", video_path(8) %>.
-      </p>
     <% end %>
   </div>
 </div>

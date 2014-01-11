@@ -50,7 +50,7 @@
 				</span>
 				<% if signed_in? && current_user.admin? %>
 					<br/>
-						Video #<%= video.id %> |	
+						#<%= video.id %> |	
 						<%= link_to "EDIT", edit_video_path(video) %>
 						<%= link_to "DELETE", video, method: :delete, data: {confirm: "Are you sure?" } %>
 						<%= link_to "NEW", new_video_path %>

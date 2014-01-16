@@ -22,7 +22,8 @@
 		<%= link_to image_tag("/attachments/dashboard_crop.jpg", alt: "Shooloo Common Core Math Teacher's Dashboard", title: "Shooloo Common Core Math Teacher's Dashboard"), sample_assignment_path %> 
     </div>
 <% else %>
-	<% if @past_due_homeworks.any? || @ungraded_posts.any? || @ungraded.any? || 
+	<% if @past_due_homeworks.any? || @ungraded_posts.any? || 
+		@ungraded_comments.any? || 
 		@no_post_students.any? || @ungraded_students.any? || 
 		@below_grade_students.any? || @no_login_students.any? %>
 		<div class="well well-small bottom-margi">

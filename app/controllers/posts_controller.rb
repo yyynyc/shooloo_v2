@@ -1,4 +1,4 @@
-fclass PostsController < ApplicationController
+class PostsController < ApplicationController
 	before_filter :signed_in_user
   skip_before_filter :signed_in_user, only: :index
   before_filter :correct_user, only: :destroy

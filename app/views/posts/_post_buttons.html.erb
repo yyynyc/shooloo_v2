@@ -46,6 +46,7 @@
     <% end %>   
   <% end %>
   <% if current_user.in?(post.user.authorizers) %>
+    <%= link_to raw('<i class="icon-pencil icon-white"></i> Edit'), edit_post_path(post), title: "Edit Post", class: "btn btn-small btn-danger" %>
     <% if post.grading.nil? %>
       <%= link_to "Grade", new_post_grading_path(post), class: "btn btn-small btn-danger" %> 
     <% else %>

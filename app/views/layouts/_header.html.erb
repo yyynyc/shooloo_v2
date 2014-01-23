@@ -64,7 +64,7 @@
                 </ul>
               </li>              
             <% end %>
-            <% if current_user.reverse_responses.any? || current_user.reverse_gradings.any? %>
+            <% if current_user.role=="student" && (current_user.reverse_responses.any? || current_user.reverse_gradings.any?) %>
               <li id="fat-menu" class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   Schoolwork <b class="caret"></b>

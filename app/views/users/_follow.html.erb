@@ -1,5 +1,5 @@
 <%= form_for(current_user.relationships.build(followed_id: user.id), 
 			remote: true) do |f| %>
   <div><%= f.hidden_field :followed_id %></div>
-  <%= f.submit "  Follow  ", class: "btn btn-medium btn-primary", confirm: "You will EARN some points if you click. Continue?", disable_with: "Proccessing..." %>
+  <%= f.submit "  Follow  ", class: "btn btn-medium btn-primary", disable_with: "Proccessing..." %>
 <% end %>

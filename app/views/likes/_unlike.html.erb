@@ -1,3 +1,3 @@
 <%= form_for(Like.find_by_liked_post_id(post.id), html: { method: :delete }, remote: true) do |f| %>
-  <%= f.submit " Unlike ", class: "btn btn-small", confirm: "You will LOSE some points if you click. Continue?", disable_with: "Proccessing..." %>
+  <%= f.submit " Unlike ", class: "btn btn-small", disable_with: "Proccessing..." %>
 <% end %>

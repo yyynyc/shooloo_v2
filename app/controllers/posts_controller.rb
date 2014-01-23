@@ -1,4 +1,4 @@
-class PostsController < ApplicationController
+fclass PostsController < ApplicationController
 	before_filter :signed_in_user
   skip_before_filter :signed_in_user, only: :index
   before_filter :correct_user, only: :destroy
@@ -7,16 +7,11 @@ class PostsController < ApplicationController
   def index
     @search = Post.visible.search(params[:q])
     if signed_in? 
-      if current_user.admin? || current_user.authorized_users.any?
-        @posts = @search.result.visible.paginate(page: params[:page], 
+      @posts = @search.result.visible.paginate(page: params[:page], 
           per_page: 20, order: 'created_at DESC')
-      else
-        @posts = @search.result.visible.paginate(page: params[:page], 
-        per_page: 20, order: 'comments_count DESC, likes_count DESC, created_at DESC')
-      end
     else
        @posts = @search.result.visible.paginate(page: params[:page], 
-        per_page: 20, order: 'created_at DESC')
+        per_page: 20, order: 'comments_count DESC, likes_count DESC, created_at DESC')
     end
     @search.build_condition
     if signed_in?

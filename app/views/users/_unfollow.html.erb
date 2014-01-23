@@ -1,5 +1,5 @@
 <%= form_for(current_user.relationships.find_by_followed_id(user),
              html: { method: :delete },
              remote: true) do |f| %>
-  <%= f.submit "Unfollow", class: "btn btn-medium btn-danger", confirm: "You will LOSE some points if you click. Continue?", disable_with: "Proccessing..." %>
+  <%= f.submit "Unfollow", class: "btn btn-medium btn-danger", disable_with: "Proccessing..." %>
 <% end %>

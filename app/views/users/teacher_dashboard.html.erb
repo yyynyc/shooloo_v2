@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<% if @user.authorized_users.blank? || @user.assignments.blank? %>
+<% if @user.authorized_users.blank? %>
 	<div class="normal-font center margin-bottom">
 		<p>If you have assigned your students homework, you will gain actionable insights like the following. </p>
 		<%= render partial: 'static_pages/teacher_greeting' %>

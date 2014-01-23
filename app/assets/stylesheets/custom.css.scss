@@ -420,7 +420,8 @@ aside {
     margin-left: 170px;
     width: 770px;  
     textarea {
-      height: 200px;
+      height: 50px;
+      width: 700px;
     }
     .choice {
     width: 235px;
@@ -1197,3 +1198,7 @@ iframe {
   width: 350px;
 }
 
+.question-box {
+  rows: 5;
+  width: 600px;
+}

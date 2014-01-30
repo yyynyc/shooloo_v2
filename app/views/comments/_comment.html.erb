@@ -22,9 +22,9 @@
 	            	</span>
 	            <% end %>	          
             	<% if comment.visible? %>
-            		<% unless comment.commenter.role=="teacher" || comment.commenter.admin? || current_user == comment.commenter %>
+            		<% unless comment.commenter.role=="teacher" || current_user == comment.commenter %>
 	            		<span class='search-label'>
-	            			<%= render partial: 'alarms/alarm_comment', locals: {post: comment.commented_post, comment:comment} %>
+	            			<%= render partial: 'alarms/alarm_comment', locals: {comment:comment} %>
 	            		</span>
 	            	<% end %>	
             		<% unless current_user?(comment.commenter) %>

@@ -25,7 +25,7 @@ class Authorization < ActiveRecord::Base
         user_id: self.authorizer_id, recipient_id: self.authorized_id)
       if self.authorized.role == "teacher"
         UserMailer.auth_notify_yes(self.authorized).deliver
-      elsif !self.authorized.personal_email.nil?
+      elsif !self.authorized.personal_email.blank?
         UserMailer.auth_notify_yes_student(self.authorized).deliver
       end
       self.authorized.visible = "true"

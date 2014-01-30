@@ -16,6 +16,7 @@
             <% end %>	  
 	  	<% end %>   		
 		<%= render @comments.visible %>
+		<%= will_paginate @comments.visible %>
 	</ol>
 <% end %>
 

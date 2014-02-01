@@ -76,7 +76,7 @@ group :test do
 end
 
 # Deploy with Capistrano
-gem 'capistrano'
+gem 'capistrano', '2.15.5'
 
 #Use unicorn as the app server
 gem 'unicorn'

@@ -5,22 +5,6 @@ require 'csv'
 require 'iconv'
 
 require 'rails/all'
-# Pick the frameworks you want:
-#require "active_record/railtie"
-#require "action_controller/railtie"
-#require "action_mailer/railtie"
-#require "active_resource/railtie"
-#require "sprockets/railtie"
-# require "rails/test_unit/railtie"
-
-=begin
-if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
-end
-=end
 
 Bundler.require(:default, Rails.env)
 
@@ -68,6 +52,8 @@ module ShoolooV2
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
     config.active_record.whitelist_attributes = true
+
+    config.serve_static_assets = true
 
     # Enable the asset pipeline
     config.assets.enabled = true

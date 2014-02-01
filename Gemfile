@@ -10,24 +10,28 @@ gem 'will_paginate'#, '3.0.3'
 gem 'bootstrap-will_paginate'#, '0.0.6'
 gem 'jquery-rails'#, '2.0.2'
 gem 'paperclip'#, :git => 'git://github.com/thoughtbot/paperclip.git'
-#gem 'formtastic'
-#gem 'formtastic-bootstrap'
+gem 'formtastic'
+gem 'formtastic-bootstrap'
 gem 'pg'
 gem 'taps'
 gem 'ransack'#, :git => "git://github.com/ernie/ransack.git"
 gem 'fancybox-rails'
 gem 'whenever', :require => false
+
+# jPlayer
+gem 'jplayer-rails'
+
 gem 'cancan'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'sitemap_generator'
 gem 'meta-tags', :require => 'meta_tags'
 gem 'thin'
-#gem 'best_in_place'
+gem 'best_in_place'
 gem 'sendgrid'
 gem 'twilio-ruby'
 gem 'obscenity'
-gem 'client_side_validations'#, :github => 'bcardarella/client_side_validations', :branch => '3-2-stable'
-gem 'client_side_validations-formtastic'
+#gem 'client_side_validations', :github => 'bcardarella/client_side_validations', :branch => '3-2-stable'
+#gem 'client_side_validations-formtastic'
 gem 'friendly_id'#, :github => 'norman/friendly_id', :branch => '4.0-stable'
 gem 'exception_notification'
 gem 'roo'

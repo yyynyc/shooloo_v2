@@ -16,10 +16,8 @@
 //= require ckeditor/init
 //= require ckeditor/ckeditor
 //= require bootstrap
-//= require rails.validations
-//= require rails.validations.formtastic
-//= require jquery.jplayer.min
 //= require chosen-jquery
+//= require jquery.jplayer
 //= require_tree .
 
 $(function ()  
@@ -80,4 +78,4 @@ setTimeout(function(){
         })
     })
 }(window.jQuery)
-
+/* require jquery.jplayer.min */

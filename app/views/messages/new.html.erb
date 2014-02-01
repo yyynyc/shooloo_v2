@@ -30,7 +30,7 @@
 			<%= render 'shared/error_messages', object: f.object %>
 			<%=f.inputs do %>
 				<%= f.input :name, placeholder: "Your real first and last name" %>
-				<%= f.input :email, placeholder: "Your or your parent's real email address if you want to hear back from us." %>
+				<%= f.input :email, placeholder: "Your or your parent's real email address if you want to hear back from us.".html_safe %>
 				<%= f.input :subject %>
 				<%= f.input :body, label: "Message" %>
 				<div style="margin-left: 8em">

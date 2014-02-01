@@ -33,7 +33,7 @@ ShoolooV2::Application.configure do
 
   config.eager_load = false
 
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Do not compress assets
   config.assets.compress = false
@@ -44,7 +44,6 @@ ShoolooV2::Application.configure do
   # let paperclip know where to look for ImageMagick file.
   Paperclip.options[:command_path] = "/etc/paths.d/"
 
-=begin
   # send email to admin wherenever there is a system error
   config.middleware.use ExceptionNotification::Rack,
   :email => {
@@ -53,5 +52,4 @@ ShoolooV2::Application.configure do
     :exception_recipients => %w{ryang@prosperityprana.com, yyynyc@gmail.com}
   }#,
   #ignore_exceptions: ExceptionNotifier.ignored_exceptions 
-=end
 end

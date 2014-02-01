@@ -10,7 +10,7 @@
 #
 # Note: client_side_validation requires the error to be encapsulated within
 # <label for="#{instance.send(:tag_id)}" class="message"></label>
-
+=begin
 require 'client_side_validations/formtastic' if defined?(::Formtastic)
 
 ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
@@ -20,4 +20,4 @@ ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
      %{<div class="field_with_errors">#{html_tag}</div>}.html_safe
    end
 end
-
+=end

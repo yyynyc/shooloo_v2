@@ -46,14 +46,18 @@ $(document).ready(function(){
       $("#video-<%= video.id %>").jPlayer({
         ready: function () {
           $(this).jPlayer("setMedia", {
-            m4v: "<%= video.video_mp4 %>",
-            ogv: "<%= video.video_ogv %>",
-            webmv: "<%= video.video_webm %>",
-            poster: "/attachments/videos/<%=video.id%>/large/<%=video.thumbnail_file_name%>"
+            m4v: "<%= video.video_mp4.url %>",
+            ogv: "<%= video.video_ogv.url %>",
+            webmv: "<%= video.video_webm.url %>",
+            poster: "<%= video.thumbnail.url %>"
           });
         },
-        swfPath: "/x-shockwave-flash",
+        swfPath: "<%= asset_path('Jplayer.swf') %>",
         supplied: "m4v, ogv, webmv",
+        size: {
+          width: "520",
+          height: "345"
+        }
       });
     });
 </script>

@@ -2,7 +2,7 @@
   <div class="row-fluid">
     <div class="span5">
       <div id='logo-home'>
-        <img itemprop="image" src="/attachments/final.png", alt: "Shooloo logo">
+        <%= image_tag 'final.png', alt: 'Shooloo logo', itemprop: 'image' %>
       </div>
       <h1 id='h1-home' itemprop="name"> Shooloo Learning </h1>      
       <div id='tagline-home' itemprop="description">
@@ -42,7 +42,7 @@
       <span itemprop="typicalAgeRange", content="8-10, 10-12, 12-14"></span>
       <span itemprop="interactivityType", content="mixed"></span>
       <span itemprop="learningResourceType", content="Assessment, Discussion, On-Line, Worksheet"></span>
-      <img itemprop="image" src="/attachments/student_small.jpg" alt="Shooloo Common Core Math student authored" class="photo_home">
+      <%= image_tag 'student_small.jpg', alt: 'Shooloo Common Core Math student authored', class: 'photo_home', itemprop: 'image' %>
     </div>
     <div class="span4 well well-medium" itemprop="educationalAlignment" itemscope itemtype="http://schema.org/AlignmentObject">
       <meta itemprop="educationalFramework", content="Common Core State Standards">
@@ -57,7 +57,7 @@
         <li>Critique the reasoning of others.</li>
         <li>Model real life with mathematics.</li>
       </ul><br/>    
-      <img itemprop="image" src="/attachments/Kids_Computer.jpg" alt="Shooloo Common Core Math standard driven" class="photo_home" >
+      <%= image_tag 'Kids_Computer.jpg', alt: 'Shooloo Common Core Math standard driven', class: 'photo_home'  %>
     </div>
     <div class="span4 well well-medium">
       <span class="text_center">
@@ -68,7 +68,7 @@
         <li>Real-time reporting.</li>
         <li>Standard-based grading.</li>
       </ul><br/>
-      <img itemprop="image" src="/attachments/effective_small.jpg" alt="Shooloo Common Core Math Analytics" max-height="173px" class="photo_home">
+      <%= image_tag 'effective_small.jpg', alt: 'Shooloo Common Core Math Analytics', 'max-height' => '173px', class: 'photo_home' %>
     </div>
   </div>
 </div>

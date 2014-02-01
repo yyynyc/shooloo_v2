@@ -9,13 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require fancybox
- *= require chosen
- *= require_tree .
  */
 @import 'bootstrap';
 @import 'custom';
 @import 'fancybox';
+@import 'jplayer.blue.monday';
 @import 'chosen';
 @import 'lessons';
-@import 'jplayer.blue.monday';

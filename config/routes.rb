@@ -42,7 +42,7 @@ resources :posts, path: '/common-core-math-word-problems' do
     get :raters
   end
   collection { get :search, to: 'posts#index' }
-  match '/teacher_view', to: 'posts#teacher_view'
+  get '/teacher_view', to: 'posts#teacher_view'
 end
 
 resources :ratings do
@@ -106,24 +106,24 @@ resources :keeps
 
   root to: "static_pages#home"
  
-  match '/about', to: 'static_pages#about'
-  match '/team', to: 'static_pages#team'
-  match '/advisors', to: 'static_pages#advisors'
-  match '/help', to: 'static_pages#help'
-  match '/rules', to: 'static_pages#rules'
-  match '/terms', to: 'static_pages#terms'
-  match '/privacy', to: 'static_pages#privacy'
-  match '/signup', to: 'users#new'
-  match '/signin', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy'
-  match '/alarmed-posts', to: "alarms#alarmed_posts", as: :alarmed_posts
-  match '/my-alerts', to: "users#show_activity", as: :my_alerts
-  match '/my-powers', to: "users#my_abilities", as: :my_abilities
-  match '/hidden', to: "users#hidden"
-  match '/my-gifts', to: "events#gift_receiving", as: :gift_receiving
-  match '/my-fans', to: "events#gift_giving", as: :gift_giving
-  match '/contact', to: "messages#new" 
-  match '/pd', to: "videos#pd" 
+  get '/about', to: 'static_pages#about'
+  get '/team', to: 'static_pages#team'
+  get '/advisors', to: 'static_pages#advisors'
+  get '/help', to: 'static_pages#help'
+  get '/rules', to: 'static_pages#rules'
+  get '/terms', to: 'static_pages#terms'
+  get '/privacy', to: 'static_pages#privacy'
+  get '/signup', to: 'users#new'
+  get '/signin', to: 'sessions#new'
+  get '/signout', to: 'sessions#destroy'
+  get '/alarmed-posts', to: "alarms#alarmed_posts", as: :alarmed_posts
+  get '/my-alerts', to: "users#show_activity", as: :my_alerts
+  get '/my-powers', to: "users#my_abilities", as: :my_abilities
+  get '/hidden', to: "users#hidden"
+  get '/my-gifts', to: "events#gift_receiving", as: :gift_receiving
+  get '/my-fans', to: "events#gift_giving", as: :gift_giving
+  get '/contact', to: "messages#new" 
+  get '/pd', to: "videos#pd" 
   get '/standards/common-core-math-I-can-grade-k', to: "standards#grade_k", as: :grade_k
   get '/standards/common-core-math-I-can-grade-1', to: "standards#grade_1", as: :grade_1
   get '/standards/common-core-math-I-can-grade-2', to: "standards#grade_2", as: :grade_2
@@ -138,68 +138,5 @@ resources :keeps
   get '/teacher/common-core-math-assignment', to: "static_pages#sample_assignment", as: :sample_assignment
 
 
-  match '(errors)/:status', to: 'errors#show', constraints: {status: /\d{3}/} 
-
-  # unless Rails.application.config.consider_all_requests_local
-  #   match '*not_found', to: 'errors#error_404'
-  # end
-  
- 
-
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
-
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
-
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
-
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
+  get '(errors)/:status', to: 'errors#show', constraints: {status: /\d{3}/} 
 end

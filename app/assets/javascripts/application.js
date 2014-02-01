@@ -16,7 +16,6 @@
 //= require ckeditor/init
 //= require ckeditor/ckeditor
 //= require bootstrap
-//= require best_in_place
 //= require rails.validations
 //= require rails.validations.formtastic
 //= require jquery.jplayer.min

@@ -3,7 +3,7 @@ development:
   encoding: unicode
   database: shooloo_development
   pool: 5
-  username: yyynyc  
+  username: shooloo 
   password:
   host: localhost
 
@@ -12,7 +12,7 @@ test:
   encoding: unicode
   database: shooloo_test
   pool: 5
-  username: yyynyc
+  username: shooloo 
   password:
 
 production:

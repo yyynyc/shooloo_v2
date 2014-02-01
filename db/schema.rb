@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(:version => 20131210170625) do
     t.string   "trackable_type"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-    t.integer  "recipient_id"
     t.boolean  "read"
   end
 
@@ -291,9 +290,9 @@ ActiveRecord::Schema.define(:version => 20131210170625) do
 
   create_table "operations", :force => true do |t|
     t.text     "name"
+    t.integer  "rating_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "rating_id"
     t.integer  "position"
   end
 
@@ -304,10 +303,6 @@ ActiveRecord::Schema.define(:version => 20131210170625) do
     t.integer  "user_id"
     t.datetime "created_at",                                    :null => false
     t.datetime "updated_at",                                    :null => false
-    t.string   "attachment_file_name"
-    t.string   "attachment_content_type"
-    t.integer  "attachment_file_size"
-    t.datetime "attachment_updated_at"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
@@ -378,6 +373,7 @@ ActiveRecord::Schema.define(:version => 20131210170625) do
   end
 
   add_index "ratings", ["rated_post_id"], :name => "index_ratings_on_rated_post_id"
+  add_index "ratings", ["rater_id", "rated_post_id"], :name => "index_ratings_on_rater_id_and_rated_post_id", :unique => true
   add_index "ratings", ["rater_id"], :name => "index_ratings_on_rater_id"
 
   create_table "ref_checks", :force => true do |t|
@@ -393,13 +389,9 @@ ActiveRecord::Schema.define(:version => 20131210170625) do
   create_table "referrals", :force => true do |t|
     t.integer  "referred_id"
     t.integer  "referrer_id"
-    t.string   "approval",                :default => "pending"
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
-    t.boolean  "name_true"
-    t.boolean  "role_true"
-    t.boolean  "screen_name_appropriate"
-    t.boolean  "avatar_appropriate"
+    t.string   "approval",    :default => "pending"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   add_index "referrals", ["referred_id"], :name => "index_referrals_on_referred_id"
@@ -516,8 +508,6 @@ ActiveRecord::Schema.define(:version => 20131210170625) do
     t.integer  "comment_count",          :default => 0
     t.integer  "follower_count",         :default => 0
     t.integer  "following_count",        :default => 0
-    t.integer  "auth_req_count",         :default => 0
-    t.string   "auth_status"
     t.string   "role",                   :default => "student"
     t.boolean  "visible",                :default => false
     t.string   "personal_email"

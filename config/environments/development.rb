@@ -7,7 +7,7 @@ ShoolooV2::Application.configure do
   config.cache_classes = false
 
   # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = true
+  # config.whiny_nils = true
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
@@ -35,6 +35,8 @@ ShoolooV2::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
+  config.serve_static_assets = false
+
   # Do not compress assets
   config.assets.compress = false
 
@@ -44,6 +46,7 @@ ShoolooV2::Application.configure do
   # let paperclip know where to look for ImageMagick file.
   Paperclip.options[:command_path] = "/etc/paths.d/"
 
+=begin
   # send email to admin wherenever there is a system error
   config.middleware.use ExceptionNotification::Rack,
   :email => {
@@ -52,4 +55,5 @@ ShoolooV2::Application.configure do
     :exception_recipients => %w{ryang@prosperityprana.com, yyynyc@gmail.com}
   }#,
   #ignore_exceptions: ExceptionNotifier.ignored_exceptions 
+=end
 end

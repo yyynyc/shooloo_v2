@@ -155,7 +155,7 @@ class User < ActiveRecord::Base
     Reminder.where(teacher_id: self.id).delete_all
   end
 
-  VALID_SCREEN_NAME_REGEX = /^[A-Za-z\d_]+$/
+  VALID_SCREEN_NAME_REGEX = /[A-Za-z\d_]+/
   validates :screen_name, presence: true, format: { with: VALID_SCREEN_NAME_REGEX, message: "can't contain any space or punctuation" },
     uniqueness: {case_sensitive: false}, length: { minimum: 6, maximum: 20}
   validates :password, presence: true, length: {minimum: 6}, :if => :should_validate_password?

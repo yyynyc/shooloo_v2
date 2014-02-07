@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
   validates :question, :answer, obscenity: {message: 'contains offensive word'}
 
   attr_accessible :answer, :grade, :question, :comments_count, :ratings_count, :likes_count,
-    :photo, :photo_remote_url, :image_host, :category, :graded,
+    :photo, :photo_remote_url, :image_host, :category, :graded, :user_id,
     :level_id, :domain_id, :standard_id, :quality_id, :subject_id, :response_id
   attr_reader :photo_remote_url
   belongs_to :user

@@ -17,7 +17,7 @@ class LessonsController < ApplicationController
       redirect_to lessons_user_path(@user)
     else
       @lessons = []
-      render 'users/lessons'
+      render 'new'
     end
   end
 

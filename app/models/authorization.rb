@@ -11,8 +11,10 @@ class Authorization < ActiveRecord::Base
   after_create do
     if self.approval == "pending"
       Activity.create!(action: "create", trackable: self, 
-      	user_id: self.authorized_id, recipient_id: self.authorizer_id)    
-      UserMailer.auth_request(self.authorizer, self.authorized).deliver
+      	user_id: self.authorized_id, recipient_id: self.authorizer_id)
+      unless self.authorizer.personal_email.blank?      
+        UserMailer.auth_request(self.authorizer, self.authorized).deliver
+      end
     end
     if self.valid_code?
       self.update_attributes!(approval: "accepted")
@@ -23,7 +25,7 @@ class Authorization < ActiveRecord::Base
     if self.approval == "accepted"
       Activity.create!(action: "accept", trackable: self, 
         user_id: self.authorizer_id, recipient_id: self.authorized_id)
-      if self.authorized.role == "teacher"
+      if self.authorized.role == "teacher" && !self.authorized.personal_email.blank?
         UserMailer.auth_notify_yes(self.authorized).deliver
       elsif !self.authorized.personal_email.blank?
         UserMailer.auth_notify_yes_student(self.authorized).deliver
@@ -33,7 +35,7 @@ class Authorization < ActiveRecord::Base
     elsif self.approval == "declined"
       Activity.create!(action: "decline", trackable: self, 
         user_id: self.authorizer_id, recipient_id: self.authorized_id)
-      if !self.authorized.personal_email.nil?
+      if !self.authorized.personal_email.blank?
         UserMailer.auth_notify_no(self.authorized).deliver
       end
       self.authorized.visible = "false"
@@ -44,13 +46,13 @@ class Authorization < ActiveRecord::Base
   after_destroy do
     if self.authorized.authorizations.where('approval' => "accepted").blank?
       self.authorized.update_attributes!(visible: false)
-      if !self.authorized.personal_email.nil?
+      if !self.authorized.personal_email.blank?
         UserMailer.auth_delete(self.authorized).deliver
       end
     end
   end
 
   def valid_code?
-    self.code.in?(["ATMNYS2013", "ATMNYC2013", "BethHick"])
+    self.code.in?(["AMTNJ2014", "eMints2014", "BethHick"])
   end
 end

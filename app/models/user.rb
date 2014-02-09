@@ -446,7 +446,11 @@ class User < ActiveRecord::Base
   end
 
   def self.daily_alert
-    User.all.each { |u| UserMailer.activity_alert(u).deliver }
+    User.all.each do |u| 
+      unless u.personal_email.blank?
+        UserMailer.activity_alert(u).deliver 
+      end
+    end
   end
 
   def homework_current_week

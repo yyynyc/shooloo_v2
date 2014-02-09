@@ -23,15 +23,10 @@
           <span class="sign-in-label"><%= f.label :password %>
           </span>
           <span class="search-label"><%= f.password_field :password %>
-          </span>
-          <span class="search-label">
-            <a href="#", class="question", rel="popover", title="Password", data-content="Password is case sensitive. If you've forgotten your password, follow the <a href='/password_resets/new'>password reset link</a> to change your password." %> 
-              <i class="icon-question-sign icon-medium" ></i>
-            </a>
-          </span>   
+          </span>  
         </section>
         <section style="margin: 1em 1em -1em 0em;">
-          <%= f.submit "Sign in", class: "btn btn-small btn-primary btn-formtastic" %>
+          <%= f.submit "Log in", class: "btn btn-small btn-primary btn-formtastic" %>
         </section>
       <% end %>    
     </div>

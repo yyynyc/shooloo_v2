@@ -369,7 +369,7 @@ DEPENDENCIES
   guard-rspec (= 1.2.1)
   guard-spork (= 1.2.0)
   iconv
-  jquery-rails
+  jquery-rails (= 3.1.0)
   launchy
   letter_opener
   meta-tags

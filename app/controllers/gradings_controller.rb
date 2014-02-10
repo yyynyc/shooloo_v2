@@ -32,7 +32,7 @@ class GradingsController < ApplicationController
       if !@grading.graded_post.nil?
         @post  = @grading.graded_post
       elsif !@grading.graded_comment.nil?
-        @comment = @grading.graded_commented
+        @comment = @grading.graded_comment
       end
       render 'new'
     end

@@ -95,7 +95,7 @@
 </div> 
 <div class="center">
 	<% if current_user?(@grading.grader) %>
-		<%= link_to "Re-grade this post", edit_grading_path(@grading), class: "btn btn-large btn-primary" %>
+		<%= link_to "Re-grade this comment", edit_grading_path(@grading), class: "btn btn-large btn-primary" %>
 	<% elsif current_user?(@comment.commenter) %>
 		<%= link_to "Edit My Comment and Make It Better Now!", edit_comment_path(@comment), class: "btn btn-large btn-primary" %>
 	<% end %>

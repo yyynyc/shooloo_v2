@@ -121,10 +121,14 @@ class Grading < ActiveRecord::Base
 
     if self.grammar == true
       self.mark.bonus = "+"
+    else
+      self.mark.penalty = ""
     end 
 
     if self.courtesy == false
       self.mark.penalty = "-"
+    else
+      self.mark.penalty = ""
     end 
 
     self.mark.save!

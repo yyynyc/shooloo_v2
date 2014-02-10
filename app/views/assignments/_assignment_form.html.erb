@@ -46,7 +46,7 @@
     <%= render 'shared/error_assignment', object: f.object %>
     <%= f.inputs do %>
         <% unless post.nil? %>
-            <%= f.input :assigned_post_id, as: :hidden, value: post.id, class: "hidden" %> 
+            <%= f.input :assigned_post_id, as: :hidden, input_html: {value: post.id}, class: "hidden" %> 
         <% end %>
         <div class="span6">
             <%= f.input :start_date, as: :date_select, start_year: 2013, order: [:month, :day, :year], label: "Start date:" %> 

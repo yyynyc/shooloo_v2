@@ -41,7 +41,11 @@ class CommentsController < ApplicationController
         @post  = Post.find(params[:post_id])
         @comment=current_user.comments.build(params[:comment])
         @comment.commented_post=@post 
-        @like = Like.new           
+        @like = Like.new 
+        if current_user.comment_count.nil?
+            current_user.comment_count=0
+            current_user.save!
+        end          
         if @comment.save
             current_user.comment_count +=1
             current_user.save(validate: false)

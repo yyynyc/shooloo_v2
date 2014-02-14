@@ -5,16 +5,8 @@
   <meta itemprop="educationalFramework" content="Common Core State Standard">
   <%= render 'shared/meta' %>
   <% if !signed_in? %>
-    <div class="top-message center alert-heading margin-bottom">
-      <% if @post.user.role == "student" %>
-        <p>This question is created by a student in grades 3--8 and may contain errors.</p>
-        <p><%= link_to "Log in", signin_path %> or <%= link_to "sign up", signup_path %> to find out how Shooloo members critique its mathematical reasoning.</p> 
-        <p>Teachers: find out <%= link_to "how to make a game out of imperfect student-authored word problems", video_path(11) %>.</p>
-      <% else %>
-        <p><%= link_to "Log in", signin_path %> or <%= link_to "sign up", signup_path %> to find out answers, comments, and many more!</p>
-        <p>Teachers: find out <%= link_to "how to teach Common Core math with student-authored word problems", video_path(8) %>.</p>        
-      <% end %>
-    </div>
+    <h1>Student-Authored Common Core Math Word Problem<br/> 
+      in <%= @post.level.name %> / <%= @post.domain.core %> / <%= @post.standard.short %></h1>     
   <% end %>
   <div class="row">
     <% if signed_in? && !@response.nil? %>
@@ -41,6 +33,18 @@
         <p>
           <strong>Question: </strong><%= @post.question.html_safe %>
         </p>
+        <% if !signed_in? %>
+          <div class="box center">
+            <% if @post.user.role == "student" %>
+              <p>This question is created by a student and may contain errors.</p>
+              <p><%= link_to "Log in", signin_path %> or <%= link_to "sign up", signup_path %> to find out how Shooloo members critique its mathematical reasoning.</p> 
+              <p><strong>Teachers:</strong> find out <%= link_to "how to make a game out of imperfect student-authored word problems", video_path(11) %>.</p>
+            <% else %>
+              <p><%= link_to "Log in", signin_path %> or <%= link_to "sign up", signup_path %> to find out answers, comments, and many more!</p>
+              <p><strong>Teachers:</strong> find out <%= link_to "how to teach Common Core math with student-authored word problems", video_path(8) %>.</p>        
+            <% end %>
+          </div>
+        <% end %>
         <% if signed_in? && @response.nil? %>
           <p class="no">To see the answer and everyone else's comments, submit your own solution first.</p>
           <% if !@post.level.nil? %>

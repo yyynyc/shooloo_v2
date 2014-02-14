@@ -1,12 +1,11 @@
-<%= render 'shared/teacher_video' %>
 <div itemscope itemtype="http://schema.org/CreativeWork">
 	<meta itemprop="description" content="Shooloo's video tutorials on how to teach the Common Core State Standards for mathematical practices.">
 	<%= render 'shared/meta' %>
 
-	<h2> 
-		<p>Shooloo <span itemprop="about">Lesson Plans and Video Tutorials</span> </p> 
-		<p><span itemprop="educationalAlignment">Common Core State Standards</span> for <span itemprop="about">Mathematical Practices</span></p>  
-	</h2>	
+	<h1> 
+		Shooloo <span itemprop="about"><%= link_to "Lesson Plans", lessons_path%> and <%= link_to "Video Tutorials", videos_path %></span> <br/> 
+		<span itemprop="educationalAlignment">Common Core State Standards</span> for <span itemprop="about">Mathematical Practices</span>  
+	</h1>	
 	<ul class="nav nav-tabs">
 		<li><%= link_to "Overview", standards_path %></li>
 		<li class="active"><%= link_to "Practices", practice_path %></li>
@@ -20,7 +19,7 @@
 		<li><%= link_to "Grade 7", grade_7_path  %></li>
 		<li><%= link_to "Grade 8", grade_8_path  %></li>
 	</ul>
-	<h3> Mathematical Practices </h3>
+	<h2> Mathematical Practices </h2>
 	<table class="table-ccss" >
 		<tr>
 			<th>Mathematical Practice Description</th>

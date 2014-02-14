@@ -62,8 +62,9 @@ class Post < ActiveRecord::Base
   has_many :keeps, foreign_key: "kept_post_id", dependent: :destroy
   has_many :keepers, through: :keeps
   
-  validates_presence_of :user_id, :question, :level_id, :domain_id, :standard_id, :subject_id
+  validates_presence_of :user_id, :level_id, :domain_id, :standard_id, :subject_id
   validates :answer, presence: true
+  validates :question, presence: true, uniqueness: true
   #validates_attachment_presence :photo
   validates_attachment_size :photo, :less_than => 5.megabytes
   validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']

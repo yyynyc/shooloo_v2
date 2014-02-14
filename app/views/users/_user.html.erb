@@ -26,16 +26,13 @@
 			published
 				<a href="<%= posts_user_path(user) %>" >
 				<%= pluralize(user.post_count, "post") %></a>,
-			added
-				<a href="<%= rated_posts_user_path(user) %>" >
-				<%= pluralize(user.rating_count, "rating") %></a>,
 			made
 				<a href="<%= commented_posts_user_path(user) %>" >
 				<%= pluralize(user.comment_count, "comment") %></a>,<br/>
 			received 
-				<%= pluralize(user.gift_received_count, "gift") %>, 
+				<%= pluralize(user.reverse_gifts.where(sent: true).count, "gift") %>, 
 			sent 
-				<%= pluralize(user.gift_sent_count, "gift")%>.	
+				<%= pluralize(user.gifts.where(sent: true).count, "gift")%>.	
 		</div >		
 	</div>
   <% if current_user.admin? && !current_user?(user) %></br>

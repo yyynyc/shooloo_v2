@@ -18,7 +18,7 @@ class AuthorizationsController < ApplicationController
     @authorization = current_user.authorizations.build(params[:authorization])
     if @authorization.save
       flash[:success] = "Thank you! An email will be sent to you regarding your request status. Meanwhile, check out #{ActionController::Base.helpers.link_to "other members", users_path} and #{ActionController::Base.helpers.link_to "posts", posts_path}.".html_safe 
-      redirect_to root_path
+      redirect_to videos_path
     else
       flash.now[:error] = "Sorry, authorization code is incorrect. Leave it blank, and press the blue button again."
       render 'new'

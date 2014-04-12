@@ -103,6 +103,7 @@ resources :twilios
 resources :gradings
 resources :reminders
 resources :keeps
+resources :introductions
 
   root to: "static_pages#home"
  

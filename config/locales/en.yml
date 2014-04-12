@@ -11,3 +11,8 @@ en:
     attributes:
       assignment:
         assignee_ids: "Assigned students"
+
+  activerecord:
+    attributes:
+      introduction:
+        introducer_email: "Referrer's email address"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131210170625) do
+ActiveRecord::Schema.define(:version => 20140412154401) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -206,6 +206,14 @@ ActiveRecord::Schema.define(:version => 20131210170625) do
     t.integer  "position"
   end
 
+  create_table "introductions", :force => true do |t|
+    t.integer  "introducer_id"
+    t.integer  "introducee_id"
+    t.string   "introducer_email"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
   create_table "invites", :force => true do |t|
     t.integer  "inviter_id"
     t.integer  "invited_post_id"
@@ -393,13 +401,9 @@ ActiveRecord::Schema.define(:version => 20131210170625) do
   create_table "referrals", :force => true do |t|
     t.integer  "referred_id"
     t.integer  "referrer_id"
-    t.string   "approval",                :default => "pending"
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
-    t.boolean  "name_true"
-    t.boolean  "role_true"
-    t.boolean  "screen_name_appropriate"
-    t.boolean  "avatar_appropriate"
+    t.string   "approval",    :default => "pending", :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   add_index "referrals", ["referred_id"], :name => "index_referrals_on_referred_id"
@@ -516,8 +520,6 @@ ActiveRecord::Schema.define(:version => 20131210170625) do
     t.integer  "comment_count",          :default => 0
     t.integer  "follower_count",         :default => 0
     t.integer  "following_count",        :default => 0
-    t.integer  "auth_req_count",         :default => 0
-    t.string   "auth_status"
     t.string   "role",                   :default => "student"
     t.boolean  "visible",                :default => false
     t.string   "personal_email"

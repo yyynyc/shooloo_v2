@@ -17,8 +17,18 @@ class AuthorizationsController < ApplicationController
     @user = User.find(params[:authorization][:authorizer_id])
     @authorization = current_user.authorizations.build(params[:authorization])
     if @authorization.save
-      flash[:success] = "Thank you! An email will be sent to you regarding your request status. Meanwhile, check out #{ActionController::Base.helpers.link_to "other members", users_path} and #{ActionController::Base.helpers.link_to "posts", posts_path}.".html_safe 
-      redirect_to videos_path
+      if @authorization.approval=="accepted"
+        if current_user.role=="teacher"
+          flash[:success] = "Success! Import your student roster and get 30 points toward getting an Advocate Teacher Prize!"
+          redirect_to new_user_import_path
+        else
+          flash[:success] = "Success!"
+          redirect_to root_path
+        end
+      else
+        flash[:success] = "Thank you! An email will be sent to you regarding your request status. Meanwhile, check out #{ActionController::Base.helpers.link_to "other members", users_path} and #{ActionController::Base.helpers.link_to "posts", posts_path}.".html_safe 
+        redirect_to videos_path
+      end
     else
       flash.now[:error] = "Sorry, authorization code is incorrect. Leave it blank, and press the blue button again."
       render 'new'

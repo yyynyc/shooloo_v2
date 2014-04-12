@@ -26,6 +26,22 @@ class UsersController < ApplicationController
         keywords: 'Shooloo, sign up'
   end
 
+  def create
+    @user = User.new(params[:user])
+    if @user.save
+      sign_in @user
+      unless @user.role == "student"
+        flash[:error] = "Tell us who referred or hit the Skip button."
+        redirect_to new_introduction_path
+      else
+        flash[:error] = "Almost there. Complete the form below."
+        redirect_to edit_user_path(@user)
+      end
+    else
+      render 'new'
+    end
+  end
+
   def index
     @search = User.visible.search(params[:q])
     @users = @search.result(order: 'created_at DESC')
@@ -70,22 +86,6 @@ class UsersController < ApplicationController
         nofollow: true 
   end
 
-  def create
-  	@user = User.new(params[:user])
-  	if @user.save
-  		sign_in @user
-      # if @user.role == "student"
-        flash[:error] = "Almost there. Complete the form below."
-        redirect_to edit_user_path(@user)
-      # else
-      #   flash[:error] = "Almost there: you need to #{ActionController::Base.helpers.link_to "complete your information here", edit_user_path(@user)}.". html_safe
-      #   redirect_to posts_path
-      # end
-  	else
-  		render 'new'
-  	end
-  end
-
   def edit
     @user = User.find(params[:id])
     set_meta_tags title: 'Update My Information', 
@@ -106,8 +106,18 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       sign_in @user
       if @user.authorizations.any?
-        flash[:success] = "Information updated successfully!"
-        redirect_to root_path
+        if @user.role == "teacher" 
+          if @user.authorized_users.blank?
+            flash[:success] = "Success! Import your student roster and get 30 points toward getting an Advocate Teacher Prize!"
+            redirect_to new_user_import_path
+          else
+            flash[:success] = "Success! "
+            redirect_to videos_path
+          end
+        else
+          flash[:success] = "Information updated successfully!"
+          redirect_to root_path
+        end
       else 
         flash[:error] = "One last thing: get authorization below."
         redirect_to new_authorization_path        

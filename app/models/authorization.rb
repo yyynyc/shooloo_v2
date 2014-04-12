@@ -5,11 +5,9 @@ class Authorization < ActiveRecord::Base
   belongs_to :authorizer, class_name: "User"
 
   validates_presence_of :authorized_id, :authorizer_id, :approval
-  #validates_inclusion_of :code, :in => %w(ATMNYS2013 ATMNYC2013 BethHick), 
-    #allow_blank: true, message: "Code is invalid."
 
   after_create do
-    if self.approval == "pending"
+    if self.approval == "pending" && self.code.nil?
       Activity.create!(action: "create", trackable: self, 
       	user_id: self.authorized_id, recipient_id: self.authorizer_id)
       unless self.authorizer.personal_email.blank?      

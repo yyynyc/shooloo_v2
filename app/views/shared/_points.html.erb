@@ -1,0 +1,32 @@
+<div class="stats">
+	<span>			
+		<p>Advocacy</p>
+		<p><%= link_to pluralize(user.point.advocacy, "points"), root_path %></p>
+	</span>
+	<span>
+		<p>Inspiration</p>
+		<p><%= link_to pluralize(user.point.inspiration, "points"), root_path %></p>
+	</span>
+	<span>
+		<p>Education</p>
+		<p><%= link_to pluralize(user.point.education, "points"), root_path %></p>
+	</span>
+</div>
+<div class="stats">
+	<span>
+		<p>Following</p>
+		<p><%= link_to pluralize(user.following_count, "member"), following_user_path(user) %></p>
+	</span>
+	<span>
+		<p>Followed by</p>
+		<p><%= link_to pluralize(user.follower_count, "member"), followers_user_path(user) %></p>
+	</span>
+	<span>
+		<p>Sent</p>
+		<% if user==current_user %>
+			<p><%= link_to pluralize(user.gifts.where(sent: true).count, "gift"), gift_giving_path %></p>
+		<% else %>
+			<p><%= pluralize(user.gifts.where(sent: true).count, "gift")%></p>
+		<% end %>
+	</span>
+</div>

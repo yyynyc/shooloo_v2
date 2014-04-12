@@ -71,6 +71,16 @@ module ShoolooV2
 
     #configure exception or error messages
     config.exceptions_app = self.routes
+
+
+    config.generators do |g|
+        g.spec false
+        g.controller_specs false
+        g.view_specs false
+        g.helper_specs false
+        g.helper false
+        g.assets false
+    end
   end
     SIGN_UP = 10
     PROFILE_COMPLETE = 40
@@ -105,4 +115,9 @@ module ShoolooV2
     UNALARM_COMMENT = 20
     INVITE_JOIN = 10
     GIFT_THRESHOLD = 60.0
+    INTRO = 10
+    USER_IMPORT = 30
 end
+
+
+

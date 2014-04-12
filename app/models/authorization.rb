@@ -17,12 +17,18 @@ class Authorization < ActiveRecord::Base
     if self.valid_code?
       self.update_attributes!(approval: "accepted")
     end
+    if self.authorized.role == "student" && self.approval == "accepted"
+      self.authorized.point.update_attributes!(competition: 30)
+    end
   end
 
   after_update do
     if self.approval == "accepted"
       Activity.create!(action: "accept", trackable: self, 
         user_id: self.authorizer_id, recipient_id: self.authorized_id)
+      if self.authorized.role == "student"
+        self.authorized.point.update_attributes!(competition: 30)
+      end
       if self.authorized.role == "teacher" && !self.authorized.personal_email.blank?
         UserMailer.auth_notify_yes(self.authorized).deliver
       elsif !self.authorized.personal_email.blank?
@@ -37,6 +43,7 @@ class Authorization < ActiveRecord::Base
         UserMailer.auth_notify_no(self.authorized).deliver
       end
       self.authorized.visible = "false"
+      self.authorized.point.update_attributes!(competition: 0)
       self.authorized.save(validate: false)
     end     
   end

@@ -1,17 +1,23 @@
 class Introduction < ActiveRecord::Base
-  attr_accessible :introducer_id, :introducee_id, :introducer_email
+  attr_accessible :introducer_id, :introducee_id, :introducer_email, :invitation_code
   belongs_to :introducee, class_name: "User"
   belongs_to :introducer, class_name: "User"
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :introducer_email, format: { with: VALID_EMAIL_REGEX }, presence: true
-  validate :valid_member, :no_self_intro
+  validate :valid_member, :valid_code, :no_self_intro
 
   def valid_member
   	if User.where(visible: true, personal_email: introducer_email).keep_if{
   		|u| u.role.in?(["teacher", "tutor", "parent", "other"])}.blank?
-	  errors.add(:introducer_email, "not found among Shooloo members")
-	end
+  	  errors.add(:introducer_email, "not found among Shooloo members")
+  	end
+  end
+
+  def valid_code
+    if !self.invitation_code.in?(["healthy2014", "AMTNJ2014"])
+      errors.add(:invitation_code, "not valid")
+    end
   end
 
   def no_self_intro
@@ -28,6 +34,9 @@ class Introduction < ActiveRecord::Base
   end
 
   after_update do
-  	
+  	self.introducer.point.advocacy += ShoolooV2::INTRO
+    self.introducer.point.save!
+    self.introducee.point.advocacy += ShoolooV2::INTRO
+    self.introducee.point.save!
   end
 end

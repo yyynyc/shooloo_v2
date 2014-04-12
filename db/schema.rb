@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140412154401) do
+ActiveRecord::Schema.define(:version => 20140412233037) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -212,6 +212,7 @@ ActiveRecord::Schema.define(:version => 20140412154401) do
     t.string   "introducer_email"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.string   "invitation_code"
   end
 
   create_table "invites", :force => true do |t|
@@ -303,6 +304,16 @@ ActiveRecord::Schema.define(:version => 20140412154401) do
     t.datetime "updated_at", :null => false
     t.integer  "rating_id"
     t.integer  "position"
+  end
+
+  create_table "points", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "advocacy",    :default => 0
+    t.integer  "inspiration", :default => 0
+    t.integer  "education",   :default => 0
+    t.integer  "competition", :default => 0
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "posts", :force => true do |t|
@@ -529,8 +540,11 @@ ActiveRecord::Schema.define(:version => 20140412154401) do
     t.string   "email_sent_to"
     t.integer  "gift_received_count",    :default => 0
     t.integer  "gift_sent_count",        :default => 0
+    t.string   "address_city"
+    t.string   "address_state"
   end
 
+  add_index "users", ["personal_email"], :name => "index_users_on_personal_email"
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
   add_index "users", ["screen_name"], :name => "index_users_on_screen_name", :unique => true
 

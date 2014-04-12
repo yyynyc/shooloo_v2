@@ -34,3 +34,20 @@
 		<% end %>
 	</span>
 </div>
+<% if user.role == "student" %>
+<% else user.role == "teacher" %>
+	<div class="competition">
+		<span>			
+			<p >Advocacy</p>
+			<p><%= link_to pluralize(user.point.advocacy, "points"), root_path %></p>
+		</span>
+		<span>
+			<p>Inspiration</p>
+			<p><%= link_to pluralize(user.point.inspiration, "points"), root_path %></p>
+		</span>
+		<span>
+			<p class="center">Education</p>
+			<p><%= link_to pluralize(user.point.education, "points"), root_path %></p>
+		</span>
+	</div>
+<% end %>

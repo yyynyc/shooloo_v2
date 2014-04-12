@@ -944,7 +944,7 @@ iframe {
  }
 
 .user-signup-input {
-  height: 320px;
+  
 }
 
 .user-signup-button {
@@ -1204,6 +1204,23 @@ iframe {
 }
 
 .intro {
-  text-align: center;
   margin-top: 2em;
+}
+
+.competition{
+  overflow: auto;
+  span {
+    float: left;
+    padding: 0.5em 0.5em 0.1em 0.5em;
+    border-left: 1px solid $grayLighter;
+    color: gray;
+    p {
+      line-height: 0.7em;
+      text-align: center;
+    }
+    &:first-child {
+      padding-left: 0;
+      border: 0;
+    }
+  }
 }

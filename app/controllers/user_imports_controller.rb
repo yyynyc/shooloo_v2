@@ -9,6 +9,15 @@ class UserImportsController < ApplicationController
   def create
     @user_import = UserImport.new(params[:user_import])
     if @user_import.save(current_user.id)
+      if current_user.authorized_users.blank?
+        @point = Point.find_by_user_id(current_user.id)
+        @point.advocacy += ShoolooV2::USER_IMPORT
+        @point.save!
+        @introducer_id = Introduction.find_by_introducee_id(current_user.id).introducer_id
+        @introducer_point = Point.find_by_user_id(@introducer_id)
+        @introducer_point.advocacy += ShoolooV2::USER_IMPORT
+        @introducer_point.save!
+      end
       redirect_to authorizations_path, notice: "Imported students successfully."
     else
       render :new

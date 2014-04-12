@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
     :school_name, :school_url, :social_media_url,
     :referrals_attributes, :authorizations_attributes, 
     :post_count, :rating_count, :comment_count, :follower_count, :following_count,
-    :gift_received_count, :gift_sent_count
+    :gift_received_count, :gift_sent_count,
+    :address_city, :address_state
   attr_accessor :updating_password, :validate_student, :validate_teacher, :validate_other
   attr_reader :avatar_remote_url
   has_attached_file :avatar, 
@@ -117,6 +118,8 @@ class User < ActiveRecord::Base
           class_name: "Introduction", dependent: :destroy
   has_many :introducees, through: :reverse_introductions
 
+  has_one :point
+
   before_save do
     create_remember_token
   end
@@ -129,6 +132,7 @@ class User < ActiveRecord::Base
     unless self.personal_email.blank?
       UserMailer.sign_up_confirm(self).deliver
     end
+    Point.create!(user_id: self.id)
   end
 
   before_update do
@@ -170,21 +174,23 @@ class User < ActiveRecord::Base
   validates :rules, presence: true
   validates :role, presence: true
 
-  validates :first_name, length: {maximum: 25}, presence: true, on: :update 
-  validates :last_name, length: {maximum: 25}, presence: true, on: :update
+  validates :first_name, length: {maximum: 25}, presence: true, on: :create 
+  validates :last_name, length: {maximum: 25}, presence: true, on: :create
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :parent_email, format: { with: VALID_EMAIL_REGEX }, presence: true, 
     :if => :verify_student, :unless => :should_validate_password? 
-  validates :grade, presence: true, :unless => :should_validate_password? 
+  validates :grade, presence: true, :if => :verify_student, :unless => :should_validate_password? 
   validates :school_name, presence: true, length: {maximum: 100}, 
     :if => :verify_student_or_teacher
   validates :personal_email, format: { with: VALID_EMAIL_REGEX }, 
     uniqueness: {case_sensitive: false}, presence: true, :if => :verify_teacher_or_other
   validates :personal_email, format: { with: VALID_EMAIL_REGEX }, 
     allow_blank: true, :if => :verify_student
-  validates :school_url, presence: true, url: true, :if => :verify_teacher
   validates :social_media_url, presence: true, :if => :verify_other
-  validates :grade, numericality: true, allow_blank: true
+  validates :grade, numericality: true, allow_blank: true, :if => :verify_student
+  validates :address_city, presence: true, on: :update
+  validates :address_state, presence: true, on: :update
+  #validates :school_url, presence: true, url: true, :if => :verify_teacher
   #validates_presence_of :school_name, :if => :active_student?
   #validates_confirmation_of :email, on: :create
   #validates_attachment_presence :avatar

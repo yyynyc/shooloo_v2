@@ -20,10 +20,7 @@ class UsersController < ApplicationController
 
   def new
   	@user = User.new
-    @authorization = @user.authorizations.build
-    set_meta_tags title: 'Sign Up', 
-        description: 'Shooloo member sign up',
-        keywords: 'Shooloo, sign up'
+    @authorization = @user.authorizations.build 
   end
 
   def create

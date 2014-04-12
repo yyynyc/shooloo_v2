@@ -21,10 +21,8 @@
 			<% end %>			
 			<%= f.input :first_name %>
 			<%= f.input :last_name %> 
-			<% if @user.role == "student" %>
+			<% if @user.role == "student" || @user.role == "teacher"%>
 				<%= f.input :school_name %>
-				<%= f.input :grade, as: :select, collection: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], include_blank: true %>
-			<% elsif @user.role == "teacher" %>
 				<%= f.input :grade, as: :select, collection: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], include_blank: true %>
 			<% else %>
 				<%= f.input :school_name, label: "Affiliation name" %>
@@ -36,6 +34,8 @@
 			</span>						
 		</div>
 		<div class="span5.5 border-left">
+			<%= f.input :address_city, label: "City" %>
+			<%= f.input :address_state, label: "State", as: :select, collection: us_states, include_blank: true %>
 			<% if @user.role == "student" %>
 				<span class="search-label"> 
 					<%= f.input :parent_email, label: "My parent's email", placeholder: "Useful to recover your forgotten password" %>
@@ -55,24 +55,6 @@
 					</a>
 				</span>
 			<% elsif @user.role == "teacher" %>
-				<span class="search-label">
-					<%= f.input :school_name %>
-				</span>
-				<span class="question">
-					<a href="#", class="question", rel="popover", title="School Name", data-content="In addition to the name of your school, please also specify the city and state where your school is located." %> 
-						<i class="icon-question-sign icon-medium" ></i>
-					</a>
-				</span>
-				<br/>	
-				<span class="search-label">
-					<%= f.input :school_url, label: "School web address" %>
-				</span>
-				<span class="question">
-					<a href="#", class="question", rel="popover", title="School Url", data-content="Please put in the specific web page indicating that you are a teacher in that particular school. For the safety of our under-aged members, we need to verify your identity." %> 
-						<i class="icon-question-sign icon-medium" ></i>
-					</a>
-				</span>
-				<br/>	
 				<span class="search-label">
 					<%= f.input :personal_email, label: "My email", placeholder: "Useful to recover your forgotten password" %>
 				</span>

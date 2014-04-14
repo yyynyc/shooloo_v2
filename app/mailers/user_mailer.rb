@@ -124,12 +124,20 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-  def ref_notify_no (user)
+  def ref_notify_no(user)
     sendgrid_category "referral declined"
     @user = user
     unless @user.personal_email.blank? 
       mail to: user.personal_email, 
         subject: "#{user.first_name}: Referral Declined from Shoooloo"
     end
+  end
+
+  def invite_mail(invitemail)
+    sendgrid_category "invitation mail"
+    @invitemail = invitemail
+    mail to: invitemail.to,
+      from: "#{invitemail.user.full_name_us} (#{invitemail.user.personal_email})", 
+      subject: invitemail.subject    
   end
 end

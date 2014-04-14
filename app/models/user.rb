@@ -119,6 +119,7 @@ class User < ActiveRecord::Base
   has_many :introducees, through: :reverse_introductions
 
   has_one :point
+  has_many :invitemails
 
   before_save do
     create_remember_token

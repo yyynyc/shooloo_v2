@@ -104,6 +104,7 @@ resources :gradings
 resources :reminders
 resources :keeps
 resources :introductions
+resources :invitemails
 
   root to: "static_pages#home"
  

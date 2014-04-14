@@ -1,0 +1,20 @@
+<% title "Send Invites" %>
+<% description "Invite teacher friends to join and win prizes for your entire class!" %>
+<% noindex %>
+<% nofollow %>
+
+<h1>Invite Fellow Educators</h1>
+<p class="center timestamp"> 
+  When your fellow teacher joins Shooloo, both of you will earn 10 points towards getting an Advocacy Prize.<br/> When he/she imports his/her student roster into Shooloo, both of you will earn another 30 points!
+</P>
+<%= semantic_form_for @invitemail, :validate => true, :url => invitemails_path, :html => {class: "form-horizontal-mail"} do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <%=f.inputs do %> 
+    <%= f.input :to, placeholder: "You can put in multiple email addresses seperated by comma" %>
+    <%= f.input :subject, :input_html => {value: "Join me in the Healthy Eating Math Story Competition! "} %>
+    <%= f.input :body, label: "Message", :input_html => {value: "Greetings! My students and I are participating in a math story competition about healthy eating, and I think your students would benefit from it as well. We can both win prizes of healthy snacks and beverages for our entire class of students!\r\n\r\nTo participate, sign up at https://fun.shooloo.org. When asked for referral, put in my email address #{current_user.personal_email} and invitation code 'healthy2014', and you will obtain immediate authorization to participate in the competition.\r\n\r\nBest wishes," } %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit, label: "Send", as: :button, button_html: { class: "btn btn-formtastic btn-medium btn-primary", disable_with: "Proccessing..."} %>
+  <% end %>
+<% end %>

@@ -168,3 +168,10 @@
     </div>
   </div>
 </header>
+<% if signed_in? && current_user.visible? %>
+  <% unless current_user.role == "student" %>
+    <div class="announcement">
+      Invite your fellow educators <%= link_to "here", new_invitemail_path %> and both of you may win prizes for your entire class of students!
+    </div>
+  <% end %>
+<% end %>

@@ -18,7 +18,8 @@ class UserImportsController < ApplicationController
         @introducer_point.advocacy += ShoolooV2::USER_IMPORT
         @introducer_point.save!
       end
-      redirect_to authorizations_path, notice: "Imported students successfully."
+      Flash[:success] = "Import success! You've just earned 30 points toward #{ActionController::Base.helpers.link_to "winning", root_path} an Advocacy Award!".html_safe
+      redirect_to authorizations_path
     else
       render :new
     end

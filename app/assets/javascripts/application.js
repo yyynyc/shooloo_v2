@@ -22,7 +22,6 @@
 //= require jquery.jplayer.min
 //= require chosen-jquery
 //= require_tree .
-
 $(function ()  
 { $(".like").tooltip({trigger: 'hover', placement: 'bottom'});  
 }); 

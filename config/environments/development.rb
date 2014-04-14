@@ -18,6 +18,16 @@ ShoolooV2::Application.configure do
 
   # Change mail delivery to either :smtp, :sendmail, :file, :test
   config.action_mailer.delivery_method = :letter_opener
+#   config.action_mailer.delivery_method = :smtp
+#   config.action_mailer.smtp_settings = {
+#   address: "smtp.gmail.com",
+#   port: 587,
+#   domain: "shooloo.org",
+#   authentication: "plain",
+#   enable_starttls_auto: true,
+#   user_name: ENV["ryang@shooloo.org"],
+#   password: ENV["game2011"]
+# }
 
   # the domain where emails will be sent
   config.action_mailer.default_url_options = { :host => "localhost:3000" }

@@ -112,8 +112,8 @@ class User < ActiveRecord::Base
   has_many :keeps, foreign_key: "keeper_id", dependent: :destroy
   has_many :kept_posts, through: :keeps
 
-  has_many :introductions, foreign_key: "introducee_id", dependent: :destroy
-  has_many :introducers, through: :introductions
+  has_one :introduction, foreign_key: "introducee_id", dependent: :destroy
+  has_one :introducer, through: :introduction
   has_many :reverse_introductions, foreign_key: "introducer_id", 
           class_name: "Introduction", dependent: :destroy
   has_many :introducees, through: :reverse_introductions

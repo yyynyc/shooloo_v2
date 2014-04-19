@@ -189,8 +189,8 @@ class User < ActiveRecord::Base
     allow_blank: true, :if => :verify_student
   validates :social_media_url, presence: true, :if => :verify_other
   validates :grade, numericality: true, allow_blank: true, :if => :verify_student
-  validates :address_city, presence: true, on: :update
-  validates :address_state, presence: true, on: :update
+  validates :address_city, presence: true, on: :update, :unless => :should_validate_password?
+  validates :address_state, presence: true, on: :update, :unless => :should_validate_password?
   validate :screen_name_custom
   #validates :school_url, presence: true, url: true, :if => :verify_teacher
   #validates_presence_of :school_name, :if => :active_student?

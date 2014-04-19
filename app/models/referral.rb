@@ -35,11 +35,13 @@ class Referral < ActiveRecord::Base
     end
 
     if self.referred.referrals.where('approval' => "accepted").any?
-      self.referred.update_attributes!(visible: true)
+      self.referred.visible=true
+      self.referred.save(validate: false)
     end
   end
 
   before_destroy do
-    self.referred.update_attributes!(visible: false)
+    self.referred.visible=false
+      self.referred.save(validate: false)
   end
 end

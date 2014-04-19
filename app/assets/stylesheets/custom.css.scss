@@ -52,8 +52,7 @@ h1 {
 h2 {
   font-size: 1.7em;
   letter-spacing: -1px;
-  margin-bottom: 30px;
-  text-align: left;
+  margin-top: 20px;
   font-weight: normal;
   color: $grayLight;
   p {
@@ -1255,4 +1254,44 @@ iframe {
   a {
     color: #666;
   }
+}
+
+.bs-docs-sidenav {
+  background-color: #FFFFFF;
+  border-radius: 6px 6px 6px 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+  margin: 160px 0 0;
+  padding: 0;
+  width: 150px;
+}
+
+.bs-docs-sidenav > li:first-child > a {
+  border-radius: 6px 6px 0 0;
+}
+
+.bs-docs-sidenav > li:last-child > a {
+  border-radius: 0 0 6px 6px;
+}
+
+.bs-docs-sidenav > li > a {
+  border: 1px solid #E5E5E5;
+  display: block;
+  margin: 0 0 -1px;
+  padding: 8px 14px;
+}
+
+.affix-top {
+  position: absolute;
+  top: 0px;
+  bottom: auto;
+}
+
+.affix-bottom {
+  position: absolute;
+  top:auto;
+  bottom: 200px;
+}
+
+.affix {
+  top: 0;
 }

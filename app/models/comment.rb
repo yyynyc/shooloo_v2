@@ -16,6 +16,7 @@ class Comment < ActiveRecord::Base
     path: ":rails_root/public/attachments/comments/:id/:style/:basename.:extension"
 
   validates_presence_of :commenter_id, :content
+  validate :comment_custom
 
   has_many :alarms, foreign_key: "alarmed_comment_id", dependent: :destroy
   has_many :likes, foreign_key: "liked_comment_id", dependent: :destroy
@@ -25,6 +26,12 @@ class Comment < ActiveRecord::Base
   has_one :mark, through: :grading
   has_one :scorecard
   has_one :color, through: :scorecard
+
+  def comment_custom
+    if content.downcase.include?(self.commenter.first_name.downcase) || content.downcase.include?(self.commenter.last_name.downcase)
+      errors.add(:comment, "can't contain any part of your real name.")
+    end
+  end
 
   def after_initialize
     @visible = true if @visible.nil?

@@ -115,6 +115,7 @@ resources :invitemails
   match '/rules', to: 'static_pages#rules'
   match '/terms', to: 'static_pages#terms'
   match '/privacy', to: 'static_pages#privacy'
+  match '/contest', to: 'static_pages#contest'
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'

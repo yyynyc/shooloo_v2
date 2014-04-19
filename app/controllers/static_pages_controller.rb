@@ -47,7 +47,7 @@ class StaticPagesController < ApplicationController
   end
 
   def advisors
-    set_meta_tags title: 'advisors', 
+    set_meta_tags title: 'Advisors', 
         description: 'Shooloo advisors', 
         keywords: %w[Shooloo advisors]
   end
@@ -74,5 +74,8 @@ class StaticPagesController < ApplicationController
   end
 
   def sample_assignment
+  end
+
+  def contest
   end
 end

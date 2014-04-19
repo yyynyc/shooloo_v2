@@ -6,7 +6,7 @@
 <%= render partial: 'posts/post_review' %> 
 
 <% if !@comments.blank? %>
-	<h2> Comments </h2>	
+	<h2 class="center"> Comments </h2>	
 	<ol class="posts">
 		<% unless @comments.hidden.blank? %>
 			<% @comments.hidden.each do |comment| %>
@@ -20,7 +20,7 @@
 	</ol>
 <% end %>
 
-<h2> Post A New Comment</h2>
+<h2 class="center"> Post A New Comment</h2>
 <p class="center yes alert-heading"> 
 	Please kindly tell the author if his/her question, answer, and I-can statement are clear and correct. <br/>
 	Watch  <span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseVideo">video on how to make a winning comment</a>. Thank you!

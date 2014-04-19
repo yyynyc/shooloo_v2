@@ -68,6 +68,20 @@ class Post < ActiveRecord::Base
   #validates_attachment_presence :photo
   validates_attachment_size :photo, :less_than => 5.megabytes
   validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
+  validate :question_custom
+  validate :answer_custom
+
+  def question_custom
+    if question.downcase.include?(self.user.first_name.downcase) || question.downcase.include?(self.user.last_name.downcase)
+      errors.add(:question, "can't contain any part of your real name.")
+    end
+  end
+
+  def answer_custom
+    if answer.downcase.include?(self.user.first_name.downcase) || answer.downcase.include?(self.user.last_name.downcase)
+      errors.add(:answer, "can't contain any part of your real name.")
+    end
+  end
 
   def after_initialize
     @visible = true if @visible.nil?

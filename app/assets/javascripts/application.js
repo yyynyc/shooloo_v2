@@ -46,6 +46,7 @@ $(function ()
 $(function ()  
 { $(".edit").popover({trigger: 'hover', placement: 'bottom', html: true});  
 });
+
 jQuery(function() {
   $("a.fancybox").fancybox();
 });

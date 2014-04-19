@@ -504,7 +504,7 @@ private
 
   def screen_name_custom
     if screen_name.downcase.include?(first_name.downcase) || screen_name.downcase.include?(last_name.downcase)
-    errors.add(:screen_name, "can't contain any part of your real name.")
-  end
+      errors.add(:screen_name, "can't contain any part of your real name.")
+    end
   end
 end

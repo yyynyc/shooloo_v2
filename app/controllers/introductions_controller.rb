@@ -9,9 +9,9 @@ class IntroductionsController < ApplicationController
     @introduction = Introduction.create(params[:introduction])
     if @introduction.save
       if current_user.role == "teacher"
-        flash[:success] = "Success! You've just earned 30 points towards winning an #{ActionController::Base.helpers.link_to "Advocacy Award", root_path}! Complete the profile below or #{ActionController::Base.helpers.link_to "skip", new_user_import_path} for now.".html_safe
+        flash[:success] = "Success! You've just earned 10 points towards winning an Advocacy #{ActionController::Base.helpers.link_to "Award", contest_path}! Complete the profile below to earn more points or #{ActionController::Base.helpers.link_to "skip", new_user_import_path} for now.".html_safe
       else
-        flash[:success] = "Success! You've just earned 30 points towards winning an #{ActionController::Base.helpers.link_to "Advocacy Award", root_path}! Complete the profile below to participate in our competition.".html_safe
+        flash[:success] = "Success! You've just earned 10 points towards winning an Advocacy #{ActionController::Base.helpers.link_to "Award", contest_path}! Complete the profile below to earn more points.".html_safe
       end 
       redirect_to edit_user_path(current_user)
     else

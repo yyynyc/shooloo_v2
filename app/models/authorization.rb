@@ -50,7 +50,8 @@ class Authorization < ActiveRecord::Base
 
   after_destroy do
     if self.authorized.authorizations.where('approval' => "accepted").blank?
-      self.authorized.update_attributes!(visible: false)
+      self.authorized.visible = false
+      self.authorized.save(validate: false)
       if !self.authorized.personal_email.blank?
         UserMailer.auth_delete(self.authorized).deliver
       end

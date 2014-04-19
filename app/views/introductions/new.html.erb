@@ -14,13 +14,13 @@
 		<%= form_for @introduction do |f| %>
 			<%= render 'shared/error_messages', object: f.object %>
 		  	<%= f.hidden_field :introducee_id, value: current_user.id %>
-			  	<div class="span2.5 search-label">
+			  	<div class="span2 search-label">
 			  		<%= f.label :introducer_email, "Referrer's Email", class: "alert-heading" %>
 			  	</div>
 			  	<div class="search-label">
 				  <%= f.text_field :introducer_email %>
 				</div><br/>
-				<div class="span2.5 search-label">
+				<div class="span2 search-label">
 			  		<%= f.label :invitation_code, class: "alert-heading" %>
 			  	</div>
 			  	<div class="search-label">

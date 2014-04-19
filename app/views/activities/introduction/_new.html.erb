@@ -1,0 +1,6 @@
+<% if activity.trackable %>
+	<strong>SIGNED UP</strong> on <%= activity.created_at.strftime("%b %d, %Y") %> 
+	based on <%= activity.recipient.full_name_us %>'s recommendation. 
+<% else %>
+	has been removed from our member community.
+<% end %>

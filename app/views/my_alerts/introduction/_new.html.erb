@@ -1,0 +1,15 @@
+<% if activity.trackable %>
+	<span class='btn-formtastic'>
+		<img src="/attachments/blow_kiss.gif" alt="Shooloo Math Thanks" width='80'>
+	</span>
+	<span class='alert-heading'>
+		<strong>SIGNED UP</strong> 
+	</span>
+	on <%= activity.created_at.strftime("%b %d, %Y") %> with your referral.</br>
+	10 points have been added to your Advocacy Bank.<br/>
+	When he/she imports his/her student roster into Shooloo, you will gain another 30 points!
+<% else %>
+	has been removed from our member community.
+<% end %>
+
+

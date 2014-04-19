@@ -1,3 +1,20 @@
+<% if user.role == "student" %>
+<% else user.role == "teacher" %>
+	<div class="stats">
+		<span>			
+			<p><strong>Advocacy</strong></p>
+			<p><%= link_to pluralize(user.point.advocacy, "points"), root_path %></p>
+		</span>
+		<span>
+			<p><strong>Inspiration</strong></p>
+			<p><%= link_to pluralize(user.point.inspiration, "points"), root_path %></p>
+		</span>
+		<span>
+			<p><strong>Education</strong></p>
+			<p><%= link_to pluralize(user.point.education, "points"), root_path %></p>
+		</span>
+	</div>
+<% end %>
 <div class="stats">
 	<span>			
 		<p>Published</p>
@@ -16,7 +33,7 @@
 		<% end %>	
 	</span>
 </div>
-<div class="stats">
+<div class="competition">
 	<span>
 		<p>Following</p>
 		<p><%= link_to pluralize(user.following_count, "member"), following_user_path(user) %></p>
@@ -34,20 +51,4 @@
 		<% end %>
 	</span>
 </div>
-<% if user.role == "student" %>
-<% else user.role == "teacher" %>
-	<div class="competition">
-		<span>			
-			<p >Advocacy</p>
-			<p><%= link_to pluralize(user.point.advocacy, "points"), root_path %></p>
-		</span>
-		<span>
-			<p>Inspiration</p>
-			<p><%= link_to pluralize(user.point.inspiration, "points"), root_path %></p>
-		</span>
-		<span>
-			<p class="center">Education</p>
-			<p><%= link_to pluralize(user.point.education, "points"), root_path %></p>
-		</span>
-	</div>
-<% end %>
+

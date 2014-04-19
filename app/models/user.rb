@@ -191,6 +191,7 @@ class User < ActiveRecord::Base
   validates :grade, numericality: true, allow_blank: true, :if => :verify_student
   validates :address_city, presence: true, on: :update
   validates :address_state, presence: true, on: :update
+  validate :screen_name_custom
   #validates :school_url, presence: true, url: true, :if => :verify_teacher
   #validates_presence_of :school_name, :if => :active_student?
   #validates_confirmation_of :email, on: :create
@@ -499,5 +500,11 @@ private
     begin
       self[column] = SecureRandom.urlsafe_base64
     end while User.exists?(column => self[column])
+  end
+
+  def screen_name_custom
+    if screen_name.downcase.include?(first_name.downcase) || screen_name.downcase.include?(last_name.downcase)
+    errors.add(:screen_name, "can't contain any part of your real name.")
+  end
   end
 end

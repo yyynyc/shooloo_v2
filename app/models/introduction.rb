@@ -30,7 +30,9 @@ class Introduction < ActiveRecord::Base
   	self.update_attributes!(introducer_id: User.find_by_personal_email(
   		self.introducer_email).id)  
   	Authorization.create!(authorized_id: self.introducee.id, authorizer_id:
-  		2, approval: "accepted")		
+  		2, approval: "accepted")	
+    Activity.create!(action: "new", trackable: self, 
+        user_id: self.introducee_id, recipient_id: self.introducer_id)	
   end
 
   after_update do

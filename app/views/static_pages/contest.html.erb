@@ -2,9 +2,9 @@
 <% description 'Prizes and Rules of the Shooloo Healthy Eating Math Story Contest' %>
 
 <h1> Shooloo Healthy Eating Math Story Contest </h1>
-<div class='row' data-spy="scroll" data-target=".bs-docs-sidebar">
-	<div class='span2'>
-		<ul class='nav nav-list bs-docs-sidenav affix' data-spy="affix" data-offset-top="20" data-offset-bottom="0" >
+<div class='row'>
+	<div class='span2 bs-docs-sidebar'>
+		<ul class='nav nav-list bs-docs-sidenav affix'>
 			<li><a href="#overview">Overview</a></li>
 			<li><a href="#awards">Adwards</a></li>
 			<li><a href="#deadline">Deadline</a></li>
@@ -17,7 +17,7 @@
 			<li><a href="#contact">Contact Us</a></li>
 		</ul>
 	</div>
-	<div class='span10 auth-font' style="margin-left: 200px">
+	<div class='span10 auth-font scrollspy-example' style="margin-left: 200px" data-spy="scroll" data-target=".bs-docs-sidebar">
 		<div id="overview">
 			<h2>Overview</h2>
 			<span itemprop="image">
@@ -43,18 +43,18 @@
 			<p> All contestants' points will be automatically and continuously tallied  throughout the duration of the contest. The contest cut off time will be 3:00 pm EDT on August 15, 2014. Winners will be announced in the week of August 18. Awards will be sent to the winners' school or home address in the first week of September.
 			</p>
 		</div>
-		<div id="Who">
+		<div id="who">
 			<h2>Who May Enter</h2>
 			<p> Teachers and students in grades 3-12 in the U.S. may enter the contest. Winners will be required to supply personal identification credentials for us to verify age and school affiliation. 
 			</p>
 		</div>
-		<div id="How">
+		<div id="how">
 			<h2>How to Enter</h2>
 			<p> If you are already an authorized member of Shooloo, you may submit math stories about healthy eating after you <%= link_to "log in", signin_path %>.</p>
 			<p> If you don't have authorization, <%= link_to "log in", signin_path %>, complete your user profile and request authorization from the Shooloo admin (if you are a teacher, tutor, or parent) or from your teacher (if you are a student).</p>
 			<p> If you are not a Shooloo member, <%= link_to "sign up", signup_path %> now.</p>
 		</div> 	  
-		<div id="How">
+		<div id="win">
 			<h2>How to Win</h2>
 			<p><strong> Teacher Advocacy Award:</strong> Teachers can invite their fellow educators to join Shooloo. If a referred educator signs up using your email address and invitation code, both of you will earn 10 Advocacy points. When that referred educator imports his/her student roster into Shooloo, both of you will earn another 30 Advocacy points. The top 10 teachers who have accumulated the highest Advocacy points by the cut-off date will win the Awards. 
 			</p>

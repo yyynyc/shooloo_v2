@@ -50,7 +50,7 @@ h1 {
 }
 
 h2 {
-  font-size: 1.7em;
+  font-size: 22px;
   letter-spacing: -1px;
   margin-top: 20px;
   font-weight: normal;
@@ -1282,7 +1282,7 @@ iframe {
 
 .affix-top {
   position: absolute;
-  top: 0px;
+  top: 200px;
   bottom: auto;
 }
 
@@ -1293,5 +1293,10 @@ iframe {
 }
 
 .affix {
-  top: 0;
+  top: 0px;
 }
+.scrollspy-example {  
+  height: 800px;  
+  overflow: auto;  
+  position: relative;  
+}  

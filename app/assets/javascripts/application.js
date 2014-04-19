@@ -47,6 +47,20 @@ $(function ()
 { $(".edit").popover({trigger: 'hover', placement: 'bottom', html: true});  
 });
 
+$(function ()  
+{   $('.bs-docs-sidebar').scrollspy(); 
+    $('[data-spy="scroll"]').each(function () {  
+      var $spy = $(this).scrollspy('refresh')  
+    });
+    var offset = 80;
+    $('.bs-docs-sidenav li a').click(function(event) {
+    event.preventDefault();
+    $($(this).attr('href'))[0].scrollIntoView();
+    scrollBy(0, -offset);
+});
+
+});
+
 jQuery(function() {
   $("a.fancybox").fancybox();
 });

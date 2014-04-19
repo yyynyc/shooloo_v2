@@ -136,6 +136,12 @@ class User < ActiveRecord::Base
     Point.create!(user_id: self.id)
   end
 
+  before_save do
+    unless self.role.nil?
+      self.role.downcase!
+    end
+  end
+
   before_update do
     unless self.personal_email.nil?
       self.personal_email.downcase!

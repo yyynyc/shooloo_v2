@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :choices
   has_many :gradings, foreign_key: "grader_id", dependent: :destroy
   has_many :reverse_gradings, foreign_key: "gradee_id", class_name: "Grading", dependent: :destroy
-  has_one :state, dependent: :destroy
+  has_one :nature, dependent: :destroy
   has_many :lessons, dependent: :destroy
   has_many :posts, dependent: :destroy, order: "created_at DESC"
   has_many :activities, dependent: :destroy
@@ -158,7 +158,7 @@ class User < ActiveRecord::Base
   end  
 
   after_update do
-    create_states
+    create_natures
   end
 
   after_destroy do 
@@ -382,7 +382,7 @@ class User < ActiveRecord::Base
     referrals.find_by_referrer_id(other_user.id).destroy
   end
   
-  def create_states
+  def create_natures
     if self.role == "student" &&
           !self.screen_name.nil? &&
           !self.first_name.nil? &&
@@ -393,8 +393,8 @@ class User < ActiveRecord::Base
           !self.parent_email.nil? &&
           self.rules == true &&
           self.privacy == true &&
-          State.where(user_id: self.id).blank?   
-        State.create!(user_id: self.id, complete: "true")  
+          Nature.where(user_id: self.id).blank?   
+        Nature.create!(user_id: self.id, complete: "true")  
     elsif self.role == "teacher" &&
           !self.screen_name.nil? &&
           !self.first_name.nil? &&
@@ -405,8 +405,8 @@ class User < ActiveRecord::Base
           !self.personal_email.nil? &&
           self.rules == true &&
           self.privacy == true &&
-          State.where(user_id: self.id).blank?   
-        State.create!(user_id: self.id, complete: "true") 
+          Nature.where(user_id: self.id).blank?   
+        Nature.create!(user_id: self.id, complete: "true") 
     elsif self.role != "teacher" &&
           self.role != "student" &&
           !self.screen_name.nil? &&
@@ -417,8 +417,8 @@ class User < ActiveRecord::Base
           !self.personal_email.nil? &&
           self.rules == true &&
           self.privacy == true &&
-          State.where(user_id: self.id).blank?   
-        State.create!(user_id: self.id, complete: "true")           
+          Nature.where(user_id: self.id).blank?   
+        Nature.create!(user_id: self.id, complete: "true")           
     end
   end
 

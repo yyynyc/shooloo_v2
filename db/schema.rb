@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140414134359) do
+ActiveRecord::Schema.define(:version => 20140421135405) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -300,6 +300,13 @@ ActiveRecord::Schema.define(:version => 20140414134359) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "natures", :force => true do |t|
+    t.integer  "user_id"
+    t.boolean  "complete"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "nudges", :force => true do |t|
     t.integer  "nudger_id"
     t.integer  "nudged_id"
@@ -501,13 +508,6 @@ ActiveRecord::Schema.define(:version => 20140414134359) do
     t.text     "ICan"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-  end
-
-  create_table "states", :force => true do |t|
-    t.integer  "user_id"
-    t.boolean  "complete"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "subjects", :force => true do |t|

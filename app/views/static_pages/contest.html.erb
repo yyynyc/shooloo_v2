@@ -55,7 +55,7 @@
 					<% if current_user.visible? %>
 						<%= link_to "Submit your entry", new_post_path %> of math stories about healthy eating and/or <%= link_to "refer a friend", new_invitemail_path %> now.
 					<% else %>
-						<% if !user.state.nil? && user.state.complete? %>
+						<% if !user.nature.nil? && user.nature.complete? %>
 							<%= link_to "Request authorization", new_authorization_path %> to enter the contest.
 						<% else %>
 							<%= link_to "Complete your profile", edit_user_path(current_user) %> and then request authorization to enter the contest.

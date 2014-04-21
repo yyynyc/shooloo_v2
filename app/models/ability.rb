@@ -35,7 +35,7 @@ class Ability
             can :create, Alarm
             can :read, :all
             can [:index, :show, :premium], Video
-        elsif !user.state.nil? && user.state.complete?
+        elsif !user.nature.nil? && user.nature.complete?
             can [:create, :destroy], [Referral, Authorization]
             can [:new], [Comment, Assignment, Lesson, Response, Keep]
             can [:new, :teacher_view], Post

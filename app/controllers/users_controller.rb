@@ -146,9 +146,19 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
+  def draft_posts
+    @user = User.find(params[:id])
+    @posts = @user.posts.where(state: "draft").paginate(page: params[:page], per_page: 10, order: "created_at DESC")
+  end
+
+  def submitted_posts
+    @user = User.find(params[:id])
+    @posts = @user.posts.where(state: "submitted").paginate(page: params[:page], per_page: 10, order: "created_at DESC")
+  end
+
   def posts
     @user = User.find(params[:id])
-    @posts = @user.posts.visible.paginate(page: params[:page], per_page: 10, order: "created_at DESC")
+    @posts = @user.posts.where(state: ["verified", "published"]).visible.paginate(page: params[:page], per_page: 10, order: "created_at DESC")
     @post = @user.posts.build(params[:post])
     @rating=current_user.ratings.build(params[:rating])
     @comment=current_user.comments.build(params[:comment])

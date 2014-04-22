@@ -13,6 +13,7 @@
       <% end %>           
   <% end %>
   <% if post.verified? || post.published? %>
+    <%= link_to "correct", new_post_correction_path(post), class: "btn btn-small btn-success" %>
     <% if !current_user?(post.user) %>
       <span class='search-label'> 
         <%= render partial: 'likes/like_form', locals: {post: post, like: like} %>

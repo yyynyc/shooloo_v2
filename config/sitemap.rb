@@ -29,8 +29,9 @@ SitemapGenerator::Sitemap.create do
   add terms_path, :priority => 0.4, :changefreq => 'yearly'
   add privacy_path, :priority => 0.4, :changefreq => 'yearly'
   add signin_path, :priority => 0.3, :changefreq => 'never'
-  add videos_path, :priority => 0.7, :changefreq => 'never'  
-
+  add videos_path, :priority => 0.7, :changefreq => 'never'
+  add contest_path, :priority =>0.9, :changefreq => 'weekly'  
+  add practice_path, :priority =>0.8, :changefreq => 'monthly' 
   
   Post.find_each do |post|
     add new_post_comment_path(post), :lastmod => post.updated_at,

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140421224008) do
+ActiveRecord::Schema.define(:version => 20140422143507) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -112,6 +112,26 @@ ActiveRecord::Schema.define(:version => 20140421224008) do
   end
 
   add_index "comments", ["commenter_id", "created_at"], :name => "index_comments_on_commenter_id_and_created_at"
+
+  create_table "corrections", :force => true do |t|
+    t.integer  "editor_id"
+    t.integer  "corrected_post_id"
+    t.integer  "competition"
+    t.text     "question"
+    t.text     "answer"
+    t.integer  "steps"
+    t.integer  "level_id"
+    t.integer  "domain_id"
+    t.integer  "standard_id"
+    t.boolean  "grammar",           :default => false
+    t.boolean  "concept_clear",     :default => false
+    t.boolean  "math_correct",      :default => false
+    t.boolean  "answer_complete",   :default => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+  end
+
+  add_index "corrections", ["corrected_post_id"], :name => "index_corrections_on_corrected_post_id"
 
   create_table "domains", :force => true do |t|
     t.integer  "level_id"

@@ -79,8 +79,24 @@ class PostsController < ApplicationController
     if params[:button] == "save"
       @post.save
       render 'draft'
-    elsif params[:button] == "submit"
+    elsif params[:button] == "submit" 
       if @post.submit
+        @post.likes_count = 0
+        @post.comments_count = 0
+        @post.ratings_count = 0
+        if current_user.post_count.nil?
+          current_user.post_count = 0
+        end
+        current_user.post_count += 1
+        current_user.save
+        sign_in current_user
+        flash[:notice] = "Fantastic! #{ActionController::Base.helpers.link_to "Check your points", gift_receiving_path} from Shooloo and your progress in your #{ActionController::Base.helpers.link_to "I-Can Journal", common_core_I_can_user_path(current_user)}.".html_safe
+        redirect_to post_comments_path(@post)
+      else      
+        render 'edit'
+      end
+    elsif params[:button] = "publish"
+      if @post.publish
         @post.likes_count = 0
         @post.comments_count = 0
         @post.ratings_count = 0

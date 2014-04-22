@@ -62,9 +62,16 @@ class Post < ActiveRecord::Base
   has_many :keeps, foreign_key: "kept_post_id", dependent: :destroy
   has_many :keepers, through: :keeps
 
+  has_one :correction, foreign_key: "corrected_post_id", dependent: :destroy
+  has_many :editor, through: :correction
+
   state_machine initial: :draft do
     event :submit do
       transition :draft => :submitted
+    end
+
+    event :publish do
+      transition :draft => :published
     end
 
     event :checkout do
@@ -84,6 +91,7 @@ class Post < ActiveRecord::Base
       validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
       validate :question_custom
       validate :answer_custom
+      validates_presence_of :level_id, :domain_id, :standard_id, :if => :validate_ccss
 
       def question_custom
         if question.downcase.include?(self.user.first_name.downcase) || question.downcase.include?(self.user.last_name.downcase)
@@ -95,6 +103,10 @@ class Post < ActiveRecord::Base
         if answer.downcase.include?(self.user.first_name.downcase) || answer.downcase.include?(self.user.last_name.downcase)
           errors.add(:answer, "can't contain any part of your real name.")
         end
+      end
+
+      def validate_ccss
+        self.user.role == "teacher" || self.user.admin?
       end
     end
   end

@@ -121,6 +121,9 @@ class User < ActiveRecord::Base
   has_one :point
   has_many :invitemails
 
+  has_many :corrections, foreign_key: "editor_id"
+  has_many :corrected_posts, through: :corrections
+
   before_save do
     create_remember_token
   end

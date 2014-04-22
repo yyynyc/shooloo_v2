@@ -2,7 +2,8 @@ class CorrectionsController < ApplicationController
 	def new
         @post = Post.find(params[:post_id])
 		@correction = Correction.new
-        @correction.corrected_post = @post         
+        @correction.corrected_post = @post   
+        @alarm = Alarm.new      
         if @post.state == "submitted"
             @post.checkout!
         end

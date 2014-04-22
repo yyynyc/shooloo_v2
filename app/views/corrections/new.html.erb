@@ -8,6 +8,15 @@
 		<p><strong>Answer: </strong><%= @post.answer.html_safe %></p>
 	</div>
 </div>
+<div class="well well-small alert-heading no">
+	<span class='btn-formtastic'> 
+     	<%= form_for @alarm, :url => post_alarms_path(@post) do |f| %>
+			<%= f.hidden_field :alarmed_post_id, value: @post.id %>
+			<%= f.submit "Alarm", class: "btn btn-large btn-danger",  disable_with: "Proccessing..." %>
+		<% end %>
+    </span>  
+	<p>WARNING: If the above problem contains watermarked image or offsensive (i.e., sexual, racial, or violent) content, please press the alarm button now. There is no need to correct the problem.<p>
+</div>
 <h1> Correct the Above Problem </h1>
 <% correction="@correction" %>
 <% url = "corrections_path" %>

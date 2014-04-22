@@ -3,9 +3,42 @@
 		<%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %>
 	</div>
 	<div class="alert-heading">
-		<strong>Author: </strong><%= @post.user.role %> in grade <%= @post.user.grade %><br/>
-		<strong>Question: </strong><%= @post.question.html_safe %><br/>
-		<strong>Answer: </strong><%= @post.answer.html_safe %>
+		<p><strong>Author: </strong><%= @post.user.role %> in grade <%= @post.user.grade %></p>
+		<p><strong>Question: </strong><%= @post.question.html_safe %></p>
+		<p><strong>Answer: </strong><%= @post.answer.html_safe %></p>
 	</div>
 </div>
+<h1> Correct the Above Problem </h1>
+<% correction="@correction" %>
+<% url = "corrections_path" %>
+<%= semantic_form_for @correction, :url => post_corrections_path(@post), :html => { :multipart => true, class: "form-horizontal-post-update", 'data-action' => 'update' }  do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+	<%=f.inputs do %>
+		<%= f.input :corrected_post_id, as: :hidden, value: @post.id, class: "hidden" %> 
+		<div class="correction"> 
+			<%= f.input :competition, label: "Is this problem about healthy eating?", as: :radio, collection: [["Yes! ", 1],["No.", 0]] %>
+			<%= f.input :grammar, label: "Are the question and answer free of grammatical and spelling errors?", as: :radio, collection: [["Yes! ", true],["No.", false]] %>
+			<%= f.input :concept_clear, label: "Is the math concept expressed in the question clear and precise?", as: :radio, collection: [["Yes! ", true],["No.", false]] %>
+			<%= f.input :math_correct, label: "Is the answer calculated correctly?", as: :radio, collection: [["Yes! ", true],["No.", false]] %>
+			<%= f.input :answer_complete, label: "Does the answer demonstrate the step-by-step solution?", as: :radio, collection: [["Yes! ", true],["No.", false]] %>
+			<%= f.input :steps, label: "How many steps does it take ot arrive at the answer", as: :radio, collection: [["1 step ", 1],["2 steps", 2], [">2 steps", 3]] %>
+		</div>
+        <div class="create">
+        	<%= f.input :question, as: :ckeditor, input_html:{value: @post.question} %>
+        </div>
+        <div class="create">
+	    	<%= f.input :answer, as: :ckeditor, input_html:{value: @post.answer} %> 
+	    </div> 
+	    <%= f.input :level_id, as: :select, include_blank: true, label: "Suitable grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
+    	<%= f.input :domain_id, as: :select, include_blank: true, label: "Skills involved", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
+    	<%= f.input :standard_id, as: :select, include_blank: true, label: "I-can Statement", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %>
+	<% end %>
+	<%= f.actions do %>	
+		<div class="btn-formtastic">
+	    	<%= f.action :submit, label: "Save & Publish!", as: :button, button_html: {class: "btn btn-large btn-primary", disable_with: "processing..."} %>
+		</div>
+  	<% end %> 
+<% end %>
+
+
         

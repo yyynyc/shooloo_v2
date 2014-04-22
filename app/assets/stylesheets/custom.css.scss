@@ -447,6 +447,18 @@ aside {
     font-size: 1.2em;
     }
   }
+  .correction {
+    .control-label {
+      width: 550px;
+      text-align: left;
+    }
+    .controls {
+      margin-left: 310px;
+      .choice {
+      width: 80px;
+      }
+    }
+  }
   .hidden {
     margin-left: -2000px;
   } 

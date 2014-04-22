@@ -108,6 +108,7 @@ resources :reminders
 resources :keeps
 resources :introductions
 resources :invitemails
+resources :corrections
 
   root to: "static_pages#home"
  

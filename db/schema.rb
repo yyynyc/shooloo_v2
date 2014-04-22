@@ -123,12 +123,12 @@ ActiveRecord::Schema.define(:version => 20140422143507) do
     t.integer  "level_id"
     t.integer  "domain_id"
     t.integer  "standard_id"
-    t.boolean  "grammar",           :default => false
-    t.boolean  "concept_clear",     :default => false
-    t.boolean  "math_correct",      :default => false
-    t.boolean  "answer_complete",   :default => false
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.boolean  "grammar"
+    t.boolean  "concept_clear"
+    t.boolean  "math_correct"
+    t.boolean  "answer_complete"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   add_index "corrections", ["corrected_post_id"], :name => "index_corrections_on_corrected_post_id"

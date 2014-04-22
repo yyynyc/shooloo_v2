@@ -1,14 +1,24 @@
 class CorrectionsController < ApplicationController
 	def new
-		@correction = Correction.new
         @post = Post.find(params[:post_id])
-        # @post.checkout!
+		@correction = Correction.new
+        @correction.corrected_post = @post         
+        if @post.state == "submitted"
+            @post.checkout!
+        end
 	end
 
 	def create
-		@post = Post.find(params[:post_id])
+        if params.has_key?(:post_id)
+		  @post = Post.find(params[:post_id])
+        end
         @correction = current_user.corrections.build(params[:correction])
-        @correction.corrected_post = @post 
+        if @correction.save
+            flash[:success]="Correction saved and published!"
+            redirect_to root_path
+        else
+            render 'new'
+        end
 	end
 
 	def edit
@@ -17,6 +27,7 @@ class CorrectionsController < ApplicationController
         else
             @correction = current_user.corrections.find_by_id(params[:id])
         end
+        @correction.corrected_post = @post 
 	end
 
 	def update

@@ -10,10 +10,10 @@ class CreateCorrections < ActiveRecord::Migration
       t.integer :level_id
       t.integer :domain_id
       t.integer :standard_id
-      t.boolean :grammar, default: false
-      t.boolean :concept_clear, default: false
-      t.boolean :math_correct, default: false
-      t.boolean :answer_complete, default: false
+      t.boolean :grammar
+      t.boolean :concept_clear
+      t.boolean :math_correct
+      t.boolean :answer_complete
 
       t.timestamps
     end

@@ -24,9 +24,9 @@
 	    	<%= f.input :answer, as: :ckeditor %> 
 	    </div> 
 	    <% if current_user.role == "teacher" || current_user.admin? %>  
-	    <%= f.input :level_id, as: :select, include_blank: true, label: "Suitable grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
-    	<%= f.input :domain_id, as: :select, include_blank: true, label: "Skills involved", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
-    	<%= f.input :standard_id, as: :select, include_blank: true, label: "I-can Statement", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %> 
+		    <%= f.input :level_id, as: :select, include_blank: true, label: "Suitable grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
+	    	<%= f.input :domain_id, as: :select, include_blank: true, label: "Skills involved", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
+	    	<%= f.input :standard_id, as: :select, include_blank: true, label: "I-can Statement", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %> 
     	<% end %>
     	<%= f.input :subject_id, as: :select, include_blank: true, label: "Subject", collection: Hash[Subject.order('name ASC').map{|s| [s.name, s.id]}] %>
 	    <%= f.input :photo, as: :file, label: "Photo upload" %> 	  
@@ -37,9 +37,6 @@
 		<p class="center yes alert-heading"> 
 			Trouble with pictures? Watch this 1-minute video on <%= link_to "how to add a picture", video_path(9) %>. 
 		</p>
-		<% if current_user.admin? %>
-			<%= f.input :quality_id, as: :select, include_blank: true, label: "Quality", collection: Hash[Quality.all.map{|quality| [quality.name, quality.id]}]  %>
-		<% end %>			
 	<% end %>
 	<%= f.actions do %>	
 		<div class="btn-formtastic">		

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140421135405) do
+ActiveRecord::Schema.define(:version => 20140421224008) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -382,8 +382,11 @@ ActiveRecord::Schema.define(:version => 20140421135405) do
     t.integer  "subject_id"
     t.integer  "response_id"
     t.boolean  "graded",                     :default => false
+    t.string   "state"
+    t.integer  "competition",                :default => 0
   end
 
+  add_index "posts", ["state"], :name => "index_posts_on_state"
   add_index "posts", ["user_id", "created_at"], :name => "index_posts_on_user_id_and_created_at"
 
   create_table "practices", :force => true do |t|

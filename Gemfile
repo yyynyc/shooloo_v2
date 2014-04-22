@@ -35,6 +35,7 @@ gem 'truncate_html'
 gem 'chosen-rails'
 gem 'chartkick'
 gem 'iconv'
+gem 'state_machine'
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'

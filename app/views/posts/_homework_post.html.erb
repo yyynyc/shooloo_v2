@@ -18,5 +18,14 @@
 	<p class="center yes alert-heading"> 
 		Trouble with pictures? Watch this 1-minute video on <%= link_to "how to add a picture", video_path(9) %>. 
 	</p>	
-    <%= f.action :submit, label: "Submit", as: :button, button_html: { class: " btn btn-formtastic btn-large btn-primary", disable_with: "Proccessing..." } %>
+    <%= f.actions do %> 
+        <div class="btn-formtastic">        
+            <span class="search-label">
+            <%= f.action :submit, label: "Preview & Save as draft", as: :button, button_html: {value: "save", class: "btn btn-large btn-warning", disable_with: "saving as draft..."} %>
+            </span>
+            <span class="search-label">
+                <%= render partial: submission, locals: {f: f} %>   
+            </span>
+        </div>
+    <% end %> 
 <% end %>

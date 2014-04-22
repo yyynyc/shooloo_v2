@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
 	before_filter :signed_in_user
   skip_before_filter :signed_in_user, only: :index
-  before_filter :correct_user, only: :destroy
+  before_filter :correct_user, only: [:destroy, :draft, :entry]
   load_and_authorize_resource
   
   def index
@@ -47,23 +47,14 @@ class PostsController < ApplicationController
   end
 
   def create
-  	@post = current_user.posts.build(params[:post])
-    @post.likes_count = 0
-    @post.comments_count = 0
-    @post.ratings_count = 0
-    if current_user.post_count.nil?
-      current_user.post_count = 0
-    end
-    if @post.save
-      current_user.post_count += 1
-      current_user.save
-      sign_in current_user
-      flash[:notice] = "Fantastic! #{ActionController::Base.helpers.link_to "Check your points", gift_receiving_path} from Shooloo and your progress in your #{ActionController::Base.helpers.link_to "I-Can Journal", common_core_I_can_user_path(current_user)}.".html_safe
-      redirect_to post_comments_path(@post)
-    else
-      @feed_items = []
-      render 'new'
-    end
+  	@post = current_user.posts.build(params[:post])      
+    @post.save
+    render 'draft'
+  end
+
+  def draft
+    @post = current_user.posts.find_by_id(params[:post_id])
+    # @post = Post.find(params[:id])
   end
 
   def edit
@@ -83,14 +74,32 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     else
       @post = current_user.posts.find_by_id(params[:id])
-    end    
-    if     
-      @post.update_attributes(params[:post])
-      flash[:success] = "You have upddated your post successfully!"
-      redirect_to post_comments_path(@post)
-    else
-      render 'edit'
+    end 
+    @post.update_attributes(params[:post])
+    if params[:button] == "save"
+      @post.save
+      render 'draft'
+    elsif params[:button] == "submit"
+      if @post.submit
+        @post.likes_count = 0
+        @post.comments_count = 0
+        @post.ratings_count = 0
+        if current_user.post_count.nil?
+          current_user.post_count = 0
+        end
+        current_user.post_count += 1
+        current_user.save
+        sign_in current_user
+        flash[:notice] = "Fantastic! #{ActionController::Base.helpers.link_to "Check your points", gift_receiving_path} from Shooloo and your progress in your #{ActionController::Base.helpers.link_to "I-Can Journal", common_core_I_can_user_path(current_user)}.".html_safe
+        redirect_to post_comments_path(@post)
+      else      
+        render 'edit'
+      end
     end
+  end
+
+  def entry
+    @post = current_user.posts.find_by_id(params[:post_id])
   end
 
   def destroy
@@ -115,7 +124,7 @@ class PostsController < ApplicationController
   end
 
   def correct_user
-      @post = current_user.posts.find_by_id(params[:id])
+      @post = current_user.posts.find_by_id(params[:post_id])
       redirect_to root_url if @post.nil?
   end
 end

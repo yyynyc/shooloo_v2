@@ -1,8 +1,9 @@
 <% provide(:title, "Edit Post") %> 
 <% url = post_path %>
-<% save = "Update" %>
+<% submission = "posts/submission" %>
+<% f = f %>
 
 <h1>Update My Post</h1>
    
-<%= render partial: 'posts/post', locals: {url: url, save: save, post: @post} %>
+<%= render partial: 'posts/post', locals: {url: url, submission: submission, post: @post} %>
 

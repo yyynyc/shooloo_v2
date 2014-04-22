@@ -1,10 +1,16 @@
 <div class="feed_item">
   <li id="<%= feed_item.id %>">
     <div class="row well well-small">
-      <%= render partial: 'posts/post_user', locals: {post: feed_item} %>
-      <span class="btn-formtastic">
-        <%= render partial: 'posts/post_stats', locals: {post: feed_item} %>
-      </span>
+      <% if feed_item.state == "draft" %>
+        <span class="no">
+          This draft is not finished and has not been submitted for publication.
+        </span>
+      <% else %>
+        <%= render partial: 'posts/post_user', locals: {post: feed_item} %>
+        <span class="btn-formtastic">
+          <%= render partial: 'posts/post_stats', locals: {post: feed_item} %>
+        </span>
+      <% end %>
     </div>       
     <section class="feed_content">
       <div class="row">

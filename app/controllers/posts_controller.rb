@@ -5,12 +5,12 @@ class PostsController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @search = Post.visible.search(params[:q])
+    @search = Post.where(state: ["verified", "published"]).visible.search(params[:q])
     if signed_in? 
-      @posts = @search.result.visible.paginate(page: params[:page], 
+      @posts = @search.result.paginate(page: params[:page], 
           per_page: 20, order: 'created_at DESC')
     else
-       @posts = @search.result.visible.paginate(page: params[:page], 
+       @posts = @search.result.paginate(page: params[:page], 
         per_page: 20, order: 'comments_count DESC, likes_count DESC, created_at DESC')
     end
     @search.build_condition

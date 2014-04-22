@@ -271,6 +271,7 @@ class User < ActiveRecord::Base
 
   def feed
     Post.from_users_followed_by(self)
+    # Post.all.keep_if{|p| p.state.in?(["verified", "published"]) && p.user.in?(self.followed_users)}
   end
 
   def following?(other_user)

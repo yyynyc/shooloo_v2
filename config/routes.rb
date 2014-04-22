@@ -43,6 +43,8 @@ resources :posts, path: '/common-core-math-word-problems' do
   end
   collection { get :search, to: 'posts#index' }
   match '/teacher_view', to: 'posts#teacher_view'
+  match '/draft', to: 'posts#draft'
+  match '/entry', to: 'posts#entry'
 end
 
 resources :ratings do

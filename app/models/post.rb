@@ -1,10 +1,10 @@
 class Post < ActiveRecord::Base
   require 'obscenity/active_model'
   validates :question, :answer, obscenity: {message: 'contains offensive word'}
-
   attr_accessible :answer, :grade, :question, :comments_count, :ratings_count, :likes_count,
     :photo, :photo_remote_url, :image_host, :category, :graded, :user_id,
-    :level_id, :domain_id, :standard_id, :quality_id, :subject_id, :response_id
+    :level_id, :domain_id, :standard_id, :quality_id, :subject_id, :response_id, 
+    :state, :competition
   attr_reader :photo_remote_url
   belongs_to :user
   belongs_to :standard
@@ -47,8 +47,8 @@ class Post < ActiveRecord::Base
 
   has_many :lessons, foreign_key: "post_a_id", dependent: :destroy
   has_many :post_bs, through: :lessons
-  has_many :reverse_lessons, foreign_key: "post_b_id", dependent: :destroy
-  has_many :post_as, through: :lessons
+  has_many :reverse_lessons, foreign_key: "post_b_id", class_name: "Lesson", dependent: :destroy
+  has_many :post_as, through: :reverse_lessons
 
   has_many :assignments, foreign_key: "assigned_post_id", dependent: :destroy
   has_many :assigners, through: :assignments, dependent: :destroy
@@ -61,25 +61,41 @@ class Post < ActiveRecord::Base
 
   has_many :keeps, foreign_key: "kept_post_id", dependent: :destroy
   has_many :keepers, through: :keeps
-  
-  validates_presence_of :user_id, :level_id, :domain_id, :standard_id, :subject_id
-  validates :answer, presence: true
-  validates :question, presence: true, uniqueness: true
-  #validates_attachment_presence :photo
-  validates_attachment_size :photo, :less_than => 5.megabytes
-  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
-  validate :question_custom
-  validate :answer_custom
 
-  def question_custom
-    if question.downcase.include?(self.user.first_name.downcase) || question.downcase.include?(self.user.last_name.downcase)
-      errors.add(:question, "can't contain any part of your real name.")
+  state_machine initial: :draft do
+    event :submit do
+      transition :draft => :submitted
     end
-  end
 
-  def answer_custom
-    if answer.downcase.include?(self.user.first_name.downcase) || answer.downcase.include?(self.user.last_name.downcase)
-      errors.add(:answer, "can't contain any part of your real name.")
+    event :checkout do
+      transition [:submitted, :published] => :under_review
+    end
+
+    event :verify do
+      transition :under_review => :verified
+    end
+
+    state :submitted do
+      validates_presence_of :user_id, :subject_id
+      validates :answer, presence: true
+      validates :question, presence: true, uniqueness: true
+      #validates_attachment_presence :photo
+      validates_attachment_size :photo, :less_than => 5.megabytes
+      validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
+      validate :question_custom
+      validate :answer_custom
+
+      def question_custom
+        if question.downcase.include?(self.user.first_name.downcase) || question.downcase.include?(self.user.last_name.downcase)
+          errors.add(:question, "can't contain any part of your real name.")
+        end
+      end
+
+      def answer_custom
+        if answer.downcase.include?(self.user.first_name.downcase) || answer.downcase.include?(self.user.last_name.downcase)
+          errors.add(:answer, "can't contain any part of your real name.")
+        end
+      end
     end
   end
 
@@ -148,19 +164,19 @@ class Post < ActiveRecord::Base
     return false
   end
 
-  after_create do
-    Event.create!(benefactor_id: self.user_id, beneficiary_id: 1, 
-        event: "new post", value: ShoolooV2::POST_NEW)
-    self.user.nudgers.uniq.each do |nudger|
-      Activity.create!(action: "create", trackable: self, 
-        user_id: self.user_id, recipient_id: nudger.id)
-    end
-    if !self.response.nil?
-      self.response.update_attributes!(completed: true)
-      Activity.create!(action: "complete", trackable: self.response, 
-        user_id: self.user_id, recipient_id: self.response.assignment.assigner_id)
-    end
-  end
+  # after_create do
+  #   Event.create!(benefactor_id: self.user_id, beneficiary_id: 1, 
+  #       event: "new post", value: ShoolooV2::POST_NEW)
+  #   self.user.nudgers.uniq.each do |nudger|
+  #     Activity.create!(action: "create", trackable: self, 
+  #       user_id: self.user_id, recipient_id: nudger.id)
+  #   end
+  #   if !self.response.nil?
+  #     self.response.update_attributes!(completed: true)
+  #     Activity.create!(action: "complete", trackable: self.response, 
+  #       user_id: self.user_id, recipient_id: self.response.assignment.assigner_id)
+  #   end
+  # end
 
   after_destroy do
     Event.create!(benefactor_id: self.user_id, beneficiary_id: 1, 
@@ -168,6 +184,8 @@ class Post < ActiveRecord::Base
     if !self.response.nil?
       self.response.update_attributes!(completed: false)
     end
-    Activity.where(trackable: self).delete_all
+    Activity.where(trackable_id: self.id, trackable_type: self.class).delete_all
+    Lesson.where(post_a_id: self.id).delete_all
+    Lesson.where(post_b_id: self.id).delete_all
   end
 end

@@ -1,54 +1,64 @@
-<% if user.role == "student" %>
-<% else user.role == "teacher" %>
+<% if user.role == "editor" %>
 	<div class="stats">
 		<span>			
-			<p><strong>Advocacy</strong></p>
-			<p><%= link_to pluralize(user.point.advocacy, "points"), root_path %></p>
+			<p><strong>Corrected</strong></p>
+			<p><%= link_to pluralize(user.corrections.count, "post"), corrected_posts_user_path(user) %></p>
+		</span>
+	</div>
+<% else %>
+	<% if user.role == "student" %>
+	<% else user.role == "teacher" %>
+		<div class="stats">
+			<span>			
+				<p><strong>Advocacy</strong></p>
+				<p><%= link_to pluralize(user.point.advocacy, "point"), root_path %></p>
+			</span>
+			<span>
+				<p><strong>Inspiration</strong></p>
+				<p><%= link_to pluralize(user.point.inspiration, "point"), root_path %></p>
+			</span>
+			<span>
+				<p><strong>Education</strong></p>
+				<p><%= link_to pluralize(user.point.education, "point"), root_path %></p>
+			</span>
+		</div>
+	<% end %>
+	<div class="stats">
+		<span>			
+			<p>Published</p>
+			<p><%= link_to pluralize(user.post_count, "post"), posts_user_path(user) %></p>
 		</span>
 		<span>
-			<p><strong>Inspiration</strong></p>
-			<p><%= link_to pluralize(user.point.inspiration, "points"), root_path %></p>
+			<p>Made</p>
+			<p><%= link_to pluralize(user.comment_count, "comment"), commented_posts_user_path(user) %></p>
 		</span>
 		<span>
-			<p><strong>Education</strong></p>
-			<p><%= link_to pluralize(user.point.education, "points"), root_path %></p>
+			<p>Received </p>		
+			<% if user==current_user %>
+				<p><%= link_to pluralize(user.reverse_gifts.where(sent: true).count, "gift"), gift_receiving_path %></p>
+			<% else %>	
+				<p><%= pluralize(user.reverse_gifts.where(sent: true).count, "gift")%></p>
+			<% end %>	
+		</span>
+	</div>
+	<div class="competition">
+		<span>
+			<p>Following</p>
+			<p><%= link_to pluralize(user.following_count, "member"), following_user_path(user) %></p>
+		</span>
+		<span>
+			<p>Followed by</p>
+			<p><%= link_to pluralize(user.follower_count, "member"), followers_user_path(user) %></p>
+		</span>
+		<span>
+			<p>Sent</p>
+			<% if user==current_user %>
+				<p><%= link_to pluralize(user.gifts.where(sent: true).count, "gift"), gift_giving_path %></p>
+			<% else %>
+				<p><%= pluralize(user.gifts.where(sent: true).count, "gift")%></p>
+			<% end %>
 		</span>
 	</div>
 <% end %>
-<div class="stats">
-	<span>			
-		<p>Published</p>
-		<p><%= link_to pluralize(user.post_count, "post"), posts_user_path(user) %></p>
-	</span>
-	<span>
-		<p>Made</p>
-		<p><%= link_to pluralize(user.comment_count, "comment"), commented_posts_user_path(user) %></p>
-	</span>
-	<span>
-		<p>Received </p>		
-		<% if user==current_user %>
-			<p><%= link_to pluralize(user.reverse_gifts.where(sent: true).count, "gift"), gift_receiving_path %></p>
-		<% else %>	
-			<p><%= pluralize(user.reverse_gifts.where(sent: true).count, "gift")%></p>
-		<% end %>	
-	</span>
-</div>
-<div class="competition">
-	<span>
-		<p>Following</p>
-		<p><%= link_to pluralize(user.following_count, "member"), following_user_path(user) %></p>
-	</span>
-	<span>
-		<p>Followed by</p>
-		<p><%= link_to pluralize(user.follower_count, "member"), followers_user_path(user) %></p>
-	</span>
-	<span>
-		<p>Sent</p>
-		<% if user==current_user %>
-			<p><%= link_to pluralize(user.gifts.where(sent: true).count, "gift"), gift_giving_path %></p>
-		<% else %>
-			<p><%= pluralize(user.gifts.where(sent: true).count, "gift")%></p>
-		<% end %>
-	</span>
-</div>
+
 

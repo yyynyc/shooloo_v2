@@ -1,0 +1,19 @@
+<% title "Correction Results" %>
+<% description "Correction results of a math assignment aligned with the Common Core State Standard" %>
+<% noindex %>
+<% nofollow %>
+<h1> Corrected Problem </h1>
+<div class="well well-small alert-heading no"> 
+	<p>Plesae read your corrections below carefully and make sure they are right.</p>
+	<p class="center"></p>
+</div>
+
+<div class="row margin-left">
+	<div class="image" >
+		<%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %>
+	</div>
+	<div class="alert-heading">
+		<p><strong>Question: </strong><%= @correction.question.html_safe %></p>
+		<p><strong>Answer: </strong><%= @correction.answer.html_safe %></p>
+	</div>
+</div>

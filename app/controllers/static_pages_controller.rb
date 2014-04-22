@@ -11,6 +11,11 @@ class StaticPagesController < ApplicationController
       @levels = Level.all
       @domains = Domain.all
       @standards = Standard.all
+      if current_user.role == "editor"
+        @submissions = Post.joins(:user).where(state: ["submitted", "published"], 
+          users: {role: ["student", "parent", "other", "editor"]}).paginate(page: params[:page], 
+          per_page: 2000, order: "state DESC, competition DESC, created_at ASC")
+      end
     end
     set_meta_tags title: 'Common Core Math Problems Created by Students for Students', 
             description: "World's largest repository of student-authored common core math word problems",

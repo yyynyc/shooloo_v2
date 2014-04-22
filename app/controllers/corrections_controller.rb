@@ -46,7 +46,9 @@ class CorrectionsController < ApplicationController
 	end
 
 	def show
-	end
+        @correction = Correction.find(params[:id])        
+        @post = @correction.corrected_post        
+    end
 
 	def index
 	end

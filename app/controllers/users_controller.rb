@@ -156,6 +156,11 @@ class UsersController < ApplicationController
     @posts = @user.posts.where(state: "submitted").paginate(page: params[:page], per_page: 10, order: "created_at DESC")
   end
 
+  def corrected_posts
+    @user = User.find(params[:id])
+    @posts = @user.corrected_posts.paginate(page: params[:page], per_page: 100)
+  end
+
   def posts
     @user = User.find(params[:id])
     @posts = @user.posts.where(state: ["verified", "published"]).visible.paginate(page: params[:page], per_page: 10, order: "created_at DESC")

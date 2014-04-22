@@ -44,7 +44,7 @@
 	    	<%= f.action :submit, label: "Preview & Save as draft", as: :button, button_html: {value: "save", class: "btn btn-large btn-warning", disable_with: "saving as draft..."} %>
 	    	</span>
 	    	<span class="search-label">
-	    		<% if current_user.role == "teacher" || current_user.admin? %>
+	    		<% if current_user.role.in?(["teacher", "tutor"]) %>
 	    			<%= render partial: 'posts/publication', locals: {f: f} %>
 	    		<% else %>
 	    			<%= render partial: 'posts/submission', locals: {f: f} %>

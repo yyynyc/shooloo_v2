@@ -17,6 +17,6 @@ class CreateCorrections < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :corrections, [:corrected_post_id]
+    add_index :corrections, :corrected_post_id, uniqueness: true
   end
 end

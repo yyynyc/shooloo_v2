@@ -1,7 +1,11 @@
 <% provide(:title, "Edit Post") %> 
 <% url = post_path %>
-<% submission = "posts/submission" %>
 <% f = f %>
+<% if current_user.role.in?(["teacher", "tutor"]) %>
+	<% submission = "posts/publication" %>
+<% else %>
+	<% submission = "posts/submission" %>
+<% end %>
 
 <h1>Update My Post</h1>
    

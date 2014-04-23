@@ -1,7 +1,7 @@
 <% if activity.trackable %>	
-	<strong><%= link_to "PUBLISHED", post_comments_path(activity.trackable) %></strong> 		
+	<strong><%= link_to "Verified", post_correction_path(activity.trackable) %></strong> 		
 	a new post on <%= activity.created_at.strftime("%b %d, %Y") %>	
-	after being nudged by <%= link_to activity.recipient.full_name_us, posts_user_path(activity.recipient) %>
+	written by <%= link_to activity.recipient.full_name_us, posts_user_path(activity.recipient) %>
 	(a <%= activity.recipient.role %> 
 	in grade <%= activity.recipient.grade %>).
 	<br/>	

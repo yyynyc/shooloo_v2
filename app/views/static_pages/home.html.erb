@@ -7,21 +7,15 @@
       <section>
         <%= render 'shared/stats', user: current_user %>
       </section>
-      <% unless current_user.role == "editor" %>
+      <% if current_user.role == "editor" %>
+        <%= render partial: 'shared/stats_editor' %>
+      <% else %>
         <%= render partial: 'posts/button_simple' %>
       <% end %>
     </aside>
     <div class="span8">
       <% if current_user.role=="editor" %>
-        <h1> Posts Waiting to Be Corrected </h1>
-          <% if @submissions.any? %>
-            <% @submissions.each do |s| %>
-              Post #<%= link_to s.id, new_post_correction_path(s) %> |
-            <% end %>
-            <%= will_paginate @submissions %>
-          <% else %>
-            Nothing to correct.
-          <% end %>
+        <%= render 'shared/home_editor' %>
       <% else %>
         <h1 class="center">
           Posts Published by Members that I Follow<a href="#", class="follow", rel="popover", title="What does Follow mean?", data-content="<ul class='popover-list'><li>Watch this <a href='<%= video_path(3) %>'>video tutorial</a> to get started.</li><li>Go to <a href='<%= users_path %>'>All Shooloo Members</a> page, click the Follow button beside those profiles you like.</li><li>Those members' posts will automatically show up on your home page.</li><li>Your own posts will show up here as well.</li></ul>"><i class="icon-question-sign icon-medium" ></i></a>
@@ -30,9 +24,13 @@
         <% if @drafts.any? %>
           <%= render 'shared/drafts' %>
         <% end %>
+        <% if @submissions.any? %>
+          <%= render 'shared/submissions' %>
+        <% end %>
         <% if @feed_items.any? %>
           <%= render 'shared/feed' %>
-        <% else %>
+        <% end %>
+        <% if @drafts.blank? && @submissions.blank? && @feed_items.blank? %>
           <%= render 'shared/welcome' %>
         <% end %>
       <% end %>

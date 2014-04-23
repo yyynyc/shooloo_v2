@@ -9,121 +9,124 @@
           <li><%= link_to "CCSS", standards_path %></li>
           <li><%= link_to "Videos", videos_path %></li>
           <% if signed_in? %>
-            <li>
-                <%= link_to "Alerts", my_alerts_path %>
-            </li> 
-            <li class="alert_bubble" id="alert_bubble">
-              <%= alert_count %>
-            </li>
-            <% if current_user.admin? || current_user.role == "teacher" %>
+            <% if current_user.role == "editor"%>
+            <% else %>
+              <li>
+                  <%= link_to "Alerts", my_alerts_path %>
+              </li> 
+              <li class="alert_bubble" id="alert_bubble">
+                <%= alert_count %>
+              </li>
+              <% if current_user.admin? || current_user.role == "teacher" %>
+                <li id="fat-menu" class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Teacher <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <li><%= link_to "Dashboard", teacher_dashboard_user_path(current_user) %></li>
+                    <li><%= link_to "PD Videos", videos_path %></li>
+                    <li class="dropdown-submenu">
+                      <a tabindex="-1" href="#">Student Roster</a>
+                      <ul class="dropdown-menu">
+                        <li><a href="#"><%= link_to "Import Roster", new_user_import_path %></a></li>
+                        <li><a href="#"><%= link_to "Roster & Passwords", authorizations_path %></a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                      <a tabindex="-1" href="#">Assignments & Grades</a>
+                      <ul class="dropdown-menu">
+                        <li><%= link_to "New Assignment", new_assignment_path %>
+                        </li>
+                        <li><%= link_to "All Assignments", assignments_user_path(current_user) %>
+                        </li>
+                        <li><%= link_to "Overdue Assignments", past_due_assignments_user_path(current_user) %>
+                        </li>
+                        <li><%= link_to "Grading Results", grading_results_user_path(current_user) %>
+                        </li>
+                        <li><%= link_to "Saved Posts", keeps_user_path(current_user) %>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                      <a tabindex="-1" href="#">Lesson Plans</a>
+                      <ul class="dropdown-menu">
+                        <li><%= link_to "New Lesson Plan", new_lesson_path %></li>
+                        <li><%= link_to "My Lesson Plans", lessons_user_path(current_user) %></li>
+                        <li><%= link_to "All Lesson Plans", lessons_path %></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                      <a tabindex="-1" href="#">Student Activities</a>
+                      <ul class="dropdown-menu">
+                        <li><%= link_to "Alarms", alarmed_posts_path %></li>
+                        <li><%= link_to "Activity Tracker", student_homework_user_path(current_user) %></li> 
+                        <li><%= link_to "CCSS Tracker", student_common_core_user_path(current_user) %></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>              
+              <% end %>
+              <% if current_user.role=="student" && (current_user.reverse_responses.any? || current_user.reverse_gradings.any?) %>
+                <li id="fat-menu" class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Schoolwork <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><%= link_to "My Homework", responses_user_path(current_user) %></li>
+                    <li><%= link_to "My Grades", report_card_user_path(current_user) %></li>
+                  </ul> 
+                </li>  
+              <% end %>       
               <li id="fat-menu" class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Teacher <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                  <li><%= link_to "Dashboard", teacher_dashboard_user_path(current_user) %></li>
-                  <li><%= link_to "PD Videos", videos_path %></li>
-                  <li class="dropdown-submenu">
-                    <a tabindex="-1" href="#">Student Roster</a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#"><%= link_to "Import Roster", new_user_import_path %></a></li>
-                      <li><a href="#"><%= link_to "Roster & Passwords", authorizations_path %></a></li>
-                    </ul>
-                  </li>
-                  <li class="dropdown-submenu">
-                    <a tabindex="-1" href="#">Assignments & Grades</a>
-                    <ul class="dropdown-menu">
-                      <li><%= link_to "New Assignment", new_assignment_path %>
-                      </li>
-                      <li><%= link_to "All Assignments", assignments_user_path(current_user) %>
-                      </li>
-                      <li><%= link_to "Overdue Assignments", past_due_assignments_user_path(current_user) %>
-                      </li>
-                      <li><%= link_to "Grading Results", grading_results_user_path(current_user) %>
-                      </li>
-                      <li><%= link_to "Saved Posts", keeps_user_path(current_user) %>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="dropdown-submenu">
-                    <a tabindex="-1" href="#">Lesson Plans</a>
-                    <ul class="dropdown-menu">
-                      <li><%= link_to "New Lesson Plan", new_lesson_path %></li>
-                      <li><%= link_to "My Lesson Plans", lessons_user_path(current_user) %></li>
-                      <li><%= link_to "All Lesson Plans", lessons_path %></li>
-                    </ul>
-                  </li>
-                  <li class="dropdown-submenu">
-                    <a tabindex="-1" href="#">Student Activities</a>
-                    <ul class="dropdown-menu">
-                      <li><%= link_to "Alarms", alarmed_posts_path %></li>
-                      <li><%= link_to "Activity Tracker", student_homework_user_path(current_user) %></li> 
-                      <li><%= link_to "CCSS Tracker", student_common_core_user_path(current_user) %></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>              
-            <% end %>
-            <% if current_user.role=="student" && (current_user.reverse_responses.any? || current_user.reverse_gradings.any?) %>
-              <li id="fat-menu" class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Schoolwork <b class="caret"></b>
+                  Posts <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><%= link_to "My Homework", responses_user_path(current_user) %></li>
-                  <li><%= link_to "My Grades", report_card_user_path(current_user) %></li>
-                </ul> 
-              </li>  
-            <% end %>       
-            <li id="fat-menu" class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Posts <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <%= link_to "Create a New Post", new_post_path %>
-                  <li><%= link_to "My I-Can Journal", common_core_I_can_user_path(current_user) %></li>
-                </li>
-                <li class="divider"></li>
-                <li>
-                  <%= link_to "My Published Posts", posts_user_path(current_user) %>
-                </li>
-                <li>
-                  <%= link_to "My Hidden Posts", alarmed_posts_user_path(current_user) %>
-                </li> 
-                <li>
-                  <%= link_to "My Commented Posts", commented_posts_user_path(current_user) %>
-                </li> 
-                <% unless current_user.role == "teacher" %>
-                  <li><%= link_to "My Saved Posts", keeps_user_path(current_user) %>
-                <% end %>
-                <li class="divider"></li>  
-                <li><%= link_to "All Member Posts", posts_path %></li>                 
-              </ul>
-            </li>
-            <li id="fat-menu" class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Friends <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                <li><%= link_to "My Gifts", gift_receiving_path %></li>
-                <li><%= link_to "My Fans", gift_giving_path %></li>
-                <li><%= link_to "My Followers", followers_user_path(current_user) %></li>
-                <% if can? :update, Referral %>
-                  <li class="divider"></li>    
-                  <li><%= link_to " Refer Friends", referrals_path %></li>
-                <% end %>
-                <li class="divider"></li>
-                <li><%= link_to "All Shooloo Members", users_path %></li> 
-                <% if current_user.admin? %>
+                  <li>
+                    <%= link_to "Create a New Post", new_post_path %>
+                    <li><%= link_to "My I-Can Journal", common_core_I_can_user_path(current_user) %></li>
+                  </li>
                   <li class="divider"></li>
-                  <li><%= link_to "Hidden Users", hidden_path %></li>
-                  <li><%= link_to "All News", activities_path %></li>
-                  <li><%= link_to "Gift Choices", choices_path %></li>
-                  <li><%= link_to "Ask a Tutor", twilios_path %></li>             
-                <% end %>
-              </ul>
-            </li>
+                  <li>
+                    <%= link_to "My Published Posts", posts_user_path(current_user) %>
+                  </li>
+                  <li>
+                    <%= link_to "My Hidden Posts", alarmed_posts_user_path(current_user) %>
+                  </li> 
+                  <li>
+                    <%= link_to "My Commented Posts", commented_posts_user_path(current_user) %>
+                  </li> 
+                  <% unless current_user.role == "teacher" %>
+                    <li><%= link_to "My Saved Posts", keeps_user_path(current_user) %>
+                  <% end %>
+                  <li class="divider"></li>  
+                  <li><%= link_to "All Member Posts", posts_path %></li>                 
+                </ul>
+              </li>
+              <li id="fat-menu" class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Friends <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "My Gifts", gift_receiving_path %></li>
+                  <li><%= link_to "My Fans", gift_giving_path %></li>
+                  <li><%= link_to "My Followers", followers_user_path(current_user) %></li>
+                  <% if can? :update, Referral %>
+                    <li class="divider"></li>    
+                    <li><%= link_to " Refer Friends", referrals_path %></li>
+                  <% end %>
+                  <li class="divider"></li>
+                  <li><%= link_to "All Shooloo Members", users_path %></li> 
+                  <% if current_user.admin? %>
+                    <li class="divider"></li>
+                    <li><%= link_to "Hidden Users", hidden_path %></li>
+                    <li><%= link_to "All News", activities_path %></li>
+                    <li><%= link_to "Gift Choices", choices_path %></li>
+                    <li><%= link_to "Ask a Tutor", twilios_path %></li>             
+                  <% end %>
+                </ul>
+              </li>
+            <% end %>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Account <b class="caret"></b>
@@ -135,10 +138,11 @@
                 <li>
                   <%= link_to "My Password", change_password_user_path(current_user) %>
                 </li>
-
-                <li>
-                  <%= link_to "My Powers", my_abilities_path %>
-                </li>
+                <% unless current_user.role == "editor"%>
+                  <li>
+                    <%= link_to "My Powers", my_abilities_path %>
+                  </li>
+                <% end %>
                 <% unless can? :crud, Post %>
                   <li class="divider"></li>
                   <% if can? :crud, Rating %>
@@ -169,7 +173,7 @@
   </div>
 </header>
 <% if signed_in? && current_user.visible? && !current_user.personal_email.blank? %>
-  <% unless current_user.role == "student" %>
+  <% unless current_user.role.in?(["student", "editor"]) %>
     <div class="announcement">
       Invite your fellow educators to join Shooloo <%= link_to "here", new_invitemail_path %> and both of you may win Advacacy Awards! Find out <a href="/contest#awards">how</a>.
     </div>

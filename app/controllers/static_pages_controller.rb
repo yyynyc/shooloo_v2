@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
   	if signed_in?
       @post  = current_user.posts.build
       @drafts =  current_user.posts.where(state: "draft").paginate(page: params[:page], per_page: 1, order: "created_at DESC")
+      @submissions =  current_user.posts.where(state: "submitted").paginate(page: params[:page], per_page: 10, order: "created_at DESC")
       @feed_items = current_user.feed.visible.paginate(page: params[:page], per_page: 10, order: "updated_at DESC")
       @rating=current_user.ratings.build 
       @comment = current_user.comments.build
@@ -12,9 +13,12 @@ class StaticPagesController < ApplicationController
       @domains = Domain.all
       @standards = Standard.all
       if current_user.role == "editor"
-        @submissions = Post.joins(:user).where(state: ["submitted", "published"], 
+        @submissions = Post.joins(:user).where(state: "submitted").paginate(
+          page: params[:page], per_page: 2000, order: "competition DESC, created_at ASC")
+        @publications = Post.joins(:user).where(state: "published", 
           users: {role: ["student", "parent", "other", "editor"]}).paginate(page: params[:page], 
-          per_page: 2000, order: "state DESC, competition DESC, created_at ASC")
+          per_page: 2000, order: "created_at DESC")
+        @corrected_posts = current_user.corrected_posts
       end
     end
     set_meta_tags title: 'Common Core Math Problems Created by Students for Students', 

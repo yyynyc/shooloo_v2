@@ -66,12 +66,16 @@ class Post < ActiveRecord::Base
   has_many :editor, through: :correction
 
   state_machine initial: :draft do
+    after_transition :on => :submit, :do => [:give_points, :alert_teacher]
+    after_transition :on => :publish, :do => [:give_points, :update_stats, :alert_nudger]
+    after_transition :on => :verify, :do => [:alert_author, :update_stats, :alert_nudger]
+
     event :submit do
       transition :draft => :submitted
     end
 
     event :publish do
-      transition :draft => :published
+      transition :draft => :published      
     end
 
     event :checkout do
@@ -82,7 +86,7 @@ class Post < ActiveRecord::Base
       transition :under_review => :verified
     end
 
-    state :submitted do
+    state :submitted, :published do
       validates_presence_of :user_id, :subject_id
       validates :answer, presence: true
       validates :question, presence: true, uniqueness: true
@@ -109,6 +113,41 @@ class Post < ActiveRecord::Base
         self.user.role == "teacher" || self.user.admin?
       end
     end
+  end
+
+  def give_points 
+    Event.create!(benefactor_id: self.user.id, beneficiary_id: 1, 
+          event: "new post", value: ShoolooV2::POST_NEW)
+  end
+
+  def alert_teacher 
+    if !self.response.nil?
+      self.response.update_attributes!(completed: true)
+      Activity.create!(action: "complete", trackable: self.response, 
+        user_id: self.user_id, recipient_id: self.response.assignment.assigner_id)
+    end
+  end
+
+  def update_stats
+    self.likes_count = 0
+    self.comments_count = 0
+    if self.user.post_count.nil?
+      self.user.post_count = 0
+    end
+    self.user.post_count += 1
+    self.user.save(validate: false)
+  end
+
+  def alert_nudger 
+    self.user.nudgers.uniq.each do |nudger|
+      Activity.create!(action: "create", trackable: self, 
+        user_id: self.user_id, recipient_id: nudger.id)
+    end
+  end
+
+  def alert_author 
+    Activity.create!(action: "publish", trackable: self, 
+      user_id: 1, recipient_id: self.user_id)
   end
 
   def after_initialize
@@ -175,20 +214,6 @@ class Post < ActiveRecord::Base
     end
     return false
   end
-
-  # after_create do
-  #   Event.create!(benefactor_id: self.user_id, beneficiary_id: 1, 
-  #       event: "new post", value: ShoolooV2::POST_NEW)
-  #   self.user.nudgers.uniq.each do |nudger|
-  #     Activity.create!(action: "create", trackable: self, 
-  #       user_id: self.user_id, recipient_id: nudger.id)
-  #   end
-  #   if !self.response.nil?
-  #     self.response.update_attributes!(completed: true)
-  #     Activity.create!(action: "complete", trackable: self.response, 
-  #       user_id: self.user_id, recipient_id: self.response.assignment.assigner_id)
-  #   end
-  # end
 
   after_destroy do
     Event.create!(benefactor_id: self.user_id, beneficiary_id: 1, 

@@ -11,7 +11,7 @@ resources :users do
         :change_password, :common_core_I_can, 
         :student_common_core, :student_homework, :lessons, 
         :assignments, :responses, :teacher_dashboard, :past_due_assignments,
-        :grading_results, :report_card, :keeps, :corrected_posts
+        :grading_results, :report_card, :keeps
     post :update_password
   end
   collection do 

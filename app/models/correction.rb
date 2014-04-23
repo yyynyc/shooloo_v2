@@ -8,9 +8,10 @@ class Correction < ActiveRecord::Base
 	belongs_to :domain
 	belongs_to :level
 
-	validates_presence_of :corrected_post_id, :editor_id, :question, :answer,
+	validates_presence_of  :editor_id, :question, :answer,
 		:steps, :level_id, :domain_id, :standard_id, :competition 
 	validates :grammar, :concept_clear, :math_correct, :answer_complete, 
 		inclusion: [true, false]
+	validates :corrected_post_id, presence: true, uniqueness: true 
 end
 

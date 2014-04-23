@@ -1,0 +1,15 @@
+<% if activity.trackable %>
+	<span class='alert-heading'>
+		<strong><%= link_to "APPROVED", correction_path(activity.trackable.correction) %></strong> 		
+		your post 
+		(#<%= link_to activity.trackable.id, correction_path(activity.trackable.correction) %>)  
+		for publication
+	</span> 
+	<br/>	
+	on <%= activity.created_at.strftime("%b %d, %Y") %>.
+	Check out the <%= link_to "corrections", correction_path(activity.trackable.correction) %> of your post.
+<% else %>
+	<span class='alert-heading'>
+		deleted a post. 
+	</span>
+<% end %>

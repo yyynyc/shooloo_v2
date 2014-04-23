@@ -2,18 +2,72 @@
 <% description "Correction results of a math assignment aligned with the Common Core State Standard" %>
 <% noindex %>
 <% nofollow %>
-<h1> Corrected Problem </h1>
-<div class="well well-small alert-heading no"> 
-	<p>Plesae read your corrections below carefully and make sure they are right.</p>
-	<p class="center"></p>
-</div>
+<h1> Corrections </h1>
+<% if current_user.role=="editor" || current_user.admin? %>
+	<div class="well well-small bottom-margin"> 
+		<%= link_to "Edit My Correction", edit_correction_path(@correction), class: "btn btn-large btn-success btn-formtastic" %>
+		<p class="alert-heading no">
+			Plesae verify your corrections in the following areas are right:
+			<ul class="popover-list">
+				<li>Grade Level: It determines if the student authors are allowed to publishe any more posts.</li>
+				<li>Question: It should be clear, precise and grammatically correct.</li>
+				<li>Answer: It should demonstrate step by step how you've arrived at the answer.</li>
+				<li>Standard: It should reflect the skills required to solve the problem.</li>
+			</ul>
+		</p>
+	</div>
+<% end %>
 
 <div class="row margin-left">
 	<div class="image" >
 		<%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %>
 	</div>
 	<div class="alert-heading">
-		<p><strong>Question: </strong><%= @correction.question.html_safe %></p>
-		<p><strong>Answer: </strong><%= @correction.answer.html_safe %></p>
+		<p><strong>Grade Level: </strong><%= @correction.level.name %></p>
+		<p><strong>Corrected Question: </strong><%= @correction.question.html_safe %></p>
+		<p><strong>Corrected Answer: </strong><%= @correction.answer.html_safe %></p>
+		<% if current_user.role == "student" %>
+			<p><strong>I-can Statement:</strong> In <%= @correction.domain.name %>, <%= @correction.standard.ICan %></p>
+		<% else %>
+			<p><strong><%= @correction.standard.symbol %>:</strong> <%= @correction.standard.description %></p>
+		<% end %>
 	</div>
+</div>
+<div class="row margin-left">
+	<h2> 
+		Assessment of 
+		<% if current_user.role=="editor" || current_user.admin? %>
+			<%= link_to "the Original Problem", edit_correction_path(@correction)%> 
+		<% else %>
+			<%= link_to "My Original Problem", post_comments_path(@correction.corrected_post)%>
+		<% end %>
+	</h2>
+	<ul class="popover-list alert-heading">
+		<li>
+			The number of <strong>steps</strong> it takes to arrive at the answer: <strong><%= @correction.steps %></strong> 
+		</li>
+		<li>
+			Is this problem about <strong>healthy eating</strong>? 
+			<strong>
+				<% if @correction.competition == 0 %>
+					No.
+				<% else %>
+					Yes.
+				<% end %>
+			</strong> 
+		</li>
+		<li>
+			Are the question and answer free of <strong>grammatical and spelling</strong> errors? <strong><%= @correction.grammar %></strong> 
+		</li>
+		<li>
+			Is the math concept expressed in the question <strong>clear and precise</strong>?
+			<strong><%= @correction.concept_clear %></strong>
+		</li>
+		<li>
+			Is the answer <strong>calculated correctly</strong>? <strong><%= @correction.math_correct %></strong>
+		</li>
+		<li>
+			Does the answer demonstrate the <strong>step-by-step solution</strong>? <strong><%= @correction.answer_complete %></strong>
+		</li>	
+	</ul>
 </div>

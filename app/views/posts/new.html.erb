@@ -10,5 +10,6 @@
 	<%= render partial: 'posts/post', locals: {url: url, submission: submission, post: @post} %>
 <% else %>
 	<h1>Complete My Homework</h1>
-	<%= render 'posts/homework_post' %>
+	<%= render partial: 'posts/homework_post', locals: {url: url, submission: submission, post: @post, response: @response, 
+		assignment: @assignment}  %>
 <% end %>	

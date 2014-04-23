@@ -5,6 +5,10 @@
         <span class="no">
           This draft is not finished and has not been submitted for publication.
         </span>
+      <% elsif feed_item.state == "submitted" %>
+        <span>
+          This post has been submitted for review. You will get an alert when it is published.
+        </span>
       <% else %>
         <%= render partial: 'posts/post_user', locals: {post: feed_item} %>
         <span class="btn-formtastic">

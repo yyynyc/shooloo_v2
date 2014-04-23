@@ -2,7 +2,7 @@
 	<div class="stats">
 		<span>			
 			<p><strong>Corrected</strong></p>
-			<p><%= link_to pluralize(user.corrections.count, "post"), corrected_posts_user_path(user) %></p>
+			<p><%= pluralize(user.corrections.count, "post") %></p>
 		</span>
 	</div>
 <% else %>

@@ -213,17 +213,20 @@ class User < ActiveRecord::Base
   end
 
   def no_post_students
-    authorized_users.keep_if{|s| s.posts.blank?}.sort_by{|s| [s.grade, s.last_name]}
+    authorized_users.keep_if{|s| s.posts.where(state: 
+      ["submitted", "published"]).blank?}.sort_by{|s| [s.grade, s.last_name]}
   end
 
   def ungraded_students
-    authorized_users.keep_if{|s| s.posts.any? && s.posts.where(graded: true).blank?
+    authorized_users.keep_if{|s| s.posts.where(state: 
+      ["submitted", "published"]).any? && s.posts.where(graded: true).blank?
       }.sort_by{|s| [s.grade, s.last_name]}
   end
 
   def below_grade_students
-    authorized_users.keep_if{|s| s.posts.any? && s.posts.where(graded: true).any? && 
-      (s.posts.where(graded: true).map(&:level).uniq.sort.last.id-1) < s.grade}.sort_by{|s| 
+    authorized_users.keep_if{|s| s.posts.where(state: 
+      ["verified", "published"]).any? && (s.posts.where(state: 
+      ["verified", "published"]).map(&:level).uniq.sort.last.id-1) < s.grade}.sort_by{|s| 
       [s.grade, s.last_name]}
   end
 

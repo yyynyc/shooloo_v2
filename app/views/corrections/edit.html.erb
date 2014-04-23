@@ -1,0 +1,9 @@
+<% title "Update Correction" %>
+<% description "Update a Correction" %>
+<% noindex %>
+<% nofollow %>
+
+<% url = correction_path %>
+<% save = "Update!" %>
+<% heading = "Edit the Following Corrections" %>
+<%= render partial: 'corrections/form', locals: {url: url, save: save, heading: heading, correction: @correction, post: @post, alarm: @alarm} %>

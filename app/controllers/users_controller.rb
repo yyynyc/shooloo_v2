@@ -153,12 +153,7 @@ class UsersController < ApplicationController
 
   def submitted_posts
     @user = User.find(params[:id])
-    @posts = @user.posts.where(state: "submitted").paginate(page: params[:page], per_page: 10, order: "created_at DESC")
-  end
-
-  def corrected_posts
-    @user = User.find(params[:id])
-    @posts = @user.corrected_posts.paginate(page: params[:page], per_page: 100)
+    @posts = @user.posts.where(state: "submitted").paginate(page: params[:page], per_page: 2000, order: "created_at DESC")
   end
 
   def posts
@@ -397,7 +392,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @students = @user.authorized_users
     @assigned_homeworks = @user.responses
-    @ungraded_posts = Post.where(graded: false).keep_if{|p| p.response.in?(@user.responses)}
+    @ungraded_posts = Post.where(state: "submitted", graded: false).keep_if{|p| p.response.in?(@user.responses)}
     @ungraded_comments = Comment.where(graded: false).keep_if{|c| c.response.in?(@user.responses)}
     @assigned_homeworks_due = @assigned_homeworks.where("assignments.end_date <?", Time.now)
     @past_due_homeworks = @assigned_homeworks_due.where(completed: false)

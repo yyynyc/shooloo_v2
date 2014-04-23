@@ -1,0 +1,17 @@
+<h1> Posts Waiting to Be Corrected </h1>
+<% if @submissions.any? %>
+  <h2>Priority 1</h2>
+  <% @submissions.each do |s| %>
+    Post #<%= link_to s.id, new_post_correction_path(s) %> |
+  <% end %>
+  <%= will_paginate @submissions %>
+<% end %>
+<% if @publications.any? %>
+  <h2>Priority 2</h2>
+  <% @publications.each do |s| %>
+    Post #<%= link_to s.id, new_post_correction_path(s) %> |
+  <% end %>
+  <%= will_paginate @publications %>
+<% else %>
+  Nothing in the cue to be corrected.
+<% end %>

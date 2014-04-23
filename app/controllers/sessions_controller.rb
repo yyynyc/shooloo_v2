@@ -8,8 +8,12 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by_screen_name(params[:session][:screen_name])
     if user && user.authenticate(params[:session][:password])
-      sign_in user      		
-      redirect_back_or my_alerts_path
+      sign_in user
+      if current_user.role == "editor"
+        redirect_back_or root_path  
+      else    		
+        redirect_back_or my_alerts_path
+      end
     unless Event.where(benefactor_id: user.id, event: "sign in").where(
       'Date(created_at)=?', Date.today).any? || user.id == 1
       Event.create!(benefactor_id: user.id, beneficiary_id: 1, 

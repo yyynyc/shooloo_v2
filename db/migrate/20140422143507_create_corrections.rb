@@ -14,6 +14,7 @@ class CreateCorrections < ActiveRecord::Migration
       t.boolean :concept_clear
       t.boolean :math_correct
       t.boolean :answer_complete
+      t.string :state
 
       t.timestamps
     end

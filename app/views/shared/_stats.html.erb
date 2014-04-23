@@ -2,7 +2,7 @@
 	<div class="stats">
 		<span>			
 			<p><strong>Corrected</strong></p>
-			<p><%= pluralize(user.corrections.count, "post") %></p>
+			<p><%= pluralize(user.corrections.where(state: "submitted").count, "post") %></p>
 		</span>
 	</div>
 <% else %>

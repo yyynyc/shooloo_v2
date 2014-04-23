@@ -23,7 +23,8 @@
         <div class="create">
 	    	<%= f.input :answer, as: :ckeditor %> 
 	    </div> 
-	    <% if current_user.role.in?(["teacher", "tutor"]) %>  
+	    <% if current_user.role.in?(["teacher", "tutor"]) %> 
+	    	<%= f.input :steps, as: :select, label: "This problem is", include_blank: true, collection: [["1-step", 1],["2-step", 2], ["multistep (3 or more steps)", 3] ]  %>
 		    <%= f.input :level_id, as: :select, include_blank: true, label: "Suitable grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
 	    	<%= f.input :domain_id, as: :select, include_blank: true, label: "Skills involved", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
 	    	<%= f.input :standard_id, as: :select, include_blank: true, label: "I-can Statement", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %> 

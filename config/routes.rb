@@ -45,7 +45,6 @@ resources :posts, path: '/common-core-math-word-problems' do
   collection { get :search, to: 'posts#index' }
   match '/teacher_view', to: 'posts#teacher_view'
   match '/draft', to: 'posts#draft'
-  match '/entry', to: 'posts#entry'
 end
 
 resources :ratings do
@@ -108,7 +107,9 @@ resources :reminders
 resources :keeps
 resources :introductions
 resources :invitemails
-resources :corrections
+resources :corrections do
+  match '/draft', to: 'corrections#draft'
+end
 
   root to: "static_pages#home"
  

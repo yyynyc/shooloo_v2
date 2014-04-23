@@ -1,4 +1,10 @@
 <h1> Posts Waiting to Be Corrected </h1>
+<% if @correction_drafts.any? %>
+  <h2>Complete the Following Corrections Now!</h2>
+  <% @correction_drafts.each do |s| %>
+    Correction #<%= link_to s.id, edit_correction_path(s) %> |
+  <% end %>
+<% end %>
 <% if @submissions.any? %>
   <h2>Priority 1</h2>
   <% @submissions.each do |s| %>
@@ -12,6 +18,7 @@
     Post #<%= link_to s.id, new_post_correction_path(s) %> |
   <% end %>
   <%= will_paginate @publications %>
-<% else %>
+<% end %>
+<% if @submissions.blank? && @publications.blank?%>
   Nothing in the cue to be corrected.
 <% end %>

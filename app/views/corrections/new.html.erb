@@ -4,7 +4,7 @@
 <% nofollow %>
 
 <% url = corrections_path %>
-<% save = "Publish!" %>
+<% submission = "posts/blank" %>
 <% heading = "Correct the Above Problem" %>
-<%= render partial: 'corrections/form', locals: {url: url, save: save, heading: heading, correction: @correction, post: @post, alarm: @alarm} %>
+<%= render partial: 'corrections/form', locals: {url: url, submission: submission, heading: heading, correction: @correction, post: @post, alarm: @alarm} %>
 

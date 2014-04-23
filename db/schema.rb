@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(:version => 20140422143507) do
     t.boolean  "concept_clear"
     t.boolean  "math_correct"
     t.boolean  "answer_complete"
+    t.string   "state"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
@@ -403,7 +404,9 @@ ActiveRecord::Schema.define(:version => 20140422143507) do
     t.integer  "response_id"
     t.boolean  "graded",                     :default => false
     t.string   "state"
-    t.integer  "competition",                :default => 0
+    t.integer  "competition"
+    t.string   "qualified"
+    t.integer  "steps"
   end
 
   add_index "posts", ["state"], :name => "index_posts_on_state"

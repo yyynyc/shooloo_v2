@@ -30,7 +30,7 @@
   <span class='search-label'>
     <% if current_user.in?(post.keepers) %>
         <%= link_to "Favored", keeps_user_path(current_user), class: "btn btn-small btn-default" %>
-    <% else %>
+    <% elsif !current_user==post.user %>
       <%= link_to raw('<i class="icon-folder-open icon-white"></i> Favorite'), new_post_keep_path(post), class: "btn btn-small btn-success" %>
     <% end %>
   </span>  

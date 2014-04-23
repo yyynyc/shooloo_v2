@@ -4,7 +4,7 @@ class Post < ActiveRecord::Base
   attr_accessible :answer, :grade, :question, :comments_count, :ratings_count, :likes_count,
     :photo, :photo_remote_url, :image_host, :category, :graded, :user_id,
     :level_id, :domain_id, :standard_id, :quality_id, :subject_id, :response_id, 
-    :state, :competition
+    :state, :competition, :steps, :qualified
   attr_reader :photo_remote_url
   belongs_to :user
   belongs_to :standard
@@ -67,8 +67,10 @@ class Post < ActiveRecord::Base
 
   state_machine initial: :draft do
     after_transition :on => :submit, :do => [:give_points, :alert_teacher]
-    after_transition :on => :publish, :do => [:give_points, :update_stats, :alert_nudger]
-    after_transition :on => :verify, :do => [:alert_author, :update_stats, :alert_nudger]
+    after_transition :on => :publish, :do => [:give_points, :update_stats, 
+      :alert_nudger, :qualify]
+    after_transition :on => :verify, :do => [:alert_author, :update_stats, 
+      :alert_nudger]
 
     event :submit do
       transition :draft => :submitted
@@ -87,7 +89,7 @@ class Post < ActiveRecord::Base
     end
 
     state :submitted, :published do
-      validates_presence_of :user_id, :subject_id
+      validates_presence_of :user_id, :subject_id, :competition
       validates :answer, presence: true
       validates :question, presence: true, uniqueness: true
       #validates_attachment_presence :photo
@@ -95,7 +97,7 @@ class Post < ActiveRecord::Base
       validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
       validate :question_custom
       validate :answer_custom
-      validates_presence_of :level_id, :domain_id, :standard_id, :if => :validate_ccss
+      validates_presence_of :steps, :level_id, :domain_id, :standard_id, :if => :validate_ccss
       
       def question_custom
         if question.downcase.include?(self.user.first_name.downcase) || question.downcase.include?(self.user.last_name.downcase)
@@ -136,6 +138,10 @@ class Post < ActiveRecord::Base
     end
     self.user.post_count += 1
     self.user.save(validate: false)
+    self.update_attributes!(steps: self.correction.steps, 
+      level_id: self.correction.level_id, 
+      domain_id: self.correction.domain_id,
+      standard_id: self.correction.standard_id)
   end
 
   def alert_nudger 
@@ -148,6 +154,12 @@ class Post < ActiveRecord::Base
   def alert_author 
     Activity.create!(action: "publish", trackable: self, 
       user_id: 1, recipient_id: self.user_id)
+  end
+
+  def qualify
+    if self.competition == 1
+      self.update_attributes!(qualified: "yes")
+    end
   end
 
   def after_initialize

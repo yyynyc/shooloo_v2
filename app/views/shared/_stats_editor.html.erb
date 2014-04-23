@@ -1,6 +1,6 @@
-<p><strong>My Corrected Posts </strong></p>
-<% if @corrected_posts.any? %>
-	<% @corrected_posts.each do |p| %>
-    	#<%= link_to p.id, correction_path(p.correction) %> |
+<p><strong>My Corrections </strong></p>
+<% if @corrections.any? %>
+	<% @corrections.each do |c| %>
+    	#<%= link_to c.id, correction_path(c) %> |
 	<% end %>
 <% end %>

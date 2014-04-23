@@ -1,9 +1,19 @@
-<% title "Draft of Post##{@post.id}" %>
 <% noindex %>
 <% nofollow %>
+<% if @post.state == "draft" %>
+  <% title "Draft of Post##{@post.id}" %>
+  <h1> Draft: not published </h1>
+  <p class="center"><%= link_to "Edit and Submit for Review", edit_post_path(@post), class: 'btn btn-large btn-primary' %></p>
+<% else %>
+  <% title "Submitted Version of Post##{@post.id}" %>
+  <h1> Author's Original Version: not corrected </h1>
+  <% if !@post.correction.nil? %>
+    <p class="center">
+      <%= link_to "Find Out Reviews and/or Corrections from the Editor", correction_path(@post.correction), class: "btn btn-large btn-primary" %> 
+    </p>
+  <% end %>
+<% end %>
 
-<h1> Draft: not published </h1>
-<p class="center"><%= link_to "Edit and Submit for Review", edit_post_path(@post), class: 'btn btn-large btn-primary' %></p>
 <div class="row">     
   <div class="image">
     <%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %><br/>
@@ -12,7 +22,15 @@
       </span><br/> 
     <% end %> 
   </div>
-  <div class="alert-heading">         
+  <div class="alert-heading">   
+    <p>
+      <strong>Enter into Healthy-Eating Contest: </strong>
+      <% if @post.competition == 1 %>
+        Yes!
+      <% else %>
+        No.
+      <% end %>
+    </p>      
     <p>
       <strong>Question: </strong><%= @post.question.html_safe %>
     </p>

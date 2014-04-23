@@ -101,10 +101,6 @@ class PostsController < ApplicationController
     end
   end
 
-  def entry
-    @post = current_user.posts.find_by_id(params[:post_id])
-  end
-
   def destroy
     @post.destroy
     current_user.post_count -= 1

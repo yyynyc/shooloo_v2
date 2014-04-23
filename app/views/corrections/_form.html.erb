@@ -21,7 +21,7 @@
 <%= semantic_form_for correction, :url => url, :html => { :multipart => true, class: "form-horizontal-post-update", 'data-action' => 'update' }  do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
 	<%=f.inputs do %>
-		<%= f.input :corrected_post_id, as: :hidden, value: @post.id, class: "hidden" %> 
+		<%= f.input :corrected_post_id, as: :hidden, value: post.id, class: "hidden" %> 
 		<div class="correction"> 
 			<%= f.input :competition, label: "Is this problem about healthy eating?", as: :radio, collection: [["Yes! ", 1],["No.", 0]] %>
 			<%= f.input :grammar, label: "Are the question and answer free of grammatical and spelling errors?", as: :radio, collection: [["Yes! ", true],["No.", false]] %>
@@ -31,18 +31,23 @@
 			<%= f.input :steps, label: "How many steps does it take ot arrive at the answer", as: :radio, collection: [["1 step ", 1],["2 steps", 2], [">2 steps", 3]] %>
 		</div>
         <div class="create">
-        	<%= f.input :question, as: :ckeditor, input_html:{value: @post.question} %>
+        	<%= f.input :question, as: :ckeditor, input_html:{value: post.question} %>
         </div>
         <div class="create">
-	    	<%= f.input :answer, as: :ckeditor, input_html:{value: @post.answer} %> 
+	    	<%= f.input :answer, as: :ckeditor, input_html:{value: post.answer} %> 
 	    </div> 
 	    <%= f.input :level_id, as: :select, include_blank: true, label: "Suitable grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
     	<%= f.input :domain_id, as: :select, include_blank: true, label: "Skills involved", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
     	<%= f.input :standard_id, as: :select, include_blank: true, label: "I-can Statement", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %>
 	<% end %>
 	<%= f.actions do %>	
-		<div class="btn-formtastic">
-	    	<%= f.action :submit, label: save, as: :button, button_html: {class: "btn btn-large btn-primary", disable_with: "processing..."} %>
+		<div class="btn-formtastic">		
+	    	<span class="search-label">
+	    	<%= f.action :submit, label: "Preview & Save as draft", as: :button, button_html: {value: "save", class: "btn btn-large btn-warning", disable_with: "saving as draft..."} %>
+	    	</span>
+	    	<span class="search-label">
+	    		<%= render partial: submission, locals: {f: f} %>
+		    </span>
 		</div>
   	<% end %> 
 <% end %>

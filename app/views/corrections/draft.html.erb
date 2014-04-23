@@ -30,8 +30,6 @@
 		<p><strong>Grade Level: </strong>
 			<% if !@correction.level_id.nil? %>
 				<%= @correction.level.name %>
-			<% else %>
-				<span class="no"> ??? </span>	
 			<% end %>
 		</p>
 		<p><strong>Corrected Question: </strong>
@@ -46,9 +44,6 @@
 			<p>
 				<% if !@correction.standard_id.nil? %>
 					<strong><%= @correction.standard.symbol %>:</strong> <%= @correction.standard.description %>
-				<% else %>
-					<strong>CCSS Standard:</strong>
-						<span class="no"> ??? </span>
 				<% end %>
 			</p>
 		<% end %>
@@ -76,8 +71,6 @@
 						No.
 					<% elsif @correction.competition == 1 %>
 						Yes.
-					<% else %>
-						<span class="no"> ??? </span>
 					<% end %>
 				</strong> 
 			</li>

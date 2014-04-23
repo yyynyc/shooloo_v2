@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <% unless post.user.role =="teacher" || post.user.admin? || post.has_teacher_comment? || current_user == post.user %>
   <span class='search-label'> 
    <%= render partial: 'alarms/alarm', locals: {post: post} %>
@@ -45,6 +46,57 @@
       <%= link_to "Grade", new_post_grading_path(post), class: "btn btn-small btn-danger" %> 
     <% else %>
       <%= link_to "grade: #{post.grading.mark.full_mark}", edit_grading_path(post.grading), class: "btn btn-small btn-success" %> 
+=======
+
+  <% unless post.user.role =="teacher" || post.user.admin? || post.has_teacher_comment? || current_user == post.user %>
+    <span class='search-label'> 
+     <%= render partial: 'alarms/alarm', locals: {post: post} %>
+    </span>   
+  <% end %>     
+  <% if current_user?(post.user) || current_user.admin? %>
+    <% if !post.grading.nil? %>
+      <%= link_to "grade: #{post.grading.mark.full_mark}", grading_path(post.grading), class: "btn btn-small btn-info" %> 
+    <% end %>
+    <% if post.draft? %>
+      <%= link_to raw('<i class="icon-pencil icon-white"></i> Finish This Post Now!'), edit_post_path(post), title: "Edit Post", class: "btn btn-small btn-success" %>
+      <% end %>           
+  <% end %>
+  <% if post.verified? || post.published? %>
+    <% if !current_user?(post.user) %>
+      <span class='search-label'> 
+        <%= render partial: 'likes/like_form', locals: {post: post, like: like} %>
+      </span> 
+    <% end %>
+    <span class='search-label'> 
+      <%= render partial: 'invites/invite_form', locals: {post: post, invite: invite} %>
+    </span>
+    <span class='search-label'>
+      <% if current_user?(post.user) || current_user.in?(post.commenters) || current_user.role=="teacher" || current_user.admin? %>
+        <%= link_to raw('<i class="icon-comment icon-white"></i> Details'), post_comments_path(post), class: "btn btn-small btn-success" %>
+      <% else %>
+        <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), new_post_comment_path(post), class: "btn btn-small btn-success" %>
+      <% end %> 
+    </span>
+    <span class='search-label'>
+      <% if current_user.in?(post.keepers) %>
+          <%= link_to "Favored", keeps_user_path(current_user), class: "btn btn-small btn-default" %>
+      <% else %>
+        <%= link_to raw('<i class="icon-folder-open icon-white"></i> Favorite'), new_post_keep_path(post), class: "btn btn-small btn-success" %>
+      <% end %>
+    </span>  
+    <% if current_user.admin? || current_user.role == "teacher" %>
+      <%= link_to "Class", post_teacher_view_path(post), class: "btn btn-small btn-danger" %> 
+      <% if !post.in?(current_user.assigned_posts) %>
+        <%= link_to "Assign", new_post_assignment_path(post), class: "btn btn-small btn-danger" %>  
+      <% end %>   
+    <% end %>
+    <% if current_user.in?(post.user.authorizers) %>
+      <% if post.grading.nil? %>
+        <%= link_to "Grade", new_post_grading_path(post), class: "btn btn-small btn-danger" %> 
+      <% else %>
+        <%= link_to "grade: #{post.grading.mark.full_mark}", edit_grading_path(post.grading), class: "btn btn-small btn-success" %> 
+      <% end %>
+>>>>>>> 77c0f1ba0cc9d5b38ba06f913709e4045c00203b
     <% end %>
   <% end %>
 <% end %>

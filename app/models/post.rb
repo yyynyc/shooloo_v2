@@ -62,6 +62,7 @@ class Post < ActiveRecord::Base
   has_many :keeps, foreign_key: "kept_post_id", dependent: :destroy
   has_many :keepers, through: :keeps
 
+<<<<<<< HEAD
   has_one :correction, foreign_key: "corrected_post_id", dependent: :destroy
   has_many :editor, through: :correction
 
@@ -78,6 +79,17 @@ class Post < ActiveRecord::Base
       transition [:submitted, :published] => :under_review
     end
 
+=======
+  state_machine initial: :draft do
+    event :submit do
+      transition :draft => :submitted
+    end
+
+    event :checkout do
+      transition [:submitted, :published] => :under_review
+    end
+
+>>>>>>> 77c0f1ba0cc9d5b38ba06f913709e4045c00203b
     event :verify do
       transition :under_review => :verified
     end
@@ -91,7 +103,10 @@ class Post < ActiveRecord::Base
       validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
       validate :question_custom
       validate :answer_custom
+<<<<<<< HEAD
       validates_presence_of :level_id, :domain_id, :standard_id, :if => :validate_ccss
+=======
+>>>>>>> 77c0f1ba0cc9d5b38ba06f913709e4045c00203b
 
       def question_custom
         if question.downcase.include?(self.user.first_name.downcase) || question.downcase.include?(self.user.last_name.downcase)
@@ -104,10 +119,13 @@ class Post < ActiveRecord::Base
           errors.add(:answer, "can't contain any part of your real name.")
         end
       end
+<<<<<<< HEAD
 
       def validate_ccss
         self.user.role == "teacher" || self.user.admin?
       end
+=======
+>>>>>>> 77c0f1ba0cc9d5b38ba06f913709e4045c00203b
     end
   end
 

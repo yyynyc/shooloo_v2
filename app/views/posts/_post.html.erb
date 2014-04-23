@@ -22,19 +22,13 @@
         </div>
         <div class="create">
 	    	<%= f.input :answer, as: :ckeditor %> 
-<<<<<<< HEAD
 	    </div> 
-	    <% if current_user.role == "teacher" || current_user.admin? %>  
+	    <% if current_user.role.in?(["teacher", "tutor"]) %>  
 		    <%= f.input :level_id, as: :select, include_blank: true, label: "Suitable grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
 	    	<%= f.input :domain_id, as: :select, include_blank: true, label: "Skills involved", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
 	    	<%= f.input :standard_id, as: :select, include_blank: true, label: "I-can Statement", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %> 
     	<% end %>
-=======
 	    </div>   
-	    <%#= f.input :level_id, as: :select, include_blank: true, label: "Suitable grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
-    	<%#= f.input :domain_id, as: :select, include_blank: true, label: "Skills involved", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
-    	<%#= f.input :standard_id, as: :select, include_blank: true, label: "I-can Statement", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %> 
->>>>>>> 77c0f1ba0cc9d5b38ba06f913709e4045c00203b
     	<%= f.input :subject_id, as: :select, include_blank: true, label: "Subject", collection: Hash[Subject.order('name ASC').map{|s| [s.name, s.id]}] %>
 	    <%= f.input :photo, as: :file, label: "Photo upload" %> 	  
 	    <%= f.input :photo_remote_url, label: "Photo web address", 
@@ -51,15 +45,11 @@
 	    	<%= f.action :submit, label: "Preview & Save as draft", as: :button, button_html: {value: "save", class: "btn btn-large btn-warning", disable_with: "saving as draft..."} %>
 	    	</span>
 	    	<span class="search-label">
-<<<<<<< HEAD
 	    		<% if current_user.role.in?(["teacher", "tutor"]) %>
 	    			<%= render partial: 'posts/publication', locals: {f: f} %>
 	    		<% else %>
 	    			<%= render partial: 'posts/submission', locals: {f: f} %>
 	    		<% end %>
-=======
-	    		<%= render partial: submission, locals: {f: f} %>	
->>>>>>> 77c0f1ba0cc9d5b38ba06f913709e4045c00203b
 		    </span>
 		</div>
   	<% end %> 

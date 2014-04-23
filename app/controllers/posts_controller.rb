@@ -79,11 +79,7 @@ class PostsController < ApplicationController
     if params[:button] == "save"
       @post.save
       render 'draft'
-<<<<<<< HEAD
-    elsif params[:button] == "submit" 
-=======
     elsif params[:button] == "submit"
->>>>>>> 77c0f1ba0cc9d5b38ba06f913709e4045c00203b
       if @post.submit
         @post.likes_count = 0
         @post.comments_count = 0
@@ -99,7 +95,6 @@ class PostsController < ApplicationController
       else      
         render 'edit'
       end
-<<<<<<< HEAD
     elsif params[:button] = "publish"
       if @post.publish
         @post.likes_count = 0
@@ -116,8 +111,6 @@ class PostsController < ApplicationController
       else      
         render 'edit'
       end
-=======
->>>>>>> 77c0f1ba0cc9d5b38ba06f913709e4045c00203b
     end
   end
 

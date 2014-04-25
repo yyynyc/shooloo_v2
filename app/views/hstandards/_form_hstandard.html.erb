@@ -1,0 +1,16 @@
+<%= semantic_form_for hstandard, :url => url, :html => { :multipart => true, class: "form-horizontal-post-update", 'data-action' => 'update' }  do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+	<%=f.inputs do %>
+        <%= f.input :level_id, as: :select, include_blank: true, label: "Suitable grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}] %>
+        <%= f.input :domain_id, as: :select, include_blank: true, label: "Domain", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id) %> 
+        <%= f.input :standard_id, as: :select, include_blank: true, label: "CCSS Standard", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :description, f.object.standard_id) %> 
+        <%= f.input :symbol %>
+        <%= f.input :short %>
+        <%= f.input :url %>
+        <%= f.input :description, as: :ckeditor %>
+        <%= f.input :ICan, as: :ckeditor %>
+	<% end %>
+	<%= f.actions do %>	
+	    <%= f.action :submit, label: save, as: :button, button_html: {class: "btn btn-large btn-warning", disable_with: "wait..."} %>
+  	<% end %> 
+<% end %>

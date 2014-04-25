@@ -1,6 +1,6 @@
 <% if activity.trackable %>
 	<span class='alert-heading'>
-		verified your post #<%= link_to activity.trackable.id, post_comments_path(activity.trackable) %> as
+		verified your post #<%= link_to activity.trackable.id, correction_path(activity.trackable.correction) %> as
 			<span class="yes"><strong> at or above </strong></span>
 		your grade level		
 	</span> 

@@ -1,0 +1,54 @@
+<% @levels.each do |l| %>
+	<ul class="users alert-heading">
+  		<li>
+			<strong>Level id: #<%= l.id %> | number: <%= l.number %> | name: <%= l.name %></strong> | <%= link_to "new", new_level_path %> <%= link_to "edit", edit_level_path(l) %><br/>
+			<div class="follow-nudge">
+				<strong>Domains</strong>
+				<% l.domains.order('id ASC').each do |d| %>
+					<ul class="users">
+	  					<li>
+	  						#<%= d.id %> | core: <%= d.core %> <br/>
+	  						name: <%= d.name %> | symbol: <%= d.symbol %> | <%= link_to "new", new_domain_path %> <%= link_to "edit", edit_domain_path(d) %>
+	  						<div class="follow-nudge">
+								<strong>Standards</strong>
+								<% d.standards.order('id ASC').each do |s| %>
+									<ul class="users">
+					  					<li>
+					  						#<%= s.id %> | short: <%= s.short %> |
+					  						symbol: <%= s.symbol %> <br/>
+					  						url: <%= s.url %> |
+					  						<%= link_to "new", new_standard_path %> 
+					  						<%= link_to "edit", edit_standard_path(s) %>
+					  						<br/>
+					  						<strong>description:</strong> <%= s.description.html_safe %><br/>
+					  						<strong>Ican:</strong> <%= s.ICan.html_safe %>
+						  					<% if s.hstandards.any? %>
+						  						<div class="follow-nudge">
+													<strong>High School Standards</strong>
+													<% s.hstandards.order('id ASC').each do |h| %>
+														<ul class="users">
+										  					<li>
+										  						#<%= h.id %> | short: <%= h.short %> |
+										  						symbol: <%= h.symbol %> <br/>
+										  						url: <%= h.url %> |
+										  						<%= link_to "new", new_hstandard_path %> 
+										  						<%= link_to "edit", edit_hstandard_path(h) %>
+										  						<br/>
+										  						<strong>description:</strong> <%= h.description.html_safe %><br/>
+										  						<strong>Ican:</strong> <%= h.ICan.html_safe %>
+										  					</li>
+										  				</ul>
+													<% end %>
+												</div>
+						  					<% end %>	
+					  					</li>
+					  				</ul>
+								<% end %>
+							</div>
+	  					</li>
+	  				</ul>
+				<% end %>
+			</div>
+		</li>
+	</ul>
+<% end %>

@@ -1,0 +1,11 @@
+<% noindex %>
+<% nofollow %>
+
+<h1>New Domain</h1>
+<% url = domains_path %>
+<% save = "Save as New" %>
+
+<%= render partial: 'domains/form_domain', locals: {domain: @domain, url: url, save: save} %>
+
+
+        

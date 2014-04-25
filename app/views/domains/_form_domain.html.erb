@@ -1,0 +1,12 @@
+<%= semantic_form_for domain, :url => url, :html => { :multipart => true, class: "form-horizontal-post-update", 'data-action' => 'update' }  do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+	<%=f.inputs do %>
+        <%= f.input :level_id, as: :select, include_blank: true, label: "Suitable grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}] %>
+        <%= f.input :name %>
+        <%= f.input :symbol %>
+        <%= f.input :core %>
+	<% end %>
+	<%= f.actions do %>	
+	    <%= f.action :submit, label: save, as: :button, button_html: {class: "btn btn-large btn-warning", disable_with: "wait..."} %>
+  	<% end %> 
+<% end %>

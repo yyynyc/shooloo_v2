@@ -9,8 +9,15 @@
 		<table class="table-grade normal-font">
 			<tr>
 				<th>Standard:</th> 
-				<td><%= link_to @assignment.standard.short, @assignment.standard.url, target: "_blank", confirm: "You are about to visit a site that is not part of Shooloo. Continue?"  %> -- 
-					<%= @assignment.standard.description %></td>
+				<td>
+					<% if @assignment.hstandard.nil? %>
+						<%= link_to @assignment.standard.short, @assignment.standard.url, target: "_blank", confirm: "You are about to visit a site that is not part of Shooloo. Continue?"  %> -- 
+						<%= @assignment.standard.description %>
+					<% else %>
+						<%= link_to @assignment.hstandard.short, @assignment.hstandard.url, target: "_blank", confirm: "You are about to visit a site that is not part of Shooloo. Continue?"  %> -- 
+						<%= @assignment.hstandard.description %>
+					<% end %>
+				</td>
 			</tr>
 			<tr> 
 				<th>Instruction: </th>

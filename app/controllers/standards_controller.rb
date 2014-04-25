@@ -1,6 +1,6 @@
 class StandardsController < ApplicationController
-	respond_to :html, :json
-
+	before_filter :correct_user, only: [:new, :create, :edit, :update]
+	
 	def index
 		set_meta_tags title: 'Common Core Math Standards, I-Can Statements, Lesson Plans, and Video Tutorials'
 	end
@@ -65,22 +65,38 @@ class StandardsController < ApplicationController
 		render 'grade_8'
 	end
 
+	def new
+		@standard = Standard.new
+	end
+
+	def create
+		@standard = Standard.new(params[:standard])
+		if @standard.save
+			flash[:success] = "Success!"
+  			redirect_to levels_path
+		else
+			render 'new'
+		end
+	end
+
 	def edit
 		@standard = Standard.find(params[:id])
 	end
 
 	def update
-		if signed_in? && current_user.admin?
-			@standard = Standard.find(params[:id])
-			respond_to do |format|
-			    if @standard.update_attributes(params[:standard])
-			      format.html { redirect_to(@standard, :notice => 'Standard was successfully updated.') }
-			      format.json { respond_with_bip(@standard) }
-			    else
-			      format.html { render :action => "edit" }
-			      format.json { respond_with_bip(@standard) }
-			    end
-			end
+		@standard = Standard.find(params[:id])
+		if @standard.update_attributes(params[:standard])
+			flash[:success] = "Success!"
+  			redirect_to levels_path
+		else
+			render 'edit'
 		end
+	end
+
+	def correct_user
+	    unless signed_in? && current_user.admin? 
+	      flash[:error] = "You don't have access to this page."
+	      redirect_to root_url 
+	    end
 	end
 end

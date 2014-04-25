@@ -87,11 +87,14 @@ resources :responses do
   resources :comments
 end
 
+resources :corrections do
+  match '/draft', to: 'corrections#draft'
+end
+
 resources :user_imports
 resources :sessions, only: [:new, :create, :destroy]
 resources :relationships, only: [:create, :destroy]
-resources :nudges, only: [:create, :destroy]
-resources :standards, path: '/common-core-math-I-can' 
+resources :nudges, only: [:create, :destroy] 
 resources :alarms
 resources :likes, only: [:create, :destroy]
 resources :invites, only: :create
@@ -108,9 +111,11 @@ resources :reminders
 resources :keeps
 resources :introductions
 resources :invitemails
-resources :corrections do
-  match '/draft', to: 'corrections#draft'
-end
+resources :levels
+resources :domains
+resources :standards, path: '/common-core-math-I-can'
+resources :hstandards
+
 
   root to: "static_pages#home"
  

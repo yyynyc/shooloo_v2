@@ -39,15 +39,23 @@
 			<%= @correction.answer.html_safe %>
 		</p>
 		<% if current_user.role == "student" %>
-			<p><strong>I-can Statement:</strong> In <%= @correction.domain.name %>, <%= @correction.standard.ICan %></p>
-		<% else %>
-			<p>
-				<% if !@correction.standard_id.nil? %>
+            <p>
+            	<strong>"I can" statement: </strong> In <%= @post.domain.name %>, 
+	            <% if @correction.hstandard.nil? %>
+	              <%= @correction.standard.ICan %>
+	            <% else %>
+	              <%= @correction.hstandard.ICan %>
+	            <% end %>
+	        </p>
+        <% else %>
+        	<p>
+				<% if !@correction.hstandard_id.nil? %>
+					<strong><%= @correction.hstandard.symbol %>:</strong> <%= @correction.hstandard.description %>
+				<% elsif !@correction.standard_id.nil? %>
 					<strong><%= @correction.standard.symbol %>:</strong> <%= @correction.standard.description %>
 				<% end %>
 			</p>
-		<% end %>
-		
+        <% end %>
 	</div>
 </div>
 <div class="row margin-left">

@@ -26,7 +26,11 @@
 						<%= a.assigner.first_name %> <%= a.assigner.last_name %> 
 					</td>
 					<td class="center">
-						<%= a.standard.short %>
+						<% if a.hstandard.nil? %>
+							<%= a.standard.short %>
+						<% else %>
+							<%= a.hstandard.short %>
+						<% end %>
 					</td>
 					<td>
 						<% if !a.assigned_post_id.nil? %>

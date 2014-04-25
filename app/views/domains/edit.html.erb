@@ -1,0 +1,8 @@
+<% noindex %>
+<% nofollow %>
+
+<h1>Edit Domain</h1>
+<% url = domain_path %>
+<% save = "Update" %>
+
+<%= render partial: 'domains/form_domain', locals: {domain: @domain, url: url, save: save} %>

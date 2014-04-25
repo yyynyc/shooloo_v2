@@ -1,5 +1,14 @@
-<% title "Common Core Math Word Problem ##{@post.id} in #{@post.level.name} #{@post.domain.core} #{@post.standard.short}" %>
-<% description "#{@post.question.html_safe}" %>
+<% if @post.hstandard.nil?%>
+  <% title "Common Core Math Word Problem ##{@post.id} in #{@post.level.name} #{@post.domain.core} #{@post.standard.short}" %>
+<% else %>
+  <% title "Common Core Math Word Problem ##{@post.id} in #{@post.level.name} #{@post.domain.core} #{@post.hstandard.short}" %>
+<% end %>
+<% if @correction.nil? %>
+  <% description "#{@question.question.html_safe}" %>
+<% else %>
+  <% description "#{@correction.question.html_safe}" %>
+<% end %>
+
 
 <div itemscope itemtype="http://schema.org/CreativeWork">
   <meta itemprop="description" content="This question is created by a student in grades 3--8. Log in or sign up to find out its answer, member comments, and related Common Core State Standard.">
@@ -7,7 +16,13 @@
   <%= render 'shared/meta' %>
   <% if !signed_in? %>
     <h1>Student-Authored Common Core Math Word Problem<br/> 
-      in <%= @post.level.name %> / <%= @post.domain.core %> / <%= @post.standard.short %></h1>     
+      in <%= @post.level.name %> / <%= @post.domain.core %> / 
+      <% if @post.hstandard.nil?%>
+        <%= @post.standard.short %>
+      <% else %>
+        <%= @post.hstandard.short %>
+      <% end %>
+      </h1>     
   <% end %>
   <div class="row">
     <% if signed_in? && !@response.nil? %>
@@ -28,35 +43,53 @@
       </div>
       <div class="alert-heading" itemscope itemtype="http://schema.org/AlignmentObject"> 
         <meta itemprop="alignmentType" content="require">
-        <meta itemprop="targetName" content="<%= @post.standard.symbol %>">
-        <meta itemprop="targetUrl" content="<%= @post.standard.url %>">
-        <meta itemprop="targetDescription", content="<%= @post.standard.description %>">       
-        
-          <% if signed_in? %>
-            <% if current_user.in?(@post.user.authorizers) && !@response.nil? %>
-              <p><strong>Question</strong> (original): <%= @post.question.html_safe %></p>
-            <% else %>
-              <% if !@correction.nil? %>
-                <p><strong>Question</strong> (corrected): <%= @correction.question.html_safe %></p>
-              <% else %>
-                <p><strong>Question</strong> (original): <%= @post.question.html_safe %></p>
-              <% end %>
-              <p><strong>Answer</strong>: <span class="no">To see the answer and everyone else's comments, submit your own solution first.</span></p>
-            <% end %>
-            <% if !@post.level.nil? %>
-              <p>
-                <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %>
-              </p>
-            <% end %>
+        <% if @post.hstandard.nil?%>
+          <meta itemprop="targetName" content="<%= @post.standard.symbol %>">
+          <meta itemprop="targetUrl" content="<%= @post.standard.url %>">
+          <meta itemprop="targetDescription", content="<%= @post.standard.description %>"> 
+        <% else %>
+          <meta itemprop="targetName" content="<%= @post.hstandard.symbol %>">
+          <meta itemprop="targetUrl" content="<%= @post.hstandard.url %>">
+          <meta itemprop="targetDescription", content="<%= @post.hstandard.description %>"> 
+        <% end %>
+        <% if signed_in? %>
+          <% if current_user.in?(@post.user.authorizers) && !@response.nil? %>
+            <p><strong>Question</strong> (original): <%= @post.question.html_safe %></p>
           <% else %>
             <% if !@correction.nil? %>
               <p><strong>Question</strong> (corrected): <%= @correction.question.html_safe %></p>
             <% else %>
               <p><strong>Question</strong> (original): <%= @post.question.html_safe %></p>
             <% end %>
-            <p class="center"><%= link_to "Find Out the Answer", post_comments_path(@post), class: "btn btn-large btn-primary" %></p>
+            <p><strong>Answer</strong>: <span class="no">To see the answer and everyone else's comments, submit your own solution first.</span></p>
           <% end %>
-        </p>
+          <% if !@post.level.nil? %>
+            <p>
+              <% if current_user.role == "student" %>
+                <strong>"I can" statement: </strong> In <%= @post.domain.name %>, 
+                <% if @post.hstandard.nil? %>
+                  <%= @post.standard.ICan %>
+                <% else %>
+                  <%= @post.hstandard.ICan %>
+                <% end %>
+              <% else %>
+                <strong>CCSS Standard:</strong>
+                <% if @post.hstandard.nil? %>
+                  <%= @post.standard.short %> -- <%= @post.standard.description %>
+                <% else %>
+                  <%= @post.hstandard.short %> -- <%= @post.hstandard.description %>
+                <% end %>
+              <% end %>
+            </p>
+          <% end %>
+        <% else %>
+          <% if !@correction.nil? %>
+            <p><strong>Question</strong> (corrected): <%= @correction.question.html_safe %></p>
+          <% else %>
+            <p><strong>Question</strong> (original): <%= @post.question.html_safe %></p>
+          <% end %>
+          <p class="center"><%= link_to "Find Out the Answer", post_comments_path(@post), class: "btn btn-large btn-primary" %></p>
+        <% end %>
       </div>
     </div>
   </div>

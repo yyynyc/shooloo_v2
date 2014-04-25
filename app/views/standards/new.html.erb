@@ -1,0 +1,8 @@
+<% noindex %>
+<% nofollow %>
+
+<h1>New Standard</h1>
+<% url = standards_path %>
+<% save = "Save as New" %>
+
+<%= render partial: 'standards/form_standard', locals: {standard: @standard, url: url, save: save} %>

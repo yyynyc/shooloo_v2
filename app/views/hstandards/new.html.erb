@@ -1,0 +1,8 @@
+<% noindex %>
+<% nofollow %>
+
+<h1>New High School Standard</h1>
+<% url = hstandards_path %>
+<% save = "Save as New" %>
+
+<%= render partial: 'hstandards/form_hstandard', locals: {hstandard: @hstandard, url: url, save: save} %>

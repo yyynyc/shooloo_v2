@@ -117,6 +117,10 @@ module ShoolooV2
     GIFT_THRESHOLD = 60.0
     INTRO = 10
     USER_IMPORT = 30
+    TEACHER_INSPIRATION = 10
+    TEACHER_CONTEST = 20
+    AT_GRADE = 20
+    BELOW_GRADE = 10
 end
 
 

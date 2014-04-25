@@ -15,14 +15,14 @@ class Ability
             can :update, [Authorization, Referral]
             can [:create, :destroy], [Referral, Authorization]
             can :manage, Alarm
-            can [:draft, :entry,:teacher_view], Post
+            can [:draft, :corrected,:teacher_view], Post
             can :crud, [Post, Comment, Invite, Rating]
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :read, :all
             can [:index, :show, :pd, :premium], Video       
         elsif user.authorizations.where(approval: "accepted").any?
             can :crud, [Response, Keep, Post, Comment, Invite, Rating, Activity]
-            can [:draft, :entry], Post
+            can [:draft, :corrected], Post
             can :update, Referral
             can [:create, :destroy], [Referral, Authorization]
             can [:create, :destroy], [Like, Relationship, Nudge]

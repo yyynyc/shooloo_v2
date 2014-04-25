@@ -66,11 +66,10 @@ class Post < ActiveRecord::Base
   has_many :editor, through: :correction
 
   state_machine initial: :draft do
-    after_transition :on => :submit, :do => [:give_points, :alert_teacher]
+    after_transition :on => :submit, :do => [:give_points, :alert_teacher, :update_points]
     after_transition :on => :publish, :do => [:give_points, :update_stats, 
-      :alert_nudger, :qualify]
-    after_transition :on => :verify, :do => [:alert_author, :update_stats, 
-      :alert_nudger]
+      :alert_nudger, :qualify, :update_points]
+    after_transition :on => :verify, :do => [:update_stats, :alert_nudger]
 
     event :submit do
       transition :draft => :submitted
@@ -81,7 +80,7 @@ class Post < ActiveRecord::Base
     end
 
     event :checkout do
-      transition [:submitted, :published] => :under_review
+      transition [:submitted, :old] => :under_review
     end
 
     event :verify do
@@ -122,6 +121,13 @@ class Post < ActiveRecord::Base
           event: "new post", value: ShoolooV2::POST_NEW)
   end
 
+  def update_points
+    if self.competition == 1
+      self.user.point.competition += 1
+      self.user.point.save
+    end
+  end
+
   def alert_teacher 
     if !self.response.nil?
       self.response.update_attributes!(completed: true)
@@ -131,13 +137,15 @@ class Post < ActiveRecord::Base
   end
 
   def update_stats
-    self.likes_count = 0
-    self.comments_count = 0
-    if self.user.post_count.nil?
-      self.user.post_count = 0
+    unless self.grandfather?
+      self.likes_count = 0
+      self.comments_count = 0
+      if self.user.post_count.nil?
+        self.user.post_count = 0
+      end
+      self.user.post_count += 1
+      self.user.save(validate: false)
     end
-    self.user.post_count += 1
-    self.user.save(validate: false)
     self.update_attributes!(steps: self.correction.steps, 
       level_id: self.correction.level_id, 
       domain_id: self.correction.domain_id,
@@ -145,21 +153,25 @@ class Post < ActiveRecord::Base
   end
 
   def alert_nudger 
-    self.user.nudgers.uniq.each do |nudger|
-      Activity.create!(action: "create", trackable: self, 
-        user_id: self.user_id, recipient_id: nudger.id)
+    unless self.grandfather?
+      self.user.nudgers.uniq.each do |nudger|
+        Activity.create!(action: "create", trackable: self, 
+          user_id: self.user_id, recipient_id: nudger.id)
+      end
     end
-  end
-
-  def alert_author 
-    Activity.create!(action: "publish", trackable: self, 
-      user_id: 1, recipient_id: self.user_id)
   end
 
   def qualify
     if self.competition == 1
       self.update_attributes!(qualified: "yes")
+      self.user.point.qualified += 1
+      self.user.point.education += ShoolooV2::TEACHER_CONTEST
+      self.user.point.save
     end
+  end
+
+  def penalty
+    (self.user.grade - self.correction.level.number) * (ShoolooV2::BELOW_GRADE)
   end
 
   def after_initialize

@@ -1,15 +1,40 @@
 <% noindex %>
 <% nofollow %>
+<% if current_user?(@post.user) && !@post.grading.nil? %>
+  <div class="grading-result">
+    <%= render partial: 'posts/grading', locals: {grading: @post.grading} %>
+  </div>
+<% elsif current_user.in?(@post.user.authorizers) %>
+  <% if !@post.grading.nil? %>
+    <div class="grading-result">
+      <span class="search-label">
+        <%= render partial: 'posts/grading', locals: {grading: @post.grading} %>
+      </span>
+      <span class="search-label btn-formtastic alert-heading">
+        <%= link_to "Teacher's Dashboard", teacher_dashboard_user_path(current_user) %> |
+        <% if !@post.response.nil? %>
+          <%= link_to "Assignment", assignment_path(@post.response.assignment) %>
+        <% else %>
+          <%= link_to "Assignments", assignments_user_path(current_user) %>
+        <% end %>
+      </span>
+    </div>
+  <% else %>
+    <%= link_to "Grade this post!", new_post_grading_path(@post), class: "btn btn-large btn-danger" %>
+  <% end %>
+<% end %>
+
 <% if @post.state == "draft" %>
   <% title "Draft of Post##{@post.id}" %>
   <h1> Draft: not published </h1>
   <p class="center"><%= link_to "Edit and Submit for Review", edit_post_path(@post), class: 'btn btn-large btn-primary' %></p>
 <% else %>
   <% title "Submitted Version of Post##{@post.id}" %>
-  <h1> Author's Original Version: not corrected </h1>
+  <h1> Author's Original Version: not reviewed </h1>
   <% if !@post.correction.nil? %>
     <p class="center">
-      <%= link_to "Find Out Reviews and/or Corrections from the Editor", correction_path(@post.correction), class: "btn btn-large btn-primary" %> 
+      <%= link_to "Editor's Assessment", correction_path(@post.correction), class: "btn btn-large btn-success" %> 
+      <%= link_to "Corrected Versions", post_corrected_path(@post), class: "btn btn-large btn-success" %> 
     </p>
   <% end %>
 <% end %>

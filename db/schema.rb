@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140422143507) do
+ActiveRecord::Schema.define(:version => 20140424235253) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -345,12 +345,14 @@ ActiveRecord::Schema.define(:version => 20140422143507) do
 
   create_table "points", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "advocacy",    :default => 0
-    t.integer  "inspiration", :default => 0
-    t.integer  "education",   :default => 0
-    t.integer  "competition", :default => 0
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.integer  "advocacy",     :default => 0
+    t.integer  "inspiration",  :default => 0
+    t.integer  "education",    :default => 0
+    t.integer  "competition",  :default => 0
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "qualified",    :default => 0
+    t.integer  "disqualified", :default => 0
   end
 
   create_table "posts", :force => true do |t|
@@ -407,6 +409,7 @@ ActiveRecord::Schema.define(:version => 20140422143507) do
     t.integer  "competition"
     t.string   "qualified"
     t.integer  "steps"
+    t.boolean  "grandfather"
   end
 
   add_index "posts", ["state"], :name => "index_posts_on_state"
@@ -577,6 +580,8 @@ ActiveRecord::Schema.define(:version => 20140422143507) do
     t.integer  "gift_sent_count",        :default => 0
     t.string   "address_city"
     t.string   "address_state"
+    t.integer  "pubcred",                :default => 0
+    t.integer  "correction_count",       :default => 0
   end
 
   add_index "users", ["personal_email"], :name => "index_users_on_personal_email"

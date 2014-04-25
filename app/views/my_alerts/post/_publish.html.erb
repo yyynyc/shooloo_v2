@@ -1,9 +1,8 @@
 <% if activity.trackable %>
 	<span class='alert-heading'>
-		<strong><%= link_to "APPROVED", correction_path(activity.trackable.correction) %></strong> 		
-		your post 
+		<strong><%= link_to "PUBLISHED", correction_path(activity.trackable.correction) %></strong> 		
+		and corrected your post 
 		(#<%= link_to activity.trackable.id, correction_path(activity.trackable.correction) %>)  
-		for publication
 	</span> 
 	<br/>	
 	on <%= activity.created_at.strftime("%b %d, %Y") %>.

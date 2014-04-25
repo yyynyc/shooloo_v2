@@ -5,13 +5,13 @@ class PostsController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @search = Post.where(state: ["verified", "published"]).visible.search(params[:q])
+    @search = Post.where(state: ["verified", "published", "old"]).visible.search(params[:q])
     if signed_in? 
       @posts = @search.result.paginate(page: params[:page], 
-          per_page: 20, order: 'created_at DESC')
+          per_page: 20, order: 'state DESC, created_at DESC')
     else
        @posts = @search.result.paginate(page: params[:page], 
-        per_page: 20, order: 'comments_count DESC, likes_count DESC, created_at DESC')
+        per_page: 20, order: 'state DESC, comments_count DESC, likes_count DESC, created_at DESC')
     end
     @search.build_condition
     if signed_in?
@@ -53,7 +53,14 @@ class PostsController < ApplicationController
   end
 
   def draft
-    @post = current_user.posts.find_by_id(params[:post_id])
+    @post = Post.find(params[:post_id])
+  end
+
+  def corrected
+    @post = Post.find(params[:post_id])
+    if !@post.correction.nil?
+      @correction = @post.correction
+    end
   end
 
   def edit
@@ -123,7 +130,10 @@ class PostsController < ApplicationController
   end
 
   def correct_user
-      @post = current_user.posts.find_by_id(params[:post_id])
-      redirect_to root_url if @post.nil?
+    @post  = Post.find(params[:post_id])
+    unless current_user == @post.user || current_user.admin? || current_user.in?(@post.user.authorizers)
+      flash[:error] = "You don't have access to this draft."
+      redirect_to root_url 
+    end
   end
 end

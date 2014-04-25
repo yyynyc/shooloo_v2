@@ -27,7 +27,7 @@ class GradingsController < ApplicationController
         @comment = @grading.graded_comment
         @post = @comment.commented_post
       end
-		  redirect_to post_comments_path(@post)
+		  redirect_to post_draft_path(@post)
     else
       if !@grading.graded_post.nil?
         @post  = @grading.graded_post

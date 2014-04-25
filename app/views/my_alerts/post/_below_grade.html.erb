@@ -1,0 +1,14 @@
+<% if activity.trackable %>
+	<span class='alert-heading'>
+		verified your post #<%= link_to activity.trackable.id, post_comments_path(activity.trackable) %> as
+			<span class="no"><strong> below </strong></span>
+		your grade level		
+	</span> 
+	<br/>	
+	on <%= activity.created_at.strftime("%b %d, %Y") %>.
+	A penalty of <%= activity.trackable.penalty %> has been deducted from your publication credit bank.
+<% else %>
+	<span class='alert-heading'>
+		deleted a post. 
+	</span>
+<% end %>

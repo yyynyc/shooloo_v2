@@ -1,0 +1,14 @@
+<% if activity.trackable %>
+	<span class='alert-heading'>
+		verified your post #<%= link_to activity.trackable.id, post_comments_path(activity.trackable) %> as
+			<span class="yes"><strong> at or above </strong></span>
+		your grade level		
+	</span> 
+	<br/>	
+	on <%= activity.created_at.strftime("%b %d, %Y") %>.
+	A bonus of <%= ShoolooV2::AT_GRADE %> has been added to your publication credit bank.
+<% else %>
+	<span class='alert-heading'>
+		deleted a post. 
+	</span>
+<% end %>

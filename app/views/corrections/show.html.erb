@@ -5,7 +5,7 @@
 	<h1>  Draft of Corrections: not published </h1>
 	<% if current_user.role=="editor" || current_user.admin? %>
 		<div class="well well-small bottom-margin"> 
-			<%= link_to "Edit My Correction", edit_correction_path(@correction), class: "btn btn-large btn-success btn-formtastic" %>
+			<%= link_to "Edit & Publish Correction", edit_correction_path(@correction), class: "btn btn-large btn-success btn-formtastic" %>
 			<p class="alert-heading no">
 				Plesae verify your corrections in the following areas are right:
 				<ul class="popover-list">
@@ -19,52 +19,53 @@
 	<% end %>
 <% elsif @correction.state=="submitted" %>
 	<% title "Correction Final" %>
-	<h1>  Review and/or Corrections </h1>
+	<h1>  Review and/or Corrections of Post #<%= @post.id %></h1>
+	<p class="center">
+		<%= link_to "Original Versions", post_draft_path(@post), class: "btn btn-large btn-danger" %>
+		<%= link_to "Corrected Versions", post_corrected_path(@post), class: "btn btn-large btn-success" %> 
+	</p>
 <% end %>
 
-<div class="row margin-left">
-	<div class="image" >
-		<%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %>
-	</div>
-	<div class="alert-heading">
-		<p><strong>Grade Level: </strong>
-			<% if !@correction.level_id.nil? %>
-				<%= @correction.level.name %>
-			<% else %>
-				<span class="no"> ??? </span>	
-			<% end %>
-		</p>
-		<p><strong>Corrected Question: </strong>
-			<%= @correction.question.html_safe %>
-		</p>
-		<p><strong>Corrected Answer: </strong>
-			<%= @correction.answer.html_safe %>
-		</p>
-		<% if current_user.role == "student" %>
-			<p><strong>I-can Statement:</strong> In <%= @correction.domain.name %>, <%= @correction.standard.ICan %></p>
-		<% else %>
-			<p>
-				<% if !@correction.standard_id.nil? %>
-					<strong><%= @correction.standard.symbol %>:</strong> <%= @correction.standard.description %>
+<% if current_user.role=="editor" || current_user.admin? %>
+	<div class="row margin-left">
+		<div class="image" >
+			<%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %>
+		</div>
+		<div class="alert-heading">
+			<p><strong>Grade Level: </strong>
+				<% if !@correction.level_id.nil? %>
+					<%= @correction.level.name %>
 				<% else %>
-					<strong>CCSS Standard:</strong>
-						<span class="no"> ??? </span>
+					<span class="no"> ??? </span>	
 				<% end %>
 			</p>
-		<% end %>
-		
+			<p><strong>Corrected Question: </strong>
+				<%= @correction.question.html_safe %>
+			</p>
+			<p><strong>Corrected Answer: </strong>
+				<%= @correction.answer.html_safe %>
+			</p>
+			<% if current_user.role == "student" %>
+				<p><strong>I-can Statement:</strong> In <%= @correction.domain.name %>, <%= @correction.standard.ICan %></p>
+			<% else %>
+				<p>
+					<% if !@correction.standard_id.nil? %>
+						<strong><%= @correction.standard.symbol %>:</strong> <%= @correction.standard.description %>
+					<% else %>
+						<strong>CCSS Standard:</strong>
+							<span class="no"> ??? </span>
+					<% end %>
+				</p>
+			<% end %>
+		</div>
 	</div>
-</div>
+<% end %>
 <div class="row margin-left">
 	<h2> 
-		Assessment of 
-		<% if current_user.role=="editor" || current_user.admin? %>
-			<%= link_to "the Original Problem", edit_correction_path(@correction)%> 
-		<% else %>
-			<%= link_to "My Original Problem", post_draft_path(@correction.corrected_post)%> 
-			<% if @post.competition == 1 %>
-				vs. Requirements of the Math <%= link_to "Contest", contest_path %> 
-			<% end %>
+		Assessment of
+		<%= link_to "the Author's Original Problem", edit_correction_path(@correction)%> 
+		<% if @post.competition == 1 %>
+			vs. Requirements of the Math <%= link_to "Contest", contest_path %>
 		<% end %>
 	</h2>
 	<ul class="popover-list alert-heading">
@@ -83,20 +84,76 @@
 			</li>
 		<% end %>
 		<li>
-			The number of <strong>steps</strong> it takes to arrive at the answer: <strong><%= @correction.steps %></strong> 
+			Is this question <strong>at or above</strong> the author's grade level?
+			<strong>
+				<% if @correction.level_id.nil? %>
+					<span class="no">???</span>
+				<% else %>
+					<% if @correction.level.number >= @post.user.grade %>
+						<span class="yes"> Yes.</span>
+					<% else %>
+						<span class="no">No.</span>
+					<% end %>
+				<% end %>
+			</strong> 
+		</li> 
+		<li>
+			The number of <strong>steps</strong> it takes to arrive at the answer: <strong>
+				<% if @correction.steps.nil? %>
+					<span class="no">???</span>
+				<% else %>
+					<% if @correction.steps < 2 %>
+						<span class="no">
+					<% else %>
+						<span class="yes">
+					<% end %>
+					<%= @correction.steps %></span>
+				<% end %>
+			</strong> 
 		</li>  
 		<li>
-			Are the question and answer free of <strong>grammatical and spelling</strong> errors? <strong><%= @correction.grammar %></strong> 
+			Are the question and answer free of <strong>grammatical and spelling</strong> errors? 
+			<strong>
+				<% if @correction.grammar? %>
+					<span class="yes">
+				<% else %>
+					<span class="no">
+				<% end %>
+				<%= @correction.grammar %></span>
+			</strong> 
 		</li>
 		<li>
 			Is the math concept expressed in the question <strong>clear and precise</strong>?
-			<strong><%= @correction.concept_clear %></strong>
+			<strong>
+				<% if @correction.concept_clear? %>
+					<span class="yes">
+				<% else %>
+					<span class="no">
+				<% end %>
+				<%= @correction.concept_clear %></span>
+			</strong>
 		</li>
 		<li>
-			Is the answer <strong>calculated correctly</strong>? <strong><%= @correction.math_correct %></strong>
+			Is the answer <strong>calculated correctly</strong>? 
+			<strong>
+				<% if @correction.math_correct? %>
+					<span class="yes">
+				<% else %>
+					<span class="no">
+				<% end %>
+				<%= @correction.math_correct %></span>
+			</strong>
 		</li>
 		<li>
-			Does the answer demonstrate the <strong>step-by-step solution</strong>? <strong><%= @correction.answer_complete %></strong>
+			Does the answer demonstrate the <strong>step-by-step solution</strong>? 
+			<strong>
+				<% if @correction.answer_complete? %>
+					<span class="yes">
+				<% else %>
+					<span class="no">
+				<% end %>
+				<%= @correction.answer_complete %></span>
+			</strong>
 		</li>	
 	</ul>
 </div>

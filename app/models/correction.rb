@@ -10,7 +10,7 @@ class Correction < ActiveRecord::Base
 	validates :corrected_post_id, presence: true, uniqueness: true
 
 	state_machine initial: :draft do
-	    after_transition :on => :submit, :do => [:qualify, 
+	    after_transition :on => :submit, :do => [:qualify, :update_pub_credits,
 	    	:post_state_transition, :update_editor_stats]
 
 	    event :submit do
@@ -27,18 +27,50 @@ class Correction < ActiveRecord::Base
        
 	def qualify
 		if self.corrected_post.competition==1
-			if competition == 1 && grammar.true? && concept_clear.true &&
-				math_correct.true? && answer_complete.true?
-				self.corrected_post.update_attributes!(qualified: yes)
+			if self.competition == 1 && self.grammar? && self.concept_clear? &&
+				self.math_correct? && self.answer_complete? && 
+				self.corrected_post.user.grade <= self.level.number	
+				self.corrected_post.update_attributes!(qualified: "yes")
+				self.corrected_post.user.point.qualified +=1
+				self.corrected_post.user.point.save
+				self.corrected_post.user.authorizers.each do |a|
+					a.point.inspiration += ShoolooV2::TEACHER_INSPIRATION
+					a.point.save
+				end
 			else
-				self.corrected_post.update_attributes!(qualified: no)
+				self.corrected_post.update_attributes!(qualified: "no")
+				self.corrected_post.user.point.disqualified +=1
+				self.corrected_post.user.point.save
 			end
-			# Activity.create!
+			Activity.create!(action: "qualify", trackable: self.corrected_post, 
+        		user_id: 1, recipient_id: self.corrected_post.user_id)
+		else
+			unless self.corrected_post.grandfather?
+				Activity.create!(action: "publish", trackable: self.corrected_post, 
+        			user_id: 1, recipient_id: self.corrected_post.user_id)
+			end
+		end
+	end
+
+	def update_pub_credits
+		unless self.corrected_post.grandfather?
+			if self.corrected_post.user.grade <= self.level.number
+				self.corrected_post.user.pubcred += ShoolooV2::AT_GRADE
+				self.corrected_post.user.save(validate: false)
+				Activity.create!(action: "at_grade", trackable: self.corrected_post, 
+	        		user_id: 1, recipient_id: self.corrected_post.user_id)
+			else
+				self.corrected_post.user.pubcred -= (ShoolooV2::BELOW_GRADE)*(self.corrected_post.user.grade - self.level.number)
+				self.corrected_post.user.save(validate: false)
+				Activity.create!(action: "below_grade", trackable: self.corrected_post, 
+	        		user_id: 1, recipient_id: self.corrected_post.user_id)
+			end
 		end
 	end
 
 	def update_editor_stats
-		# self.editor.
+		self.editor.correction_count += 1
+		self.editor.save(validate: false)
 	end
 
 	def post_state_transition

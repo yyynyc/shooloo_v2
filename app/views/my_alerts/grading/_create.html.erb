@@ -2,7 +2,7 @@
 	<% if activity.trackable %>
 		<strong>GRADED</strong> on <%= activity.created_at.strftime("%b %d, %Y") %> your
 		<% if activity.trackable.graded_comment_id.nil? %>
-			<%= link_to "post ##{activity.trackable.graded_post_id}", post_comments_path(activity.trackable.graded_post_id) %> 
+			<%= link_to "post ##{activity.trackable.graded_post_id}", post_draft_path(activity.trackable.graded_post_id) %> 
 		<% else %>
 			<%= link_to "comment ##{activity.trackable.graded_comment_id}", post_comments_path(activity.trackable.graded_comment.commented_post_id) %>
 		<% end %>

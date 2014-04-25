@@ -14,10 +14,9 @@ class StaticPagesController < ApplicationController
       @domains = Domain.all
       @standards = Standard.all
       if current_user.role == "editor"
-        @submissions = Post.joins(:user).where(state: "submitted").paginate(
+        @submissions = Post.where(state: "submitted").paginate(
           page: params[:page], per_page: 2000, order: "competition DESC, created_at ASC")
-        @publications = Post.joins(:user).where(state: "published", 
-          users: {role: ["student", "parent", "other", "editor"]}).paginate(page: params[:page], 
+        @publications = Post.where(state: "old").paginate(page: params[:page], 
           per_page: 2000, order: "created_at DESC")
         @corrections = current_user.corrections.where(state: "submitted")
       end

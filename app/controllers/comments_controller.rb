@@ -10,6 +10,9 @@ class CommentsController < ApplicationController
 	def index
         @comment = Comment.new
         @post  = Post.find(params[:post_id]) 
+        if !@post.correction.nil?
+            @correction = @post.correction
+        end
         @comments = @post.comments.paginate(page: params[:page], per_page: 10, 
             order: 'created_at DESC')
         @alarm = Alarm.new
@@ -24,10 +27,16 @@ class CommentsController < ApplicationController
             @response = Response.find(params[:response_id])
             @comment = @response.comments.build(params[:comment])
             @assignment = @response.assignment
-            @post = @assignment.assigned_post  
+            @post = @assignment.assigned_post 
+            if !@post.correction.nil?
+                @correction = @post.correction
+            end 
         else
             @comment = Comment.new
-            @post  = Post.find(params[:post_id]) 
+            @post  = Post.find(params[:post_id])
+            if !@post.correction.nil?
+                @correction = @post.correction
+            end 
             @comments = @post.comments.paginate(page: params[:page], per_page: 20, 
                 order: 'created_at DESC')
             @alarm = Alarm.new
@@ -129,14 +138,14 @@ class CommentsController < ApplicationController
     def correct_user
         @comment = Comment.find(params[:id])
         unless current_user == @comment.commenter || current_user.admin? 
-            Flash[:error] = "Sorry, you can't edit that comment."
+            flash[:error] = "Sorry, you can't edit that comment."
             redirect_to root_url 
         end
     end
 
     def commenter_user
         @post  = Post.find(params[:post_id]) 
-        if current_user?(@post.user) || current_user.in?(@post.commenters) || current_user.role=="teacher" || current_user.admin?
+        if current_user?(@post.user) || current_user.in?(@post.commenters) || current_user.role.in?(["teacher", "editor", "tutor"])
             return true
         else
             redirect_to new_post_comment_path(@post)

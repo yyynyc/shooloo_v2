@@ -73,7 +73,7 @@
 				<td>		
 					<% if r.posts.any? %>
 						<% r.posts.each do |post| %>						
-							#<%= link_to post.id, post_comments_path(post) %> 
+							#<%= link_to post.id, post_draft_path(post) %> 
 						<% end %>
 					<% elsif r.comments.any? %>
 						<% r.comments.each do |comment| %>						

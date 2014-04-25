@@ -2,43 +2,13 @@
   <div class="post_review_user_info">
     <div class="btn-formtastic alert-heading">
       <% if current_user.role == "student" %> 
-        <% if current_user?(@post.user) && !@post.grading.nil? %>
-          <div class="grading-result">
-            <%= render partial: 'posts/grading', locals: {grading: @post.grading} %>
-          </div>
-        <% else %>
-          <div class="span4 teacher-banner">
-            <%= link_to "Create your own math story", new_post_path %> today and impress your friends!
-          </div>
-        <% end %>  
+        <div class="span4 teacher-banner">
+          <%= link_to "Create your own math story", new_post_path %> today and impress your friends!
+        </div>
       <% else %>
-        <% if current_user.in?(@post.user.authorizers) %>
-          <% if !@post.grading.nil? %>
-            <div class="grading-result">
-              <%= render partial: 'posts/grading', locals: {grading: @post.grading} %>
-              <div class="center">
-                <%= link_to "Dashboard", teacher_dashboard_user_path(current_user) %> |
-                <% if !@post.response.nil? %>
-                  <%= link_to "Assignment", assignment_path(@post.response.assignment) %>
-                <% else %>
-                  <%= link_to "Assignments", assignments_user_path(current_user) %>
-                <% end %>
-              </div>
-            </div>
-          <% else %>
-            <%= link_to "Grade this post!", new_post_grading_path(@post), class: "btn btn-large btn-danger" %>
-          <% end %>
-        <% else %>
-          <% if current_user?(@post.user) && !@post.grading.nil? %>
-            <div class="grading-result">
-              <%= render partial: 'posts/grading', locals: {grading: @post.grading} %>
-            </div>
-          <% else %>
-            <div class="span4 teacher-banner">
-              Watch <%= link_to "videos", videos_path %> on how to <%= link_to "make a game out of word problems", video_path(10) %> and <%= link_to "teach problem solving in 3 steps", video_path(7) %>.
-            </div>
-          <% end %>
-        <% end %>  
+        <div class="span4 teacher-banner">
+          Watch <%= link_to "videos", videos_path %> on how to <%= link_to "make a game out of word problems", video_path(10) %> and <%= link_to "teach problem solving in 3 steps", video_path(7) %>.
+        </div>
       <% end %> 
     </div>  
     <%= render partial: 'posts/post_user', locals: {post: @post} %>
@@ -64,12 +34,14 @@
     </div>  
   </div>
   <div class="alert-heading">         
-    <p>
-      <strong>Question: </strong><%= @post.question.html_safe %>
+    <% if !@correction.nil? %>
+      <p><strong>Question</strong> (corrected): <%= @correction.question.html_safe %></p>
+      <p><strong>Answer</strong> (corrected): <%= @correction.answer.html_safe %></p>
+    <% else %>
+      <p><strong>Question</strong> (original): <%= @post.question.html_safe %></p>
+      <p><strong>Answer</strong> (original): <%= @post.answer.html_safe %>
     </p>
-    <p>
-      <strong>Answer: </strong><%= @post.answer.html_safe %>
-    </p>
+    <% end %>   
     <% unless @post.level.nil? %>
       <p>
         <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %>

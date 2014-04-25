@@ -1,6 +1,6 @@
 <h1> Posts Waiting to Be Corrected </h1>
 <% if @correction_drafts.any? %>
-  <h2>Complete the Following Corrections Now!</h2>
+  <h2>The Following Corrections Are in Draft Mode. Complete them Now!</h2>
   <% @correction_drafts.each do |s| %>
     Correction #<%= link_to s.id, edit_correction_path(s) %> |
   <% end %>

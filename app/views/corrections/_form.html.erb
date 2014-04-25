@@ -15,7 +15,7 @@
 			<%= f.submit "Alarm", class: "btn btn-large btn-danger",  disable_with: "Proccessing..." %>
 		<% end %>
     </span>  
-	<p>WARNING: If the above problem contains watermarked image or offsensive (i.e., sexual, racial, or violent) content, please press the alarm button now. There is no need to correct the problem.<p>
+	<p>WARNING: If the above problem contains watermarked image or offsensive (i.e., sexual, racial, violent, or insulting) content, press the red Alarm button now. No need to correct the problem.<p>
 </div>
 <h1> <%= heading %> </h1>
 <%= semantic_form_for correction, :url => url, :html => { :multipart => true, class: "form-horizontal-post-update", 'data-action' => 'update' }  do |f| %>

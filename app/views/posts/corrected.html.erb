@@ -1,0 +1,38 @@
+<% title "Comparison of Original vs. Corrected Versions of Post ##{@post.id}" %> 
+<% noindex %>
+<% nofollow %>
+
+<h1>Comparison of Original vs. Corrected Versions of Post #<%= @post.id %> </h1>
+
+<div class="row alert-heading">
+	<div class="span6 split-left no">
+		<h2> Original Verison </h2>
+	    <p><strong>Question:</strong> <%= @post.question.html_safe %></p>
+	    <p><strong>Answer: </strong> <%= @post.answer.html_safe %></p>
+	</div>
+	<div class="span6 split-right yes">
+		<h2> Corrected Verison </h2>
+		<p><strong>Question:</strong> <%= @correction.question.html_safe %></p>
+	    <p><strong>Answer: </strong> <%= @correction.answer.html_safe %></p>
+	</div>
+</div>
+<div class="row alert-heading">
+	<div class="span2">
+		<p><strong>I-can Statement:</strong></p>
+	</div>
+	<div class="span10">
+		<p>In <%= @correction.domain.name %>, <%= @correction.standard.ICan %></p>
+	</div>
+</div>
+<div class="row alert-heading">
+	<div class="span2">
+		<p><strong>Common Core Standard:</strong></p>
+	</div>
+	<div class="span10">
+		<p><%= @correction.standard.symbol %> -- <%= @correction.standard.description %></p>
+	</div>
+</div>
+<p class="center">
+  <%= link_to "Editor's Assessment", correction_path(@post.correction), class: "btn btn-large btn-success" %> 
+  <%= link_to "Create A New Post", new_post_path, class: "btn btn-large btn-primary" %> 
+</p>

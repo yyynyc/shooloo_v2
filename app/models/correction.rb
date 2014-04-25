@@ -1,9 +1,10 @@
 class Correction < ActiveRecord::Base
 	attr_accessible :corrected_post_id, :editor_id, :competition, :question, :answer,
-		:steps, :level_id, :domain_id, :standard_id, 
+		:steps, :level_id, :domain_id, :standard_id, :hstandard_id,
 		:grammar, :concept_clear, :math_correct, :answer_complete
 	belongs_to :corrected_post, class_name: "Post"
 	belongs_to :editor, class_name: "User"
+	belongs_to :hstandard
 	belongs_to :standard
 	belongs_to :domain
 	belongs_to :level
@@ -22,6 +23,7 @@ class Correction < ActiveRecord::Base
 				:steps, :level_id, :domain_id, :standard_id, :competition 
 			validates :grammar, :concept_clear, :math_correct, :answer_complete, 
 				inclusion: [true, false]
+			validates_presence_of :hstandard_id, if: "level_id==10"
 		end
 	end
        

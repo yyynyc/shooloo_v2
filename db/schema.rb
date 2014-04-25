@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140424235253) do
+ActiveRecord::Schema.define(:version => 20140425194618) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(:version => 20140424235253) do
     t.string   "state"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "hstandard_id"
   end
 
   add_index "corrections", ["corrected_post_id"], :name => "index_corrections_on_corrected_post_id"
@@ -217,6 +218,19 @@ ActiveRecord::Schema.define(:version => 20140424235253) do
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
     t.integer  "login_count",   :default => 0
+  end
+
+  create_table "hstandards", :force => true do |t|
+    t.integer  "standard_id"
+    t.integer  "domain_id"
+    t.integer  "level_id"
+    t.text     "symbol"
+    t.text     "short"
+    t.text     "url"
+    t.text     "description"
+    t.text     "ICan"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "improvements", :force => true do |t|

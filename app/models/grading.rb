@@ -10,6 +10,7 @@ class Grading < ActiveRecord::Base
   belongs_to :level
   belongs_to :domain
   belongs_to :standard
+  belongs_to :hstandard
   has_one :mark, dependent: :destroy
 
   validates_presence_of :grader_id, :level_id, :domain_id, :standard_id

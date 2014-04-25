@@ -7,6 +7,7 @@ class Post < ActiveRecord::Base
     :state, :competition, :steps, :qualified
   attr_reader :photo_remote_url
   belongs_to :user
+  belongs_to :hstandard
   belongs_to :standard
   belongs_to :domain
   belongs_to :level
@@ -113,6 +114,7 @@ class Post < ActiveRecord::Base
 
     state :published do
       validates_presence_of :steps, :level_id, :domain_id, :standard_id
+      validates_presence_of :hstandard_id, if: "level_id==10"
     end
 
     state :submitted do

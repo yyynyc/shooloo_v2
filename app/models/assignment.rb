@@ -15,6 +15,7 @@ class Assignment < ActiveRecord::Base
   belongs_to :level
   belongs_to :domain
   belongs_to :standard
+  belongs_to :hstandard
 
   validates_presence_of :assigner_id, :level_id, :domain_id, :standard_id, :start_date, :end_date
   validates :assignee_ids, :presence => {:unless => "assignee_level", :message => "can't be blank"}

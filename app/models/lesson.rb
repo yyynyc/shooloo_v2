@@ -8,6 +8,7 @@ class Lesson < ActiveRecord::Base
   	belongs_to :level
   	belongs_to :domain
   	belongs_to :standard
+    belongs_to :hstandard
     belongs_to :practice
 
     has_many :likes, foreign_key: "liked_lesson_id", dependent: :destroy

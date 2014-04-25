@@ -35,5 +35,22 @@ window.ccss = (ccss)->
   doitagain()
   $('#'+ccss+'_domain_id').change doitagain
 
+  if $('#'+ccss+'_hstandard_id').parent('form').attr('action') == 'create'
+    $('#'+ccss+'_hstandard_id').parents('.control-group').hide()
+  hstandards = $('#'+ccss+'_hstandard_id').html()
+  doitagain = ->
+    standard = $('#'+ccss+'_standard_id :selected').text() 
+    escaped_standard = standard.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1')
+    alternatives = $(hstandards).filter("optgroup[label=#{escaped_standard}]").html()
+    if alternatives      
+      $('#'+ccss+'_hstandard_id').html(alternatives)
+      $('#'+ccss+'_hstandard_id').prepend("<option></option>")
+      $('#'+ccss+'_hstandard_id').parents('.control-group').show()      
+    else     
+      $('#'+ccss+'_hstandard_id').html($("<option>").attr('selected',true)) 
+      $('#'+ccss+'_hstandard_id').parents('.control-group').hide()
+  doitagain()
+  $('#'+ccss+'_standard_id').change doitagain
+
 jQuery ->
   window.ccss('lesson')

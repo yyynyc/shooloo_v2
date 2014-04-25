@@ -9,11 +9,7 @@
             <% unless post.nil? %>
                 <%= f.input :graded_post_id, as: :hidden, value: post.id, class: "hidden" %> 
             <% end %>
-            <%= f.input :grader_id, as: :hidden, value: current_user.id, class: "hidden" %>
-            <%= f.input :gradee_id, as: :hidden, value: post.user.id, class: "hidden" %> 
-        	<%= f.input :level_id, as: :select, include_blank: true, label: "CCSS grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
-        	<%= f.input :domain_id, as: :select, include_blank: true, label: "CCSS Domain", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
-        	<%= f.input :standard_id, as: :select, include_blank: true, label: "CCSS Standard", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :description, f.object.standard_id) %>
+            <%= render partial: 'shared/ccss', locals: {f: f} %>
         	<p class="alert-heading yes center">
     			Once the following criteria are selected, the grade will be <span class="accorion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseGrading">computed automatically</a></span> on a scale of 0--4.
     		</p>

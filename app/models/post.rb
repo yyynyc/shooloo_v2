@@ -96,7 +96,7 @@ class Post < ActiveRecord::Base
       validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
       validate :question_custom
       validate :answer_custom
-      validates_presence_of :steps, :level_id, :domain_id, :standard_id, :if => :validate_ccss
+      
       
       def question_custom
         if question.downcase.include?(self.user.first_name.downcase) || question.downcase.include?(self.user.last_name.downcase)
@@ -109,9 +109,18 @@ class Post < ActiveRecord::Base
           errors.add(:answer, "can't contain any part of your real name.")
         end
       end
+    end
 
-      def validate_ccss
-        self.user.role == "teacher" || self.user.admin?
+    state :published do
+      validates_presence_of :steps, :level_id, :domain_id, :standard_id
+    end
+
+    state :submitted do
+      validate :pubcred_enough
+      def pubcred_enough
+        if self.user.pubcred <= 0
+          errors.add(:base, "You don't have any publication credits left to submit any new post!")
+        end
       end
     end
   end

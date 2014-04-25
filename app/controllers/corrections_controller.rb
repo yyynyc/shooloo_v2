@@ -6,7 +6,8 @@ class CorrectionsController < ApplicationController
 
 	def new
     @post = Post.find(params[:post_id])
-		@correction = Correction.new 
+		@correction = Correction.new(level_id: @post.level_id, 
+      domain_id: @post.domain_id, standard_id: @post.standard_id)
     @alarm = Alarm.new      
     if @post.state.in?(["submitted", "old"])
         @post.checkout!
@@ -18,9 +19,14 @@ class CorrectionsController < ApplicationController
 	    @post = Post.find(params[:post_id])
     end
     @correction = current_user.corrections.build(params[:correction])
-    @correction.save
-    @post = @correction.corrected_post
-    render 'show'
+    if @correction.save
+      @post = @correction.corrected_post
+      render 'show'
+    else
+      @post = @correction.corrected_post
+      @alarm = Alarm.new 
+      render 'new'
+    end
 	end
 
   def draft

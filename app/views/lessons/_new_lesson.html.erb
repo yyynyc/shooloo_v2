@@ -1,9 +1,7 @@
 <%= semantic_form_for lesson, :url => url, :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')", class: "form-horizontal-post-update "} do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <%= f.inputs do %>
-    <%= f.input :level_id, as: :select, include_blank: true, label: "Grade", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
-    <%= f.input :domain_id, as: :select, include_blank: true, label: "Skills", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
-    <%= f.input :standard_id, as: :select, include_blank: true, label: "I CAN", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %> 
+    <%= render partial: 'shared/ccss', locals: {f: f} %> 
     <%= f.input :practice_id, as: :select, include_blank: true, label: "CCSS Practice", collection: Hash[Practice.all.map{|practice| [practice.name, practice.id]}]  %>
     <%= f.input :post_a_id, label: "First post id" %>
     <%= f.input :post_b_id, label: "Second post id" %>

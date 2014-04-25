@@ -54,9 +54,7 @@
         <div class="span5 end-date">
             <%= f.input :end_date, as: :date_select, start_year: 2013, order: [:month, :day, :year], label: "End date:" %>
         </div>    
-    	<%= f.input :level_id, as: :select, include_blank: true, label: "CCSS grade:", collection: Hash[Level.all.map{|level| [level.name, level.id]}]  %>
-    	<%= f.input :domain_id, as: :select, include_blank: true, label: "CCSS domain:", collection: option_groups_from_collection_for_select(Level.order(:name), :domains, :name, :id, :name, f.object.domain_id)  %>  
-    	<%= f.input :standard_id, as: :select, include_blank: true, label: "CCSS Standard:", collection: option_groups_from_collection_for_select(Domain.order(:name), :standards, :name, :id, :ICan, f.object.standard_id) %>
+    	<%= render partial: 'shared/ccss', locals: {f: f} %>
         <p class="alert-heading yes center">
             List your instructions for this assignment.<br/> 
             <% if post.nil? %>

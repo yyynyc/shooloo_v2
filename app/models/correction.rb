@@ -18,7 +18,11 @@ class Correction < ActiveRecord::Base
 	      transition :draft => :submitted
 	    end 
 
-	   state :submitted do	   	
+	    event :revise do
+	      transition [:submitted, :revised] => :revised
+	    end
+
+	   state :submitted, :revised do	   	
       		validates_presence_of  :editor_id, :question, :answer,
 				:steps, :level_id, :domain_id, :standard_id, :competition 
 			validates :grammar, :concept_clear, :math_correct, :answer_complete, 

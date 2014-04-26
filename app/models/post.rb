@@ -4,7 +4,7 @@ class Post < ActiveRecord::Base
   attr_accessible :answer, :grade, :question, :comments_count, :ratings_count, :likes_count,
     :photo, :photo_remote_url, :image_host, :category, :graded, :user_id,
     :level_id, :domain_id, :standard_id, :quality_id, :subject_id, :response_id, 
-    :state, :competition, :steps, :qualified
+    :state, :competition, :steps, :qualified, :hstandard_id
   attr_reader :photo_remote_url
   belongs_to :user
   belongs_to :hstandard
@@ -54,7 +54,7 @@ class Post < ActiveRecord::Base
   has_many :assignments, foreign_key: "assigned_post_id", dependent: :destroy
   has_many :assigners, through: :assignments, dependent: :destroy
 
-  has_one :grading, foreign_key: "graded_post_id", dependent: :destroy
+             has_one :grading, foreign_key: "graded_post_id", dependent: :destroy
   has_one :graders, through: :grading, dependent: :destroy
   has_one :mark, through: :grading
   has_one :scorecard
@@ -88,7 +88,11 @@ class Post < ActiveRecord::Base
       transition :under_review => :verified
     end
 
-    state :submitted, :published do
+    event :revise do 
+      transition [:published, :verified, :old, :revised] => :revised
+    end
+
+    state :submitted, :published, :revised do
       validates_presence_of :user_id, :subject_id, :competition
       validates :answer, presence: true
       validates :question, presence: true, uniqueness: true
@@ -112,7 +116,7 @@ class Post < ActiveRecord::Base
       end
     end
 
-    state :published do
+    state :published, :revised do
       validates_presence_of :steps, :level_id, :domain_id, :standard_id
       validates_presence_of :hstandard_id, if: "level_id==10"
     end
@@ -160,7 +164,8 @@ class Post < ActiveRecord::Base
     self.update_attributes!(steps: self.correction.steps, 
       level_id: self.correction.level_id, 
       domain_id: self.correction.domain_id,
-      standard_id: self.correction.standard_id)
+      standard_id: self.correction.standard_id, 
+      hstandard_id: self.correction.hstandard_id)
   end
 
   def alert_nudger 

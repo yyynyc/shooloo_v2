@@ -61,6 +61,16 @@ class CorrectionsController < ApplicationController
         @alarm = Alarm.new 
         render 'edit'
       end
+    elsif params[:button] == "revision"
+      if @correction.revise
+        @post = @correction.corrected_post 
+        flash[:success]="Revised!"
+        redirect_to correction_path(@correction)         
+      else
+        @post = @correction.corrected_post
+        @alarm = Alarm.new 
+        render 'edit'
+      end
     end
 	end
 

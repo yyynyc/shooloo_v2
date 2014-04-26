@@ -1,8 +1,12 @@
 <% provide(:title, "Edit Post") %> 
 <% url = post_path %>
 <% f = f %>
-<% if current_user.role.in?(["teacher", "tutor"]) %>
-	<% submission = "posts/publication" %>
+<% if current_user.role == "teacher" || current_user.admin? %>
+	<% if @post.state == "draft" %>
+		<% submission = "posts/publication" %>
+	<% else %>	
+		<% submission = "posts/admin_edit" %>
+	<% end %>
 <% else %>
 	<% submission = "posts/submission" %>
 <% end %>
@@ -10,4 +14,5 @@
 <h1>Update My Post</h1>
    
 <%= render partial: 'posts/post', locals: {url: url, submission: submission, post: @post} %>
+
 

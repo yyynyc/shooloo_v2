@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140425194618) do
+ActiveRecord::Schema.define(:version => 20140426153143) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -424,6 +424,7 @@ ActiveRecord::Schema.define(:version => 20140425194618) do
     t.string   "qualified"
     t.integer  "steps"
     t.boolean  "grandfather"
+    t.integer  "hstandard_id"
   end
 
   add_index "posts", ["state"], :name => "index_posts_on_state"

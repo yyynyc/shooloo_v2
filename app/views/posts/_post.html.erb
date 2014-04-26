@@ -38,10 +38,12 @@
 		</p>
 	<% end %>
 	<%= f.actions do %>	
-		<div class="btn-formtastic">		
-	    	<span class="search-label">
-	    	<%= f.action :submit, label: "Preview & Save as draft", as: :button, button_html: {value: "save", class: "btn btn-large btn-warning", disable_with: "saving as draft..."} %>
-	    	</span>
+		<div class="btn-formtastic">
+			<% if post.state == "draft" %>		
+		    	<span class="search-label">
+		    	<%= f.action :submit, label: "Preview & Save as draft", as: :button, button_html: {value: "save", class: "btn btn-large btn-warning", disable_with: "saving as draft..."} %>
+		    	</span>
+		    <% end %>
 	    	<span class="search-label">
 	    		<%= render partial: submission, locals: {f: f} %>
 		    </span>

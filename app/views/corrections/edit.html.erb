@@ -5,6 +5,11 @@
 
 <% url = correction_path %>
 <% f = f %>
-<% submission = "corrections/submission" %>  
+<% if current_user.admin? %>
+	<% submission = "corrections/revision" %>
+<% else %>
+	<% submission = "corrections/submission" %> 
+<% end %>
+ 
 <% heading = "Edit the Following Corrections" %>
 <%= render partial: 'corrections/form', locals: {url: url, submission: submission, heading: heading, correction: @correction, post: @post, alarm: @alarm} %>

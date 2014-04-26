@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @search = Post.where(state: ["verified", "published", "old"]).visible.search(params[:q])
+    @search = Post.where(state: ["verified", "published", "old", "revised"]).visible.search(params[:q])
     if signed_in? 
       @posts = @search.result.paginate(page: params[:page], 
           per_page: 20, order: 'state DESC, created_at DESC')
@@ -64,7 +64,7 @@ class PostsController < ApplicationController
   end
 
   def edit
-    if current_user.admin? || current_user.role == "teacher"
+    if current_user.admin? 
       @post = Post.find(params[:id])
     else
       @post = current_user.posts.find_by_id(params[:id])
@@ -76,7 +76,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    if current_user.admin? || current_user.role == "teacher"
+    if current_user.admin? 
       @post = Post.find(params[:id])
     else
       @post = current_user.posts.find_by_id(params[:id])
@@ -88,24 +88,28 @@ class PostsController < ApplicationController
     elsif params[:button] == "submit"
       if @post.submit
         sign_in current_user
-        if current_user.role.in?(["teacher", "tutor"])
-          flash[:success] = "Published! #{ActionController::Base.helpers.link_to "Check your points", gift_receiving_path} from Shooloo.".html_safe
-        else 
-          flash[:success] = "Submitted! You will get an alert when your post is approved for publication. #{ActionController::Base.helpers.link_to "Check your points", gift_receiving_path} from Shooloo.".html_safe
-        end
+        flash[:success] = "Submitted! You will get an alert when your post is approved for publication. #{ActionController::Base.helpers.link_to "Check your points", gift_receiving_path} from Shooloo.".html_safe
         redirect_to root_path
       else      
         render 'edit'
       end
-    elsif params[:button] = "publish"
+    elsif params[:button] == "publish"
       if @post.publish
         sign_in current_user
-        flash[:notice] = "Fantastic! #{ActionController::Base.helpers.link_to "Check your points", gift_receiving_path} from Shooloo and your progress in your #{ActionController::Base.helpers.link_to "I-Can Journal", common_core_I_can_user_path(current_user)}.".html_safe
+        flash[:notice] = "Success! #{ActionController::Base.helpers.link_to "Check your points", gift_receiving_path} from Shooloo.".html_safe
         redirect_to root_path
       else      
         render 'edit'
       end
-    end
+    elsif params[:button] == "revision"
+      if @post.revise
+        sign_in current_user
+        flash[:notice] = "success!"
+        redirect_to post_comments_path(@post)
+      else      
+        render 'edit'
+      end
+    end    
   end
 
   def destroy

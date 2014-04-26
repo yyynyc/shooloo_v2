@@ -65,6 +65,12 @@ class StandardsController < ApplicationController
 		render 'grade_8'
 	end
 
+	def hs_algebra	
+		@standards = Standard.where(domain_id: 43)
+		set_meta_tags title: 'Common Core High School Algebra Standards, I-Can Statements, Lesson Plans, and Video Tutorials'
+		render 'hs_algebra'
+	end
+
 	def new
 		@standard = Standard.new
 	end
@@ -77,6 +83,16 @@ class StandardsController < ApplicationController
 		else
 			render 'new'
 		end
+	end
+
+	def show
+		@standard = Standard.find(params[:id])
+	    if @standard.id - 1 == 0
+	      @previous = @standard
+	    else
+	      @previous = Standard.find(@standard.id-1)
+	    end
+	    @next = Standard.find(@standard.id+1)
 	end
 
 	def edit

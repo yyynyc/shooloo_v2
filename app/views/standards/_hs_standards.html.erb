@@ -1,0 +1,49 @@
+<table class="table-ccss" >
+	<tr>
+		<th>Standard</th>
+		<th>Common Core State Standard Description</th>
+		<th>I-Can Statement</th>
+		<th>Word Problems</th>
+		<th>Lesson Plans</th>
+		<th>Video Tutorials</th>
+	</tr>
+	<% @standards.each do |s| %>
+		<tr>
+			<td colspan="6"><i><%= s.description %></i> </td>				
+			<% s.hstandards.order('id ASC').each do |h| %>
+				<tr itemscope itemtype="http://schema.org/AlignmentObject">			
+					<td>
+						<meta itemprop="educationalFramework" content="Common Core State Standard">
+						<meta itemprop="targetName" content="<%= h.symbol %>">
+						<a itemprop="targetUrl" href="<%= h.url %>">
+							<strong><%= h.short %></strong>
+						</a>
+					</td>
+					<td itemprop="targetDescription">
+						<%= h.description %>
+					</td>
+					<td>
+						<%= h.ICan %>
+					</td>
+					<td>
+						<% h.posts.each do |p| %>
+							#<%= link_to p.id, new_post_comment_path(p) %> /
+						<% end %>
+					</td>
+					<td>
+						<% h.lessons.each do |lesson| %>
+							#<%= link_to lesson.id, lesson_comment_path(lesson) %> /
+						<% end %>
+					</td>
+					<td>
+						
+							<% h.videos.each do |video| %>
+								#<%= link_to video.id, video_path(video) %> /
+							<% end %>
+							
+					</td>
+				</tr>
+			<% end %>			
+		</tr>	
+	<% end %>
+</table>

@@ -55,7 +55,12 @@
                   <% end %>                      
                 </span>  
                 <span class="wrap_long_string"> 
-                  <strong>Standard:</strong><%= post.standard.short %><br/>    
+                  <strong>Standard:</strong>
+                  <% if post.hstandard.nil? %>
+                    <%= post.standard.short %>
+                  <% else %>
+                    <%= post.hstandard.short %>
+                  <% end %><br/>    
                   <strong>Note:</strong> <%= keep.note.html_safe %><br/>
                   <%= link_to "Edit note", edit_keep_path(keep) %> |
                   <%= link_to "Remove save", keep, method: :delete, data: 

@@ -138,6 +138,7 @@ resources :hstandards
   match '/my-fans', to: "events#gift_giving", as: :gift_giving
   match '/contact', to: "messages#new" 
   match '/pd', to: "videos#pd" 
+  match '/editors', to: "corrections#all_editors"
   get '/standards/common-core-math-I-can-grade-k', to: "standards#grade_k", as: :grade_k
   get '/standards/common-core-math-I-can-grade-1', to: "standards#grade_1", as: :grade_1
   get '/standards/common-core-math-I-can-grade-2', to: "standards#grade_2", as: :grade_2
@@ -147,6 +148,7 @@ resources :hstandards
   get '/standards/common-core-math-I-can-grade-6', to: "standards#grade_6", as: :grade_6
   get '/standards/common-core-math-I-can-grade-7', to: "standards#grade_7", as: :grade_7
   get '/standards/common-core-math-I-can-grade-8', to: "standards#grade_8", as: :grade_8
+  get '/standards/common-core-math-I-can-high-school-algebra', to: "standards#hs_algebra", as: :hs_algebra
   get '/standards/common-core-math-practices', to: "standards#practice", as: :practice
   get '/teacher/common-core-math-dashboard', to: "static_pages#sample_dashboard", as: :sample_dashboard
   get '/teacher/common-core-math-assignment', to: "static_pages#sample_assignment", as: :sample_assignment

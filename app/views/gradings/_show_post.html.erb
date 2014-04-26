@@ -1,5 +1,13 @@
 <div class="bottom-margin normal-font">
-	<p><strong>I-can:</strong> In <%= @grading.domain.name%>, <%= @grading.standard.ICan %></p>  
+	<p>
+		<strong>I-can:</strong> 
+		In <%= @grading.domain.name%>, 
+		<% if  @grading.hstandard.nil? %>
+			<%= @grading.standard.ICan %>
+		<% else %>
+			<%= @grading.hstandard.ICan %>
+		<% end %>
+	</p>  
 </div>
 <div class="well well-small margin-bottom">
 	<table class="table-lesson">
@@ -83,7 +91,5 @@
 <div class="center">
 	<% if current_user?(@grading.grader) %>
 		<%= link_to "Re-grade this post", edit_grading_path(@grading), class: "btn btn-large btn-primary" %>
-	<% elsif current_user?(@post.user) %>
-		<%= link_to "Edit My Post and Make It Better Now!", edit_post_path(@post), class: "btn btn-large btn-primary" %>
 	<% end %>
 </div>

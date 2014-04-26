@@ -11,7 +11,7 @@
     <%= link_to raw('<i class="icon-pencil icon-white"></i> Finish This Post Now!'), edit_post_path(post), title: "Edit Post", class: "btn btn-small btn-success" %>
   <% end %> 
   <% if current_user.admin? || current_user.role == "teacher" %>
-    <%= link_to raw('<i class="icon-pencil icon-white"></i> Edit!'), edit_post_path(post), title: "Edit Post", class: "btn btn-small btn-success" %>
+    <%= link_to raw('<i class="icon-pencil icon-white"></i> Revise'), edit_post_path(post), title: "Edit Post", class: "btn btn-small btn-success" %>
   <% end %>           
 <% end %>
 <% if post.state.in?(["verified", "published", "old", "revised"]) %>
@@ -24,7 +24,7 @@
     <%= render partial: 'invites/invite_form', locals: {post: post, invite: invite} %>
   </span>
   <span class='search-label'>
-    <% if current_user?(post.user) || current_user.in?(post.commenters) || current_user.role=="teacher" || current_user.admin? %>
+    <% if current_user?(post.user) || current_user.in?(post.commenters) || current_user.admin? %>
       <%= link_to raw('<i class="icon-comment icon-white"></i> Details'), post_comments_path(post), class: "btn btn-small btn-success" %>
     <% else %>
       <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), new_post_comment_path(post), class: "btn btn-small btn-success" %>
@@ -33,7 +33,7 @@
   <span class='search-label'>
     <% if current_user.in?(post.keepers) %>
         <%= link_to "Favored", keeps_user_path(current_user), class: "btn btn-small btn-default" %>
-    <% elsif !current_user==post.user %>
+    <% elsif current_user != post.user %>
       <%= link_to raw('<i class="icon-folder-open icon-white"></i> Favorite'), new_post_keep_path(post), class: "btn btn-small btn-success" %>
     <% end %>
   </span>  

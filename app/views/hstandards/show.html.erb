@@ -1,2 +1,16 @@
-<h1>Hstandards#show</h1>
-<p>Find me in app/views/hstandards/show.html.erb</p>
+<h1>High School Standard #<%= @hstandard.id %></h1>
+<h2 class="center">
+	<%= link_to "previous standard", hstandard_path(@previous) %> |
+	<%= link_to "next standard", hstandard_path(@next) %> |
+	<%= link_to "all standards", levels_path %> |
+	<%= link_to "edit current domain", edit_hstandard_path(@hstandard) %> |
+</h2>
+<div class="alert-heading"%>
+	<p><strong>Short symbol:</strong> <%= @hstandard.short %> </p>
+	<p><strong>Level:</strong> <%= @hstandard.level.name %> (<%= @hstandard.level_id %>) </p>
+	<p><strong>Domain:</strong> <%= @hstandard.domain.core %> </p>
+	<p><strong>Long symbol:</strong> <%= @hstandard.symbol %> </p>
+	<p><strong>URL:</strong> <%= @hstandard.url %> </p>
+	<p><strong>Description:</strong> <%= @hstandard.description %> </p>
+	<p><strong>I-can:</strong> <%= @hstandard.ICan %> </p>
+</div>

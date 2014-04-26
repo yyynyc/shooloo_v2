@@ -3,7 +3,7 @@ class Video < ActiveRecord::Base
   friendly_id :title, use: [:slugged, :history]
 
   attr_accessible :title, :description, :player_loc, :duration, :tags, :student, :content,
-  	:category_id, :practice_id, :standard_id, :thumbnail, :length, 
+  	:category_id, :practice_id, :standard_id, :hstandard_id, :thumbnail, :length, 
     :video_mp4, :video_ogv, :video_webm, :position, :visible
 
   has_attached_file :thumbnail, 
@@ -27,6 +27,7 @@ class Video < ActiveRecord::Base
   belongs_to :category
   belongs_to :practice
   belongs_to :standard
+  belongs_to :hstandard
 
   def thumbnail_remote_url=(url_value) 
     return if url_value.blank?

@@ -67,7 +67,8 @@ class Post < ActiveRecord::Base
   has_many :editor, through: :correction
 
   state_machine initial: :draft do
-    after_transition :on => :submit, :do => [:give_points, :alert_teacher, :update_points]
+    after_transition :on => :submit, :do => [:give_points, :alert_teacher, 
+      :update_points, :create_student_contest]
     after_transition :on => :publish, :do => [:give_points, :update_stats, 
       :alert_nudger, :qualify, :update_points]
     after_transition :on => :verify, :do => [:update_stats, :alert_nudger]
@@ -188,6 +189,14 @@ class Post < ActiveRecord::Base
 
   def penalty
     (self.user.grade - self.correction.level.number) * (ShoolooV2::BELOW_GRADE)
+  end
+
+  def create_student_contest
+    if self.competition == 1
+      self.user.authorizers.each do |a|
+        StudentContest.create!(user_id: a.id, entry_total: 1)
+      end
+    end
   end
 
   def after_initialize

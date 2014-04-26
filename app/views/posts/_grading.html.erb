@@ -7,7 +7,11 @@
 			Standard:
 		</th>
 		<td>
-			<%= link_to grading.standard.short, grading.standard.url, target: "_blank", confirm: "you are about to visit a site that is not part of Shooloo. Continue?" %>
+			<% if grading.hstandard.nil? %>
+				<%= link_to grading.standard.short, grading.standard.url, target: "_blank", confirm: "You are about to visit a site that is not part of Shooloo. Continue?" %>
+			<% else %>
+				<%= link_to grading.hstandard.short, grading.hstandard.url, target: "_blank", confirm: "You are about to visit a site that is not part of Shooloo. Continue?" %>
+			<% end %>
 		</td>
 
 		<th>

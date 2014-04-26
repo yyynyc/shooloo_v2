@@ -1,6 +1,6 @@
 class Grading < ActiveRecord::Base
   attr_accessible :graded_comment_id, :note, :gradee_id,
-  :graded_post_id, :grader_id, :level_id, :domain_id, :standard_id,
+  :graded_post_id, :grader_id, :level_id, :domain_id, :standard_id, :hstandard_id,
   :concept, :precision, :computation, :grammar, :courtesy
 
   belongs_to :graded_post, class_name: "Post"

@@ -13,7 +13,11 @@
 			<% @past_due_assignments.each do |a| %>
 				<th class="center"> 
 					Assig. #<%= link_to a.id, assignment_path(a) %><br/>
-					<%= a.standard.short %><br/>
+					<% if a.hstandard.nil? %>
+						<%= a.standard.short %>
+					<% else %>
+						<%= a.hstandard.short %>
+					<% end %><br/>
 					<%= a.end_date %><br/>
 				</th>
 			<% end %>

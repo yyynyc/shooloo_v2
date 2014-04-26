@@ -1,8 +1,9 @@
 class CorrectionsController < ApplicationController
   before_filter :signed_in_user
-  before_filter :editor, only: [:new, :create, :index]
-  before_filter :correct_editor, only: [:destroy, :edit, :update]
+  before_filter :editor, only: [:new, :create]
+  before_filter :correct_editor, only: [:edit, :update]
   before_filter :correct_user, only: :show
+  before_filter :admin_user, only: [:index, :editors, :destroy]
 
 	def new
     @post = Post.find(params[:post_id])
@@ -80,7 +81,12 @@ class CorrectionsController < ApplicationController
   end
 
 	def index
+    @corrections = Correction.all
 	end
+
+  def editors
+    @editors = User.where(role: "editor").order('first_name ASC')
+  end
 
   def editor
     @correction = Correction.new
@@ -106,6 +112,13 @@ class CorrectionsController < ApplicationController
     else
         flash[:error] = "Sorry, you don't have access to that correction."
         redirect_to root_url 
+    end
+  end
+
+  def admin_user
+    unless current_user.admin?
+      flash[:error] = "Sorry, you don't have access to that correction."
+      redirect_to root_url 
     end
   end
 end

@@ -1,5 +1,5 @@
 class Domain < ActiveRecord::Base
-  attr_accessible :level_id, :name, :symbol, :core
+  attr_accessible :level_id, :name, :symbol, :core, :full_core
   belongs_to :level
   has_many :standards
   has_many :posts, through: [:standards, :hstandards]
@@ -8,4 +8,8 @@ class Domain < ActiveRecord::Base
   has_many :assignments, through: [:standards, :hstandards]
   has_many :gradings, through: [:standards, :hstandards]
   has_many :responses, through: :assignments
+
+  def full_core
+  	"#{core} (#{self.level.name})"
+  end
 end

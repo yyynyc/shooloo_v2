@@ -35,7 +35,12 @@
 						<%= a.assignment.instruction.html_safe %>
 					</td>
 					<td>
-						In <%= a.assignment.domain.name %>, <%= a.assignment.standard.ICan %>.
+						In <%= a.assignment.domain.name %>, 
+						<% if a.assignment.hstandard.nil? %>
+							<%= a.assignment.standard.ICan %>
+						<% else %>
+							<%= a.assignment.hstandard.ICan %>
+						<% end %>
 					</td>
 					<td class="center">
 						<% if a.posts.any? %>						

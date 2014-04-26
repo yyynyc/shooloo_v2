@@ -1,6 +1,6 @@
 class Assignment < ActiveRecord::Base
   attr_accessible :assigned_post_id, :assigner_id, :instruction,
-  	:domain_id, :level_id, :standard_id, :assignee_level,
+  	:domain_id, :level_id, :standard_id, :hstandard_id, :assignee_level,
     :assignee_ids, :responses_ids, :start_date, :end_date
 
   has_many :responses, dependent: :destroy

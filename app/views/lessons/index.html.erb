@@ -78,11 +78,19 @@
 						</p>
 						<p class="alert-heading">
 							<span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
-								<meta itemprop="alignmentType" content="require">
-								<meta itemprop="targetName" content="<%= lesson.standard.symbol %>">
-			    				<meta itemprop="targetUrl" content="<%= lesson.standard.url %>">
-			    				<meta itemprop="targetDescription", content="<%= lesson.standard.description %>">
-								<strong><%= lesson.standard.short %></strong>
+								<% if lesson.hstandard.nil? %>
+									<meta itemprop="alignmentType" content="require">
+									<meta itemprop="targetName" content="<%= lesson.standard.symbol %>">
+				    				<meta itemprop="targetUrl" content="<%= lesson.standard.url %>">
+				    				<meta itemprop="targetDescription", content="<%= lesson.standard.description %>">
+									<strong><%= lesson.standard.short %></strong>
+								<% else %>
+									<meta itemprop="alignmentType" content="require">
+									<meta itemprop="targetName" content="<%= lesson.hstandard.symbol %>">
+				    				<meta itemprop="targetUrl" content="<%= lesson.hstandard.url %>">
+				    				<meta itemprop="targetDescription", content="<%= lesson.hstandard.description %>">
+									<strong><%= lesson.hstandard.short %></strong>
+								<% end %>
 							</span>  &
 							<span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
 								<meta itemprop="alignmentType" content="require">

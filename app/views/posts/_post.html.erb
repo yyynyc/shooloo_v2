@@ -12,7 +12,7 @@
 <%= semantic_form_for post, :validate => true, :url => url, :html => { :multipart => true, class: "form-horizontal-post-update", 'data-action' => 'update' }  do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
 	<%=f.inputs do %> 
-		<%= f.input :competition, label: "Healthy-Eating Math Story Contest", as: :radio, collection: [["Yes! Enter my post into the healthy-eating math story contest.", 1],["No. My post is not about healthy eating.", 0]] %>
+		<%= f.input :competition, label: link_to("Healthy-Eating Math Story Contest", contest_path), as: :radio, collection: [["Yes! Enter my post into the healthy-eating math story contest", 1],["No. My post is not about healthy eating.", 0]] %>
         <div class="create">
         	<%# if current_user.admin? %>
         		<%#= f.input :question, as: :ckeditor, input_html: {ckeditor: {toolbar: "admin" }} %>

@@ -14,11 +14,18 @@
 		<%= post.level.name %>
 		<span class="timestamp" itemprop="educationalFramework">Common Core</span>
 		<%= post.domain.core %>
-		<span class="timestamp"> -</span> 
-		<%= link_to post.standard.short, post.standard.url, target: "_blank", confirm: "you are about to visit a site that is not part of Shooloo. Continue?" %>
-		<span itemprop="targetName" content="<%= post.standard.symbol %>"></span>
-	    <span itemprop="targetUrl" content="<%= post.standard.url %>"></span>
-	    <span itemprop="targetDescription", content="<%= post.standard.description %>"></span>
+		<span class="timestamp"> -</span>
+		<% if post.hstandard.nil? %> 
+			<%= link_to post.standard.short, post.standard.url, target: "_blank", confirm: "You are about to visit a site that is not part of Shooloo. Continue?" %>
+			<span itemprop="targetName" content="<%= post.standard.symbol %>"></span>
+		    <span itemprop="targetUrl" content="<%= post.standard.url %>"></span>
+		    <span itemprop="targetDescription", content="<%= post.standard.description %>"></span>
+		<% else %>
+		<%= link_to post.hstandard.short, post.hstandard.url, target: "_blank", confirm: "You are about to visit a site that is not part of Shooloo. Continue?" %>
+			<span itemprop="targetName" content="<%= post.hstandard.symbol %>"></span>
+		    <span itemprop="targetUrl" content="<%= post.hstandard.url %>"></span>
+		    <span itemprop="targetDescription", content="<%= post.hstandard.description %>"></span>
+		<% end %>
 	</span>
 <% end %>
 <% if signed_in? && (current_user.role == "teacher" || current_user.admin?) %> 

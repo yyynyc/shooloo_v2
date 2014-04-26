@@ -14,8 +14,14 @@
     </div>
   </div>
   
-  <div>         
-    <div class="teacher-view"><%= @post.question.html_safe %></div>
+  <div> 
+    <% if @post.correction.nil? %>
+      <% post = @post %>
+    <% else %>
+      <% post = @post.correction %>
+    <% end %>
+
+    <div class="teacher-view"><%= post.question.html_safe %></div>
     <div class="accorion-heading">
     	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
     		<p><strong>Answer: </strong></p>
@@ -23,10 +29,10 @@
     </div>
     <div id="collapseOne" class="accordion-body collapse">    	
   		<div class="accordion-toggle teacher-view">    				
-  			<p><%= @post.answer.html_safe %><p>
+  			<p><%= post.answer.html_safe %><p>
   		</div>		   		
     </div>
-    <% unless @post.level.nil? %>
+    <% unless post.level.nil? %>
 	    <div class="accorion-heading">
 	    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
 	      		<p><strong>"I can" statement: </strong></p>
@@ -34,7 +40,13 @@
 	    </div>
 	    <div id="collapseTwo" class="accordion-body collapse">	    	
 			  <div class="accordion-toggle teacher-view">  
-    			<p>In <%= @post.domain.name %>, <%= @post.standard.ICan %></p>
+    			<p>In <%= post.domain.name %>,
+            <% if post.hstandard.nil? %> 
+              <%= post.standard.ICan %> (<%= post.standard.short %>)
+            <% else %>
+              <%= post.hstandard.ICan %> (<%= post.hstandard.short %>)
+            <% end %>
+          </p>
     		</div>	   
 	    </div>
     <% end %>

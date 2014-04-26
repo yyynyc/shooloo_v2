@@ -8,7 +8,7 @@
 					<ul class="users">
 	  					<li>
 	  						#<%= d.id %> | core: <%= d.core %> <br/>
-	  						name: <%= d.name %> | symbol: <%= d.symbol %> | <%= link_to "new", new_domain_path %> <%= link_to "edit", edit_domain_path(d) %>
+	  						name: <%= d.name %> | symbol: <%= d.symbol %> | <%= link_to "new", new_domain_path %> <%= link_to "edit", edit_domain_path(d) %> <%= link_to "show", domain_path(d) %>
 	  						<div class="follow-nudge">
 								<strong>Standards</strong>
 								<% d.standards.order('id ASC').each do |s| %>
@@ -19,6 +19,7 @@
 					  						url: <%= s.url %> |
 					  						<%= link_to "new", new_standard_path %> 
 					  						<%= link_to "edit", edit_standard_path(s) %>
+					  						<%= link_to "show", standard_path(s) %>
 					  						<br/>
 					  						<strong>description:</strong> <%= s.description.html_safe %><br/>
 					  						<strong>Ican:</strong> <%= s.ICan.html_safe %>
@@ -33,6 +34,7 @@
 										  						url: <%= h.url %> |
 										  						<%= link_to "new", new_hstandard_path %> 
 										  						<%= link_to "edit", edit_hstandard_path(h) %>
+										  						<%= link_to "show", hstandard_path(h) %>
 										  						<br/>
 										  						<strong>description:</strong> <%= h.description.html_safe %><br/>
 										  						<strong>Ican:</strong> <%= h.ICan.html_safe %>

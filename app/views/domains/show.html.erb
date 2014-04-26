@@ -1,2 +1,13 @@
-<h1>Domains#show</h1>
-<p>Find me in app/views/domains/show.html.erb</p>
+<h1>Domain #<%= @domain.id %></h1>
+<h2 class="center">
+	<%= link_to "previous domain", domain_path(@previous) %> |
+	<%= link_to "next domain", domain_path(@next) %> |
+	<%= link_to "all standards", levels_path %> |
+	<%= link_to "edit current domain", edit_domain_path(@domain) %> |
+</h2>
+<div class="alert-heading"%>
+	<p><strong>Level:</strong> <%= @domain.level.name %> (<%= @domain.level_id %>) </p>
+	<p><strong>Name:</strong> <%= @domain.name %> </p>
+	<p><strong>Symbol:</strong> <%= @domain.symbol %> </p>
+	<p><strong>Core:</strong> <%= @domain.core %> </p>
+</div>

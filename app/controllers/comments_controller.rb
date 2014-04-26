@@ -9,7 +9,12 @@ class CommentsController < ApplicationController
     
 	def index
         @comment = Comment.new
-        @post  = Post.find(params[:post_id]) 
+        @post  = Post.find(params[:post_id])
+        if @post.hstandard.nil?
+            @related_posts = @post.standard.posts.where('id !=?', @post.id)
+        else
+            @related_posts = @post.hstandard.posts.where('id !=?', @post.id)
+        end
         if !@post.correction.nil?
             @correction = @post.correction
         end
@@ -34,6 +39,11 @@ class CommentsController < ApplicationController
         else
             @comment = Comment.new
             @post  = Post.find(params[:post_id])
+            if @post.hstandard.nil?
+                @related_posts = @post.standard.posts.where('id !=?', @post.id)
+            else
+                @related_posts = @post.hstandard.posts.where('id !=?', @post.id)
+            end
             if !@post.correction.nil?
                 @correction = @post.correction
             end 

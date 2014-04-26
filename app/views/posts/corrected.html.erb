@@ -21,7 +21,13 @@
 		<p><strong>I-can Statement:</strong></p>
 	</div>
 	<div class="span10">
-		<p>In <%= @correction.domain.name %>, <%= @correction.standard.ICan %></p>
+		<% if @correction.hstandard.nil? %>
+			<p>In <%= @correction.domain.name %>, <%= @correction.standard.ICan %>
+			</p>
+		<% else %>
+			<p>In <%= @correction.domain.name %>, <%= @correction.hstandard.ICan %>
+			</p>
+		<% end %>
 	</div>
 </div>
 <div class="row alert-heading">
@@ -29,7 +35,11 @@
 		<p><strong>Common Core Standard:</strong></p>
 	</div>
 	<div class="span10">
-		<p><%= @correction.standard.symbol %> -- <%= @correction.standard.description %></p>
+		<% if @correction.hstandard.nil? %>
+			<p><%= @correction.standard.full_description %></p>
+		<% else %>
+			<p><%= @correction.hstandard.full_description %></p>
+		<% end %>
 	</div>
 </div>
 <p class="center">

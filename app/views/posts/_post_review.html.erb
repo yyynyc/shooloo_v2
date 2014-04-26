@@ -44,7 +44,25 @@
     <% end %>   
     <% unless @post.level.nil? %>
       <p>
-        <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %>
+        <% if current_user.role == "student" %>
+          <% if @post.hstandard.nil? %> 
+            <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %> 
+          <% else %>
+            <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.hstandard.ICan %> 
+          <% end %>
+        <% else %>
+          <% if @post.hstandard.nil? %> 
+            <strong>CCSS:</strong> <%= @post.standard.full_description %> 
+          <% else %>
+            <strong>CCSS:</strong> <%= @post.hstandard.full_description %> 
+          <% end %>
+        <% end %>
+      </p>
+      <p>
+        <strong>Related Posts:</strong> 
+        <% @related_posts.each do |p| %>
+          #<%= link_to p.id, post_comments_path(p) %> |
+        <% end %>
       </p>
     <% end %>
   </div>

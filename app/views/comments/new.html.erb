@@ -4,7 +4,7 @@
   <% title "Common Core Math Word Problem ##{@post.id} in #{@post.level.name} #{@post.domain.core} #{@post.hstandard.short}" %>
 <% end %>
 <% if @correction.nil? %>
-  <% description "#{@question.question.html_safe}" %>
+  <% description "#{@post.question.html_safe}" %>
 <% else %>
   <% description "#{@correction.question.html_safe}" %>
 <% end %>
@@ -90,6 +90,12 @@
           <% end %>
           <p class="center"><%= link_to "Find Out the Answer", post_comments_path(@post), class: "btn btn-large btn-primary" %></p>
         <% end %>
+        <p>
+          <strong>Related Posts:</strong> 
+          <% @related_posts.each do |p| %>
+            #<%= link_to p.id, new_post_comment_path(p) %> |
+          <% end %>
+        </p>
       </div>
     </div>
   </div>

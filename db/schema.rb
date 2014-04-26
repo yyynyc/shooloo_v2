@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140426153143) do
+ActiveRecord::Schema.define(:version => 20140426230906) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20140426153143) do
     t.datetime "updated_at",       :null => false
     t.date     "start_date"
     t.date     "end_date"
+    t.integer  "hstandard_id"
   end
 
   create_table "authorizations", :force => true do |t|
@@ -201,6 +202,7 @@ ActiveRecord::Schema.define(:version => 20140426153143) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
     t.integer  "gradee_id"
+    t.integer  "hstandard_id"
   end
 
   add_index "gradings", ["graded_comment_id"], :name => "index_gradings_on_graded_comment_id"
@@ -295,6 +297,7 @@ ActiveRecord::Schema.define(:version => 20140426153143) do
     t.integer  "practice_id"
     t.integer  "likes_count"
     t.integer  "comments_count"
+    t.integer  "hstandard_id"
   end
 
   create_table "levels", :force => true do |t|
@@ -554,6 +557,17 @@ ActiveRecord::Schema.define(:version => 20140426153143) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "student_contests", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "entry_total",        :default => 0
+    t.integer  "qualified_total",    :default => 0
+    t.integer  "disqualified_total", :default => 0
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  add_index "student_contests", ["user_id"], :name => "index_student_contests_on_user_id"
+
   create_table "subjects", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -636,6 +650,7 @@ ActiveRecord::Schema.define(:version => 20140426153143) do
     t.datetime "video_webm_updated_at"
     t.boolean  "visible",                 :default => true
     t.integer  "position",                :default => 0
+    t.integer  "hstandard_id"
   end
 
   add_index "videos", ["slug"], :name => "index_videos_on_slug"

@@ -24,12 +24,6 @@
 		<% if signed_in? && current_user.authorizations.any? %>
 			<div class="row center bottom-margin">
 				<span class="search-label">
-					<%= f.label :standard_ICan_cont, "I Can" %>
-				</span>
-				<span class="search-field">
-					<%= f.text_field :standard_ICan_cont %>
-				</span>	
-				<span class="search-label">
 					<%= f.label :domain_core_cont, "CCSS Domain" %>
 				</span>
 				<span class="search-field">
@@ -42,10 +36,10 @@
 					<%= f.text_field :standard_short_cont %>
 				</span>	
 				<span class="search-label">
-					<%= f.label :standard_description_cont, "CCSS Description" %>
+					<%= f.label :hstandard_short_cont, "High School Standard" %>
 				</span>
 				<span class="search-field">
-					<%= f.text_field :standard_description_cont %>
+					<%= f.text_field :hstandard_short_cont %>
 				</span>								
 			</div>			
 		<% end %>
@@ -74,14 +68,12 @@
 			<span class="search-field">
 				<%= f.text_field :question_cont %>
 			</span>	
-			<% if signed_in? && ((current_user.role=="teacher" && current_user.authorizations.any?) || current_user.admin?) %>
-				<span class="search-label">
-					<%= f.label :quality_name_cont, "Quality" %>
-				</span>
-				<span class="search-field">
-					<%= f.collection_select :quality_name_cont, Quality.order(:id), :name, :name, include_blank: true %>
-				</span>
-			<% end %>		
+			<span class="search-label">
+				<%= f.label :steps_eq, "Complexity" %>
+			</span>
+			<span class="search-field">
+				<%= f.select :steps_eq, [["", nil],["1-step problem", 1], ["2-step problem", 2], ["3-or-more-step problem", 3]] %>
+			</span>
 			<span class="search-label">
 				<%= f.submit "Search", class: "btn btn-small btn-primary" %>
 			</span>

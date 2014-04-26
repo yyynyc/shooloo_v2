@@ -1,6 +1,6 @@
 class Lesson < ActiveRecord::Base
   attr_accessible :description, :domain_id, :level_id, :practice_id, 
-  	:post_a_id, :post_b_id, :standard_id, :user_id, :file
+  	:post_a_id, :post_b_id, :standard_id, :user_id, :file, :hstandard_id
 
   	belongs_to :post_a, class_name: "Post"
     belongs_to :post_b, class_name: "Post"

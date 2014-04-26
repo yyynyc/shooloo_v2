@@ -1,2 +1,17 @@
-<h1>Standards#show</h1>
-<p>Find me in app/views/standards/show.html.erb</p>
+<h1>Standard #<%= @standard.id %></h1>
+<h2 class="center">
+	<%= link_to "previous standard", standard_path(@previous) %> |
+	<%= link_to "next standard", standard_path(@next) %> |
+	<%= link_to "all standards", levels_path %> |
+	<%= link_to "edit current domain", edit_standard_path(@standard) %> |
+</h2>
+<div class="alert-heading"%>
+	<p><strong>Short symbol:</strong> <%= @standard.short %> </p>
+	<p><strong>Level:</strong> <%= @standard.level.name %> (<%= @standard.level_id %>) </p>
+	<p><strong>Domain:</strong> <%= @standard.domain.core %> </p>
+	<p><strong>Long symbol:</strong> <%= @standard.symbol %> </p>
+	<p><strong>URL:</strong> <%= @standard.url %> </p>
+	<p><strong>Description:</strong> <%= @standard.description %> </p>
+	<p><strong>I-can:</strong> <%= @standard.ICan %> </p>
+</div>
+

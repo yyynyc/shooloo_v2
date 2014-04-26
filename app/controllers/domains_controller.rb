@@ -31,5 +31,12 @@ class DomainsController < ApplicationController
   end
 
   def show
+    @domain = Domain.find(params[:id])
+    if @domain.id - 1 == 0
+      @previous = @domain
+    else
+      @previous = Domain.find(@domain.id-1)
+    end
+    @next = Domain.find(@domain.id+1)
   end
 end

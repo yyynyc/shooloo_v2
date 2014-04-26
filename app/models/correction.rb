@@ -42,11 +42,17 @@ class Correction < ActiveRecord::Base
 				self.corrected_post.user.authorizers.each do |a|
 					a.point.inspiration += ShoolooV2::TEACHER_INSPIRATION
 					a.point.save
+        			a.student_contest.qualified_total += 1
+     				a.student_contest.save
 				end
 			else
 				self.corrected_post.update_attributes!(qualified: "no")
 				self.corrected_post.user.point.disqualified +=1
 				self.corrected_post.user.point.save
+				self.corrected_post.user.authorizers.each do |a|
+        			a.student_contest.disqualified_total += 1
+     				a.student_contest.save
+				end
 			end
 			Activity.create!(action: "qualify", trackable: self.corrected_post, 
         		user_id: 1, recipient_id: self.corrected_post.user_id)

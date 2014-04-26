@@ -119,6 +119,7 @@ class User < ActiveRecord::Base
   has_many :introducees, through: :reverse_introductions
 
   has_one :point
+  has_one :student_contest
   has_many :invitemails
 
   has_many :corrections, foreign_key: "editor_id"

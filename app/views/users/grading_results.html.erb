@@ -12,7 +12,11 @@
 			<th></th>
 			<% @past_assignments.each do |a| %>
 				<th class="center"> 
-					<%= link_to a.standard.short, assignment_path(a) %><br/>
+					<% if a.hstandard.nil? %>
+						<%= link_to a.standard.short, assignment_path(a) %>
+					<% else %>
+						<%= link_to a.hstandard.short, assignment_path(a) %>
+					<% end %><br/>
 				</th>
 			<% end %>
 		</tr>

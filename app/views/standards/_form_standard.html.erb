@@ -6,8 +6,8 @@
         <%= f.input :symbol %>
         <%= f.input :short %>
         <%= f.input :url %>
-        <%= f.input :description, as: :ckeditor %>
-        <%= f.input :ICan, as: :ckeditor %>
+        <%= f.input :description %>
+        <%= f.input :ICan %>
 	<% end %>
 	<%= f.actions do %>	
 	    <%= f.action :submit, label: save, as: :button, button_html: {class: "btn btn-large btn-warning", disable_with: "wait..."} %>

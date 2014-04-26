@@ -28,7 +28,11 @@
 						<%= link_to "Edit", edit_assignment_path(a), class: "btn btn-small btn-primary" %>
 					</td>
 					<td class="center">
-						<%= a.standard.short %>
+						<% if a.hstandar.nil? %>
+							<%= a.standard.short %>
+						<% else %>
+							<%= a.hstandard.short %>
+						<% end %>
 					</td>
 					<td>
 						<% if !a.assigned_post_id.nil? %>

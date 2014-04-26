@@ -43,7 +43,7 @@
                         </li>
                         <li><%= link_to "Grading Results", grading_results_user_path(current_user) %>
                         </li>
-                        <li><%= link_to "Saved Posts", keeps_user_path(current_user) %>
+                        <li><%= link_to "Favorite Posts", keeps_user_path(current_user) %>
                         </li>
                       </ul>
                     </li>
@@ -96,9 +96,7 @@
                   <li>
                     <%= link_to "My Commented Posts", commented_posts_user_path(current_user) %>
                   </li> 
-                  <% unless current_user.role == "teacher" %>
-                    <li><%= link_to "My Saved Posts", keeps_user_path(current_user) %>
-                  <% end %>
+                  <li><%= link_to "My Favorite Posts", keeps_user_path(current_user) %>
                   <li class="divider"></li>  
                   <li><%= link_to "All Member Posts", posts_path %></li>                 
                 </ul>
@@ -122,7 +120,9 @@
                     <li><%= link_to "Hidden Users", hidden_path %></li>
                     <li><%= link_to "All News", activities_path %></li>
                     <li><%= link_to "Gift Choices", choices_path %></li>
-                    <li><%= link_to "Ask a Tutor", twilios_path %></li>             
+                    <li><%= link_to "All CCSS Standards", levels_path %></li>
+                    <li><%= link_to "All Corrections", corrections_path %></li>
+                    <li><%= link_to "All Editors", editors_path %></li>
                   <% end %>
                 </ul>
               </li>

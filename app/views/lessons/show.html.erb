@@ -26,12 +26,16 @@
 	    </div>
 	    <div class="accorion-heading">
 	    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-	    		<p><strong>I-Can: </strong></p>
+	    		<p><strong>CCSS Standard: </strong></p>
 	    	</a>
 	    </div>
 	    <div id="collapseThree" class="accordion-body collapse">    	
-	  		<div class="accordion-toggle teacher-view">    				
-	  			<p>In <%= @lesson.post_a.domain.name %>, <%= @lesson.post_a.standard.ICan %></p>
+	  		<div class="accordion-toggle teacher-view">
+	  			<% if lesson.post_a.hstandard.nil? %>    				
+	  				<p><%= @lesson.post_a.standard.full_description %></p>
+	  			<% else %>
+	  				<p><%= @lesson.post_a.hstandard.full_description %></p>
+	  			<% end %>
 	  		</div>		   		
 	    </div>
 	    <% if @lesson.post_a.comments.any? %>
@@ -85,12 +89,16 @@
 	    </div>
 	    <div class="accorion-heading">
 	    	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSix">
-	    		<p><strong>I-Can: </strong></p>
+	    		<p><strong>CCSS Standard: </strong></p>
 	    	</a>
 	    </div>
 	    <div id="collapseSix" class="accordion-body collapse">    	
 	  		<div class="accordion-toggle teacher-view">    				
-	  			<p>In <%= @lesson.post_b.domain.name %>, <%= @lesson.post_b.standard.ICan %></p>
+	  			<% if lesson.post_b.hstandard.nil? %>    				
+	  				<p><%= @lesson.post_b.standard.full_description %></p>
+	  			<% else %>
+	  				<p><%= @lesson.post_b.hstandard.full_description %></p>
+	  			<% end %>
 	  		</div>		   		
 	    </div>
 	    <% if @lesson.post_b.comments.any? %>

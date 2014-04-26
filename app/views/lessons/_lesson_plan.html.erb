@@ -20,12 +20,21 @@
       </span>  
     <span class="wrap_long_string">
       <p itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
-        <strong><%= lesson.standard.short %></strong>
-          - <%= lesson.standard.description %>
-        <meta itemprop="educationalFramework" Content="Common Core State Standard">
-        <meta itemprop="targetName" content="<%= lesson.standard.symbol %>">
-        <meta itemprop="targetUrl" content="<%= lesson.standard.url %>">
-        <meta itemprop="targetDescription", content="<%= lesson.standard.description %>">
+        <% if lesson.hstandard.nil? %>
+          <strong><%= lesson.standard.short %></strong>
+            - <%= lesson.standard.description %>
+          <meta itemprop="educationalFramework" Content="Common Core State Standard">
+          <meta itemprop="targetName" content="<%= lesson.standard.symbol %>">
+          <meta itemprop="targetUrl" content="<%= lesson.standard.url %>">
+          <meta itemprop="targetDescription", content="<%= lesson.standard.description %>">
+        <% else %>
+          <strong><%= lesson.hstandard.short %></strong>
+            - <%= lesson.hstandard.description %>
+          <meta itemprop="educationalFramework" Content="Common Core State Standard">
+          <meta itemprop="targetName" content="<%= lesson.hstandard.symbol %>">
+          <meta itemprop="targetUrl" content="<%= lesson.hstandard.url %>">
+          <meta itemprop="targetDescription", content="<%= lesson.hstandard.description %>">
+        <% end %>
       </p>
       <p itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
         <strong>Practice:</strong>

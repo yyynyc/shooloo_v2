@@ -18,7 +18,12 @@
 		<tr>
 			<th>I-can:</th> 
 			<td>In <%= @response.assignment.domain.name %>, 
-				<%= @response.assignment.standard.ICan %></td>
+				<% if @response.assignment.hstandard.nil? %>
+					<%= @response.assignment.standard.ICan %>
+				<% else %>
+					<%= @response.assignment.hstandard.ICan %>
+				<% end %>
+			</td>
 		</tr>
 	</table>
 </div>

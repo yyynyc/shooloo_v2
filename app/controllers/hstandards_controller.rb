@@ -1,5 +1,5 @@
 class HstandardsController < ApplicationController
-  	before_filter :signed_in_user
+  before_filter :signed_in_user
 	load_and_authorize_resource
 
   def new
@@ -16,6 +16,16 @@ class HstandardsController < ApplicationController
   	end
   end
 
+  def show
+    @hstandard = Hstandard.find(params[:id])
+      if @hstandard.id - 1 == 0
+        @previous = @hstandard
+      else
+        @previous = Hstandard.find(@hstandard.id-1)
+      end
+      @next = Hstandard.find(@hstandard.id+1)
+  end
+
   def edit
   	@hstandard = Hstandard.find(params[:id])
   end
@@ -28,9 +38,6 @@ class HstandardsController < ApplicationController
   	else
   		render 'edit'
   	end
-  end
-
-  def show
   end
 end
 

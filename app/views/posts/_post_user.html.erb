@@ -11,8 +11,7 @@
 <% unless post.level.nil? %>
 	<span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
 		<br/><span class="timestamp"><span itemprop="alignmentType">require</span>d by</span> 
-		<%= post.level.name %>
-		<span class="timestamp" itemprop="educationalFramework">Common Core</span>
+		<span class="timestamp" itemprop="educationalFramework" content="Common Core State STan">Common Core</span>
 		<%= post.domain.core %>
 		<span class="timestamp"> -</span>
 		<% if post.hstandard.nil? %> 
@@ -28,14 +27,20 @@
 		<% end %>
 	</span>
 <% end %>
-<% if signed_in? && (current_user.role == "teacher" || current_user.admin?) %> 
-	<br/>Post id #<strong><%= link_to post.id, new_post_comment_path(post)%></strong>
-	<% if current_user.admin? || current_user.in?(post.user.authorizers) %>
-		| <span class="timestamp">Real name:</span> <%= post.user.first_name %> <%= post.user.last_name %>
+<br/>Post id #<strong><%= link_to post.id, new_post_comment_path(post)%></strong>
+<% if post.qualified? %>
+ 	| <strong>qualified</strong> in contest 
+<% else %>
+	<% if post.state=="verified" %>
+		| <strong>verified</strong> as correct
+	<% elsif post.state=="published" %>
+		| <strong>self-verified</strong> by author 
+	<% else %>
+		| has not been verified 
 	<% end %>
-	<% if !post.quality.nil? && current_user.admin? %>
-		<span class="timestamp">quality:</span> <%= post.quality.name %>
-	<% end %>
+<% end %>
+<% if signed_in? &&(current_user.admin? || current_user.in?(post.user.authorizers)) %>
+	| <span class="timestamp">Real name:</span> <%= post.user.first_name %> <%= post.user.last_name %>
 <% end %>
 
 

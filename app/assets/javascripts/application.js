@@ -46,6 +46,9 @@ $(function ()
 $(function ()  
 { $(".edit").popover({trigger: 'hover', placement: 'bottom', html: true});  
 });
+$(function ()  
+{ $('.carousel').carousel({interval: 2000});  
+});
 
 $(function ()  
 {   $('.bs-docs-sidebar').scrollspy(); 

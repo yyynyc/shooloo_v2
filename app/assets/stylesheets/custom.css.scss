@@ -152,7 +152,7 @@ aside {
 
 .stats {
   overflow: auto;
-  margin-top: 0.2em;
+  margin-bottom: 0.5em;
   border-bottom: 1px solid $grayLighter;
   span {
     float: left;
@@ -1315,3 +1315,12 @@ iframe {
 .right-align {
   text-align: right
 } 
+
+.carousel-indicators {
+  list-style: none;
+}
+
+.post-icon {
+  width: 50px;
+  vertical-align: middle;
+}

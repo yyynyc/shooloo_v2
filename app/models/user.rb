@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+
   attr_accessible :parent_email, :personal_email, :screen_name, :full_name_us, :full_name_uk, 
     :first_name, :last_name, :grade, :role, :visible, 
     :password, :password_confirmation,

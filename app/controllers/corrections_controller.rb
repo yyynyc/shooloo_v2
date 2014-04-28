@@ -81,10 +81,13 @@ class CorrectionsController < ApplicationController
   end
 
 	def index
-    @corrections = Correction.all
+    @corrections_published = Correction.where(state: "submitted").paginate(page: 
+      params[:page], per_page: 200, order: 'updated_at DESC')
+    @corrections_draft = Correction.where(state: "draft").paginate(page: 
+      params[:page], per_page: 200, order: 'created_at DESC')
 	end
 
-  def editors
+  def all_editors
     @editors = User.where(role: "editor").order('first_name ASC')
   end
 

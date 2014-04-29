@@ -2,7 +2,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.autoParagraph = false; 
     config.toolbar = [
         [ 'SpellChecker', 'Scayt', 'Table', 'SpecialChar' ],
-        [ 'EqnEditor', 'Bold', 'Italic', '-', 'Underline','Strike', '-', 'Subscript','Superscript','-','RemoveFormat' ], 
+        [ 'Bold', 'Italic', '-', 'Underline','Strike', '-', 'Subscript','Superscript','-','RemoveFormat' ], 
         [ 'Cut', 'Copy', 'PasteFromWord', '-', 'Undo', 'Redo' ],
        	[ 'Find','Replace','-','SelectAll' ],
        	[ 'NumberedList','BulletedList','-','Outdent','Indent',
@@ -10,7 +10,7 @@ CKEDITOR.editorConfig = function( config ) {
         [ 'Smiley']
     ];
     config.extraPlugins = 'tabletools';
-    config.extraPlugins = 'eqneditor';
+    // config.extraPlugins = 'eqneditor';
     // config.extraPlugins += (config.extraPlugins.length == 0 ? '' : ',') + 'ckeditor_wiris';
     // config.allowedContent = true;
  //    config.toolbar = "CKcomment"

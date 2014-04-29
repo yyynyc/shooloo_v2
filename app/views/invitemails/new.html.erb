@@ -11,8 +11,8 @@
   <%= render 'shared/error_messages', object: f.object %>
   <%=f.inputs do %> 
     <%= f.input :to, placeholder: "You can put in multiple email addresses seperated by comma" %>
-    <%= f.input :subject, :input_html => {value: "Join me in the Healthy Eating Math Story Competition! "} %>
-    <%= f.input :body, label: "Message", :input_html => {value: "Greetings! My students and I are participating in a math story competition about healthy eating, and I think your students would benefit from it as well. We can both win prizes of healthy snacks and beverages for our entire class of students!\r\n\r\nTo participate, sign up at https://fun.shooloo.org. When asked for referral, put in my email address #{current_user.personal_email} and invitation code 'healthy2014', and you will obtain immediate authorization to participate in the competition.\r\n\r\nBest wishes," } %>
+    <%= f.input :subject, :input_html => {value: "Prizes for you and your students! "} %>
+    <%= f.input :body, label: "Message", :input_html => {value: "Hi, . I've found this great eLearning site called Shooloo. It has thousands of math word problems created by students and teachers. Every problem is aligned with the Common Core State Standard. Check it out at https://fun.shooloo.org.\r\n\r\nIf you sign up and create accounts for your students now, you may win up to $500 worth of prizes. If your students participate in the Shooloo Healthy-Eating Math Story Contest, both you and your students may win prizes. Check out details at https://fun.shooloo.org/contest/.\r\n\r\nTo obtain immediate authorization when you sign up, put in my email address #{current_user.personal_email} and invitation code 'healthy2014'.\r\n\r\nBest wishes," } %>
   <% end %>
   <%= f.actions do %>
     <%= f.action :submit, label: "Send", as: :button, button_html: { class: "btn btn-formtastic btn-medium btn-primary", disable_with: "Proccessing..."} %>

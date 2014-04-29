@@ -55,7 +55,7 @@ $(function ()
     $('[data-spy="scroll"]').each(function () {  
       var $spy = $(this).scrollspy('refresh')  
     });
-    var offset = 80;
+    var offset = 110;
     $('.bs-docs-sidenav li a').click(function(event) {
     event.preventDefault();
     $($(this).attr('href'))[0].scrollIntoView();

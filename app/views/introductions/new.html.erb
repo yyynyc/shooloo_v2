@@ -27,7 +27,7 @@
 				  <%= f.text_field :invitation_code %>
 				</div><br/>
 			<div class="span3 offset3">
-				<%= link_to "Skip", edit_user_path(current_user), class: "btn btn-large", confirm: "Redirected to complete your profile information and then request authorization from the admin. Continue?" %>
+				<%= link_to "Skip", edit_user_path(current_user), class: "btn btn-large" %>
 		  		<%= f.submit "Submit", class: "btn btn-large btn-primary", disable_with: "Proccessing..." %>
 		  	</div>
 		<% end %>

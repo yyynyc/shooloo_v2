@@ -56,6 +56,15 @@
 				</span>
 			<% elsif @user.role == "teacher" %>
 				<span class="search-label">
+					<%= f.input :school_url, label: "School's Web Address", placeholder: "Useful to verify your identity" %>
+				</span>
+				<span class="question">
+					<a href="#", class="question", rel="popover", title="Why Require School Web Address", data-content="To protect the safety of our under-aged members, we need your school's web address to verify your identity." %> 
+						<i class="icon-question-sign icon-medium" ></i>
+					</a>
+				</span>
+				<br/>
+				<span class="search-label">
 					<%= f.input :personal_email, label: "My email", placeholder: "Useful to recover your forgotten password" %>
 				</span>
 				<span class="question">

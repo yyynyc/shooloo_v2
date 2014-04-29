@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
       default_url: "/attachments/blank.jpg",
       url: "/attachments/users/:id/:style/:basename.:extension",
       path: ":rails_root/public/attachments/users/:id/:style/:basename.:extension"
-  
+
   has_secure_password
 
   has_many :choices
@@ -139,6 +139,9 @@ class User < ActiveRecord::Base
       UserMailer.sign_up_confirm(self).deliver
     end
     Point.create!(user_id: self.id)
+    unless self.role == "student"
+      StudentContest.create!(user_id: self.id)
+    end
   end
 
   before_save do
@@ -162,10 +165,6 @@ class User < ActiveRecord::Base
     end
   end  
 
-  after_update do
-    create_natures
-  end
-
   after_destroy do 
     Activity.where(recipient_id: self.id).delete_all
     Score.where(benefactor_id: self.id).delete_all
@@ -185,30 +184,74 @@ class User < ActiveRecord::Base
   validates :privacy, presence: true
   validates :rules, presence: true
   validates :role, presence: true
-
-  validates :first_name, length: {maximum: 25}, presence: true, on: :create 
-  validates :last_name, length: {maximum: 25}, presence: true, on: :create
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :parent_email, format: { with: VALID_EMAIL_REGEX }, presence: true, 
-    :if => :verify_student, :unless => :should_validate_password? 
-  validates :grade, presence: true, :if => :verify_student, :unless => :should_validate_password? 
-  validates :school_name, presence: true, length: {maximum: 100}, 
-    :if => :verify_student_or_teacher
-  validates :personal_email, format: { with: VALID_EMAIL_REGEX }, 
-    uniqueness: {case_sensitive: false}, presence: true, :if => :verify_teacher_or_other
-  validates :personal_email, format: { with: VALID_EMAIL_REGEX }, 
-    allow_blank: true, :if => :verify_student
-  validates :social_media_url, presence: true, :if => :verify_other
-  validates :grade, numericality: true, allow_blank: true, :if => :verify_student
-  validates :address_city, presence: true, on: :update, :unless => :should_validate_password?
-  validates :address_state, presence: true, on: :update, :unless => :should_validate_password?
+  validates :first_name, length: {maximum: 25}, presence: true
+  validates :last_name, length: {maximum: 25}, presence: true
   validate :screen_name_custom
+
+  def screen_name_custom
+    if screen_name.downcase.include?(first_name.downcase) || screen_name.downcase.include?(last_name.downcase)
+      errors.add(:screen_name, "can't contain any part of your real name.")
+    end
+  end
+
   #validates :school_url, presence: true, url: true, :if => :verify_teacher
   #validates_presence_of :school_name, :if => :active_student?
   #validates_confirmation_of :email, on: :create
   #validates_attachment_presence :avatar
   #validates_attachment_size :avatar, :less_than => 5.megabytes
   #validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
+
+  state_machine initial: :incomplete do
+
+    event :finish do
+      transition :incomplete => :complete
+    end
+
+    state :complete do
+      VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+      validates :parent_email, format: { with: VALID_EMAIL_REGEX }, presence: true, 
+        :if => :student?, :unless => :should_validate_password? 
+      validates :grade, presence: true, numericality: true, allow_blank: true, 
+        :if => :student?, :unless => :should_validate_password? 
+      validates :school_name, presence: true, length: {maximum: 100}, 
+        :if => [:student?, :teacher?]
+      validates :personal_email, format: { with: VALID_EMAIL_REGEX }, 
+        uniqueness: {case_sensitive: false}, presence: true, 
+        :unless => :student?
+      validates :personal_email, format: { with: VALID_EMAIL_REGEX }, 
+        allow_blank: true, :if => :student?
+      validates :social_media_url, presence: true, :if => :other?
+      validates :address_city, presence: true, on: :update, 
+        :unless => :should_validate_password?
+      validates :address_state, presence: true, on: :update, 
+        :unless => :should_validate_password?
+      validates :school_url, presence: true, url: true, :if => :teacher?
+      
+      def student?
+        if self.role == "student"
+          return true
+        else
+          return false
+        end
+      end
+
+      def teacher?
+        if self.role == "teacher"
+          return true
+        else
+          return false
+        end
+      end
+
+      def other?
+        if self.role != "student" && self.role != "teacher"
+          return true
+        else
+          return false
+        end
+      end
+    end
+  end
 
   def past_homeworks
     assignments.where("end_date<?", Time.now).last(4)
@@ -245,28 +288,8 @@ class User < ActiveRecord::Base
     "#{last_name}, #{first_name}"
   end
 
-  def verify_student_or_teacher
-    validate_student || validate_teacher
-  end
-
-  def verify_teacher_or_other
-    validate_teacher || validate_other
-  end
-
   def should_validate_password? 
     updating_password || new_record?
-  end
-
-  def verify_student
-    validate_student
-  end
-
-  def verify_teacher
-    validate_teacher
-  end
-
-  def verify_other
-    validate_other
   end
 
   def self.visible
@@ -279,7 +302,6 @@ class User < ActiveRecord::Base
 
   def feed
     Post.where(state:["published", "verified", "old", "revised"]).from_users_followed_by(self)
-    # Post.all.keep_if{|p| p.state.in?(["verified", "published"]) && p.user.in?(self.followed_users)}
   end
 
   def following?(other_user)
@@ -390,46 +412,6 @@ class User < ActiveRecord::Base
   def ref_withdraw!(other_user)
     referrals.find_by_referrer_id(other_user.id).destroy
   end
-  
-  def create_natures
-    if self.role == "student" &&
-          !self.screen_name.nil? &&
-          !self.first_name.nil? &&
-          !self.last_name.nil? &&
-          !self.role.nil? &&
-          !self.grade.nil? &&
-          !self.school_name.nil? &&
-          !self.parent_email.nil? &&
-          self.rules == true &&
-          self.privacy == true &&
-          Nature.where(user_id: self.id).blank?   
-        Nature.create!(user_id: self.id, complete: "true")  
-    elsif self.role == "teacher" &&
-          !self.screen_name.nil? &&
-          !self.first_name.nil? &&
-          !self.last_name.nil? &&
-          !self.role.nil? &&
-          !self.school_name.nil? &&
-          !self.school_url.nil? &&
-          !self.personal_email.nil? &&
-          self.rules == true &&
-          self.privacy == true &&
-          Nature.where(user_id: self.id).blank?   
-        Nature.create!(user_id: self.id, complete: "true") 
-    elsif self.role != "teacher" &&
-          self.role != "student" &&
-          !self.screen_name.nil? &&
-          !self.first_name.nil? &&
-          !self.last_name.nil? &&
-          !self.role.nil? &&
-          !self.social_media_url.nil? &&
-          !self.personal_email.nil? &&
-          self.rules == true &&
-          self.privacy == true &&
-          Nature.where(user_id: self.id).blank?   
-        Nature.create!(user_id: self.id, complete: "true")           
-    end
-  end
 
   def reputation(age)
     User.cr_joins.cr_for(self.id).cr_sum.first.count.to_i
@@ -515,11 +497,5 @@ private
     begin
       self[column] = SecureRandom.urlsafe_base64
     end while User.exists?(column => self[column])
-  end
-
-  def screen_name_custom
-    if screen_name.downcase.include?(first_name.downcase) || screen_name.downcase.include?(last_name.downcase)
-      errors.add(:screen_name, "can't contain any part of your real name.")
-    end
-  end
+  end  
 end

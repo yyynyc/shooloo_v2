@@ -58,13 +58,16 @@
                     </span> 
                     <span>  
                       <span class='alert-heading'>
-                        <% if activity.trackable_type == "Authorization" || activity.trackable_type == "Response" || activity.trackable_type == "Reminder" || activity.trackable_type == "Introduction"%>
-                          <%= link_to activity.user.full_name_us, posts_user_path(activity.user) %>
+                        <% if activity.trackable_type.in?(["Authorization", "Response", "Reminder", "Introduction"]) || activity.action.in?(["at_grade", "below_grade", "publish", "qualify"])%>
+                          <% if activity.user.admin? %>
+                            Shooloo
+                          <% else %>
+                            <%= link_to activity.user.full_name_us, posts_user_path(activity.user) %>
+                          <% end %>
                         <% else %>    
-                          <%= link_to activity.user.screen_name, posts_user_path(activity.user) %> 
+                          <%= link_to activity.user.screen_name, posts_user_path(activity.user) %> (<i>a <%= activity.user.role %><% if !activity.user.grade.nil? %> in grade <%= activity.user.grade %><% end %></i>)
                         <% end %>
-                        (<i>a <%= activity.user.role %><% if !activity.user.grade.nil? %>
-                          in grade <%= activity.user.grade %><% end %></i>)
+                        
                       </span>
                     </span>
                   <% end %>

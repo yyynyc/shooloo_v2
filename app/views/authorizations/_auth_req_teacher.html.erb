@@ -1,12 +1,12 @@
 <%= form_for(current_user.authorizations.build(authorizer_id: user.id)) do |f| %>
 	<%= render 'shared/error_messages', object: f.object %>
   	<div><%= f.hidden_field :authorizer_id %></div>
-  	<div class="search-label">
-  		<%= f.label :code, "Authorization Code" %>
-  	</div>
-  	<div class="search-label">
-	  <%= f.text_field :code %>
-	</div>
+  	<!-- <div class="search-label"> -->
+  		<%#= f.label :code, "Authorization Code" %>
+  	<!-- </div> -->
+  	<!-- <div class="search-label"> -->
+	  <%#= f.text_field :code %>
+	<!-- </div> -->
 	<div>
   		<%= f.submit "Request Authorization from Shooloo", class: "btn btn-large btn-primary", disable_with: "Proccessing..." %>
   	</div>

@@ -121,6 +121,7 @@ module ShoolooV2
     TEACHER_CONTEST = 20
     AT_GRADE = 20
     BELOW_GRADE = 10
+    PUBLICATION_CREDIT = 100
 end
 
 

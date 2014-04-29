@@ -71,7 +71,8 @@ class Post < ActiveRecord::Base
       :update_points, :create_student_contest]
     after_transition :on => :publish, :do => [:give_points, :update_stats, 
       :alert_nudger, :qualify, :update_points]
-    after_transition :on => :verify, :do => [:update_stats, :alert_nudger]
+    after_transition :on => :verify, :do => [:update_stats, :alert_nudger, 
+      :update_characters]
 
     event :submit do
       transition :draft => :submitted
@@ -100,21 +101,9 @@ class Post < ActiveRecord::Base
       #validates_attachment_presence :photo
       validates_attachment_size :photo, :less_than => 5.megabytes
       validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
-      validate :question_custom
-      validate :answer_custom
-      
-      
-      def question_custom
-        if question.downcase.include?(self.user.first_name.downcase) || question.downcase.include?(self.user.last_name.downcase)
-          errors.add(:question, "can't contain any part of your real name.")
-        end
-      end
-
-      def answer_custom
-        if answer.downcase.include?(self.user.first_name.downcase) || answer.downcase.include?(self.user.last_name.downcase)
-          errors.add(:answer, "can't contain any part of your real name.")
-        end
-      end
+      validate {|p| p.question_custom}
+      validate {|p| p.answer_custom}
+      validate {|p| p.user_credential}    
     end
 
     state :published, :revised do
@@ -128,6 +117,28 @@ class Post < ActiveRecord::Base
         if self.user.pubcred <= 0
           errors.add(:base, "You don't have any publication credits left to submit any new post!")
         end
+      end
+    end
+  end
+
+  def question_custom
+    if question.downcase.include?(self.user.first_name.downcase) || question.downcase.include?(self.user.last_name.downcase)
+      errors.add(:question, "can't contain any part of your real name.")
+    end
+  end
+
+  def answer_custom
+    if answer.downcase.include?(self.user.first_name.downcase) || answer.downcase.include?(self.user.last_name.downcase)
+      errors.add(:answer, "can't contain any part of your real name.")
+    end
+  end
+
+  def user_credential
+    if self.user.authorizations.blank?
+      if self.user.state == "incomplete"
+        errors.add(:base, "You must complete your profile first before publishing anything! Go to Account on the top menu bar and then click on My Information.") 
+      else
+        errors.add(:base, "You must obtain authorization first before publishing anything! Go to Account on the top menu bar and then click on Request Authorization.")
       end
     end
   end
@@ -162,6 +173,9 @@ class Post < ActiveRecord::Base
       self.user.post_count += 1
       self.user.save(validate: false)
     end
+  end
+
+  def update_characters
     self.update_attributes!(steps: self.correction.steps, 
       level_id: self.correction.level_id, 
       domain_id: self.correction.domain_id,
@@ -182,7 +196,11 @@ class Post < ActiveRecord::Base
     if self.competition == 1
       self.update_attributes!(qualified: "yes")
       self.user.point.qualified += 1
-      self.user.point.education += ShoolooV2::TEACHER_CONTEST
+      if !self.user.admin?
+        if self.role != "student"
+          self.user.point.education += ShoolooV2::TEACHER_CONTEST 
+        end
+      end
       self.user.point.save
     end
   end

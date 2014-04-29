@@ -32,12 +32,14 @@ class Introduction < ActiveRecord::Base
   	Authorization.create!(authorized_id: self.introducee.id, authorizer_id:
   		2, approval: "accepted")	
     Activity.create!(action: "new", trackable: self, 
-        user_id: self.introducee_id, recipient_id: self.introducer_id)	
+        user_id: self.introducee_id, recipient_id: self.introducer_id)
   end
 
   after_update do
-  	self.introducer.point.advocacy += ShoolooV2::INTRO
-    self.introducer.point.save!
+    unless self.introducer.admin? 
+    	self.introducer.point.advocacy += ShoolooV2::INTRO
+      self.introducer.point.save!
+    end
     self.introducee.point.advocacy += ShoolooV2::INTRO
     self.introducee.point.save!
   end

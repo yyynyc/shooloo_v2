@@ -10,11 +10,6 @@
 		<% else %>
 			<%= render 'shared/req_no' %>
 		<% end %>
-		<% if can? :crud, Rating %>
-			<%= render 'shared/ref_yes' %>
-		<% else %>
-			<%= render 'shared/ref_no' %>
-		<% end %>
 		<% if can? :crud, Post %>
 			<%= render 'shared/auth_yes' %>
 		<% else %>

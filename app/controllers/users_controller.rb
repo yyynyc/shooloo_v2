@@ -92,35 +92,38 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.role == "student"
-      @user.validate_student = true
-    elsif 
-      @user.role == "teacher"
-      @user.validate_teacher = true
-    else
-      @user.validate_other = true
-    end
-    if @user.update_attributes(params[:user])
-      sign_in @user
-      if @user.authorizations.any?
-        if @user.role == "teacher" 
-          if @user.authorized_users.blank?
-            flash[:success] = "Success! Import your student roster and get 30 points toward getting an Advocate Teacher Prize!"
-            redirect_to new_user_import_path
+    @user.update_attributes(params[:user])
+    if @user.state == "incomplete"
+      if @user.finish
+        sign_in @user
+        if @user.authorizations.any?
+          if @user.role == "teacher" 
+            if @user.authorized_users.blank?
+              flash[:success] = "Success! Import your student roster and get 30 points toward getting an Advocate Teacher Prize!"
+              redirect_to new_user_import_path
+            else
+              flash[:success] = "Success! "
+              redirect_to videos_path
+            end
           else
-            flash[:success] = "Success! "
-            redirect_to videos_path
+            flash[:success] = "Information updated successfully!"
+            redirect_to root_path
           end
-        else
-          flash[:success] = "Information updated successfully!"
-          redirect_to root_path
+        else 
+          flash[:error] = "One last thing: get authorization below."
+          redirect_to new_authorization_path        
         end
-      else 
-        flash[:error] = "One last thing: get authorization below."
-        redirect_to new_authorization_path        
+      else
+        render 'edit'
       end
     else
-      render 'edit'
+      if @user.save
+        sign_in @user
+        flash[:success] = "Information updated successfully!"
+        redirect_to root_path
+      else
+        render 'edit'
+      end
     end
   end
 

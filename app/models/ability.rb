@@ -33,18 +33,20 @@ class Ability
             can [:create, :destroy], [Referral, Authorization]
             can [:create, :destroy], [Like, Relationship, Nudge]
             can :crud, [Activity,Rating, Keep]
+            can :crud, Post
             can :create, Alarm
             can :read, :all
             can [:index, :show, :premium], Video
-        elsif !user.nature.nil? && user.nature.complete?
+        elsif user.complete?
             can [:create, :destroy], [Referral, Authorization]
             can [:new], [Comment, Assignment, Lesson, Response, Keep]
-            can [:new, :draft, :teacher_view], Post
+            can :crud, Post
             can :read, :all
             can :crud, [Activity, Keep]
             can [:index, :show, :premium], Video
         else
             can :read, :all
+            can :crud, Post
             can :crud, Activity
             can [:index, :show, :premium], Video
         end        

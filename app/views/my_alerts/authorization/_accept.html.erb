@@ -5,11 +5,12 @@
 		on <%= activity.created_at.strftime("%b %d, %Y") %>.
 	</span>
 	<br/>
-	Express your thanks and 
-	<%= link_to "comment", posts_user_path(activity.user) %> on <%= activity.user.screen_name %>'s posts
-	 or <%= link_to "publish", root_path %> your own posts.<br/>
-	 You've also gained the power to <%= link_to "grant referals", referrals_path %> to new users now.
-	
+	 <% if current_user.role == "teacher" %>
+	 	You can now <%= link_to "publish", new_post_path %> your own posts, <%= link_to "create accounts", new_user_import_path %> for your students, and <%= link_to "invite", new_invitemail_path %> fellow educators. <br/>
+	 <% else %>
+	 	You now have <%= ShoolooV2::PUBLICATION_CREDIT %> points of publication credit and can <%= link_to "publish", new_post_path %> your own posts.<br/>
+	 	You can also <%= link_to "grant referals", referrals_path %> to new users now.
+	 <% end %>
 <% else %>
 	<span class='alert-heading'>
 		has granted you the authorization but has changed mind.

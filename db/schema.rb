@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140426230906) do
+ActiveRecord::Schema.define(:version => 20140429131437) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -611,6 +611,7 @@ ActiveRecord::Schema.define(:version => 20140426230906) do
     t.string   "address_state"
     t.integer  "pubcred",                :default => 0
     t.integer  "correction_count",       :default => 0
+    t.string   "state"
   end
 
   add_index "users", ["personal_email"], :name => "index_users_on_personal_email"

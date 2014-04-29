@@ -21,6 +21,8 @@ SitemapGenerator::Sitemap.create do
   add grade_6_path, :priority => 0.8, :changefreq => 'daily'
   add grade_7_path, :priority => 0.8, :changefreq => 'daily'
   add grade_8_path, :priority => 0.8, :changefreq => 'daily'
+  add grade_8_path, :priority => 0.8, :changefreq => 'daily'
+  add hs_algebra_path, :priority => 0.8, :changefreq => 'daily'
   add signup_path, :priority => 0.7, :changefreq => 'never'  
   add contact_path, :priority => 0.6, :changefreq => 'monthly'
   add team_path, :priority => 0.5, :changefreq => 'monthly'

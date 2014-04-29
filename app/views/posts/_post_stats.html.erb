@@ -6,12 +6,6 @@
 	<% end %>
 </span> 
 
-<% if post.ratings_count.to_i >0 %>
-<i class="icon-star"></i>
-	<%= link_to post.ratings_count, "#", "class" => "rate", "rel" => "tooltip", 
-		"title" => "#{rater_list(post)} rated your post." %>
-<% end %>
-
 <% if post.comments_count.to_i >0 %>
 <i class="icon-comment"></i>
 	<%= link_to post.comments_count, "#", "class" => "comment", "rel" => "tooltip", "title" => "#{commenter_list(post)} commented on your post." %>

@@ -32,6 +32,18 @@ class PostsController < ApplicationController
             keywords: 'Shooloo, Common Core, CCSS, math, word problem, critique, rate, real life, cooperative learning'
   end
 
+  def post_master
+    @posts = Post.all
+    @qualified = Post.where(qualified: "yes").order('created_at DESC')
+    @drafts = Post.where(state: "draft").order('created_at DESC')
+    @submissions = Post.where(state: "Submitted").order('created_at DESC')
+    @checked_out = Post.where(state: "under_review").order('created_at DESC')
+    @verified = Post.where(state: "verified").order('created_at DESC')
+    @revised = Post.where(state: "revised").order('created_at DESC')
+    @published = Post.where(state: "published").order('created_at DESC')
+    @old = Post.where(state: "old").order('created_at DESC')
+  end
+
   def new  
     if params.has_key?(:response_id)  
       @response = Response.find(params[:response_id])

@@ -15,11 +15,11 @@ class SessionsController < ApplicationController
         redirect_back_or my_alerts_path
       end
     unless Event.where(benefactor_id: user.id, event: "sign in").where(
-      'Date(created_at)=?', Date.today).any? || user.id == 1
+      'Date(created_at)=?', Date.today).any? || user.admin? || user.role == "editor"
       Event.create!(benefactor_id: user.id, beneficiary_id: 1, 
       event: "sign in", value: ShoolooV2::SIGN_IN)
       flash[:message] = "Welcome back! You've just earned some points towards getting a gift. To get more points,
-        #{ActionController::Base.helpers.link_to "publish a post", root_path} or 
+        #{ActionController::Base.helpers.link_to "publish a post", new_post_path} or 
         #{ActionController::Base.helpers.link_to "make a comment", posts_path}.".html_safe
       end
     else

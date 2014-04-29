@@ -1,0 +1,51 @@
+<% noindex %>
+<% nofollow %>
+<h1> Post Master (<%= @posts.count %>) </h1>
+<h2>Qualified (<%= @qualified.count %>)</h2>
+	<% if @qualified.any? %>
+		<% @qualified.each do |p| %>
+			#<%= link_to p.id, post_comments_path(p) %> |
+		<% end %>
+	<% end %>
+<h2>Drafts (<%= @drafts.count %>)</h2>
+	<% if @drafts.any? %>
+		<% @drafts.each do |p| %>
+			#<%= link_to p.id, post_draft_path(p) %> by <%= link_to p.user.full_name_us, edit_user_path(p.user) %> | 
+		<% end %>
+	<% end %>
+<h2>Submissions (<%= @submissions.count %>)</h2>
+	<% if @submissions.any? %>
+		<% @submissions.each do |p| %>
+			#<%= link_to p.id, post_draft_path(p) %> by <%= link_to p.user.full_name_us, edit_user_path(p.user) %> |
+		<% end %>
+	<% end %>
+<h2>Checked Out (<%= @checked_out.count %>)</h2>
+	<% if @checked_out.any? %>
+		<% @checked_out.each do |p| %>
+			#<%= link_to p.id, post_draft_path(p) %> by <%= link_to p.user.full_name_us, edit_user_path(p.user) %> |
+		<% end %>
+	<% end %>
+<h2>Verfied (<%= @verified.count %>)</h2>
+	<% if @verified.any? %>
+		<% @verified.each do |p| %>
+			#<%= link_to p.id, post_comments_path(p) %> |
+		<% end %>
+	<% end %>
+<h2>Revised (<%= @revised.count %>)</h2>
+	<% if @revised.any? %>
+		<% @revised.each do |p| %>
+			#<%= link_to p.id, post_comments_path(p) %> |
+		<% end %>
+	<% end %>
+<h2>Published (<%= @published.count %>)</h2>
+	<% if @published.any? %>
+		<% @published.each do |p| %>
+			#<%= link_to p.id, post_comments_path(p) %> |
+		<% end %>
+	<% end %>
+<h2>Old (<%= @old.count %>)</h2>
+	<% if @old.any? %>
+		<% @old.each do |p| %>
+			#<%= link_to p.id, post_comments_path(p) %> |
+		<% end %>
+	<% end %>

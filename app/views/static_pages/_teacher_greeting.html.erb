@@ -1,6 +1,6 @@
 <% if signed_in? %>
 	<p><strong>
-		<% if @user.nature.nil? %>
+		<% if !@user.complete? %>
 			<%= link_to "Complete your account information", edit_user_path(current_user) %>
 		<% elsif @user.authorized_users.blank? %>
 			<%= link_to "Create accounts for all of your students instantly", edit_user_path(current_user) %>

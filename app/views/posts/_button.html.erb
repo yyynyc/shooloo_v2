@@ -5,7 +5,7 @@
 			<%= link_to "Create A New Homework Assignment Now!", new_assignment_path, class: "btn btn-large btn-success" %>
 		<% elsif current_user.authorizations.where(approval: "accepted").any? %>
 			<%= link_to "Import My Student Roster Now!", new_user_import_path, class: "btn btn-large btn-success" %>
-		<% elsif !current_user.nature.nil? && current_user.nature.complete? %>
+		<% elsif current_user.complete? %>
 			<%= link_to "Check Out Common Core Math Word Problems Now!", posts_path, class: "btn btn-large btn-success" %>
 		<% else %>
 			<%= link_to "Complete My Profile Now!", edit_user_path(current_user), class: "btn btn-large btn-success" %>

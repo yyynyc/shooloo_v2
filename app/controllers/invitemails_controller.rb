@@ -10,7 +10,7 @@ class InvitemailsController < ApplicationController
   	@invitemail = current_user.invitemails.build(params[:invitemail])
   	if @invitemail.save
       flash[:success] = "Email sent successfully! When your fellow educator joins Shooloo, both of you will get 10 points towards getting an Advocacy Prize!"
-      redirecct_back_or root_path
+      redirect_back_or root_path
       # respond_to do |format|
 	    # 	format.html {redirect_to root_url }
 	    #     format.js {}

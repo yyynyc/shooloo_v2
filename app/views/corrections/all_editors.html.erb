@@ -5,6 +5,7 @@
 <% if !@editors.blank? %> 
 	<table class="table-ccss">
 		<tr>
+			<th>User Id</th>
 			<th>Name</th>
 			<th>Total</th>
 			<th>Drafts</th>
@@ -13,6 +14,7 @@
 		</tr>
 		<% @editors.each do |e| %>
 			<tr>
+				<td><%= e.id %></td>
 				<td><%= e.full_name_us %></td>
 				<td class="right-align"><%= e.correction_count %></td>
 				<td class="right-align"><%= e.corrections.where(state: "draft").count %></td>

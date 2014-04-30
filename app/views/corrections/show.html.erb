@@ -65,7 +65,7 @@
 		Assessment of
 		<% if current_user.role == "editor" %>
 			<%= link_to "the Author's Original Problem", edit_correction_path(@correction)%> 
-		<% elsif current_user?(@post.user) || current_user.role?(["teacher", "tutor", "parent", "other"]) %>
+		<% elsif current_user?(@post.user) || current_user.role.in?(["teacher", "tutor", "parent", "other"]) %>
 			<%= link_to "the Author's Original Problem", post_draft_path(@post)%> 
 		<% else %>
 			<%= link_to "the Author's Original Problem", post_comments_path(@post)%> 

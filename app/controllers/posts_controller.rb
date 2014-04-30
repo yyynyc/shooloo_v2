@@ -36,7 +36,7 @@ class PostsController < ApplicationController
     @posts = Post.all
     @qualified = Post.where(qualified: "yes").order('created_at DESC')
     @drafts = Post.where(state: "draft").order('created_at DESC')
-    @submissions = Post.where(state: "Submitted").order('created_at DESC')
+    @submissions = Post.where(state: "submitted").order('created_at DESC')
     @checked_out = Post.where(state: "under_review").order('created_at DESC')
     @verified = Post.where(state: "verified").order('created_at DESC')
     @revised = Post.where(state: "revised").order('created_at DESC')

@@ -33,6 +33,11 @@ class CommentsController < ApplicationController
             @comment = @response.comments.build(params[:comment])
             @assignment = @response.assignment
             @post = @assignment.assigned_post 
+            if @post.hstandard.nil?
+                @related_posts = @post.standard.posts.where('id !=?', @post.id)
+            else
+                @related_posts = @post.hstandard.posts.where('id !=?', @post.id)
+            end
             if !@post.correction.nil?
                 @correction = @post.correction
             end 
@@ -87,6 +92,11 @@ class CommentsController < ApplicationController
         else 
             raise "you need a post" if @post.nil?
             @post  = @comment.commented_post
+            if @post.hstandard.nil?
+                @related_posts = @post.standard.posts.where('id !=?', @post.id)
+            else
+                @related_posts = @post.hstandard.posts.where('id !=?', @post.id)
+            end
             @alarm = @post.alarms.build
             @comments = @post.comments.paginate(page: params[:page],  
                 order: 'created_at DESC')      

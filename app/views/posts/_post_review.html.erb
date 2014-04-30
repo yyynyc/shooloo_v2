@@ -58,12 +58,16 @@
           <% end %>
         <% end %>
       </p>
-      <p>
-        <strong>Related Posts:</strong> 
-        <% @related_posts.each do |p| %>
-          #<%= link_to p.id, post_comments_path(p) %> |
-        <% end %>
-      </p>
     <% end %>
   </div>
+  <% if @related_posts.any? %>
+    <p>
+      <span class="alert-heading">
+        <strong>Related Posts in the Same CCSS Standard:</strong> 
+      </span>
+      <% @related_posts.each do |p| %>
+        #<%= link_to p.id, post_comments_path(p) %> |
+      <% end %>
+    </p>
+  <% end %>
 </div>

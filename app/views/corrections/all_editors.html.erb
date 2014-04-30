@@ -16,7 +16,7 @@
 				<td><%= e.full_name_us %></td>
 				<td class="right-align"><%= e.correction_count %></td>
 				<td class="right-align"><%= e.corrections.where(state: "draft").count %></td>
-				<td class="right-align"><%= e.corrections.where(state: "Submitted").count %></td>
+				<td class="right-align"><%= e.corrections.where(state: "submitted").count %></td>
 				<td class="right-align"><%= e.corrections.where(state: "revised").count %></td>
 			</tr>
 		<% end %>

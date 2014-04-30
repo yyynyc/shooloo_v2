@@ -90,13 +90,17 @@
           <% end %>
           <p class="center"><%= link_to "Find Out the Answer", post_comments_path(@post), class: "btn btn-large btn-primary" %></p>
         <% end %>
+      </div>
+      <% if @related_posts.any? %>
         <p>
-          <strong>Related Posts:</strong> 
+          <span class="alert-heading">
+            <strong>Related Posts in the Same CCSS Standard:</strong> 
+          </span>
           <% @related_posts.each do |p| %>
-            #<%= link_to p.id, new_post_comment_path(p) %> |
+            #<%= link_to p.id, post_comments_path(p) %> |
           <% end %>
         </p>
-      </div>
+      <% end %>
     </div>
   </div>
   <% if signed_in? %>

@@ -28,8 +28,11 @@ class Comment < ActiveRecord::Base
   has_one :color, through: :scorecard
 
   def comment_custom
-    if content.downcase.include?(self.commenter.first_name.downcase) || content.downcase.include?(self.commenter.last_name.downcase)
-      errors.add(:comment, "can't contain any part of your real name.")
+    if content.downcase.include?(self.commenter.first_name.downcase) || 
+      content.downcase.include?(self.commenter.last_name.downcase) ||
+      content.downcase.include?(self.commented_post.user.last_name.downcase) ||
+      content.downcase.include?(self.commented_post.user.first_name.downcase) 
+      errors.add(:comment, "can't contain any part of your real name or the post's author's real name.")
     end
   end
 

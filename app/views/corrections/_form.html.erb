@@ -23,7 +23,11 @@
 	<%=f.inputs do %>
 		<%= f.input :corrected_post_id, as: :hidden, value: post.id, class: "hidden" %> 
 		<div class="correction"> 
-			<%= f.input :competition, label: "Is this problem about healthy eating?", as: :radio, collection: [["Yes! ", 1],["No.", 0]] %>
+			<% if post.old? %>
+				<%= f.input :competition, as: :hidden, value: 0, class: "hidden" %>
+			<% else %>
+				<%= f.input :competition, label: "Is this problem about healthy eating?", as: :radio, collection: [["Yes! ", 1],["No.", 0]] %>
+			<% end %>
 			<%= f.input :grammar, label: "Are the question and answer free of grammatical and spelling errors?", as: :radio, collection: [["Yes! ", true],["No.", false]] %>
 			<%= f.input :concept_clear, label: "Is the math concept expressed in the question clear and precise?", as: :radio, collection: [["Yes! ", true],["No.", false]] %>
 			<%= f.input :math_correct, label: "Is the answer calculated correctly?", as: :radio, collection: [["Yes! ", true],["No.", false]] %>

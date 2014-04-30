@@ -28,6 +28,14 @@
 	</span>
 <% end %>
 <br/>Post id #<strong><%= link_to post.id, new_post_comment_path(post)%></strong>
+<% if !post.steps.nil? %>
+	| # of steps: 
+	<% if post.steps < 3 %>
+		<%= post.steps %>
+	<% else %>
+		3 or more steps 
+	<% end %>
+<% end %>
 <% if post.qualified? %>
  	| <strong>qualified</strong> in contest 
 <% else %>

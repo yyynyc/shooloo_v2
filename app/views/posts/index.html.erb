@@ -72,7 +72,7 @@
 				<%= f.label :steps_eq, "Complexity" %>
 			</span>
 			<span class="search-field">
-				<%= f.select :steps_eq, [["", nil],["1-step problem", 1], ["2-step problem", 2], ["3-or-more-step problem", 3]] %>
+				<%= f.select :steps_eq, [["", nil], ["0-step problem", 0], ["1-step problem", 1], ["2-step problem", 2], ["3-or-more-step problem", 3]] %>
 			</span>
 			<span class="search-label">
 				<%= f.submit "Search", class: "btn btn-small btn-primary" %>

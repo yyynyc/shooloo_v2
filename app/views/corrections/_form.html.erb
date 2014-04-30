@@ -32,7 +32,7 @@
 			<%= f.input :concept_clear, label: "Is the math concept expressed in the question clear and precise?", as: :radio, collection: [["Yes! ", true],["No.", false]] %>
 			<%= f.input :math_correct, label: "Is the answer calculated correctly?", as: :radio, collection: [["Yes! ", true],["No.", false]] %>
 			<%= f.input :answer_complete, label: "Does the answer demonstrate the step-by-step solution?", as: :radio, collection: [["Yes! ", true],["No.", false]] %>
-			<%= f.input :steps, label: "How many steps does it take to arrive at the answer?", as: :radio, collection: [["1 step ", 1],["2 steps", 2], [">2 steps", 3]] %>
+			<%= f.input :steps, label: "How many steps does it take to arrive at the answer?", as: :radio, collection: [["0 step", 0], ["1 step ", 1],["2 steps", 2], [">2 steps", 3]] %>
 		</div>
         <div class="create">
         	<%= f.input :question, as: :ckeditor, input_html:{value: corrected_post.question} %>

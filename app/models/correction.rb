@@ -19,7 +19,7 @@ class Correction < ActiveRecord::Base
 	    end 
 
 	    event :revise do
-	      transition [:submitted, :revised] => :revised
+	      transition [:draft, :submitted, :revised] => :revised
 	    end
 
 	   state :submitted, :revised do	   	

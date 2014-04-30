@@ -13,15 +13,13 @@
                 !alarm.alarmed_post_id.nil?) ||
             (current_user.authorized_users.include?(alarm.alarmed_comment.commenter) if !alarm.alarmed_comment_id.nil?)  %>
             <li> 
-                <%= link_to alarm.alarmer.first_name, posts_user_path(alarm.alarmer) %>
-                <%= alarm.alarmer.last_name %>
+                <%= link_to alarm.alarmer.full_name_us, posts_user_path(alarm.alarmer) %>
                 raised alarm on 
-                    <% unless alarm.alarmed_post_id.nil? %>
+                    <% if !alarm.alarmed_post_id.nil? %>
                         post 
-                        #<%= link_to alarm.alarmed_post_id, post_comments_path(alarm.alarmed_post) %>
+                        #<%= link_to alarm.alarmed_post_id, post_comments_path(alarm.alarmed_post_id) %>
                         written by
-                        <%= alarm.alarmed_post.user.first_name %>
-                        <%= alarm.alarmed_post.user.last_name %>
+                        <%= alarm.alarmed_post.user.full_name_us %>
                     <% else %>
                         comment 
                         #<%= link_to alarm.alarmed_comment_id, post_comments_path(alarm.alarmed_comment.commented_post) %>

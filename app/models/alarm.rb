@@ -14,7 +14,9 @@ class Alarm < ActiveRecord::Base
 
   after_destroy do 
     if self.alarmed_post
-      self.alarmed_post.update_attributes!(visible: true, state: "submitted")
+      self.alarmed_post.visible = true
+      self.alarmed_post.state = "submitted"
+      self.alarmed_post.save(validate: false)
       Event.create!(benefactor_id: self.alarmed_post.user_id, beneficiary_id: 1, 
         event: "unalarm post", value: ShoolooV2::UNALARM_POST)
     elsif self.alarmed_comment

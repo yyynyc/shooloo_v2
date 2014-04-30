@@ -28,7 +28,7 @@
 						<%= link_to "Edit", edit_assignment_path(a), class: "btn btn-small btn-primary" %>
 					</td>
 					<td class="center">
-						<% if a.hstandar.nil? %>
+						<% if a.hstandard.nil? %>
 							<%= a.standard.short %>
 						<% else %>
 							<%= a.hstandard.short %>

@@ -2,13 +2,24 @@
 <% nofollow %>
 
 <h1>All Corrections</h1>
+<h2> Under Review </h2>
+<% if @checked_out.any? %>
+	<ul class="users alert-heading" %>
+		<% @checked_out.each do |p| %>
+			<li>
+				Post #<%= link_to p.id, new_post_correction_path(p) %>
+			</li>
+		<% end %>
+	</ul>
+<% end %>
 <h2> Drafts </h2>
 <% if @corrections_draft.any? %>
 	<ul class="users alert-heading" %>
 		<% @corrections_draft.each do |c| %>
 			<li>
 				<%= c.editor.full_name_us %> on <%= c.updated_at %> editted
-				Post #<%= link_to c.corrected_post.id, correction_path(c) %>
+				Post #<%= link_to c.corrected_post.id, correction_path(c) %> |
+				<%= link_to "admin_edit", edit_correction_path(c) %>
 			</li>
 		<% end %>
 	</ul>
@@ -19,7 +30,8 @@
 		<% @corrections_published.each do |c| %>
 			<li>
 				<%= c.editor.full_name_us %> on <%= c.updated_at %> editted
-				Post #<%= link_to c.corrected_post.id, correction_path(c) %>
+				Post #<%= link_to c.corrected_post.id, correction_path(c) %> |
+				<%= link_to "admin_edit", edit_correction_path(c) %>
 			</li>
 		<% end %>
 	</ul>

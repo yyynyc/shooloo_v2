@@ -31,10 +31,10 @@
 			<%= f.input :steps, label: "How many steps does it take to arrive at the answer?", as: :radio, collection: [["1 step ", 1],["2 steps", 2], [">2 steps", 3]] %>
 		</div>
         <div class="create">
-        	<%= f.input :question, as: :ckeditor, input_html:{value: post.question} %>
+        	<%= f.input :question, as: :ckeditor, input_html:{value: corrected_post.question} %>
         </div>
         <div class="create">
-	    	<%= f.input :answer, as: :ckeditor, input_html:{value: post.answer} %> 
+	    	<%= f.input :answer, as: :ckeditor, input_html:{value: corrected_post.answer} %> 
 	    </div> 
 	    <p class="alert-heading no center">
 	    	Warning: Please verify if the following standards are suitable for the problem and make sure to select the right ones.

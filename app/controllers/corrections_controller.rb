@@ -85,6 +85,8 @@ class CorrectionsController < ApplicationController
       params[:page], per_page: 200, order: 'updated_at DESC')
     @corrections_draft = Correction.where(state: "draft").paginate(page: 
       params[:page], per_page: 200, order: 'created_at DESC')
+    @checked_out = Post.where(state: "under_review").paginate(page: 
+      params[:page], per_page: 200, order: 'created_at DESC')
 	end
 
   def all_editors

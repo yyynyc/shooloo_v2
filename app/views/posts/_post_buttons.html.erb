@@ -39,21 +39,24 @@
     <% end %>
   </span>  
   <% if current_user.admin? || current_user.role == "teacher" %>
+    <%# if title != 'Common Core Math Problems Created by Students for Students' %>
+      <!-- <br/> -->
+    <%# end %>
     <%= link_to "Class", post_teacher_view_path(post), class: "btn btn-small btn-danger" %> 
     <% if !post.in?(current_user.assigned_posts) %>
       <%= link_to "Assign", new_post_assignment_path(post), class: "btn btn-small btn-danger" %>  
     <% end %>   
   <% end %>
-  <% if current_user.in?(post.user.authorizers) %>
-    <% if post.grading.nil? %>
-      <%#= link_to "Grade", new_post_grading_path(post), class: "btn btn-small btn-danger" %> 
-    <% else %>
+  <% if current_user.in?(post.user.authorizers) && !post.grading.nil? %>
       <%= link_to "grade: #{post.grading.mark.full_mark}", edit_grading_path(post.grading), class: "btn btn-small btn-success" %> 
-    <% end %>
   <% end %>
 <% end %>
-<% if current_user.role=="editor" %>
-  <%= link_to "verify", new_post_correction_path(post), class: "btn btn-small btn-success" %>
+<% if current_user.admin? %>
+  <% if post.correction.nil? %>
+    <%= link_to "Correct", new_post_correction_path(post), class: "btn btn-small btn-warning" %>
+  <% else %>
+    <%= link_to "Recorrect", edit_correction_path(post.correction), class: "btn btn-small btn-warning" %>
+  <% end %>
 <% end %>
 
          

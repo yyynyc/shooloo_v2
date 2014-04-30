@@ -17,7 +17,7 @@
 			</p>
 		</div>
 	<% end %>
-<% elsif @correction.state=="submitted" %>
+<% else %>
 	<% title "Correction Final" %>
 	<h1>Comparison of Original vs. Corrected Versions of Post #<%= @post.id %> </h1>
 <% end %>
@@ -166,6 +166,7 @@
 <p class="center">
 	<% if current_user.admin? %>
 		<%= link_to "Re-Correct", edit_correction_path(@correction), class: "btn btn-large btn-warning" %> 
+		<%= link_to "All Corrections", corrections_path, class: "btn btn-large btn-success" %> 
 	<% elsif current_user.role != "editor" %>
   		<%= link_to "Create A New Post", new_post_path, class: "btn btn-large btn-primary" %> 
   	<% end %>

@@ -3,7 +3,11 @@
     <div class="row well well-small">
       <% if feed_item.state == "draft" %>
         <span class="no">
-          This draft is not finished and has not been submitted for publication.
+          <% if feed_item.alarms.any? %>
+            This post has been alarmed as having <%= link_to "inappropriate content", rules_path %>. Please change it and re-submit it for review.
+          <% else %>
+            This draft is not finished and has not been submitted for publication.
+          <% end %>
         </span>
       <% elsif feed_item.state == "submitted" %>
         <span>

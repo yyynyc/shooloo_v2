@@ -4,7 +4,7 @@ class Post < ActiveRecord::Base
   attr_accessible :answer, :grade, :question, :comments_count, :ratings_count, :likes_count,
     :photo, :photo_remote_url, :image_host, :category, :graded, :user_id,
     :level_id, :domain_id, :standard_id, :quality_id, :subject_id, :response_id, 
-    :state, :competition, :steps, :qualified, :hstandard_id
+    :state, :competition, :steps, :qualified, :hstandard_id, :visible
   attr_reader :photo_remote_url
   belongs_to :user
   belongs_to :hstandard

@@ -18,7 +18,7 @@ class StaticPagesController < ApplicationController
           page: params[:page], per_page: 2000, order: "competition DESC, created_at ASC")
         @publications = Post.where(state: "old").paginate(page: params[:page], 
           per_page: 2000, order: "created_at DESC")
-        @corrections = current_user.corrections.where(state: "submitted")
+        @corrections = current_user.corrections.where(state: ["submitted", "revised"])
       end
     end
     set_meta_tags title: 'Common Core Math Problems Created by Students for Students', 

@@ -19,74 +19,57 @@
 	<% end %>
 <% elsif @correction.state=="submitted" %>
 	<% title "Correction Final" %>
-	<h1>  Review and/or Corrections of Post #<%= @post.id %></h1>
-	<p class="center">
-		<%= link_to "See Editor's Corrections", post_corrected_path(@post), class: "btn btn-large btn-success" %> 
-	</p>
+	<h1>Comparison of Original vs. Corrected Versions of Post #<%= @post.id %> </h1>
 <% end %>
 
-
-<div class="row margin-left">
-	<div class="image" >
-		<%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %>
+<div class="row alert-heading">
+	<div class="span6 split-left no">
+		<h2> Original Verison </h2>
+	    <p><strong>Question:</strong> <%= @post.question.html_safe %></p>
+	    <p><strong>Answer: </strong> <%= @post.answer.html_safe %></p>
 	</div>
-	<div class="alert-heading">
-		<% if current_user.role=="editor" %>
-			<p><strong>Grade Level: </strong>
-				<% if !@correction.level_id.nil? %>
-					<%= @correction.level.name %>
-				<% else %>
-					<span class="no"> ??? </span>	
-				<% end %>
-			</p>
-			<p><strong>Corrected Question: </strong>
-				<%= @correction.question.html_safe %>
-			</p>
-			<p><strong>Corrected Answer: </strong>
-				<%= @correction.answer.html_safe %>
-			</p>
-			<p>
-				<% if !@correction.hstandard_id.nil? %>
-					<strong><%= @correction.hstandard.symbol %>:</strong> <%= @correction.hstandard.description %>
-				<% elsif !@correction.standard_id.nil? %>
-					<strong><%= @correction.standard.symbol %>:</strong> <%= @correction.standard.description %>
-				<% else %>
-					<strong>CCSS Standard:</strong>
-						<span class="no"> ??? </span>
-				<% end %>
+	<div class="span6 split-right yes">
+		<h2> Corrected Verison </h2>
+		<p><strong>Question:</strong> <%= @correction.question.html_safe %></p>
+	    <p><strong>Answer: </strong> <%= @correction.answer.html_safe %></p>
+	</div>
+</div>
+<div class="row auth-font">
+	<div class="span2">
+		<p><strong>I-can Statement:</strong></p>
+	</div>
+	<div class="span10">
+		<% if @correction.hstandard.nil? %>
+			<p>In <%= @correction.domain.name %>, <%= @correction.standard.ICan %>
 			</p>
 		<% else %>
-			<p><strong>Original Question: </strong>
-				<%= @post.question.html_safe %>
-			</p>
-			<p><strong>Original Answer: </strong>
-				<%= @post.answer.html_safe %>
-			</p>
-			<p>
-				<% if current_user.role == "student" %>
-	                <strong>"I can" statement: </strong> In <%= @post.domain.name %>, 
-	                <% if @post.hstandard.nil? %>
-	                  <%= @post.standard.ICan %>
-	                <% else %>
-	                  <%= @post.hstandard.ICan %>
-	                <% end %>
-	            <% else %>
-	                <strong>CCSS Standard:</strong>
-	                <% if @post.hstandard.nil? %>
-	                  <%= @post.standard.short %> -- <%= @post.standard.description %>
-	                <% else %>
-	                  <%= @post.hstandard.short %> -- <%= @post.hstandard.description %>
-	                <% end %>
-	            <% end %>
+			<p>In <%= @correction.domain.name %>, <%= @correction.hstandard.ICan %>
 			</p>
 		<% end %>
-	</div>	
+	</div>
 </div>
-
+<div class="row auth-font">
+	<div class="span2">
+		<p><strong>Common Core Standard:</strong></p>
+	</div>
+	<div class="span10">
+		<% if @correction.hstandard.nil? %>
+			<p><%= @correction.standard.full_description %></p>
+		<% else %>
+			<p><%= @correction.hstandard.full_description %></p>
+		<% end %>
+	</div>
+</div>
 <div class="row margin-left">
 	<h2> 
 		Assessment of
-		<%= link_to "the Author's Original Problem", edit_correction_path(@correction)%> 
+		<% if current_user.role == "editor" %>
+			<%= link_to "the Author's Original Problem", edit_correction_path(@correction)%> 
+		<% elsif current_user?(@post.user) || current_user.role?(["teacher", "tutor", "parent", "other"]) %>
+			<%= link_to "the Author's Original Problem", post_draft_path(@post)%> 
+		<% else %>
+			<%= link_to "the Author's Original Problem", post_comments_path(@post)%> 
+		<% end %>
 		<% if @post.competition == 1 %>
 			vs. Requirements of the Math <%= link_to "Contest", contest_path %>
 		<% end %>
@@ -180,3 +163,10 @@
 		</li>	
 	</ul>
 </div>
+<p class="center">
+	<% if current_user.admin? %>
+		<%= link_to "Re-Correct", edit_correction_path(@correction), class: "btn btn-large btn-warning" %> 
+	<% elsif current_user.role != "editor" %>
+  		<%= link_to "Create A New Post", new_post_path, class: "btn btn-large btn-primary" %> 
+  	<% end %>
+</p>

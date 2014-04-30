@@ -33,8 +33,7 @@
   <h1> Author's Original Version: not reviewed </h1>
   <% if !@post.correction.nil? %>
     <p class="center">
-      <%= link_to "Editor's Assessment", correction_path(@post.correction), class: "btn btn-large btn-success" %> 
-      <%= link_to "Corrected Versions", post_corrected_path(@post), class: "btn btn-large btn-success" %> 
+      <%= link_to "Editor's Assessment & Corrections", correction_path(@post.correction), class: "btn btn-large btn-success" %> 
     </p>
   <% end %>
 <% end %>

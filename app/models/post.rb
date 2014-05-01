@@ -170,7 +170,7 @@ class Post < ActiveRecord::Base
       if self.user.post_count.nil?
         self.user.post_count = 0
       end
-      self.user.post_count += 1
+      self.user.post_count = self.user.posts.count
       self.user.save(validate: false)
     end
   end
@@ -195,11 +195,10 @@ class Post < ActiveRecord::Base
   def qualify
     if self.competition == 1
       self.update_attributes!(qualified: "yes")
-      self.user.point.qualified += 1
-      if !self.user.admin?
-        if self.role != "student"
-          self.user.point.education += ShoolooV2::TEACHER_CONTEST 
-        end
+      if self.user.role == "student"
+        self.user.point.qualified = self.user.posts.where(qualified: "yes").count
+      elsif !self.user.admin?
+        self.user.point.education += ShoolooV2::TEACHER_CONTEST 
       end
       self.user.point.save
     end
@@ -212,7 +211,12 @@ class Post < ActiveRecord::Base
   def create_student_contest
     if self.competition == 1
       self.user.authorizers.each do |a|
-        StudentContest.create!(user_id: a.id, entry_total: 1)
+        if a.student_contest.nil? 
+          StudentContest.create!(user_id: a.id, entry_total: 1)
+        else
+          a.student_contest.entry_total += 1
+          a.student_contest.save
+        end
       end
     end
   end

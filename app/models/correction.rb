@@ -34,10 +34,10 @@ class Correction < ActiveRecord::Base
 	def qualify
 		if self.corrected_post.competition==1
 			if self.competition == 1 && self.grammar? && self.concept_clear? &&
-				self.math_correct? && self.answer_complete? && 
+				self.math_correct? && self.answer_complete? && self.steps > 1
 				self.corrected_post.user.grade <= self.level.number	
 				self.corrected_post.update_attributes!(qualified: "yes")
-				self.corrected_post.user.point.qualified +=1
+				self.corrected_post.user.point.qualified = self.corrected_post.user.posts.where(qualified: "yes").count
 				self.corrected_post.user.point.save
 				self.corrected_post.user.authorizers.each do |a|
 					a.point.inspiration += ShoolooV2::TEACHER_INSPIRATION
@@ -47,7 +47,7 @@ class Correction < ActiveRecord::Base
 				end
 			else
 				self.corrected_post.update_attributes!(qualified: "no")
-				self.corrected_post.user.point.disqualified +=1
+				self.corrected_post.user.point.disqualified = self.corrected_post.user.posts.where(qualified: "no").count
 				self.corrected_post.user.point.save
 				self.corrected_post.user.authorizers.each do |a|
         			a.student_contest.disqualified_total += 1

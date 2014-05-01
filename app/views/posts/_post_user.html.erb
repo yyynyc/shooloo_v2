@@ -36,7 +36,7 @@
 		3 or more steps 
 	<% end %>
 <% end %>
-<% if post.qualified? %>
+<% if post.qualified == "yes" %>
  	| <strong>qualified</strong> in contest 
 <% else %>
 	<% if post.state=="verified" %>

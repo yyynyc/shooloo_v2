@@ -12,6 +12,7 @@
 		<% end %>
 	</ul>
 <% end %>
+<%= will_paginate @checked_out %>
 <h2> Drafts </h2>
 <% if @corrections_draft.any? %>
 	<ul class="users" %>
@@ -24,6 +25,7 @@
 		<% end %>
 	</ul>
 <% end %>
+<%= will_paginate @corrections_draft %>
 <h2> Published </h2>
 <% if @corrections_published.any? %>
 	<ul class="users" %>
@@ -36,6 +38,7 @@
 		<% end %>
 	</ul>
 <% end %>
+<%= will_paginate @corrections_published %>
 <h2> Revised </h2>
 <% if @corrections_revised.any? %>
 	<ul class="users" %>
@@ -48,3 +51,4 @@
 		<% end %>
 	</ul>
 <% end %>
+<%= will_paginate @corrections_revised %>

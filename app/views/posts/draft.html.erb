@@ -4,7 +4,7 @@
   <div class="grading-result">
     <%= render partial: 'posts/grading', locals: {grading: @post.grading} %>
   </div>
-<% elsif current_user.in?(@post.user.authorizers) %>
+<% elsif current_user.in?(@post.user.authorizers) && !@post.response.nil? %>
   <% if !@post.grading.nil? %>
     <div class="grading-result">
       <span class="search-label">

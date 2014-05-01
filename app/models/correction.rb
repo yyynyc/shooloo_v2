@@ -37,8 +37,6 @@ class Correction < ActiveRecord::Base
 				self.math_correct? && self.answer_complete? && self.steps > 1
 				self.corrected_post.user.grade <= self.level.number	
 				self.corrected_post.update_attributes!(qualified: "yes")
-				self.corrected_post.user.point.qualified = self.corrected_post.user.posts.where(qualified: "yes").count
-				self.corrected_post.user.point.save
 				self.corrected_post.user.authorizers.each do |a|
 					a.point.inspiration += ShoolooV2::TEACHER_INSPIRATION
 					a.point.save
@@ -47,13 +45,14 @@ class Correction < ActiveRecord::Base
 				end
 			else
 				self.corrected_post.update_attributes!(qualified: "no")
-				self.corrected_post.user.point.disqualified = self.corrected_post.user.posts.where(qualified: "no").count
-				self.corrected_post.user.point.save
 				self.corrected_post.user.authorizers.each do |a|
         			a.student_contest.disqualified_total += 1
      				a.student_contest.save
 				end
 			end
+			self.corrected_post.user.point.qualified = self.corrected_post.user.posts.where(qualified: "yes").count
+			self.corrected_post.user.point.disqualified = self.corrected_post.user.posts.where(qualified: "no").count
+			self.corrected_post.user.point.save
 			Activity.create!(action: "qualify", trackable: self.corrected_post, 
         		user_id: 1, recipient_id: self.corrected_post.user_id)
 		else
@@ -81,7 +80,7 @@ class Correction < ActiveRecord::Base
 	end
 
 	def update_editor_stats
-		self.editor.correction_count += 1
+		self.editor.correction_count = self.editor.corrections.count
 		self.editor.save(validate: false)
 	end
 

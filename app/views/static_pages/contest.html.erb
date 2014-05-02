@@ -8,80 +8,141 @@
 			<ul class='nav nav-list bs-docs-sidenav affix'>
 				<li><a href="#overview">Overview</a></li>
 				<li><a href="#awards">Adwards</a></li>
-				<li><a href="#deadline">Deadline</a></li>
-				<li><a href="#who">Who May Enter</a></li>
-				<li><a href="#how">How to Enter</a></li>
 				<li><a href="#win">How to Win</a></li>
-				<li><a href="#rules">Rules of Contest</a></li>
-				<li><a href="#lesson">Sample Problems</a></li>
-				<li><a href="#lesson">Sponsors</a></li>
+				<li><a href="#qualification">Qualification</a></li>
+				<li><a href="#sample">Sample Problems</a></li>
+				<li><a href="#review">Editors' Reviews</a></li>
+				<li><a href="#who">Who May Enter</a></li>
+				<li><a href="#deadline">Deadline</a></li>
+				<li><a href="#agreement">Participation Agreement</a></li>
+				<li><a href="#sponsors">Sponsors</a></li>
 				<li><a href="#contact">Contact Us</a></li>
 			</ul>
-			<div class='affix center' style="margin-top: 550px;">
+			<div class='affix center' style="margin-top: 620px;">
 				<p><strong>Sponsored by</strong><p>
 				<p><a href="http://www.kindsnacks.com/" target="_blank" confirm="You are about to visit a site that is not part of Shooloo. Continue?">Kind Snacks</a></p>
-				<p><a href="http://EnchantedCollar.com" target="_blank" confirm="You are about to visit a site that is not part of Shooloo. Continue?">Enchanted Collar </p>
-				<p><a href="http://www.popchips.com/" target="_blank" confirm="You are about to visit a site that is not part of Shooloo. Continue?">Pop Chips </p>
+				<p><a href="http://pretzelcrisps.com/" target="_blank" confirm="You are about to visit a site that is not part of Shooloo. Continue?">Pretzel Crisps</a></p>
+				<p><a href="http://EnchantedCollar.com" target="_blank" confirm="You are about to visit a site that is not part of Shooloo. Continue?">Enchanted Collar</a></p>
+				<p><a href="http://www.popchips.com/" target="_blank" confirm="You are about to visit a site that is not part of Shooloo. Continue?">Pop Chips</a></p>
 				<p><a href="http://www.quinnpopcorn.com/" target="_blank" confirm="You are about to visit a site that is not part of Shooloo. Continue?">Quinn Popcorn</a></p>
 			</div>
 		</div>		
 	</div>
-	<div class='span10 auth-font scrollspy-example' style="margin-left: 200px" data-spy="scroll" data-target=".bs-docs-sidebar">
+	<div class='span10 auth-font scrollspy-example' style="margin-left: 200px; padding-left: 7px;" data-spy="scroll" data-target=".bs-docs-sidebar">
 		<div id="overview">
 			<h2>Overview</h2>
 			<span itemprop="image">
 				<%= image_tag("/attachments/nutrition.jpeg", alt: "Shooloo healthy eating math story contest", style: "float: right; margin-left: 1em; border-radius: 5px;", title: "Shooloo healthy eating math story contest") %>
 			</span>
-			<p> Nearly 1 in 3 children aged 2-19 in the United States is overweighed or obese. Unhealthy eating patterns and physical inactivity are the top two contributors to childhood obesity. For young consumers to understand nutrition labels and make healthy eating decisions, they must utilize high-level mathematical skills, e.g., fractions, ratios, and proportional relationships.</p>
-			<p>To promote mathematical reasoning and critical thinking among young consumers, Shooloo.org is hosting a healthy eating math story contest. Students and teachers in grades 3-12 are invited to submit on Shooloo their own <%= link_to "questions", posts_path %> regarding eating choices, conduct research, gather data, devise solutions, and obtain feedback. Winners will be selected at the end of August 2014 and be awarded with <a href="#awards">prizes</a> from our proud <a href="#sponsors">sponsors</a>.</p>
+			<p> Nearly 1 in 3 children aged 2-19 in the United States is overweighed or obese. Unhealthy eating is the top contributor to childhood obesity. For young consumers to properly interpret nutrition labels and choose truly healthy food, they need in-depth knowledge in mathematics, including fractions, ratios, and proportional relationships.</p>
+			<p>To promote nutritional awareness among children, Shooloo.org is hosting a healthy eating math story contest from May 2 to August 15, 2014. Students and teachers in grades 3-12 are invited to submit on Shooloo their own math <%= link_to "questions", posts_path %> regarding eating choices, conduct research, gather data, and devise solutions.</p> 
 		</div> 
 		<div id="awards">
 			<h2>Awards</h2>
-			<p> Participants have the potential to win prizes in the following four categories:
-				<ul class="popover-list">
-					<li><strong> Teacher Advocacy Award:</strong> Top 10 teachers with the highest advocacy points will each win up to $1,000 worth of prizes from our sponsors, including healthy snacks and books.
-					</li>
-					<li><strong> Teacher Expert Award:</strong> One teacher from each of the grades 3-12 with the highest inspiration and education points combined will win $1,000 worth of prizes.</li>
-					<li><strong>Student Expert Award:</strong> One student from each of the grades 3-12 with the highest qualified entries will win $500 worth of prizes.</li>
-					<li><strong>Student Adept Award:</strong> One student from each of the grades 3-12 with the second highest qualified entries will win $200 worth of prizes.</li>
+			<p> Participants have the potential to win awards in the following three categories:
+				<ul>
+					<li><p><strong>Educator Advocacy Award:</strong> Ten educators (i.e., teachers, administrators, technology coordinators, or curriculum coordinators affiliated with a school) may each win <strong>over $500</strong> worth of healthy snacks from our <a href="#sponsors">sponsors</a>. If you are an educator and an authorized Shooloo member, you may <%= link_to "log in", signin_path %> and <%= link_to "invite", new_invitemail_path %> your fellow educators to join Shooloo.</p><p>If an educator mentions your email address and invitation code during registration, both of you will earn 10 Advocacy points. When your referred educator imports his/her student roster into Shooloo, both of you will earn another 30 Advocacy points. If your cumulative Advocacy points rank among the top 10 highest, you will win an Educator Advocacy Award.</p></li>
+					<li><p><strong> Teacher Expert Award:</strong> Ten teachers, one from each of the grades 3-12, may win <strong>over $500</strong> worth of healthy snacks from our sponsors. If you are a teacher, both you and your students may <%= link_to "submit", new_post_path %> healthy-eating-related math stories (i.e., word problems) on Shooloo to enter into the contest.</p> <p>Each time your students' entry is <a href="#qualification">qualified</a>, you will earn 10 Inspiration points. Each time your own entry is qualified, you will earn 20 Education points. If your cumulative Inspiration and Education Points combined rank the highest among all teacher participants within your grade, you will win a Teacher Expert Award.</p></li>
+					<li><p><strong>Student Expert Award:</strong> Ten students, one student from each of the grades 3-12, may win <strong>over $200</strong> worth of healthy snacks from our sponsors. If you are a student, follow the guidelines in <a href="#win">How to Win</a> to enter the contest. Make sure that your submissions meet all the <a href="#qualification">qualification criteria</a>. If the number of your qualified entries ranks the highest among all student participants within your grade, you will win the Student Expert Award.</p></li>
 				</ul>
 			</p>
-		</div> 	
-		<div id="deadline">
-			<h2>Deadline</h2>
-			<p> All contestants' points will be automatically and continuously tallied  throughout the duration of the contest. The contest cut off time will be 3:00 pm EDT on August 15, 2014. Winners will be announced in the last week of August. Awards will be sent to the winners' school or home address in the first week of September.
+		</div> 
+		<div id="win">
+			<h2>How to Win</h2>
+			<p><strong>Winning the Teacher/Student Expert Award</strong> takes only a few simple steps as follows: 
+				<ul>
+					<li><p>If you are a Shooloo member, <%= link_to "log in", signin_path %>. If not, <%= link_to "sign up", signup_path %> -- it is free!</p></li>
+					<li><p>On your <%= link_to "Alerts", my_alerts_path %> page or 
+						<%= link_to "Home", root_path %> page, click on the blue button that says <%= link_to "Create A Math Word Problem Now!", root_path %></p></li>
+					<li><p>When the post form opens up, click on the radio button beside “Yes! Enter my post into the healthy-eating math story contest.”</p></li>
+					<li><p>Enter your question, answer, and other required fields.</p></li>
+					<li><p>Click on the orange button that says “Save and Preview”.</p></li>
+					<li><p>Review your entry and make sure that you have followed all of the qualification criteria.</p></li>
+					<li><p>Click on the blue “Edit” button and make changes if necessary.</p></li>
+					<li><p>Click on the blue “Publish” button if you are a teacher or the “Submit for Review” button if you are a student. That’s it!</p></li>
+					<li><p>You may submit as many entries into the contest as you want as long as your publication credit remains above zero (see qualification criteria #3 below).</p></li>
+				</ul>
 			</p>
+			<p><strong>Winning the Educator Advocacy Award</strong> is even simpler: 
+				<ul>
+					<li><p>If you are a Shooloo member, <%= link_to "log in", signin_path %>. If not, <%= link_to "sign up", signup_path %>. </p></li>
+					<li><p>Once you become an authorized member, you will see an orange banner on the top of your home page. Clink on the <%= link_to "link", new_invitemail_path %> (i.e., any word in blue) and it will direct you to an invite message.</p></li>
+					<li><p>Customize the message and send it to your fellow educators. That’s it!</p></li>
+					<li><p>You will get an <%= link_to "alert", my_alerts_path %> in Shooloo whenever your fellow educators sign up and import their student rosters into Shooloo. If you don’t get such alerts in a few days, you may want to follow up with the people you’ve invited.</p></li>
+				</ul>
+			</p>
+		</div>
+		<div id="qualification">
+			<h2>Qualification Criteria</h2>
+			<p>For an entry to qualify and earn you points towards winning an award, it must meet all of the following criteria. <a href="/attachments/contest_checklist.pdf" target="_blank">Download</a> a one-page qualification check list to hand out to your students.  
+				<ol>
+					<li><p>It must be a math <strong>WORD problem</strong>, NOT a straightforward equation such as “x +3 = 5, what is x?”</p></li>
+					<li><p>It must be a <strong>multistep</strong> problem whose solution requires 2 or more steps. Multistep means varied operations. If a problem repeats the same operation multiple times, it is counted as a one-step problem. For example, the following problem is counted as a 1-step problem because it simply repeats addition twice: “Sarah ate 500 calories for breakfast, 600 calories for lunch, and 700 calories for dinner, how many calories did she eat in all?”</p></li>
+					<li><p>It must be <strong>at or above the author’s grade level</strong> based on the Common Core State standards. For example: if the author is an 8th-grade student but his/her question is at the 7th-grade level or lower, not only the question will be disqualified, but also the author will lose publication credits as a penalty. If his/her publication credit balance drops to zero, he/she can no longer submit any more question into the contest, nor can he/she publish any more posts on Shooloo.</p><p> For every grade his/her submission is below his/her grade level, he/she loses 10 points of publication credit. For example, if an 8th-grade student submits a 1st-grade question, he/she will lose 70 points of publication credit. Conversely, if his/her question is at or above his/her grade level, he/she will gain 20 points of publication credit as a bonus. </p></li>
+					<li><p>Its answer must be <strong>mathematically correct</strong> and include a <strong>step-by-step explanation</strong> of its solution as shown in the <a href="#sample">sample problems</a>.</p></li>
+					<li><p>Its question and answer must be <strong>grammatically correct with no spelling errors.</strong></p></li>
+					<li><p>Its question must be <strong>clear, concise,</strong> and give enough information to arrive at an answer. </p></li>
+					<li><p>It must be related to the topic of <strong>healthy-eating</strong>. For example, the following question is about eating but not healthy eating: “I ate 5 burgers every day in the past week. How many burgers did I eat in all?”</p><p> In contrast, the following question is about healthy-eating: “A burger has 900 calories, vs. a salad has 300 calories. How many fewer calories do I take in if I eat a salad instead of a burger?” </p></li>
+					<li><p>Its content must be <strong>appropriate</strong>. It must NOT contain any of the following:
+						<ul>
+							<li><p>Watermarked images.</p></li>
+							<li><p>Racial or cultural discrimination.</p></li>
+							<li><p>Personal information, including any participants’ real names, school affiliation, phone numbers, or emails. </p></li>
+							<li><p>Offensive or derogatory remarks. For example, it is not OK to say in a problem, “You are fat and should shed 50 pounds.” But it is OK to say, “I am overweighed and need to lose some weight.” The rule of the thumb is: if it is something that you don’t want anyone else to say about you, you shouldn’t say it about anyone else on Shooloo.</p></li>
+							<li><p>Plagiarized content or content that infringes on the intellectual property of others. For example, a student shouldn’t copy the <a href="#sample">sample problems</a> verbatim without much change beyond the numbers or product names and submit them as his/her own entries.</p></li>
+						</ul>
+					</p></li>
+					<li><p>Its content must be <strong>realistic</strong>. Students should conduct research on relevant data instead of plucking numbers out of thin air. For example: it is unrealistic to say, “I burnt 1,000,000,000,000 calories for every mile I walked”.</p></li>
+					<li><p>It must reflect the author’s own <strong>research and original thinking</strong>. It should not be essentially the same problems as the ones already published on Shooloo. For example, the following two questions are essentially the same. “I ate 1/3 of an apple in the morning and ½ of the apple in the afternoon. What fraction of an apple did I eat in all?”  “I ate 1/3 of an orange in the morning and ¼ of an orange in the afternoon. What fraction of an orange did I eat in all?”</p></li>
+				</ol>
+			</p>
+		</div>
+		<div id="sample">
+			<h2>Sample Problems</h2>
+			<p class="margin-bottom">The following are sample problems suitable for the contest. <a href="/attachments/math_contest_sample.pdf" target="_blank">Download</a> a pdf file of the sample problems. Check out our large <%= link_to "repository", posts_path %> of over 4,000 word problems for more samples.</p>
+			<p class="margin-bottom"><%= image_tag("/attachments/grade_4.png", alt: "Shooloo healthy eating math story for 4th grade", title: "Shooloo healthy eating math story contest for 4th grade") %></p>
+			<p class="margin-bottom"><%= image_tag("/attachments/grade_5.png", alt: "Shooloo healthy eating math story for 5th grade", title: "Shooloo healthy eating math story contest for 5th grade") %></p>
+			<p class="margin-bottom"><%= image_tag("/attachments/grade_6.png", alt: "Shooloo healthy eating math story for 6th grade", title: "Shooloo healthy eating math story contest for 6th grade") %></p>
+			<p class="margin-bottom"><%= image_tag("/attachments/grade_7.png", alt: "Shooloo healthy eating math story for 7th grade", title: "Shooloo healthy eating math story contest for 7th grade") %></p>
+			
+		</div>	 	 			
+		<div id="review">
+			<h2>Editor's Reviews</h2>
+			<p>Teachers’ entries will be published without review. Our editors will review and correct all student entries before publishing them on Shooloo. Upon publication, student authors will be <%= link_to "notified", my_alerts_path %> of the correction results as shown below.</p><p>It is crucial for students to review and learn from their correction results so they may improve the quality of their future submissions and thus increase their chances of winning.</p>
 		</div>
 		<div id="who">
 			<h2>Who May Enter</h2>
-			<p> Teachers and students in grades 3-12 in the U.S. may enter the contest. Winners will be required to supply personal identification credentials for us to verify age and school affiliation. 
+			<p> Teachers and students in grades 3-12 at any accredited school or accredited home school program in the United States may enter the contest. Winners will be required to supply personal identification credentials for us to verify their eligibility of receiving the awards.</p>
+		</div>
+		<div id="deadline">
+			<h2>Deadline</h2>
+			<p>All participants’ points will be automatically and continuously tallied throughout the duration of the contest. All submissions before 3:00 pm EDT on August 15, 2014 will be counted. Winners will be announced in the last week of August. Awards will be sent to the winners' school or home addresses in the first week of September.</p>
+		</div>
+		<div id="agreement">
+			<h2>Participation Agreement</h2>
+			<p>By participating in the contest, you agree to the following:
+				<ul>
+					<li><p>All submitted math problems become the exclusive intellectual property of Shooloo, and Shooloo obtains all rights to use and republish all or any part of such problems upon submission to our web site.</p></li>
+					<li><p>Shooloo will collect personally identifiable information about participants as part of the contest process. This information will be used to contact participants in connection with the contest and will be provided only to parties related to Shoooloo and the participants’ school and legal guardians. Participants are prohibited from including their names, their school’s names, or personally identifiable information within the content of their submission. </p></li>
+					<li><p>Shooloo may use award winners’ names, likeness, and other identifying information (such as hometown, school, or grade) in promotional materials relating to this math contest. In addition, we will provide award winners’ names and addresses to our sponsors so that they may ship awards to the winners. If any winners do not want their personal information to be disclosed, they may elect to forego the award.</p></li>
+					<li><p>Winners (or their parents or guardians) will be required to sign an affidavit of eligibility, originality, and compliance with the official rules, a liability release, and a publicity release as a condition to receiving their awards.</p></li>
+					<li><p>Winners will be required to have an educator, guidance counselor or other official at his or her accredited school or accredited home school program submit verification of the winner’s school enrollment on the date of submission.</p></li>
+					<li><p>All Participants indemnify Shooloo of any liability as a result of any errors or omissions in the administration of this competition, or any network or website errors or incompatibilities, and by entering into this contests participants releases any and all claims they may have against Shooloo in this regard.  </p></li>
+					<li><p>No notice will be given to participants who do not win the contest.</p></li>
+				</ul>
 			</p>
 		</div>
-		<div id="how">
-			<h2>How to Enter</h2>
-			<p>
-				<% if signed_in? %>
-					<% if current_user.visible? %>
-						<%= link_to "Submit your entry", new_post_path %> of math stories about healthy eating and/or <%= link_to "refer a friend", new_invitemail_path %> now.
-					<% else %>
-						<% if !current_user.complete? %>
-							<%= link_to "Request authorization", new_authorization_path %> to enter the contest.
-						<% else %>
-							<%= link_to "Complete your profile", edit_user_path(current_user) %> and then request authorization to enter the contest.
-						<% end %>
-					<% end %>
-				<% else %> 
-					If you are an authorized Shooloo member, <%= link_to "log in", signin_path %> to submit your entry. If not, <%= link_to "sign up", signup_path %> now.
-				<% end %>
-			</p>
-		</div> 	  
-		<div id="win">
-			<h2>How to Win</h2>
-			<p><strong> Teacher Advocacy Award:</strong> Teachers can invite their fellow educators to join Shooloo. If a referred educator signs up using your email address and invitation code, both of you will earn 10 Advocacy points. When that referred educator imports his/her student roster into Shooloo, both of you will earn another 30 Advocacy points. The top 10 teachers who have accumulated the highest Advocacy points by the cut-off date will win the Awards. 
-			</p>
-			<p><strong> Teacher Expert Award:</strong> Teachers accumulate Expert points in two ways: 1) each time your students' contest entry is qualified AND accepted, you will earn 10 Inspiration points; 2) each time your own contest entry is accepted, you will earn 20 Education points. Your Inspiration points and Education Point are combined into Expert points. One teacher from each of the grades 3-12 who has accumulated the highest Expert points will win the Award. To find out how to get a contest entry qualified and accepted, see the "Rules of Contest" section.
-			</p>
-			<p>To find out your point accumulation, log into Shooloo and look at the left side-bar of your alert page or home page.</p>
-		</div> 	 	 			
+		<div id="sponsors">
+			<h2>Sponsors</h2>
+			<p><a href="http://www.kindsnacks.com/" target="_blank" confirm="You are about to visit a site that is not part of Shooloo. Continue?">Kind Snacks</a> will provide winners with nut-free, whole-grain, and all-natural fruit granola bars.</p>
+			<p><a href="http://pretzelcrisps.com/" target="_blank" confirm="You are about to visit a site that is not part of Shooloo. Continue?">Pretzel Crisps</a> will provide low-fat baked pretzels that have no trans fat, saturated fat or cholesterol. </p>
+			<p><a href="http://www.popchips.com/" target="_blank" confirm="You are about to visit a site that is not part of Shooloo. Continue?">Pop Chips</a> will provide popped (not fried or baked) chips that have no preservatives, fake color, flake flavor, or hydrogenated oil.</p>
+			<p><a href="http://www.quinnpopcorn.com/" target="_blank" confirm="You are about to visit a site that is not part of Shooloo. Continue?">Quinn Popcorn</a> will provide organic, non-GMO popcorn that has no chemicals, preservatives or artificial ingredients.</p>
+			<p><a href="http://EnchantedCollar.com" target="_blank" confirm="You are about to visit a site that is not part of Shooloo. Continue?">Enchanted Collar</a> will provide grades 3—5 winners with sets of award-winning children’s fiction series about financial literacy.</p>
+		</div>
+		<div id="contact">
+			<h2>Contact</h2>
+			<p>If you have any questions or would like to become a sponsor, contact us <%= link_to "here", contact_path %></p>
+		</div>	
 	</div>
 </div>

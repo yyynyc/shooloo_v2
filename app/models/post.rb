@@ -73,6 +73,7 @@ class Post < ActiveRecord::Base
       :alert_nudger, :qualify, :update_points]
     after_transition :on => :verify, :do => [:update_stats, :alert_nudger, 
       :update_characters]
+    after_transition :on => :revise, :do => :revise_stats
 
     event :submit do
       transition :draft => :submitted
@@ -201,6 +202,12 @@ class Post < ActiveRecord::Base
         self.user.point.education += ShoolooV2::TEACHER_CONTEST 
       end
       self.user.point.save
+    end
+  end
+
+  def revise_stats
+    if self.competition == 1
+      self.update_attributes!(qualified: "yes")
     end
   end
 

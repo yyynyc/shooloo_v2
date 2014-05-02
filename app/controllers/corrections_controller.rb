@@ -84,14 +84,10 @@ class CorrectionsController < ApplicationController
   end
 
 	def index
-    @corrections_revised = Correction.where(state: "revised").paginate(page: 
-      params[:page], per_page: 10, order: 'updated_at DESC')
-    @corrections_published = Correction.where(state: "submitted").paginate(page: 
-      params[:page], per_page: 30, order: 'updated_at DESC')
-    @corrections_draft = Correction.where(state: "draft").paginate(page: 
-      params[:page], per_page: 10, order: 'created_at DESC')
-    @checked_out = Post.where(state: "under_review").paginate(page: 
-      params[:page], per_page: 10, order: 'created_at DESC')
+    @corrections_revised = Correction.where(state: "revised").order('updated_at DESC')
+    @corrections_published = Correction.where(state: "submitted").order('updated_at DESC')
+    @corrections_draft = Correction.where(state: "draft").order('created_at DESC')
+    @checked_out = Post.where(state: "under_review").order('created_at DESC')
 	end
 
   def all_editors

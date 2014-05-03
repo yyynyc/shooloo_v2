@@ -66,7 +66,7 @@ class StandardsController < ApplicationController
 	end
 
 	def hs_algebra	
-		@standards = Standard.where(domain_id: 43)
+		@standards = Standard.where(domain_id: 44)
 		set_meta_tags title: 'Common Core High School Algebra Standards, I-Can Statements, Lesson Plans, and Video Tutorials'
 		render 'hs_algebra'
 	end

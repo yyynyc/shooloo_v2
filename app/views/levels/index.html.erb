@@ -21,7 +21,7 @@
 					  						<%= link_to "edit", edit_standard_path(s) %>
 					  						<%= link_to "show", standard_path(s) %>
 					  						<br/>
-					  						<strong>description:</strong> <%= s.description.html_safe %><br/>
+					  						<strong>description:</strong> <%= s.description %><br/>
 					  						<strong>Ican:</strong> <%= s.ICan.html_safe %>
 						  					<% if s.hstandards.any? %>
 						  						<div class="follow-nudge">

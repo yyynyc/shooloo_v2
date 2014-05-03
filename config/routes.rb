@@ -150,6 +150,10 @@ resources :hstandards
   get '/standards/common-core-math-I-can-grade-7', to: "standards#grade_7", as: :grade_7
   get '/standards/common-core-math-I-can-grade-8', to: "standards#grade_8", as: :grade_8
   get '/standards/common-core-math-I-can-high-school-algebra', to: "standards#hs_algebra", as: :hs_algebra
+  get '/standards/common-core-math-I-can-high-school-modeling', to: "standards#hs_modeling", as: :hs_modeling
+  get '/standards/common-core-math-I-can-high-school-geometry', to: "standards#hs_geometry", as: :hs_geometry
+  get '/standards/common-core-math-I-can-high-school-statistics', to: "standards#hs_stats", as: :hs_stats
+  get '/standards/common-core-math-I-can-high-school-functions', to: "standards#hs_functions", as: :hs_functions
   get '/standards/common-core-math-practices', to: "standards#practice", as: :practice
   get '/teacher/common-core-math-dashboard', to: "static_pages#sample_dashboard", as: :sample_dashboard
   get '/teacher/common-core-math-assignment', to: "static_pages#sample_assignment", as: :sample_assignment

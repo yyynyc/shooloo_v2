@@ -71,6 +71,30 @@ class StandardsController < ApplicationController
 		render 'hs_algebra'
 	end
 
+	def hs_modeling	
+		@standards = Standard.where(domain_id: 45)
+		set_meta_tags title: 'Common Core High School Modeling Standards, I-Can Statements, Lesson Plans, and Video Tutorials'
+		render 'hs_modeling'
+	end
+
+	def hs_geometry	
+		@standards = Standard.where(domain_id: 46)
+		set_meta_tags title: 'Common Core High School Geometry Standards, I-Can Statements, Lesson Plans, and Video Tutorials'
+		render 'hs_geometry'
+	end
+
+	def hs_stats	
+		@standards = Standard.where(domain_id: 47)
+		set_meta_tags title: 'Common Core High School Statistics & Probabilities Standards, I-Can Statements, Lesson Plans, and Video Tutorials'
+		render 'hs_stats'
+	end
+
+	def hs_functions	
+		@standards = Standard.where(domain_id: 48)
+		set_meta_tags title: 'Common Core High School Functions Standards, I-Can Statements, Lesson Plans, and Video Tutorials'
+		render 'hs_functions'
+	end
+
 	def new
 		@standard = Standard.new
 	end

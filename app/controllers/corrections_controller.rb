@@ -8,7 +8,7 @@ class CorrectionsController < ApplicationController
 	def new
     @post = Post.find(params[:post_id])
 		@correction = Correction.new(level_id: @post.level_id, 
-      domain_id: @post.domain_id, standard_id: @post.standard_id)
+      domain_id: @post.domain_id, standard_id: @post.standard_id, hstandard_id: @post.hstandard_id)
     @alarm = Alarm.new      
     if @post.state.in?(["submitted", "old"])
         @post.checkout!

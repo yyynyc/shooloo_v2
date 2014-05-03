@@ -19,13 +19,13 @@
 			<p><strong>
 				<a href="#", class="post", rel="popover", title="Why Are My Posts Disqualified?", data-content="<ul class='popover-list'><li>If the posts you've entered into the contest do not meet our criteria, they become disqualified.</li><li>For qualification criteria, check out <a href='contest'>contest rules</a>.</li></ul>" %>Disqualified</a>
 			</strong></p>
-			<p><%= pluralize(user.point.inspiration, "post") %></p>
+			<p><%= pluralize(user.point.disqualified, "post") %></p>
 		</span>
 		<span>
 			<p><strong>
 				<a href="#", class="post", rel="popover", title="How to Qualify?", data-content="Make sure your post <ul class='popover-list'><li>is about health-eating,</li><li>is at or above your grade level,</li><li>has two or more steps,</li><li>has the correct and complete answer, and</li><li>is free of grammatical or spelling errors.</li></ul>For qualification criteria, check out <a href='contest'>contest rules</a>." %>Qualified</a>
 			</strong></p>
-			<p><%= pluralize(user.point.education, "post")%></p>
+			<p><%= pluralize(user.point.qualified, "post")%></p>
 		</span>
 	</div>
 <% else %>

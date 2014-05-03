@@ -291,11 +291,16 @@ class UsersController < ApplicationController
   def common_core_I_can
     @user = User.find(params[:id])
     @post  = current_user.posts.build
-    if !@user.grade.nil?
-      @domains = Domain.where(level_id: (@user.grade+1))    
-      @standards = Standard.joins(:posts).where("posts.user_id = ? AND posts.level.number != ?", @user.id, (@user.grade+1)).uniq.order('standards.short ASC')
+    if !@user.grade.nil? 
+      if @user.grade <= 8
+        @domains = Domain.where(level_id: (@user.grade+1))    
+        @standards = Standard.joins(:posts).where("posts.user_id =? AND posts.level_id != ?", @user.id, (@user.grade+1)).uniq.order('standards.short ASC')
+      else
+        @domains = Domain.where(level_id: 10)    
+        @standards = Standard.joins(:posts).where("posts.user_id =? AND posts.level_id != ?", @user.id, 10).uniq.order('standards.short ASC')
+      end
     else
-      @standards = Standard.joins(:posts).where("posts.user_id = ? ", @user.id).uniq.order('standards.short ASC')
+      @standards = Standard.joins(:posts).where("posts.user_id =?", @user.id).uniq.order('standards.short ASC')
     end
     render 'common_core_I_can'
     set_meta_tags title: "Common Core Math I-Can Journal by #{@user.screen_name}", 

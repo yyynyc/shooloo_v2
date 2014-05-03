@@ -1313,7 +1313,7 @@ iframe {
   top: 0px;
 }
 .scrollspy-example {  
-  height: 800px;  
+  height: 1000px;  
   overflow: auto;  
   position: relative;  
 } 
@@ -1330,3 +1330,9 @@ iframe {
   width: 50px;
   vertical-align: middle;
 }
+.contest-photo {
+  float: right; 
+  margin-left: 1em; 
+  border-radius: 5px; 
+  width: 250px;
+  }

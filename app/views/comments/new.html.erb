@@ -36,7 +36,7 @@
           </span><br/> 
         <% end %>
         <% if signed_in? && @response.nil? %>
-          <div class="row bottom-margin">
+          <div class="row button-width bottom-margin">
            <br/><%= render partial: 'posts/post_buttons', locals: {post: @post, like: @like, invite: @invite } %><br/>
           </div>  
         <% end %>
@@ -54,18 +54,24 @@
         <% end %>
         <% if signed_in? %>
           <% if current_user.in?(@post.user.authorizers) && !@response.nil? %>
-            <p><strong>Question</strong> (original): <%= @post.question.html_safe %></p>
+            <p><strong>Question</strong> <span class="timestamp">(original):</span> <%= @post.question.html_safe %></p>
+            <p><strong>Answer</strong> <span class="timestamp">(original):</span> <%= @post.answer.html_safe %></p>
           <% else %>
-            <% if !@correction.nil? %>
-              <p><strong>Question</strong> (corrected): <%= @correction.question.html_safe %></p>
-            <% else %>
-              <p><strong>Question</strong> (original): <%= @post.question.html_safe %></p>
-            <% end %>
+            <p>
+              <strong>Question</strong> 
+              <% if !@correction.nil? %>
+                <span class="timestamp">(corrected):</span>
+                <%= @correction.question.html_safe %>
+              <% else %>
+                 <span class="timestamp">(original):</span> 
+                 <%= @post.question.html_safe %>
+              <% end %>
+            </p>
             <p><strong>Answer</strong>: <span class="no">To see the answer and everyone else's comments, submit your own solution first.</span></p>
           <% end %>
           <% if !@post.level.nil? %>
             <p>
-              <% if current_user.role == "student" %>
+              <% if current_user.role == "student" && current_user.grade < 9 %>
                 <strong>"I can" statement: </strong> In <%= @post.domain.name %>, 
                 <% if @post.hstandard.nil? %>
                   <%= @post.standard.ICan %>
@@ -84,11 +90,11 @@
           <% end %>
         <% else %>
           <% if !@correction.nil? %>
-            <p><strong>Question</strong> (corrected): <%= @correction.question.html_safe %></p>
+            <p><strong>Question</strong> <span class="timestamp">(corrected):</span> <%= @correction.question.html_safe %></p>
           <% else %>
-            <p><strong>Question</strong> (original): <%= @post.question.html_safe %></p>
+            <p><strong>Question</strong> <span class="timestamp">(original):</span> <%= @post.question.html_safe %></p>
           <% end %>
-          <p class="center"><%= link_to "Find Out the Answer", post_comments_path(@post), class: "btn btn-large btn-primary" %></p>
+          <p><strong>Answer:</strong> <%= link_to "Find Out", post_comments_path(@post), class: "btn btn-medium btn-primary" %></p>
         <% end %>
       </div>
       <% if @related_posts.any? %>

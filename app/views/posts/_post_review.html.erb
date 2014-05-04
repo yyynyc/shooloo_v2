@@ -35,7 +35,13 @@
   </div>
   <div class="alert-heading">         
     <% if !@correction.nil? %>
-      <p><strong>Question</strong> (corrected): <%= @correction.question.html_safe %></p>
+      <% if current_user.role == "teacher" || current_user.admin? || current_user?(post.user) %>
+        <p><strong>Comparison:</strong> <%= link_to "original vs. corrected versions", correction_path(@post.correction) %>
+      <% end %> 
+      <p>
+        <strong>Question</strong> <span class="timestamp">(corrected):</span>
+        <%= @correction.question.html_safe %>
+      </p>
       <p><strong>Answer</strong> (corrected): <%= @correction.answer.html_safe %></p>
     <% else %>
       <p><strong>Question</strong> (original): <%= @post.question.html_safe %></p>

@@ -73,7 +73,7 @@ class Post < ActiveRecord::Base
       :alert_nudger, :qualify, :update_points]
     after_transition :on => :verify, :do => [:update_stats, :alert_nudger, 
       :update_characters]
-    after_transition :on => :revise, :do => :revise_stats
+    after_transition :on => :revise, :do => [:revise_stats, :qualify]
 
     event :submit do
       transition :draft => :submitted

@@ -2,7 +2,8 @@ class Comment < ActiveRecord::Base
   require 'obscenity/active_model'
   validates :content, obscenity: {message: 'contains offensive word'}
   
-  attr_accessible :content, :photo, :commented_lesson_id, :response_id, :graded
+  attr_accessible :content, :photo, :commented_lesson_id, :response_id, 
+    :graded, :visible
   
   belongs_to :commented_post, class_name: "Post"
   belongs_to :commented_lesson, class_name: "Lesson"

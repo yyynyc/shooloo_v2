@@ -6,10 +6,9 @@
 			<span class="no"><strong> DISQUALIFIED </strong></span>
 		<% end %> 		
 		your contest entry 
-		(#<%= link_to activity.trackable.id, correction_path(activity.trackable.correction) %>) on <%= activity.created_at.strftime("%b %d, %Y") %>.
-	</span> 
-	<br/>	
-	Learn from the <%= link_to "corrections", correction_path(activity.trackable.correction) %> and submit a <%= link_to "better entry", new_post_path %>.
+		(post #<%= link_to activity.trackable.id, correction_path(activity.trackable.correction) %>) on <%= activity.created_at.strftime("%b %d, %Y") %>.<br/>	
+		<%= link_to "Find out why", correction_path(activity.trackable.correction) %> and <%= link_to "try again", new_post_path %>.
+	</span>
 <% else %>
 	<span class='alert-heading'>
 		revised correction of your post. 

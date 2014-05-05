@@ -87,7 +87,7 @@ class CorrectionsController < ApplicationController
     @corrections_revised = Correction.where(state: "revised").order('updated_at DESC')
     @corrections_published = Correction.where(state: "submitted").order('updated_at DESC')
     @corrections_draft = Correction.where(state: "draft").order('created_at DESC')
-    @checked_out = Post.where(state: "under_review").order('created_at DESC')
+    @checked_out = Post.where(state: "under_review").order('created_at DESC').keep_if{|p| p.correction.nil?}
 	end
 
   def all_editors

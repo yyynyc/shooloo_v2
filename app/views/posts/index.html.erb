@@ -101,9 +101,14 @@
 							<%= render partial: 'posts/post_user', locals: {post: post} %>			      	
 					        <%= render partial: 'posts/post_stats', locals: {post: post} %>			        		      	
 				    	</section> 
-				  		<section class="feed_content">			  			
-				  			<%= truncate_html post.question.html_safe, :length => 100, 
+				  		<section class="feed_content">
+				  			<% if post.correction.nil? %>	
+				  				<%= truncate_html post.question.html_safe, :length => 100, 
 				  				:omission => "...", word_boundary: /\S/ %>
+				  			<% else %>
+				  				<%= truncate_html post.correction.question.html_safe, :length => 100, 
+				  				:omission => "...", word_boundary: /\S/ %>
+				  			<% end %>
 				  			<% if !signed_in? %>
 				  				<%= link_to "Read more", new_post_comment_path(post)  %>
 				  			<% else %>	

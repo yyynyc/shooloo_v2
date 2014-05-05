@@ -35,7 +35,7 @@ class Correction < ActiveRecord::Base
 		if self.corrected_post.competition==1
 			if self.competition == 1 && self.grammar? && self.concept_clear? &&
 				self.math_correct? && self.answer_complete? && self.steps > 1
-				self.corrected_post.user.grade <= self.level.number	
+				self.corrected_post.user.grade <= (self.level.number+1)
 				self.corrected_post.update_attributes!(qualified: "yes")
 				self.corrected_post.user.authorizers.each do |a|
 					a.point.inspiration += ShoolooV2::TEACHER_INSPIRATION

@@ -48,7 +48,10 @@
 	<% end %>
 <% end %>
 <% if signed_in? &&(current_user.admin? || current_user.in?(post.user.authorizers)) %>
-	| <span class="timestamp">Real name:</span> <%= post.user.first_name %> <%= post.user.last_name %>
+	| <span class="timestamp">Real name:</span> <%= post.user.full_name_us %> 
+	<% if !post.correction.nil? %>
+		| <span class="timestamp">editted by:</span> <%= post.correction.editor.first_name %>
+	<% end %>
 <% end %>
 
 

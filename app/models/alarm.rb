@@ -8,7 +8,7 @@ class Alarm < ActiveRecord::Base
   	if self.alarmed_post
       self.alarmed_post.update_attributes!(visible: false, state: "draft")
     elsif self.alarmed_comment
-      self.alarmed_comment.update_attributes!(visible: false, state: "draft")
+      self.alarmed_comment.update_attributes!(visible: false)
     end
   end
 
@@ -20,7 +20,7 @@ class Alarm < ActiveRecord::Base
       Event.create!(benefactor_id: self.alarmed_post.user_id, beneficiary_id: 1, 
         event: "unalarm post", value: ShoolooV2::UNALARM_POST)
     elsif self.alarmed_comment
-      Comment.update_all(['visible=?', true],['id=?',self.alarmed_comment.id])
+      self.alarmed_comment.update_attributes!(visible: true)
       Event.create!(benefactor_id: self.alarmed_comment.commenter_id, beneficiary_id: 1, 
         event: "unalarm comment", value: ShoolooV2::UNALARM_COMMENT)
     end

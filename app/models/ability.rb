@@ -39,7 +39,7 @@ class Ability
             can [:index, :show, :premium], Video
         elsif user.complete?
             can [:create, :destroy], [Referral, Authorization]
-            can [:new], [Comment, Assignment, Lesson, Response, Keep]
+            can [:new], [Comment, Assignment, Lesson, Response]
             can :crud, Post
             can :read, :all
             can :crud, [Activity, Keep]

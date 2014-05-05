@@ -161,7 +161,7 @@ class UsersController < ApplicationController
 
   def posts
     @user = User.find(params[:id])
-    @posts = @user.posts.where(state: ["verified", "published", "old"]).visible.paginate(page: params[:page], per_page: 10, order: "created_at DESC")
+    @posts = @user.posts.where(state: ["verified", "published", "old", "revised"]).visible.paginate(page: params[:page], per_page: 10, order: "created_at DESC")
     @post = @user.posts.build(params[:post])
     @rating=current_user.ratings.build(params[:rating])
     @comment=current_user.comments.build(params[:comment])

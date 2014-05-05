@@ -6,10 +6,8 @@
 
 <% unless current_user.role == "student" %>
 	<div class="alert-heading">		
-		<p>Make sure all information in <%= link_to "your profile", edit_user_path(current_user) %> is complete first and then press the blue button.</p>			
-		
+		<p>You need to become an authorized member first to publish posts and comments and to create accounts for your students.</p>	
 		<%= render partial: 'authorizations/authorization', locals: {user: User.find(2)} %>
-			
 	</div>
 <% else %>	
 	<div class="about">

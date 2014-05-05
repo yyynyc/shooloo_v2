@@ -33,8 +33,9 @@
 			<span itemprop="image">
 				<%= image_tag("/attachments/nutrition.jpeg", alt: "Shooloo healthy eating math story contest", class: "contest-photo", title: "Shooloo healthy eating math story contest") %>
 			</span>
-			<p> Nearly 1 in 3 children aged 2-19 in the United States is overweighed or obese. Unhealthy eating is the top contributor to childhood obesity. For young consumers to properly interpret nutrition labels and choose truly healthy food, they need in-depth knowledge in mathematics, including fractions, ratios, and proportional relationships.</p>
-			<p>To promote nutritional awareness among children, Shooloo.org is hosting a healthy eating math story contest from May 2 to August 15, 2014. Students and teachers in grades 3-12 are invited to submit on Shooloo their own math <%= link_to "questions", posts_path %> regarding eating choices, conduct research, gather data, and devise solutions.</p> 
+			<p> Nearly 1 in 3 children aged 2-19 in the United States is overweighed or obese. Unhealthy eating is the top contributor to childhood obesity. For young consumers to properly interpret nutrition labels and choose truly healthy food, they need in-depth knowledge in mathematics, including fractions, ratios, proportional relationships, and algebra, as shown in <a href="#sample">sample math problems</a>.</p>
+			<p>To promote nutritional awareness among children, Shooloo.org is hosting a healthy eating math story contest from May 2 to August 15, 2014. Students and teachers in grades 3-12 are invited to submit on Shooloo their own math <%= link_to "questions", posts_path, target: "_blank" %> regarding eating choices, conduct research, gather data, and devise solutions.</p>
+			<p>Unlike a typical math competition that rewards only the most gifted and talented, our contest gives every student, including those mathematically challenged, an opportunity to win (<a href="#win">find out how</a>). We also <a href="#awards">reward teachers</a> for advocating and teaching nutritional knowledge and healthy-eating habits. Above all, we give nearly immediate <a href="#review">feedback to student submissions</a>.</p> 
 		</div> 
 		<div id="awards">
 			<h2>Awards</h2>
@@ -43,37 +44,34 @@
 					<%= image_tag("/attachments/prize.png", alt: "Shooloo healthy eating math story contest prizes", class: "contest-photo", title: "Shooloo healthy eating math story contest prizes") %>
 				</span>
 				<ul>
-					<li><p><strong>Educator Advocacy Award:</strong> Ten educators (i.e., teachers, administrators, technology coordinators, or curriculum coordinators affiliated with a school) may each win <strong>over $500</strong> worth of healthy snacks from our <a href="#sponsors">sponsors</a>. If you are an educator and an authorized Shooloo member, you may <%= link_to "log in", signin_path %> and <%= link_to "invite", new_invitemail_path %> your fellow educators to join Shooloo.</p><p>If an educator mentions your email address and invitation code during registration, both of you will earn 10 Advocacy points. When your referred educator imports his/her student roster into Shooloo, both of you will earn another 30 Advocacy points. If your cumulative Advocacy points rank among the top 10 highest, you will win an Educator Advocacy Award.</p></li>
-					<li><p><strong> Teacher Expert Award:</strong> Ten teachers, one from each of the grades 3-12, may win <strong>over $500</strong> worth of healthy snacks from our <a href="#sponsors">sponsors</a>. If you are a teacher, both you and your students may <%= link_to "submit", new_post_path %> healthy-eating-related math stories (i.e., word problems) on Shooloo to enter into the contest.</p> <p>Each time your students' entry is <a href="#qualification">qualified</a>, you will earn 10 Inspiration points. Each time your own entry is qualified, you will earn 20 Education points. If your cumulative Inspiration and Education Points combined rank the highest among all teacher participants within your grade, you will win a Teacher Expert Award.</p></li>
+					<li><p><strong>Educator Advocacy Award:</strong> Ten educators (i.e., teachers, administrators, technology coordinators, or curriculum coordinators affiliated with a school) may each win <strong>over $500</strong> worth of healthy snacks from our <a href="#sponsors">sponsors</a>. If you are an educator and an authorized Shooloo member, you may <%= link_to "log in", signin_path, target: "_blank" %> and <%= link_to "invite", new_invitemail_path, target: "_blank" %> your fellow educators to join Shooloo.</p><p>If an educator mentions your email address and invitation code during registration, both of you will earn 10 Advocacy points. When your referred educator imports his/her student roster into Shooloo, both of you will earn another 30 Advocacy points. If your cumulative Advocacy points rank among the top 10 highest, you will win an Educator Advocacy Award.</p></li>
+					<li><p><strong> Teacher Expert Award:</strong> Ten teachers, one from each of the grades 3-12, may win <strong>over $500</strong> worth of healthy snacks from our <a href="#sponsors">sponsors</a>. If you are a teacher, both you and your students may <%= link_to "submit", new_post_path, target: "_blank" %> healthy-eating-related math stories (i.e., word problems) on Shooloo to enter into the contest.</p> <p>Each time your students' entry is <a href="#qualification">qualified</a>, you will earn 10 Inspiration points. Each time your own entry is qualified, you will earn 20 Education points. If your cumulative Inspiration and Education Points combined rank the highest among all teacher participants within your grade, you will win a Teacher Expert Award.</p></li>
 					<li><p><strong>Student Expert Award:</strong> Ten students, one student from each of the grades 3-12, may win <strong>over $200</strong> worth of healthy snacks from our <a href="#sponsors">sponsors</a>. If you are a student, follow the guidelines in <a href="#win">How to Win</a> to enter the contest. Make sure that your submissions meet all the <a href="#qualification">qualification criteria</a>. If the number of your qualified entries ranks the highest among all student participants within your grade, you will win the Student Expert Award.</p></li>
 				</ul>
 			</p>
 		</div> 
 		<div id="win">
 			<h2>How to Win</h2>
-			<p><strong>Winning the Teacher/Student Expert Award</strong> takes only a few simple steps as follows: 
+			<p><strong>Winning the Teacher/Student Expert Award</strong> takes only a few simple steps as follows. You can also check out our short <%= link_to "video tutorials", videos_path, target: "_blank" %>. 
 				<ul>
-					<li><p>If you are a Shooloo member, <%= link_to "log in", signin_path %>. If not, <%= link_to "sign up", signup_path %> -- it is free!</p></li>
-					<li><p>On your <%= link_to "Alerts", my_alerts_path %> page or 
-						<%= link_to "Home", root_path %> page, click on the blue button that says <%= link_to "Create A Math Word Problem Now!", root_path %></p></li>
+					<li><p>If you are a Shooloo member, <%= link_to "log in", signin_path, target: "_blank" %>. If not, <%= link_to "sign up", signup_path, target: "_blank" %> -- it is free!</p></li>
+					<li><p>On your <%= link_to "Alerts", my_alerts_path, target: "_blank" %> page or 
+						<%= link_to "Home", root_path, target: "_blank" %> page, click on the blue button that says <%= link_to "Create A Math Word Problem Now!", root_path, target: "_blank" %></p></li>
 					<li><p>When the post form opens up, click on the radio button beside “Yes! Enter my post into the healthy-eating math story contest.”</p></li>
 					<span itemprop="image">
 						<%= image_tag("/attachments/winning.jpg", alt: "Shooloo healthy eating math story contest winning", class: "contest-photo", title: "Shooloo healthy eating math story contest winning") %>
 					</span>
-					<li><p>Enter your question, answer, and other required fields.</p></li>
-					<li><p>Click on the orange button that says “Save and Preview”.</p></li>
-					<li><p>Review your entry and make sure that you have followed all of the qualification criteria.</p></li>
-					<li><p>Click on the blue “Edit” button and make changes if necessary.</p></li>
-					<li><p>Click on the blue “Publish” button if you are a teacher or the “Submit for Review” button if you are a student. That’s it!</p></li>
+					<li><p>Enter your question, answer, and other required fields as prompted by the form.</p></li>
+					<li><p>Save, preview, edit, and then submit.</p></li>
 					<li><p>You may submit as many entries into the contest as you want as long as your publication credit remains above zero (see qualification criteria #3 below).</p></li>
 				</ul>
 			</p>
 			<p><strong>Winning the Educator Advocacy Award</strong> is even simpler: 
 				<ul>
-					<li><p>If you are a Shooloo member, <%= link_to "log in", signin_path %>. If not, <%= link_to "sign up", signup_path %>. </p></li>
-					<li><p>Once you become an authorized member, you will see an orange banner on the top of your home page. Clink on the <%= link_to "link", new_invitemail_path %> (i.e., any word in blue) and it will direct you to an invite message.</p></li>
+					<li><p>If you are a Shooloo member, <%= link_to "log in", signin_path, target: "_blank" %>. If not, <%= link_to "sign up", signup_path, target: "_blank" %>. </p></li>
+					<li><p>Once you become an authorized member, you will see an orange banner on the top of your home page. Clink on the <%= link_to "link", new_invitemail_path, target: "_blank" %> (i.e., any word in blue) and it will direct you to an invite message.</p></li>
 					<li><p>Customize the message and send it to your fellow educators. That’s it!</p></li>
-					<li><p>You will get an <%= link_to "alert", my_alerts_path %> in Shooloo whenever your fellow educators sign up and import their student rosters into Shooloo. If you don’t get such alerts in a few days, you may want to follow up with the people you’ve invited.</p></li>
+					<li><p>You will get an <%= link_to "alert", my_alerts_path, target: "_blank" %> in Shooloo whenever your fellow educators <%= link_to "sign up", signup_path, target: "_blank" %> and <%= link_to "import their student rosters", new_user_import_path, target: "_blank" %> into Shooloo. If you don’t get such alerts in a few days, you may want to follow up with the people you’ve invited.</p></li>
 				</ul>
 			</p>
 		</div>
@@ -108,17 +106,21 @@
 		</div>
 		<div id="sample">
 			<h2>Sample Problems</h2>
-			<p class="margin-bottom">The following are sample problems suitable for the contest. <a href="/attachments/math_contest_sample.pdf" target="_blank">Download</a> a pdf file of the sample problems. Check out our large <%= link_to "repository", posts_path %> of over 4,000 word problems for more samples.</p>
+			<p class="margin-bottom">The following are sample problems suitable for the contest. <a href="/attachments/math_contest_sample.pdf" target="_blank">Download</a> a pdf file of the sample problems. Check out our large <%= link_to "repository", posts_path, target: "_blank"  %> of over 4,000 word problems for more samples.</p>
+			<h4> 4th Grade Example</h4>
 			<p class="margin-bottom"><%= image_tag("/attachments/grade_4.png", alt: "Shooloo healthy eating math story for 4th grade", title: "Shooloo healthy eating math story contest for 4th grade") %></p>
+			<h4> 5th Grade Example</h4>
 			<p class="margin-bottom"><%= image_tag("/attachments/grade_5.png", alt: "Shooloo healthy eating math story for 5th grade", title: "Shooloo healthy eating math story contest for 5th grade") %></p>
+			<h4> 6th Grade Example</h4>
 			<p class="margin-bottom"><%= image_tag("/attachments/grade_6.png", alt: "Shooloo healthy eating math story for 6th grade", title: "Shooloo healthy eating math story contest for 6th grade") %></p>
+			<h4> 7th Grade Example</h4>
 			<p class="margin-bottom"><%= image_tag("/attachments/grade_7.png", alt: "Shooloo healthy eating math story for 7th grade", title: "Shooloo healthy eating math story contest for 7th grade") %></p>
 			
 		</div>	 	 			
 		<div id="review">
 			<h2>Editor's Reviews</h2>
-			<p>Teachers’ entries will be published without review. Our editors will review and correct all student entries before publishing them on Shooloo. Upon publication, student authors will be <%= link_to "notified", my_alerts_path %> of the correction results as shown below.</p>
-			<p><strong>It is crucial for students to review and learn from their correction results</strong> so they may improve the quality of their future submissions and thus increase their chances of winning.<</p>
+			<p>Teachers’ entries will be published without review. Our editors will review and correct all student entries before publishing them on Shooloo. Upon publication, student authors will be <%= link_to "notified", my_alerts_path, target: "_blank"  %> of the correction results as shown below.</p>
+			<p class="margin-bottom"><strong>It is crucial for students to review and learn from their correction results, so that they may improve the quality of their future submissions and thus increase their chances of winning. Our goal is not contest for contest’s sake, but to use contest as a medium to teach students healthy eating, critical thinking, problem solving, and informational text writing.</strong></p>
 			<p class="margin-bottom"><%= image_tag("/attachments/contest_correction.png", alt: "Shooloo healthy eating math story editor review", title: "Shooloo healthy eating math story contest editor review") %></p>
 		</div>
 		<div id="who">
@@ -194,7 +196,7 @@
 		</div>
 		<div id="contact">
 			<h2>Contact</h2>
-			<p>If you have any questions or would like to become a sponsor, contact us <%= link_to "here", contact_path %></p>
+			<p>If you have any questions or would like to become a sponsor, contact us <%= link_to "here", contact_path, target: "_blank" %>.</p>
 		</div>	
 	</div>
 </div>

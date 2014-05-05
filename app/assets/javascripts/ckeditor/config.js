@@ -1,5 +1,6 @@
 CKEDITOR.editorConfig = function( config ) {
     config.autoParagraph = true; 
+    config.scayt_autoStartup = true;
     config.toolbar = [
         [ 'SpellChecker', 'Scayt', 'Table' ],
         [ 'Bold', 'Italic', '-', 'Underline','Strike', '-', 'Subscript','Superscript','-','RemoveFormat' ], 

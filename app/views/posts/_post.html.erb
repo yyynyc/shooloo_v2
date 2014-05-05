@@ -17,11 +17,11 @@
         	<%# if current_user.admin? %>
         		<%#= f.input :question, as: :ckeditor, input_html: {ckeditor: {toolbar: "admin" }} %>
         	<%# else %>
-        		<%= f.input :question, as: :ckeditor %>
+        		<%= f.input :question, as: :ckeditor, input_html: {ckeditor: {height: 100}} %>
         	<%# end %>
         </div>
         <div class="create">
-	    	<%= f.input :answer, as: :ckeditor %> 
+	    	<%= f.input :answer, as: :ckeditor, input_html: {ckeditor: {height: 100}} %> 
 	    </div> 
 	    <% if current_user.role.in?(["teacher", "tutor"]) %> 
 	    	<%= f.input :steps, as: :select, label: "This problem is", include_blank: true, collection: [["1-step", 1],["2-step", 2], ["multistep (3 or more steps)", 3] ]  %>

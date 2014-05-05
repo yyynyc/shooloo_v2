@@ -3,10 +3,10 @@
 <%= semantic_form_for [response, post], :html => {class: "form-horizontal-post-update", 'data-action' => 'update'} do |f| %>
 	<%= render 'shared/error_messages', object: f.object %>
     <div class="create">
-    	<%= f.input :question, as: :ckeditor %>
+    	<%= f.input :question, as: :ckeditor, input_html: {ckeditor: {height: 100}} %>
     </div>
     <div class="create">
-    	<%= f.input :answer, as: :ckeditor %> 
+    	<%= f.input :answer, as: :ckeditor, input_html: {ckeditor: {height: 100}} %> 
     </div>  
     <%= f.input :response_id, value: response.id, as: :hidden, class: "hidden" %> 
     <%= f.input :level_id, value: assignment.level_id, as: :hidden, class: "hidden" %>

@@ -6,7 +6,7 @@
   	<%# if current_user.admin? %>
   		<%#= f.cktext_area :content, rows: 5, ckeditor: {toolbar: "comment_admin"} %>
   	<%# else %>
-    	<%= f.cktext_area :content, rows: 5 %>
+    	<%= f.cktext_area :content, rows: 2 %>
     <%# end %>
     <div class="right_align create">
   		<%= f.submit save, class: "btn btn-large btn-primary", disable_with: "Proccessing..." %>

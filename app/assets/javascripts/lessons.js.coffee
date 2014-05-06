@@ -4,7 +4,6 @@ window.ccss = (ccss)->
   domains = $('#'+ccss+'_domain_id').html()  
   doit = ->
     level = $('#'+ccss+'_level_id :selected').text()
-    console.log(level)
     escaped_level = level.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1')    
     options = $(domains).filter("optgroup[label=#{escaped_level}]").html()
     if options

@@ -71,8 +71,7 @@ class Post < ActiveRecord::Base
       :update_points, :create_student_contest]
     after_transition :on => :publish, :do => [:give_points, :update_stats, 
       :alert_nudger, :qualify, :update_points]
-    after_transition :on => :verify, :do => [:update_stats, :alert_nudger, 
-      :update_characters]
+    after_transition :on => :verify, :do => [:update_stats, :alert_nudger]
     after_transition :on => :revise, :do => [:revise_stats, :qualify]
 
     event :submit do
@@ -174,14 +173,6 @@ class Post < ActiveRecord::Base
       self.user.post_count = self.user.posts.count
       self.user.save(validate: false)
     end
-  end
-
-  def update_characters
-    self.update_attributes!(steps: self.correction.steps, 
-      level_id: self.correction.level_id, 
-      domain_id: self.correction.domain_id,
-      standard_id: self.correction.standard_id, 
-      hstandard_id: self.correction.hstandard_id)
   end
 
   def alert_nudger 

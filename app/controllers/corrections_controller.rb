@@ -65,9 +65,6 @@ class CorrectionsController < ApplicationController
     elsif params[:button] == "revision"
       if @correction.revise
         @post = @correction.corrected_post 
-        @post.update_attributes!(steps: @correction.steps, level_id: @correction.level_id, 
-          domain_id: @correction.domain_id, standard_id: @correction.standard_id,
-          hstandard_id: @correction.hstandard_id)
         flash[:success]="Revised!"
         redirect_to correction_path(@correction)         
       else

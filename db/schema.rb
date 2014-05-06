@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140429131437) do
+ActiveRecord::Schema.define(:version => 20140506210210) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -377,8 +377,8 @@ ActiveRecord::Schema.define(:version => 20140429131437) do
     t.text     "answer"
     t.string   "grade"
     t.integer  "user_id"
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
@@ -387,41 +387,17 @@ ActiveRecord::Schema.define(:version => 20140429131437) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.string   "category"
     t.string   "image_host"
-    t.integer  "answer_correctness_1_count"
-    t.integer  "answer_correctness_2_count"
-    t.integer  "answer_correctness_3_count"
-    t.integer  "answer_correctness_4_count"
-    t.integer  "operation_whole_count"
-    t.boolean  "visible",                    :default => true
-    t.integer  "ratings_count",              :default => 0
-    t.integer  "overall_true_count",         :default => 0
-    t.integer  "overall_false_count"
-    t.integer  "ccss_right_count"
-    t.integer  "steps_1_count"
-    t.integer  "steps_2_count"
-    t.integer  "steps_3_count"
-    t.integer  "steps_4_count"
-    t.integer  "steps_5_count"
-    t.integer  "steps_6_count"
-    t.integer  "vocabulary_count"
-    t.integer  "grammar_count"
-    t.integer  "structure_count"
-    t.integer  "clarity_count"
-    t.integer  "originality_count"
-    t.integer  "comments_count",             :default => 0
-    t.integer  "likes_count",                :default => 0
+    t.boolean  "visible",                 :default => true
+    t.integer  "comments_count",          :default => 0
+    t.integer  "likes_count",             :default => 0
     t.integer  "level_id"
     t.integer  "domain_id"
     t.integer  "standard_id"
-    t.integer  "ccss_wrong_grade_count"
-    t.integer  "ccss_wrong_skill_count"
-    t.integer  "ccss_wrong_ican_count"
     t.integer  "quality_id"
     t.integer  "subject_id"
     t.integer  "response_id"
-    t.boolean  "graded",                     :default => false
+    t.boolean  "graded",                  :default => false
     t.string   "state"
     t.integer  "competition"
     t.string   "qualified"

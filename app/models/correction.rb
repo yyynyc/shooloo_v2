@@ -12,7 +12,8 @@ class Correction < ActiveRecord::Base
 
 	state_machine initial: :draft do
 	    after_transition :on => :submit, :do => [:qualify, :update_pub_credits,
-	    	:post_state_transition, :update_editor_stats]
+	    	:post_state_transition, :update_editor_stats, :update_post_characters]
+	    after_transition :on => :revise, :do => [:qualify, :revise_pubcred_post_characters] 
 
 	    event :submit do
 	      transition :draft => :submitted
@@ -36,23 +37,52 @@ class Correction < ActiveRecord::Base
 			if self.competition == 1 && self.grammar? && self.concept_clear? &&
 				self.math_correct? && self.answer_complete? && self.steps > 1
 				self.corrected_post.user.grade <= (self.level.number+1)
-				self.corrected_post.update_attributes!(qualified: "yes")
-				self.corrected_post.user.authorizers.each do |a|
-					a.point.inspiration += ShoolooV2::TEACHER_INSPIRATION
-					a.point.save
-        			a.student_contest.qualified_total += 1
-     				a.student_contest.save
+				if self.corrected_post.qualified == "no"
+					self.corrected_post.user.point.qualified += 1
+					self.corrected_post.user.point.disqualified -= 1
+					self.corrected_post.user.point.save
+					self.corrected_post.user.authorizers.each do |a|
+						a.point.inspiration += ShoolooV2::TEACHER_INSPIRATION
+						a.point.save
+	        			a.student_contest.qualified_total += 1
+	        			a.student_contest.disqualified_total -= 1
+	     				a.student_contest.save
+					end
+					self.corrected_post.update_attributes!(qualified: "yes")
+				elsif self.corrected_post.qualified.nil?
+					self.corrected_post.user.point.qualified += 1
+					self.corrected_post.user.point.save
+					self.corrected_post.user.authorizers.each do |a|
+						a.point.inspiration += ShoolooV2::TEACHER_INSPIRATION
+						a.point.save
+	        			a.student_contest.qualified_total += 1
+	     				a.student_contest.save
+					end
+					self.corrected_post.update_attributes!(qualified: "yes")
 				end
 			else
-				self.corrected_post.update_attributes!(qualified: "no")
-				self.corrected_post.user.authorizers.each do |a|
-        			a.student_contest.disqualified_total += 1
-     				a.student_contest.save
+				if self.corrected_post.qualified == "yes"
+					self.corrected_post.user.point.disqualified += 1
+					self.corrected_post.user.point.qualified -= 1
+					self.corrected_post.user.point.save
+					self.corrected_post.user.authorizers.each do |a|
+						a.point.inspiration -= ShoolooV2::TEACHER_INSPIRATION
+						a.point.save
+	        			a.student_contest.disqualified_total += 1
+	        			a.student_contest.qualified_total -= 1
+	     				a.student_contest.save
+					end
+					self.corrected_post.update_attributes!(qualified: "no")
+				elsif self.corrected_post.qualified.nil?
+					self.corrected_post.user.point.disqualified += 1
+					self.corrected_post.user.point.save
+					self.corrected_post.user.authorizers.each do |a|
+	        			a.student_contest.disqualified_total += 1
+	     				a.student_contest.save
+					end
+					self.corrected_post.update_attributes!(qualified: "no")
 				end
 			end
-			self.corrected_post.user.point.qualified = self.corrected_post.user.posts.where(qualified: "yes").count
-			self.corrected_post.user.point.disqualified = self.corrected_post.user.posts.where(qualified: "no").count
-			self.corrected_post.user.point.save
 			Activity.create!(action: "qualify", trackable: self.corrected_post, 
         		user_id: 1, recipient_id: self.corrected_post.user_id)
 		else
@@ -77,6 +107,49 @@ class Correction < ActiveRecord::Base
 	        		user_id: 1, recipient_id: self.corrected_post.user_id)
 			end
 		end
+	end
+
+	def update_post_characters
+	    self.corrected_post.update_attributes!(steps: self.steps, 
+	      level_id: self.level_id, 
+	      domain_id: self.domain_id,
+	      standard_id: self.standard_id, 
+	      hstandard_id: self.hstandard_id)
+	end
+
+	def revise_pubcred_post_characters
+		unless self.corrected_post.grandfather?
+			if self.corrected_post.level.number < self.corrected_post.user.grade
+				if self.level.number >= self.corrected_post.user.grade
+					self.corrected_post.user.pubcred += ((ShoolooV2::BELOW_GRADE)*(self.corrected_post.user.grade - self.corrected_post.level.number) + ShoolooV2::AT_GRADE)        
+					self.corrected_post.user.save(validate: false)
+					alerts = Activity.where(action: "below_grade", trackable_type: "Post", 
+						trackable_id: self.corrected_post.id, user_id: 1, recipient_id: self.corrected_post.user_id)
+					if !alerts.blank?
+	        			alerts.each {|a| a.destroy} 
+	        		end
+	        		Activity.create!(action: "at_grade", trackable: self.corrected_post, 
+	        		user_id: 1, recipient_id: self.corrected_post.user_id)
+				end
+			elsif self.corrected_post.level.number >= self.corrected_post.user.grade
+				if self.level.number < self.corrected_post.user.grade
+					self.corrected_post.user.pubcred -= ((ShoolooV2::BELOW_GRADE)*(self.corrected_post.user.grade - self.corrected_post.level.number) + ShoolooV2::AT_GRADE)
+					self.corrected_post.user.save(validate: false)
+					alerts = Activity.where(action: "at_grade", trackable_type: "Post", 
+						trackable_id: self.corrected_post.id, user_id: 1, recipient_id: self.corrected_post.user_id)
+					if !alerts.blank?
+	        			alerts.each {|a| a.destroy} 
+	        		end
+	        		Activity.create!(action: "below_grade", trackable: self.corrected_post, 
+	        		user_id: 1, recipient_id: self.corrected_post.user_id)
+				end
+			end
+		end
+		self.corrected_post.update_attributes!(steps: self.steps, 
+	      level_id: self.level_id, 
+	      domain_id: self.domain_id,
+	      standard_id: self.standard_id, 
+	      hstandard_id: self.hstandard_id)
 	end
 
 	def update_editor_stats

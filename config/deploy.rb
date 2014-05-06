@@ -9,7 +9,7 @@ task :live do
 end
 
 task :stage do
-  server "192.227.182.167", :web, :app, :db, primary: true
+  server "stage.shooloo.org", :web, :app, :db, primary: true
   set :env, 'stage'
   set :nginx_config, 'nginx-stage.conf'
 end

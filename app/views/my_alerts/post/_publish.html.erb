@@ -3,9 +3,9 @@
 		<strong><%= link_to "PUBLISHED", correction_path(activity.trackable.correction) %></strong> 		
 		and corrected your post 
 		(#<%= link_to activity.trackable.id, correction_path(activity.trackable.correction) %>) on <%= activity.created_at.strftime("%b %d, %Y") %>. 
+		<br/>	
+		Learn from the <%= link_to "corrections", correction_path(activity.trackable.correction) %> and <%= link_to "make a better one", new_post_path %>!
 	</span> 
-	<br/>	
-	Check out the <%= link_to "corrections", correction_path(activity.trackable.correction) %> of your post.
 <% else %>
 	<span class='alert-heading'>
 		sent your post back to draft.

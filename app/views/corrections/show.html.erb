@@ -34,32 +34,34 @@
 	    <p><strong>Answer: </strong> <%= @correction.answer.html_safe %></p>
 	</div>
 </div>
-<div class="row auth-font">
-	<div class="span2">
-		<p><strong>I-can Statement:</strong></p>
+<% if !@correction.standard.nil? %>
+	<div class="row auth-font">
+		<div class="span2">
+			<p><strong>I-can Statement:</strong></p>
+		</div>
+		<div class="span10">
+			<% if @correction.hstandard.nil? %>
+				<p>In <%= @correction.domain.name %>, <%= @correction.standard.ICan %>
+				</p>
+			<% else %>
+				<p>In <%= @correction.domain.name %>, <%= @correction.hstandard.ICan %>
+				</p>
+			<% end %>
+		</div>
 	</div>
-	<div class="span10">
-		<% if @correction.hstandard.nil? %>
-			<p>In <%= @correction.domain.name %>, <%= @correction.standard.ICan %>
-			</p>
-		<% else %>
-			<p>In <%= @correction.domain.name %>, <%= @correction.hstandard.ICan %>
-			</p>
-		<% end %>
+	<div class="row auth-font">
+		<div class="span2">
+			<p><strong>Common Core Standard:</strong></p>
+		</div>
+		<div class="span10">
+			<% if @correction.hstandard.nil? %>
+				<p><%= @correction.standard.full_description %></p>
+			<% else %>
+				<p><%= @correction.hstandard.full_description %></p>
+			<% end %>
+		</div>
 	</div>
-</div>
-<div class="row auth-font">
-	<div class="span2">
-		<p><strong>Common Core Standard:</strong></p>
-	</div>
-	<div class="span10">
-		<% if @correction.hstandard.nil? %>
-			<p><%= @correction.standard.full_description %></p>
-		<% else %>
-			<p><%= @correction.hstandard.full_description %></p>
-		<% end %>
-	</div>
-</div>
+<% end %>
 <div class="row margin-left">
 	<h2> 
 		Assessment of

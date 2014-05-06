@@ -3,8 +3,8 @@ class StaticPagesController < ApplicationController
   	if signed_in?
       @post  = current_user.posts.build
       @correction_drafts =  current_user.corrections.where(state: "draft")
-      @drafts =  current_user.posts.where(state: "draft").paginate(page: params[:page], per_page: 1, order: "created_at DESC")
-      @submissions =  current_user.posts.where(state: "submitted").paginate(page: params[:page], per_page: 10, order: "created_at DESC")
+      @drafts =  current_user.posts.where(state: "draft").order("created_at DESC")
+      @submissions =  current_user.posts.where(state: "submitted").order("created_at DESC")
       @feed_items = current_user.feed.visible.paginate(page: params[:page], per_page: 10, order: "updated_at DESC")
       @rating=current_user.ratings.build 
       @comment = current_user.comments.build
@@ -16,7 +16,7 @@ class StaticPagesController < ApplicationController
       if current_user.role == "editor"
         @submissions = Post.where(state: "submitted").paginate(
           page: params[:page], per_page: 2000, order: "competition DESC, created_at ASC")
-        @publications = Post.where(state: "old").paginate(page: params[:page], 
+        @publications = Post.where(state: "old", visible: true).paginate(page: params[:page], 
           per_page: 2000, order: "created_at DESC")
         @corrections = current_user.corrections.where(state: ["submitted", "revised"])
       end

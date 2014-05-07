@@ -11,7 +11,6 @@ CKEDITOR.editorConfig = function( config ) {
         [ 'Smiley']
     ];
     config.extraPlugins = 'tabletools';
-    config.language = 'en';
     // config.extraPlugins += (config.extraPlugins.length == 0 ? '' : ',') + 'ckeditor_wiris';
     // config.allowedContent = true;
  //    config.toolbar = "CKcomment"

@@ -1,0 +1,4 @@
+<% posts.each do |s| %>
+Post #<%= link_to s.id, new_post_correction_path(s) %> |
+<% end %>
+<%= will_paginate posts %>

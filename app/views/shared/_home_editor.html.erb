@@ -10,14 +10,15 @@
   <% @submissions.each do |s| %>
     Post #<%= link_to s.id, new_post_correction_path(s) %> |
   <% end %>
-  <%= will_paginate @submissions %>
 <% end %>
 <% if @publications.any? %>
   <h2>Priority 2</h2>
-  <% @publications.each do |s| %>
-    Post #<%= link_to s.id, new_post_correction_path(s) %> |
-  <% end %>
-  <%= will_paginate @publications %>
+  <%# if current_user.id == 1576 %>
+    <%#= render partial: 'static_pages/editor_division', locals: {posts: @publications_middle} %>
+  <%# else %>
+    <%#= render partial: 'static_pages/editor_division', locals: {posts: @publications_lower} %>
+  <%# end %>
+  <%= render partial: 'static_pages/editor_division', locals: {posts: @publications} %>
 <% end %>
 <% if @submissions.blank? && @publications.blank?%>
   Nothing in the cue to be corrected.

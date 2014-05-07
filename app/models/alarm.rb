@@ -6,7 +6,7 @@ class Alarm < ActiveRecord::Base
 
   after_save do 
   	if self.alarmed_post
-      self.alarmed_post.update_attributes!(visible: false, state: "draft")
+      self.alarmed_post.update_attributes!(state: "draft")
     elsif self.alarmed_comment
       self.alarmed_comment.update_attributes!(visible: false)
     end
@@ -28,18 +28,21 @@ class Alarm < ActiveRecord::Base
 
   after_create do
     if self.alarmed_post
+      if !self.alarmed_post.correction.nil?
+        self.alarmed_post.correction.destroy
+      end
       Event.create!(benefactor_id: self.alarmed_post.user_id, beneficiary_id: 1, 
         event: "alarm post", value: ShoolooV2::ALARM_POST)
       Activity.create!(action: "create", trackable: self, 
         user_id: self.alarmer_id, recipient_id: self.alarmed_post.user_id)
-      self.alarmed_post.user.authorizers.each do |authorizer|
-        Activity.create!(action: "create", trackable: self, 
-        user_id: self.alarmer_id, recipient_id: authorizer.id)
-        unless authorizer.personal_email.blank?
-          UserMailer.alarm_comment(authorizer, self.alarmed_post, 
-            self.alarmed_post.user).deliver
-        end
-      end
+      # self.alarmed_post.user.authorizers.each do |authorizer|
+      #   Activity.create!(action: "create", trackable: self, 
+      #   user_id: self.alarmer_id, recipient_id: authorizer.id)
+      #   unless authorizer.personal_email.blank?
+      #     UserMailer.alarm_comment(authorizer, self.alarmed_post, 
+      #       self.alarmed_post.user).deliver
+      #   end
+      # end
     elsif self.alarmed_comment
       Event.create!(benefactor_id: self.alarmed_comment.commenter_id, beneficiary_id: 1, 
         event: "alarm comment", value: ShoolooV2::ALARM_COMMENT)

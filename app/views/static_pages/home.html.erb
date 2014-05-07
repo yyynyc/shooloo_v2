@@ -1,17 +1,7 @@
 <% if signed_in? %>
   <div class="row">
     <aside class="span4">
-      <section>
-        <%= render 'shared/user_info', user: current_user %>
-      </section>
-      <section>
-        <%= render 'shared/stats', user: current_user %>
-      </section>
-      <% if current_user.role == "editor" %>
-        <%= render partial: 'shared/stats_editor' %>
-      <% else %>
-        <%= render partial: 'posts/button_simple' %>
-      <% end %>
+      <%= render partial: 'shared/aside', locals: {user: current_user} %>
     </aside>
     <div class="span8">
       <% if current_user.role=="editor" %>

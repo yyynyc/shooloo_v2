@@ -4,13 +4,7 @@
 
 <div class="row">
   	<aside class="span4">
-      <section>
-        <%= render 'shared/user_info', user: @user %>
-      </section>
-      <section>
-        <%= render 'shared/stats', user: @user %>
-      </section>
-      <%= render partial: 'posts/button_simple' %>    
+      <%= render partial: 'shared/aside', locals: {user: @user} %>    
 	  </aside>
 	<div class="span8">
     <%= render 'users/follow_nudge' %>  

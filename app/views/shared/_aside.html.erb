@@ -1,0 +1,12 @@
+<section>
+  <%= render partial: 'shared/user_info', locals: {user: user} %>
+</section>
+<section>
+  <%= render partial: 'shared/stats', locals: {user: user}  %>
+</section>
+<% if current_user.role == "editor" %>
+  <%= render partial: 'shared/stats_editor' %>
+<% else %>
+  <%= render partial: 'posts/button_simple' %>
+  <%= render 'shared/aside_contest' %>
+<% end %>

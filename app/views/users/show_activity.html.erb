@@ -5,13 +5,7 @@
 
 <div class="row">
   <aside class="span4">
-    <section>
-        <%= render 'shared/user_info', user: current_user %>
-    </section>
-    <section>
-      <%= render 'shared/stats', user: current_user %>
-    </section>
-    <%= render partial: 'posts/button_simple' %>
+    <%= render partial: 'shared/aside', locals: {user: current_user} %>
   </aside>
   <div class="span8">
     <h1> My News Alerts </h1>

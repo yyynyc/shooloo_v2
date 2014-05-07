@@ -98,9 +98,9 @@ GEM
       sass-rails (>= 3.2)
     chronic (0.10.1)
     chunky_png (1.2.9)
-    ckeditor (4.0.6)
+    ckeditor (4.0.10)
       mime-types
-      orm_adapter
+      orm_adapter (~> 0.5.0)
     client_side_validations-formtastic (2.2.1)
       client_side_validations (~> 3.2.0)
       formtastic (~> 2.2.0)
@@ -211,7 +211,7 @@ GEM
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     obscenity (1.0.2)
-    orm_adapter (0.4.0)
+    orm_adapter (0.5.0)
     pg (0.16.0)
     polyamorous (0.6.3)
       activerecord (>= 3.0)
@@ -353,7 +353,7 @@ DEPENDENCIES
   capybara (= 1.1.2)
   chartkick
   chosen-rails
-  ckeditor
+  ckeditor (= 4.0.10)
   client_side_validations!
   client_side_validations-formtastic
   coffee-rails (= 3.2.2)

@@ -34,7 +34,7 @@
 	    <p><strong>Answer: </strong> <%= @correction.answer.html_safe %></p>
 	</div>
 </div>
-<% if !@correction.standard.nil? %>
+<% if !@correction.standard.nil? && !@correction.domanil.nil? %>
 	<div class="row auth-font">
 		<div class="span2">
 			<p><strong>I-can Statement:</strong></p>
@@ -59,6 +59,15 @@
 			<% else %>
 				<p><%= @correction.hstandard.full_description %></p>
 			<% end %>
+		</div>
+	</div>
+<% else %>
+	<div class="row auth-font">
+		<div class="span2">
+			<p><strong>Common Core Standard:</strong></p>
+		</div>
+		<div class="span10">
+			<span class="no">???</span>
 		</div>
 	</div>
 <% end %>

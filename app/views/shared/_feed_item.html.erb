@@ -24,10 +24,17 @@
       <div class="row">
         <section class="feed-margin">
           <span class="image">
-            <%= link_to image_tag(feed_item.photo.url (:medium), 
-              alt: "Shooloo Common Core Math Problem ##{feed_item.id}", 
-              title: "Shooloo Common Core Math Problem ##{feed_item.id}"),
-              new_post_comment_path(feed_item)  %><br/> 
+            <% if feed_item.state == "draft" %>
+              <%= link_to image_tag(feed_item.photo.url (:medium), 
+                alt: "Shooloo Common Core Math Problem ##{feed_item.id}", 
+                title: "Shooloo Common Core Math Problem ##{feed_item.id}"),
+                post_draft_path(feed_item)  %>
+            <% else %>
+              <%= link_to image_tag(feed_item.photo.url (:medium), 
+                alt: "Shooloo Common Core Math Problem ##{feed_item.id}", 
+                title: "Shooloo Common Core Math Problem ##{feed_item.id}"),
+                new_post_comment_path(feed_item)  %>
+            <% end %><br/> 
             <% unless feed_item.image_host.nil? %>
               <span class="image_host">Image courtesy of <%= feed_item.image_host %>.
               </span>

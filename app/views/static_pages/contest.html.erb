@@ -108,16 +108,58 @@
 			<h2>Sample Problems</h2>
 			<p class="margin-bottom">The following are sample problems (grades 3 -- 12) suitable for the contest. <a href="/attachments/math_contest_sample.pdf" target="_blank">Download a pdf file of the sample problems</a>. Check out our large <%= link_to "repository", posts_path, target: "_blank"  %> of over 4,000 word problems for more samples.</p>
 			<h4> 3rd Grade Example</h4>
+			<p>
+				<% if !Post.where(id: 4004).blank? %>
+					<%= link_to "Smartboard view with which you can hide and unhide the answer to this question", post_teacher_view_path(4004) %>
+				<% else %>
+					<%= link_to "Smartboard view with which you can hide and unhide the answer to this question", post_teacher_view_path(15) %>
+				<% end %> 
+			</p>
 			<p class="margin-bottom"><%= image_tag("/attachments/grade_3.png", alt: "Shooloo healthy eating math story for 3rd grade", title: "Shooloo healthy eating math story contest for 3rd grade") %></p>
 			<h4> 4th Grade Example</h4>
+			<p>
+				<% if !Post.where(id: 3876).blank? %>
+					<%= link_to "Smartboard view with which you can hide and unhide the answer to this question", post_teacher_view_path(3876) %>
+				<% else %>
+					<%= link_to "Smartboard view with which you can hide and unhide the answer to this question", post_teacher_view_path(15) %>
+				<% end %> 
+			</p>
 			<p class="margin-bottom"><%= image_tag("/attachments/grade_4.png", alt: "Shooloo healthy eating math story for 4th grade", title: "Shooloo healthy eating math story contest for 4th grade") %></p>
 			<h4> 5th Grade Example</h4>
+			<p>
+				<% if !Post.where(id: 3874).blank? %>
+					<%= link_to "Smartboard view with which you can hide and unhide the answer to this question", post_teacher_view_path(3874) %>
+				<% else %>
+					<%= link_to "Smartboard view with which you can hide and unhide the answer to this question", post_teacher_view_path(15) %>
+				<% end %> 
+			</p>
 			<p class="margin-bottom"><%= image_tag("/attachments/grade_5.png", alt: "Shooloo healthy eating math story for 5th grade", title: "Shooloo healthy eating math story contest for 5th grade") %></p>
 			<h4> 6th Grade Example</h4>
+			<p>
+				<% if !Post.where(id: 3790).blank? %>
+					<%= link_to "Smartboard view with which you can hide and unhide the answer to this question", post_teacher_view_path(3790) %>
+				<% else %>
+					<%= link_to "Smartboard view with which you can hide and unhide the answer to this question", post_teacher_view_path(15) %>
+				<% end %> 
+			</p>
 			<p class="margin-bottom"><%= image_tag("/attachments/grade_6.png", alt: "Shooloo healthy eating math story for 6th grade", title: "Shooloo healthy eating math story contest for 6th grade") %></p>
 			<h4> 7th Grade Example</h4>
+			<p>
+				<% if !Post.where(id: 3870).blank? %>
+					<%= link_to "Smartboard view with which you can hide and unhide the answer to this question", post_teacher_view_path(3870) %>
+				<% else %>
+					<%= link_to "Smartboard view with which you can hide and unhide the answer to this question", post_teacher_view_path(15) %>
+				<% end %> 
+			</p>
 			<p class="margin-bottom"><%= image_tag("/attachments/grade_7.png", alt: "Shooloo healthy eating math story for 7th grade", title: "Shooloo healthy eating math story contest for 7th grade") %></p>
 			<h4> 8th Grade Example</h4>
+			<p>
+				<% if !Post.where(id: 4005).blank? %>
+					<%= link_to "Smartboard view with which you can hide and unhide the answer to this question", post_teacher_view_path(4005) %>
+				<% else %>
+					<%= link_to "Smartboard view with which you can hide and unhide the answer to this question", post_teacher_view_path(15) %>
+				<% end %> 
+			</p>
 			<p class="margin-bottom"><%= image_tag("/attachments/grade_8.png", alt: "Shooloo healthy eating math story for 8th grade", title: "Shooloo healthy eating math story contest for 8th grade") %></p>
 		</div>	 	 			
 		<div id="review">

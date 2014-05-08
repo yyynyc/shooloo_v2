@@ -24,7 +24,7 @@
       <div class="row">
         <section class="feed-margin">
           <span class="image">
-            <% if feed_item.state == "draft" %>
+            <% if feed_item.state.in?(["draft", "submitted"]) %>
               <%= link_to image_tag(feed_item.photo.url (:medium), 
                 alt: "Shooloo Common Core Math Problem ##{feed_item.id}", 
                 title: "Shooloo Common Core Math Problem ##{feed_item.id}"),

@@ -2,6 +2,7 @@
 
 <%= semantic_form_for [response, post], :html => {class: "form-horizontal-post-update", 'data-action' => 'update'} do |f| %>
 	<%= render 'shared/error_messages', object: f.object %>
+    <%= f.input :competition, label: link_to("Healthy-Eating Math Story Contest", contest_path), as: :radio, collection: [["Yes! Enter my post into the healthy-eating math story contest", 1],["No. My post is not about healthy eating.", 0]] %>
     <div class="create">
     	<%= f.input :question, as: :ckeditor, input_html: {ckeditor: {height: 100}} %>
     </div>
@@ -12,6 +13,7 @@
     <%= f.input :level_id, value: assignment.level_id, as: :hidden, class: "hidden" %>
     <%= f.input :domain_id, value: assignment.domain_id, as: :hidden, class: "hidden" %>
     <%= f.input :standard_id, value: assignment.standard_id, as: :hidden, class: "hidden" %>
+     <%= f.input :hstandard_id, value: assignment.hstandard_id, as: :hidden, class: "hidden" %>
 	<%= f.input :subject_id, as: :select, include_blank: true, label: "Subject", collection: Hash[Subject.order('name ASC').map{|s| [s.name, s.id]}] %>
     <%= f.input :photo, as: :file, label: "Photo upload" %> 	  
     <%= f.input :photo_remote_url, label: "Photo web address" %>

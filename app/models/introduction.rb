@@ -33,11 +33,8 @@ class Introduction < ActiveRecord::Base
   		2, approval: "accepted")	
     Activity.create!(action: "new", trackable: self, 
         user_id: self.introducee_id, recipient_id: self.introducer_id)
-  end
-
-  after_update do
     unless self.introducer.admin? 
-    	self.introducer.point.advocacy += ShoolooV2::INTRO
+      self.introducer.point.advocacy += ShoolooV2::INTRO
       self.introducer.point.save!
     end
     self.introducee.point.advocacy += ShoolooV2::INTRO

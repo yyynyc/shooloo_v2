@@ -11,8 +11,16 @@ class SessionsController < ApplicationController
       sign_in user
       if current_user.role == "editor"
         redirect_back_or root_path  
-      else    		
-        redirect_back_or my_alerts_path
+      else
+        if !current_user.visible?
+          if !current_user.complete?
+            redirect_back_or edit_user_path(current_user)
+          else
+            redirect_back_or new_authorization_path
+          end
+        else
+          redirect_back_or my_alerts_path
+        end
       end
     unless Event.where(benefactor_id: user.id, event: "sign in").where(
       'Date(created_at)=?', Date.today).any? || user.admin? || user.role == "editor"

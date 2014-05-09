@@ -161,10 +161,19 @@
 				<% end %> 
 			</p>
 			<p class="margin-bottom"><%= image_tag("/attachments/grade_8.png", alt: "Shooloo healthy eating math story for 8th grade", title: "Shooloo healthy eating math story contest for 8th grade") %></p>
+			<h4> High School Algebra Example</h4>
+			<p>
+				<% if !Post.where(id: 4013).blank? %>
+					<%= link_to "Smartboard view with which you can hide and unhide the answer to this question", post_teacher_view_path(4013) %>
+				<% else %>
+					<%= link_to "Smartboard view with which you can hide and unhide the answer to this question", post_teacher_view_path(15) %>
+				<% end %> 
+			</p>
+			<p class="margin-bottom"><%= image_tag("/attachments/grade_hsa.png", alt: "Shooloo healthy eating math story for high school algebra", title: "Shooloo healthy eating math story contest for high school algebra") %></p>
 		</div>	 	 			
 		<div id="review">
 			<h2>Editor's Reviews</h2>
-			<p>Teachers’ entries will be published without review. Our editors will review and correct all student entries before publishing them on Shooloo. Upon publication, student authors will be <%= link_to "notified", my_alerts_path, target: "_blank"  %> of the correction results as shown below.</p>
+			<p>Teachers’ entries will be published without review. Our editors will review and correct all student entries before publishing them on Shooloo. Upon publication, student authors will be <%= link_to "notified", my_alerts_path, target: "_blank"  %> of the correction results as shown below. <a href='/attachments/contest_correction_sample.pdf', target='_blank'>Download the correction sample in pdf.</a></p>
 			<p class="margin-bottom"><strong>It is crucial for students to review and learn from their correction results, so that they may improve the quality of their future submissions and thus increase their chances of winning. Our goal is not contest for contest’s sake, but to use contest as a medium to teach students healthy eating, critical thinking, problem solving, and informational text writing.</strong></p>
 			<p class="margin-bottom"><%= image_tag("/attachments/contest_correction.png", alt: "Shooloo healthy eating math story editor review", title: "Shooloo healthy eating math story contest editor review") %></p>
 		</div>
@@ -199,7 +208,7 @@
 				<tr>
 					
 					<td>
-						<p><a href="http://www.popchips.com/" target="_blank" confirm="You are about to visit a site that is not part of Shooloo. Continue?">Pop Chips</a> will provide popped (not fried or baked) chips that have no preservatives, fake color, flake flavor, or hydrogenated oil.</p>
+						<p><a href="http://www.popchips.com/" target="_blank" confirm="You are about to visit a site that is not part of Shooloo. Continue?">Pop Chips</a> will provide popped (never fried, never baked) chips that have no preservatives, fake color, flake flavor, or hydrogenated oil.</p>
 					</td>
 					<td style="width: 100px">
 						<a href="http://www.popchips.com/" target="_blank" confirm="You are about to visit a site that is not part of Shooloo. Continue?"><%= image_tag("/attachments/logo_pop.png") %></a>

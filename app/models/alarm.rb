@@ -6,7 +6,7 @@ class Alarm < ActiveRecord::Base
 
   after_save do 
   	if self.alarmed_post
-      self.alarmed_post.update_attributes!(state: "draft")
+      self.alarmed_post.update_attributes!(visible: false, state: "draft")
     elsif self.alarmed_comment
       self.alarmed_comment.update_attributes!(visible: false)
     end

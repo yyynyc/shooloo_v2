@@ -12,7 +12,7 @@
       <% end %> 
     </div>  
     <%= render partial: 'posts/post_user', locals: {post: @post} %>
-    <% if @post.alarms.any? %>   
+    <% if !@post.visible? %>   
       <% if current_user.admin? || current_user.role == "teacher" %>
         <div class="btn-formtastic">
           <%= render partial: 'alarms/unalarm', locals: {post: @post} %>

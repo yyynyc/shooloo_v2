@@ -98,7 +98,7 @@ GEM
       sass-rails (>= 3.2)
     chronic (0.10.1)
     chunky_png (1.2.9)
-    ckeditor (4.0.7)
+    ckeditor (4.0.6)
       mime-types
       orm_adapter
     client_side_validations-formtastic (2.2.1)
@@ -353,7 +353,7 @@ DEPENDENCIES
   capybara (= 1.1.2)
   chartkick
   chosen-rails
-  ckeditor (= 4.0.7)
+  ckeditor (= 4.0.6)
   client_side_validations!
   client_side_validations-formtastic
   coffee-rails (= 3.2.2)

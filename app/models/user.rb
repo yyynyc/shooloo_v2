@@ -258,26 +258,25 @@ class User < ActiveRecord::Base
   end
 
   def no_post_students
-    authorized_users.keep_if{|s| s.posts.where(state: 
-      ["submitted", "published"]).blank?}.sort_by{|s| [s.grade, s.last_name]}
+    authorized_users.order('grade ASC, last_name ASC').keep_if{|s| s.posts.where(state: 
+      ["submitted", "published", "old"]).blank?}
   end
 
   def ungraded_students
-    authorized_users.keep_if{|s| s.posts.where(state: 
-      ["submitted", "published"]).any? && s.posts.where(graded: true).blank?
-      }.sort_by{|s| [s.grade, s.last_name]}
+    authorized_users.order('grade ASC, last_name ASC').keep_if{|s| s.posts.where(state: 
+      ["submitted", "published", "old"]).any? && s.posts.where(graded: true).blank?
+      }
   end
 
   def below_grade_students
-    authorized_users.keep_if{|s| s.posts.where(state: 
-      ["verified", "published"]).any? && (s.posts.where(state: 
-      ["verified", "published"]).map(&:level).uniq.sort.last.id-1) < s.grade}.sort_by{|s| 
-      [s.grade, s.last_name]}
+    authorized_users.order('grade ASC, last_name ASC').keep_if{|s| s.posts.where(state: 
+      ["verified", "published", "old"]).any? && !s.grade.nil? && s.posts.where(state: 
+      ["verified", "published", "old"]).map(&:level).uniq.sort.last.number<s.grade}
   end
 
   def no_login_students
-    authorized_users.keep_if{|s| s.homework_last_week.nil? && s.homework_prior_week.nil? && 
-      s.homework_current_week.nil?}.sort_by{|s| [s.grade, s.last_name]}
+    authorized_users.order('grade ASC, last_name ASC').keep_if{|s| s.homework_last_week.nil? && s.homework_prior_week.nil? && 
+      s.homework_current_week.nil?}
   end
 
   def full_name_us

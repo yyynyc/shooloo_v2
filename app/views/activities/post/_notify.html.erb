@@ -1,0 +1,9 @@
+<% if activity.trackable %>
+	entered a 
+	<span class="yes"><strong> QUALIFIED </strong></span> 
+	post (#<%= link_to activity.trackable.id, post_comments_path(activity.trackable) %>) into the math contest on <%= activity.created_at.strftime("%b %d, %Y") %>.
+<% else %>
+	<span class='alert-heading'>
+		reviewed your student's post and disqualified it. 
+	</span>
+<% end %>

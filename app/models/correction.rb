@@ -35,7 +35,7 @@ class Correction < ActiveRecord::Base
 	def qualify
 		if self.corrected_post.competition==1
 			if self.competition == 1 && self.grammar? && self.concept_clear? &&
-				self.math_correct? && self.answer_complete? && self.steps > 1
+				self.math_correct? && self.answer_complete? && self.steps > 1 &&
 				self.corrected_post.user.grade <= (self.level.number+1)
 				if self.corrected_post.qualified == "no"
 					self.corrected_post.user.point.qualified += 1
@@ -47,6 +47,8 @@ class Correction < ActiveRecord::Base
 	        			a.student_contest.qualified_total += 1
 	        			a.student_contest.disqualified_total -= 1
 	     				a.student_contest.save
+	     				Activity.create!(action: "notify", trackable: self.corrected_post, 
+        					user_id: self.corrected_post.user_id, recipient_id: a.id)
 					end
 					self.corrected_post.update_attributes!(qualified: "yes")
 				elsif self.corrected_post.qualified.nil?
@@ -57,6 +59,8 @@ class Correction < ActiveRecord::Base
 						a.point.save
 	        			a.student_contest.qualified_total += 1
 	     				a.student_contest.save
+	     				Activity.create!(action: "notify", trackable: self.corrected_post, 
+        					user_id: self.corrected_post.user_id, recipient_id: a.id)
 					end
 					self.corrected_post.update_attributes!(qualified: "yes")
 				end
@@ -71,6 +75,8 @@ class Correction < ActiveRecord::Base
 	        			a.student_contest.disqualified_total += 1
 	        			a.student_contest.qualified_total -= 1
 	     				a.student_contest.save
+	     				Activity.where(action: "notify", trackable_type: "Post", trackable_id: self.corrected_post.id, 
+        					user_id: self.corrected_post.user_id, recipient_id: a.id).delete_all
 					end
 					self.corrected_post.update_attributes!(qualified: "no")
 				elsif self.corrected_post.qualified.nil?

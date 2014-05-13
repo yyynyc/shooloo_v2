@@ -95,6 +95,12 @@ class StandardsController < ApplicationController
 		render 'hs_functions'
 	end
 
+	def hs_number	
+		@standards = Standard.where(domain_id: 49)
+		set_meta_tags title: 'Common Core High School Functions Standards, I-Can Statements, Lesson Plans, and Video Tutorials'
+		render 'hs_number'
+	end
+
 	def new
 		@standard = Standard.new
 	end

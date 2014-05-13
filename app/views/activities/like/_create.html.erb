@@ -2,7 +2,7 @@
 	<% if !activity.trackable.liked_post_id.nil? %>
 		<strong>LIKED</strong> on <%= activity.created_at.strftime("%b %d, %Y") %>
 		a post  
-		#<%= link_to activity.trackable.liked_post.id, new_post_comment_path(activity.trackable.liked_post) %> 
+		#<%= link_to activity.trackable.liked_post.id, post_comments_path(activity.trackable.liked_post) %> 
 		written by 
 		<%= link_to activity.trackable.liked_post.user.screen_name, posts_user_path(activity.trackable.liked_post.user) %>
 		in <i><%= activity.trackable.liked_post.user.grade %></i>.
@@ -10,7 +10,7 @@
 		<strong>LIKED</strong> on <%= activity.created_at.strftime("%b %d, %Y") %> a comment to 
 		<% if !activity.trackable.liked_comment.commented_post_id.nil? %>
 			post  
-			#<%= link_to activity.trackable.liked_comment.commented_post.id, new_post_comment_path(activity.trackable.liked_comment.commented_post) %> 
+			#<%= link_to activity.trackable.liked_comment.commented_post.id, post_comments_path(activity.trackable.liked_comment.commented_post) %> 
 		<% elsif !activity.trackable.liked_comment.commented_lesson_id.nil? %>
 		lesson plan 
 			#<%= link_to activity.trackable.liked_comment.commented_lesson.id, lesson_comment_path(activity.trackable.liked_comment.commented_lesson) %> 

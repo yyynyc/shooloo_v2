@@ -18,7 +18,7 @@
 				<ul>
 					<% domain.standards.each do |standard| %>
 						<li>
-							<% if standard.posts.where(user_id: @user.id).any? %>
+							<% if standard.posts.where(user_id: @user.id).keep_if{|p| p.state.in?(["published", "revised", "verified", "old"])}.any? %>
 								<span class="yes">
 									<%= standard.short %>: <%= standard.ICan %>
 								</span> Post

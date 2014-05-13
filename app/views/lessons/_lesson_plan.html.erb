@@ -10,10 +10,10 @@
       <span class="image">
         <% if !lesson.post_a_id.nil? %>
           <%= link_to image_tag(lesson.post_a.photo.url (:small)),
-          new_post_comment_path(lesson.post_a)  %>
+          post_comments_path(lesson.post_a)  %>
         <% elsif !lesson.post_b_id.nil? %>
           <%= link_to image_tag(lesson.post_b.photo.url (:small)),
-          new_post_comment_path(lesson.post_b)  %>
+          post_comments_path(lesson.post_b)  %>
         <% else %>
           <img src="/attachments/Shooloo_logo_small.png">
         <% end %>                      

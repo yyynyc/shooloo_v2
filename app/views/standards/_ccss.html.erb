@@ -26,7 +26,7 @@
 						<%= s.ICan %>
 					</td>
 					<td>
-						<% s.posts.each do |p| %>
+						<% s.posts.keep_if{|p| p.state.in?(["published", "revised", "verified", "old"])}.each do |p| %>
 							#<%= link_to p.id, new_post_comment_path(p) %> /
 						<% end %>
 					</td>

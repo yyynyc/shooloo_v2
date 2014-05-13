@@ -22,7 +22,7 @@
 						<%= h.description %>
 					</td>
 					<td>
-						<% h.posts.each do |p| %>
+						<% h.posts.keep_if{|p| p.state.in?(["published", "revised", "verified", "old"])}.each do |p| %>
 							#<%= link_to p.id, new_post_comment_path(p) %> /
 						<% end %>
 					</td>

@@ -10,6 +10,7 @@
           <li><%= link_to "Videos", videos_path %></li>
           <% if signed_in? %>
             <% if current_user.role == "editor"%>
+              <li><%= link_to "Posts", posts_path %></li>
             <% else %>
               <li>
                   <%= link_to "Alerts", my_alerts_path %>

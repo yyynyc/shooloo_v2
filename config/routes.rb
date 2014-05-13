@@ -149,6 +149,7 @@ resources :hstandards
   get '/standards/common-core-math-I-can-grade-6', to: "standards#grade_6", as: :grade_6
   get '/standards/common-core-math-I-can-grade-7', to: "standards#grade_7", as: :grade_7
   get '/standards/common-core-math-I-can-grade-8', to: "standards#grade_8", as: :grade_8
+  get '/standards/common-core-math-I-can-high-school-number', to: "standards#hs_number", as: :hs_number
   get '/standards/common-core-math-I-can-high-school-algebra', to: "standards#hs_algebra", as: :hs_algebra
   get '/standards/common-core-math-I-can-high-school-modeling', to: "standards#hs_modeling", as: :hs_modeling
   get '/standards/common-core-math-I-can-high-school-geometry', to: "standards#hs_geometry", as: :hs_geometry

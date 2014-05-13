@@ -1,15 +1,16 @@
 <div itemscope itemtype="http://schema.org/CreativeWork">
-	<meta itemprop="description" content="Shooloo's I-Can statements and word problems aligned with the Common Core State Standards for 1st-grade math.">
+	<meta itemprop="description" content="Shooloo's I-Can statements and word problems aligned with the Common Core State Standards for high school math in number and quantity.">
 	<%= render 'shared/meta' %>
-	<meta itemprop="keywords" content= "I can">
-	<meta itemprop="keywords" content="1st grade">
-	<meta itemprop="keywords" content="grade 1">
+	<meta itemprop="keywords" content="I can">
+	<meta itemprop="keywords" content="high school">
+	<meta itemprop="keywords" content="number">
+	<meta itemprop="keywords" content="quantity">
 	<%= render 'standards/heading' %>
 	<ul class="nav nav-tabs">
 		<li><%= link_to "Overview", standards_path %></li>
 		<li><%= link_to "Practices", practice_path %></li>
 		<li><%= link_to "Grade K", grade_k_path %></li>
-		<li class="active"><%= link_to "Grade 1", grade_1_path  %></li>
+		<li><%= link_to "Grade 1", grade_1_path  %></li>
 		<li><%= link_to "Grade 2", grade_2_path  %></li>
 		<li><%= link_to "Grade 3", grade_3_path  %></li>
 		<li><%= link_to "Grade 4", grade_4_path  %></li>
@@ -17,13 +18,14 @@
 		<li><%= link_to "Grade 6", grade_6_path  %></li>
 		<li><%= link_to "Grade 7", grade_7_path  %></li>
 		<li><%= link_to "Grade 8", grade_8_path  %></li>
-		<li><%= link_to "HS Number & Quantity", hs_number_path  %></li>
+		<li class="active"><%= link_to "HS Number & Quantity", hs_number_path  %></li>
 		<li><%= link_to "HS Algebra", hs_algebra_path  %></li>
 		<li><%= link_to "HS Functions", hs_functions_path  %></li>
-		<li ><%= link_to "HS Modeling", hs_modeling_path  %></li>
+		<li><%= link_to "HS Modeling", hs_modeling_path  %></li>
 		<li><%= link_to "HS Geometry", hs_geometry_path  %></li>
-		<li><%= link_to "HS Statistics & Probabilities", hs_stats_path  %></li>
+		<li><%= link_to "HS Statistics & Probabilities", hs_stats_path  %></li></li>
 	</ul>
-	<h2> 1st Grade </h2>
-	<%= render 'standards/ccss' %>
+	</ul>
+	<h2> High School Number & Quantity </h2>
+	<%= render 'standards/hs_standards' %>
 </div>

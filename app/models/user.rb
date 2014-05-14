@@ -214,7 +214,7 @@ class User < ActiveRecord::Base
       validates :grade, presence: true, numericality: true, allow_blank: true, 
         :if => :student?, :unless => :should_validate_password? 
       validates :school_name, presence: true, length: {maximum: 100}, 
-        :if => [:student?, :teacher?]
+        :if => :validate_school
       validates :personal_email, format: { with: VALID_EMAIL_REGEX }, 
         uniqueness: {case_sensitive: false}, presence: true, 
         :unless => :student?
@@ -227,6 +227,12 @@ class User < ActiveRecord::Base
         :unless => :should_validate_password?
       validates :school_url, presence: true, url: true, :if => :teacher?
       
+      def validate_school
+        if self.role.in?(["student", "teacher"])
+          return true
+        end
+      end
+
       def student?
         if self.role == "student"
           return true

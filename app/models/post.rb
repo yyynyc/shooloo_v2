@@ -79,7 +79,7 @@ class Post < ActiveRecord::Base
     end
 
     event :publish do
-      transition :draft => :published      
+      transition [:draft, :published] => :published      
     end
 
     event :checkout do

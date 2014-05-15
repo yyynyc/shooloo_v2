@@ -11,7 +11,7 @@
 	</div>
 <% else %>	
 	<div class="about">
-		<p>Search for your current math teacher below.</p>
+		<p>You must get authorization from your teacher in order to publish posts or comments. Search for your current math teacher below.</p>
 	</div>
 	<div class='box'>
 		<div class='about'>
@@ -45,7 +45,7 @@
 			<% unless @authorizers == @teachers %>
 				<div class = "auth">
 					<% if @authorizers.count ==0 %>
-						<p>I am sorry, but we can't find your teacher among our members. <strong><%= link_to "invite your teacher", new_invitemail_path %></strong> to join so that you can enjoy all the fun of Shooloo!</p>
+						<p>I am sorry, but we can't find your teacher among our members. <strong><%= link_to "Invite your teacher", new_invitemail_path %></strong> to join so that you can enjoy all the fun of Shooloo!</p>
 					<% else %>
 						<p> Found the following teacher: </p>
 						<% @authorizers.each do |user| %>

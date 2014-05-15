@@ -28,10 +28,10 @@ class UsersController < ApplicationController
     if @user.save
       sign_in @user
       unless @user.role == "student"
-        flash[:error] = "Tell us who referred or hit the Skip button."
+        flash[:error] = "Hooray! You've just earned 10 points. Tell us who referred you or hit the Skip button."
         redirect_to new_introduction_path
       else
-        flash[:error] = "Almost there. Complete the form below."
+        flash[:error] = "Hooray! You've just earned 10 points. Complete the form below."
         redirect_to edit_user_path(@user)
       end
     else
@@ -110,7 +110,7 @@ class UsersController < ApplicationController
             redirect_to root_path
           end
         else 
-          flash[:error] = "One last thing: get authorization below."
+          flash[:error] = "Fabulous! You've just earned 40 points. One last thing: get authorization below."
           redirect_to new_authorization_path        
         end
       else

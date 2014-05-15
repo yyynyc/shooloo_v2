@@ -41,7 +41,7 @@
 <% else %>
 	<% if post.state=="verified" %>
 		| <strong>verified</strong> as correct
-	<% elsif post.state=="published" %>
+	<% elsif post.state.in?(["published", "revised"]) %>
 		| <strong>self-verified</strong> by author 
 	<% else %>
 		| has not been verified 

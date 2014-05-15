@@ -202,6 +202,7 @@ class User < ActiveRecord::Base
   #validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp']
 
   state_machine initial: :incomplete do
+    after_transition :on => :finish, :do => [:give_points, :alert_parent] 
 
     event :finish do
       transition :incomplete => :complete
@@ -226,6 +227,7 @@ class User < ActiveRecord::Base
       validates :address_state, presence: true, on: :update, 
         :unless => :should_validate_password?
       validates :school_url, presence: true, url: true, :if => :teacher?
+      
       
       def validate_school
         if self.role.in?(["student", "teacher"])
@@ -259,25 +261,36 @@ class User < ActiveRecord::Base
     end
   end
 
+  def give_points
+    Event.create!(benefactor_id: self.id, beneficiary_id: 1, 
+      event: "complete user profile", value: ShoolooV2::PROFILE_COMPLETE)
+  end
+
+  def alert_parent
+    if self.role == "student" && !self.parent_email.blank?
+      UserMailer.parental_consent(self).deliver
+    end
+  end
+
   def past_homeworks
     assignments.where("end_date<?", Time.now).last(4)
   end
 
   def no_post_students
     authorized_users.order('grade ASC, last_name ASC').keep_if{|s| s.posts.where(state: 
-      ["submitted", "published", "old"]).blank?}
+      ["submitted", "published", "old", "revised"]).blank?}
   end
 
   def ungraded_students
     authorized_users.order('grade ASC, last_name ASC').keep_if{|s| s.posts.where(state: 
-      ["submitted", "published", "old"]).any? && s.posts.where(graded: true).blank?
+      ["submitted", "published", "old", "revised"]).any? && s.posts.where(graded: true).blank?
       }
   end
 
   def below_grade_students
     authorized_users.order('grade ASC, last_name ASC').keep_if{|s| s.posts.where(state: 
-      ["verified", "published", "old"]).any? && !s.grade.nil? && s.posts.where(state: 
-      ["verified", "published", "old"]).map(&:level).uniq.sort.last.number<s.grade}
+      ["verified", "published", "old", "revised"]).any? && !s.grade.nil? && s.posts.where(state: 
+      ["verified", "published", "old", "revised"]).map(&:level).uniq.sort.last.number<s.grade}
   end
 
   def no_login_students

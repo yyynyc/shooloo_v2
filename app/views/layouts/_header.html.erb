@@ -142,7 +142,7 @@
                     <%= link_to "My Powers", my_abilities_path %>
                   </li>
                 <% end %>
-                <% if current_user.authorizations.blank? %>
+                <% if current_user.authorizations.where(approval: "accepted").blank? %>
                   <li class="divider"></li>
                   <li><%= link_to "Request Authorizations", new_authorization_path %></li>
                 <% end %>

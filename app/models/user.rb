@@ -205,12 +205,17 @@ class User < ActiveRecord::Base
 
   state_machine initial: :incomplete do
     after_transition :on => :finish, :do => [:give_points, :alert_parent] 
+    after_transition :on => :admin_edit, :do => [:grant_authorization] 
 
     event :finish do
       transition :incomplete => :complete
     end
 
-    state :complete do
+    event :admin_edit do
+      transition [:incomplete, :complete] => :admin_editted
+    end
+
+    state :complete, :admin_editted do
       VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
       validates :parent_email, format: { with: VALID_EMAIL_REGEX }, presence: true, 
         :if => :student?, :unless => :should_validate_password? 
@@ -262,6 +267,11 @@ class User < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def grant_authorization
+    Authorization.create!(authorized_id: self.id, authorizer_id: 1, approval: "accepted")
+    UserMailer.admin_edit(self).deliver
   end
 
   def give_points

@@ -94,35 +94,50 @@ class UsersController < ApplicationController
   def update
     @user.update_attributes(params[:user])
     if @user.state == "incomplete"
-      if @user.finish
-        sign_in @user
-        if @user.authorizations.any?
-          if @user.role == "teacher" 
-            if @user.authorized_users.blank?
-              flash[:success] = "Success! Import your student roster and get 30 points toward getting an Advocate Teacher Prize!"
-              redirect_to new_user_import_path
+      if params[:button] == "save"
+        if @user.finish
+          if @user.authorizations.any?
+            if @user.role == "teacher" 
+              if @user.authorized_users.blank?
+                flash[:success] = "Success! Import your student roster and get 30 points toward getting an Advocate Teacher Prize!"
+                redirect_to new_user_import_path
+              else
+                flash[:success] = "Success! "
+                redirect_to videos_path
+              end
             else
-              flash[:success] = "Success! "
-              redirect_to videos_path
+              flash[:success] = "Information updated successfully!"
+              redirect_to root_path
             end
-          else
-            flash[:success] = "Information updated successfully!"
-            redirect_to root_path
+          else 
+            flash[:error] = "Fabulous! You've just earned 40 points. One last thing: get authorization below."
+            redirect_to new_authorization_path        
           end
-        else 
-          flash[:error] = "Fabulous! You've just earned 40 points. One last thing: get authorization below."
-          redirect_to new_authorization_path        
+        else
+          render 'edit'
         end
-      else
-        render 'edit'
+      elsif params[:button] == "admin_edit"
+        if @user.admin_edit
+          redirect_to search_hidden_users_path
+        else
+          render 'edit'
+        end
       end
     else
-      if @user.save
-        sign_in @user
-        flash[:success] = "Information updated successfully!"
-        redirect_to root_path
-      else
-        render 'edit'
+      if params[:button] == "save" 
+        if @user.save
+          flash[:success] = "Information updated successfully!"
+          redirect_to root_path
+        else
+          render 'edit'
+        end
+      elsif params[:button] == "admin_edit" 
+        if @user.admin_edit
+          flash[:success] = "Information updated successfully!"
+          redirect_to search_hidden_users_path
+        else
+          render 'edit'
+        end
       end
     end
   end

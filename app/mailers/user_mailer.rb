@@ -81,6 +81,15 @@ class UserMailer < ActionMailer::Base
     end
   end
 
+  def admin_edit(user)
+    sendgrid_category "admin editted profile"
+    @user = user
+    unless @user.personal_email.blank? 
+      mail to: user.personal_email, 
+        subject: "#{user.first_name}: Your Shooloo Account"
+    end
+  end
+
   def auth_notify_yes_student(user)
     sendgrid_category "authorization approved"
     @user = user

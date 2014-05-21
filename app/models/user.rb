@@ -184,13 +184,15 @@ class User < ActiveRecord::Base
   validates :privacy, presence: true
   validates :rules, presence: true
   validates :role, presence: true
-  validates :first_name, length: {maximum: 25}, presence: true
-  validates :last_name, length: {maximum: 25}, presence: true
+  validates :first_name, length: {maximum: 25}, presence: true, on: :create
+  validates :last_name, length: {maximum: 25}, presence: true, on: :create 
   validate :screen_name_custom
 
   def screen_name_custom
-    if screen_name.downcase.include?(first_name.downcase) || screen_name.downcase.include?(last_name.downcase)
-      errors.add(:screen_name, "can't contain any part of your real name.")
+    if !first_name.nil? && !last_name.nil?
+      if screen_name.downcase.include?(first_name.downcase) || screen_name.downcase.include?(last_name.downcase)
+        errors.add(:screen_name, "can't contain any part of your real name.")
+      end
     end
   end
 
@@ -227,7 +229,8 @@ class User < ActiveRecord::Base
       validates :address_state, presence: true, on: :update, 
         :unless => :should_validate_password?
       validates :school_url, presence: true, url: true, :if => :teacher?
-      
+      validates :first_name, length: {maximum: 25}, presence: true
+      validates :last_name, length: {maximum: 25}, presence: true      
       
       def validate_school
         if self.role.in?(["student", "teacher"])

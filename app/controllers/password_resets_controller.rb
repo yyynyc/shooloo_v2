@@ -10,7 +10,7 @@ class PasswordResetsController < ApplicationController
   	def create
 	  user = User.find_by_screen_name(params[:screen_name])
 	  if !user.nil?
-	  	if !user.personal_email.nil?
+	  	if !user.personal_email.blank?
 	  		user.send_password_reset if user
 	  		redirect_to root_url, :notice => "Password reset instruction has been sent to your personal email address on file."
 	  	else

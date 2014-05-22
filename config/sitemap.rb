@@ -40,7 +40,7 @@ SitemapGenerator::Sitemap.create do
   add contest_path, :priority =>0.9, :changefreq => 'weekly'  
   add practice_path, :priority =>0.8, :changefreq => 'monthly' 
   
-  Post.find_each do |post|
+  Post.where(state: ["published", "verified", "old", "revised"]).find_each do |post|
     add new_post_comment_path(post), :lastmod => post.updated_at,
     :priority => 0.8, :changefreq => 'daily'
   end

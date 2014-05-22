@@ -1,0 +1,5 @@
+<% if correction.state.in?(["submitted", "revised"]) %>
+	<%= render partial: 'corrections/sendback', locals: {correciton: correction} %>
+<% else %>
+	<%= render partial: 'corrections/sendback_undo', locals: {correciton: correction} %>
+<% end %>

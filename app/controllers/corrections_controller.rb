@@ -4,6 +4,7 @@ class CorrectionsController < ApplicationController
   before_filter :correct_editor, only: [:edit, :update]
   before_filter :correct_user, only: :show
   before_filter :admin_user, only: [:index, :editors, :destroy]
+  respond_to :html, :js
 
 	def new
     @post = Post.find(params[:post_id])
@@ -50,7 +51,7 @@ class CorrectionsController < ApplicationController
     @correction.update_attributes(params[:correction])
     if params[:button] == "save"
       @correction.save
-      @post = @correction.corrected_post     
+      @post = @correction.corrected_post 
       render 'show'
     elsif params[:button] == "submit"
       if @correction.submit
@@ -71,6 +72,13 @@ class CorrectionsController < ApplicationController
         @post = @correction.corrected_post
         @alarm = Alarm.new 
         render 'edit'
+      end
+    elsif params[:button] == "Send Back to Draft"
+      @correction.save
+      @post = @correction.corrected_post
+      respond_to do |format|
+        format.html {redirect_to root_url}
+        format.js 
       end
     end
 	end

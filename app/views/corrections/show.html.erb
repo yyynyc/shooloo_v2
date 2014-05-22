@@ -179,6 +179,7 @@
 		<%= link_to "Back to Post", post_comments_path(@post), class: "btn btn-large btn-warning" %>
 		<%= link_to "Re-Correct", edit_correction_path(@correction), class: "btn btn-large btn-warning" %> 
 		<%= link_to "All Corrections", corrections_path, class: "btn btn-large btn-success" %>
+		<%= render partial: 'corrections/back_draft', locals: {correction: @correction} %>
 	<% elsif current_user.role != "editor" %>
 		<%= link_to "Back to Post", post_comments_path(@post), class: "btn btn-large btn-warning" %> 
   		<%= link_to "Create A New Post", new_post_path, class: "btn btn-large btn-primary" %> 

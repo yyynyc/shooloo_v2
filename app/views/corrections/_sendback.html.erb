@@ -1,0 +1,4 @@
+<%= form_for(@correction, :url => correction_path, remote: true) do |f| %>
+	<%= f.hidden_field :state, value: "draft" %>
+	<%= f.submit "Send Back to Draft", class: "btn btn-large btn-danger", disable_with: "Proccessing..."%>
+<% end %>

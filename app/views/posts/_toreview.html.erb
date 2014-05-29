@@ -1,0 +1,6 @@
+<ol class="posts">
+	<% @to_reviews.each do |post| %>
+		<%= render partial: 'shared/feed_item', locals: {feed_item: post} %>
+	<% end %>
+</ol>
+

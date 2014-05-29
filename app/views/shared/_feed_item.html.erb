@@ -6,12 +6,16 @@
           <% if feed_item.alarms.any? %>
             This post has been alarmed as having <%= link_to "inappropriate content", rules_path %>. Please change it and re-submit it for review.
           <% else %>
-            This draft is not finished and has not been submitted for publication.
+            This draft has not been submitted. <%= link_to "Finish it now!", edit_post_path(feed_item) %>
           <% end %>
         </span>
       <% elsif feed_item.state == "submitted" %>
         <span>
           This post has been submitted for review. You will get an alert when it is published.
+        </span>
+      <% elsif feed_item.toreview? %>
+        <span>
+          <%= link_to "Review editor's corrections now!", correction_path(feed_item.correction) %>
         </span>
       <% else %>
         <%= render partial: 'posts/post_user', locals: {post: feed_item} %>
@@ -24,11 +28,21 @@
       <div class="row">
         <section class="feed-margin">
           <span class="image">
-            <% if feed_item.state.in?(["draft", "submitted"]) %>
-              <%= link_to image_tag(feed_item.photo.url (:medium), 
+            <% if feed_item.state=="draft" %>
+              <%= link_to image_tag(feed_item.photo.url (:small), 
+                alt: "Shooloo Common Core Math Problem ##{feed_item.id}", 
+                title: "Shooloo Common Core Math Problem ##{feed_item.id}"),
+                edit_post_path(feed_item)  %>
+            <% elsif feed_item.state=="submitted" %>
+              <%= link_to image_tag(feed_item.photo.url (:small), 
                 alt: "Shooloo Common Core Math Problem ##{feed_item.id}", 
                 title: "Shooloo Common Core Math Problem ##{feed_item.id}"),
                 post_draft_path(feed_item)  %>
+            <% elsif feed_item.toreview? %>
+              <%= link_to image_tag(feed_item.photo.url (:small), 
+                alt: "Shooloo Common Core Math Problem ##{feed_item.id}", 
+                title: "Shooloo Common Core Math Problem ##{feed_item.id}"),
+                correction_path(feed_item.correction)  %>
             <% else %>
               <%= link_to image_tag(feed_item.photo.url (:medium), 
                 alt: "Shooloo Common Core Math Problem ##{feed_item.id}", 
@@ -41,10 +55,23 @@
             <% end %>                      
           </span>  
           <span class="wrap_long_string">  
-            <% if feed_item.correction.nil? %>    
-              <%= feed_item.question.html_safe %>
+            <% if feed_item.correction.nil? %> 
+              <% if feed_item.state == "draft" %>
+                <%= link_to truncate_html(feed_item.question.html_safe, :length => 50, 
+                  :omission => "...", word_boundary: /\S/), edit_post_path(feed_item) %>
+              <% else %>   
+                <%= feed_item.question.html_safe %>
+              <% end %>
             <% else %>
-              <%= feed_item.correction.question.html_safe %>
+              <% if feed_item.toreview? %>
+                <span class='btn-formtastic'>
+                  <%= link_to image_tag('/attachments/thumb_up.gif'), correction_path(feed_item.correction) %>
+                </span>
+                <%= link_to truncate_html(feed_item.correction.question.html_safe, :length => 50, 
+                  :omission => "...", word_boundary: /\S/), correction_path(feed_item.correction) %>
+              <% else %>
+                <%= feed_item.correction.question.html_safe %>
+              <% end %>
             <% end %>
           </span>                    
         </section>

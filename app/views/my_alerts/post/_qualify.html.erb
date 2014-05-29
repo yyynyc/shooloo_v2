@@ -1,4 +1,7 @@
 <% if activity.trackable %>
+	<span class='btn-formtastic'>
+		<%= link_to image_tag('/attachments/surprise.gif'), correction_path(activity.trackable.correction) %>
+	</span>	
 	<span class='alert-heading'>
 		<% if activity.trackable.qualified == "yes" %>
 			<span class="yes"><strong> QUALIFIED </strong></span>
@@ -7,7 +10,7 @@
 		<% end %> 		
 		your contest entry 
 		(post #<%= link_to activity.trackable.id, correction_path(activity.trackable.correction) %>) on <%= activity.created_at.strftime("%b %d, %Y") %>.<br/>	
-		<%= link_to "Find out why", correction_path(activity.trackable.correction) %> and <%= link_to "try again", new_post_path %>.
+		<%= link_to "Find out why", correction_path(activity.trackable.correction) %> and <%= link_to "submit more entries", new_post_path %>.
 	</span>
 <% else %>
 	<span class='alert-heading'>

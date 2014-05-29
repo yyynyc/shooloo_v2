@@ -1,4 +1,7 @@
 <% if activity.trackable %>
+	<span class='btn-formtastic'>
+		<%= link_to image_tag('/attachments/surprise.gif'), correction_path(activity.trackable.correction) %>
+	</span>
 	<span class='alert-heading'>
 		<strong><%= link_to "PUBLISHED", correction_path(activity.trackable.correction) %></strong> 		
 		and corrected your post 

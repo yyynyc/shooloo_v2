@@ -336,7 +336,7 @@ class User < ActiveRecord::Base
   end
 
   def feed
-    Post.where(state:["published", "verified", "old", "revised"]).from_users_followed_by(self)
+    Post.where(state:["published", "verified", "old", "revised"], toreview: ["false", nil]).from_users_followed_by(self)
   end
 
   def following?(other_user)

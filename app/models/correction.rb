@@ -1,7 +1,7 @@
 class Correction < ActiveRecord::Base
 	attr_accessible :corrected_post_id, :editor_id, :competition, :question, :answer,
 		:steps, :level_id, :domain_id, :standard_id, :hstandard_id,
-		:grammar, :concept_clear, :math_correct, :answer_complete, :state
+		:grammar, :concept_clear, :math_correct, :answer_complete, :state, :author_views, :other_views
 	belongs_to :corrected_post, class_name: "Post"
 	belongs_to :editor, class_name: "User"
 	belongs_to :hstandard
@@ -11,7 +11,7 @@ class Correction < ActiveRecord::Base
 	validates :corrected_post_id, presence: true, uniqueness: true
 
 	state_machine initial: :draft do
-	    after_transition :on => :submit, :do => [:qualify, :update_pub_credits,
+	    after_transition :on => :submit, :do => [:qualify, :update_pub_credits, :update_toreview,
 	    	:post_state_transition, :update_editor_stats, :update_post_characters]
 	    after_transition :on => :revise, :do => [:qualify, :revise_pubcred_post_characters] 
 
@@ -30,6 +30,10 @@ class Correction < ActiveRecord::Base
 				inclusion: [true, false]
 			validates_presence_of :hstandard_id, if: "level_id==10"
 		end
+	end
+
+	def update_toreview
+		corrected_post.update_attributes!(toreview: true)
 	end
        
 	def qualify
@@ -91,11 +95,9 @@ class Correction < ActiveRecord::Base
 			end
 			Activity.create!(action: "qualify", trackable: self.corrected_post, 
         		user_id: 1, recipient_id: self.corrected_post.user_id)
-		else
-			unless self.corrected_post.grandfather?
-				Activity.create!(action: "publish", trackable: self.corrected_post, 
+		else			
+			Activity.create!(action: "publish", trackable: self.corrected_post, 
         			user_id: 1, recipient_id: self.corrected_post.user_id)
-			end
 		end
 	end
 

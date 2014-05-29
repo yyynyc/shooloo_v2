@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140529150350) do
+ActiveRecord::Schema.define(:version => 20140529213904) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -138,9 +138,11 @@ ActiveRecord::Schema.define(:version => 20140529150350) do
     t.boolean  "math_correct"
     t.boolean  "answer_complete"
     t.string   "state"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.integer  "hstandard_id"
+    t.integer  "author_views",      :default => 0
+    t.integer  "other_views",       :default => 0
   end
 
   add_index "corrections", ["corrected_post_id"], :name => "index_corrections_on_corrected_post_id"
@@ -413,6 +415,7 @@ ActiveRecord::Schema.define(:version => 20140529150350) do
     t.integer  "steps"
     t.boolean  "grandfather"
     t.integer  "hstandard_id"
+    t.boolean  "toreview"
   end
 
   add_index "posts", ["state"], :name => "index_posts_on_state"

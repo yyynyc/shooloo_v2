@@ -91,7 +91,18 @@ class CorrectionsController < ApplicationController
 
 	def show
     @correction = Correction.find(params[:id])
-    @post = @correction.corrected_post       
+    @post = @correction.corrected_post  
+    unless current_user.role=="editor" || current_user.admin?
+      if current_user?(@post.user)
+        @correction.author_views += 1
+        @correction.save
+        @post.toreview = false
+        @post.save(validate: false)
+      else
+        @correction.other_views += 1
+        @correction.save
+      end
+    end     
   end
 
 	def index

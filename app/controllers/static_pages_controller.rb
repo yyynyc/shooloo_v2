@@ -1,8 +1,7 @@
 class StaticPagesController < ApplicationController
   def home
   	if signed_in?
-      @post  = current_user.posts.build
-      @correction_drafts =  current_user.corrections.where(state: "draft")
+      @to_reviews = current_user.posts.where(toreview: true).order("created_at DESC")
       @drafts =  current_user.posts.where(state: "draft").order("created_at DESC")
       @submissions =  current_user.posts.where(state: "submitted").order("created_at DESC")
       @feed_items = current_user.feed.visible.paginate(page: params[:page], per_page: 10, order: "updated_at DESC")
@@ -14,6 +13,7 @@ class StaticPagesController < ApplicationController
       @domains = Domain.all
       @standards = Standard.all
       if current_user.role == "editor"
+        @correction_drafts =  current_user.corrections.where(state: "draft")
         @checks = current_user.checks.order('created_at ASC')        
         @submissions = Post.where(state: "submitted").order("competition DESC, created_at ASC")
         @publications = Post.where(state: "old").paginate(page: params[:page], 

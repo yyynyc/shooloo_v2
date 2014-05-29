@@ -236,7 +236,8 @@ class User < ActiveRecord::Base
         :unless => :should_validate_password?
       validates :address_state, presence: true, on: :update, 
         :unless => :should_validate_password?
-      validates :school_url, presence: true, url: true, :if => :teacher?
+      validates :school_url, presence: true, url: true, :if => :teacher?, 
+        :unless => :should_validate_password?
       validates :first_name, length: {maximum: 25}, presence: true
       validates :last_name, length: {maximum: 25}, presence: true      
       
@@ -432,7 +433,9 @@ class User < ActiveRecord::Base
   end
 
   def reset_password!(other_user)
-    User.find_by_id(other_user.id).update_attributes!(password: "shooloo", password_confirmation: "shooloo")
+    u=User.find_by_id(other_user.id)
+    u.updating_password=true
+    u.update_attributes!(password: "shooloo", password_confirmation: "shooloo")
   end
 
   def referred_by?(other_user)

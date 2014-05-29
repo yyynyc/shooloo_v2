@@ -59,7 +59,11 @@ class CorrectionsController < ApplicationController
       if @correction.submit
         @post = @correction.corrected_post 
         flash[:success]="Correction saved and published!"
-        redirect_to root_path         
+        if current_user.admin?
+          redirect_to editors_path
+        else
+          redirect_to root_path
+        end         
       else
         @post = @correction.corrected_post
         @alarm = Alarm.new 
@@ -69,7 +73,7 @@ class CorrectionsController < ApplicationController
       if @correction.revise
         @post = @correction.corrected_post 
         flash[:success]="Revised!"
-        redirect_to correction_path(@correction)         
+        redirect_to editors_path         
       else
         @post = @correction.corrected_post
         @alarm = Alarm.new 
@@ -79,7 +83,7 @@ class CorrectionsController < ApplicationController
       @correction.save
       @post = @correction.corrected_post
       respond_to do |format|
-        format.html {redirect_to root_url}
+        format.html {redirect_to corrections_path}
         format.js 
       end
     end

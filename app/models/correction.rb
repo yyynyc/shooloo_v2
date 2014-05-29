@@ -23,7 +23,7 @@ class Correction < ActiveRecord::Base
 	      transition [:draft, :submitted, :revised] => :revised
 	    end
 
-	   state :submitted, :revised do	   	
+	    state :submitted, :revised do	   	
       		validates_presence_of  :editor_id, :question, :answer,
 				:steps, :level_id, :domain_id, :standard_id, :competition 
 			validates :grammar, :concept_clear, :math_correct, :answer_complete, 
@@ -151,11 +151,13 @@ class Correction < ActiveRecord::Base
 				end
 			end
 		end
-		self.corrected_post.update_attributes!(steps: self.steps, 
+		post = self.corrected_post
+		post.update_attributes(steps: self.steps, 
 	      level_id: self.level_id, 
 	      domain_id: self.domain_id,
 	      standard_id: self.standard_id, 
 	      hstandard_id: self.hstandard_id)
+		post.save(validate: false)
 	end
 
 	def update_editor_stats

@@ -90,7 +90,7 @@ class Post < ActiveRecord::Base
     end
 
     event :verify do
-      transition [:under_review, :old, :submitted, :verified] => :verified
+      transition [:under_review, :old, :submitted, :verified, :published, :revised] => :verified
     end
 
     event :revise do 

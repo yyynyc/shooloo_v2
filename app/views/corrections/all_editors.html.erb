@@ -4,19 +4,26 @@
 <h1>All Editors</h1>
 <% if !@editors.blank? %> 
 	<table class="table-ccss">
-		<tr>
-			<th>User Id</th>
-			<th>Name</th>
-			<th>Total</th>
+		<tr>			
+			<th>Editor</th>
+			<th>Checked Out</th>
 			<th>Drafts</th>
 			<th>Submitted</th>
 			<th>Revised</th>
 		</tr>
 		<% @editors.each do |e| %>
 			<tr>
-				<td><%= e.id %></td>
-				<td><%= e.full_name_us %></td>
-				<td class="right-align"><%= e.correction_count %></td>
+				<td>
+					#<%= e.id %><br/>
+					<%= e.first_name %><br/>
+					<strong><%= e.correction_count %></strong>
+				</td>
+				<td>
+					<%= e.checks.count %><br/>
+					<% e.checks.each do |c| %>
+						#<%= link_to c.checked_post_id, post_draft_path(c.checked_post_id) %> |
+					<% end %>
+				</td>
 				<td>
 					<%= e.corrections.where(state: "draft").count %><br/>
 					<% e.corrections.where(state: "draft").each do |c| %>

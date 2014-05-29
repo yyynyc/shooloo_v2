@@ -119,6 +119,9 @@ class User < ActiveRecord::Base
           class_name: "Introduction", dependent: :destroy
   has_many :introducees, through: :reverse_introductions
 
+  has_many :checks, foreign_key: "checker_id", dependent: :destroy
+  has_many :checked_posts, through: :checks
+
   has_one :point
   has_one :student_contest
   has_many :invitemails

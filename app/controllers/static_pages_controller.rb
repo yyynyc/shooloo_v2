@@ -14,11 +14,14 @@ class StaticPagesController < ApplicationController
       @domains = Domain.all
       @standards = Standard.all
       if current_user.role == "editor"
+        @checks = current_user.checks.order('created_at ASC')        
         @submissions = Post.where(state: "submitted").order("competition DESC, created_at ASC")
         @publications = Post.where(state: "old").paginate(page: params[:page], 
           per_page: 2000, order: "created_at DESC")
         @publications_middle = @publications.keep_if{|p| p.user.grade > 6}
         @publications_lower = @publications.keep_if{|p| p.user.grade < 7}
+        @re_corrected = current_user.corrections.where(state: "revised").order('created_at ASC').order('created_at ASC')
+        @corrected = current_user.corrections.where(state: "submitted").order('created_at ASC')
         @corrections = current_user.corrections.where(state: ["submitted", "revised"])
       end
     end

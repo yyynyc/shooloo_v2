@@ -1,6 +1,12 @@
-<p><strong>My Corrected Posts </strong></p>
-<% if @corrections.any? %>
-	<% @corrections.each do |c| %>
+<% if @re_corrected.any? %>
+	<p><strong>Admin-Edited Corrections </strong></p>
+	<% @re_corrected.each do |c| %>
+    	#<%= link_to c.corrected_post.id, correction_path(c) %> |
+	<% end %>
+<% end %>
+<% if @corrected.any? %>
+	<p><strong>My Submitted Corrections </strong></p>
+	<% @corrected.each do |c| %>
     	#<%= link_to c.corrected_post.id, correction_path(c) %> |
 	<% end %>
 <% end %>

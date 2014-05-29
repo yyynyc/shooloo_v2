@@ -4,6 +4,10 @@
 			<p><strong>Corrected</strong></p>
 			<p><%= pluralize(user.correction_count, "post") %></p>
 		</span>
+		<span>			
+			<p><strong>Re-Corrected</strong></p>
+			<p><%= pluralize(user.corrections.where(state: "revised").count, "post") %></p>
+		</span>
 	</div>
 <% else %>
 	<div class="stats">

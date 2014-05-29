@@ -64,7 +64,10 @@ class Post < ActiveRecord::Base
   has_many :keepers, through: :keeps
 
   has_one :correction, foreign_key: "corrected_post_id", dependent: :destroy
-  has_many :editor, through: :correction
+  has_one :editor, through: :correction
+
+  has_one :check, foreign_key: "checked_post_id", dependent: :destroy
+  has_one :checker, through: :check
 
   state_machine initial: :draft do
     after_transition :on => :submit, :do => [:give_points, :alert_teacher, 

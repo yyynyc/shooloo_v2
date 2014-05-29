@@ -13,6 +13,7 @@ class CorrectionsController < ApplicationController
     @alarm = Alarm.new      
     if @post.state.in?(["submitted", "old"])
         @post.checkout!
+        Check.create!(checker_id: current_user.id, checked_post_id: @post.id)
     end
 	end
 
@@ -23,6 +24,7 @@ class CorrectionsController < ApplicationController
     @correction = current_user.corrections.build(params[:correction])
     if @correction.save
       @post = @correction.corrected_post
+      Check.find_by_checked_post_id(@post.id).destroy
       render 'show'
     else
       @post = @correction.corrected_post
@@ -92,7 +94,7 @@ class CorrectionsController < ApplicationController
     @corrections_revised = Correction.where(state: "revised").order('updated_at DESC')
     @corrections_published = Correction.where(state: "submitted").order('updated_at DESC')
     @corrections_draft = Correction.where(state: "draft").order('created_at DESC')
-    @checked_out = Post.where(state: "under_review").order('created_at DESC').keep_if{|p| p.correction.nil?}
+    @checks = Check.order('created_at DESC')
 	end
 
   def all_editors

@@ -1,4 +1,10 @@
 <h1> Posts Waiting to Be Corrected </h1>
+<% if @checks.any? %>
+  <h2>You've checked out the following posts. Correct them NOW!</h2>
+  <% @checks.each do |c| %>
+    Post #<%= link_to c.checked_post_id, new_post_correction_path(c.checked_post_id) %> |
+  <% end %>
+<% end %>
 <% if @correction_drafts.any? %>
   <h2>The Following Corrections Are in Draft Mode. Complete them Now!</h2>
   <% @correction_drafts.each do |d| %>

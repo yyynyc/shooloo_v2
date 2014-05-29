@@ -2,45 +2,50 @@
 <% nofollow %>
 
 <h1>All Corrections</h1>
-<h2> Under Review </h2>
-<% if @checked_out.any? %>
-	<% @checked_out.each do |p| %>
-		Post #<%= link_to p.id, new_post_correction_path(p) %> | 
-	<% end %>
-<% end %>
-<h2> Draft </h2>
-<% if @corrections_draft.any? %>
-	<ul class="users" %>
-		<% @corrections_draft.each do |c| %>
-			<li>
-				<%= c.editor.full_name_us %> on <%= c.updated_at %> editted
-				Post #<%= link_to c.corrected_post.id, correction_path(c) %> |
-				<%= link_to "admin_edit", edit_correction_path(c) %>
-			</li>
+<div class="row">
+	<div class="span6">
+		<h2> Check-Out </h2>
+		<% if @checks.any? %>
+			<ul class="users" %>
+				<% @checks.each do |c| %>
+					<li>
+						Post #<%= link_to c.checked_post_id, new_post_correction_path(c.checked_post_id) %> checked out by <%= c.checker.first_name %> on <%= c.created_at %>
+					</li>
+				<% end %>
 		<% end %>
-	</ul>
-<% end %>
-<h2> Revised </h2>
-<% if @corrections_revised.any? %>
-	<ul class="users" %>
-		<% @corrections_revised.each do |c| %>
-			<li>
-				<%= c.editor.full_name_us %> on <%= c.updated_at %> editted
-				Post #<%= link_to c.corrected_post.id, correction_path(c) %> |
-				<%= link_to "admin_edit", edit_correction_path(c) %>
-			</li>
+		<h2> Draft </h2>
+		<% if @corrections_draft.any? %>
+			<ul class="users" %>
+				<% @corrections_draft.each do |c| %>
+					<li>
+						<%= c.editor.full_name_us %> on <%= c.updated_at %> editted
+						Post #<%= link_to c.corrected_post.id, correction_path(c) %>
+				<% end %>
+			</ul>
 		<% end %>
-	</ul>
-<% end %>
-<h2> Published </h2>
-<% if @corrections_published.any? %>
-	<ul class="users" %>
-		<% @corrections_published.each do |c| %>
-			<li>
-				<%= c.editor.full_name_us %> on <%= c.updated_at %> editted
-				Post #<%= link_to c.corrected_post.id, correction_path(c) %> |
-				<%= link_to "admin_edit", edit_correction_path(c) %>
-			</li>
+		<h2> Revised </h2>
+		<% if @corrections_revised.any? %>
+			<ul class="users" %>
+				<% @corrections_revised.each do |c| %>
+					<li>
+						<%= c.editor.full_name_us %> on <%= c.updated_at %> editted
+						Post #<%= link_to c.corrected_post.id, correction_path(c) %>
+					</li>
+				<% end %>
+			</ul>
 		<% end %>
-	</ul>
-<% end %>
+	</div>
+	<div class="span6">
+		<h2> Published </h2>
+		<% if @corrections_published.any? %>
+			<ul class="users" %>
+				<% @corrections_published.each do |c| %>
+					<li>
+						<%= c.editor.full_name_us %> on <%= c.updated_at %> editted
+						Post #<%= link_to c.corrected_post.id, correction_path(c) %>
+					</li>
+				<% end %>
+			</ul>
+		<% end %>
+	</div>
+</div>

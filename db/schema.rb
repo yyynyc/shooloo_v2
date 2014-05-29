@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140506210210) do
+ActiveRecord::Schema.define(:version => 20140529150350) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -72,6 +72,15 @@ ActiveRecord::Schema.define(:version => 20140506210210) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "checks", :force => true do |t|
+    t.integer  "checker_id"
+    t.integer  "checked_post_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "checks", ["checked_post_id"], :name => "index_checks_on_checked_post_id"
 
   create_table "choices", :force => true do |t|
     t.integer  "user_id"

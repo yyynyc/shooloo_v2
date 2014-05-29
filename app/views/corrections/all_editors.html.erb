@@ -17,9 +17,24 @@
 				<td><%= e.id %></td>
 				<td><%= e.full_name_us %></td>
 				<td class="right-align"><%= e.correction_count %></td>
-				<td class="right-align"><%= e.corrections.where(state: "draft").count %></td>
-				<td class="right-align"><%= e.corrections.where(state: "submitted").count %></td>
-				<td class="right-align"><%= e.corrections.where(state: "revised").count %></td>
+				<td>
+					<%= e.corrections.where(state: "draft").count %><br/>
+					<% e.corrections.where(state: "draft").each do |c| %>
+						#<%= link_to c.corrected_post_id, correction_path(c) %> |
+					<% end %>
+				</td>
+				<td>
+					<%= e.corrections.where(state: "submitted").count %><br/>
+					<% e.corrections.where(state: "submitted").each do |c| %>
+						#<%= link_to c.corrected_post_id, correction_path(c) %> |
+					<% end %>
+				</td>
+				<td>
+					<%= e.corrections.where(state: "revised").count %><br/>
+					<% e.corrections.where(state: "revised").each do |c| %>
+						#<%= link_to c.corrected_post_id, correction_path(c) %> |
+					<% end %>
+				</td>
 			</tr>
 		<% end %>
 	</table>

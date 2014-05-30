@@ -32,13 +32,13 @@
 				</td>
 				<td>
 					<%= e.corrections.where(state: "submitted").count %><br/>
-					<% e.corrections.where(state: "submitted").each do |c| %>
+					<% e.corrections.where(state: "submitted").order('created_at DESC').each do |c| %>
 						#<%= link_to c.corrected_post_id, correction_path(c) %> |
 					<% end %>
 				</td>
 				<td>
 					<%= e.corrections.where(state: "revised").count %><br/>
-					<% e.corrections.where(state: "revised").each do |c| %>
+					<% e.corrections.where(state: "revised").order('created_at DESC').each do |c| %>
 						#<%= link_to c.corrected_post_id, correction_path(c) %> |
 					<% end %>
 				</td>

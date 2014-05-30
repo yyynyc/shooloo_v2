@@ -71,7 +71,7 @@ class Post < ActiveRecord::Base
 
   state_machine initial: :draft do
     after_transition :on => :submit, :do => [:give_points, :alert_teacher, 
-      :update_points, :create_student_contest]
+      :update_points, :create_student_contest, :disalarm]
     after_transition :on => :publish, :do => [:give_points, :update_stats, 
       :alert_nudger, :qualify, :update_points]
     after_transition :on => :verify, :do => [:update_stats, :alert_nudger]
@@ -121,6 +121,12 @@ class Post < ActiveRecord::Base
           errors.add(:base, "You don't have any publication credits left to submit any new post!")
         end
       end
+    end
+  end
+
+  def disalarm
+    if self.alarms.any?
+      self.alarms.delete_all
     end
   end
 

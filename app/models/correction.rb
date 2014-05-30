@@ -52,7 +52,7 @@ class Correction < ActiveRecord::Base
 	        			a.student_contest.disqualified_total -= 1
 	     				a.student_contest.save
 	     				Activity.create!(action: "notify", trackable: self.corrected_post, 
-        					user_id: self.corrected_post.user_id, recipient_id: a.id)
+        					user_id: self.corrected_post.user_id, recipient_id: a.id, position: 3)
 					end
 					self.corrected_post.update_attributes!(qualified: "yes")
 				elsif self.corrected_post.qualified.nil?
@@ -64,7 +64,7 @@ class Correction < ActiveRecord::Base
 	        			a.student_contest.qualified_total += 1
 	     				a.student_contest.save
 	     				Activity.create!(action: "notify", trackable: self.corrected_post, 
-        					user_id: self.corrected_post.user_id, recipient_id: a.id)
+        					user_id: self.corrected_post.user_id, recipient_id: a.id, position: 3)
 					end
 					self.corrected_post.update_attributes!(qualified: "yes")
 				end
@@ -94,10 +94,10 @@ class Correction < ActiveRecord::Base
 				end
 			end
 			Activity.create!(action: "qualify", trackable: self.corrected_post, 
-        		user_id: 1, recipient_id: self.corrected_post.user_id)
+        		user_id: 1, recipient_id: self.corrected_post.user_id, position: 3)
 		else			
 			Activity.create!(action: "publish", trackable: self.corrected_post, 
-        			user_id: 1, recipient_id: self.corrected_post.user_id)
+        			user_id: 1, recipient_id: self.corrected_post.user_id, position: 1)
 		end
 	end
 
@@ -107,12 +107,12 @@ class Correction < ActiveRecord::Base
 				self.corrected_post.user.pubcred += ShoolooV2::AT_GRADE
 				self.corrected_post.user.save(validate: false)
 				Activity.create!(action: "at_grade", trackable: self.corrected_post, 
-	        		user_id: 1, recipient_id: self.corrected_post.user_id)
+	        		user_id: 1, recipient_id: self.corrected_post.user_id, position: 2)
 			else
 				self.corrected_post.user.pubcred -= (ShoolooV2::BELOW_GRADE)*(self.corrected_post.user.grade - self.level.number)
 				self.corrected_post.user.save(validate: false)
 				Activity.create!(action: "below_grade", trackable: self.corrected_post, 
-	        		user_id: 1, recipient_id: self.corrected_post.user_id)
+	        		user_id: 1, recipient_id: self.corrected_post.user_id, position: 2)
 			end
 		end
 	end

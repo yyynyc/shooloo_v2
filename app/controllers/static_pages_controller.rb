@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
       @to_reviews = current_user.posts.where(toreview: true).order("created_at DESC")
       @drafts =  current_user.posts.where(state: "draft").order("created_at DESC")
       @submissions =  current_user.posts.where(state: "submitted").order("created_at DESC")
-      @feed_items = current_user.feed.visible.paginate(page: params[:page], per_page: 10, order: "updated_at DESC")
+      @feed_items = current_user.feed.visible.paginate(page: params[:page], per_page: 10, order: "created_at DESC")
       @rating=current_user.ratings.build 
       @comment = current_user.comments.build
       @alarm = current_user.alarms.build

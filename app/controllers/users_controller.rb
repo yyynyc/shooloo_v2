@@ -176,16 +176,13 @@ class UsersController < ApplicationController
 
   def posts
     @user = User.find(params[:id])
-    @posts = @user.posts.where(state: ["verified", "published", "old", "revised"]).visible.paginate(page: params[:page], per_page: 10, order: "created_at DESC")
-    @post = @user.posts.build(params[:post])
-    @rating=current_user.ratings.build(params[:rating])
+    @posts = @user.posts.where(state: ["verified", "published", "old", "revised"], toreview: ["false", nil]).paginate(page: params[:page], per_page: 10, order: "created_at DESC")
+    @to_reviews = @user.posts.where(toreview: true).order("created_at DESC")
+    @drafts =  @user.posts.where(state: "draft").order("created_at DESC")
+    @submissions =  @user.posts.where(state: "submitted").order("created_at DESC")
     @comment=current_user.comments.build(params[:comment])
     @alarm = current_user.alarms.build(params[:alarm])
     @like = current_user.likes.build(params[:like])
-    @subject = Subject.all
-    @levels = Level.all
-    @domains = Domain.all
-    @standards = Standard.all
     set_meta_tags title: "Common Core Math Word Problems Written by #{@user.screen_name}", 
         description: "List of common core math word problems written by #{@user.screen_name}",
         name: 'Shooloo Common Core math word problems',
@@ -359,7 +356,7 @@ class UsersController < ApplicationController
 
   def show_activity
     @my_activities = Activity.where(recipient_id: current_user.id).paginate(page: params[:page], 
-      per_page: 15, order: 'created_at DESC')
+      per_page: 15, order: 'position DESC, created_at DESC')
     set_meta_tags title: "My News Alerts", 
         description: "Shooloo member's activity feed",
         noindex: true,

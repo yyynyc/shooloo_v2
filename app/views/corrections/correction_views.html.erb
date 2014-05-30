@@ -1,0 +1,28 @@
+<% noindex %>
+<% nofollow %>
+
+<h1>Correction View Stats</h1>
+<p class="center">
+	Total: <%= @total_count %> | 
+	Author Viewed: <%= @viewed_count %>
+</p>
+<table class="table-ccss">
+	<tr>			
+		<th>Post #</th>
+		<th>Author</th>
+		<th>Grade</th>
+		<th>Corrected</th>
+		<th>Author Views</th>
+		<th>Other Views</th>
+	</tr>
+	<% @corrections.each do |c| %>
+		<tr>
+			<td><%= c.corrected_post_id %></td>
+			<td><%= c.corrected_post.user.full_name_us %></td>
+			<td><%= c.corrected_post.user.grade %></td>
+			<td><%= c.created_at %></td>
+			<td><%= c.author_views %></td>
+			<td><%= c.other_views %></td>
+		</tr>
+	<% end %>
+</table>

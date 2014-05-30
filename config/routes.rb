@@ -139,6 +139,7 @@ resources :hstandards
   match '/contact', to: "messages#new" 
   match '/pd', to: "videos#pd" 
   match '/editors', to: "corrections#all_editors"
+  match '/correction-views', to: "corrections#correction_views", as: :correction_views
   match '/post_master', to: "posts#post_master"
   get '/standards/common-core-math-I-can-grade-k', to: "standards#grade_k", as: :grade_k
   get '/standards/common-core-math-I-can-grade-1', to: "standards#grade_1", as: :grade_1

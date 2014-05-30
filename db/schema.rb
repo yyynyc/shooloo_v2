@@ -11,17 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140529213904) do
+ActiveRecord::Schema.define(:version => 20140530155435) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
     t.string   "action"
     t.integer  "trackable_id"
     t.string   "trackable_type"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "recipient_id"
     t.boolean  "read"
+    t.integer  "position",       :default => 0
   end
 
   add_index "activities", ["trackable_id"], :name => "index_activities_on_trackable_id"

@@ -26,7 +26,18 @@
         </div>
       <% end %> 
     <% else %>    	
-  		<ol class="posts">      		
+  		<ol class="posts"> 
+        <% if current_user?(@user) || current_user.admin? %>
+          <% if @to_reviews.any? %>
+            <%= render 'posts/toreview' %>
+          <% end %>
+          <% if @drafts.any? %>
+            <%= render 'shared/drafts' %>
+          <% end %>
+          <% if @submissions.any? %>
+            <%= render 'shared/submissions' %>
+          <% end %>
+        <% end %> 		
         <%= render partial: 'shared/feed_item', collection: @posts  %>
   		</ol>
   		<%= will_paginate @posts %>       

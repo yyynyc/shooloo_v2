@@ -116,6 +116,12 @@ class CorrectionsController < ApplicationController
     @editors = User.where(role: "editor").order('first_name ASC')
   end
 
+  def correction_views
+    @corrections = Correction.order('author_views DESC, other_views DESC, created_at ASC')
+    @total_count = Correction.all.count
+    @viewed_count = Correction.where('author_views>?', 0).count
+  end
+
   def editor
     @correction = Correction.new
     unless current_user.role=="editor" || current_user.admin? 

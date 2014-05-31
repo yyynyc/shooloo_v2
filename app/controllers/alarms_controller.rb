@@ -40,8 +40,24 @@ class AlarmsController < ApplicationController
         	redirect_to root_url
         else 
         	flash[:notice] = "Sorry, something is wrong."  
-        	redirect_back_or root_url
+        	render 'new'
         end            
+    end
+
+    def edit
+        @alarm = Alarm.find(params[:id])
+        @post  = @alarm.alarmed_post   
+    end
+
+    def update
+        @alarm = Alarm.find(params[:id])
+        @post  = @alarm.alarmed_post  
+        if @alarm.update_attributes(params[:alarm])
+          flash[:success] = "You have upddated your alarm successfully!"
+          redirect_to alarmed_posts_path
+        else
+          render 'edit'
+        end          
     end
 
     def destroy

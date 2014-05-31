@@ -1,23 +1,12 @@
-<div class="row margin-left">
-	<div class="image" >
-		<%= image_tag(post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{post.id}", title: "Shooloo Common Core Math Problem ##{post.id}")  %>
+<%= render partial: 'corrections/correction_post_view', locals: {post: post} %>
+<% if post.correction.nil? %>
+	<div class="well well-small alert-heading">
+		<span class='btn-formtastic'> 
+	     	<%= link_to "Alarm", new_post_alarm_path(post), class: "btn btn-large btn-danger" %>
+	    </span>  
+		<p class="no">WARNING: If the above problem contains watermarked image or offsensive (i.e., sexual, racial, violent, or insulting) content, press the red Alarm button now. No need to correct the problem.<p>
 	</div>
-	<div class="alert-heading">
-		<p><strong>Post ID: </strong>#<%= post.id %></p>
-		<p><strong>Author: </strong><%= post.user.role %> in grade <%= post.user.grade %></p>
-		<p><strong>Question: </strong><%= post.question.html_safe %></p>
-		<p><strong>Answer: </strong><%= post.answer.html_safe %></p>
-	</div>
-</div>
-<div class="well well-small alert-heading no">
-	<span class='btn-formtastic'> 
-     	<%= form_for alarm, :url => post_alarms_path(post) do |f| %>
-			<%= f.hidden_field :alarmed_post_id, value: post.id %>
-			<%= f.submit "Alarm", class: "btn btn-large btn-danger",  disable_with: "Proccessing..." %>
-		<% end %>
-    </span>  
-	<p>WARNING: If the above problem contains watermarked image or offsensive (i.e., sexual, racial, violent, or insulting) content, press the red Alarm button now. No need to correct the problem.<p>
-</div>
+<% end %>
 <h1> <%= heading %> </h1>
 <%= semantic_form_for correction, :url => url, :html => { :multipart => true, class: "form-horizontal-post-update", 'data-action' => 'update' }  do |f| %>
     <%= render 'shared/error_messages', object: f.object %>

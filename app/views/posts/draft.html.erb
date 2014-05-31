@@ -27,7 +27,15 @@
 <% if @post.state == "draft" %>
   <% title "Draft of Post##{@post.id}" %>
   <h1> Draft: not published </h1>
-  <p class="center"><%= link_to "Edit and Submit for Review", edit_post_path(@post), class: 'btn btn-large btn-primary' %></p>
+  <p class="center">
+    <%= link_to "Edit and Submit for Review", edit_post_path(@post), class: 'btn btn-large btn-primary' %>
+  </p>
+  <% if current_user.admin? %>
+    <% if @post.alarms.any? %>
+      <%= render partial: 'alarms/unalarm', locals: {post: @post} %>
+      <%= link_to "Edit Alarm", edit_alarm_path(@alarm), class: 'btn btn-small btn-success' %>
+    <% end %>
+  <% end %>
 <% else %>
   <% title "Submitted Version of Post##{@post.id}" %>
   <h1> Author's Original Version: not reviewed </h1>

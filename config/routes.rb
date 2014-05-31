@@ -37,7 +37,7 @@ resources :posts, path: '/common-core-math-word-problems' do
   resources :comments do
     resources :alarms, only: [:create, :destroy]
   end
-  resources :alarms, only: [:create, :destroy]
+  resources :alarms
   resources :corrections
   member do
     get :raters

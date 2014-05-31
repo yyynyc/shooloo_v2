@@ -17,9 +17,14 @@
                 raised alarm on 
                     <% if !alarm.alarmed_post_id.nil? %>
                         post 
-                        #<%= link_to alarm.alarmed_post_id, post_comments_path(alarm.alarmed_post_id) %>
+                        #<%= link_to alarm.alarmed_post_id, post_draft_path(alarm.alarmed_post_id) %>
                         written by
                         <%= alarm.alarmed_post.user.full_name_us %>
+                        <% if !alarm.reasons.blank? %>
+                            becauase <strong><% alarm.reasons.each do |r| %>
+                                <%= r.name %>, 
+                            <% end %></strong>
+                        <% end %>
                     <% else %>
                         comment 
                         #<%= link_to alarm.alarmed_comment_id, post_comments_path(alarm.alarmed_comment.commented_post) %>

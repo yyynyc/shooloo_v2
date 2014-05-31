@@ -5,7 +5,6 @@ class CommentsController < ApplicationController
     before_filter :commenter_user, only: :index
     load_and_authorize_resource except: :new
     respond_to :html, :json
-    before_filter :visible_post, only: [:new, :index]
     
 	def index
         @comment = Comment.new
@@ -169,17 +168,6 @@ class CommentsController < ApplicationController
             return true
         else
             redirect_to new_post_comment_path(@post)
-        end
-    end
-
-    def visible_post
-        @post  = Post.find(params[:post_id])
-        if !@post.visible?
-            if !signed_in?
-                redirect_to posts_path 
-            elsif current_user.role == "student" || current_user.role == "parent"
-                redirect_to posts_path 
-            end
         end
     end
 end

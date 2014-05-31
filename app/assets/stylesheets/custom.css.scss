@@ -374,6 +374,17 @@ aside {
   }
 }
 
+.form-alarm { 
+  label {
+    font-size: 1.3em;
+    line-height: 1.5em;
+    }
+  .choice{
+  display: block;
+  width: 900px;
+  }
+}
+
 .form-horizontal-user { 
   .control-label {  
     float: left;

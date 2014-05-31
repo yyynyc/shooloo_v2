@@ -1,12 +1,17 @@
 class Alarm < ActiveRecord::Base
-  attr_accessible :alarmed_comment_id, :alarmed_post_id
+  attr_accessible :alarmed_comment_id, :alarmed_post_id, :reason_ids
   belongs_to :alarmed_post, class_name: "Post"
   belongs_to :alarmed_comment, class_name: "Comment"
   belongs_to :alarmer, class_name: "User"
+  has_many :reasons
+  accepts_nested_attributes_for :reasons
+
+  validates_associated :reasons
+  validates_presence_of :reasons
 
   after_save do 
   	if self.alarmed_post
-      self.alarmed_post.update_attributes!(visible: false, state: "draft")
+      self.alarmed_post.update_attributes!(state: "draft")
     elsif self.alarmed_comment
       self.alarmed_comment.update_attributes!(visible: false)
     end
@@ -14,7 +19,6 @@ class Alarm < ActiveRecord::Base
 
   after_destroy do 
     if self.alarmed_post
-      self.alarmed_post.visible = true
       self.alarmed_post.state = "submitted"
       self.alarmed_post.save(validate: false)
       Event.create!(benefactor_id: self.alarmed_post.user_id, beneficiary_id: 1, 
@@ -57,13 +61,13 @@ class Alarm < ActiveRecord::Base
         end
       end
     end 
-    self.alarmer.authorizers.each do |authorizer|
-        Activity.create!(action: "create", trackable: self, 
-        user_id: self.alarmer_id, recipient_id: authorizer.id)
-        unless authorizer.personal_email.blank?
-          UserMailer.alarmer(authorizer, self.alarmer).deliver
-        end
-    end
+    # self.alarmer.authorizers.each do |authorizer|
+    #     Activity.create!(action: "create", trackable: self, 
+    #     user_id: self.alarmer_id, recipient_id: authorizer.id)
+    #     unless authorizer.personal_email.blank?
+    #       UserMailer.alarmer(authorizer, self.alarmer).deliver
+    #     end
+    # end
     User.where(admin: true).each do |admin|
       Activity.create!(action: "create", trackable: self, 
       user_id: self.alarmer_id, recipient_id: admin.id)

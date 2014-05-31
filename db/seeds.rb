@@ -6,6 +6,16 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+if Reason.count==0
+	Reason.create([
+		{position: 1, name: "it is NOT a WORD problem"},
+		{position: 2, name: "its image has a watermark"},
+		{position: 3, name: "its content is inappropriate (i.e., sexual, violent. racial, criminal, or offensive"},
+		{position: 4, name: "its content is plagerised"},
+		{position: 5, name: "its image is inappropriate"},
+		{position: 6, name: "it discloses personal information (e.g., phone number, email address, personal web sites or social medial)"}
+		])
+end
 if Color.count == 0
 	Color.create([
 		{value: 0, code: "#800000", weakness: "Incomplete"},

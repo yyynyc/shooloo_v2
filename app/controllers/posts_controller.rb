@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @search = Post.where(state: ["verified", "published", "old", "revised"]).visible.search(params[:q])
+    @search = Post.where(state: ["verified", "published", "old", "revised"]).search(params[:q])
     @posts = @search.result.paginate(page: params[:page], 
         per_page: 20, order: 'state DESC, created_at DESC')
     @search.build_condition
@@ -62,6 +62,7 @@ class PostsController < ApplicationController
 
   def draft
     @post = Post.find(params[:post_id])
+    @alarm = Alarm.find_by_alarmed_post_id(params[:post_id])
   end
 
   def corrected

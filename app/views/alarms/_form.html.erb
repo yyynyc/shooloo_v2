@@ -1,0 +1,11 @@
+<%= semantic_form_for alarm, :url => url, html: {class: "form-alarm"} do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+	<%=f.inputs do %>
+		<%= f.hidden_field :alarmed_post_id, value: post.id %>
+		<%= f.input :reasons, label: "What's Wrong With the Following Problem? ", as: :check_boxes, collection: Reason.order(:position), include_blank: false %>
+	<% end %>
+	<%= f.actions do %>
+		<%= f.action :submit, label: save, as: :button, button_html: {class: "btn btn-large btn-danger",  disable_with: "Proccessing..."} %>
+	<% end %>
+<% end %>
+<%= render partial: 'corrections/correction_post_view', locals: {post: post} %>

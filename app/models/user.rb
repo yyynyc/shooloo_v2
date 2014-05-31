@@ -236,7 +236,7 @@ class User < ActiveRecord::Base
         :unless => :should_validate_password?
       validates :address_state, presence: true, on: :update, 
         :unless => :should_validate_password?
-      validates :school_url, presence: true, url: true, :if => :teacher?, 
+      validates :school_url, presence: true, :if => :teacher?, 
         :unless => :should_validate_password?
       validates :first_name, length: {maximum: 25}, presence: true
       validates :last_name, length: {maximum: 25}, presence: true      

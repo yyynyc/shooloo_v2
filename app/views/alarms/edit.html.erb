@@ -1,2 +1,2 @@
 <h1>Update Alarm</h1>
-<%= render partial: 'alarms/form', locals: {alarm: @alarm, post: @post, url: alarm_path, save: "Update"} %>
+<%= render partial: 'alarms/form', locals: {alarm: @alarm, post: @post, url: alarm_path(@alarm), save: "Update"} %>

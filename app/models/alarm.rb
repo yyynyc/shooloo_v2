@@ -3,11 +3,9 @@ class Alarm < ActiveRecord::Base
   belongs_to :alarmed_post, class_name: "Post"
   belongs_to :alarmed_comment, class_name: "Comment"
   belongs_to :alarmer, class_name: "User"
-  has_many :reasons
-  accepts_nested_attributes_for :reasons
-
-  validates_associated :reasons
-  validates_presence_of :reasons
+  has_many :alarm_reasons
+  has_many :reasons, through: :alarm_reasons
+  accepts_nested_attributes_for :alarm_reasons
 
   after_save do 
   	if self.alarmed_post

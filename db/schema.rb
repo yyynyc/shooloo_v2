@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140530204647) do
+ActiveRecord::Schema.define(:version => 20140531011809) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -27,6 +27,13 @@ ActiveRecord::Schema.define(:version => 20140530204647) do
 
   add_index "activities", ["trackable_id"], :name => "index_activities_on_trackable_id"
   add_index "activities", ["user_id"], :name => "index_activities_on_user_id"
+
+  create_table "alarm_reasons", :force => true do |t|
+    t.integer  "alarm_id"
+    t.integer  "reason_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "alarms", :force => true do |t|
     t.integer  "alarmed_post_id"

@@ -46,7 +46,7 @@ class AlarmsController < ApplicationController
 
     def edit
         @alarm = Alarm.find(params[:id])
-        @post  = @alarm.alarmed_post   
+        @post  = @alarm.alarmed_post  
     end
 
     def update

@@ -305,5 +305,8 @@ class Post < ActiveRecord::Base
     if !self.check.nil?
       self.check.destroy
     end
+    if !self.correction.nil?
+      self.correction.destroy
+    end
   end
 end

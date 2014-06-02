@@ -31,7 +31,7 @@ class PostsController < ApplicationController
     @posts = Post.all
     @qualified = Post.where(qualified: "yes").order('created_at DESC')
     @drafts = Post.where(state: "draft").order('created_at DESC').keep_if{|p| p.alarm.nil?}
-    @alarmed = Post.order('created_at DESC').keep_if{|p| !p.alarms.blank?}
+    @alarmed = Post.order('created_at DESC').keep_if{|p| !p.alarm.nil?}
     @submissions = Post.where(state: "submitted").order('created_at DESC')
     @checked_out = Post.where(state: "under_review").order('created_at DESC')
     @verified = Post.where(state: "verified").order('created_at DESC')

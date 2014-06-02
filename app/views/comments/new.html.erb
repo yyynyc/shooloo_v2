@@ -107,7 +107,7 @@
           <% @related_posts.each do |p| %>
             #<%= link_to p.id, post_comments_path(p) %> |
           <% end %>
-          <%= will_paginate @related_posts %>
+          <div class="btn-formtastic negative-top"><%= will_paginate @related_posts %></div>
         </p>
       <% end %>
     </div>

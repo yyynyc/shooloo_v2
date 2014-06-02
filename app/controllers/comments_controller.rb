@@ -11,10 +11,10 @@ class CommentsController < ApplicationController
         @post  = Post.find(params[:post_id])
         if !@post.hstandard.nil?
             @related_posts = @post.hstandard.posts.where('id !=?', @post.id).paginate(page: params[:page], 
-                    per_page: 25, order: 'created_at DESC')
+                    per_page: 22, order: 'created_at DESC')
         elsif !@post.standard.nil?
             @related_posts = @post.standard.posts.where('id !=?', @post.id).paginate(page: params[:page], 
-                    per_page: 25, order: 'created_at DESC')
+                    per_page: 22, order: 'created_at DESC')
         end
         if !@post.correction.nil?
             @correction = @post.correction
@@ -47,10 +47,10 @@ class CommentsController < ApplicationController
             @post  = Post.find(params[:post_id])
             if !@post.hstandard.nil?
                 @related_posts = @post.hstandard.posts.where('id !=?', @post.id).paginate(page: params[:page], 
-                    per_page: 25, order: 'created_at DESC')
+                    per_page: 22, order: 'created_at DESC')
             elsif !@post.standard.nil?
                 @related_posts = @post.standard.posts.where('id !=?', @post.id).paginate(page: params[:page], 
-                    per_page: 25, order: 'created_at DESC')
+                    per_page: 22, order: 'created_at DESC')
             end
             if !@post.correction.nil?
                 @correction = @post.correction

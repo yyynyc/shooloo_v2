@@ -45,15 +45,15 @@
     <% unless @post.level.nil? %>
       <p>
         <% if current_user.role == "student" %>
-          <% if @post.hstandard.nil? %> 
+          <% if @post.hstandard.nil? && !@post.standard.nil?%> 
             <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %> 
-          <% else %>
+          <% elsif !@post.hstandard.nil? %>
             <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.hstandard.ICan %> 
           <% end %>
         <% else %>
-          <% if @post.hstandard.nil? %> 
+          <% if @post.hstandard.nil? && !@post.standard.nil? %> 
             <strong>CCSS:</strong> <%= @post.standard.full_description %> 
-          <% else %>
+          <% elsif !@post.hstandard.nil? %>
             <strong>CCSS:</strong> <%= @post.hstandard.full_description %> 
           <% end %>
         <% end %>
@@ -68,6 +68,7 @@
       <% @related_posts.each do |p| %>
         #<%= link_to p.id, post_comments_path(p) %> |
       <% end %>
+      <div class="btn-formtastic negative-top"><%= will_paginate @related_posts %></div>
     </p>
   <% end %>
 </div>

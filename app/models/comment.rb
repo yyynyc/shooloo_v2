@@ -19,7 +19,7 @@ class Comment < ActiveRecord::Base
   validates_presence_of :commenter_id, :content
   validate :comment_custom
 
-  has_many :alarms, foreign_key: "alarmed_comment_id", dependent: :destroy
+  has_one :alarm, foreign_key: "alarmed_comment_id", dependent: :destroy
   has_many :likes, foreign_key: "liked_comment_id", dependent: :destroy
   has_many :likers, through: :likes, source: :liker
   has_one :grading, foreign_key: "graded_comment_id", dependent: :destroy

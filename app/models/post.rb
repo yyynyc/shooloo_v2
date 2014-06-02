@@ -25,7 +25,7 @@ class Post < ActiveRecord::Base
     url: "/attachments/posts/:id/:style/:basename.:extension",
     path: ":rails_root/public/attachments/posts/:id/:style/:basename.:extension"
 
-  has_many :alarms, foreign_key: "alarmed_post_id", dependent: :destroy
+  has_one :alarm, foreign_key: "alarmed_post_id", dependent: :destroy
 
   has_many :ratings, foreign_key: "rated_post_id", dependent: :destroy, 
           order: "ratings.updated_at DESC"
@@ -125,8 +125,8 @@ class Post < ActiveRecord::Base
   end
 
   def disalarm
-    if self.alarms.any?
-      self.alarms.delete_all
+    if self.alarm.nil?
+      self.alarm.destroy
     end
   end
 
@@ -302,5 +302,8 @@ class Post < ActiveRecord::Base
     Activity.where(trackable_id: self.id, trackable_type: self.class).delete_all
     Lesson.where(post_a_id: self.id).delete_all
     Lesson.where(post_b_id: self.id).delete_all
+    if !self.check.nil?
+      self.check.destroy
+    end
   end
 end

@@ -3,7 +3,7 @@
     <div class="row well well-small">
       <% if feed_item.state == "draft" %>
         <span class="no">
-          <% if feed_item.alarms.any? %>
+          <% if !feed_item.alarm.nil? %>
             An alarm has been raised on this post. Please <%= link_to "change it now!", edit_post_path(feed_item) %>
           <% else %>
             This draft has not been submitted. <%= link_to "Finish it now!", edit_post_path(feed_item) %>
@@ -57,14 +57,14 @@
           <span class="wrap_long_string">  
             <% if feed_item.correction.nil? %> 
               <% if feed_item.state == "draft" %>
-                <% if feed_item.alarms.blank? %>
+                <% if feed_item.alarm.nil? %>
                   <%= link_to truncate_html(feed_item.question.html_safe, :length => 50, 
                     :omission => "...", word_boundary: /\S/), edit_post_path(feed_item) %>
                 <% else %>
                   <p>
                     An alarm has been raised on this post
-                    <% if !feed_item.alarms.last.reasons.blank? %>
-                      because <strong><% feed_item.alarms.last.reasons.each do |r| %>
+                    <% if !feed_item.alarm.reasons.blank? %>
+                      because <strong><% feed_item.alarm.reasons.each do |r| %>
                         <%= r.name %>,
                       <% end %></strong>
                     <% end %>

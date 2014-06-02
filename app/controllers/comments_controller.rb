@@ -9,10 +9,12 @@ class CommentsController < ApplicationController
 	def index
         @comment = Comment.new
         @post  = Post.find(params[:post_id])
-        if @post.hstandard.nil?
-            @related_posts = @post.standard.posts.where('id !=?', @post.id)
-        else
-            @related_posts = @post.hstandard.posts.where('id !=?', @post.id)
+        if !@post.hstandard.nil?
+            @related_posts = @post.hstandard.posts.where('id !=?', @post.id).paginate(page: params[:page], 
+                    per_page: 25, order: 'created_at DESC')
+        elsif !@post.standard.nil?
+            @related_posts = @post.standard.posts.where('id !=?', @post.id).paginate(page: params[:page], 
+                    per_page: 25, order: 'created_at DESC')
         end
         if !@post.correction.nil?
             @correction = @post.correction
@@ -43,10 +45,12 @@ class CommentsController < ApplicationController
         else
             @comment = Comment.new
             @post  = Post.find(params[:post_id])
-            if @post.hstandard.nil?
-                @related_posts = @post.standard.posts.where('id !=?', @post.id)
-            else
-                @related_posts = @post.hstandard.posts.where('id !=?', @post.id)
+            if !@post.hstandard.nil?
+                @related_posts = @post.hstandard.posts.where('id !=?', @post.id).paginate(page: params[:page], 
+                    per_page: 25, order: 'created_at DESC')
+            elsif !@post.standard.nil?
+                @related_posts = @post.standard.posts.where('id !=?', @post.id).paginate(page: params[:page], 
+                    per_page: 25, order: 'created_at DESC')
             end
             if !@post.correction.nil?
                 @correction = @post.correction
@@ -96,7 +100,7 @@ class CommentsController < ApplicationController
             else
                 @related_posts = @post.hstandard.posts.where('id !=?', @post.id)
             end
-            @alarm = @post.alarms.build
+            @alarm =Alarm.create!(alarmed_post_id: @post.id)
             @comments = @post.comments.paginate(page: params[:page],  
                 order: 'created_at DESC')      
             render 'new'     

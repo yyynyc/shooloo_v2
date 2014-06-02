@@ -1,7 +1,9 @@
-<% if @post.hstandard.nil?%>
+<% if !@post.hstandard.nil? %>
+  <% title "Common Core Math Word Problem ##{@post.id} in #{@post.level.name} #{@post.domain.core} #{@post.hstandard.short}" %>
+<% elsif !@post.standard.nil?%>
   <% title "Common Core Math Word Problem ##{@post.id} in #{@post.level.name} #{@post.domain.core} #{@post.standard.short}" %>
 <% else %>
-  <% title "Common Core Math Word Problem ##{@post.id} in #{@post.level.name} #{@post.domain.core} #{@post.hstandard.short}" %>
+  <% title "Common Core Math Word Problem ##{@post.id}: Draft Only" %>
 <% end %>
 <% if @correction.nil? %>
   <% description "#{@post.question.html_safe}" %>
@@ -43,11 +45,11 @@
       </div>
       <div class="alert-heading" itemscope itemtype="http://schema.org/AlignmentObject"> 
         <meta itemprop="alignmentType" content="require">
-        <% if @post.hstandard.nil?%>
+        <% if !@post.standard.nil?%>
           <meta itemprop="targetName" content="<%= @post.standard.symbol %>">
           <meta itemprop="targetUrl" content="<%= @post.standard.url %>">
           <meta itemprop="targetDescription", content="<%= @post.standard.description %>"> 
-        <% else %>
+        <% elsif !@post.hstandard.nil? %>
           <meta itemprop="targetName" content="<%= @post.hstandard.symbol %>">
           <meta itemprop="targetUrl" content="<%= @post.hstandard.url %>">
           <meta itemprop="targetDescription", content="<%= @post.hstandard.description %>"> 
@@ -97,7 +99,7 @@
           <p><strong>Answer:</strong> <%= link_to "Find Out", post_comments_path(@post), class: "btn btn-medium btn-primary" %></p>
         <% end %>
       </div>
-      <% if @related_posts.any? %>
+      <% if !@post.standard.nil? %>
         <p>
           <span class="alert-heading">
             <strong>Related Posts in the Same CCSS Standard:</strong> 
@@ -105,6 +107,7 @@
           <% @related_posts.each do |p| %>
             #<%= link_to p.id, post_comments_path(p) %> |
           <% end %>
+          <%= will_paginate @related_posts %>
         </p>
       <% end %>
     </div>

@@ -30,6 +30,9 @@ class Alarm < ActiveRecord::Base
 
   after_create do
     if self.alarmed_post
+      if !self.alarmed_post.check.nil?
+        self.alarmed_post.check.destroy
+      end
       if !self.alarmed_post.correction.nil?
         self.alarmed_post.correction.destroy
       end

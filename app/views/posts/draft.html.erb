@@ -31,7 +31,7 @@
     <%= link_to "Edit and Submit for Review", edit_post_path(@post), class: 'btn btn-large btn-primary' %>
   </p>
   <% if current_user.admin? %>
-    <% if @post.alarms.any? %>
+    <% if !@post.alarm.nil? %>
       <%= render partial: 'alarms/unalarm', locals: {post: @post} %>
       <%= link_to "Edit Alarm", edit_alarm_path(@alarm), class: 'btn btn-small btn-success' %>
     <% end %>

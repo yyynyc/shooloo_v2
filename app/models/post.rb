@@ -125,7 +125,7 @@ class Post < ActiveRecord::Base
   end
 
   def disalarm
-    if self.alarm.nil?
+    if !self.alarm.nil?
       self.alarm.destroy
     end
   end

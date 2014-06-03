@@ -1,4 +1,4 @@
-<%= form_for @post, :validate => true, :url => posts_path, :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')", 'data-action' => 'create'} do |f| %>
+<%= form_for @post, :url => posts_path, :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')", 'data-action' => 'create'} do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <div class="create"> 

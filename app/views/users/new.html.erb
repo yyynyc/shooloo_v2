@@ -6,14 +6,14 @@
 	<h1>Sign Up</h1>
 	<div class="row">
 	  <div class="span6 offset3">	    
-		<%= semantic_form_for @user, :validate => true, :url => users_path, :html => { :multipart => true, :class => "form-horizontal-user" } do |f| %>
+		<%= semantic_form_for @user, :url => users_path, :html => { :multipart => true, :class => "form-horizontal-user" } do |f| %>
 			<%= render 'shared/error_messages', object: f.object %>
 			<div class="user-signup-input">
 				<%=f.inputs do %>
-					<%= f.input :first_name, :validate => true %>
-					<%= f.input :last_name, :validate => true %>
+					<%= f.input :first_name %>
+					<%= f.input :last_name %>
 					<span class="search-label">
-						<%= f.input :screen_name, placeholder: "Must contain NO part of your real name", :validate => true %>
+						<%= f.input :screen_name, placeholder: "Must contain NO part of your real name" %>
 					</span>
 					<span class="question">
 						<a href="#", class="question", rel="popover", title="Screen Name", data-content="Should not contain any part of your real name. Should be at least 6 characters long. Should Not contain any space or punctuation." %> 

@@ -1,6 +1,6 @@
 <%= link_to "invite fellow educators", "#invitemail", "data-toggle" => "modal" %>
 <div id="invitemail" class="modal-rating modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <%= semantic_form_for @invitemail, remote: true, :validate => true, :url => invitemails_path, :html => {class: "form-horizontal-mail"} do |f| %>
+  <%= semantic_form_for @invitemail, remote: true, :url => invitemails_path, :html => {class: "form-horizontal-mail"} do |f| %>
     <div class="modal-body">   
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
       <%= render 'shared/error_messages', object: f.object %>

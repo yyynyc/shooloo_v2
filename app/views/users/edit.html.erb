@@ -10,7 +10,7 @@
 		</a>
 	</span>
 </h1>
-<%= semantic_form_for@user, :validate => true, :url => user_path, :html => { :multipart => true, :class => "form-horizontal-user" } do |f| %>
+<%= semantic_form_for@user, :url => user_path, :html => { :multipart => true, :class => "form-horizontal-user" } do |f| %>
 	<%= render 'shared/error_messages', object: f.object %>
 	<%=f.inputs do %>
 	<div class="row">

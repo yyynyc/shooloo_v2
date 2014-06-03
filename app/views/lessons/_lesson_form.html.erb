@@ -2,7 +2,7 @@
   Create A Lesson Plan<a href="#", class="post", rel="popover", title="How to Create a Lesson Plan", data-content="Watch this <a href='<%= video_path(4) %>'>video tutorial</a>." %><i class="icon-question-sign icon-medium" ></i></a>
 </h4>
 
-<%= form_for @lesson, :validate => true, :url => lessons_path, :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')", 'data-action' => 'create'} do |f| %>
+<%= form_for @lesson, :url => lessons_path, :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')", 'data-action' => 'create'} do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <span class="search-label">

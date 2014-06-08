@@ -102,8 +102,8 @@ class Post < ActiveRecord::Base
       validates :answer, presence: true
       validates :question, presence: true, uniqueness: true
       #validates_attachment_presence :photo
-      validates_attachment_size :photo, :less_than => 5.megabytes
-      validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
+      #validates_attachment_size :photo, :less_than => 5.megabytes
+      #validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
       validate {|p| p.question_custom}
       validate {|p| p.answer_custom}
       validate {|p| p.user_credential}    

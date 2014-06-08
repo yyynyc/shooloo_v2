@@ -57,70 +57,57 @@
 	<ol class="users">
 		<% @lessons.each do |lesson| %>
 			<li>
-				<div class="row">
-					<div class="span1.5">
-						<% if !lesson.post_a_id.nil? %>
-							<%= link_to image_tag(lesson.post_a.photo.url (:thumb)), 
-								lesson_comment_path(lesson) %>	
-						<% elsif !lesson.post_b_id.nil? %>
-							<%= link_to image_tag(lesson.post_b.photo.url (:thumb)), 
-								lesson_comment_path(lesson) %>	
-						<% else %>
-							<img src="/attachments/Shooloo_logo_small.png">
-						<% end %>
-					</div>
-					<div class="span8">
-						<p>
-							<%= render partial: 'lessons/lesson_user', locals: {lesson: lesson} %>
-						    <span class="well well-small"> 
-						    	<%= render partial: 'lessons/lesson_stats', locals: {lesson: lesson} %>
-						    </span>
-						</p>
-						<p class="alert-heading">
-							<span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
-								<% if lesson.hstandard.nil? %>
-									<meta itemprop="alignmentType" content="require">
-									<meta itemprop="targetName" content="<%= lesson.standard.symbol %>">
-				    				<meta itemprop="targetUrl" content="<%= lesson.standard.url %>">
-				    				<meta itemprop="targetDescription", content="<%= lesson.standard.description %>">
-									<strong><%= lesson.standard.short %></strong>
-								<% else %>
-									<meta itemprop="alignmentType" content="require">
-									<meta itemprop="targetName" content="<%= lesson.hstandard.symbol %>">
-				    				<meta itemprop="targetUrl" content="<%= lesson.hstandard.url %>">
-				    				<meta itemprop="targetDescription", content="<%= lesson.hstandard.description %>">
-									<strong><%= lesson.hstandard.short %></strong>
-								<% end %>
-							</span>  &
-							<span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
+				<div class="row span11">
+					<p>
+						<%= render partial: 'lessons/lesson_user', locals: {lesson: lesson} %>
+					    <span class="well well-small"> 
+					    	<%= render partial: 'lessons/lesson_stats', locals: {lesson: lesson} %>
+					    </span>
+					</p>
+					<p class="alert-heading">
+						<span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
+							<% if lesson.hstandard.nil? %>
 								<meta itemprop="alignmentType" content="require">
-								<meta itemprop="targetName" content="<%= lesson.practice.symbol %>">
-			    				<meta itemprop="targetUrl" content="<%= lesson.practice.url %>">
-			    				<meta itemprop="targetDescription", content="<%= lesson.practice.description %>">
-								<%= lesson.practice.name %> 
-							</span>
-						</p>
-						<p><i>
-					        <% if !lesson.post_a_id.nil? && !lesson.post_b_id.nil? %>
-					          <%= link_to "Compare", lesson_path(lesson) %> post #<%= link_to lesson.post_a_id, post_teacher_view_path(lesson.post_a_id) %> with post #<%= link_to lesson.post_b_id, post_teacher_view_path(lesson.post_b_id) %>
-					        <% elsif !lesson.post_a_id.nil? %>
-					          Analyze post #<%= link_to lesson.post_a_id, post_teacher_view_path(lesson.post_a_id) %>
-					        <% elsif !lesson.post_b_id.nil? %>
-					          Analyze post #<%= link_to lesson.post_b_id, post_teacher_view_path(lesson.post_b_id) %>
-					        <% end %></i>              
-					    </p>    
-						<p>
-							<%= truncate_html lesson.description.html_safe, :length => 140, :omission => "...", word_boundary: /\S/ %> 
-							<% if !lesson.file_file_name.nil? %>
-								<%= link_to "Read more for downloadable lesson plan...", lesson_comment_path(lesson) %>
+								<meta itemprop="targetName" content="<%= lesson.standard.symbol %>">
+			    				<meta itemprop="targetUrl" content="<%= lesson.standard.url %>">
+			    				<meta itemprop="targetDescription", content="<%= lesson.standard.description %>">
+								<strong><%= lesson.standard.short %></strong>
 							<% else %>
-								<%= link_to "Read more...", lesson_comment_path(lesson) %>
+								<meta itemprop="alignmentType" content="require">
+								<meta itemprop="targetName" content="<%= lesson.hstandard.symbol %>">
+			    				<meta itemprop="targetUrl" content="<%= lesson.hstandard.url %>">
+			    				<meta itemprop="targetDescription", content="<%= lesson.hstandard.description %>">
+								<strong><%= lesson.hstandard.short %></strong>
 							<% end %>
-						<p>	
-					</div>
+						</span>  &
+						<span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
+							<meta itemprop="alignmentType" content="require">
+							<meta itemprop="targetName" content="<%= lesson.practice.symbol %>">
+		    				<meta itemprop="targetUrl" content="<%= lesson.practice.url %>">
+		    				<meta itemprop="targetDescription", content="<%= lesson.practice.description %>">
+							<%= lesson.practice.name %> 
+						</span>
+					</p>
+					<p><i>
+				        <% if !lesson.post_a_id.nil? && !lesson.post_b_id.nil? %>
+				          <%= link_to "Compare", lesson_path(lesson) %> post #<%= link_to lesson.post_a_id, post_teacher_view_path(lesson.post_a_id) %> with post #<%= link_to lesson.post_b_id, post_teacher_view_path(lesson.post_b_id) %>
+				        <% elsif !lesson.post_a_id.nil? %>
+				          Analyze post #<%= link_to lesson.post_a_id, post_teacher_view_path(lesson.post_a_id) %>
+				        <% elsif !lesson.post_b_id.nil? %>
+				          Analyze post #<%= link_to lesson.post_b_id, post_teacher_view_path(lesson.post_b_id) %>
+				        <% end %></i>              
+				    </p>    
+					<p>
+						<%= truncate_html lesson.description.html_safe, :length => 140, :omission => "...", word_boundary: /\S/ %> 
+						<% if !lesson.file_file_name.nil? %>
+							<%= link_to "Read more for downloadable lesson plan...", lesson_comment_path(lesson) %>
+						<% else %>
+							<%= link_to "Read more...", lesson_comment_path(lesson) %>
+						<% end %>
+					<p>	
 					<% if signed_in? %>
-						<div class="span2 btn-formtastic">
-							<div class="row center">
+						<div class="row btn-formtastic">
+							<span class='search-label'>
 								<% if current_user?(lesson.user) %>
 						        	<p class="lesson-index">
 						        		<%= link_to "Edit Lesson", edit_lesson_path(lesson), title: "Edit Lesson Plan", class: "btn btn-small btn-success" %>
@@ -128,10 +115,10 @@
 						    	<% else %>
 						          	<%= render partial: 'likes/like_form_lesson', locals: {lesson: lesson, like: @like} %>
 						        <% end %>
-						  	</div>
-					     	<div class="row center">
-					        <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), lesson_comment_path(lesson), class: "btn btn-small btn-success" %>
-				 			</div>
+						    </span>
+					     	<span class='search-label'>
+						        <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), lesson_comment_path(lesson), class: "btn btn-small btn-success" %>
+						    </span>
 						</div>
 					<% end %>
 				</div>		

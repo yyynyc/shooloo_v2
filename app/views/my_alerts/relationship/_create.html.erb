@@ -4,7 +4,6 @@
 		<%= activity.created_at.strftime("%b %d, %Y") %>.
 	</span>
 	<br/>
-	<strong><%= link_to "Publish", root_url %></strong> a word problem now to impress <%= activity.user.screen_name %>. <br/>
 	Express your thanks and 
 	<%= link_to "follow #{activity.user.screen_name}", posts_user_path(activity.user) %> back.
 <% else %>

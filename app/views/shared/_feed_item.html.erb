@@ -1,22 +1,24 @@
 <div class="feed_item">
   <li id="<%= feed_item.id %>">
     <div class="row well well-small">
-      <% if feed_item.state == "draft" %>
-        <span class="no">
-          <% if !feed_item.alarm.nil? %>
-            An alarm has been raised on this post. Please <%= link_to "change it now!", edit_post_path(feed_item) %>
-          <% else %>
-            This draft has not been submitted. <%= link_to "Finish it now!", edit_post_path(feed_item) %>
-          <% end %>
-        </span>
-      <% elsif feed_item.state == "submitted" %>
-        <span>
-          This post has been submitted for review. You will get an alert when it is published.
-        </span>
-      <% elsif feed_item.toreview? %>
-        <span>
-          <%= link_to "Review editor's corrections now!", correction_path(feed_item.correction) %>
-        </span>
+      <% if current_user?(feed_item.user) || current_user.admin? %>
+        <% if feed_item.state == "draft" %>
+          <span class="no">
+            <% if !feed_item.alarm.nil? %>
+              An alarm has been raised on this post. Please <%= link_to "change it now!", edit_post_path(feed_item) %>
+            <% else %>
+              This draft has not been submitted. <%= link_to "Finish it now!", edit_post_path(feed_item) %>
+            <% end %>
+          </span>
+        <% elsif feed_item.state == "submitted" %>
+          <span>
+            This post has been submitted for review. You will get an alert when it is published.
+          </span>
+        <% elsif feed_item.toreview? %>
+          <span>
+            <%= link_to "Review editor's corrections now!", correction_path(feed_item.correction) %>
+          </span>
+        <% end %>
       <% else %>
         <%= render partial: 'posts/post_user', locals: {post: feed_item} %>
         <span class="btn-formtastic">
@@ -27,36 +29,9 @@
     <section class="feed_content">
       <div class="row">
         <section class="feed-margin">
-          <span class="image">
-            <% if feed_item.state=="draft" %>
-              <%= link_to image_tag(feed_item.photo.url (:small), 
-                alt: "Shooloo Common Core Math Problem ##{feed_item.id}", 
-                title: "Shooloo Common Core Math Problem ##{feed_item.id}"),
-                edit_post_path(feed_item)  %>
-            <% elsif feed_item.state=="submitted" %>
-              <%= link_to image_tag(feed_item.photo.url (:small), 
-                alt: "Shooloo Common Core Math Problem ##{feed_item.id}", 
-                title: "Shooloo Common Core Math Problem ##{feed_item.id}"),
-                post_draft_path(feed_item)  %>
-            <% elsif feed_item.toreview? %>
-              <%= link_to image_tag(feed_item.photo.url (:small), 
-                alt: "Shooloo Common Core Math Problem ##{feed_item.id}", 
-                title: "Shooloo Common Core Math Problem ##{feed_item.id}"),
-                correction_path(feed_item.correction)  %>
-            <% else %>
-              <%= link_to image_tag(feed_item.photo.url (:medium), 
-                alt: "Shooloo Common Core Math Problem ##{feed_item.id}", 
-                title: "Shooloo Common Core Math Problem ##{feed_item.id}"),
-                new_post_comment_path(feed_item)  %>
-            <% end %><br/> 
-            <% unless feed_item.image_host.nil? %>
-              <span class="image_host">Image courtesy of <%= feed_item.image_host %>.
-              </span>
-            <% end %>                      
-          </span>  
           <span class="wrap_long_string">  
             <% if feed_item.correction.nil? %> 
-              <% if feed_item.state == "draft" %>
+              <% if current_user?(feed_item.user) && feed_item.state == "draft" %>
                 <% if feed_item.alarm.nil? %>
                   <%= link_to truncate_html(feed_item.question.html_safe, :length => 50, 
                     :omission => "...", word_boundary: /\S/), edit_post_path(feed_item) %>
@@ -75,12 +50,11 @@
                 <%= feed_item.question.html_safe %>
               <% end %>
             <% else %>
-              <% if feed_item.toreview? %>
+              <% if feed_item.toreview? && current_user?(feed_item.user)%>
                 <span class='btn-formtastic'>
                   <%= link_to image_tag('/attachments/thumb_up.gif'), correction_path(feed_item.correction) %>
                 </span>
-                <%= link_to truncate_html(feed_item.correction.question.html_safe, :length => 50, 
-                  :omission => "...", word_boundary: /\S/), correction_path(feed_item.correction) %>
+                <%= link_to truncate_html(feed_item.correction.question.html_safe, :length => 50, :omission => "...", word_boundary: /\S/), correction_path(feed_item.correction) %>
               <% else %>
                 <%= feed_item.correction.question.html_safe %>
               <% end %>

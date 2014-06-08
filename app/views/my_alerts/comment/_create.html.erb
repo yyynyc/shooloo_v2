@@ -2,13 +2,10 @@
 	<span class='alert-heading'>
 		added a <strong><%= link_to "COMMENT", post_comments_path(activity.trackable.commented_post) %></strong>  
 		on <%= activity.created_at.strftime("%b %d, %Y") %> to post 
-		(#<%= link_to activity.trackable.commented_post.id, post_comments_path(activity.trackable.commented_post) %>)	
+		(#<%= link_to activity.trackable.commented_post.id, post_comments_path(activity.trackable.commented_post) %>).	
 	</span> 
 	<br/>
-	that you have published or commented.<br/>
-	Respond to comments and revise <%= link_to "your post", post_comments_path(activity.trackable.commented_post) %>. <br/>
-	Add comments to
-	<%= link_to "#{activity.user.screen_name}'s posts", posts_user_path(activity.user) %>.
+	<%= link_to "Respond", post_comments_path(activity.trackable.commented_post) %> to comments now. <br/>
 <% else %>
 	<span class='alert-heading'>
 		added then deleted a comment.

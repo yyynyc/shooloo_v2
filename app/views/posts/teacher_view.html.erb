@@ -2,18 +2,7 @@
 <% noindex %>
 <% nofollow %>
 
-<div class="row border lesson-margin">     
-  <div class="image">
-    <%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %><br/>
-    <% unless @post.image_host.nil? %>
-      <span class="image-host-large">Image courtesy of <%= @post.image_host %>.
-      </span><br/> 
-    <% end %>
-    <div class="row button-width bottom-margin" >
-      <br/><%= render partial: 'posts/post_buttons', locals: {post: @post, like: @like, invite: @invite} %>
-    </div>
-  </div>
-  
+<div class="row border lesson-margin"> 
   <div> 
     <% if @post.correction.nil? %>
       <% post = @post %>
@@ -70,8 +59,7 @@
 	</div>
 <% end %>
 
-<h2> Post A New Comment<a href="#", class="follow", rel="popover", title="How to Make a Winning Comment?", data-content="<ul class='popover-list'><li>Watch this <a href='<%= video_path(5) %>'>video tutorial</a></li><li>Write complete sentenses</li><li>Use correct spelling and grammar</li><li>Explain how you've got your answer</li><li>Use friendly language</li><li>Avoid foul or offensive words</li><li>Do NOT use anyone's real name; use screen name only</li><li>Do NOT tell or ask anyone's personal information</li></ul>"><img src="/attachments/secret_2.gif" alt="Shooloo Math Secret"></i></a></h2>
-
+<h2 class="center"> Post A New Comment</h2>
 <%= render partial: 'comments/comment_form', locals: {comment: [@post, @comment], save: "Submit Comment"} %>
 
 

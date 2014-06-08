@@ -1,53 +1,50 @@
-<span class="user">
-  <%= link_to post.user.screen_name, posts_user_path(post.user) %>
-</span> 
-<span class="timestamp">- </span><% if !post.user.grade.nil? %>grade <%= post.user.grade %> <% end %><%= post.user.role %><span class="timestamp"> -</span>
-<span class="timestamp">created on </span>    
-<%= post.created_at.strftime("%b %d, %Y") %>
-<% unless post.subject.nil? %>
-	<span class="timestamp">in subject </span> 
-	<%= post.subject.name %>
-<% end %>
-<% unless post.level.nil? %>
-	<span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
-		<br/><span class="timestamp"><span itemprop="alignmentType">require</span>d by</span> 
-		<span class="timestamp" itemprop="educationalFramework" content="Common Core State STan">Common Core</span>
-		<%= post.domain.core %>
-		<span class="timestamp"> -</span>
-		<% if post.hstandard.nil? %> 
-			<%= link_to post.standard.short, post.standard.url, target: "_blank", confirm: "You are about to visit a site that is not part of Shooloo. Continue?" %>
-			<span itemprop="targetName" content="<%= post.standard.symbol %>"></span>
-		    <span itemprop="targetUrl" content="<%= post.standard.url %>"></span>
-		    <span itemprop="targetDescription", content="<%= post.standard.description %>"></span>
+<span class="timestamp">
+	<% unless post.level.nil? %>
+		<span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
+			<meta itemprop="alignmentType", content="require"> 
+			<meta class="timestamp" itemprop="educationalFramework" content="Common Core State Standard">
+			<strong>Level <%= post.level.number %></strong>
+			<% if post.hstandard.nil? %> 
+				(<%= post.standard.short %>)
+				<span itemprop="targetName" content="<%= post.standard.symbol %>"></span>
+			    <span itemprop="targetUrl" content="<%= post.standard.url %>"></span>
+			    <span itemprop="targetDescription", content="<%= post.standard.description %>"></span>
+			<% else %>
+				(<%= post.hstandard.short %>)
+				<span itemprop="targetName" content="<%= post.hstandard.symbol %>"></span>
+			    <span itemprop="targetUrl" content="<%= post.hstandard.url %>"></span>
+			    <span itemprop="targetDescription", content="<%= post.hstandard.description %>"></span>
+			<% end %>
+		</span>
+	<% end %>
+	Post #<%= link_to post.id, new_post_comment_path(post)%>
+  	created by 
+  	<% if !post.user.grade.nil? %>
+  		grade <%= post.user.grade %> 
+  	<% end %>
+  	<%= post.user.role %> <%= link_to post.user.screen_name, posts_user_path(post.user) %>
+ 	on <%= post.created_at.strftime("%b %d, %Y") %>
+ 	<% if post.qualified == "yes" %>
+	 	(<strong>qualified</strong>)
+	<% else %>
+		<% if post.state=="verified" %>
+			(<strong>verified</strong>)
+		<% elsif post.state.in?(["published", "revised"]) %>
+			(<strong>self-verified</strong>) 
 		<% else %>
-		<%= link_to post.hstandard.short, post.hstandard.url, target: "_blank", confirm: "You are about to visit a site that is not part of Shooloo. Continue?" %>
-			<span itemprop="targetName" content="<%= post.hstandard.symbol %>"></span>
-		    <span itemprop="targetUrl" content="<%= post.hstandard.url %>"></span>
-		    <span itemprop="targetDescription", content="<%= post.hstandard.description %>"></span>
+			(<strong>unverified</strong>) 
 		<% end %>
-	</span>
-<% end %>
-<br/>Post id #<strong><%= link_to post.id, new_post_comment_path(post)%></strong>
-<% if !post.steps.nil? %>
-	| # of steps: 
-	<% if post.steps < 3 %>
-		<%= post.steps %>
-	<% else %>
-		3 or more steps 
+	<% end %>	
+<% if signed_in? && (current_user.admin? || current_user.in?(post.user.authorizers)) %>
+	<br/>
+	<% if !post.steps.nil? %>
+		# of steps: 
+		<% if post.steps < 3 %>
+			<%= post.steps %>
+		<% else %>
+			3 or more steps 
+		<% end %>
 	<% end %>
-<% end %>
-<% if post.qualified == "yes" %>
- 	| <strong>qualified</strong> in contest 
-<% else %>
-	<% if post.state=="verified" %>
-		| <strong>verified</strong> as correct
-	<% elsif post.state.in?(["published", "revised"]) %>
-		| <strong>self-verified</strong> by author 
-	<% else %>
-		| has not been verified 
-	<% end %>
-<% end %>
-<% if signed_in? &&(current_user.admin? || current_user.in?(post.user.authorizers)) %>
 	| <span class="timestamp">Real name:</span> <%= post.user.full_name_us %> 
 	<% if !post.correction.nil? %>
 		| <span class="timestamp">editted by:</span> <%= post.correction.editor.first_name %>

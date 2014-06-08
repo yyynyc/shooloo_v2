@@ -33,8 +33,12 @@
       <% @my_activities.each do |activity| %>
         <% unless current_user?(activity.user) %> 
           <ul class="users">
-            <li><div class="row">
-              <div class="span6">  
+            <li>
+              
+              <div > 
+                <span class='btn-formtastic'>
+                    <%= link_to "Delete", activity, method: :delete, class: "btn btn-small" %>
+                </span>  
                 <% if activity.user.nil? %>                 
                   <%= render text: "A user who has commented or rated your posts or who has followed you has been deleted from this web site." %> 
                 <% else %>
@@ -67,13 +71,11 @@
                   <% end %>
                   <span>  
                     <%= render "my_alerts/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>
-                  </span>  
+                  </span>
+                   
                 <% end %>
               </div>
-              <div class="span1">
-                <%= render partial: 'users/read_form', locals: {activity: activity} %>
-                <%= link_to "Delete", activity, method: :delete, class: "btn btn-medium" %>
-              </div></div>
+            
             </li>        
           </ul>        
         <% end %>

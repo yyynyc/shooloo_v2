@@ -1,11 +1,4 @@
-<div class="row alert-heading margin-left">
-    <div class="image">
-        <%= image_tag(post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{post.id}", title: "Shooloo Common Core Math Problem ##{post.id}")  %><br/>
-        <% unless post.image_host.nil? %>
-          <span class="image-host-large">Image courtesy of <%= post.image_host %>.
-          </span><br/> 
-        <% end %>
-    </div>
+<div class="row alert-heading">
 	<p><strong>Question:</strong> <%= post.question.html_safe %></p>
 	<p><strong>Answer:</strong> <%= post.answer.html_safe %></p>
 </div>

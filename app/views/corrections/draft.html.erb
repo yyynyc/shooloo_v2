@@ -23,9 +23,6 @@
 <% end %>
 
 <div class="row margin-left">
-	<div class="image" >
-		<%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %>
-	</div>
 	<div class="alert-heading">
 		<p><strong>Grade Level: </strong>
 			<% if !@correction.level_id.nil? %>

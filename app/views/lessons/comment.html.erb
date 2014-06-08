@@ -4,7 +4,7 @@
 <% nofollow%>
 <%= render partial: 'lessons/lesson_plan', locals: {lesson: @lesson} %>
 <% if !@comments.blank? %>
-	<h2> Comments </h2>	
+	<h2 class="center"> Comments </h2>	
 	<ol class="posts">	  
 	    <% @comments.each do |comment| %>
 		    <li>
@@ -43,7 +43,7 @@
 	</ol>
 <% end %>
 
-<h2> Post A New Comment</h2>
+<h2 class="center"> Post A New Comment</h2>
 <%= form_for([@lesson, @comment], :html => { :multipart => true, onsubmit: "$('input[type=submit]', this).attr('disabled','disabled')"}) do |f| %>
   	<%= render 'shared/error_messages', object: f.object %>
   	<%= f.hidden_field :commented_lesson_id, value: @lesson.id %>

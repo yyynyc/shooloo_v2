@@ -1,5 +1,4 @@
 <div class="center create">
-	<img src="/attachments/laptop.gif" height="5" alt="Shooloo Math Can Do">
 	<% if current_user.role == "teacher" %>
 		<% if current_user.authorized_users.any? %>
 			<%= link_to "Create A New Homework Assignment Now!", new_assignment_path, class: "btn btn-large btn-success" %>

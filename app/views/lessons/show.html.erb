@@ -31,7 +31,7 @@
 	    </div>
 	    <div id="collapseThree" class="accordion-body collapse">    	
 	  		<div class="accordion-toggle teacher-view">
-	  			<% if lesson.post_a.hstandard.nil? %>    				
+	  			<% if @lesson.post_a.hstandard.nil? %>    				
 	  				<p><%= @lesson.post_a.standard.full_description %></p>
 	  			<% else %>
 	  				<p><%= @lesson.post_a.hstandard.full_description %></p>
@@ -94,7 +94,7 @@
 	    </div>
 	    <div id="collapseSix" class="accordion-body collapse">    	
 	  		<div class="accordion-toggle teacher-view">    				
-	  			<% if lesson.post_b.hstandard.nil? %>    				
+	  			<% if @lesson.post_b.hstandard.nil? %>    				
 	  				<p><%= @lesson.post_b.standard.full_description %></p>
 	  			<% else %>
 	  				<p><%= @lesson.post_b.hstandard.full_description %></p>

@@ -3,7 +3,7 @@
    <%#= render partial: 'alarms/alarm', locals: {post: post} %>
  <!--  </span> -->   
 <%# end %>
-<% unless post.toreview? %>     
+<% unless post.toreview? && current_user?(post.user) %>     
   <% if current_user?(post.user) || current_user.admin? %>
     <% if !post.grading.nil? %>
       <%= link_to "grade: #{post.grading.mark.full_mark}", grading_path(post.grading), class: "btn btn-small btn-info" %> 

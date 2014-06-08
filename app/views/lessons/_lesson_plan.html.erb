@@ -1,23 +1,23 @@
 <div class="row well well-small">
   <%= render partial: 'lessons/lesson_user', locals: {lesson: lesson} %>
-  <span class="btn-formtastic">
-    <%= render partial: 'lessons/lesson_stats', locals: {lesson: lesson} %>
-  </span>
-</div>       
-<section class="feed_content">
-  <div class="row">
-    <section class="feed-margin">
-      <span class="image">
-        <% if !lesson.post_a_id.nil? %>
-          <%= link_to image_tag(lesson.post_a.photo.url (:small)),
-          post_comments_path(lesson.post_a)  %>
-        <% elsif !lesson.post_b_id.nil? %>
-          <%= link_to image_tag(lesson.post_b.photo.url (:small)),
-          post_comments_path(lesson.post_b)  %>
-        <% else %>
-          <img src="/attachments/Shooloo_logo_small.png">
-        <% end %>                      
+  <%= render partial: 'lessons/lesson_stats', locals: {lesson: lesson} %>
+  <div class="btn-formtastic bottom-margin">
+    <% if current_user?(lesson.user) %>
+      <%= link_to "Edit Lesson", edit_lesson_path(lesson), title: "Edit Lesson Plan", class: "btn btn-small btn-success" %>            
+    <% else %> 
+      <span class='search-label'> 
+        <%= render partial: 'likes/like_form_lesson', locals: {lesson: lesson, like: @like} %>
       </span>  
+    <% end %>
+    <% if !lesson.post_a_id.nil? && !lesson.post_b_id.nil? %>
+      <span class='search-label'> 
+        <%= link_to "Comparison View", lesson_path(lesson), class: "btn btn-small btn-success" %>
+      </span>
+    <% end %> 
+  </div>
+</div>       
+<section class="feed_content border">
+  <div class="row lesson-margin">
     <span class="wrap_long_string">
       <p itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
         <% if lesson.hstandard.nil? %>
@@ -61,25 +61,6 @@
           <i>Full lesson plan: <a href="/attachments/lessons/<%=lesson.id %>/<%=lesson.file_file_name %>" target='_blank'> <%= lesson.file_file_name %> </a></i> 
         <% end %>
       </p>                    
-    </span>
-  </div>
-  <div>
-    <span class="btn-formtastic bottom-margin">    
-      <% if current_user?(lesson.user) %>
-        <%= link_to "Edit Lesson", edit_lesson_path(lesson), title: "Edit Lesson Plan", class: "btn btn-small btn-success" %>            
-      <% else %> 
-        <span class='search-label'> 
-          <%= render partial: 'likes/like_form_lesson', locals: {lesson: lesson, like: @like} %>
-        </span>  
-      <% end %>
-      <span class='search-label'> 
-        <%= link_to raw('<i class="icon-comment icon-white"></i> Comment'), lesson_comment_path(lesson), class: "btn btn-small btn-success" %>
-      </span> 
-      <% if !lesson.post_a_id.nil? && !lesson.post_b_id.nil? %>
-        <span class='search-label'> 
-          <%= link_to "Comparison View", lesson_path(lesson), class: "btn btn-small btn-success" %>
-        </span>
-      <% end %> 
     </span>
   </div>
 </section>

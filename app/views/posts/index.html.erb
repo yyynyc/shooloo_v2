@@ -1,5 +1,7 @@
+<% title 'Math Word Problems Authored by Students Aligned with CCSS' %>
+<% description 'Over 4,000 math word problems authored by students aligned with CCSS. Sign in for advanced search.' %>
+
 <div itemscope itemtype="http://schema.org/CreativeWork">
-  <meta itemprop="description" content="Join Shooloo to access thousands of math word problems created by students and aligned with the Common Core State Standards.">
   <%= render 'shared/meta' %>
   <h1> Common Core Word Problems</h1>
   <% if !signed_in? %>
@@ -12,12 +14,6 @@
 				<p>Find out how to <%= link_to "make a game out of word problems", video_path(11) %>. Watch this 4-minute <%= link_to "video", video_path(11) %></p>  
 			<% end %>
 			<p>Complete <%= link_to "your profile", edit_user_path(current_user) %> and then <%= link_to "Get authorization", new_authorization_path %> to read details of the math stories!</p>
-		<%# else %>
-			<%# if current_user.role == "teacher" || current_user.admin? %>
-				<!-- <p>Watch video tutorials on how to<br/> <%= link_to "make a game out of word problems", video_path(11) %>, <%= link_to "teach problem-solving in 3 steps", video_path(8) %>, and <%= link_to "teach attention to precision", video_path(6) %>.</p> -->
-			<%# else %>
-				<!-- <p>Watch video on how to <%= link_to "create an enchanting word problem", video_path(4) %>.</p> -->
-			<%# end %>
 		<% end %>
 	<% end %>
 	<%= search_form_for @search, url: search_posts_path, method: :get do |f| %>	
@@ -85,46 +81,40 @@
 			<li>
 				<div class="row">		
 					<div class="span1.5">
-						<%= link_to image_tag(post.photo.url (:thumb), 
-							alt: "Shooloo Common Core Math Problem ##{post.id}", 
-							title: "Shooloo Common Core Math Problem ##{post.id}"), 
+						<%= link_to image_tag('/attachments/shooloo_logo_small.png', 
+							alt: "Shooloo Common Core Math Problem", 
+							title: "Shooloo Common Core Math Problem"), 
 							new_post_comment_path(post)
 							 %>	
 					</div>
 					<div class="span10">
-						<% if signed_in? %>
-							<span class="btn-formtastic"> 
-								<%= render(partial: 'likes/like_form', locals: {like: @like, post: post }) unless current_user?(post.user) %>	
-							</span>
-						<% end %>	
 						<section>
 							<%= render partial: 'posts/post_user', locals: {post: post} %>			      	
 					        <%= render partial: 'posts/post_stats', locals: {post: post} %>			        		      	
 				    	</section> 
-				  		<section class="feed_content">
-				  			<% if post.correction.nil? %>	
-				  				<%= truncate_html post.question.html_safe, :length => 100, 
-				  				:omission => "...", word_boundary: /\S/ %>
+				  		<section class="feed_content normal-font">
+				  			<% if post.correction.nil? %>
+				  				<% content = post.question %>	
 				  			<% else %>
-				  				<%= truncate_html post.correction.question.html_safe, :length => 100, 
-				  				:omission => "...", word_boundary: /\S/ %>
+				  				<% content = post.correction.question %>
 				  			<% end %>
 				  			<% if !signed_in? %>
-				  				<%= link_to "Read more", new_post_comment_path(post)  %>
-				  			<% else %>	
-					  			<% if current_user?(post.user) || current_user.admin? %>
-			        				<%= link_to "Edit post ", edit_post_path(post), title: "Edit Post" %> |
-			        				<%= link_to "Read more", post_comments_path(post) %> 
-				          		<% elsif current_user.role == "student" %> 
-				              		<%= link_to "Read more", new_post_comment_path(post)  %>
-				          		<% else %>				
-				          			<%= link_to "Read more", post_comments_path(post) %>
-				          		<% end %> 
-				          		<% if current_user.admin? || current_user.role == "teacher" %>
-						           | <%= link_to "Class View", post_teacher_view_path(post) %> 
-						        <% end %> 		
-				          	<% end %>	          	  
+				  				<% url = new_post_comment_path(post) %>
+				  			<% else %>
+				  				<% if current_user?(post.user) || current_user.admin? %>
+				  					<% url = post_comments_path(post) %>
+				  				<% else %>
+				  					<% url = new_post_comment_path(post) %>
+				  				<% end %>
+				  			<% end %>
+				  			<%= link_to truncate_html(content.html_safe, :length => 100, 
+				  				:omission => "...", word_boundary: /\S/), url %>         	  
 				  		</section>
+				  		<% if signed_in? && current_user.admin? %>
+				  			<span class="btn-formtastic">
+								<%= render(partial: 'likes/like_form', locals: {like: @like, post: post }) unless current_user?(post.user) %>	
+							</span>
+			          	<% end %>	 
 				  	</div>
 				</div>
 			</li>

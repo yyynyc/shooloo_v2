@@ -15,8 +15,6 @@ class PostsController < ApplicationController
     @levels = Level.all
     @domains = Domain.all
     @standards = Standard.all
-    set_meta_tags title: 'Common Core Math Word Problems',                       
-            keywords: 'Shooloo, common core, CCSS, math, word problem, critique, rate, real life, cooperative learning'
   end
 
   def show

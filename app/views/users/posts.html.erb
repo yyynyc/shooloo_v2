@@ -8,9 +8,9 @@
 	</aside>
 	<div class="span8">
     <%= render 'users/follow_nudge' %> 
-    <h3 class="feed_item center">
+    <h1 class="feed_item center">
       <%= @user.screen_name %>'s Published Posts (<%= @user.posts.count %>)
-    </h3> 
+    </h1> 
     <%= render partial: 'posts/button' %>          
   	<% if @user.posts.count == 0 %>
       <% if current_user?(@user) %>

@@ -28,14 +28,12 @@
 				on <%= link_to "a post (##{activity.trackable.alarmed_comment.commented_post.id}) ", post_comments_path(activity.trackable.alarmed_comment.commented_post) %> and a lot of points have deducted out of your account.
 			</span>	
 			<br/>
-			Users are not allowed to disclose real names or contact information in the comments. Your comment also should be related to math.<br/>
-			If you believe your comment was clean and friendly and if you want those points back, you may ask your teacher to unalarm it. 
+			<%= link_to "Change your comment", post_comments_path(activity.trackable.alarmed_comment.commented_post) %> now.
 		<% else %>
 			<span class='alert-heading'>
 				your student's comment on <%= link_to "a post (##{activity.trackable.alarmed_comment.commented_post.id}) ", post_comments_path(activity.trackable.alarmed_comment.commented_post) %>.
 			</span>
-			</i>	<br/>
-			Check out details in the <%= link_to "Alarms", alarmed_posts_path %> section and take actions as you deem appropriate.
+			</i>	
 		<% end %>
 	<% end %>
 <% else %>

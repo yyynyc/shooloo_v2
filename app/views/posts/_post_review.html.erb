@@ -1,35 +1,10 @@
 <div class="row">   
-  <div class="post_review_user_info">
-    <div class="btn-formtastic alert-heading">
-      <% if current_user.role == "student" %> 
-        <div class="span4 teacher-banner">
-          <%= link_to "Create your own math story", new_post_path %> today and impress your friends!
-        </div>
-      <% else %>
-        <div class="span4 teacher-banner">
-          Watch <%= link_to "videos", videos_path %> on how to <%= link_to "make a game out of word problems", video_path(10) %> and <%= link_to "teach problem solving in 3 steps", video_path(7) %>.
-        </div>
-      <% end %> 
-    </div>  
-    <%= render partial: 'posts/post_user', locals: {post: @post} %>
-    <%= render partial: 'posts/post_stats', locals: {post: @post} %>
-  </div>
+  <%= render partial: 'posts/post_banner', locals: {post: @post, like: @like, invite: @invite } %>
 </div>
-<div class="row border lesson-margin">     
-  <div class="image">
-    <%= image_tag(@post.photo.url (:large), alt: "Shooloo Common Core Math Problem ##{@post.id}", title: "Shooloo Common Core Math Problem ##{@post.id}")  %><br/>
-    <% unless @post.image_host.nil? %>
-      <span class="image-host-large">Image courtesy of <%= @post.image_host %>.
-      </span><br/> 
-    <% end %>
-    <div class="row button-width bottom-margin">
-     <br/><%= render partial: 'posts/post_buttons', locals: {post: @post, like: @like, invite: @invite } %><br/>
-    </div>  
-  </div>
+<div class="row border"> 
   <div class="alert-heading">         
     <% if !@correction.nil? %>
-      <% if current_user.role == "teacher" || current_user.admin? || 
-        current_user?(@post.user) %>
+      <% if current_user.in?(@correction.corrected_post.user.authorizers) || current_user.admin? || current_user?(@post.user) %>
         <p><strong>Comparison:</strong> <%= link_to "original vs. corrected versions", correction_path(@correction) %>
       <% end %> 
       <p>
@@ -48,7 +23,7 @@
           <% if @post.hstandard.nil? && !@post.standard.nil?%> 
             <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.standard.ICan %> 
           <% elsif !@post.hstandard.nil? %>
-            <strong>"I can" statement: </strong> In <%= @post.domain.name %>, <%= @post.hstandard.ICan %> 
+            <strong>"I can": </strong> In <%= @post.domain.name %>, <%= @post.hstandard.ICan %> 
           <% end %>
         <% else %>
           <% if @post.hstandard.nil? && !@post.standard.nil? %> 
@@ -63,7 +38,7 @@
   <% if @related_posts.any? %>
     <p>
       <span class="alert-heading">
-        <strong>Related Posts in the Same CCSS Standard:</strong> 
+        <strong>Related Posts:</strong> 
       </span>
       <% @related_posts.each do |p| %>
         #<%= link_to p.id, post_comments_path(p) %> |

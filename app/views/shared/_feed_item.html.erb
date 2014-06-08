@@ -1,24 +1,22 @@
 <div class="feed_item">
   <li id="<%= feed_item.id %>">
     <div class="row well well-small">
-      <% if current_user?(feed_item.user) || current_user.admin? %>
-        <% if feed_item.state == "draft" %>
-          <span class="no">
-            <% if !feed_item.alarm.nil? %>
-              An alarm has been raised on this post. Please <%= link_to "change it now!", edit_post_path(feed_item) %>
-            <% else %>
-              This draft has not been submitted. <%= link_to "Finish it now!", edit_post_path(feed_item) %>
-            <% end %>
-          </span>
-        <% elsif feed_item.state == "submitted" %>
-          <span>
-            This post has been submitted for review. You will get an alert when it is published.
-          </span>
-        <% elsif feed_item.toreview? %>
-          <span>
-            <%= link_to "Review editor's corrections now!", correction_path(feed_item.correction) %>
-          </span>
-        <% end %>
+      <% if feed_item.state == "draft" && current_user?(feed_item.user) %>
+        <span class="no">
+          <% if !feed_item.alarm.nil? %>
+            An alarm has been raised on this post. Please <%= link_to "change it now!", edit_post_path(feed_item) %>
+          <% else %>
+            This draft has not been submitted. <%= link_to "Finish it now!", edit_post_path(feed_item) %>
+          <% end %>
+        </span>
+      <% elsif feed_item.state == "submitted" && current_user?(feed_item.user) %>
+        <span>
+          This post has been submitted for review. You will get an alert when it is published.
+        </span>
+      <% elsif feed_item.toreview? && current_user?(feed_item.user) %>
+        <span>
+          <%= link_to "Review editor's corrections now!", correction_path(feed_item.correction) %>
+        </span>
       <% else %>
         <%= render partial: 'posts/post_user', locals: {post: feed_item} %>
         <span class="btn-formtastic">

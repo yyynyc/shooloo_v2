@@ -30,7 +30,7 @@
 		<% if post.state=="verified" %>
 			(<strong>verified</strong>)
 		<% elsif post.state.in?(["published", "revised"]) %>
-			(<strong>self-verified</strong>) 
+			(<strong>unverified</strong>)
 		<% else %>
 			(<strong>unverified</strong>) 
 		<% end %>

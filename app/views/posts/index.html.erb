@@ -89,10 +89,15 @@
 					</div>
 					<div class="span10">
 						<section>
-							<%= render partial: 'posts/post_user', locals: {post: post} %>			      	
-					        <%= render partial: 'posts/post_stats', locals: {post: post} %>			        		      	
+							<%= render partial: 'posts/post_user', locals: {post: post} %>
+							<%= render partial: 'posts/post_stats', locals: {post: post} %>	
 				    	</section> 
 				  		<section class="feed_content normal-font">
+				  			<% if signed_in? %>
+					  			<span class="btn-formtastic">
+									<%= render(partial: 'likes/like_form', locals: {like: @like, post: post }) unless current_user?(post.user) %>
+								</span>
+				          	<% end %>
 				  			<% if post.correction.nil? %>
 				  				<% content = post.question %>	
 				  			<% else %>
@@ -110,11 +115,7 @@
 				  			<%= link_to truncate_html(content.html_safe, :length => 100, 
 				  				:omission => "...", word_boundary: /\S/), url %>         	  
 				  		</section>
-				  		<% if signed_in? && current_user.admin? %>
-				  			<span class="btn-formtastic">
-								<%= render(partial: 'likes/like_form', locals: {like: @like, post: post }) unless current_user?(post.user) %>	
-							</span>
-			          	<% end %>	 
+				  		 
 				  	</div>
 				</div>
 			</li>

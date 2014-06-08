@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140531011809) do
+ActiveRecord::Schema.define(:version => 20140608202929) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(:version => 20140531011809) do
     t.integer  "commented_lesson_id"
     t.integer  "response_id"
     t.boolean  "graded",              :default => false
+    t.string   "opening"
   end
 
   add_index "comments", ["commenter_id", "created_at"], :name => "index_comments_on_commenter_id_and_created_at"

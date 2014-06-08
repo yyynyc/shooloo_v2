@@ -438,6 +438,24 @@ aside {
   }
 }
 
+.form-horizontal-comment { 
+  .control-label {  
+    float: left;
+    width: 5em;
+    padding-top: 2px;
+    text-align: left;
+    font-size: 1.3em;
+  }
+  .controls {
+    font-size: 1.3em;
+    margin-left: 7em;
+    width: 750px;
+    textarea {
+      height: 40px;
+    }
+  }
+}
+
 .form-horizontal-post-update { 
   .control-label {
     font-size: 1.2em;  

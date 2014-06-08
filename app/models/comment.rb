@@ -3,7 +3,7 @@ class Comment < ActiveRecord::Base
   validates :content, obscenity: {message: 'contains offensive word'}
   
   attr_accessible :content, :photo, :commented_lesson_id, :response_id, 
-    :graded, :visible
+    :graded, :visible, :opening
   
   belongs_to :commented_post, class_name: "Post"
   belongs_to :commented_lesson, class_name: "Lesson"
@@ -16,7 +16,7 @@ class Comment < ActiveRecord::Base
     url: "/attachments/comments/:id/:style/:basename.:extension",
     path: ":rails_root/public/attachments/comments/:id/:style/:basename.:extension"
 
-  validates_presence_of :commenter_id, :content
+  validates_presence_of :commenter_id, :opening
   validate :comment_custom
 
   has_one :alarm, foreign_key: "alarmed_comment_id", dependent: :destroy
@@ -29,11 +29,10 @@ class Comment < ActiveRecord::Base
   has_one :color, through: :scorecard
 
   def comment_custom
-    if content.downcase.include?(self.commenter.first_name.downcase) || 
-      content.downcase.include?(self.commenter.last_name.downcase) ||
-      content.downcase.include?(self.commented_post.user.last_name.downcase) ||
-      content.downcase.include?(self.commented_post.user.first_name.downcase) 
-      errors.add(:comment, "can't contain any part of your real name or the post's author's real name.")
+    if !commented_post_id.nil?
+      if content.downcase =~ /[a-z]/
+        errors.add(:content, "can only include mathematical expressions. It can't contain any words.")
+      end
     end
   end
 
@@ -48,15 +47,6 @@ class Comment < ActiveRecord::Base
   def self.hidden
     where(:visible=>false)
   end
-
-  #default_scope order: 'comments.created_at DESC'
-
-  #after_save do 
-  #  Post.update_all([
-  #    "comments_count = (select count (*) from comments 
-  #      where commented_post_id=?)", self.commented_post.id],
-  #   	['id=?',self.commented_post.id])
-  #end
 
   before_save do
     if Comment.where(commenter_id: self.commenter_id, 

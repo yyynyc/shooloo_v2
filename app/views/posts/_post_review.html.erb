@@ -2,7 +2,7 @@
   <%= render partial: 'posts/post_banner', locals: {post: @post, like: @like, invite: @invite } %>
 </div>
 <div class="row border"> 
-  <div class="alert-heading">         
+  <div class="alert-heading lesson-margin">         
     <% if !@correction.nil? %>
       <% if current_user.in?(@correction.corrected_post.user.authorizers) || current_user.admin? || current_user?(@post.user) %>
         <p><strong>Comparison:</strong> <%= link_to "original vs. corrected versions", correction_path(@correction) %>

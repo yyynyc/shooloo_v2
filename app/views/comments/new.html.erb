@@ -30,11 +30,9 @@
       <%= render 'shared/homework_instruction' %>
       <% else %>
         <%= render partial: 'posts/post_banner', locals: {post: @post, like: @like, invite: @invite } %>
-    </div>  
-  </div>
       <% end %>
     <% end %>  
-    <div class="row border">
+    <div class="row border lesson-margin">
       <div class="alert-heading" itemscope itemtype="http://schema.org/AlignmentObject"> 
         <meta itemprop="alignmentType" content="require">
         <% if !@post.standard.nil?%>

@@ -1,4 +1,5 @@
 <%= form_for @alarm, :url => post_alarms_path(post.id) do |f| %>
-  <div><%= f.hidden_field :alarmed_post_id %></div>
+  <%= f.hidden_field :alarmer_id, value: current_user.id %>
+  <%= f.hidden_field :alarmed_post_id, value: post.id %>
   <%= f.submit "Alarm", class: "btn btn-small btn-default", confirm: " Raise alarms only if this post has 1) offensive image, 2) offensive content, 3) watermarked image, 4) plagerized content, or 5) content that has nothing to do with math. If the admin decides your alarm is appropriate, she will award you bonus points. However, if you raise false alarms, penalty points will be deducted out of your account. Continue?", disable_with: "Proccessing..." %>
 <% end %>

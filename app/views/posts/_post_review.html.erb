@@ -14,9 +14,9 @@
       <p><strong>Answer</strong> <span class="timestamp">(corrected):</span> <%= @correction.answer.html_safe %></p>
     <% else %>
       <p><strong>Question</strong> <span class="timestamp">(original):</span> <%= @post.question.html_safe %></p>
-      <p><strong>Answer</strong> <span class="timestamp">(original):</span> <%= @post.answer.html_safe %>
-    </p>
-    <% end %>   
+      <p><strong>Answer</strong> <span class="timestamp">(original):</span> <%= @post.answer.html_safe %></p>
+    <% end %> 
+    <p class="center"><%= link_to "Create Your Own Word Problem Now!", new_post_path, class: "btn btn-large btn-info" %></p>  
     <% unless @post.level.nil? %>
       <p>
         <% if current_user.role == "student" %>
@@ -36,7 +36,7 @@
     <% end %>
   </div>
   <% if @related_posts.any? %>
-    <p>
+    <p class="lesson-margin">
       <span class="alert-heading">
         <strong>Related Posts:</strong> 
       </span>

@@ -9,7 +9,6 @@
       <%= link_to "grade: #{post.grading.mark.full_mark}", grading_path(post.grading), class: "btn btn-small btn-info" %> 
     <% end %>
     <% if post.draft? %>
-      <%= link_to raw('<i class="icon-pencil icon-white"></i> Finish This Post Now!'), edit_post_path(post), title: "Edit Post", class: "btn btn-small btn-primary" %>
     <% else %> 
       <% if current_user.admin? || current_user.role == "teacher" %>
         <%= link_to raw('<i class="icon-pencil icon-white"></i> Revise'), edit_post_path(post), title: "Edit Post", class: "btn btn-small btn-success" %>

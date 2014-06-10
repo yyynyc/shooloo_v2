@@ -63,12 +63,12 @@
           <% end %>
           <% if !@post.level.nil? %>
             <p>
-              <% if current_user.role == "student" && current_user.grade < 9 %>
+              <% if current_user.role == "student" && !current_user.grade.nil? %>
                 <strong>"I can": </strong> In <%= @post.domain.name %>, 
                 <% if @post.hstandard.nil? %>
                   <%= @post.standard.ICan %>
                 <% else %>
-                  <%= @post.hstandard.ICan %>
+                  <%= @post.hstandard.description %>
                 <% end %>
               <% else %>
                 <strong>CCSS Standard:</strong>
@@ -89,7 +89,7 @@
           <p><strong>Answer:</strong> <%= link_to "Find Out", post_comments_path(@post), class: "btn btn-medium btn-primary" %></p>
         <% end %>
       </div>
-      <% if !@post.standard.nil? %>
+      <% if !@post.standard.nil? && @response.nil?  %>
         <p>
           <span class="alert-heading">
             <strong>Related Posts:</strong> 

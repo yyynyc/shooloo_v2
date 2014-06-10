@@ -176,8 +176,12 @@ class UsersController < ApplicationController
 
   def posts
     @user = User.find(params[:id])
-    @posts = @user.posts.where(state: ["verified", "published", "old", "revised"], toreview: ["false", nil]).paginate(page: params[:page], per_page: 10, order: "created_at DESC")
-    @to_reviews = @user.posts.where(toreview: true).order("created_at DESC")
+    if current_user?(@user) || current_user.admin?
+      @posts = @user.posts.where(state: ["verified", "published", "old", "revised"], toreview: ["false", nil]).paginate(page: params[:page], per_page: 10, order: "created_at DESC")
+      @to_reviews = @user.posts.where(toreview: true).order("created_at DESC")
+    else
+      @posts = @user.posts.where(state: ["verified", "published", "old", "revised"]).paginate(page: params[:page], per_page: 10, order: "created_at DESC")
+    end
     @drafts =  @user.posts.where(state: "draft").order("created_at DESC")
     @submissions =  @user.posts.where(state: "submitted").order("created_at DESC")
     @comment=current_user.comments.build(params[:comment])

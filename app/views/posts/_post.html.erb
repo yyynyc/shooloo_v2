@@ -12,7 +12,6 @@
 <%= semantic_form_for post, :url => url, :html => { :multipart => true, class: "form-horizontal-post-update", 'data-action' => 'update' }  do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
 	<%=f.inputs do %> 
-		<%= f.input :competition, label: link_to("Healthy-Eating Math Story Contest", contest_path), as: :radio, collection: [["Yes! Enter my post into the healthy-eating math story contest", 1],["No. My post is not about healthy eating.", 0]] %>
         <div class="create">
         	<%# if current_user.admin? %>
         		<%#= f.input :question, as: :ckeditor, input_html: {ckeditor: {toolbar: "admin" }} %>
@@ -28,15 +27,13 @@
 		    <%= render partial: 'shared/ccss', locals: {f: f} %>
     	<% end %>
     	<%= f.input :subject_id, as: :select, include_blank: true, label: "Subject", collection: Hash[Subject.order('name ASC').map{|s| [s.name, s.id]}] %>
-		<p class="center yes alert-heading"> 
-			Trouble with pictures? Watch this 1-minute video on <%= link_to "how to add a picture", video_path(9) %>. 
-		</p>
+    	<%= f.input :competition, label: link_to("Healthy-Eating Math Story Contest", contest_path), as: :radio, collection: [["Yes! Enter my post into the healthy-eating math story contest", 1],["No. My post is not about healthy eating.", 0]] %>
 	<% end %>
 	<%= f.actions do %>	
 		<div class="btn-formtastic">
 			<% if post.state == "draft" %>		
 		    	<span class="search-label">
-		    	<%= f.action :submit, label: "Preview & Save as draft", as: :button, button_html: {value: "save", class: "btn btn-large btn-warning", disable_with: "saving as draft..."} %>
+		    	<%= f.action :submit, label: "Save as draft", as: :button, button_html: {value: "save", class: "btn btn-large btn-warning", disable_with: "saving as draft..."} %>
 		    	</span>
 		    <% end %>
 	    	<span class="search-label">

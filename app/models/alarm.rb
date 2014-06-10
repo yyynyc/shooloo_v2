@@ -1,5 +1,5 @@
 class Alarm < ActiveRecord::Base
-  attr_accessible :alarmed_comment_id, :alarmed_post_id, :reason_ids
+  attr_accessible :alarmed_comment_id, :alarmed_post_id, :reason_ids, :alarmer_id
   belongs_to :alarmed_post, class_name: "Post"
   belongs_to :alarmed_comment, class_name: "Comment"
   belongs_to :alarmer, class_name: "User"

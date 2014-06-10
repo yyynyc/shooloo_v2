@@ -170,5 +170,9 @@ class Correction < ActiveRecord::Base
 	def post_state_transition
 		self.corrected_post.verify!
 	end
+
+	after_destroy do 
+		Activity.where(trackable_type: "Post", trackable_id: self.corrected_post.id).delete_all
+	end
 end
 

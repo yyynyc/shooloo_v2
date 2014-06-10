@@ -2,7 +2,7 @@
   <%= render partial: 'posts/post_banner', locals: {post: @post, like: @like, invite: @invite } %>
 </div>
 <div class="row border"> 
-  <div class="alert-heading">         
+  <div class="alert-heading lesson-margin">         
     <% if !@correction.nil? %>
       <% if current_user.in?(@correction.corrected_post.user.authorizers) || current_user.admin? || current_user?(@post.user) %>
         <p><strong>Comparison:</strong> <%= link_to "original vs. corrected versions", correction_path(@correction) %>
@@ -11,12 +11,19 @@
         <strong>Question</strong> <span class="timestamp">(corrected):</span>
         <%= @correction.question.html_safe %>
       </p>
-      <p><strong>Answer</strong> <span class="timestamp">(corrected):</span> <%= @correction.answer.html_safe %></p>
+      <p><strong>Answer</strong> 
+        <span class="timestamp search-label">(corrected):</span>
+        <span class="search-label"> <%= link_to "Create Your Own Word Problem Now!  Show the World How Smart You Are!", new_post_path, class: "btn btn-large btn-success" %> 
+      </p>
+      <p><%= @correction.answer.html_safe %></p>
     <% else %>
       <p><strong>Question</strong> <span class="timestamp">(original):</span> <%= @post.question.html_safe %></p>
-      <p><strong>Answer</strong> <span class="timestamp">(original):</span> <%= @post.answer.html_safe %>
-    </p>
-    <% end %>   
+      <p><strong>Answer</strong> 
+        <span class="timestamp search-label">(original):</span>
+        <span class="search-label"> <%= link_to "Create Your Own Word Problem Now!  Show the World How Smart You Are!", new_post_path, class: "btn btn-large btn-success" %>  
+      <p><%= @post.answer.html_safe %></p>
+    <% end %> 
+    
     <% unless @post.level.nil? %>
       <p>
         <% if current_user.role == "student" %>
@@ -36,7 +43,7 @@
     <% end %>
   </div>
   <% if @related_posts.any? %>
-    <p>
+    <p class="lesson-margin">
       <span class="alert-heading">
         <strong>Related Posts:</strong> 
       </span>

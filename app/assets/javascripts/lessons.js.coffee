@@ -39,7 +39,7 @@ window.ccss = (ccss)->
   hstandards = $('#'+ccss+'_hstandard_id').html()
   doitagain = ->
     standard = $('#'+ccss+'_standard_id :selected').text() 
-    escaped_standard = standard.replace(/([ #;&,.+*~\':"!^$[\]()=><+-|\/@])/g, '\\$1')
+    escaped_standard = standard.replace(/([ #;&,.+*~\':"!^$[\]()=><\+\-|\/@])/g, '\\$1')
     alternatives = $(hstandards).filter("optgroup[label=#{escaped_standard}]").html()
     if alternatives      
       $('#'+ccss+'_hstandard_id').html(alternatives)

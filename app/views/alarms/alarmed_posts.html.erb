@@ -29,8 +29,7 @@
                         comment 
                         #<%= link_to alarm.alarmed_comment_id, post_comments_path(alarm.alarmed_comment.commented_post) %>
                         written by
-                        <%= link_to alarm.alarmed_comment.commenter.first_name %>
-                        <%= alarm.alarmed_comment.commenter.last_name %>
+                        <%= link_to alarm.alarmed_comment.commenter.full_name_us %>
                     <% end %>
                 on <%= alarm.created_at.strftime("%b %d, %Y") %> 
             </li>

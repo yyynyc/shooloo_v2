@@ -9,8 +9,7 @@
 					Comment #<%= comment.id %>: 
 				<% end %>
 				<% if current_user.in?(comment.commenter.authorizers) || current_user.admin? %>
-					(<%= comment.commenter.first_name %>
-					<%= comment.commenter.last_name %>)
+					(<%= comment.commenter.full_name_us %>)
 				<% end %>								
 				<%= link_to comment.commenter.screen_name, posts_user_path(comment.commenter) %>
 				<span class="timestamp">- </span><% if !comment.commenter.grade.nil? %>grade <%= comment.commenter.grade %> <% end %><%= comment.commenter.role %><span class="timestamp"> -</span> 				
@@ -22,7 +21,7 @@
 	            	</span>
 	            <% end %>	          
             	<% if comment.visible? %>
-            		<% unless comment.commenter.role=="teacher" || current_user == comment.commenter %>
+            		<% if current_user.admin? || current_user.role == "editor" %>
 	            		<span class='search-label'>
 	            			<%= render partial: 'alarms/alarm_comment', locals: {comment:comment} %>
 	            		</span>
@@ -62,11 +61,10 @@
             				<%= render partial: 'alarms/unalarm_comment', locals: {post: comment.commented_post, comment:comment} %>
             			</span>
             		<% end %>            		
-            	<% end %>
-            	<br/>	           			
-				<span class="alert-heading wrap_long_string">
-					<%= comment.content.html_safe %>
-				</span>				
+            	<% end %>   			
+				<p class="alert-heading wrap_long_string">
+					<%= comment.opening %> My answer is: <%= comment.content.html_safe %>
+				</p>				
 			</span>			
 		</div>
 	</div>  

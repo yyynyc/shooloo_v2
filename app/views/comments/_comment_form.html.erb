@@ -5,10 +5,11 @@
     	<% if !@response.nil? %>
     		<%= f.input :response_id, value: @response.id, as: :hidden %>
     	<% end %>
-      <%= f.input :content, label: "My answer is:", placeholder: "No words or alphabetic letters. Numbers only." %>
+      <%= f.input :opening, label: "Opening remark:", as: :select, collection: ["I love your question!", "You are so smart!", "Your question makes me think really hard.", "Your question is very interesting!", "Your question is so creative!", "I don't understand your question."], allow_blank: false %>
+      <%= f.input :content, label: "My answer is:", placeholder: "Numbers and equations only. No words allowed. " %>
     <% end %>
     <%= f.actions do %>
-      <div class="btn-formtastic">
+      <div class="btn-formtastic right-margin">
     		<%= f.submit save, class: "btn btn-large btn-primary", disable_with: "Proccessing..." %>
       </div>
     <% end %>

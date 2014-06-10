@@ -1,6 +1,4 @@
 class Comment < ActiveRecord::Base
-  require 'obscenity/active_model'
-  validates :content, obscenity: {message: 'contains offensive word'}
   
   attr_accessible :content, :photo, :commented_lesson_id, :response_id, 
     :graded, :visible, :opening
@@ -16,7 +14,7 @@ class Comment < ActiveRecord::Base
     url: "/attachments/comments/:id/:style/:basename.:extension",
     path: ":rails_root/public/attachments/comments/:id/:style/:basename.:extension"
 
-  validates_presence_of :commenter_id, :opening
+  validates_presence_of :commenter_id, :opening, :content
   validate :comment_custom
 
   has_one :alarm, foreign_key: "alarmed_comment_id", dependent: :destroy
@@ -30,8 +28,8 @@ class Comment < ActiveRecord::Base
 
   def comment_custom
     if !commented_post_id.nil?
-      if content.downcase =~ /[a-z]/
-        errors.add(:content, "can only include mathematical expressions. It can't contain any words.")
+      if content.downcase =~ /[a-df-qs-w][^\s]/
+        errors.add(:content, "can only include mathematical expressions. It can't contain any words or space.")
       end
     end
   end

@@ -28,7 +28,7 @@
 	</div>
 	<div class='span10 auth-font scrollspy-example' style="margin-left: 200px; padding-left: 7px;" data-spy="scroll" data-target=".bs-docs-sidebar">
 		<div id="overview">
-			<h2>Overview</h2>
+			<h2>Overview <%= render 'static_pages/join_contest' %></h2>
 			<span itemprop="image">
 				<%= image_tag("/attachments/nutrition.jpg", alt: "Shooloo healthy eating math story contest", class: "contest-photo", title: "Shooloo healthy eating math story contest") %>
 			</span>
@@ -37,7 +37,7 @@
 			<p>Unlike a typical math competition that rewards only the most gifted and talented, our contest gives every student, including those mathematically challenged, an opportunity to win (<a href="#win">find out how</a>). We also <a href="#awards">reward teachers</a> for advocating and teaching nutritional knowledge and healthy-eating habits. Above all, we give nearly immediate <a href="#review">feedback to student submissions</a>.</p> 
 		</div> 
 		<div id="awards">
-			<h2>Awards</h2>
+			<h2>Awards <%= render 'static_pages/join_contest' %></h2>
 			<p> Participants have the potential to win awards in the following three categories:
 				<span itemprop="image">
 					<%= image_tag("/attachments/prize.png", alt: "Shooloo healthy eating math story contest prizes", class: "contest-photo", title: "Shooloo healthy eating math story contest prizes") %>
@@ -50,7 +50,7 @@
 			</p>
 		</div> 
 		<div id="win">
-			<h2>How to Win</h2>
+			<h2>How to Win <%= render 'static_pages/join_contest' %></h2>
 			<span itemprop="image">
 				<%= image_tag("/attachments/winning.jpg", alt: "Shooloo healthy eating math story contest winning", class: "contest-photo", title: "Shooloo healthy eating math story contest winning") %>
 			</span>
@@ -75,7 +75,7 @@
 			</p>
 		</div>
 		<div id="qualification">
-			<h2>Qualification Criteria</h2>
+			<h2>Qualification Criteria <%= render 'static_pages/join_contest' %></h2>
 			<span itemprop="image">
 				<%= image_tag("/attachments/checklist.png", alt: "Shooloo healthy eating math story contest prizes", class: "contest-photo", title: "Shooloo healthy eating math story contest prizes") %>
 			</span>
@@ -104,7 +104,7 @@
 			</p>
 		</div>
 		<div id="sample">
-			<h2>Sample Problems</h2>
+			<h2>Sample Problems <%= render 'static_pages/join_contest' %></h2>
 			<p class="margin-bottom">The following are sample problems (grades 3 -- 12) suitable for the contest. <a href="/attachments/math_contest_sample.pdf" target="_blank">Download a pdf file of the sample problems</a>. Check out our large <%= link_to "repository", posts_path, target: "_blank"  %> of over 4,000 word problems for more samples.</p>
 			<h4> 3rd Grade Example</h4>
 			<p>
@@ -171,13 +171,13 @@
 			<p class="margin-bottom"><%= image_tag("/attachments/grade_hsa.png", alt: "Shooloo healthy eating math story for high school algebra", title: "Shooloo healthy eating math story contest for high school algebra") %></p>
 		</div>	 	 			
 		<div id="review">
-			<h2>Editor's Reviews</h2>
+			<h2>Editor's Reviews <%= render 'static_pages/join_contest' %></h2>
 			<p>Teachers’ entries will be published without review. Our editors will review and correct all student entries before publishing them on Shooloo. Upon publication, student authors will be <%= link_to "notified", my_alerts_path, target: "_blank"  %> of the correction results as shown below. <a href='/attachments/contest_correction_sample.pdf', target='_blank'>Download the correction sample in pdf.</a></p>
 			<p class="margin-bottom"><strong>It is crucial for students to review and learn from their correction results, so that they may improve the quality of their future submissions and thus increase their chances of winning. Our goal is not contest for contest’s sake, but to use contest as a medium to teach students healthy eating, critical thinking, problem solving, and informational text writing.</strong></p>
 			<p class="margin-bottom"><%= image_tag("/attachments/contest_correction.png", alt: "Shooloo healthy eating math story editor review", title: "Shooloo healthy eating math story contest editor review") %></p>
 		</div>
 		<div id="who">
-			<h2>Who May Enter</h2>
+			<h2>Who May Enter <%= render 'static_pages/join_contest' %></h2>
 			<p> Teachers and students in grades 3-12 at any accredited school, accredited home school program, learning center, tutoring center, after-school program, academic summer camp, or summer enrichment program in the United States may enter the contest. Winners will be required to supply personal identification credentials for us to verify their eligibility of receiving the awards.</p>
 		</div>
 		<div id="deadline">
@@ -234,7 +234,7 @@
 			</table>
 		</div>
 		<div id="agreement">
-			<h2>Participation Agreement</h2>
+			<h2>Participation Agreement <%= render 'static_pages/join_contest' %></h2>
 			<p>By participating in the contest, you agree to the following:
 				<ul>
 					<li><p>All submitted math problems become the exclusive intellectual property of Shooloo, and Shooloo obtains all rights to use and republish all or any part of such problems upon submission to our web site.</p></li>
@@ -248,7 +248,7 @@
 			</p>
 		</div>
 		<div id="contact">
-			<h2>Contact</h2>
+			<h2>Contact  <%= render 'static_pages/join_contest' %></h2>
 			<p>If you have any questions or would like to become a sponsor, contact us <%= link_to "here", contact_path, target: "_blank" %>.</p>
 		</div>
 		<h2> In the News </h2>

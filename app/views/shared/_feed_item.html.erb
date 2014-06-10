@@ -13,7 +13,7 @@
         <span>
           This post has been submitted for review. You will get an alert when it is published.
         </span>
-      <% elsif feed_item.toreview? && current_user?(feed_item.user) %>
+      <% elsif feed_item.toreview? && (current_user?(feed_item.user) || current_user.admin?) %>
         <span>
           <%= link_to "Review editor's corrections now!", correction_path(feed_item.correction) %>
         </span>
@@ -30,6 +30,12 @@
           <span class="wrap_long_string">  
             <% if feed_item.correction.nil? %> 
               <% if current_user?(feed_item.user) && feed_item.state == "draft" %>
+                <span class="span1 avatar">
+                  <%= image_tag('/attachments/icon_attention.png') %>
+                </span>
+                <span class="alert-heading no"> 
+                  <%= link_to "This post is NOT complete. Finish it now!", edit_post_path(feed_item)%>
+                </span>
                 <% if feed_item.alarm.nil? %>
                   <%= link_to truncate_html(feed_item.question.html_safe, :length => 50, 
                     :omission => "...", word_boundary: /\S/), edit_post_path(feed_item) %>
@@ -48,11 +54,16 @@
                 <%= feed_item.question.html_safe %>
               <% end %>
             <% else %>
-              <% if feed_item.toreview? && current_user?(feed_item.user)%>
-                <span class='btn-formtastic'>
-                  <%= link_to image_tag('/attachments/thumb_up.gif'), correction_path(feed_item.correction) %>
+              <% if feed_item.toreview? && (current_user?(feed_item.user) || current_user.admin?)%>
+                <span class="span1 avatar">
+                  <%= image_tag('/attachments/icon_attention_yellow.png') %>
                 </span>
-                <%= link_to truncate_html(feed_item.correction.question.html_safe, :length => 50, :omission => "...", word_boundary: /\S/), correction_path(feed_item.correction) %>
+                <span class="alert-heading yes"> 
+                  <%= link_to "Read editor's review now!", correction_path(feed_item.correction)%>
+                </span>
+                <p>
+                  <%= link_to truncate_html(feed_item.correction.question.html_safe, :length => 50, :omission => "...", word_boundary: /\S/), correction_path(feed_item.correction) %>
+                </p>
               <% else %>
                 <%= feed_item.correction.question.html_safe %>
               <% end %>

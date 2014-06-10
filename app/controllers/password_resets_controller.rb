@@ -25,6 +25,7 @@ class PasswordResetsController < ApplicationController
 
 	def edit
 	  @user = User.find_by_password_reset_token!(params[:id])
+	  @user.updating_password = true
 	  set_meta_tags title: 'Password Reset', 
     		description: 'Shooloo member resets password', 
     		keywords: %w[Shooloo password reset],
@@ -34,6 +35,7 @@ class PasswordResetsController < ApplicationController
 
 	def update
 	  @user = User.find_by_password_reset_token!(params[:id])
+	  @user.updating_password = true
 	  if @user.password_reset_sent_at < 6.hours.ago
 	    redirect_to new_password_reset_path, :alert => "Password reset has expired."
 	  elsif @user.update_attributes(params[:user])

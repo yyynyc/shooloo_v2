@@ -103,11 +103,11 @@ class UsersController < ApplicationController
                 redirect_to new_user_import_path
               else
                 flash[:success] = "Success! "
-                redirect_to videos_path
+                redirect_to posts_path
               end
             else
               flash[:success] = "Information updated successfully!"
-              redirect_to root_path
+              redirect_to posts_path
             end
           else 
             flash[:error] = "Fabulous! You've just earned 40 points. One last thing: get authorization below."

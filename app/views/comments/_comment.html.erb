@@ -63,7 +63,10 @@
             		<% end %>            		
             	<% end %>   			
 				<p class="alert-heading wrap_long_string">
-					<%= comment.opening %> My answer is: <%= comment.content.html_safe %>
+					<% if !comment.opening.nil? %>
+						<%= comment.opening %> My answer is: 
+					<% end %>
+					<%= comment.content.html_safe %>
 				</p>				
 			</span>			
 		</div>

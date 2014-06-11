@@ -112,7 +112,7 @@
 				  					<% url = new_post_comment_path(post) %>
 				  				<% end %>
 				  			<% end %>
-				  			<%= link_to truncate_html(content.html_safe, :length => 180, 
+				  			<%= link_to truncate_html(content.html_safe, :length => 150, 
 				  				:omission => "...", word_boundary: /\S/), url %>         	  
 				  		</section>
 				  		 

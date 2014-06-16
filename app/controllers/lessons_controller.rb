@@ -3,7 +3,7 @@ class LessonsController < ApplicationController
   skip_before_filter :signed_in_user, only: :index
   before_filter :correct_user, only: :destroy
   load_and_authorize_resource
-  respond_to :html, :json
+  # respond_to :html, :json
 
   def new
     @lesson = Lesson.new

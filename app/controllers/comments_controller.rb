@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
     before_filter :correct_user, only: [:destroy, :edit, :update]
     before_filter :commenter_user, only: :index
     load_and_authorize_resource except: :new
-    respond_to :html, :json
+    # respond_to :html, :json
     
 	def index
         @comment = Comment.new

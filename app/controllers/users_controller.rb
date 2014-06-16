@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def my_abilities
     if params[:error]
-      flash.now[:error] = "Sorry, you need to #{ActionController::Base.helpers.link_to "get authorization", new_authorization_path} or #{ActionController::Base.helpers.link_to "get referral", new_referral_path} first to gain access to this functionality.".html_safe
+      flash.now[:error] = "Sorry, you need to #{ActionController::Base.helpers.link_to "get authorization", new_authorization_path} first to gain access to this functionality.".html_safe
     end
     set_meta_tags title: 'My Powers', 
         description: "Shooloo member's access to various activities",
@@ -99,7 +99,7 @@ class UsersController < ApplicationController
           if @user.authorizations.any?
             if @user.role == "teacher" 
               if @user.authorized_users.blank?
-                flash[:success] = "Success! Import your student roster and get 30 points toward getting an Advocate Teacher Prize!"
+                flash[:success] = "Success! Import your student roster or #{ActionController::Base.helpers.link_to "skip for now", posts_path}."
                 redirect_to new_user_import_path
               else
                 flash[:success] = "Success! "

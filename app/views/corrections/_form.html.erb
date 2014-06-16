@@ -1,7 +1,7 @@
 <%= render partial: 'corrections/correction_post_view', locals: {post: post} %>
 <% if post.correction.nil? %>
 	<div class="well well-small alert-heading">
-		<span class='btn-formtastic'> 
+		<span class='btn-formtastic'>
 	     	<%= link_to "Alarm", new_post_alarm_path(post), class: "btn btn-large btn-danger" %>
 	    </span>  
 		<p class="no">WARNING: If the above problem contains watermarked image or offsensive (i.e., sexual, racial, violent, or insulting) content, press the red Alarm button now. No need to correct the problem.<p>

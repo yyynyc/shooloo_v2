@@ -3,7 +3,8 @@
 		<span itemprop="educationalAlignment" content="Common Core State Standard" itemscope itemtype="http://schema.org/AlignmentObject">
 			<meta itemprop="alignmentType", content="require"> 
 			<meta class="timestamp" itemprop="educationalFramework" content="Common Core State Standard">
-			<strong>Level <%= post.level.number %></strong>
+			<strong><%= post.level.name %></strong>
+			Post #<%= link_to post.id, new_post_comment_path(post)%>
 			<% if post.hstandard.nil? %> 
 				(<%= post.standard.short %>)
 				<span itemprop="targetName" content="<%= post.standard.symbol %>"></span>
@@ -17,7 +18,6 @@
 			<% end %>
 		</span>
 	<% end %>
-	Post #<%= link_to post.id, new_post_comment_path(post)%>
   	created by 
   	<% if !post.user.grade.nil? %>
   		grade <%= post.user.grade %> 

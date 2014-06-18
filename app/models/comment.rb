@@ -1,7 +1,7 @@
 class Comment < ActiveRecord::Base
   
   attr_accessible :content, :photo, :commented_lesson_id, :response_id, 
-    :graded, :visible, :opening
+    :graded, :visible, :opening, :commented_post_id
   
   belongs_to :commented_post, class_name: "Post"
   belongs_to :commented_lesson, class_name: "Lesson"

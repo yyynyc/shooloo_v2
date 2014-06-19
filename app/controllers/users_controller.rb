@@ -2,7 +2,7 @@ require 'will_paginate/array'
 
 class UsersController < ApplicationController
   before_filter :signed_in_user
-  skip_before_filter :signed_in_user, only: [:new, :create]
+  skip_before_filter :signed_in_user, only: [:new, :create, :signup_student]
   before_filter :correct_user, only: [:edit, :update, :student_homework, :student_common_core, 
     :report_card, :responses, :assignments, :grading_results, :past_due_assignments, 
     :teacher_dashboard, :keeps]
@@ -20,11 +20,18 @@ class UsersController < ApplicationController
 
   def new
   	@user = User.new
-    @authorization = @user.authorizations.build 
+  end
+
+  def signup_student
+    @user = User.new
+    @user.create_student = true
   end
 
   def create
     @user = User.new(params[:user])
+    if @user.role == "student"
+      @user.create_student = true
+    end
     if @user.save
       sign_in @user
       unless @user.role == "student"
@@ -35,7 +42,11 @@ class UsersController < ApplicationController
         redirect_to edit_user_path(@user)
       end
     else
-      render 'new'
+      if @user.role=="student"
+        render 'signup_student'
+      else
+        render 'new'
+      end
     end
   end
 

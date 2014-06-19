@@ -117,6 +117,7 @@
 	<% end %>	
 	<%= f.actions do %>		
 		<%= f.action :submit, label: "Update My Information", as: :button, button_html: { value: "save", class: " btn btn-formtastic btn-large btn-primary", :disabled_with => 'Wait...' } %>
+		<%= link_to "Skip", posts_path, class: "btn btn-large btn-formtastic right-margin" %>
 		<% if !current_user?(@user)	&& current_user.admin? %>
 			<%= f.action :submit, label: "Change!", as: :button, button_html: { value: "admin_edit", class: " btn btn-formtastic btn-large btn-warning", :disabled_with => 'Wait...' } %>
 		<% end %>	

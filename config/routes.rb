@@ -128,6 +128,7 @@ resources :hstandards
   match '/privacy', to: 'static_pages#privacy'
   match '/contest', to: 'static_pages#contest'
   match '/signup', to: 'users#new'
+  match '/signup_student', to: 'users#signup_student', as: :signup_student
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'
   match '/alarmed-posts', to: "alarms#alarmed_posts", as: :alarmed_posts

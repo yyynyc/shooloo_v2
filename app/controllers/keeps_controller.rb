@@ -1,6 +1,6 @@
 class KeepsController < ApplicationController
 	before_filter :signed_in_user
-  load_and_authorize_resource
+  #load_and_authorize_resource
 
   def new
     @keep = Keep.new

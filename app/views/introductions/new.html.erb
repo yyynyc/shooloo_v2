@@ -7,7 +7,7 @@
 <p class='center'><img src="/attachments/high-five.gif" alt="Shooloo Math Can Do"></p> 
 
 <p class="alert-heading center">
-	<strong>To obtain immediate access to all premium content, tell us who has referred you.</strong><br/> Both you and your referrer will also get 10 points toward getting an <%= link_to "Educator Advocacy Award", contest_path %>!
+	<strong>Tell us who has referred you, and both of you will get 10 points toward<br/> getting an <%= link_to "Educator Advocacy Award", contest_path %>!
 </p>
 <div class="row">
 	<div class="span6 offset3">
@@ -27,7 +27,7 @@
 				  <%= f.text_field :invitation_code %>
 				</div><br/>
 			<div class="span3 offset3">
-				<%= link_to "Skip", edit_user_path(current_user), class: "btn btn-large" %>
+				<%= link_to "Skip", posts_path, class: "btn btn-large" %>
 		  		<%= f.submit "Submit", class: "btn btn-large btn-primary", disable_with: "Proccessing..." %>
 		  	</div>
 		<% end %>

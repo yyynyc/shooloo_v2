@@ -1,6 +1,6 @@
 class GradingsController < ApplicationController
   before_filter :signed_in_user
-  load_and_authorize_resource
+  #load_and_authorize_resource
 
   def new
     if params.has_key?(:post_id)

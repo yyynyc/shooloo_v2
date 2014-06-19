@@ -1,9 +1,8 @@
 class PostsController < ApplicationController
 	before_filter :signed_in_user
   skip_before_filter :signed_in_user, only: :index
-  before_filter :correct_user, only: [:destroy, :draft, :entry]
-  load_and_authorize_resource
-  
+  before_filter :correct_user, only: [:destroy, :draft, :corrected]
+  before_filter :admin_user, only: :post_master
   def index
     @search = Post.where(state: ["verified", "published", "old", "revised"]).search(params[:q])
     @posts = @search.result.paginate(page: params[:page], 
@@ -143,8 +142,15 @@ class PostsController < ApplicationController
   def correct_user
     @post  = Post.find(params[:post_id])
     unless current_user == @post.user || current_user.admin? || current_user.in?(@post.user.authorizers)
-      flash[:error] = "You don't have access to this draft."
-      redirect_to root_url 
+      flash[:error] = "You don't have access to this view."
+      redirect_to posts_path 
+    end
+  end
+
+  def admin_user
+    unless signed_in? && current_user.admin?
+      flash[:error] = "You don't have access to this view."
+      redirect_to posts_path 
     end
   end
 end

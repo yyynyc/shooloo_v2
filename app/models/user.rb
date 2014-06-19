@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
   attr_accessible :parent_email, :personal_email, :screen_name, :full_name_us, :full_name_uk, 
-    :first_name, :last_name, :grade, :role, :visible, 
+    :first_name, :last_name, :grade, :role, :visible, :birth_date,
     :password, :password_confirmation,
     :avatar, :avatar_remote_url, :privacy, :rules,
     :school_name, :school_url, :social_media_url,
@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
     :post_count, :rating_count, :comment_count, :follower_count, :following_count,
     :gift_received_count, :gift_sent_count, :pubcred, :correction_count,
     :address_city, :address_state
-  attr_accessor :updating_password, :validate_student, :validate_teacher, :validate_other
+  attr_accessor :updating_password, :create_student, :validate_student, :validate_teacher, :validate_other
   attr_reader :avatar_remote_url
   has_attached_file :avatar, 
     :styles => {  :small => "60x60#",
@@ -189,13 +189,23 @@ class User < ActiveRecord::Base
   validates :role, presence: true
   validates :first_name, length: {maximum: 25}, presence: true, on: :create
   validates :last_name, length: {maximum: 25}, presence: true, on: :create 
+  validates :personal_email, presence: true, on: :create
+  validates :birth_date, presence: true, on: :create, :if => :should_validate_birthday?
   validate :screen_name_custom
+  validate :under_age, on: :create
+  
 
   def screen_name_custom
     if !first_name.nil? && !last_name.nil?
       if screen_name.downcase.include?(first_name.downcase) || screen_name.downcase.include?(last_name.downcase)
         errors.add(:screen_name, "can't contain any part of your real name.")
       end
+    end
+  end
+
+  def under_age
+    if role=="student" && !birth_date.nil? && (birth_date > (Date.today - 13.years))
+      errors.add(:birth_date, "is under age. You must get your teacher or parent to create an account for you.")
     end
   end
 
@@ -240,7 +250,7 @@ class User < ActiveRecord::Base
         :unless => :should_validate_password?
       validates :first_name, length: {maximum: 25}, presence: true
       validates :last_name, length: {maximum: 25}, presence: true      
-      
+
       def validate_school
         if self.role.in?(["student", "teacher"])
           return true
@@ -325,6 +335,10 @@ class User < ActiveRecord::Base
 
   def should_validate_password? 
     updating_password || new_record?
+  end
+
+  def should_validate_birthday? 
+    create_student
   end
 
   def self.visible

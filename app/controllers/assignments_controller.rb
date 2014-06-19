@@ -1,6 +1,6 @@
 class AssignmentsController < ApplicationController
   before_filter :signed_in_user
-  load_and_authorize_resource
+  #load_and_authorize_resource
 
   def index
     @assignments = Assignment.order('created_at DESC')

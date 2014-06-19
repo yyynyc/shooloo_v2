@@ -1,6 +1,7 @@
 class VideosController < ApplicationController
-	before_filter :signed_in_user, only: [:new, :edit, :destroy, :premium]
-	load_and_authorize_resource
+	before_filter :signed_in_user, only: :premium
+	before_filter :admin_user, only: [:new, :edit, :destroy]
+	#load_and_authorize_resource
 
 	def new
 		@video = Video.new
@@ -79,5 +80,12 @@ class VideosController < ApplicationController
 		@search = Video.search(params[:q])
     	@videos = @search.result.order('position ASC')
     	@search.build_condition
+	end
+
+	def admin_user
+		unless signed_in? && current_user.admin?
+			flash[:error] = "You don't have access to this view."
+			redirect_to videos_path
+		end
 	end
 end

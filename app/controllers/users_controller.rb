@@ -112,7 +112,7 @@ class UsersController < ApplicationController
         if @user.finish
           if @user.role == "teacher" 
             if @user.authorized_users.blank?
-              flash[:success] = "Success! Import your student roster or #{ActionController::Base.helpers.link_to "skip for now", posts_path}."
+              flash[:success] = "Success! Import your student roster or #{ActionController::Base.helpers.link_to "skip for now", posts_path}.".html_safe
               redirect_to new_user_import_path
             else
               flash[:success] = "Success! "

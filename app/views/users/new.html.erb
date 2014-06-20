@@ -7,9 +7,10 @@
 	<div class="row">
 	  <div class="span6 offset3">
 		<ul class="nav nav-tabs alert-heading">
-			<li class="active"><%= link_to "I am a Teacher", signup_path %></li>
+			<li class="active"><%= link_to "I am an Educator", signup_path %></li>
 			<li><%= link_to "I am a Student", signup_student_path %></li>
-		</ul>	    
+		</ul>
+		<p class='center yes'>If you are <strong>NOT</strong> an educator, <%= link_to "sign up here", signup_student_path %>.</p>	    
 	  	<%= render partial: 'users/signup_form', locals: {user: @user, role_form: "teacher"} %>
 	  </div>
 	</div>

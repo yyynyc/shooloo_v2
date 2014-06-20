@@ -7,6 +7,7 @@
 			<% else %>
 				<%= f.input :role, as: :hidden, value: "student", label: false %>
 				<%= f.input :birth_date, as: :date_select, end_year: Time.now.year-25, start_year: Time.now.year, order: [:month, :day, :year], label: "Birthday:" %> 
+				<%= f.input :grade, as: :select, collection: [6, 7, 8, 9, 10, 11, 12, ["college", 13]], include_blank: true %> 
 			<% end %>
 			<%= f.input :first_name %>
 			<%= f.input :last_name %>

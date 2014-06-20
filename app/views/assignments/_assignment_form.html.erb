@@ -44,7 +44,7 @@
         <div class="span6">
             <%= f.input :start_date, as: :date_select, start_year: 2013, order: [:month, :day, :year], label: "Start date:" %> 
         </div> 
-        <div class="span5 end-date">
+        <div class="span5">
             <%= f.input :end_date, as: :date_select, start_year: 2013, order: [:month, :day, :year], label: "End date:" %>
         </div>    
     	<%= render partial: 'shared/ccss', locals: {f: f} %>

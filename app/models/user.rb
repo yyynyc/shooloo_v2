@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
     :post_count, :rating_count, :comment_count, :follower_count, :following_count,
     :gift_received_count, :gift_sent_count, :pubcred, :correction_count,
     :address_city, :address_state
-  attr_accessor :updating_password, :create_student, :validate_student, :validate_teacher, :validate_other
+  attr_accessor :updating_password, :create_student, :self_signup, :validate_student, :validate_teacher, :validate_other
   attr_reader :avatar_remote_url
   has_attached_file :avatar, 
     :styles => {  :small => "60x60#",
@@ -142,8 +142,11 @@ class User < ActiveRecord::Base
       UserMailer.sign_up_confirm(self).deliver
     end
     Point.create!(user_id: self.id)
-    unless self.role == "student"
+    if self.role != "student"
       StudentContest.create!(user_id: self.id)
+    else
+      self.pubcred = ShoolooV2::PUBLICATION_CREDIT
+      self.save(validate: false)
     end
   end
 
@@ -189,8 +192,10 @@ class User < ActiveRecord::Base
   validates :role, presence: true
   validates :first_name, length: {maximum: 25}, presence: true, on: :create
   validates :last_name, length: {maximum: 25}, presence: true, on: :create 
-  validates :personal_email, presence: true, on: :create
+  validates :personal_email, presence: true, uniqueness: {case_sensitive: false}, on: :create,
+    :if => :should_validate_email?
   validates :birth_date, presence: true, on: :create, :if => :should_validate_birthday?
+  validates :grade, presence: true, on: :create, :if => :should_validate_birthday?
   validate :screen_name_custom
   validate :under_age, on: :create
   
@@ -205,7 +210,7 @@ class User < ActiveRecord::Base
 
   def under_age
     if role=="student" && !birth_date.nil? && (birth_date > (Date.today - 13.years))
-      errors.add(:birth_date, "is under age. You must get your teacher or parent to create an account for you.")
+      errors.add(:base, "Sorry, but you are under age. You must get your teacher or parent to create an account for you.")
     end
   end
 
@@ -339,6 +344,10 @@ class User < ActiveRecord::Base
 
   def should_validate_birthday? 
     create_student
+  end
+
+  def should_validate_email? 
+    self_signup
   end
 
   def self.visible

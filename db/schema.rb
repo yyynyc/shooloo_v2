@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140619210949) do
+ActiveRecord::Schema.define(:version => 20140620151016) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -604,7 +604,7 @@ ActiveRecord::Schema.define(:version => 20140619210949) do
     t.integer  "follower_count",         :default => 0
     t.integer  "following_count",        :default => 0
     t.string   "role",                   :default => "student"
-    t.boolean  "visible",                :default => false
+    t.boolean  "visible",                :default => true
     t.string   "personal_email"
     t.string   "school_name"
     t.string   "school_url"

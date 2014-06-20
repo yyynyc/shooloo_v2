@@ -1,7 +1,7 @@
 <% provide(:title, "Edit Post") %> 
 <% url = post_path %>
 <% f = f %>
-<% if current_user.role == "teacher" || current_user.admin? %>
+<% if current_user.admin? %>
 	<% if @post.state == "draft" %>
 		<% submission = "posts/publication" %>
 	<% else %>	

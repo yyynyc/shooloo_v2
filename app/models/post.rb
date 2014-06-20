@@ -106,7 +106,7 @@ class Post < ActiveRecord::Base
       #validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/pdf', 'image/gif', 'image/bmp']
       validate {|p| p.question_custom}
       validate {|p| p.answer_custom}
-      validate {|p| p.user_credential}    
+      #validate {|p| p.user_credential}    
     end
 
     state :published, :revised do
@@ -117,7 +117,7 @@ class Post < ActiveRecord::Base
     state :submitted do
       validate :pubcred_enough
       def pubcred_enough
-        if self.user.pubcred <= 0
+        if self.user.role == "student" && self.user.pubcred <= 0
           errors.add(:base, "You don't have any publication credits left to submit any new post!")
         end
       end

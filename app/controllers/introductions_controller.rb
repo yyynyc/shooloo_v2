@@ -1,6 +1,6 @@
 class IntroductionsController < ApplicationController
 	before_filter :signed_in_user
-  before_filter :correct_user, only: :new
+  #before_filter :correct_user, only: :new
   def new
     @introduction = Introduction.new
   end

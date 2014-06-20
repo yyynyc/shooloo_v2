@@ -10,7 +10,7 @@
     <% end %>
     <% if post.draft? %>
     <% else %> 
-      <% if current_user.admin? || current_user.role == "teacher" %>
+      <% if current_user.admin? %>
         <%= link_to raw('<i class="icon-pencil icon-white"></i> Revise'), edit_post_path(post), title: "Edit Post", class: "btn btn-small btn-success" %>
       <% end %>
     <% end %>           

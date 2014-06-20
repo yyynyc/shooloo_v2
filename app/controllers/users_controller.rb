@@ -20,15 +20,18 @@ class UsersController < ApplicationController
 
   def new
   	@user = User.new
+    @user.self_signup = true
   end
 
   def signup_student
     @user = User.new
     @user.create_student = true
+    @user.self_signup = true
   end
 
   def create
     @user = User.new(params[:user])
+    @user.self_signup = true
     if @user.role == "student"
       @user.create_student = true
     end
@@ -107,22 +110,17 @@ class UsersController < ApplicationController
     if @user.state == "incomplete"
       if params[:button] == "save"
         if @user.finish
-          if @user.authorizations.any?
-            if @user.role == "teacher" 
-              if @user.authorized_users.blank?
-                flash[:success] = "Success! Import your student roster or #{ActionController::Base.helpers.link_to "skip for now", posts_path}."
-                redirect_to new_user_import_path
-              else
-                flash[:success] = "Success! "
-                redirect_to posts_path
-              end
+          if @user.role == "teacher" 
+            if @user.authorized_users.blank?
+              flash[:success] = "Success! Import your student roster or #{ActionController::Base.helpers.link_to "skip for now", posts_path}."
+              redirect_to new_user_import_path
             else
-              flash[:success] = "Information updated successfully!"
+              flash[:success] = "Success! "
               redirect_to posts_path
             end
-          else 
-            flash[:error] = "Fabulous! You've just earned 40 points. One last thing: get authorization below."
-            redirect_to new_authorization_path        
+          else
+            flash[:success] = "Information updated successfully!"
+            redirect_to posts_path
           end
         else
           render 'edit'

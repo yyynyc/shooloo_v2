@@ -13,10 +13,6 @@ class Authorization < ActiveRecord::Base
       unless self.authorizer.personal_email.blank?      
         UserMailer.auth_request(self.authorizer, self.authorized).deliver
       end
-    elsif self.approval == "accepted"
-      self.authorized.visible = "true"
-      self.authorized.pubcred = ShoolooV2::PUBLICATION_CREDIT
-      self.authorized.save(validate: false)
     end
   end
 
@@ -29,17 +25,12 @@ class Authorization < ActiveRecord::Base
       elsif !self.authorized.personal_email.blank?
         UserMailer.auth_notify_yes_student(self.authorized).deliver
       end
-      self.authorized.visible = "true"
-      self.authorized.pubcred = ShoolooV2::PUBLICATION_CREDIT
-      self.authorized.save(validate: false)
     elsif self.approval == "declined"
       Activity.create!(action: "decline", trackable: self, 
         user_id: self.authorizer_id, recipient_id: self.authorized_id)
       if !self.authorized.personal_email.blank?
         UserMailer.auth_notify_no(self.authorized).deliver
       end
-      self.authorized.visible = "false"
-      self.authorized.save(validate: false)
     end     
   end
 

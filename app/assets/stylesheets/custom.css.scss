@@ -179,12 +179,19 @@ aside {
 
 /* forms */
 
-input, textarea, select, .uneditable-input {
+input, textarea, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
   @include box_sizing;
+}
+
+select {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+  @include box_sizing;  
 }
 
 input {
@@ -475,6 +482,13 @@ aside {
     width: 500px;
     font-size: 1.2em;
     }
+  }
+  .span2 {
+    width: 110px;
+  }
+
+  .span1 {
+    width: 70px;
   }
   .correction {
     .control-label {
@@ -1180,10 +1194,6 @@ iframe {
 .collapse-video {
   width: 90%;
   align: center;
-}
-
-.end-date {
-  margin-left: -1em;
 }
 
 .table-grade {

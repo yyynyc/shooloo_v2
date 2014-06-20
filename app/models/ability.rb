@@ -8,47 +8,21 @@ class Ability
 
         if user.admin?
             can :manage, :all
-        elsif user.role == "teacher" && 
-            user.authorizations.where(approval: "accepted").any?
-            can :crud, [UserImport, Assignment, Response, Grading, Reminder, Keep]
-            can [:crud, :comment, :comments], Lesson
-            can :update, [Authorization, Referral]
-            can [:create, :destroy], [Referral, Authorization]
-            can :manage, Alarm
-            can [:draft, :corrected,:teacher_view], Post
-            can :crud, [Post, Comment, Invite, Rating]
-            can [:create, :destroy], [Like, Relationship, Nudge]
-            can :read, :all
-            can [:index, :show, :pd, :premium], Video       
-        elsif user.authorizations.where(approval: "accepted").any?
-            can :crud, [Response, Keep, Post, Comment, Invite, Rating, Activity]
-            can [:draft, :corrected], Post
-            can :update, Referral
-            can [:create, :destroy], [Referral, Authorization]
-            can [:create, :destroy], [Like, Relationship, Nudge]
-            can :create, Alarm
-            can :read, :all
-            can [:index, :show, :premium], Video
-        elsif user.referrals.where(approval: "accepted").any?
-            can [:create, :destroy], [Referral, Authorization]
-            can [:create, :destroy], [Like, Relationship, Nudge]
-            can :crud, [Activity,Rating, Keep]
-            can :crud, Post
-            can :create, Alarm
-            can :read, :all
-            can [:index, :show, :premium], Video
-        elsif user.complete?
-            can [:create, :destroy], [Referral, Authorization]
-            can [:new], [Comment, Assignment, Lesson, Response]
-            can :crud, Post
-            can :read, :all
-            can :crud, [Activity, Keep]
-            can [:index, :show, :premium], Video
         else
+            if user.role == "teacher" 
+                can :crud, [UserImport, Grading, Reminder]
+                can [:crud, :comment, :comments], Lesson
+                can :update, [Authorization, Referral]
+                can :manage, Alarm
+                can [:draft, :corrected,:teacher_view], Post
+            end
+            if user.complete?
+                can [:create, :destroy], [Referral, Authorization]
+            end
             can :read, :all
-            can :crud, Post
-            can :crud, Activity
-            can [:index, :show, :premium], Video
+            can :crud, [Post, Relationship, Like, Nudge, Comment, Assignment, Lesson, 
+                Response, Invite, Activity, Keep]
+            can [:index, :show, :premium, :pd], Video
         end        
     end
 end

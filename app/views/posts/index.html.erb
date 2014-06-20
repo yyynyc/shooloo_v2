@@ -8,16 +8,9 @@
 	<div class="top-message">
 		<p><%= link_to "Join Shooloo", signup_path %> to access thousands of student-authored math word problems!</p>
 	</div>
-  <% else %>	
-		<% if current_user.authorizations.blank? %>		
-			<% if current_user.role == "teacher" %>
-				<p>Find out how to <%= link_to "make a game out of word problems", video_path(11) %>. Watch this 4-minute <%= link_to "video", video_path(11) %></p>  
-			<% end %>
-			<p>Complete <%= link_to "your profile", edit_user_path(current_user) %> and then <%= link_to "Get authorization", new_authorization_path %> to read details of the math stories!</p>
-		<% end %>
-	<% end %>
+  <% end %>
 	<%= search_form_for @search, url: search_posts_path, method: :get do |f| %>	
-		<% if signed_in? && current_user.authorizations.any? %>
+		<% if signed_in? && !current_user.role=="student" %>
 			<div class="row center bottom-margin">
 				<span class="search-label">
 					<%= f.label :domain_core_cont, "CCSS Domain" %>

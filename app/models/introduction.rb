@@ -29,8 +29,6 @@ class Introduction < ActiveRecord::Base
   after_create do 
   	self.update_attributes!(introducer_id: User.find_by_personal_email(
   		self.introducer_email).id)  
-  	Authorization.create!(authorized_id: self.introducee.id, authorizer_id:
-  		2, approval: "accepted")	
     Activity.create!(action: "new", trackable: self, 
         user_id: self.introducee_id, recipient_id: self.introducer_id)
     unless self.introducer.admin? 

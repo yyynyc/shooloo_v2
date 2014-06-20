@@ -138,12 +138,7 @@
                 <li>
                   <%= link_to "My Password", change_password_user_path(current_user) %>
                 </li>
-                <% unless current_user.role == "editor"%>
-                  <li>
-                    <%= link_to "My Powers", my_abilities_path %>
-                  </li>
-                <% end %>
-                <% if current_user.authorizations.where(approval: "accepted").blank? %>
+                <% if current_user.role=="student" && current_user.authorizations.where(approval: "accepted").blank? %>
                   <li class="divider"></li>
                   <li><%= link_to "Request Authorizations", new_authorization_path %></li>
                 <% end %>
@@ -170,7 +165,7 @@
 <% if signed_in? && current_user.visible? && !current_user.personal_email.blank? %>
   <% unless current_user.role.in?(["student", "editor"]) %>
     <div class="announcement">
-      Invite your fellow educators to join Shooloo <%= link_to "here", new_invitemail_path %> and both of you may win Advacacy Awards! Find out <a href="/contest#awards">how</a>.
+      Invite your friends to join Shooloo <%= link_to "here", new_invitemail_path %> and both of you may win Advacacy Awards! Find out <a href="/contest#awards">how</a>.
     </div>
   <% end %>
 <% end %>

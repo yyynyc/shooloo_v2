@@ -14,7 +14,7 @@ class Comment < ActiveRecord::Base
     url: "/attachments/comments/:id/:style/:basename.:extension",
     path: ":rails_root/public/attachments/comments/:id/:style/:basename.:extension"
 
-  validates_presence_of :commenter_id, :opening, :content
+  validates_presence_of :commenter_id, :opening
   validate :comment_custom
 
   has_one :alarm, foreign_key: "alarmed_comment_id", dependent: :destroy

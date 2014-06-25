@@ -70,7 +70,7 @@
 		  	</li>
 		</ul>	
 	<% end %> 
-<% else %>
+<% elsif current_user.role.in?(["teacher", "tutor", "other"]) %>
 	<div class="about">
 		<p> No student found. To create accounts for your entire class instantly, watch the 1-minute video below and <%= link_to "import your class roster", new_user_import_path %> now.</p>
 	</div>
@@ -83,7 +83,7 @@
 	<%= render partial: 'shared/teacher_buttons' %>
 <% else %>
 	<div class="center" >
-	<%= link_to "Create Account for Another Child", signup_child_path, class: 'btn btn-large btn-primary' %>
+	<%= link_to "Create New Child Account", signup_child_path, class: 'btn btn-large btn-primary' %>
 	<%= link_to "Video Tutorials", videos_path, class: 'btn btn-large btn-primary' %>
 	<%= link_to "Problem Bank", posts_path, class: 'btn btn-large btn-primary' %>
 </div>

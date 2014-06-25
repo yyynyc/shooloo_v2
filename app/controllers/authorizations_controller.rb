@@ -3,7 +3,7 @@ class AuthorizationsController < ApplicationController
   respond_to :html, :js
 
   def new
-    @teachers = User.where('users.role' => 'teacher')
+    @teachers = User.where('users.role' => ['teacher', 'parent', 'tutor', 'other'])
   	@authorizer = @teachers.search(params[:q])
     @authorizers = @authorizer.result
     @authorization = Authorization.new

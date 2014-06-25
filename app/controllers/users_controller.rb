@@ -143,7 +143,7 @@ class UsersController < ApplicationController
             end
           elsif @user.role == "parent"
             flash[:success] = "Thank you for completing your account!"
-            redirect_to 
+            redirect_to signup_child_path
           else
             flash[:success] = "Information updated successfully!"
             redirect_to posts_path

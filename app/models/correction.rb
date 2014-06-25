@@ -12,7 +12,7 @@ class Correction < ActiveRecord::Base
 
 	state_machine initial: :draft do
 	    after_transition :on => :submit, :do => [:qualify, :update_pub_credits, :update_toreview,
-	    	:post_state_transition, :update_editor_stats, :update_post_characters]
+	    	:post_state_transition, :update_editor_stats, :update_post_characters, :email_alert]
 	    after_transition :on => :revise, :do => [:qualify, :revise_pubcred_post_characters] 
 
 	    event :submit do
@@ -169,6 +169,17 @@ class Correction < ActiveRecord::Base
 
 	def post_state_transition
 		self.corrected_post.verify!
+	end
+
+	def email_alert
+		if self.corrected_post.user.role=="student"
+			if !self.corrected_post.user.personal_email.blank?
+	      		UserMailer.publish_alert_user(self).deliver
+	    	end
+	    	if !self.corrected_post.user.parent_email.blank?
+	      		UserMailer.publish_alert_parent(self).deliver
+	    	end
+	    end
 	end
 
 	after_destroy do 

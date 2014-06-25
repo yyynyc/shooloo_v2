@@ -4,13 +4,14 @@
 <% nofollow %>
 
 <% if current_user.role == "student" %>
-  <h1>Invite My Teacher</h1>
+  <h1>Invite My Friends/Family to Join Shooloo</h1>
+  <p class="center">Invite your friends/family who are <strong>NOT Shooloo members</strong> to join.<br/>When they sign up using your email address, both of you will earn points towards winning cool prizes!</p>
   <%= semantic_form_for @invitemail, :url => invitemails_path, :html => {class: "form-horizontal-mail"} do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
     <%=f.inputs do %> 
       <%= f.input :to, placeholder: "You can put in multiple email addresses seperated by comma" %>
       <%= f.input :subject, :input_html => {value: "Invitation from #{current_user.full_name_us}"} %>
-      <%= f.input :body, label: "Message", :input_html => {value: "Hi, Teacher.\r\n\r\nI've found this great eLearning site called Shooloo. It has over 4,000 math word problems created by students and teachers. Every problem is aligned with the Common Core State Standard. Check out https://fun.shooloo.org.\r\n\r\nI want to join Shooloo but I need your authorization. If you sign up now, you may win over $500 worth of prizes. If I enter into the Shooloo Healthy-Eating Math Story Contest, both you and I may win prizes. Check out details at https://fun.shooloo.org/contest/.\r\n\r\nBest wishes,\r\n\r\n#{current_user.full_name_us}" } %>
+      <%= f.input :body, label: "Message", :input_html => {value: "Hi, there. I've been having a lot fun publishing my own math problems on Shooloo.org. Join me and see if you can solve these problems I've created! Check out https://fun.shooloo.org.\r\n\r\nIf you are not a Shooloo member, you can sign up at https://fun.shooloo.org/signup/. If you will put in my email address #{current_user.personal_email} and invitation code 'healthy2014' as your referral, then both of us may win up to $200 worth of prizes.\r\n\r\nBest wishes,\r\n\r\n#{current_user.full_name_us}" } %>
     <% end %>
     <%= f.actions do %>
       <%= f.action :submit, label: "Send", as: :button, button_html: { class: "btn btn-formtastic btn-medium btn-primary", disable_with: "Proccessing..."} %>

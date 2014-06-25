@@ -22,10 +22,12 @@ class UserMailer < ActionMailer::Base
   def activity_alert(user)
     sendgrid_category "activity alerts"
     @user = user
-    unless @user.personal_email.blank? || 
-        Activity.where(read: nil, recipient_id: @user.id).blank? 
-      mail to: user.personal_email, 
-        subject: "#{user.first_name}: Your Activity Alerts From Shooloo"
+    if @user.role == "student"
+      unless @user.personal_email.blank? || 
+          Activity.where(read: nil, recipient_id: @user.id).blank? 
+        mail to: user.personal_email, 
+          subject: "#{user.first_name}: Your Activity Alerts From Shooloo"
+      end
     end
   end
 
@@ -148,5 +150,23 @@ class UserMailer < ActionMailer::Base
     mail to: invitemail.to,
       from: "#{invitemail.user.full_name_us} (#{invitemail.user.personal_email})", 
       subject: invitemail.subject    
+  end
+
+  def publish_alert_user(correction)
+    @user = correction.corrected_post.user
+    @post = correction.corrected_post
+    unless @user.personal_email.blank? 
+      mail to: @user.personal_email, 
+        subject: "#{@user.first_name}: your post has been published on Shooloo!"
+    end
+  end
+
+  def publish_alert_parent(correction)
+    @user = correction.corrected_post.user
+    @post = correction.corrected_post
+    unless @user.parent_email.blank? 
+      mail to: @user.parent_email, 
+        subject: "Your child #{@user.first_name} has published a great math problem on Shooloo!"
+    end
   end
 end

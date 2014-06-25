@@ -8,8 +8,7 @@ class Introduction < ActiveRecord::Base
   validate :valid_member, :valid_code, :no_self_intro
 
   def valid_member
-  	if User.where(visible: true, personal_email: introducer_email).keep_if{
-  		|u| u.role.in?(["teacher", "tutor", "parent", "other"])}.blank?
+  	if User.where(visible: true, personal_email: introducer_email).blank?
   	  errors.add(:introducer_email, "not found among Shooloo members")
   	end
   end

@@ -45,23 +45,26 @@ class CommentsController < ApplicationController
         else
             @comment = Comment.new
             @post  = Post.find(params[:post_id])
-            if !@post.hstandard.nil?
-                @related_posts = @post.hstandard.posts.where('id !=?', @post.id).paginate(page: params[:page], 
-                    per_page: 22, order: 'created_at DESC')
-            elsif !@post.standard.nil?
-                @related_posts = @post.standard.posts.where('id !=?', @post.id).paginate(page: params[:page], 
-                    per_page: 22, order: 'created_at DESC')
+            if @post.draft?
+                flash[:error] = "Sorry, but you don't have access to this post."
+                redirect_to posts_path
+            else
+                if !@post.hstandard.nil?
+                    @related_posts = @post.hstandard.posts.where('id !=?', @post.id).paginate(page: params[:page], 
+                        per_page: 22, order: 'created_at DESC')
+                elsif !@post.standard.nil?
+                    @related_posts = @post.standard.posts.where('id !=?', @post.id).paginate(page: params[:page], 
+                        per_page: 22, order: 'created_at DESC')
+                end
+                if !@post.correction.nil?
+                    @correction = @post.correction
+                end 
+                @comments = @post.comments.paginate(page: params[:page], per_page: 20, 
+                    order: 'created_at DESC')
+                @like = Like.new
+                @liked_post = @like.liked_post
+                @liked_comment = @like.liked_comment
             end
-            if !@post.correction.nil?
-                @correction = @post.correction
-            end 
-            @comments = @post.comments.paginate(page: params[:page], per_page: 20, 
-                order: 'created_at DESC')
-            @alarm = Alarm.new
-            @rating = Rating.new
-            @like = Like.new
-            @liked_post = @like.liked_post
-            @liked_comment = @like.liked_comment
         end
     end
 

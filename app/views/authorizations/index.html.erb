@@ -1,6 +1,12 @@
 <% provide(:title, "Student Roster") %>
 
-<h1>My Student Roster</h1>
+<h1>
+	<% if current_user.role == "parent" %>
+		My Children's Accounts
+	<% else %>
+		My Student Roster
+	<% end %>
+</h1>
 
 <%= search_form_for @search_student, url: search_student_authorizations_path, 
 		method: :get do |f| %>
@@ -30,9 +36,7 @@
 <% end %>
 
 <% if @auth_seekers.any? %>
-	<div class="about">
-		<p>The following students (sorted by grade first then by last name) have requested your authorization.</p>
-	</div>
+	<p><i>sorted by grade first then by last name</i></p>
 	<% @auth_seekers.each do |user| %>
 		<ul class="posts">
   			<li>
@@ -75,4 +79,12 @@
 		<%= render partial: 'videos/video_player', locals: {video: @video} %> 
 	</div>	
 <% end %>
-<%= render partial: 'shared/teacher_buttons' %>
+<% if current_user.role.in?(["teacher", "tutor", "other"]) %>
+	<%= render partial: 'shared/teacher_buttons' %>
+<% else %>
+	<div class="center" >
+	<%= link_to "Create Account for Another Child", signup_child_path, class: 'btn btn-large btn-primary' %>
+	<%= link_to "Video Tutorials", videos_path, class: 'btn btn-large btn-primary' %>
+	<%= link_to "Problem Bank", posts_path, class: 'btn btn-large btn-primary' %>
+</div>
+<% end %>

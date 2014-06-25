@@ -109,8 +109,8 @@ class Correction < ActiveRecord::Base
 				Activity.create!(action: "at_grade", trackable: self.corrected_post, 
 	        		user_id: 1, recipient_id: self.corrected_post.user_id, position: 2)
 			else
-				self.corrected_post.user.pubcred -= (ShoolooV2::BELOW_GRADE)*(self.corrected_post.user.grade - self.level.number)
-				self.corrected_post.user.save(validate: false)
+				# self.corrected_post.user.pubcred -= (ShoolooV2::BELOW_GRADE)*(self.corrected_post.user.grade - self.level.number)
+				# self.corrected_post.user.save(validate: false)
 				Activity.create!(action: "below_grade", trackable: self.corrected_post, 
 	        		user_id: 1, recipient_id: self.corrected_post.user_id, position: 2)
 			end

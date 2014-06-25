@@ -3,11 +3,14 @@
 	<div class="user-signup-input">
 		<%=f.inputs do %>
 			<% if role_form == "teacher" %>
-				<%= f.input :role, as: :hidden, value: "teacher", label: false %>
-			<% else %>
+				<%= f.input :role, as: :select, collection: ["teacher", "parent", "tutor"], label: "I am a" %>
+			<% elsif role_form == "student" %>
 				<%= f.input :role, as: :hidden, value: "student", label: false %>
 				<%= f.input :birth_date, as: :date_select, end_year: Time.now.year-25, start_year: Time.now.year, order: [:month, :day, :year], label: "Birthday:" %> 
 				<%= f.input :grade, as: :select, collection: [6, 7, 8, 9, 10, 11, 12, ["college", 13]], include_blank: true %> 
+			<% else %>
+				<%= f.input :grade, as: :select, collection: [["kindergarten", 0], 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, ["college", 13]], include_blank: true %>
+				<%= f.input :parent_email, as: :hidden, value: current_user.personal_email, label: false %>  
 			<% end %>
 			<%= f.input :first_name %>
 			<%= f.input :last_name %>
@@ -35,16 +38,20 @@
 					<i class="icon-question-sign icon-medium" ></i>
 				</a>
 			</span>	
-			
-			<span class="search-label">
-				<%= f.input :personal_email, label: "Email"%>
-			</span>
-			<span class="question">
-				<a href="#", class="question", rel="popover", title="Email", data-content="If you are a student and don't have an email, please put in your parent's email. Email will be used to reset your password if you forget it, confirm your registration status, and notify your activity alerts." %> 
-					<i class="icon-question-sign icon-medium" ></i>
-				</a>
-			</span>		
-			<div class='privacy'>	
+			<% if !role_form.nil? %>
+				<span class="search-label">
+					<%= f.input :personal_email, label: "Email"%>
+				</span>
+				<span class="question">
+					<a href="#", class="question", rel="popover", title="Email", data-content="If you are a student and don't have an email, please put in your parent's email. Email will be used to reset your password if you forget it, confirm your registration status, and notify your activity alerts." %> 
+						<i class="icon-question-sign icon-medium" ></i>
+					</a>
+				</span>	
+			<% end %>	
+			<div class='privacy'>
+			<% if role_form.nil? %>
+				<strong> On behalf of my child:</strong>
+			<% end %>	
 				<%= f.input :privacy, as: :boolean, label: "I agree with the ".html_safe + link_to("Terms of Service", terms_path) +" and the ".html_safe + link_to("Privacy Statement", privacy_path) + ".".html_safe,  required: true %>
 				<%= f.input :rules, label: "I agree with the ".html_safe + link_to("Rules of Conduct", rules_path) + ".".html_safe, as: :boolean, required: true %>	
 			</div>	
@@ -52,7 +59,7 @@
 	</div>		
 	<%= f.actions do %>
 		<div class="user-signup-button">
-			<%= f.action :submit, label: "Create My Account", as: :button, button_html: { class: "btn btn-large btn-primary", :disabled_with => 'Proccessing...' } %>
+			<%= f.action :submit, label: "Create Account", as: :button, button_html: { class: "btn btn-large btn-primary", :disabled_with => 'Proccessing...' } %>
 		</div>
 	<% end %>		
 <% end %>

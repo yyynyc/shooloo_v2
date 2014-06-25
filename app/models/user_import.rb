@@ -20,6 +20,11 @@ class UserImport
         user.visible = true
         user.save!
         Authorization.create!(authorized_id: user.id, authorizer_id: current_user_id, approval: "accepted")
+        Relationship.create!(follower_id: current_user_id, followed_id: user.id)
+        Relationship.create!(follower_id: user.id, followed_id: current_user_id)
+        user.follower_count +=1
+        user.following_count +=1
+        user.save!
       end
       return true
     rescue

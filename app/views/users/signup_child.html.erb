@@ -1,0 +1,12 @@
+<div itemscope itemtype="http://schema.org/CreativeWork">
+  <meta itemprop="description" content="Become a Shooloo member to access over 4,000 student-authored math word problems aligned with the Common Core State Standard.">
+  <%= render 'shared/meta' %>
+  <% title "Sign Up" %>
+
+	<h1>Create Account for My Child</h1>
+	<div class="row">
+	  <div class="span6 offset3"> 
+	  	<% role_label = "Create Account for My Child" %> 
+	  	<%= render partial: 'users/signup_form', locals: {user: @user, role_form: nil} %>
+	</div>
+</div>

@@ -142,6 +142,11 @@
                   <li class="divider"></li>
                   <li><%= link_to "Request Authorizations", new_authorization_path %></li>
                 <% end %>
+                <% if current_user.role=="parent"%>
+                  <li class="divider"></li>
+                  <li><%= link_to "My Children", authorizations_path %></li>
+                  <li><%= link_to "New Child Account", signup_child_path %></li>
+                <% end %>
                 <% if current_user.admin? %>
                   <li class="divider"></li>
                   <li><%= link_to "Request Authorizations", new_authorization_path %></li>
@@ -163,7 +168,7 @@
   </div>
 </header>
 <% if signed_in? && current_user.visible? && !current_user.personal_email.blank? %>
-  <% unless current_user.role.in?(["student", "editor"]) %>
+  <% unless current_user.role =="editor" %>
     <div class="announcement">
       Invite your friends to join Shooloo <%= link_to "here", new_invitemail_path %> and both of you may win Advacacy Awards! Find out <a href="/contest#awards">how</a>.
     </div>

@@ -3,7 +3,7 @@
 	<div class="stats">
 		<span>
 			<p><strong>
-				<a href="#", class="follow", rel="popover", title="What Is Publication Credit?", data-content="<ul class='popover-list'><li>Each new member gets 100 credits to submit math stories for publication.</li><li>If your post is at or above your grade level according to the Common Core State Standard,  you will get 20 points.</li><li>If your post is below your grade level, your will lose certain points.</li><li>For every grade that your post is below your grade level, 10 points are deducted from your credit balance.</li><li>When your balance drops to 0, you can no longer publish any posts.</li></ul>" %>Publication Credit Balance</a>
+				<a href="#", class="follow", rel="popover", title="What Is Publication Credit?", data-content="<ul class='popover-list'><li>If your post is at or above your grade level according to the Common Core State Standard,  you will get 20 points.</li></ul>" %>Publication Credit Balance</a>
 			</strong></p>
 			<p><%= pluralize(user.pubcred, "point") %></p>
 		</span>
@@ -37,32 +37,38 @@
 			<p><%= pluralize(user.pubcred, "point") %></p>
 		</span>
 	</div> -->
-	<strong>
-		<%= link_to "My Own Progress in Contest", contest_path, target: "_blank" %>
-	</strong><br/>
-	<div class="stats">
-		<span>			
-			<p>
-				<a href="#", class="post", rel="popover", title="What Are Advocacy Points?", data-content="<ul class='popover-list'><li>Teachers with the highest Advocacy points can win up to $500 of prizes in the Advocate category.</li><li>If you refer a fellow educator to Shooloo and he/she signs up using your email address as referral, you will get 10 points.</li><li>When he/she <a href='/user_imports/new/'>imports his student roster</a> into Shooloo, you will get another 30 points.</li><li>For details, check out <a href='/contest'>contest</a>.</li></ul>">Advocacy</a>
-			</p>
-			<p><%= pluralize(user.point.advocacy, "point") %></p>
-		</span>
-		<span>
-			<p>
-				<a href="#", class="post", rel="popover", title="What Are Inspiration Points?", data-content="<ul class='popover-list'><li>Teachers with the highest Inspiration and Education points combined can win up to $500 of prizes in the Teacher Expert category.</li><li>For every  and <a href='/attachments/contest_checklist.pdf' target='_blank'>qualified</a> post your students have entered into the Healthy Eating Math Story Contest, you will get 10 Inspiration points.</li><li>For details, check out <a href='/contest'>contest</a>.</li></ul>">Inspiration</a>
-			</p>
-			<p><%= pluralize(user.point.inspiration, "point") %></p>
-		</span>
-		<span>
-			<p>
-				<a href="#", class="post", rel="popover", title="What Are Education Points?", data-content="<ul class='popover-list'><li>Teachers with the highest Inspiration and Education points combined can win up to $500 of prizes in the Teacher Expert category.</li><li>For every post that you have entered into the Healthy Eating Math Story Contest, you will get 20 Education points.</li><li>For details, check out <a href='/contest'>contest</a>.</li></ul>">Education</a>
-			</p>
-			<p><%= pluralize(user.point.education, "point")%></p>
-		</span>
-	</div>
-	<strong>
-		<%= link_to "My Students' Progress in Contest", contest_path, target: "_blank" %>
-	</strong><br/>
+	<% if user.role.in?(["teacher", "tutor", "other"]) %>
+		<strong>
+			<%= link_to "My Own Progress in Contest", contest_path, target: "_blank" %>
+		</strong><br/>
+		<div class="stats">
+			<span>			
+				<p>
+					<a href="#", class="post", rel="popover", title="What Are Advocacy Points?", data-content="<ul class='popover-list'><li>Teachers with the highest Advocacy points can win up to $500 of prizes in the Advocate category.</li><li>If you refer a fellow educator to Shooloo and he/she signs up using your email address as referral, you will get 10 points.</li><li>When he/she <a href='/user_imports/new/'>imports his student roster</a> into Shooloo, you will get another 30 points.</li><li>For details, check out <a href='/contest'>contest</a>.</li></ul>">Advocacy</a>
+				</p>
+				<p><%= pluralize(user.point.advocacy, "point") %></p>
+			</span>
+			<span>
+				<p>
+					<a href="#", class="post", rel="popover", title="What Are Inspiration Points?", data-content="<ul class='popover-list'><li>Teachers with the highest Inspiration and Education points combined can win up to $500 of prizes in the Teacher Expert category.</li><li>For every  and <a href='/attachments/contest_checklist.pdf' target='_blank'>qualified</a> post your students have entered into the Healthy Eating Math Story Contest, you will get 10 Inspiration points.</li><li>For details, check out <a href='/contest'>contest</a>.</li></ul>">Inspiration</a>
+				</p>
+				<p><%= pluralize(user.point.inspiration, "point") %></p>
+			</span>
+			<span>
+				<p>
+					<a href="#", class="post", rel="popover", title="What Are Education Points?", data-content="<ul class='popover-list'><li>Teachers with the highest Inspiration and Education points combined can win up to $500 of prizes in the Teacher Expert category.</li><li>For every post that you have entered into the Healthy Eating Math Story Contest, you will get 20 Education points.</li><li>For details, check out <a href='/contest'>contest</a>.</li></ul>">Education</a>
+				</p>
+				<p><%= pluralize(user.point.education, "point")%></p>
+			</span>
+		</div>
+		<strong>
+			<%= link_to "My Students' Progress in Contest", contest_path, target: "_blank" %>
+		</strong><br/>
+	<% elsif user.role=="parent" %>
+		<strong>
+			<%= link_to "My Children' Progress in Contest", contest_path, target: "_blank" %>
+		</strong><br/>
+	<% end %>
 	<div class="stats">		
 		<span>			
 			<p>

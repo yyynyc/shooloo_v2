@@ -29,26 +29,49 @@ class UsersController < ApplicationController
     @user.self_signup = true
   end
 
+  def signup_child
+    @user = User.new
+  end
+
   def create
     @user = User.new(params[:user])
-    @user.self_signup = true
-    if @user.role == "student"
-      @user.create_student = true
-    end
-    if @user.save
-      sign_in @user
-      unless @user.role == "student"
-        flash[:error] = "Hooray! You've just earned 10 points. Tell us who referred you or hit the Skip button."
-        redirect_to new_introduction_path
+    if !signed_in?
+      @user.self_signup = true
+      if @user.role == "student"
+        @user.create_student = true
+      end
+      if @user.save
+          sign_in @user
+          Relationship.create!(follower_id: @user.id, followed_id: 2)
+          @user.following_count +=1
+          @user.save(validate: false)
+          flash[:error] = "Hooray! You've just earned 10 points. Tell us who referred you or hit the Skip button."
+          redirect_to new_introduction_path
       else
-        flash[:error] = "Hooray! You've just earned 10 points. Complete the form below."
-        redirect_to edit_user_path(@user)
+        if @user.role=="student"
+          render 'signup_student'
+        else
+          render 'new'
+        end
       end
     else
-      if @user.role=="student"
-        render 'signup_student'
-      else
-        render 'new'
+      if !current_user?(@user)
+        if @user.save
+          Authorization.create!(authorizer_id: current_user.id, authorized_id: @user.id, approval: "accepted")
+          Relationship.create!(follower_id: current_user.id, followed_id: @user.id)
+          Relationship.create!(followed_id: current_user.id, follower_id: @user.id)
+          Relationship.create!(followed_id: 2, follower_id: @user.id)
+          @user.follower_count +=1
+          @user.following_count +=2
+          @user.save(validate: false)
+          current_user.follower_count +=1
+          current_user.following_count +=1
+          current_user.save(validate: false)
+          flash[:success] = "Account created successfully! #{ActionController::Base.helpers.link_to "Create account for another child", signup_child_path}.".html_safe
+          redirect_to authorizations_path
+        else
+          render 'signup_child'
+        end
       end
     end
   end
@@ -110,7 +133,7 @@ class UsersController < ApplicationController
     if @user.state == "incomplete"
       if params[:button] == "save"
         if @user.finish
-          if @user.role == "teacher" 
+          if @user.role.in?(["teacher", "tutor"])
             if @user.authorized_users.blank?
               flash[:success] = "Success! Import your student roster or #{ActionController::Base.helpers.link_to "skip for now", posts_path}.".html_safe
               redirect_to new_user_import_path
@@ -118,6 +141,9 @@ class UsersController < ApplicationController
               flash[:success] = "Success! "
               redirect_to posts_path
             end
+          elsif @user.role == "parent"
+            flash[:success] = "Thank you for completing your account!"
+            redirect_to 
           else
             flash[:success] = "Information updated successfully!"
             redirect_to posts_path

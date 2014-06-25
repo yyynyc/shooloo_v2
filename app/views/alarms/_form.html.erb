@@ -1,8 +1,8 @@
 <%= semantic_form_for alarm, :url => url, html: {class: "form-alarm"} do |f| %>
 	<%= render 'shared/error_messages', object: f.object %>
 	<%=f.inputs do %>
-		<%= f.hidden_field :alarmed_post_id, value: post.id %>
-		<%= f.hidden_field :alarmer_id, value: current_user.id %>
+		<%= f.input :alarmed_post_id, as: :hidden, value: post.id, label: false%>
+		<%= f.input :alarmer_id, as: :hidden, value: current_user.id, label: false %>
 		<%= f.input :reasons, label: "What's Wrong With the Following Problem? ", as: :check_boxes, collection: Reason.order(:position), include_blank: false %>
 	<% end %>
 	<%= f.actions do %>

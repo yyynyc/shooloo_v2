@@ -246,7 +246,7 @@ class User < ActiveRecord::Base
         :unless => :student?
       validates :personal_email, format: { with: VALID_EMAIL_REGEX }, 
         allow_blank: true, :if => :student?
-      validates :social_media_url, presence: true, :if => :other?
+      #validates :social_media_url, presence: true, :if => :other?
       validates :address_city, presence: true, on: :update, 
         :unless => :should_validate_password?
       validates :address_state, presence: true, on: :update, 

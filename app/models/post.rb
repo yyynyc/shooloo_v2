@@ -113,15 +113,6 @@ class Post < ActiveRecord::Base
       validates_presence_of :steps, :level_id, :domain_id, :standard_id
       validates_presence_of :hstandard_id, if: "level_id==10"
     end
-
-    state :submitted do
-      validate :pubcred_enough
-      def pubcred_enough
-        if self.user.role == "student" && self.user.pubcred <= 0
-          errors.add(:base, "You don't have any publication credits left to submit any new post!")
-        end
-      end
-    end
   end
 
   def disalarm

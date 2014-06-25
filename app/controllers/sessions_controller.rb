@@ -12,12 +12,8 @@ class SessionsController < ApplicationController
       if current_user.role == "editor"
         redirect_back_or root_path  
       else
-        if !current_user.visible?
-          if !current_user.complete?
-            redirect_back_or edit_user_path(current_user)
-          else
-            redirect_back_or new_authorization_path
-          end
+        if !current_user.complete?
+          redirect_back_or edit_user_path(current_user)
         else
           redirect_back_or my_alerts_path
         end

@@ -2,10 +2,10 @@
 	<span class='alert-heading'>
 		verified your post #<%= link_to activity.trackable.id, correction_path(activity.trackable.correction) %> as
 			<span class="no"><strong> below </strong></span>
-		your grade level on <%= activity.created_at.strftime("%b %d, %Y") %>.	
+		your grade level on <%= activity.created_at.strftime("%b %d, %Y") %>.
+		You've earned <strong>0 points</strong>. <br/>
+		<%= link_to "Publish a new post at your grade level", new_post_path %> to earn some points now!
 	</span> 
-	<br/>
-	<strong>A penalty of <%= activity.trackable.penalty %> points</strong> has been deducted from your publication credit bank.
 <% else %>
 	<span class='alert-heading'>
 		revised the correction.

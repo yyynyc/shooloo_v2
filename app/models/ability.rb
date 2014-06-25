@@ -9,7 +9,7 @@ class Ability
         if user.admin?
             can :manage, :all
         else
-            if user.role == "teacher" 
+            if user.role != "student" 
                 can :crud, [UserImport, Grading, Reminder]
                 can [:crud, :comment, :comments], Lesson
                 can :update, [Authorization, Referral]

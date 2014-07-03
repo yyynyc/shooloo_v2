@@ -22,7 +22,7 @@ class Alarm < ActiveRecord::Base
 
   after_create do
     if self.alarmed_post
-      self.alarmed_post.update_attributes!(state: "draft")
+      self.alarmed_post.update_attributes!(state: "draft", toreview: false)
       if !self.alarmed_post.check.nil?
         self.alarmed_post.check.destroy
       end

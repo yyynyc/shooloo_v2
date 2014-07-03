@@ -8,7 +8,7 @@ CKEDITOR.editorConfig = function( config ) {
        	[ 'Find','Replace','-','SelectAll' ],
        	[ 'NumberedList','BulletedList','-','Outdent','Indent',
 			'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ],
-        [ 'Smiley']
+        [ 'Smiley'], ['Source']
     ];
     config.extraPlugins = 'tabletools';
     // config.extraPlugins += (config.extraPlugins.length == 0 ? '' : ',') + 'ckeditor_wiris';

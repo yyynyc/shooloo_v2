@@ -21,7 +21,7 @@
 	            	</span>
 	            <% end %>	          
             	<% if comment.visible? %>
-            		<% if current_user.admin? || current_user.role == "editor" %>
+            		<% if current_user.admin? %>
 	            		<span class='search-label'>
 	            			<%= render partial: 'alarms/alarm_comment', locals: {comment:comment} %>
 	            		</span>
@@ -56,7 +56,7 @@
 	            			</span>
             		</span>
             	<% else %>
-            		<% if current_user.admin? || current_user.role=="teacher" %>
+            		<% if current_user.admin? %>
             			<span class='search-label'>	
             				<%= render partial: 'alarms/unalarm_comment', locals: {post: comment.commented_post, comment:comment} %>
             			</span>
@@ -64,9 +64,11 @@
             	<% end %>   			
 				<p class="alert-heading wrap_long_string">
 					<% if !comment.opening.nil? %>
-						<%= comment.opening %> My answer is: 
+						<%= comment.opening %>  
 					<% end %>
-					<%= comment.content.html_safe %>
+					<% if !comment.content.blank? %>
+						My answer is: <%= comment.content.html_safe %>.
+					<% end %>
 				</p>				
 			</span>			
 		</div>

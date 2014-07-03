@@ -103,7 +103,6 @@ class CommentsController < ApplicationController
             else
                 @related_posts = @post.hstandard.posts.where('id !=?', @post.id)
             end
-            @alarm =Alarm.create!(alarmed_post_id: @post.id)
             @comments = @post.comments.paginate(page: params[:page],  
                 order: 'created_at DESC')      
             render 'new'     

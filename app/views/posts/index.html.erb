@@ -10,7 +10,7 @@
 	</div>
   <% end %>
 	<%= search_form_for @search, url: search_posts_path, method: :get do |f| %>	
-		<% if signed_in? && !current_user.role=="student" %>
+		<% if signed_in? && current_user.role!="student" %>
 			<div class="row center bottom-margin">
 				<span class="search-label">
 					<%= f.label :domain_core_cont, "CCSS Domain" %>

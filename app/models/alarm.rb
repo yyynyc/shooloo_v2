@@ -7,14 +7,6 @@ class Alarm < ActiveRecord::Base
   has_many :reasons, through: :alarm_reasons
   accepts_nested_attributes_for :alarm_reasons
 
-  after_save do 
-  	if self.alarmed_post
-      self.alarmed_post.update_attributes!(state: "draft")
-    elsif self.alarmed_comment
-      self.alarmed_comment.update_attributes!(visible: false)
-    end
-  end
-
   after_destroy do 
     if self.alarmed_post
       self.alarmed_post.state = "submitted"
@@ -30,6 +22,7 @@ class Alarm < ActiveRecord::Base
 
   after_create do
     if self.alarmed_post
+      self.alarmed_post.update_attributes!(state: "draft")
       if !self.alarmed_post.check.nil?
         self.alarmed_post.check.destroy
       end
@@ -40,15 +33,8 @@ class Alarm < ActiveRecord::Base
         event: "alarm post", value: ShoolooV2::ALARM_POST)
       Activity.create!(action: "create", trackable: self, 
         user_id: self.alarmer_id, recipient_id: self.alarmed_post.user_id)
-      # self.alarmed_post.user.authorizers.each do |authorizer|
-      #   Activity.create!(action: "create", trackable: self, 
-      #   user_id: self.alarmer_id, recipient_id: authorizer.id)
-      #   unless authorizer.personal_email.blank?
-      #     UserMailer.alarm_comment(authorizer, self.alarmed_post, 
-      #       self.alarmed_post.user).deliver
-      #   end
-      # end
     elsif self.alarmed_comment
+      self.alarmed_comment.update_attributes!(visible: false)
       Event.create!(benefactor_id: self.alarmed_comment.commenter_id, beneficiary_id: 1, 
         event: "alarm comment", value: ShoolooV2::ALARM_COMMENT)
       Activity.create!(action: "create", trackable: self, 
@@ -62,13 +48,6 @@ class Alarm < ActiveRecord::Base
         end
       end
     end 
-    # self.alarmer.authorizers.each do |authorizer|
-    #     Activity.create!(action: "create", trackable: self, 
-    #     user_id: self.alarmer_id, recipient_id: authorizer.id)
-    #     unless authorizer.personal_email.blank?
-    #       UserMailer.alarmer(authorizer, self.alarmer).deliver
-    #     end
-    # end
     User.where(admin: true).each do |admin|
       Activity.create!(action: "create", trackable: self, 
       user_id: self.alarmer_id, recipient_id: admin.id)

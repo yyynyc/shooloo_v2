@@ -64,11 +64,12 @@
             	<% end %>   			
 				<p class="alert-heading wrap_long_string">
 					<% if !comment.opening.nil? %>
-						<%= comment.opening %>  
+						<%= comment.opening %> 
+						<% if !comment.content.blank? %>
+							My answer is: 
+						<% end %> 
 					<% end %>
-					<% if !comment.content.blank? %>
-						My answer is: <%= comment.content.html_safe %>.
-					<% end %>
+					<%= comment.content.html_safe %>
 				</p>				
 			</span>			
 		</div>

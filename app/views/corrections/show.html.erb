@@ -105,12 +105,14 @@
 			<strong>
 				<% if @correction.level_id.nil? %>
 					<span class="no">???</span>
-				<% else %>
+				<% elsif !@post.user.grade.blank? %>
 					<% if @correction.level.number >= @post.user.grade %>
 						<span class="yes"> Yes.</span>
 					<% else %>
 						<span class="no">No.</span>
 					<% end %>
+				<% else %>
+					Not applicable.
 				<% end %>
 			</strong> 
 		</li> 

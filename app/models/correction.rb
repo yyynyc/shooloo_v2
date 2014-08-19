@@ -11,9 +11,9 @@ class Correction < ActiveRecord::Base
 	validates :corrected_post_id, presence: true, uniqueness: true
 
 	state_machine initial: :draft do
-	    after_transition :on => :submit, :do => [:qualify, :update_toreview,
+	    after_transition :on => :submit, :do => [:qualify, :update_pub_credits, :update_toreview,
 	    	:post_state_transition, :update_editor_stats, :update_post_characters, :email_alert]
-	    after_transition :on => :revise, :do => [:qualify] 
+	    after_transition :on => :revise, :do => [:qualify, :revise_pubcred_post_characters] 
 
 	    event :submit do
 	      transition :draft => :submitted
@@ -102,7 +102,7 @@ class Correction < ActiveRecord::Base
 	end
 
 	def update_pub_credits
-		unless self.corrected_post.grandfather? 
+		unless self.corrected_post.grandfather? || self.corrected_post.user.grade.nil?
 			if self.corrected_post.user.grade <= self.level.number
 				self.corrected_post.user.pubcred += ShoolooV2::AT_GRADE
 				self.corrected_post.user.save(validate: false)
@@ -126,7 +126,7 @@ class Correction < ActiveRecord::Base
 	end
 
 	def revise_pubcred_post_characters
-		unless self.corrected_post.grandfather?
+		unless self.corrected_post.grandfather? || self.corrected_post.user.grade.nil?
 			if self.corrected_post.level.number < self.corrected_post.user.grade
 				if self.level.number >= self.corrected_post.user.grade
 					self.corrected_post.user.pubcred += ((ShoolooV2::BELOW_GRADE)*(self.corrected_post.user.grade - self.corrected_post.level.number) + ShoolooV2::AT_GRADE)        

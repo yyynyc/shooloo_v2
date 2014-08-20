@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   def index
     @search = Post.where(state: ["verified", "published", "old", "revised"]).search(params[:q])
     @posts = @search.result.paginate(page: params[:page], 
-        per_page: 20, order: 'state DESC, created_at DESC')
+        per_page: 20, order: 'created_at DESC')
     @search.build_condition
     if signed_in?
       @like = current_user.likes.build(params[:like])

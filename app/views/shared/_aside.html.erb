@@ -6,6 +6,4 @@
 </section>
 <% if current_user.role == "editor" && user.role == "editor" %>
   <%= render partial: 'shared/stats_editor' %>
-<% else %>
-  <%= render 'shared/aside_contest' %>
 <% end %>

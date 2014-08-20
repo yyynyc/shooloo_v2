@@ -1,5 +1,2 @@
-<% if current_user?(user) || current_user.admin? %>
-  	<%= render 'shared/private_stats', user: user %>
-<% end %>
 <%= render 'shared/public_stats', user: user %>
 

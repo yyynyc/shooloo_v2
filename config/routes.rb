@@ -121,7 +121,8 @@ resources :hstandards
  
   match '/about', to: 'static_pages#about'
   match '/team', to: 'static_pages#team'
-  match '/advisors', to: 'static_pages#advisors'
+  # match '/advisors', to: 'static_pages#advisors'
+  match '/pricing', to: 'static_pages#pricing'
   match '/help', to: 'static_pages#help'
   match '/rules', to: 'static_pages#rules'
   match '/terms', to: 'static_pages#terms'

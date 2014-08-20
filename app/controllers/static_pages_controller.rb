@@ -92,4 +92,7 @@ class StaticPagesController < ApplicationController
 
   def contest
   end
+
+  def pricing
+  end
 end

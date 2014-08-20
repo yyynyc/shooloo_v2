@@ -1,0 +1,43 @@
+<% provide(:title, 'Pricing') %>
+
+<h1>Pricing</h1>
+<h2 class="center">All packages come with a FREE trial period for 30 days.</h2>
+<div class="row center">
+	<div class="span4">
+		<div class="price-box blue-background">
+			<h3 class="transparent-color">School</h3>
+			<div class="alert auth-font" style="margin-top: 1em; color: #009FCF">
+				<p> $1,000/month </p>
+				<p> Save 60% - $4,800/year </p>
+				<p> Refer districts to<br/> get discounts.</p>
+			</div>
+			<%= link_to "Contact Us", contact_path, class: "btn btn-large" %>
+		</div>
+	</div>
+	<div class="span4">
+		<div class="price-box green-background">
+			<h3 class="transparent-color">Class</h3>
+			<div class="alert auth-font" style="margin-top: 1em; color: #79A300">
+				<p> $300/month </p>
+				<p> Save 50% - $1,800/year </p>
+				<p> Refer colleagues to<br/> get discounts. </p>
+			</div>
+			<%= link_to "Contact Us", contact_path, class: "btn btn-large" %>
+		</div>
+	</div>
+	<div class="span4">
+		<div class="price-box red-background">
+			<h3 class="transparent-color">Student</h3>
+			<div class="alert auth-font" style="margin-top: 1em; color: #CB4338">
+				<p> $50/month </p>
+				<p> Save 33% - $400/year </p>
+				<p> Refer friends to<br/> get discounts. </p>
+			</div>
+			<%= link_to "Join Now", signup_path, class: "btn btn-large" %>
+		</div>
+	</div>
+</div>
+<div class="row intro">
+	<p class="alert-heading center">No matter which plan you choose, Shooloo engages your students to practice<br/> critical thinking, problem solving, and informational text writing skills.  </p>
+	<h4 class="center">We review and correct every problem submission prior to publication. </h4>
+</div>

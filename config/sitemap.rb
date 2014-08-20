@@ -31,7 +31,7 @@ SitemapGenerator::Sitemap.create do
   add signup_path, :priority => 0.7, :changefreq => 'never'  
   add contact_path, :priority => 0.6, :changefreq => 'monthly'
   add team_path, :priority => 0.5, :changefreq => 'monthly'
-  add advisors_path, :priority => 0.5, :changefreq => 'monthly'
+  add pricing_path, :priority => 0.5, :changefreq => 'monthly'
   add rules_path, :priority => 0.4, :changefreq => 'yearly'
   add terms_path, :priority => 0.4, :changefreq => 'yearly'
   add privacy_path, :priority => 0.4, :changefreq => 'yearly'

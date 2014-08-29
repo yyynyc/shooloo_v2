@@ -11,6 +11,6 @@
   <h5><a href="https://fun.shooloo.org">See live site at shooloo.org</a> </h5>
   <p> Shooloo Learning is a live production app built on Ruby on Rails, html, CSS, and JavaScript. Currently Shooloo has close to 2,000 users and 5,000 real-life math problems aligend with the Common State Standards.</p>
   <h2>Screen Shots</h2>
-  <img src="/public/attachments/shooloo_home.png">
+  <img src="/attachments/shooloo_home.png">
 </body>
 </html>
